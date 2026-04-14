@@ -7,7 +7,7 @@
 - 保留 `.ai/`
 - 保留 `.dev/guides/`
 - 保留 `.dev/standards/`
-- 保留 `.dev/adr/README.md`
+- 若 `.dev/adr/` 仍存在，只保留其退役/歷史說明，不保留舊決策內容
 - 保留 `.dev/workflows/README.MD`
 - 保留 `AGENTS.md`
 
@@ -22,7 +22,7 @@
 - 重寫 `.dev/operations/event-catalog.md`
 - 重寫 `.dev/operations/mq-topology.md`
 - 重寫 `.dev/operations/runbooks/`
-- 重寫或刪除 `.dev/adr/ADR-*.md`
+- 重寫或刪除 `.dev/adr/` 下的舊決策紀錄
 
 ## 清理
 
@@ -35,5 +35,4 @@
 - 確認 `AGENTS.md` 的 stack rules 與新專案一致
 - 確認 `.ai/scripts/README.md` 中列出的腳本仍適用
 - 確認 `.dev/specs/` 與 `.dev/operations/` 沒有殘留原專案名稱
-- 確認 `.dev/adr/INDEX.md` 只收錄新專案仍有效的 ADR
-
+- 確認 `.dev/adr/` 不再是新專案的主規則入口

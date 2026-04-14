@@ -942,4 +942,4 @@ If any of these are found, the review **MUST FAIL**:
 - `.ai/CODE-REVIEW-INDEX.MD` - Quick index
 - `.dev/standards/CODE-REVIEW-CHECKLIST.md` - Full checklist
 - `.dev/standards/coding-standards/` - Detailed standards per component
-- `.dev/adr/` - Architecture Decision Records
+- `.dev/adr/` - Historical decision archive only, if still present

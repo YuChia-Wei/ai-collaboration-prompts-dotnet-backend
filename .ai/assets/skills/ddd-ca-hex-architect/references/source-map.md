@@ -6,7 +6,7 @@ Use this file to map a user request to the smallest useful subset of the repo's 
 
 - `.dev/ARCHITECTURE.MD`: repo-wide style and layer model
 - `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`: stack and tool constraints
-- `.dev/adr/INDEX.md`: ADR lookup index
+- `.dev/standards/README.md`: standards lookup index
 - `.ai/SUB-AGENT-SYSTEM.MD`: prompt-family overview
 
 ## Prompt Families
@@ -89,5 +89,4 @@ Read the ADR itself when the task touches one of these recurring areas:
 - Read the family overview first, then only the exact prompt files needed for the task.
 - Prefer shared prompt fragments for stable rules and specialized prompts for task mechanics.
 - If the user asks to create a reusable architect prompt or skill, treat `.ai/assets/shared/*.md` plus the ADR hotspots as the canonical design input.
-
 

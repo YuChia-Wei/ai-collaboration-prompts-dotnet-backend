@@ -16,8 +16,8 @@
   - human-facing guides、workflow guides、skill usage guides
 - `.dev/standards/`
   - 結構規範、review checklist、組織原則
-- `.dev/adr/README.md`
-  - ADR 使用規則
+- `.dev/adr/`
+  - 如仍保留，只作為歷史決策紀錄，不應成為新專案主入口
 - `.dev/workflows/README.MD`
   - workflow artifact contract
 - `AGENTS.md`
@@ -30,8 +30,8 @@
 - `.dev/operations/` 中的 context map、event catalog、mq topology、runbooks
 - `.dev/workflows/<workflow-id>/`
   - 已完成 workflow 的 plan、task、review artifacts
-- `.dev/adr/ADR-*.md`
-  - 若內容描述的是當前專案的既有決策，而非新專案的決策
+- `.dev/adr/`
+  - 若保留歷史決策紀錄，需整體重寫或刪除，不要沿用舊專案的決策檔
 
 ## 移植流程
 
@@ -41,7 +41,7 @@
    - `.dev/requirement/`
    - `.dev/specs/`
    - `.dev/operations/`
-   - `.dev/adr/ADR-*.md`
+   - 必要的 project-specific decision history（若真的需要）
 4. 依新專案技術棧調整 `AGENTS.md` 與 `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`。
 5. 若保留 `.ai/scripts/`，應確認腳本檢查目標仍符合新 repo 結構。
 
@@ -57,4 +57,3 @@
 
 - 目前 portable baseline 仍使用 `.dev/operations/`
 - 只有當新專案的 ops 治理已經明顯獨立，才考慮升級成根層 `.ops/`
-
