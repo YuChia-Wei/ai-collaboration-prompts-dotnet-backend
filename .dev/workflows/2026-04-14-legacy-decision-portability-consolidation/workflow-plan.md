@@ -105,7 +105,7 @@
   - no content rewrite yet
 - Risks:
   - one source record may contain multiple rule families and require splitting
-  - historical Java/Spring wording may hide the actual .NET canonical rule
+  - historical non-.NET wording may hide the actual .NET canonical rule
 - Recommended implementer:
   - main agent locally
 - Sub-agent policy:
@@ -212,7 +212,7 @@ If one source record contains both a hard rule and a tutorial:
 - Tests/validation expectations:
   - link/reference sanity check across updated docs
   - portability review against `.dev/PORTABLE-PACKAGING-GUIDE.MD`
-  - terminology review to remove stale Java/Spring-first wording where .NET canonical docs already exist
+  - terminology review to remove stale non-.NET-first wording where .NET canonical docs already exist
 
 ## Suggested Task Breakdown
 

@@ -73,9 +73,9 @@ Use for:
 - prompt review
 - spec coverage and validation
 
-## ADR Hotspots
+## Decision/Rule Hotspots
 
-Read the ADR itself when the task touches one of these recurring areas:
+Read the canonical rules/docs for these recurring areas:
 
 - Sub-agent and prompt structure: `.ai/SUB-AGENT-SYSTEM.MD`, `SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md`
 - DI and configuration: `.dev/standards/coding-standards/usecase-standards.md`, `.dev/standards/coding-standards/profile-configuration-standards.md`, `.dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md`
@@ -88,5 +88,4 @@ Read the ADR itself when the task touches one of these recurring areas:
 
 - Read the family overview first, then only the exact prompt files needed for the task.
 - Prefer shared prompt fragments for stable rules and specialized prompts for task mechanics.
-- If the user asks to create a reusable architect prompt or skill, treat `.ai/assets/shared/*.md` plus the ADR hotspots as the canonical design input.
-
+- If the user asks to create a reusable architect prompt or skill, treat `.ai/assets/shared/*.md` plus these decision/rule hotspots as the canonical design input.

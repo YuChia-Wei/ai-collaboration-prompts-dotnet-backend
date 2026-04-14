@@ -22,7 +22,7 @@ It maps the current legacy decision set to landing buckets and primary canonical
 | --- | --- | --- | --- | --- |
 | Use case package and namespace structure | Landed in Standards | B | `.dev/standards/project-structure.md` | Keep as standard only; legacy source can retire after reference cleanup. |
 | ORM configuration location | Landed in Standards | C | `.dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md` | Usage/application guidance, not a top-level portable AI asset. |
-| DI and configuration structure | Landed in Standards | B | `.dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md` | Historical `spring` naming should be normalized when references are cleaned. |
+| DI and configuration structure | Landed in Standards | B | `.dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md` | Historical non-.NET naming should be normalized when references are cleaned. |
 | AI task execution SOP | Landed in Standards | C | `.dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md` | Keep workflow rules in guide form; repo-entry minimum may stay in `AGENTS.md`. |
 | Command/query sub-agent separation | Landed in Standards | A | `.ai/SUB-AGENT-SYSTEM.MD` | Agent-facing routing rule. |
 | Explicit service registration | Landed in Standards | B | `.dev/standards/coding-standards/usecase-standards.md` | Normative rule should stay in standards rather than only in guides. |
@@ -62,7 +62,7 @@ These ADRs should not migrate as one-to-one copies because they contain both rul
 
 ### 2. Historical naming still leaks into current docs
 
-- Some configuration-related files still use `spring` naming in file names.
+- Some configuration-related files still use non-.NET legacy naming.
 - These should be treated as historical filenames or renamed when reference cleanup is safe.
 
 ### 3. Some guide targets currently hold normative rules

@@ -49,10 +49,10 @@ The goal is to prevent the same rule family from remaining duplicated across `.a
 ### 5. Historical naming cleanup is part of migration quality
 
 - Decision:
-  - Historical Java/Spring naming can remain temporarily for traceability, but any surviving canonical file after ADR retirement should use .NET-first naming and wording when safe.
+  - Historical non-.NET naming can remain temporarily for traceability, but any surviving canonical file after decision retirement should use .NET-first naming and wording when safe.
 - Immediate candidates:
-  - legacy `spring` naming in configuration-related filenames
-  - any standards/checklists that still describe .NET rules through Spring terminology
+  - legacy configuration filenames that still use non-.NET wording
+  - any standards/checklists that still describe .NET rules through non-.NET terminology
 
 ## Canonical Ownership Matrix
 

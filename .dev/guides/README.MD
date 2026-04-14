@@ -3,8 +3,8 @@
 本目錄放置 human-facing guides，依用途拆成子分類，避免將規範、操作指南、AI 協作文件混在同一層。
 
 > Note:
-> 本目錄已將高流量入口文件優先收斂為 .NET 命名。
-> 若仍看到 Java/Spring/JPA 字樣，預設應先視為 historical context、ADR translation context、或 inventory/reference 紀錄，而非現行主動推薦做法。
+> 本目錄已將高流量入口文件優先收斂為 .NET 命名與 .NET-first 語意。
+> 若仍看到少量 legacy 名稱，應優先以對應的 .NET canonical docs 為準。
 
 ## 子目錄
 
@@ -133,4 +133,3 @@
   - 放 `ai-collaboration-guides/`
 - 新增單次重構提案、執行記錄、task artifact：
   - 放 `.dev/workflows/<workflow-id>/`
-

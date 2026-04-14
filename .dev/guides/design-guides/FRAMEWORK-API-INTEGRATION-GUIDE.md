@@ -93,10 +93,10 @@ public static class ProductMapper
 }
 ```
 
-### 2. Use EF Core mapping (no JPA)
+### 2. Use EF Core mapping only
 
-#### Wrong: Java/JPA annotations in .NET
-Do not copy Java ORM annotations or imports into .NET code. Use EF Core attributes or fluent mapping instead.
+#### Wrong: non-.NET ORM annotations in .NET
+Do not copy non-.NET ORM annotations or imports into .NET code. Use EF Core attributes or fluent mapping instead.
 
 #### Correct: EF Core mapping
 ```csharp
@@ -290,6 +290,5 @@ rg "DomainEventDatas" src/ | rg -v "NotMapped" && echo "Missing NotMapped"
 # 4. Ensure outbox config only in outbox environments
 rg "UseDurableOutbox" src/ | rg -v "outbox" && echo "Check environment gating"
 ```
-
 
 
