@@ -1,0 +1,79 @@
+{
+  "task_id": "adr-landing-standards-and-guides",
+  "owner_skill": "staged-refactor-implementer",
+  "related_plan_id": "workflow-plan-2026-04-14-adr-portability-consolidation",
+  "related_review_report_id": "",
+  "status": "done",
+  "scope": {
+    "target": "Land selected ADR rules into .dev/standards and clarify prompt ownership boundaries",
+    "files": [
+      ".dev/standards/coding-standards/profile-configuration-standards.md",
+      ".dev/standards/coding-standards/README.md",
+      ".dev/standards/coding-standards.md",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md",
+      ".dev/standards/prompts/README.md",
+      ".dev/standards/prompts/add-feature-prompt.md",
+      ".dev/standards/prompts/create-use-case-prompt.md"
+    ],
+    "dependency_radius": "Standards and prompt-pointer docs only",
+    "constraints": [
+      "Keep canonical prompt ownership in .ai",
+      "Promote missing hard rules from ADRs into standards before ADR retirement",
+      "Do not delete legacy prompt examples yet"
+    ],
+    "non_goals": [
+      "No ADR deletion yet",
+      "No full prompt-body migration into .ai yet",
+      "No guide rewrite yet"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Reduce ADR reliance by strengthening standards and clarifying canonical ownership",
+    "review_findings": [
+      "Prompt bodies should not remain canonical in .dev/standards/prompts",
+      "ADR-010, ADR-040, and ADR-044 still had hard-rule gaps in standards"
+    ],
+    "user_constraints": [
+      "Continue the workflow on a dedicated branch",
+      "Commit at necessary milestones"
+    ]
+  },
+  "execution": {
+    "operation_type": "document-refactor",
+    "steps": [
+      "Added profile-configuration-standards.md as the normative target for environment/profile rules",
+      "Linked the new standard from coding-standards indexes",
+      "Elevated explicit DI registration rule into usecase standards",
+      "Extended test standards and ASP.NET Core checklist with profile/environment constraints",
+      "Marked .dev/standards/prompts as non-canonical and migration-only"
+    ],
+    "validation": [
+      "Prompt ownership boundary is now explicit in standards docs",
+      "ADR-010 hard rule is discoverable in standards",
+      "ADR-040 and ADR-044 hard rules are discoverable in standards"
+    ],
+    "deferred_items": [
+      "Retire or downgrade duplicate ADRs",
+      "Move any remaining reusable prompt bodies into .ai assets if needed",
+      "Split mixed rule/tutorial ADR families such as ADR-019 and ADR-023"
+    ]
+  },
+  "results": {
+    "summary": "Landed the first batch of ADR-derived hard rules into standards and clarified prompt ownership boundaries.",
+    "files_changed": [
+      ".dev/standards/coding-standards/profile-configuration-standards.md",
+      ".dev/standards/coding-standards/README.md",
+      ".dev/standards/coding-standards.md",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md",
+      ".dev/standards/prompts/README.md",
+      ".dev/standards/prompts/add-feature-prompt.md",
+      ".dev/standards/prompts/create-use-case-prompt.md"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
