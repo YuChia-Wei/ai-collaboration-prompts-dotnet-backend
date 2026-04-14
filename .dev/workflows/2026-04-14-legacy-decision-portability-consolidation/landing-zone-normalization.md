@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This Stage 2 artifact fixes canonical ownership before ADR content is moved.
+This Stage 2 artifact fixes canonical ownership before legacy decision content is moved.
 The goal is to prevent the same rule family from remaining duplicated across `.ai/`, `.dev/standards/`, and `.dev/guides/`.
 
 ## Decisions
@@ -30,11 +30,11 @@ The goal is to prevent the same rule family from remaining duplicated across `.a
 ### 3. Hard rules must not live only inside guides
 
 - Decision:
-  - When an ADR contains mandatory constraints that are currently discoverable only in a guide, the rule must be elevated into `.dev/standards/` before the ADR is retired.
+  - When a legacy decision record contains mandatory constraints that are currently discoverable only in a guide, the rule must be elevated into `.dev/standards/` before that record is retired.
 - Known gaps:
-  - ADR-010 explicit registration rule
-  - ADR-040 environment/profile loading rule
-  - ADR-044 profile-specific DI constraints
+  - explicit registration rule
+  - environment/profile loading rule
+  - profile-specific DI constraints
 
 ### 4. Split rule docs from usage docs
 
@@ -43,15 +43,15 @@ The goal is to prevent the same rule family from remaining duplicated across `.a
     - mandatory constraints to `.dev/standards/`
     - walkthrough/how-to to `.dev/guides/`
 - Immediate candidates:
-  - ADR-019 outbox pattern
-  - ADR-023 outbox mapper completeness and integration guidance
+  - outbox pattern
+  - outbox mapper completeness and integration guidance
 
 ### 5. Historical naming cleanup is part of migration quality
 
 - Decision:
   - Historical Java/Spring naming can remain temporarily for traceability, but any surviving canonical file after ADR retirement should use .NET-first naming and wording when safe.
 - Immediate candidates:
-  - ADR-003 and ADR-040 references
+  - legacy `spring` naming in configuration-related filenames
   - any standards/checklists that still describe .NET rules through Spring terminology
 
 ## Canonical Ownership Matrix
@@ -61,7 +61,7 @@ The goal is to prevent the same rule family from remaining duplicated across `.a
 | reusable prompt body | `.ai/` | `.dev/standards/prompts/` |
 | reusable sub-agent routing rule | `.ai/` | guides or ADRs |
 | hard engineering constraint | `.dev/standards/` or `AGENTS.md` | guides only |
-| pattern application tutorial | `.dev/guides/` | ADRs as day-to-day source |
+| pattern application tutorial | `.dev/guides/` | legacy decision records as day-to-day source |
 | historical rationale only | retired ADR or rationale doc if still useful | `.ai/` |
 
 ## Stage 3 Preconditions
@@ -77,7 +77,7 @@ Before migrating ADR content:
 1. `.ai` ownership cleanup
    - reduce `.dev/standards/prompts/` to pointer-only or deprecate it
 2. standards gap filling
-   - add missing hard rules for ADR-010, ADR-040, ADR-044
+   - add missing hard rules for explicit registration, environment/profile loading, and profile-specific DI
 3. split mixed ADR families
-   - ADR-019 and ADR-023
+   - outbox pattern and outbox mapper completeness
 4. only then retire duplicate ADR guidance

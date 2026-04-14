@@ -1,0 +1,62 @@
+{
+  "task_id": "legacy-decision-inventory-and-bucketing",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-decision-portability-consolidation",
+  "related_review_report_id": "",
+  "status": "done",
+  "scope": {
+    "target": "Legacy decision inventory and landing-bucket classification",
+    "files": [
+      ".dev/adr/",
+      ".dev/adr/INDEX.md",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/legacy-decision-inventory.md"
+    ],
+    "dependency_radius": "Legacy decision source set plus current canonical target docs referenced by the decision index",
+    "constraints": [
+      "Do not reclassify project-specific truth into .ai",
+      "Assign one primary landing target per decision family",
+      "Mark multi-bucket decision families explicitly instead of forcing a false single-category mapping"
+    ],
+    "non_goals": [
+      "No full content migration yet",
+      "No legacy-source deletion yet"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Turn legacy decision records into stable .ai/.dev canonical sources and reduce legacy records to governance/history only",
+    "review_findings": [],
+    "user_constraints": [
+      "Start the workflow now",
+      "Create a new branch",
+      "Commit at necessary milestones"
+    ]
+  },
+  "execution": {
+    "operation_type": "inventory-and-classification",
+    "steps": [
+      "Reviewed decision-governance and portability rules",
+      "Reviewed the current decision index and sampled representative legacy record content",
+      "Mapped each decision family to bucket A/B/C/D and a primary landing target",
+      "Recorded early normalization findings for Stage 2"
+    ],
+    "validation": [
+      "Every currently visible decision family appears in the inventory table",
+      "Each decision family has a bucket and a primary landing target",
+      "Multi-bucket decision families are explicitly called out for split handling"
+    ],
+    "deferred_items": [
+      "Normalize landing zones for guide-vs-standard overlaps",
+      "Migrate content and retire duplicate legacy records"
+    ]
+  },
+  "results": {
+    "summary": "Completed Stage 1 inventory and target bucketing for the current legacy decision set.",
+    "files_changed": [
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/workflow-plan.md",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/legacy-decision-inventory.md",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/legacy-decision-inventory-and-bucketing.json"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

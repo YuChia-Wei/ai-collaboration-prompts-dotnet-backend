@@ -77,18 +77,17 @@ Use for:
 
 Read the ADR itself when the task touches one of these recurring areas:
 
-- Sub-agent and prompt structure: `.ai/SUB-AGENT-SYSTEM.MD`, `SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md`, `ADR-009`, `ADR-045`
-- DI and configuration: `ADR-010`, `ADR-040`, `ADR-044`
-- Outbox and transaction flow: `ADR-019`, `ADR-023`, `ADR-035`
-- Query-side layering: `ADR-046`
-- Shared project boundaries: `ADR-047`
-- Docker/container packaging: `ADR-049`
+- Sub-agent and prompt structure: `.ai/SUB-AGENT-SYSTEM.MD`, `SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md`
+- DI and configuration: `.dev/standards/coding-standards/usecase-standards.md`, `.dev/standards/coding-standards/profile-configuration-standards.md`, `.dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md`
+- Outbox and transaction flow: `.dev/standards/coding-standards.md`, `.dev/guides/design-guides/FRAMEWORK-API-INTEGRATION-GUIDE.md`
+- Query-side layering: `.dev/standards/coding-standards.md`, `.dev/standards/rationale/query-side-layering-rationale.MD`
+- Shared project boundaries: `.dev/standards/project-structure.md`
+- Docker/container packaging: `.dev/guides/implementation-guides/DOCKER-RESTORE-CACHE-GUIDE.md`
 
 ## Selection Rules
 
 - Read the family overview first, then only the exact prompt files needed for the task.
 - Prefer shared prompt fragments for stable rules and specialized prompts for task mechanics.
 - If the user asks to create a reusable architect prompt or skill, treat `.ai/assets/shared/*.md` plus the ADR hotspots as the canonical design input.
-
 
 

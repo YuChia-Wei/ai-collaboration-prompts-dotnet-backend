@@ -57,7 +57,7 @@
 | agent-facing canonical skill / sub-agent / prompt materials | `.ai/` | `assets/skills/ddd-ca-hex-architect/skill.yaml`, `assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`, `prompts/shared/common-rules.md` |
 | agent-specific skill 定義 | `.claude/skills/` | `ddd-ca-hex-architect/SKILL.md` |
 | human-facing AI guide | `.dev/guides/ai-collaboration-guides/` | `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` |
-| 專案 ADR | `.dev/adr/` | ADR-031-reactor-interface |
+| 專案架構決策記錄 | `.dev/adr/` | 歷史決策紀錄（如仍保留） |
 | 專案規格 | `.dev/specs/` | product-spec.json |
 | 技術範例 | `.dev/standards/examples/` | 使用 Example.* namespace |
 | 專案程式碼 | `src/` | 使用實際 root namespace |
@@ -96,4 +96,3 @@ rg -n "AiScrum|CompanyX|MyProject" .ai/ --glob "!**/.git/**"
 
 ---
 最後更新：2026-02-01
-

@@ -1,27 +1,27 @@
 {
   "task_id": "landing-zone-normalization",
   "owner_skill": "ddd-ca-hex-architect",
-  "related_plan_id": "workflow-plan-2026-04-14-adr-portability-consolidation",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-decision-portability-consolidation",
   "related_review_report_id": "",
   "status": "done",
   "scope": {
     "target": "Canonical ownership decisions for .ai, .dev/standards, and .dev/guides",
     "files": [
-      ".dev/workflows/2026-04-14-adr-portability-consolidation/landing-zone-normalization.md"
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/landing-zone-normalization.md"
     ],
-    "dependency_radius": "Prompt ownership docs, standards/checklists, implementation guides, and selected ADR targets",
+    "dependency_radius": "Prompt ownership docs, standards/checklists, implementation guides, and selected legacy decision targets",
     "constraints": [
       "Do not move actual prompt ownership into .dev/standards",
-      "Do not retire ADRs whose hard rules still live only in guides",
+      "Do not retire legacy sources whose hard rules still live only in guides",
       "Preserve a single primary canonical source per rule family"
     ],
     "non_goals": [
-      "No ADR retirement yet",
+      "No legacy-source retirement yet",
       "No broad document rewrite outside the workflow folder yet"
     ]
   },
   "inputs": {
-    "architecture_target": "Normalize landing zones before ADR-to-canonical migration",
+    "architecture_target": "Normalize landing zones before legacy-decision-to-canonical migration",
     "review_findings": [
       "Prompt bodies should be canonical only in .ai",
       "Some DI/profile constraints are still buried only in guides"
@@ -41,18 +41,18 @@
     "validation": [
       "Prompt content ownership is assigned to .ai only",
       "Guide-only hard-rule gaps are explicitly captured",
-      "Mixed rule/tutorial ADRs are marked for split migration"
+      "Mixed rule/tutorial decision families are marked for split migration"
     ],
     "deferred_items": [
       "Implement standards and guide updates outside the workflow folder",
-      "Retire duplicated ADR content"
+      "Retire duplicated legacy decision content"
     ]
   },
   "results": {
-    "summary": "Completed Stage 2 landing-zone normalization and recorded the decisions required before ADR migration.",
+    "summary": "Completed Stage 2 landing-zone normalization and recorded the decisions required before legacy decision migration.",
     "files_changed": [
-      ".dev/workflows/2026-04-14-adr-portability-consolidation/landing-zone-normalization.md",
-      ".dev/workflows/2026-04-14-adr-portability-consolidation/tasks/landing-zone-normalization.json"
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/landing-zone-normalization.md",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/landing-zone-normalization.json"
     ],
     "tests_run": [],
     "follow_up_needed": true

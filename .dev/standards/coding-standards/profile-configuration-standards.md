@@ -1,11 +1,7 @@
 # Profile / Environment Configuration Standards (.NET)
 
 本文件定義 profile、environment、以及 profile-specific DI 的硬性規則。
-
-本文件承接：
-
-- ADR-040: environment configuration loading
-- ADR-044: profile-based dependency injection
+本文件收斂 environment loading 與 profile-specific dependency injection 的正式規則。
 
 使用方式教學與排錯流程，應放在 `.dev/guides/implementation-guides/`，不要把操作教學混進這份標準。
 

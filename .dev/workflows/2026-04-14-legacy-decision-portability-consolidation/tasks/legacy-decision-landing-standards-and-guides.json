@@ -1,11 +1,11 @@
 {
-  "task_id": "adr-landing-standards-and-guides",
+  "task_id": "legacy-decision-landing-standards-and-guides",
   "owner_skill": "staged-refactor-implementer",
-  "related_plan_id": "workflow-plan-2026-04-14-adr-portability-consolidation",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-decision-portability-consolidation",
   "related_review_report_id": "",
   "status": "done",
   "scope": {
-    "target": "Land selected ADR rules into .dev/standards and clarify prompt ownership boundaries",
+    "target": "Land selected legacy decision rules into .dev/standards and clarify prompt ownership boundaries",
     "files": [
       ".dev/standards/coding-standards/profile-configuration-standards.md",
       ".dev/standards/coding-standards/README.md",
@@ -20,20 +20,20 @@
     "dependency_radius": "Standards and prompt-pointer docs only",
     "constraints": [
       "Keep canonical prompt ownership in .ai",
-      "Promote missing hard rules from ADRs into standards before ADR retirement",
+      "Promote missing hard rules into standards before legacy-source retirement",
       "Do not delete legacy prompt examples yet"
     ],
     "non_goals": [
-      "No ADR deletion yet",
+      "No legacy-source deletion yet",
       "No full prompt-body migration into .ai yet",
       "No guide rewrite yet"
     ]
   },
   "inputs": {
-    "architecture_target": "Reduce ADR reliance by strengthening standards and clarifying canonical ownership",
+    "architecture_target": "Reduce legacy-record reliance by strengthening standards and clarifying canonical ownership",
     "review_findings": [
       "Prompt bodies should not remain canonical in .dev/standards/prompts",
-      "ADR-010, ADR-040, and ADR-044 still had hard-rule gaps in standards"
+      "Explicit registration, environment/profile loading, and profile-specific DI still had hard-rule gaps in standards"
     ],
     "user_constraints": [
       "Continue the workflow on a dedicated branch",
@@ -51,17 +51,17 @@
     ],
     "validation": [
       "Prompt ownership boundary is now explicit in standards docs",
-      "ADR-010 hard rule is discoverable in standards",
-      "ADR-040 and ADR-044 hard rules are discoverable in standards"
+      "Explicit registration hard rule is discoverable in standards",
+      "Environment/profile loading and profile-specific DI hard rules are discoverable in standards"
     ],
     "deferred_items": [
-      "Retire or downgrade duplicate ADRs",
+      "Retire or downgrade duplicate legacy records",
       "Move any remaining reusable prompt bodies into .ai assets if needed",
-      "Split mixed rule/tutorial ADR families such as ADR-019 and ADR-023"
+      "Split mixed rule/tutorial decision families such as outbox pattern and outbox mapper completeness"
     ]
   },
   "results": {
-    "summary": "Landed the first batch of ADR-derived hard rules into standards and clarified prompt ownership boundaries.",
+    "summary": "Landed the first batch of legacy-decision-derived hard rules into standards and clarified prompt ownership boundaries.",
     "files_changed": [
       ".dev/standards/coding-standards/profile-configuration-standards.md",
       ".dev/standards/coding-standards/README.md",

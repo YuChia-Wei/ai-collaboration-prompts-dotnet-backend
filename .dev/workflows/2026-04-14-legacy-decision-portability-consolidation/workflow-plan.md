@@ -2,44 +2,44 @@
 
 ## Metadata
 
-- `plan_id`: `workflow-plan-2026-04-14-adr-portability-consolidation`
+- `plan_id`: `workflow-plan-2026-04-14-legacy-decision-portability-consolidation`
 - `owner_skill`: `ddd-ca-hex-architect`
 - `status`: `active`
 
 ## Context
 
 - Problem statement:
-  - The repository still stores many architectural and collaboration decisions as `ADR-*.md`.
-  - The target direction is to retire ADRs as day-to-day entry points by landing their active guidance into portable `.ai` assets or `.dev` standards/guides, while keeping only minimal ADR governance rules.
+  - The repository still stores many architectural and collaboration decisions as legacy decision records under `.dev/adr/`.
+  - The target direction is to retire those records as day-to-day entry points by landing their active guidance into portable `.ai` assets or `.dev` standards/guides, while keeping only minimal decision-governance rules if needed.
 - Current scope:
-  - `.dev/adr/ADR-*.md`
+  - `.dev/adr/`
   - `.dev/standards/`
   - `.dev/guides/`
   - `.ai/`
   - related wrapper and workflow references only when needed for traceability
 - Why this workflow now:
   - The repo is being prepared as a reusable prompt and documentation framework for new or existing projects.
-  - Reusable rules, constraints, and patterns need stable canonical locations instead of ADR-first discovery.
+  - Reusable rules, constraints, and patterns need stable canonical locations instead of legacy-record-first discovery.
 
 ## Target Direction
 
 - Target architecture summary:
-  - ADR content is classified into one of four canonical landing zones:
+  - Legacy decision content is classified into one of four canonical landing zones:
     - `.ai/` portable agent-facing rules, prompt assets, and reusable decision packages
     - `.dev/standards/` normative framework rules, checklists, and single source of truth
     - `.dev/guides/` human-facing usage guides, rationale, and pattern application tutorials
-    - retired historical record or deletion when the ADR no longer carries reusable value
+    - retired historical record or deletion when the legacy source no longer carries reusable value
 - Key constraints:
-  - Do not keep ADRs as duplicated active truth after landing the same rule elsewhere.
+  - Do not keep legacy decision records as duplicated active truth after landing the same rule elsewhere.
   - Do not move project-specific truth into `.ai/`.
-  - Preserve traceability from each landed rule back to the originating ADR until migration is complete.
+  - Preserve traceability from each landed rule back to the originating legacy source until migration is complete.
   - Prefer one canonical target per rule family; avoid splitting one small rule across too many files.
 - Non-goals:
   - Do not rewrite business/domain requirements as part of this workflow.
-  - Do not redesign the repo architecture model itself unless an ADR conflict is discovered.
-  - Do not bulk-convert every historical ADR if it has no ongoing reusable value.
+  - Do not redesign the repo architecture model itself unless a real rule conflict is discovered.
+  - Do not bulk-convert every historical decision record if it has no ongoing reusable value.
 
-## ADR Classification Matrix
+## Legacy Decision Classification Matrix
 
 ### Bucket A: Portable Agent-Facing Rule
 - Target:
@@ -48,7 +48,7 @@
   - `.ai/assets/sub-agent-role-prompts/`
   - `.ai/README.MD`, `.ai/SUB-AGENT-SYSTEM.MD`, or similar agent entry docs
 - Use when:
-  - The ADR defines prompt architecture, sub-agent routing, reusable generation/review rules, or cross-agent canonical asset structure.
+  - The source record defines prompt architecture, sub-agent routing, reusable generation/review rules, or cross-agent canonical asset structure.
 - Example types:
   - sub-agent modularization
   - skill/sub-agent boundaries
@@ -61,7 +61,7 @@
   - `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`
   - `AGENTS.md` when the rule must remain repo-entry baseline
 - Use when:
-  - The ADR defines mandatory structure, naming, dependency rules, architecture constraints, or reviewable coding requirements.
+  - The source record defines mandatory structure, naming, dependency rules, architecture constraints, or reviewable coding requirements.
 - Example types:
   - project structure
   - DI rules
@@ -76,7 +76,7 @@
   - `.dev/guides/ai-collaboration-guides/`
   - `.dev/standards/rationale/` when rationale needs a stable companion doc
 - Use when:
-  - The ADR explains how and when to apply a pattern, not just that the pattern is mandatory.
+  - The source record explains how and when to apply a pattern, not just that the pattern is mandatory.
 - Example types:
   - profile configuration guidance
   - Docker restore cache usage
@@ -87,15 +87,15 @@
 - Target:
   - remove after landing, or keep only if it still provides necessary decision history not duplicated elsewhere
 - Use when:
-  - The ADR is superseded, migration-only, translation-only, tooling-history-only, or too project-specific to remain in the portable set.
+  - The source record is superseded, migration-only, translation-only, tooling-history-only, or too project-specific to remain in the portable set.
 
 ## Conversion Workflow
 
 ### Stage 1
 - Goal:
-  - Build an ADR inventory and classify each ADR into A/B/C/D.
+  - Build a legacy decision inventory and classify each source record into A/B/C/D.
 - Scope:
-  - Review every `ADR-*.md` and record:
+  - Review every legacy decision record and record:
     - rule family
     - current status
     - portability level
@@ -104,12 +104,12 @@
 - Non-goals:
   - no content rewrite yet
 - Risks:
-  - one ADR may contain multiple rule families and require splitting
+  - one source record may contain multiple rule families and require splitting
   - historical Java/Spring wording may hide the actual .NET canonical rule
 - Recommended implementer:
   - main agent locally
 - Sub-agent policy:
-  - optional `explorer` sub-agent only if the ADR set becomes too large for fast inventorying
+  - optional `explorer` sub-agent only if the legacy decision set becomes too large for fast inventorying
 
 ### Stage 2
 - Goal:
@@ -121,7 +121,7 @@
     - `.dev/guides/*` vs `.dev/standards/rationale`
     - repo-entry docs vs deep implementation guides
 - Non-goals:
-  - no full ADR retirement yet
+  - no full source-record retirement yet
 - Risks:
   - duplicated concepts already exist in multiple standards/guides
 - Recommended implementer:
@@ -131,9 +131,9 @@
 
 ### Stage 3
 - Goal:
-  - Land active ADR rules into canonical docs.
+  - Land active legacy decision rules into canonical docs.
 - Scope:
-  - Rewrite ADR content into:
+  - Rewrite legacy decision content into:
     - concise normative rules in `.dev/standards/`
     - usage tutorials in `.dev/guides/`
     - portable agent-facing assets in `.ai/`
@@ -141,7 +141,7 @@
 - Non-goals:
   - no deletion until landing is validated
 - Risks:
-  - language drift between the original ADR wording and the new canonical doc
+  - language drift between the original wording and the new canonical doc
   - accidental movement of project-specific truth into portable docs
 - Recommended implementer:
   - `staged-refactor-implementer`
@@ -153,12 +153,12 @@
 
 ### Stage 4
 - Goal:
-  - Validate that each retired ADR has an exact canonical replacement or is intentionally removed.
+  - Validate that each retired legacy source has an exact canonical replacement or is intentionally removed.
 - Scope:
   - Update `.dev/adr/INDEX.md`
   - annotate retirement status
   - remove duplicate active guidance
-  - keep only `README.md`, `INDEX.md`, and any still-active ADRs that truly remain architectural decision records
+  - keep only governance files and any historical records that still carry irreplaceable context
 - Non-goals:
   - no new architecture redesign
 - Risks:
@@ -184,9 +184,9 @@
 - Recommended implementer:
   - `ddd-ca-hex-architect`
 
-## Decision Rules Per ADR
+## Decision Rules Per Source Record
 
-For each ADR, decide in this order:
+For each source record, decide in this order:
 
 1. Is the active value a hard rule?
    - Yes: land in `.dev/standards/` or `AGENTS.md`.
@@ -197,7 +197,7 @@ For each ADR, decide in this order:
 4. Is the content only historical, superseded, migration-only, or project-bound?
    - Yes: retire or delete.
 
-If one ADR contains both a hard rule and a tutorial:
+If one source record contains both a hard rule and a tutorial:
 - split it:
   - rule goes to `.dev/standards/` or `.ai/`
   - tutorial/rationale goes to `.dev/guides/` or `.dev/standards/rationale/`
@@ -205,10 +205,10 @@ If one ADR contains both a hard rule and a tutorial:
 ## Validation Strategy
 
 - Reviewer checkpoints:
-  - every active ADR maps to exactly one primary canonical target
+  - every active decision family maps to exactly one primary canonical target
   - no portable `.ai/` file contains project-specific truth
   - no standard doc mixes tutorial-heavy usage content with mandatory rules unless the split would be artificial
-  - no retired ADR remains the only discoverable source of an active rule
+  - no retired source record remains the only discoverable source of an active rule
 - Tests/validation expectations:
   - link/reference sanity check across updated docs
   - portability review against `.dev/PORTABLE-PACKAGING-GUIDE.MD`
@@ -216,15 +216,15 @@ If one ADR contains both a hard rule and a tutorial:
 
 ## Suggested Task Breakdown
 
-1. `adr-inventory-and-bucketing`
+1. `legacy-decision-inventory-and-bucketing`
    - Produce the inventory table and target mapping.
 2. `landing-zone-normalization`
    - Create/merge/split canonical destination docs before content moves.
-3. `adr-landing-ai-assets`
+3. `legacy-decision-landing-ai-assets`
    - Move agent-facing reusable rules into `.ai/`.
-4. `adr-landing-standards-and-guides`
+4. `legacy-decision-landing-standards-and-guides`
    - Move human-facing standards/guides into `.dev/`.
-5. `adr-retirement-and-index-cleanup`
+5. `legacy-decision-retirement-and-index-cleanup`
    - Update ADR index and retire duplicates.
 6. `portable-baseline-finalization`
    - Update packaging notes and transfer checklist.
@@ -234,7 +234,7 @@ If one ADR contains both a hard rule and a tutorial:
 - Do not use sub-agents for the initial architecture decision itself.
 - Use sub-agents only after the landing matrix and target documents are fixed.
 - Good delegation candidates:
-  - inventorying ADR metadata
+  - inventorying legacy decision metadata
   - comparing duplicate rule coverage between standard docs
   - migrating disjoint document sets
   - review passes on separate trees
@@ -246,7 +246,7 @@ If one ADR contains both a hard rule and a tutorial:
 
 - Open questions:
   - whether `.dev/standards/prompts/` should remain as a human-facing prompt catalog or be reduced after `.ai/assets/` becomes the stronger canonical prompt source
-  - whether some low-value historical ADRs should be deleted immediately instead of being migrated
+  - whether some low-value historical decision records should be deleted immediately instead of being migrated
 - Dependencies:
   - `.dev/PORTABLE-PACKAGING-GUIDE.MD`
   - `.dev/adr/README.md`
