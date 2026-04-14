@@ -10,7 +10,7 @@
 ## Quick Start for AI Agents
 
 1. Read `.dev/ARCHITECTURE.MD` and `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`.
-2. Use `.dev/adr/README.md` and `.dev/adr/INDEX.md` as the single source of ADR truth.
+2. Use `.dev/ARCHITECTURE.MD`, `.dev/standards/`, and `.dev/guides/` as the canonical source of architecture and collaboration rules.
 3. For reusable AI-specific prompts, use `.ai/` folder.
 4. When preparing this framework for reuse in another repo, follow `.dev/PORTABLE-PACKAGING-GUIDE.MD`.
 
@@ -49,8 +49,8 @@ Workflow artifact location:
 ### Portable Packaging (When framework files are copied to another repo)
 
 1. Keep framework-level guides, standards, scripts, and collaboration rules.
-2. Remove or rewrite project-specific requirement, spec, operations, workflow, and ADR truth.
-3. Rebuild `.dev/requirement/`, `.dev/specs/`, `.dev/operations/`, and `ADR-*.md` from the target project's facts.
+2. Remove or rewrite project-specific requirement, spec, operations, workflow, and legacy decision history.
+3. Rebuild `.dev/requirement/`, `.dev/specs/`, `.dev/operations/`, and any project-specific decision history from the target project's facts.
 4. Treat `.dev/PORTABLE-PACKAGING-GUIDE.MD` as the authoritative migration boundary.
 
 ---
@@ -73,7 +73,7 @@ Workflow artifact location:
 | **Testing** | xUnit (BDDfy planned for future); **no BaseTestClass** |
 | **DI** | Use `IServiceCollection`; no attribute-based scanning |
 | **Repository** | Generic `IRepository<T, TId>` only; no custom interfaces; queries via QueryService/Projection |
-| **Audit fields** | Stored in Domain Event metadata (ADR-043) |
+| **Audit fields** | Stored in Domain Event metadata |
 | **Config** | `appsettings.{Environment}.json` + `DOTNET_ENVIRONMENT` |
 | **Shared interfaces** | Use `BuildingBlocks.*` namespaces |
 | **Cross-BC Communication** | **Must use MQ only** (RabbitMQ/Kafka); Web API is forbidden |
@@ -113,7 +113,7 @@ Workflow artifact location:
 | :--- | :--- |
 | `.dev/ARCHITECTURE.MD` | 系統架構 |
 | `.dev/README.MD` | 專案知識入口 |
-| `.dev/adr/` | 架構決策紀錄 (ADR) |
+| `.dev/adr/` | ADR 治理層（template / index / 建立時機） |
 | `.dev/guides/` | 學習指南 |
 | `.dev/lessons/` | 經驗教訓 |
 | `.dev/requirement/` | 技術需求 |
@@ -147,5 +147,3 @@ Workflow artifact location:
 | `.gemini/commands/README.md` | Gemini wrapper command 入口 |
 | `.github/prompts/README.md` | GitHub Copilot wrapper prompt 入口 |
 | `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
-
-

@@ -1,0 +1,72 @@
+{
+  "task_id": "legacy-decision-retirement-and-index-cleanup",
+  "owner_skill": "code-reviewer",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-decision-portability-consolidation",
+  "related_review_report_id": "",
+  "status": "done",
+  "scope": {
+    "target": "Retire legacy decision files and remove them as active entry points",
+    "files": [
+      ".dev/adr/",
+      "AGENTS.md",
+      ".dev/README.MD",
+      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
+      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD",
+      ".dev/requirement/TECH-STACK-REQUIREMENTS.MD"
+    ],
+    "dependency_radius": "Decision archive plus repo-level entry docs that previously referenced ADRs",
+    "constraints": [
+      "Do not leave deleted decision files as live references in canonical docs",
+      "Keep .dev/adr/ only as a retired archive layer",
+      "Preserve standards/guides/.ai as the new canonical rule surface"
+    ],
+    "non_goals": [
+      "No new architecture redesign",
+      "No project requirement/spec rewrite"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Retire the old decision archive and route users to canonical docs instead",
+    "review_findings": [
+      "Canonical docs should not retain ADR references",
+      "Visible ADR files are expected to be deleted"
+    ],
+    "user_constraints": [
+      "Continue the workflow",
+      "Commit at necessary milestones"
+    ]
+  },
+  "execution": {
+    "operation_type": "archive-retirement",
+    "steps": [
+      "Deleted .dev/adr/ADR-* decision files",
+      "Rewrote .dev/adr/README.md, INDEX.md, and PORTABILITY-NOTES.MD as retirement/archive notes",
+      "Updated AGENTS, .dev entry docs, portable guides, and skill references to use standards/guides/architecture as canonical sources",
+      "Removed explicit ADR-number references from remaining canonical docs"
+    ],
+    "validation": [
+      "Searches for ADR-number references in canonical docs return no matches",
+      "The decision archive no longer contains active ADR files",
+      "Repo entry docs now point to standards/guides/architecture instead of ADRs"
+    ],
+    "deferred_items": [
+      "Optionally delete .dev/adr/ entirely in a future cleanup if no archive layer is desired",
+      "Optionally add a final workflow review report"
+    ]
+  },
+  "results": {
+    "summary": "Retired the legacy ADR archive and re-pointed repo entry docs to canonical standards, guides, and architecture docs.",
+    "files_changed": [
+      ".dev/adr/",
+      "AGENTS.md",
+      ".dev/README.MD",
+      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
+      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD",
+      ".dev/requirement/TECH-STACK-REQUIREMENTS.MD",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/workflow-plan.md",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/legacy-decision-retirement-and-index-cleanup.json"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

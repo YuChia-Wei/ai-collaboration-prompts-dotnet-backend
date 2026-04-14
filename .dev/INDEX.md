@@ -3,13 +3,13 @@
 ## Quick Start
 1. `ARCHITECTURE.md` — 專案架構與 system overview
 2. `project-config.yaml` — 機器可讀設定
-3. `adr/dotnet/README.md` — .NET ADR 單一真相
+3. `standards/README.md` — .NET standards 單一真相
 4. `AGENTS.md` — AI Agent 統一操作手冊
 
-## Architecture & Decisions
+## Architecture & Rules
 - `ARCHITECTURE.md`
-- `ADR-INDEX.md`（原始 ADR 索引）
-- `adr/dotnet/INDEX.md`（.NET ADR 索引）
+- `standards/README.md`
+- `guides/README.MD`
 
 ## Requirements
 - `requirement/requirement-guide.md`
@@ -57,4 +57,3 @@
 - `.claude/skills/bdd-gwt-test-designer/`
 - `.claude/skills/staged-refactor-implementer/`
 - `.claude/skills/tactical-refactor-implementer/`
-

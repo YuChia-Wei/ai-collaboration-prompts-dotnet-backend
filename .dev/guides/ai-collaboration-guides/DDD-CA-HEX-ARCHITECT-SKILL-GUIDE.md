@@ -59,7 +59,7 @@ Return:
 2. architecture decisions
 3. context/module structure
 4. events/contracts to add
-5. ADRs or docs to update
+5. Docs to update
 6. risks and tradeoffs
 ```
 
@@ -213,4 +213,3 @@ Use $ddd-ca-hex-architect to reorganize canonical AI assets under `.ai/assets/` 
 - 這份文件是給人看的，所以放在 `.dev/guides/ai-collaboration-guides/`
 - skill 本體仍然在 `.claude/skills/ddd-ca-hex-architect/`
 - 給 agent 重用的 prompt building blocks 仍然放在 `.ai/`
-

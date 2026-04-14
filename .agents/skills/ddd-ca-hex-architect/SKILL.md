@@ -1,13 +1,13 @@
 ---
 name: ddd-ca-hex-architect
-description: Design and refactor architecture in this repository using DDD, Clean Architecture, CQRS, MQ-first integration, and a Hexagonal Architecture view of ports and adapters. Use when Codex needs to shape bounded contexts, aggregates, commands, queries, reactors, contracts, project structure, ADR-aligned refactors, or reusable AI prompts/workflows for this repo's .NET stack.
+description: Design and refactor architecture in this repository using DDD, Clean Architecture, CQRS, MQ-first integration, and a Hexagonal Architecture view of ports and adapters. Use when Codex needs to shape bounded contexts, aggregates, commands, queries, reactors, contracts, project structure, standards-aligned refactors, or reusable AI prompts/workflows for this repo's .NET stack.
 ---
 
 # DDD CA HEX Architect
 
 ## Overview
 
-Use this skill to turn the repository's canonical AI assets, `.dev` standards, and ADR rules into one architecture workflow.
+Use this skill to turn the repository's canonical AI assets and `.dev` standards into one architecture workflow.
 Treat `HEX` as the Hexagonal Architecture view inside the repo's existing DDD + Clean Architecture setup: define inbound/outbound ports clearly, keep domain and application pure, and isolate adapters in infrastructure or presentation.
 
 ## Quick Start
@@ -17,7 +17,7 @@ Treat `HEX` as the Hexagonal Architecture view inside the repo's existing DDD + 
 3. Read [references/architecture-playbook.md](references/architecture-playbook.md) for repo-level constraints before proposing a design.
 4. Read [references/design-deliverables.md](references/design-deliverables.md) when the user wants a concrete artifact such as an architecture outline, implementation plan, prompt rewrite, or refactor blueprint.
 5. Read [references/prompt-templates.md](references/prompt-templates.md) when the user needs examples of how to invoke this skill from a prompt.
-6. If the task touches a specific implementation area, load only the matching source prompt or ADR rather than bulk-reading the entire `.ai` tree.
+6. If the task touches a specific implementation area, load only the matching source prompt or canonical standards/guides rather than bulk-reading the entire `.ai` tree.
 
 ## Workflow
 
@@ -62,7 +62,7 @@ Default output structure:
 2. Proposed architecture decisions
 3. Layer and adapter placement
 4. Message, DTO, and persistence impact
-5. Files/prompts/ADRs to update
+5. Files/prompts/docs to update
 6. Risks, tradeoffs, and open questions
 
 Prefer decisions and rationale over raw code unless the user explicitly asks for implementation.
@@ -106,10 +106,10 @@ When producing an architecture artifact, include:
 - Inbound ports, outbound ports, and adapters
 - Command/query/reactor boundaries
 - Persistence mode and messaging impact
-- Required updates to prompts, docs, ADRs, or project structure
+- Required updates to prompts, docs, or project structure
 
 If information is missing, make the smallest safe assumption and label it clearly.
-If the task conflicts with an ADR or mandatory repo rule, call out the conflict before proposing implementation steps.
+If the task conflicts with a mandatory repo rule, call out the conflict before proposing implementation steps.
 
 ## References
 

@@ -1,0 +1,60 @@
+{
+  "task_id": "landing-zone-normalization",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-decision-portability-consolidation",
+  "related_review_report_id": "",
+  "status": "done",
+  "scope": {
+    "target": "Canonical ownership decisions for .ai, .dev/standards, and .dev/guides",
+    "files": [
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/landing-zone-normalization.md"
+    ],
+    "dependency_radius": "Prompt ownership docs, standards/checklists, implementation guides, and selected legacy decision targets",
+    "constraints": [
+      "Do not move actual prompt ownership into .dev/standards",
+      "Do not retire legacy sources whose hard rules still live only in guides",
+      "Preserve a single primary canonical source per rule family"
+    ],
+    "non_goals": [
+      "No legacy-source retirement yet",
+      "No broad document rewrite outside the workflow folder yet"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Normalize landing zones before legacy-decision-to-canonical migration",
+    "review_findings": [
+      "Prompt bodies should be canonical only in .ai",
+      "Some DI/profile constraints are still buried only in guides"
+    ],
+    "user_constraints": [
+      "Continue the workflow on a dedicated branch",
+      "Commit at necessary milestones"
+    ]
+  },
+  "execution": {
+    "operation_type": "normalization-decision",
+    "steps": [
+      "Reviewed prompt ownership overlap between .ai and .dev/standards/prompts",
+      "Reviewed DI/profile-related standards and guide overlap",
+      "Defined canonical ownership rules and Stage 3 preconditions"
+    ],
+    "validation": [
+      "Prompt content ownership is assigned to .ai only",
+      "Guide-only hard-rule gaps are explicitly captured",
+      "Mixed rule/tutorial decision families are marked for split migration"
+    ],
+    "deferred_items": [
+      "Implement standards and guide updates outside the workflow folder",
+      "Retire duplicated legacy decision content"
+    ]
+  },
+  "results": {
+    "summary": "Completed Stage 2 landing-zone normalization and recorded the decisions required before legacy decision migration.",
+    "files_changed": [
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/landing-zone-normalization.md",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/landing-zone-normalization.json"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

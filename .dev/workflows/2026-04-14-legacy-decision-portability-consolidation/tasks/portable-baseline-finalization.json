@@ -1,0 +1,72 @@
+{
+  "task_id": "portable-baseline-finalization",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-decision-portability-consolidation",
+  "related_review_report_id": "",
+  "status": "done",
+  "scope": {
+    "target": "Finalize the portable baseline after legacy decision retirement",
+    "files": [
+      ".dev/adr/",
+      "AGENTS.md",
+      ".dev/README.MD",
+      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
+      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD"
+    ],
+    "dependency_radius": "Repo-level governance and portable packaging docs",
+    "constraints": [
+      "Keep .dev/adr/ as governance layer",
+      "Do not restore .dev/adr/ as a canonical rules surface",
+      "Keep the main rule surface in architecture, standards, guides, and .ai"
+    ],
+    "non_goals": [
+      "No new active ADR content",
+      "No rewrite of requirement/spec/operations truth"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Preserve ADR governance while keeping canonical rules outside the ADR folder",
+    "review_findings": [
+      ".dev/adr/ should remain in the repo",
+      ".dev/adr/ should contain template, index, and when-to-create rules"
+    ],
+    "user_constraints": [
+      "Keep .dev/adr/",
+      "Continue Stage 5"
+    ]
+  },
+  "execution": {
+    "operation_type": "portable-baseline-finalization",
+    "steps": [
+      "Reframed .dev/adr/ as ADR governance rather than rule source",
+      "Added ADR-TEMPLATE.md and WHEN-TO-CREATE-ADR.MD",
+      "Updated repo-level packaging and index docs to describe the new ADR role"
+    ],
+    "validation": [
+      ".dev/adr/ contains governance assets",
+      "Canonical rule docs still live outside .dev/adr/",
+      "Portable packaging docs describe the keep-vs-rebuild boundary correctly"
+    ],
+    "deferred_items": [
+      "Optionally add an ADR example file later if the repo wants a filled sample",
+      "Optionally add a generated checklist to enforce ADR creation triggers"
+    ]
+  },
+  "results": {
+    "summary": "Finalized the portable baseline by keeping .dev/adr/ as an ADR governance layer with template, index, and creation rules.",
+    "files_changed": [
+      ".dev/adr/README.md",
+      ".dev/adr/INDEX.md",
+      ".dev/adr/PORTABILITY-NOTES.MD",
+      ".dev/adr/ADR-TEMPLATE.md",
+      ".dev/adr/WHEN-TO-CREATE-ADR.MD",
+      "AGENTS.md",
+      ".dev/README.MD",
+      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
+      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD",
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/portable-baseline-finalization.json"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
