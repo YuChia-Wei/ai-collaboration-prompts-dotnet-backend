@@ -225,7 +225,7 @@ If one source record contains both a hard rule and a tutorial:
 4. `legacy-decision-landing-standards-and-guides`
    - Move human-facing standards/guides into `.dev/`.
 5. `legacy-decision-retirement-and-index-cleanup`
-   - Update ADR index and retire duplicates.
+   - Update the decision archive index and retire duplicates.
 6. `portable-baseline-finalization`
    - Update packaging notes and transfer checklist.
 
