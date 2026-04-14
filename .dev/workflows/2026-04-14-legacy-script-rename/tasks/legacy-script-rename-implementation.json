@@ -1,0 +1,65 @@
+{
+  "task_id": "legacy-script-rename-implementation",
+  "owner_skill": "staged-refactor-implementer",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-script-rename",
+  "related_review_report_id": "",
+  "status": "active",
+  "scope": {
+    "target": "Rename legacy shell script ownership to .NET-first names while preserving compatibility wrappers",
+    "files": [
+      ".ai/scripts/check-jpa-projection-config.sh",
+      ".ai/scripts/check-spring-config.sh",
+      ".ai/scripts/check-test-spring-di.sh",
+      ".ai/scripts/check-projection-config.sh",
+      ".ai/scripts/check-dotnet-config.sh",
+      ".ai/scripts/check-test-di-compliance.sh",
+      ".ai/scripts/README.md"
+    ],
+    "dependency_radius": "Script entry points plus any docs/prompts that reference the legacy names",
+    "constraints": [
+      "Keep old names working during this task",
+      "Promote .NET-first names as canonical owners",
+      "Do not expand scope to unrelated script cleanup"
+    ],
+    "non_goals": [
+      "No mass rename across all scripts",
+      "No removal of compatibility wrappers in this stage"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Make .NET-first script names canonical and reduce historical naming confusion",
+    "review_findings": [
+      "Current .NET-friendly script names delegate into legacy spring/jpa filenames",
+      "README still documents the legacy files as compatibility wrappers"
+    ],
+    "user_constraints": [
+      "Store the plan so work can resume on another computer",
+      "Do not lose the analyzed working mode or task structure"
+    ]
+  },
+  "execution": {
+    "operation_type": "script-rename-and-compatibility-normalization",
+    "steps": [
+      "Inventory references to the three legacy script names",
+      "Flip ownership so .NET-first names become real implementations",
+      "Convert legacy names into thin wrappers",
+      "Update README and any remaining references",
+      "Verify wrapper direction and search results"
+    ],
+    "validation": [
+      "Legacy wrappers forward all arguments",
+      "Canonical files no longer delegate into legacy names",
+      "Docs promote canonical names first"
+    ],
+    "deferred_items": [
+      "Potential later removal of legacy wrappers after migration period",
+      "Potential broader cleanup of other historical script names"
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
