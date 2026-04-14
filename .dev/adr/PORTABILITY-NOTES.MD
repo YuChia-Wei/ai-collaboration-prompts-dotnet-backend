@@ -1,19 +1,23 @@
-# Decision Archive Portability Notes
+# ADR Governance Portability Notes
 
-`.dev/adr/` 不再是 portable baseline 的必要組件。
+`.dev/adr/` 應保留作為 portable governance layer，但不應再攜帶舊專案的決策內容。
 
-## Default Rule
+## Keep
 
-- 若要把本 repo 移植到新專案，預設可直接刪除整個 `.dev/adr/`
+- `README.md`
+- `INDEX.md`
+- `ADR-TEMPLATE.md`
+- `WHEN-TO-CREATE-ADR.MD`
 
-## Exception
+## Remove or Rewrite
 
-- 只有在你明確需要保留少量歷史決策脈絡時，才保留這個目錄
-- 即使保留，也不應把它當成新專案的主規則入口
+- 任何 `ADR-*.md`
+  - 若描述的是舊專案的既有決策，應刪除或重建
 
-## Canonical Rule Locations
+## Portable Rule
 
-- 結構與限制：`.dev/standards/`
-- 使用教學：`.dev/guides/`
-- agent-facing assets：`.ai/`
-- repo collaboration baseline：`AGENTS.md`
+移植到新專案後：
+
+1. 保留本目錄的治理文件
+2. 刪除舊專案的 `ADR-*.md`
+3. 只有在新專案真的出現重大結構性決策時，才重新建立新的 ADR

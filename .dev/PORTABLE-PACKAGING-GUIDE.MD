@@ -17,7 +17,7 @@
 - `.dev/standards/`
   - 結構規範、review checklist、組織原則
 - `.dev/adr/`
-  - 如仍保留，只作為歷史決策紀錄，不應成為新專案主入口
+  - ADR 治理層（template / index / 建立時機）；不應成為新專案主規則入口
 - `.dev/workflows/README.MD`
   - workflow artifact contract
 - `AGENTS.md`

@@ -6,7 +6,7 @@
 
 | 資料夾 | 說明 |
 | :--- | :--- |
-| `adr/` | 歷史決策紀錄（如仍保留） |
+| `adr/` | ADR 治理層（template / index / 建立時機） |
 | `guides/` | 一般 human-facing guides（ai collaboration / design / implementation / learning） |
 | `lessons/` | 經驗教訓與錯誤案例 |
 | `operations/` | 分散式系統 runtime / 維運文件（context map、event catalog、MQ topology、runbook） |

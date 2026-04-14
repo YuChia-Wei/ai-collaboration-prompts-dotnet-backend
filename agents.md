@@ -113,7 +113,7 @@ Workflow artifact location:
 | :--- | :--- |
 | `.dev/ARCHITECTURE.MD` | 系統架構 |
 | `.dev/README.MD` | 專案知識入口 |
-| `.dev/adr/` | 歷史決策紀錄（如仍保留） |
+| `.dev/adr/` | ADR 治理層（template / index / 建立時機） |
 | `.dev/guides/` | 學習指南 |
 | `.dev/lessons/` | 經驗教訓 |
 | `.dev/requirement/` | 技術需求 |
@@ -147,4 +147,3 @@ Workflow artifact location:
 | `.gemini/commands/README.md` | Gemini wrapper command 入口 |
 | `.github/prompts/README.md` | GitHub Copilot wrapper prompt 入口 |
 | `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
-

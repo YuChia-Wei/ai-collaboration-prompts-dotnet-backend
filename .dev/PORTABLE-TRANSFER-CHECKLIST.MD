@@ -7,7 +7,7 @@
 - 保留 `.ai/`
 - 保留 `.dev/guides/`
 - 保留 `.dev/standards/`
-- 若 `.dev/adr/` 仍存在，只保留其退役/歷史說明，不保留舊決策內容
+- 保留 `.dev/adr/` 的治理文件（template / index / 建立時機）
 - 保留 `.dev/workflows/README.MD`
 - 保留 `AGENTS.md`
 
