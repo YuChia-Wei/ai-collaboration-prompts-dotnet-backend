@@ -1,0 +1,67 @@
+{
+  "task_id": "legacy-script-wrapper-retirement",
+  "owner_skill": "staged-refactor-implementer",
+  "related_plan_id": "workflow-plan-2026-04-14-legacy-script-rename",
+  "related_review_report_id": "",
+  "status": "done",
+  "scope": {
+    "target": "Retire legacy compatibility wrappers after reference migration is complete",
+    "files": [
+      ".ai/scripts/check-jpa-projection-config.sh",
+      ".ai/scripts/check-spring-config.sh",
+      ".ai/scripts/check-test-spring-di.sh",
+      ".ai/scripts/README.md"
+    ],
+    "dependency_radius": "Legacy script entry points plus script catalog documentation",
+    "constraints": [
+      "Remove only wrappers that have no remaining repo references",
+      "Keep .NET-first names as the only documented entry points",
+      "Do not rename unrelated scripts"
+    ],
+    "non_goals": [
+      "No broader script catalog cleanup",
+      "No changes to the canonical .NET script implementations"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Finish the naming convergence by removing wrapper-only legacy script names once migration is complete",
+    "review_findings": [
+      "Legacy wrapper names no longer have repo-internal references",
+      "Canonical .NET names are already the real implementation owners"
+    ],
+    "user_constraints": [
+      "Continue directly into the next stage",
+      "Remove wrappers that are no longer needed"
+    ]
+  },
+  "execution": {
+    "operation_type": "legacy-wrapper-retirement",
+    "steps": [
+      "Verified that the three legacy script names have no remaining repo references",
+      "Deleted the wrapper-only legacy script files",
+      "Updated script README to remove compatibility-wrapper messaging"
+    ],
+    "validation": [
+      "No repo references remain to the retired legacy script names",
+      "Canonical .NET script names remain present and documented",
+      "Script inventory no longer lists the retired wrappers"
+    ],
+    "deferred_items": [
+      "Retire any other historical script names only after the same reference audit is completed"
+    ]
+  },
+  "results": {
+    "summary": "Retired the three legacy wrapper-only script names after confirming the repo no longer references them, and updated the script catalog to document only the canonical .NET entry points.",
+    "files_changed": [
+      ".ai/scripts/check-jpa-projection-config.sh",
+      ".ai/scripts/check-spring-config.sh",
+      ".ai/scripts/check-test-spring-di.sh",
+      ".ai/scripts/README.md",
+      ".dev/workflows/2026-04-14-legacy-script-rename/tasks/legacy-script-wrapper-retirement.json"
+    ],
+    "tests_run": [
+      "rg -n \"check-jpa-projection-config\\\\.sh|check-spring-config\\\\.sh|check-test-spring-di\\\\.sh\" . -S"
+    ],
+    "follow_up_needed": true
+  }
+}

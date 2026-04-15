@@ -3,7 +3,7 @@
   "owner_skill": "staged-refactor-implementer",
   "related_plan_id": "workflow-plan-2026-04-14-legacy-script-rename",
   "related_review_report_id": "",
-  "status": "active",
+  "status": "done",
   "scope": {
     "target": "Rename legacy shell script ownership to .NET-first names while preserving compatibility wrappers",
     "files": [
@@ -57,9 +57,27 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Flipped script ownership so the .NET-first names are the real implementations, converted the legacy names into thin compatibility wrappers, and updated script documentation to promote the canonical entry points.",
+    "files_changed": [
+      ".ai/scripts/check-jpa-projection-config.sh",
+      ".ai/scripts/check-spring-config.sh",
+      ".ai/scripts/check-test-spring-di.sh",
+      ".ai/scripts/check-projection-config.sh",
+      ".ai/scripts/check-dotnet-config.sh",
+      ".ai/scripts/check-test-di-compliance.sh",
+      ".ai/scripts/README.md",
+      ".gitattributes",
+      ".dev/workflows/2026-04-14-legacy-script-rename/tasks/legacy-script-rename-implementation.json"
+    ],
+    "tests_run": [
+      "bash ./.ai/scripts/check-projection-config.sh",
+      "bash ./.ai/scripts/check-jpa-projection-config.sh",
+      "bash ./.ai/scripts/check-dotnet-config.sh",
+      "bash ./.ai/scripts/check-spring-config.sh",
+      "bash ./.ai/scripts/check-test-di-compliance.sh",
+      "bash ./.ai/scripts/check-test-spring-di.sh",
+      "rg -n \"check-jpa-projection-config\\\\.sh|check-spring-config\\\\.sh|check-test-spring-di\\\\.sh|currently delegates\" .ai .dev AGENTS.md -S"
+    ],
     "follow_up_needed": true
   }
 }
