@@ -14,6 +14,7 @@
 | `workflows/` | 跨 skill / subagent workflow artifacts（plan / review-report / task） |
 | `specs/` | 詳細規格指南 |
 | `standards/` | 技術標準、Code Review Checklist、專案結構 |
+| `TEAM-GIT-FLOW-RULES.MD` | 團隊 git flow / branch naming 規則草案，可在發佈前改寫成目標專案版本 |
 
 ## 🚀 Quick Start
 
@@ -29,6 +30,7 @@
 - AI Prompts: `.ai/`
 - Portable Canonical AI Assets: `.ai/assets/`
 - Portable Packaging Guide: `PORTABLE-PACKAGING-GUIDE.MD`
+- Team Git Flow Rules: `TEAM-GIT-FLOW-RULES.MD`
 - Claude Skills: `.claude/skills/`
 - Claude Skills Index: `.claude/skills/README.md`
 - 專案入口: `AGENTS.md`
