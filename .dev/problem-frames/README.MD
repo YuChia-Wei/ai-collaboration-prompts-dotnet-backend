@@ -1,6 +1,6 @@
 # Problem Frames
 
-本目錄放置可被 `dotnet/spec-compliance-validator` 直接讀取的 Problem Frame 規格。
+本目錄放置可被 `spec-compliance-validator` 直接讀取的 Problem Frame 規格。
 
 ## 目標
 
@@ -39,7 +39,7 @@
    - `controlled-domain/aggregate.yaml` 或 `workpiece/aggregate.yaml`
    - `acceptance.yaml` 或 `requirements/*.yaml`
 4. 用 `acceptance.yaml` 建立 BDD / SbE 場景。
-5. 用 `dotnet/spec-compliance-validator` 對照程式碼與測試。
+5. 用 `spec-compliance-validator` 對照程式碼與測試。
 
 ## 最小目錄結構
 
@@ -58,6 +58,7 @@
 
 - 可重用範本：`templates/cbf-external-system/`
 - 外部付款授權示例：`payments/cbf/authorize-payment/`
+- 由既有 requirement/spec 萃取的訂單下單示例：`orders/cbf/place-order/`
 - 快速 authoring 指南：`../guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md`
 - 可重用起草 skill：`.claude/skills/problem-frame-author/`
 

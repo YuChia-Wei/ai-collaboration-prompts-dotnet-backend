@@ -30,7 +30,7 @@
 ### Spec Compliance (Required for Problem Frames)
 
 When using problem-frame workflows:
-1. Run `dotnet/spec-compliance-validator` skill.
+1. Run `spec-compliance-validator` skill.
 2. **Gate**: coverage must be 100%. If not, return to implementation/test generation.
 
 ### Task Execution (If task-*.json is used)
