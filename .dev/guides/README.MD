@@ -50,6 +50,8 @@
   - BDD/GWT 測試設計與其他流程的配對方式
 - `BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md`
   - BDD/GWT 測試設計 skill 使用說明
+- `PROBLEM-FRAME-AUTHORING-GUIDE.md`
+  - Problem Frame 第一版規格萃取與 authoring 指南
 - `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md`
   - DDD + CA + HEX architect skill 使用說明
 - `OPTIONAL-MINIMAL-WORKFLOW-MODE.md`

@@ -27,6 +27,7 @@
 - `OPTIONAL-MINIMAL-WORKFLOW-MODE.md`: 可選的最小 workflow 模式與 artifact 說明
 - `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md`: `ddd-ca-hex-architect` 的使用說明與 prompt 範本
 - `BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md`: `bdd-gwt-test-designer` 的使用說明與 Given-When-Then prompt 範本
+- `PROBLEM-FRAME-AUTHORING-GUIDE.md`: 從 requirement/spec/code 快速萃取第一版 problem frame 的指南
 - `BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`: `bdd-gwt-test-designer` 與 test generation / review workflow 的搭配方式
 - `REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`: requirement / spec 是否應該做成 prompt 或 skill 的邊界與採用策略
 - `REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`: requirement markdown 草稿與補齊工作的 prompt 範本

@@ -1,0 +1,92 @@
+{
+  "task_id": "problem-frame-pilot-artifacts",
+  "owner_skill": "staged-refactor-implementer",
+  "related_plan_id": "workflow-plan-2026-04-15-problem-frame-validator-pilot",
+  "related_review_report_id": "review-report-2026-04-15-problem-frame-validator-pilot",
+  "status": "completed",
+  "scope": {
+    "target": "Create a validator-ready problem-frame pilot for an external-system integration use case",
+    "files": [
+      ".dev/workflows/2026-04-15-problem-frame-validator-pilot/workflow-plan.md",
+      ".dev/workflows/2026-04-15-problem-frame-validator-pilot/review-report.md",
+      ".dev/workflows/2026-04-15-problem-frame-validator-pilot/tasks/problem-frame-pilot-artifacts.json",
+      ".dev/problem-frames/README.MD",
+      ".dev/problem-frames/SEMANTICS.md",
+      ".dev/problem-frames/templates/cbf-external-system/frame.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/machine/machine.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/machine/use-case.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/controlled-domain/aggregate.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/acceptance.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/frame.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/machine/machine.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/machine/use-case.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/controlled-domain/aggregate.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/acceptance.yaml"
+    ],
+    "dependency_radius": "Problem-frame documentation and workflow artifacts only",
+    "constraints": [
+      "Match the validator's expected file layout",
+      "Keep the example portable and external-system focused",
+      "Do not edit unrelated user changes in the worktree"
+    ],
+    "non_goals": [
+      "No generated .NET production code",
+      "No generated automated tests",
+      "No repository-wide policy mandate to use problem frames"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Turn the validator from a dormant skill into a demonstrable repository capability",
+    "review_findings": [
+      "The repository contains validator rules but no problem-frame example",
+      "The user wants an external-system integration example that can later be imported into a real project"
+    ],
+    "user_constraints": [
+      "Create a branch first",
+      "Create workflow artifacts before implementation"
+    ]
+  },
+  "execution": {
+    "operation_type": "problem-frame-pilot-documentation",
+    "steps": [
+      "Create workflow artifacts for the pilot",
+      "Add root-level problem-frame guidance and semantic mapping notes",
+      "Add a reusable CBF external-system template",
+      "Add a worked payment-authorization example",
+      "Verify that the validator's required file set exists"
+    ],
+    "validation": [
+      "The problem-frame example contains frame.yaml, machine/machine.yaml, machine/use-case.yaml, controlled-domain/aggregate.yaml, and acceptance.yaml",
+      "The example explicitly models external-system constraints and traceable scenarios",
+      "The documentation explains how problem frames relate to requirement and spec documents"
+    ],
+    "deferred_items": [
+      "Add SWF examples if the pilot proves useful",
+      "Add a dedicated authoring guide after real-project feedback"
+    ]
+  },
+  "results": {
+    "summary": "Added a portable problem-frame pilot with workflow artifacts, a reusable CBF external-system template, and a worked payment authorization example that matches the validator's expected input structure.",
+    "files_changed": [
+      ".dev/workflows/2026-04-15-problem-frame-validator-pilot/workflow-plan.md",
+      ".dev/workflows/2026-04-15-problem-frame-validator-pilot/review-report.md",
+      ".dev/workflows/2026-04-15-problem-frame-validator-pilot/tasks/problem-frame-pilot-artifacts.json",
+      ".dev/problem-frames/README.MD",
+      ".dev/problem-frames/SEMANTICS.md",
+      ".dev/problem-frames/templates/cbf-external-system/frame.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/machine/machine.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/machine/use-case.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/controlled-domain/aggregate.yaml",
+      ".dev/problem-frames/templates/cbf-external-system/acceptance.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/frame.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/machine/machine.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/machine/use-case.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/controlled-domain/aggregate.yaml",
+      ".dev/problem-frames/payments/cbf/authorize-payment/acceptance.yaml"
+    ],
+    "tests_run": [
+      "Structural verification by listing the required workflow and problem-frame files"
+    ],
+    "follow_up_needed": true
+  }
+}
