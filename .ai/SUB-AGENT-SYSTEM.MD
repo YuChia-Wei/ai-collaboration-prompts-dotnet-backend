@@ -113,7 +113,7 @@
 - **職責**：從 Problem Frame 規格產生完整功能
 - **來源**：`.dev/problem-frames/*.yaml`（若未存在，請標記 TODO）
 - **要求**：Spec compliance 100% gate
-- **Canonical Asset**：`.ai/assets/sub-agent-role-prompts/problem-frame-sub-agent/`（若尚未建立，請標記 TODO）
+- **Canonical Asset**：`.ai/assets/sub-agent-role-prompts/problem-frame-sub-agent/sub-agent.yaml`
 
 ### Infrastructure Sub-agents
 

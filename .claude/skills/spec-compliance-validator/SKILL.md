@@ -1,5 +1,5 @@
 ---
-name: dotnet/spec-compliance-validator
+name: spec-compliance-validator
 description: |
   Validate .NET code and tests against problem frame specs with a 100% gate.
   Supports CBF (CommandedBehaviorFrame) and SWF (SimpleWorkpieceFrame).
@@ -243,7 +243,7 @@ Insert before completion:
 
 ```
 Step 10.5: Spec Compliance Validation (.NET)
-  USE: dotnet/spec-compliance-validator
+  USE: spec-compliance-validator
   If NOT COMPLIANT:
     - return to test generation
     - fix missing items

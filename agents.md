@@ -30,7 +30,7 @@
 ### Spec Compliance (Required for Problem Frames)
 
 When using problem-frame workflows:
-1. Run `dotnet/spec-compliance-validator` skill.
+1. Run `spec-compliance-validator` skill.
 2. **Gate**: coverage must be 100%. If not, return to implementation/test generation.
 
 ### Task Execution (If task-*.json is used)
@@ -85,7 +85,10 @@ Workflow artifact location:
 | Skill | Purpose | Trigger | Status |
 | :--- | :--- | :--- | :--- |
 | `code-reviewer` | .NET code review workflow | "code review" | ✅ Active |
+| `requirement-author` | Draft requirement documents from notes, drafts, or codebase context | "requirement", "draft requirement" | ✅ Active |
+| `spec-author` | Draft production or test specs from requirements or existing artifacts | "spec", "draft spec" | ✅ Active |
 | `spec-compliance-validator` | Spec 100% gate for .NET | "validate spec" | ✅ Active |
+| `problem-frame-author` | Draft first-pass problem frame specs from requirement/spec/code | "problem frame", "draft problem frame" | ✅ Active |
 | `ddd-ca-hex-architect` | Repo architecture design workflow for DDD + CA + HEX + MQ | "architect", "DDD", "CA", "Hexagonal", "HEX" | ✅ Active |
 | `bdd-gwt-test-designer` | Given-When-Then test design workflow from requirements, specs, or existing behavior | "BDD", "Gherkin", "Given-When-Then", "test design" | ✅ Active |
 | `staged-refactor-implementer` | Incremental refactor execution workflow from plans and findings | "refactor", "implement stage", "execute refactor plan" | ✅ Active |
@@ -127,7 +130,10 @@ Workflow artifact location:
 | :--- | :--- |
 | `.claude/skills/README.md` | Claude skills 入口與 skill index |
 | `.claude/skills/code-reviewer/` | Code Review Skill + CHECKLIST-REFERENCE.MD |
+| `.claude/skills/requirement-author/` | Requirement Authoring Skill |
+| `.claude/skills/spec-author/` | Spec Authoring Skill |
 | `.claude/skills/spec-compliance-validator/` | Spec Compliance Skill |
+| `.claude/skills/problem-frame-author/` | Problem Frame Authoring Skill |
 | `.claude/skills/ddd-ca-hex-architect/` | Architecture design skill for DDD + CA + HEX + MQ-first decisions |
 | `.claude/skills/bdd-gwt-test-designer/` | BDD / Gherkin Given-When-Then test design skill |
 | `.claude/skills/staged-refactor-implementer/` | Incremental refactor implementation skill for staged execution |
@@ -141,6 +147,7 @@ Workflow artifact location:
 | `.dev/guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Repo wrapper 與本機 runtime 的使用說明 |
 | `.dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the architect skill |
 | `.dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the BDD GWT test designer skill |
+| `.dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md` | Human-facing guide for deriving a first problem frame from requirement/spec/code |
 | `.dev/guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the refactor implementation skill |
 | `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the tactical refactor skill |
 | `.codex/skills/README.md` | Codex runtime skill wrapper 入口 |

@@ -41,6 +41,7 @@
 - `guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md`
 - `guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md`
 - `guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`
+- `guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md`
 - `guides/ai-collaboration-guides/REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`
 - `guides/ai-collaboration-guides/REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`
 - `guides/ai-collaboration-guides/SPEC-DESIGNER-PROMPT-GUIDE.md`
@@ -52,6 +53,9 @@
 - `.github/prompts/README.md`
 - `.github/copilot-instructions.md`
 - `.claude/skills/spec-compliance-validator/`
+- `.claude/skills/problem-frame-author/`
+- `.claude/skills/requirement-author/`
+- `.claude/skills/spec-author/`
 - `.claude/skills/code-reviewer/`
 - `.claude/skills/ddd-ca-hex-architect/`
 - `.claude/skills/bdd-gwt-test-designer/`
