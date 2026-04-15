@@ -54,6 +54,8 @@
 - `.github/copilot-instructions.md`
 - `.claude/skills/spec-compliance-validator/`
 - `.claude/skills/problem-frame-author/`
+- `.claude/skills/requirement-author/`
+- `.claude/skills/spec-author/`
 - `.claude/skills/code-reviewer/`
 - `.claude/skills/ddd-ca-hex-architect/`
 - `.claude/skills/bdd-gwt-test-designer/`

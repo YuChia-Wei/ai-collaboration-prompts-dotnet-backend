@@ -85,6 +85,8 @@ Workflow artifact location:
 | Skill | Purpose | Trigger | Status |
 | :--- | :--- | :--- | :--- |
 | `code-reviewer` | .NET code review workflow | "code review" | ✅ Active |
+| `requirement-author` | Draft requirement documents from notes, drafts, or codebase context | "requirement", "draft requirement" | ✅ Active |
+| `spec-author` | Draft production or test specs from requirements or existing artifacts | "spec", "draft spec" | ✅ Active |
 | `spec-compliance-validator` | Spec 100% gate for .NET | "validate spec" | ✅ Active |
 | `problem-frame-author` | Draft first-pass problem frame specs from requirement/spec/code | "problem frame", "draft problem frame" | ✅ Active |
 | `ddd-ca-hex-architect` | Repo architecture design workflow for DDD + CA + HEX + MQ | "architect", "DDD", "CA", "Hexagonal", "HEX" | ✅ Active |
@@ -128,6 +130,8 @@ Workflow artifact location:
 | :--- | :--- |
 | `.claude/skills/README.md` | Claude skills 入口與 skill index |
 | `.claude/skills/code-reviewer/` | Code Review Skill + CHECKLIST-REFERENCE.MD |
+| `.claude/skills/requirement-author/` | Requirement Authoring Skill |
+| `.claude/skills/spec-author/` | Spec Authoring Skill |
 | `.claude/skills/spec-compliance-validator/` | Spec Compliance Skill |
 | `.claude/skills/problem-frame-author/` | Problem Frame Authoring Skill |
 | `.claude/skills/ddd-ca-hex-architect/` | Architecture design skill for DDD + CA + HEX + MQ-first decisions |

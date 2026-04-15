@@ -19,6 +19,10 @@
   - .NET code review、評分與 findings skill
 - `ddd-ca-hex-architect/`
   - DDD + Clean Architecture + Hexagonal 架構設計 skill
+- `requirement-author/`
+  - 從粗略需求或現有文件整理 requirement 的 skill
+- `spec-author/`
+  - 從 requirement 或既有文件整理 production/test specs 的 skill
 - `spec-compliance-validator/`
   - spec compliance gate skill
 - `problem-frame-author/`
