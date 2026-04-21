@@ -19,6 +19,8 @@
   - .NET code review、評分與 findings skill
 - `ddd-ca-hex-architect/`
   - DDD + Clean Architecture + Hexagonal 架構設計 skill
+- `repo-structure-sync/`
+  - template 複製到新 repo 後，掃描 repo 結構並同步架構入口文件的 skill
 - `requirement-author/`
   - 從粗略需求或現有文件整理 requirement 的 skill
 - `spec-author/`

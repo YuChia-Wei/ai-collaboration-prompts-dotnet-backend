@@ -42,8 +42,9 @@
    - `.dev/specs/`
    - `.dev/operations/`
    - 必要的 project-specific decision history（若真的需要）
-4. 依新專案技術棧調整 `AGENTS.md` 與 `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`。
-5. 若保留 `.ai/scripts/`，應確認腳本檢查目標仍符合新 repo 結構。
+4. 使用 `repo-structure-sync` skill 掃描新 repo 的 git 結構、solution、`*.csproj` 與基礎設施配置，先同步 `agents.md`、`.dev/ARCHITECTURE.MD`、`.dev/requirement/TECH-STACK-REQUIREMENTS.MD`、`.dev/README.MD`、`.ai/README.MD`、`.ai/INDEX.MD` 這類架構入口文件。
+5. 再依新專案技術棧人工確認 `agents.md` 與 `.dev/requirement/TECH-STACK-REQUIREMENTS.MD` 是否需要進一步修訂。
+6. 若保留 `.ai/scripts/`，應確認腳本檢查目標仍符合新 repo 結構。
 
 具體操作清單見 `PORTABLE-TRANSFER-CHECKLIST.MD`，各子目錄的保留/重寫規則見對應的 `PORTABILITY-NOTES.MD`。
 
