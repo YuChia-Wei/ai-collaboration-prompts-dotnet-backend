@@ -15,14 +15,16 @@ This is a thin Claude-compatible wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/spec-compliance-validator/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md`
 - References:
   - `.ai/assets/skills/spec-compliance-validator/references/spec-compliance-rules.md`
   - `.ai/assets/skills/spec-compliance-validator/references/test-validation-steps.md`
   - `.ai/assets/skills/spec-compliance-validator/references/validation-command-templates.md`
 
-## Runtime Notes
+## Wrapper Rules
 
 Use this wrapper only as a compatibility entry.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it.
 If wrapper text and canonical spec differ, follow `.ai/assets/skills/spec-compliance-validator/skill.yaml`.
 
 

@@ -11,12 +11,14 @@ This is a thin Claude-compatible wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/problem-frame-author/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md`
 - References:
   - `.ai/assets/skills/problem-frame-author/references/authoring-playbook.md`
   - `.ai/assets/skills/problem-frame-author/references/source-mapping.md`
   - `.ai/assets/skills/problem-frame-author/references/output-contract.md`
 
-## Runtime Notes
+## Wrapper Rules
 
 Use this wrapper only as a compatibility entry.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it.
 If wrapper text and canonical spec differ, follow `.ai/assets/skills/problem-frame-author/skill.yaml`.

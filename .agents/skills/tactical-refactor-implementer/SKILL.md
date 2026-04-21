@@ -5,19 +5,20 @@ description: Execute local, object-centered refactoring in this repository. Use 
 
 # Tactical Refactor Implementer
 
-This is a thin runtime wrapper.
+This is a thin current-runtime wrapper.
 
 ## Canonical Source
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/tactical-refactor-implementer/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
 - References:
   - `.ai/assets/skills/tactical-refactor-implementer/references/skill-boundaries.md`
   - `.ai/assets/skills/tactical-refactor-implementer/references/allowed-operations.md`
   - `.ai/assets/skills/tactical-refactor-implementer/references/execution-rules.md`
 
-## Runtime Notes
+## Wrapper Rules
 
 Use this wrapper only as the current runtime entry.
-Preserve runtime metadata such as `agents/openai.yaml`.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it, such as `agents/openai.yaml`.
 If wrapper text and canonical spec differ, follow `.ai/assets/skills/tactical-refactor-implementer/skill.yaml`.

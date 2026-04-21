@@ -16,12 +16,14 @@ This is a thin Claude-compatible wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/code-reviewer/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
 - References:
   - `.ai/CODE-REVIEW-INDEX.MD`
   - `.ai/assets/skills/code-reviewer/references/checklist-reference.md`
   - `.dev/standards/CODE-REVIEW-CHECKLIST.md`
 
-## Runtime Notes
+## Wrapper Rules
 
 Use this wrapper only as a compatibility entry.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it.
 If wrapper text and canonical spec differ, follow `.ai/assets/skills/code-reviewer/skill.yaml`.

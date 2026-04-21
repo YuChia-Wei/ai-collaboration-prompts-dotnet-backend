@@ -11,12 +11,14 @@ This is a thin Claude-compatible wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/requirement-author/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`
 - References:
   - `.ai/assets/skills/requirement-author/references/authoring-playbook.md`
   - `.ai/assets/skills/requirement-author/references/output-contract.md`
   - `.ai/assets/skills/requirement-author/references/source-truth-rules.md`
 
-## Runtime Notes
+## Wrapper Rules
 
 Use this wrapper only as a compatibility entry.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it.
 If wrapper text and canonical spec differ, follow `.ai/assets/skills/requirement-author/skill.yaml`.

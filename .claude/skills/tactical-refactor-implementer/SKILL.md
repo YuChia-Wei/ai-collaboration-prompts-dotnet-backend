@@ -11,13 +11,14 @@ This is a thin Claude-compatible wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/tactical-refactor-implementer/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
 - References:
   - `.ai/assets/skills/tactical-refactor-implementer/references/skill-boundaries.md`
   - `.ai/assets/skills/tactical-refactor-implementer/references/allowed-operations.md`
   - `.ai/assets/skills/tactical-refactor-implementer/references/execution-rules.md`
 
-## Runtime Notes
+## Wrapper Rules
 
 Use this wrapper only as a compatibility entry.
-Preserve runtime metadata such as `agents/openai.yaml`.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it, such as `agents/openai.yaml`.
 If wrapper text and canonical spec differ, follow `.ai/assets/skills/tactical-refactor-implementer/skill.yaml`.
