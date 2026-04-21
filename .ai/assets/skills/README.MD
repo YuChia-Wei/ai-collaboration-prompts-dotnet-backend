@@ -26,11 +26,8 @@
 
 - `bdd-gwt-test-designer`
 - `code-reviewer`
-- `command-use-case-implementer`
 - `ddd-ca-hex-architect`
 - `problem-frame-author`
-- `query-use-case-implementer`
-- `reactor-implementer`
 - `repo-structure-sync`
 - `requirement-author`
 - `spec-author`
