@@ -5,48 +5,20 @@ description: Draft or normalize requirement documents for this repository from r
 
 # Requirement Author
 
-## Overview
+This is a thin current-runtime wrapper.
 
-Use this skill to produce requirement-quality markdown that matches `.dev/requirement/REQUIREMENT-GUIDE.MD`.
+## Canonical Source
 
-## Quick Start
+- Registry: `.ai/assets/skills/README.MD`
+- Spec: `.ai/assets/skills/requirement-author/skill.yaml`
+- Human Guide: `.dev/guides/ai-collaboration-guides/REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`
+- References:
+  - `.ai/assets/skills/requirement-author/references/authoring-playbook.md`
+  - `.ai/assets/skills/requirement-author/references/output-contract.md`
+  - `.ai/assets/skills/requirement-author/references/source-truth-rules.md`
 
-1. Read `.dev/ARCHITECTURE.MD` and `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`.
-2. Read `.dev/requirement/REQUIREMENT-GUIDE.MD`.
-3. Read [references/authoring-playbook.md](references/authoring-playbook.md).
-4. Read [references/output-contract.md](references/output-contract.md).
+## Wrapper Rules
 
-## Workflow
-
-### 1. Define the topic and scope
-
-Clarify what problem or bounded-context area the requirement should cover.
-
-### 2. Build the requirement draft
-
-Populate:
-
-- Metadata
-- Context & Goals
-- Personas
-- Functional Requirements
-- Non-Functional Requirements
-- Constraints & Assumptions
-- Domain / Business Rules
-- Acceptance Criteria
-- References
-
-### 3. Mark assumptions and missing truth
-
-If the source inputs do not fully confirm a fact, mark it as an assumption or open question.
-
-### 4. Stop before spec drafting
-
-Do not jump straight into use-case JSON specs.
-Recommend `spec-author` when the requirement is stable enough to expand.
-
-## References
-
-- [references/authoring-playbook.md](references/authoring-playbook.md)
-- [references/output-contract.md](references/output-contract.md)
-- [references/source-truth-rules.md](references/source-truth-rules.md)
+Use this wrapper only as the current runtime entry.
+Keep runtime-specific metadata in this wrapper directory only when the runtime requires it.
+If wrapper text and canonical spec differ, follow `.ai/assets/skills/requirement-author/skill.yaml`.

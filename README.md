@@ -154,15 +154,12 @@ dotnet distributed architecture lab 是一個採用 .NET 10、容器化技術和
   - GitHub Copilot: `.github/copilot-instructions.md`
   - Codex: `agents.md`
 - AI Agent CLI Extension Commands
+  - Codex / current agent runtime：`.agents/skills/`
   - Gemini CLI：`.gemini/commands/`
   - GitHub Copilot：`.github/prompts/`
-- Codex: `.codex/skills/`
-    - > codex 需要利用 `setx CODEX_HOME '{project-floder}\.codex'` 語法來讓 codex 讀取到專案資料夾下的擴充命令
-    - > 切換後需要重新登入 codex，且開發完畢需清除環境參數以避免後續工作目錄的錯亂
-    - > 因此目前在 codex 中要使用 SDD 的擴充命令時會有諸多限制與需注意的部分
 - Portable AI Asset Canonical Source
   - `.ai/assets/`
-- > wrapper 目錄（`.claude/skills/`、`.codex/skills/`、`.gemini/commands/`、`.github/prompts/`）應視為薄包裝入口，真正的單一真相以 `.ai/assets/` 為準
+- > wrapper 目錄（`.agents/skills/`、`.claude/skills/`、`.gemini/commands/`、`.github/prompts/`）應視為薄包裝入口，真正的單一真相以 `.ai/assets/` 為準
 
 ### Spec-Driven Development (規格驅動開發)
 

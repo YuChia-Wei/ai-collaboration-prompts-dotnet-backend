@@ -12,7 +12,8 @@
 1. Read `.dev/ARCHITECTURE.MD` and `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`.
 2. Use `.dev/ARCHITECTURE.MD`, `.dev/standards/`, and `.dev/guides/` as the canonical source of architecture and collaboration rules.
 3. For reusable AI-specific prompts, use `.ai/` folder.
-4. When preparing this framework for reuse in another repo, follow `.dev/PORTABLE-PACKAGING-GUIDE.MD`.
+4. For top-level skills, use `.ai/assets/skills/README.MD` as the canonical skill registry.
+5. When preparing this framework for reuse in another repo, follow `.dev/PORTABLE-PACKAGING-GUIDE.MD`.
 
 ---
 
@@ -21,7 +22,7 @@
 ### Code Review (Required)
 
 1. Read `.ai/CODE-REVIEW-INDEX.MD`.
-2. Read `.claude/skills/code-reviewer/CHECKLIST-REFERENCE.MD` for detailed rules.
+2. Read `.ai/assets/skills/code-reviewer/references/checklist-reference.md` for the canonical review quick reference.
 3. Identify file type and read the matching section in `.dev/standards/CODE-REVIEW-CHECKLIST.md`.
 4. Build a checklist comparison table.
 5. Categorize issues (CRITICAL / MUST FIX / SHOULD FIX).
@@ -44,7 +45,7 @@ Workflow artifact location:
 - Use `.dev/workflows/<workflow-id>/workflow-plan.md`
 - Use `.dev/workflows/<workflow-id>/review-report.md`
 - Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json`
-- Do not scatter workflow artifacts under `.ai/`, `.claude/skills/`, or arbitrary feature folders unless the user explicitly requests it.
+- Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary feature folders unless the user explicitly requests it.
 
 ### Portable Packaging (When framework files are copied to another repo)
 
@@ -65,36 +66,14 @@ Workflow artifact location:
 
 ---
 
-## .NET Stack Rules
+## Skill Routing
 
-| Category | Rule |
-| :--- | :--- |
-| **Stack** | .NET 10 (C# 14), Dapper + EF Core (mixed), WolverineFx 5.16.2, xUnit 2.9.3, NSubstitute, PostgreSQL 16, RabbitMQ + Kafka |
-| **ORM Strategy** | Write: Dapper + Npgsql; Read/Projection: EF Core or Dapper |
-| **Testing** | xUnit (BDDfy planned for future); **no BaseTestClass** |
-| **DI** | Use `IServiceCollection`; no attribute-based scanning |
-| **Repository** | Generic `IRepository<T, TId>` only; no custom interfaces; queries via QueryService/Projection |
-| **Audit fields** | Stored in Domain Event metadata |
-| **Config** | `appsettings.{Environment}.json` + `DOTNET_ENVIRONMENT` |
-| **Shared interfaces** | Use `BuildingBlocks.*` namespaces |
-| **Cross-BC Communication** | **Must use MQ only** (RabbitMQ/Kafka); Web API is forbidden |
+- Canonical skill registry: `.ai/assets/skills/README.MD`
+- Current runtime wrappers: `.agents/skills/README.md`
+- Claude-compatible wrappers: `.claude/skills/README.md`
+- Human-facing skill guides: `.dev/guides/ai-collaboration-guides/README.MD`
 
----
-
-## Skill Index (.claude/skills/)
-
-| Skill | Purpose | Trigger | Status |
-| :--- | :--- | :--- | :--- |
-| `code-reviewer` | .NET code review workflow | "code review" | ✅ Active |
-| `requirement-author` | Draft requirement documents from notes, drafts, or codebase context | "requirement", "draft requirement" | ✅ Active |
-| `spec-author` | Draft production or test specs from requirements or existing artifacts | "spec", "draft spec" | ✅ Active |
-| `spec-compliance-validator` | Spec 100% gate for .NET | "validate spec" | ✅ Active |
-| `problem-frame-author` | Draft first-pass problem frame specs from requirement/spec/code | "problem frame", "draft problem frame" | ✅ Active |
-| `ddd-ca-hex-architect` | Repo architecture design workflow for DDD + CA + HEX + MQ | "architect", "DDD", "CA", "Hexagonal", "HEX" | ✅ Active |
-| `repo-structure-sync` | Scan a copied target repo and refresh repo-specific architecture docs | "repo sync", "structure sync", "portable install", "template copy" | ✅ Active |
-| `bdd-gwt-test-designer` | Given-When-Then test design workflow from requirements, specs, or existing behavior | "BDD", "Gherkin", "Given-When-Then", "test design" | ✅ Active |
-| `staged-refactor-implementer` | Incremental refactor execution workflow from plans and findings | "refactor", "implement stage", "execute refactor plan" | ✅ Active |
-| `tactical-refactor-implementer` | Local structural refactor workflow around one main target | "extract method", "local rename", "safe rename", "small local cleanup" | ✅ Active |
+When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as the source of truth.
 
 ---
 
@@ -130,17 +109,15 @@ Workflow artifact location:
 
 | Path | Description |
 | :--- | :--- |
-| `.claude/skills/README.md` | Claude skills 入口與 skill index |
-| `.claude/skills/code-reviewer/` | Code Review Skill + CHECKLIST-REFERENCE.MD |
-| `.claude/skills/requirement-author/` | Requirement Authoring Skill |
-| `.claude/skills/spec-author/` | Spec Authoring Skill |
-| `.claude/skills/spec-compliance-validator/` | Spec Compliance Skill |
-| `.claude/skills/problem-frame-author/` | Problem Frame Authoring Skill |
-| `.claude/skills/ddd-ca-hex-architect/` | Architecture design skill for DDD + CA + HEX + MQ-first decisions |
-| `.claude/skills/repo-structure-sync/` | Repo scan and architecture-entry sync skill for portable template installs |
-| `.claude/skills/bdd-gwt-test-designer/` | BDD / Gherkin Given-When-Then test design skill |
-| `.claude/skills/staged-refactor-implementer/` | Incremental refactor implementation skill for staged execution |
-| `.claude/skills/tactical-refactor-implementer/` | Local object-centered refactor implementation skill |
+| `.claude/skills/README.md` | Claude-compatible runtime wrapper index |
+| `.claude/skills/<skill>/` | Claude-compatible skill wrapper |
+
+### Agents Skills (`.agents/skills/`)
+
+| Path | Description |
+| :--- | :--- |
+| `.agents/skills/README.md` | Current runtime wrapper index |
+| `.agents/skills/<skill>/` | Current runtime skill wrapper |
 
 ### AI Collaboration Guides (`.dev/guides/ai-collaboration-guides/`)
 
@@ -150,11 +127,11 @@ Workflow artifact location:
 | `.dev/guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Repo wrapper 與本機 runtime 的使用說明 |
 | `.dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the architect skill |
 | `.dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the BDD GWT test designer skill |
+| `.dev/guides/ai-collaboration-guides/USE-CASE-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for command / query / reactor implementer skills |
 | `.dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the repo structure sync skill |
 | `.dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md` | Human-facing guide for deriving a first problem frame from requirement/spec/code |
 | `.dev/guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the refactor implementation skill |
 | `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the tactical refactor skill |
-| `.codex/skills/README.md` | Codex runtime skill wrapper 入口 |
 | `.gemini/commands/README.md` | Gemini wrapper command 入口 |
 | `.github/prompts/README.md` | GitHub Copilot wrapper prompt 入口 |
 | `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |

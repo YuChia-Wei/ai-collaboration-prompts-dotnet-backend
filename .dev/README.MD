@@ -32,15 +32,17 @@
 - Portable Packaging Guide: `PORTABLE-PACKAGING-GUIDE.MD`
 - Repo Structure Sync Guide: `guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
 - Team Git Flow Rules: `TEAM-GIT-FLOW-RULES.MD`
-- Claude Skills: `.claude/skills/`
-- Claude Skills Index: `.claude/skills/README.md`
+- Canonical Skill Registry: `.ai/assets/skills/README.MD`
+- Agents Runtime Wrappers: `.agents/skills/README.md`
+- Claude Runtime Wrappers: `.claude/skills/README.md`
 - 專案入口: `AGENTS.md`
 
 ## 📌 內容定位
 
 - `.dev/` 放給人看的知識、指南、規範與索引
 - `.ai/` 放給 agent 重用的 prompts、shared rules、scripts
-- `.claude/skills/` 放 skill 實作本體與 skill-local resources
+- `.ai/assets/skills/` 放 canonical skill specs
+- `.agents/skills/` 與 `.claude/skills/` 放 runtime wrappers
 
 ### `.dev/` 內部常見協作文件
 
