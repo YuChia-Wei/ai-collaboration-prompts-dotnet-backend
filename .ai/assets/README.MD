@@ -33,8 +33,12 @@
 
 - `.ai/assets/`
   - canonical source
-- `.codex/skills/`
-  - current primary repo-local runtime wrappers
+- `.agents/skills/`
+  - current primary repo-local runtime wrappers for Codex / agent runtime
+- `.claude/skills/`
+  - Claude-compatible wrapper layer
+- `.codex/`
+  - optional Codex local config or runtime-specific state; not the canonical skill registry
 - other agent-specific wrapper roots
   - optional compatibility layers; they may be absent in some environments and do not affect the canonical source model
 - `.dev/guides/ai-collaboration-guides/`
@@ -47,6 +51,6 @@
 - `skills/` 是 top-level runtime capability 的 canonical source
 - `sub-agent-role-prompts/` 是 delegated worker-role 的 canonical source
 - `shared/` 與 `sub-agent-role-prompts/*/references/` 承接 reusable supporting materials
-- `.gemini/commands/`、`.github/prompts/`、`.claude/skills/` 若存在，應視為 wrapper / compatibility layer，而不是 canonical source
+- `.agents/skills/`、`.claude/skills/`、`.gemini/commands/`、`.github/prompts/` 若存在，應視為 wrapper / compatibility layer，而不是 canonical source
 
 
