@@ -32,6 +32,7 @@
 
 ## 驗證
 
+- 執行 `repo-structure-sync` 或等效流程，確認架構入口文件已依新 repo 結構同步
 - 確認 `AGENTS.md` 的 stack rules 與新專案一致
 - 確認 `.ai/scripts/README.md` 中列出的腳本仍適用
 - 確認 `.dev/specs/` 與 `.dev/operations/` 沒有殘留原專案名稱

@@ -52,6 +52,8 @@
   - human-facing guides 入口
 - `../.dev/guides/ai-collaboration-guides/README.MD`
   - AI collaboration guides 入口
+- `../.dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
+  - template 移植到新 repo 後的架構同步指南
 - `../.dev/guides/ai-collaboration-guides/AI-ASSET-LOCATION-STRATEGY.md`
   - 多 agent 情境下的 skill / prompt / guide 收納策略
 - `../.claude/skills/README.md`

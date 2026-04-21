@@ -51,7 +51,8 @@ Workflow artifact location:
 1. Keep framework-level guides, standards, scripts, and collaboration rules.
 2. Remove or rewrite project-specific requirement, spec, operations, workflow, and legacy decision history.
 3. Rebuild `.dev/requirement/`, `.dev/specs/`, `.dev/operations/`, and any project-specific decision history from the target project's facts.
-4. Treat `.dev/PORTABLE-PACKAGING-GUIDE.MD` as the authoritative migration boundary.
+4. Run `repo-structure-sync` to scan the target repo structure and refresh repo-specific architecture sections in `agents.md`, `.dev/`, and necessary `.ai/` entry docs.
+5. Treat `.dev/PORTABLE-PACKAGING-GUIDE.MD` as the authoritative migration boundary.
 
 ---
 
@@ -90,6 +91,7 @@ Workflow artifact location:
 | `spec-compliance-validator` | Spec 100% gate for .NET | "validate spec" | ✅ Active |
 | `problem-frame-author` | Draft first-pass problem frame specs from requirement/spec/code | "problem frame", "draft problem frame" | ✅ Active |
 | `ddd-ca-hex-architect` | Repo architecture design workflow for DDD + CA + HEX + MQ | "architect", "DDD", "CA", "Hexagonal", "HEX" | ✅ Active |
+| `repo-structure-sync` | Scan a copied target repo and refresh repo-specific architecture docs | "repo sync", "structure sync", "portable install", "template copy" | ✅ Active |
 | `bdd-gwt-test-designer` | Given-When-Then test design workflow from requirements, specs, or existing behavior | "BDD", "Gherkin", "Given-When-Then", "test design" | ✅ Active |
 | `staged-refactor-implementer` | Incremental refactor execution workflow from plans and findings | "refactor", "implement stage", "execute refactor plan" | ✅ Active |
 | `tactical-refactor-implementer` | Local structural refactor workflow around one main target | "extract method", "local rename", "safe rename", "small local cleanup" | ✅ Active |
@@ -135,6 +137,7 @@ Workflow artifact location:
 | `.claude/skills/spec-compliance-validator/` | Spec Compliance Skill |
 | `.claude/skills/problem-frame-author/` | Problem Frame Authoring Skill |
 | `.claude/skills/ddd-ca-hex-architect/` | Architecture design skill for DDD + CA + HEX + MQ-first decisions |
+| `.claude/skills/repo-structure-sync/` | Repo scan and architecture-entry sync skill for portable template installs |
 | `.claude/skills/bdd-gwt-test-designer/` | BDD / Gherkin Given-When-Then test design skill |
 | `.claude/skills/staged-refactor-implementer/` | Incremental refactor implementation skill for staged execution |
 | `.claude/skills/tactical-refactor-implementer/` | Local object-centered refactor implementation skill |
@@ -147,6 +150,7 @@ Workflow artifact location:
 | `.dev/guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Repo wrapper 與本機 runtime 的使用說明 |
 | `.dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the architect skill |
 | `.dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the BDD GWT test designer skill |
+| `.dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the repo structure sync skill |
 | `.dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md` | Human-facing guide for deriving a first problem frame from requirement/spec/code |
 | `.dev/guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the refactor implementation skill |
 | `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the tactical refactor skill |

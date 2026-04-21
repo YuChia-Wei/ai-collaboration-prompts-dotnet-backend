@@ -25,6 +25,7 @@
 - `.ai/` 應作為可直接複製到其他 repo 的 agent-facing baseline
 - 內容應優先保持 framework-level、agent-reusable、repo-agnostic
 - 若某檔案開始描述當前專案的 source of truth，應回放到 `.dev/`
+- 模板移植到新 repo 後，應優先使用 `repo-structure-sync` 來刷新 `agents.md`、`.dev/` 與必要的 `.ai/` 架構入口描述，而不是把 repo truth 直接堆進 `.ai/`
 - 更完整的移植邊界見 `../.dev/PORTABLE-PACKAGING-GUIDE.MD`
 
 ## 核心文件

@@ -30,6 +30,7 @@
 - AI Prompts: `.ai/`
 - Portable Canonical AI Assets: `.ai/assets/`
 - Portable Packaging Guide: `PORTABLE-PACKAGING-GUIDE.MD`
+- Repo Structure Sync Guide: `guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
 - Team Git Flow Rules: `TEAM-GIT-FLOW-RULES.MD`
 - Claude Skills: `.claude/skills/`
 - Claude Skills Index: `.claude/skills/README.md`
