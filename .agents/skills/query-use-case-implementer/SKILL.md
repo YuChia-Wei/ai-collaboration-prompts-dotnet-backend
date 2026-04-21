@@ -11,7 +11,7 @@ This is a thin current-runtime wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/query-use-case-implementer/skill.yaml`
-- Human Guide: `.dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md`
+- Human Guide: `.dev/guides/ai-collaboration-guides/USE-CASE-IMPLEMENTER-SKILL-GUIDE.md`
 - References:
   - `.ai/assets/skills/query-use-case-implementer/references/implementation-playbook.md`
   - `.ai/assets/skills/query-use-case-implementer/references/handoff-rules.md`
