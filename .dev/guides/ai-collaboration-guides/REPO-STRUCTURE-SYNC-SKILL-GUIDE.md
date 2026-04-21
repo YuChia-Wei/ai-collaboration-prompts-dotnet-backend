@@ -93,6 +93,49 @@
 2. 如果沒命中升級條件，就直接同步文件
 3. 如果命中升級條件，再把第一輪 inventory 當 source packet 交給強模型或 sub-agent
 
+## Phase 1 固定輸出格式
+
+第一輪最好固定回傳這幾段：
+
+1. `Evidence Used`
+2. `Confirmed Repo Facts`
+3. `P0 Hits`
+4. `P1 Hits`
+5. `Complexity Verdict`
+6. `Safe Direct Updates`
+7. `Escalation Targets`
+8. `Source Packet`
+
+這樣第二輪就能直接接手，不用重新理解上下文。
+
+## 哪些內容可直接改，哪些應交棒
+
+通常可直接改：
+
+- index table
+- stack version table
+- quick-start links
+- 根據檔案事實做的簡單架構條列
+- 舊 repo 名稱或舊路徑的直接替換
+
+通常應交給強模型或 sub-agent：
+
+- `.dev/ARCHITECTURE.MD` 的整段重寫
+- `agents.md` 涉及規則重釋的區塊
+- 多份文件之間互相牽動的衝突修正
+- 多 solution / mixed stack 的架構敘事整理
+
+## Source Packet 至少要包含什麼
+
+如果要交棒，第一輪至少要整理出：
+
+- top-level folders
+- solution / project list
+- package-reference summary
+- host types
+- stale-doc conflicts
+- 哪些目標檔案需要重寫
+
 ## 範本 5：先做升級判斷再決定是否交棒
 
 ```text
@@ -114,6 +157,7 @@ Return:
 3. whether escalation is needed
 4. which files can be updated directly now
 5. which files should be delegated
+6. the source packet for delegation
 ```
 
 ## 它和其他文件的關係

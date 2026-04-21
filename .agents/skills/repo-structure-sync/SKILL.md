@@ -16,8 +16,9 @@ Its job is to rebuild repo-specific architecture truth from the target repo's cu
 2. Read `.dev/PORTABLE-TRANSFER-CHECKLIST.MD`.
 3. Read [references/scan-playbook.md](references/scan-playbook.md).
 4. Read [references/escalation-checklist.md](references/escalation-checklist.md).
-5. Read [references/document-targets.md](references/document-targets.md).
-6. Read [references/output-contract.md](references/output-contract.md) before returning results.
+5. Read [references/delegation-rules.md](references/delegation-rules.md).
+6. Read [references/document-targets.md](references/document-targets.md).
+7. Read [references/output-contract.md](references/output-contract.md) before returning results.
 
 ## Workflow
 
@@ -32,6 +33,7 @@ Use the first pass to:
 - extract confirmed stack and structure facts
 - identify stale copied docs
 - classify complexity before choosing the writing strategy
+- produce the phase-1 output shape from [references/output-contract.md](references/output-contract.md)
 
 ### 2. Build the repo inventory
 
@@ -81,6 +83,7 @@ Only rewrite the parts that describe what this specific repository looks like no
 
 Update only the relevant repo-truth sections called out in [references/document-targets.md](references/document-targets.md).
 Preserve stable framework guidance unless the new repo clearly invalidates it.
+Use [references/delegation-rules.md](references/delegation-rules.md) to decide which files can be updated directly and which should be handed off.
 
 ### 7. Return a migration-quality summary
 
@@ -105,5 +108,6 @@ Report:
 
 - [references/scan-playbook.md](references/scan-playbook.md)
 - [references/escalation-checklist.md](references/escalation-checklist.md)
+- [references/delegation-rules.md](references/delegation-rules.md)
 - [references/document-targets.md](references/document-targets.md)
 - [references/output-contract.md](references/output-contract.md)
