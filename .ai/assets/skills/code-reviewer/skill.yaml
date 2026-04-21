@@ -26,7 +26,7 @@ workflow:
     description: "Separate architecture-level and code-level findings"
 references:
   - ".ai/CODE-REVIEW-INDEX.MD"
-  - ".claude/skills/code-reviewer/CHECKLIST-REFERENCE.MD"
+  - ".ai/assets/skills/code-reviewer/references/checklist-reference.md"
   - ".dev/standards/CODE-REVIEW-CHECKLIST.md"
 examples:
   - ".dev/guides/ai-collaboration-guides/AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md"

@@ -22,7 +22,7 @@
 ### Code Review (Required)
 
 1. Read `.ai/CODE-REVIEW-INDEX.MD`.
-2. Read `.agents/skills/code-reviewer/CHECKLIST-REFERENCE.MD` for current runtime wrapper details.
+2. Read `.ai/assets/skills/code-reviewer/references/checklist-reference.md` for the canonical review quick reference.
 3. Identify file type and read the matching section in `.dev/standards/CODE-REVIEW-CHECKLIST.md`.
 4. Build a checklist comparison table.
 5. Categorize issues (CRITICAL / MUST FIX / SHOULD FIX).
