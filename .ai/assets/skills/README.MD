@@ -26,10 +26,13 @@
 
 - `bdd-gwt-test-designer`
 - `code-reviewer`
+- `command-use-case-implementer`
 - `ddd-ca-hex-architect`
 - `problem-frame-author`
+- `query-use-case-implementer`
 - `repo-structure-sync`
 - `requirement-author`
+- `reactor-implementer`
 - `spec-author`
 - `spec-compliance-validator`
 - `staged-refactor-implementer`
