@@ -34,11 +34,11 @@ workflow:
   - step: 4
     description: "If needed, pass a compact source packet to a stronger model or sub-agent"
 references:
-  - ".agents/skills/repo-structure-sync/references/scan-playbook.md"
-  - ".agents/skills/repo-structure-sync/references/escalation-checklist.md"
-  - ".agents/skills/repo-structure-sync/references/delegation-rules.md"
-  - ".agents/skills/repo-structure-sync/references/document-targets.md"
-  - ".agents/skills/repo-structure-sync/references/output-contract.md"
+  - ".ai/assets/skills/repo-structure-sync/references/scan-playbook.md"
+  - ".ai/assets/skills/repo-structure-sync/references/escalation-checklist.md"
+  - ".ai/assets/skills/repo-structure-sync/references/delegation-rules.md"
+  - ".ai/assets/skills/repo-structure-sync/references/document-targets.md"
+  - ".ai/assets/skills/repo-structure-sync/references/output-contract.md"
 examples:
   - ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
 human_guide: ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
