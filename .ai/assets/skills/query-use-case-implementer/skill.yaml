@@ -33,8 +33,8 @@ references:
   - ".ai/assets/sub-agent-role-prompts/query-sub-agent/sub-agent.yaml"
   - ".dev/standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD"
 examples:
-  - ".dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md"
-human_guide: ".dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md"
+  - ".dev/guides/ai-collaboration-guides/USE-CASE-IMPLEMENTER-SKILL-GUIDE.md"
+human_guide: ".dev/guides/ai-collaboration-guides/USE-CASE-IMPLEMENTER-SKILL-GUIDE.md"
 wrapper_targets:
   - "claude"
   - "codex"

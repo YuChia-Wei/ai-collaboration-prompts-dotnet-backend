@@ -29,8 +29,8 @@
 
 ### 結論
 
-- 如果目的是「作為 repo 內可版本控管的 skill 定義與參考」，目前放在 `.claude/skills/` 是可以接受的。
-- 如果目的是「讓 Codex 在本機環境直接把它當成內建可用 skill」，則 repo 內的 `.claude/skills/` 不等於 Codex runtime skill 安裝位置。
+- repo 內可版本控管且跨 agent 可共用的 skill 真相，應放在 `.ai/assets/skills/`
+- `.agents/skills/` 與 `.claude/skills/` 都只是 runtime wrapper，不應再承擔 canonical skill 定義
 
 ### 目前建議
 
@@ -92,8 +92,8 @@
 
 ## 目前 repo 的建議決策
 
-1. 保留 `.claude/skills/` 作為 Claude runtime skill wrapper 位置
-2. 將 `.ai/assets/` 作為 canonical source 位置
+1. 將 `.ai/assets/skills/` 作為 canonical skill registry 與 spec 位置
+2. 保留 `.claude/skills/` 作為 Claude runtime skill wrapper 位置
 3. `.agents/skills/` 作為目前主要 runtime skill wrapper layer
 4. delegated worker roles 收斂於 `.ai/assets/sub-agent-role-prompts/`
 5. 將「Codex 直接可用」視為 wrapper + 本機設定問題，不是 canonical source 位置問題

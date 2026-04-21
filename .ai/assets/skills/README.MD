@@ -42,6 +42,8 @@
 
 - `.ai/assets/skills/README.MD`
   - 完整 skill registry
+- `.dev/guides/ai-collaboration-guides/README.MD`
+  - human-facing skill guides
 - `.agents/skills/README.md`
   - current runtime wrapper index
 - `.claude/skills/README.md`

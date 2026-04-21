@@ -15,8 +15,10 @@
   - 給 agent 重用的 prompts、rules、scripts
 - `.dev/guides/ai-collaboration-guides/`
   - 給人看的 AI collaboration guides、skill guide、prompt guide、workflow guide
-- `.claude/skills/`
-  - repo-local skill definitions 與 skill-local references
+- `.ai/assets/skills/`
+  - canonical skill registry 與 skill specs
+- `.agents/skills/` / `.claude/skills/`
+  - repo-local runtime wrappers
 - `.dev/workflows/`
   - 多 skill / subagent handoff artifacts
 
@@ -54,7 +56,8 @@
 
 - `.ai/` 應作為跨 agent 可重用資產
 - `.dev/guides/ai-collaboration-guides/` 應作為 human-facing canonical guide
-- `.claude/skills/` 應作為 repo-local agent-specific skill definition
+- `.ai/assets/skills/` 應作為 top-level skill 的 canonical source
+- `.agents/skills/` 與 `.claude/skills/` 應作為 repo-local runtime wrappers
 
 若要讓某 skill 成為 Codex 本機可直接使用的 runtime skill，應視為本機安裝/同步問題，而不是將 `.ai/` 或 `.dev/` 改成 runtime 路徑。
 
