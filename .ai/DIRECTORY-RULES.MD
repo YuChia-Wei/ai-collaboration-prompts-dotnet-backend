@@ -54,7 +54,7 @@
 | 內容類型 | 放置位置 | 範例 |
 |---------|---------|------|
 | 編碼標準 | `.dev/standards/coding-standards/` | Repository 限制規則 |
-| agent-facing canonical skill / sub-agent / prompt materials | `.ai/` | `assets/skills/ddd-ca-hex-architect/skill.yaml`, `assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`, `prompts/shared/common-rules.md` |
+| agent-facing canonical skill / sub-agent / prompt materials | `.ai/` | `assets/skills/ddd-ca-hex-architect/skill.yaml`, `assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`, `assets/shared/common-rules.md` |
 | runtime skill wrapper | `.agents/skills/` / `.claude/skills/` | `ddd-ca-hex-architect/SKILL.md` |
 | human-facing AI guide | `.dev/guides/ai-collaboration-guides/` | `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` |
 | 專案架構決策記錄 | `.dev/adr/` | 歷史決策紀錄（如仍保留） |

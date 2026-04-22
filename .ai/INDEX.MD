@@ -17,14 +17,14 @@
 
 - `assets/`
   - canonical source root for portable AI assets
-- `prompts/`
-  - prompt 資產根目錄
-- `prompts/PROMPT-PORTABILITY-RULES.md`
-  - prompt 可移植性規則
-- `prompts/shared/`
-  - shared prompt fragments / reusable rules
-- `prompts/examples/`
-  - prompt examples
+- `assets/shared/`
+  - shared rules / prompt fragments / reusable supporting materials
+- `assets/sub-agent-role-prompts/`
+  - delegated sub-agent role prompt canonical assets
+- `assets/skills/`
+  - canonical skill registry and skill specs
+- `assets/templates/`
+  - canonical templates for skills / prompts / commands
 
 ## Script Assets
 

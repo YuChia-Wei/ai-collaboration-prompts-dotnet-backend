@@ -44,9 +44,7 @@
 ## 子目錄
 
 - `assets/`
-  - portable canonical source for skills、commands、shared packages
-- `prompts/`
-  - reusable prompt building blocks、sub-agent prompts、shared prompt rules
+  - portable canonical source for skills、sub-agent role prompts、shared packages、templates
 - `scripts/`
   - validation / review / generation scripts
 
@@ -57,6 +55,7 @@
 - `.ai/` 應作為跨 agent 可重用資產
 - `.dev/guides/ai-collaboration-guides/` 應作為 human-facing canonical guide
 - `.ai/assets/skills/` 應作為 top-level skill 的 canonical source
+- `.ai/assets/sub-agent-role-prompts/` 應作為 delegated sub-agent role 的 canonical source
 - `.agents/skills/` 與 `.claude/skills/` 應作為 repo-local runtime wrappers
 
 若要讓某 skill 成為 Codex 本機可直接使用的 runtime skill，應視為本機安裝/同步問題，而不是將 `.ai/` 或 `.dev/` 改成 runtime 路徑。

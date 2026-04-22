@@ -51,6 +51,7 @@
 - `skills/` 是 top-level runtime capability 的 canonical source
 - `sub-agent-role-prompts/` 是 delegated worker-role 的 canonical source
 - `shared/` 與 `sub-agent-role-prompts/*/references/` 承接 reusable supporting materials
-- `.agents/skills/`、`.claude/skills/`、`.gemini/commands/`、`.github/prompts/` 若存在，應視為 wrapper / compatibility layer，而不是 canonical source
+- `.agents/skills/`、`.claude/skills/` 若存在，應視為 wrapper / compatibility layer，而不是 canonical source
+- 其他 agent-specific 目錄若存在，應只保留工具限定資料，不應承擔 skill / prompt canonical source
 
 

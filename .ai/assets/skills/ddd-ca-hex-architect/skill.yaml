@@ -42,14 +42,8 @@ human_guide: ".dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUI
 wrapper_targets:
   - "claude"
   - "codex"
-  - "gemini"
-  - "copilot"
 wrapper_metadata:
   claude:
     wrapper_path: ".claude/skills/ddd-ca-hex-architect/"
   codex:
     runtime_wrapper_path: ".agents/skills/ddd-ca-hex-architect/"
-  gemini:
-    wrapper_path: ".gemini/commands/ddd-ca-hex-architect.md"
-  copilot:
-    wrapper_path: ".github/prompts/ddd-ca-hex-architect.md"

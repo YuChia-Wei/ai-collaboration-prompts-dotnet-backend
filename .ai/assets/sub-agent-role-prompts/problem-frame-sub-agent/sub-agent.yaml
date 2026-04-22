@@ -31,11 +31,3 @@ references:
   - ".ai/assets/skills/problem-frame-author/references/output-contract.md"
   - ".dev/problem-frames/README.MD"
 human_guide: ".ai/SUB-AGENT-SYSTEM.MD"
-wrapper_targets:
-  - "gemini"
-  - "copilot"
-wrapper_metadata:
-  gemini:
-    wrapper_path: ".gemini/commands/problem-frame-sub-agent.md"
-  copilot:
-    wrapper_path: ".github/prompts/problem-frame-sub-agent.md"
