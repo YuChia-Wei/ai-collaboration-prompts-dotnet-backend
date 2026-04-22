@@ -132,6 +132,4 @@ When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as th
 | `.dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md` | Human-facing guide for deriving a first problem frame from requirement/spec/code |
 | `.dev/guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the refactor implementation skill |
 | `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the tactical refactor skill |
-| `.gemini/commands/README.md` | Gemini wrapper command 入口 |
-| `.github/prompts/README.md` | GitHub Copilot wrapper prompt 入口 |
 | `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |

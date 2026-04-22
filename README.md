@@ -154,12 +154,11 @@ dotnet distributed architecture lab 是一個採用 .NET 10、容器化技術和
   - GitHub Copilot: `.github/copilot-instructions.md`
   - Codex: `agents.md`
 - AI Agent CLI Extension Commands
-  - Codex / current agent runtime：`.agents/skills/`
-  - Gemini CLI：`.gemini/commands/`
-  - GitHub Copilot：`.github/prompts/`
+  - Codex / Gemini CLI / GitHub Copilot：`.agents/skills/`
 - Portable AI Asset Canonical Source
   - `.ai/assets/`
-- > wrapper 目錄（`.agents/skills/`、`.claude/skills/`、`.gemini/commands/`、`.github/prompts/`）應視為薄包裝入口，真正的單一真相以 `.ai/assets/` 為準
+- Tool-specific 目錄僅保留工具限定資料，例如 `.gemini/settings.json`、`.github/copilot-instructions.md`
+- > wrapper 目錄（`.agents/skills/`、`.claude/skills/`）應視為薄包裝入口，真正的單一真相以 `.ai/assets/` 為準
 
 ### Spec-Driven Development (規格驅動開發)
 
