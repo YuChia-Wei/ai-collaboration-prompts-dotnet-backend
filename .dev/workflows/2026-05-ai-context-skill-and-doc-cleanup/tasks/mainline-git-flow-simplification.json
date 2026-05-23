@@ -1,0 +1,50 @@
+{
+  "task_id": "mainline-git-flow-simplification",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Rewrite TEAM-GIT-FLOW-RULES to the current single-mainline branch model.",
+    "files": [
+      ".dev/TEAM-GIT-FLOW-RULES.MD",
+      ".dev/README.MD",
+      ".dev/INDEX.md"
+    ],
+    "dependency_radius": "Git flow documentation and indexes.",
+    "constraints": [
+      "Use main as the only long-lived trunk.",
+      "Feature or workflow branches branch from main and merge back with no-ff.",
+      "Commit formatting remains owned by .dev/standards/GIT-COMMIT-POLICY.md."
+    ],
+    "non_goals": [
+      "Do not redefine commit title/body policy."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Simple mainline git flow.",
+    "review_findings": [],
+    "user_constraints": [
+      "The current process is a single main trunk and no complex branch routes."
+    ]
+  },
+  "execution": {
+    "operation_type": "git-flow-doc-update",
+    "steps": [
+      "Rewrite TEAM-GIT-FLOW-RULES.",
+      "Update affected indexes if needed.",
+      "Search for conflicting branch-flow guidance."
+    ],
+    "validation": [
+      "Run rg for outdated branch model terms.",
+      "Run git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

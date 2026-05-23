@@ -1,0 +1,50 @@
+{
+  "task_id": "readme-translation-handling",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Apply README translation handling to stable entry files without creating translation sprawl.",
+    "files": [
+      "README.md",
+      ".ai/README.MD",
+      ".dev/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md"
+    ],
+    "dependency_radius": "Entry README files and language policy.",
+    "constraints": [
+      "Agent-facing README files should be English.",
+      "Human-facing entry README may use zh-TW or have zh-TW variant.",
+      "Do not create bilingual variants for every subdirectory README."
+    ],
+    "non_goals": [
+      "No full repository translation."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Bounded README translation strategy.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "readme-translation",
+    "steps": [
+      "Identify stable README entry points.",
+      "Create or normalize bounded zh-TW/English variants where needed.",
+      "Update references if filenames change."
+    ],
+    "validation": [
+      "Check links after adding variants.",
+      "Run git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

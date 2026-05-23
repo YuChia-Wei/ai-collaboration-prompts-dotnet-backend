@@ -1,0 +1,50 @@
+{
+  "task_id": "skill-responsibility-audit",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Audit skill responsibilities for overlap, naming mismatch, unclear routing, and wrapper/spec drift.",
+    "files": [
+      ".ai/assets/skills/",
+      ".agents/skills/",
+      ".claude/skills/",
+      ".dev/guides/ai-collaboration-guides/"
+    ],
+    "dependency_radius": "Skill registry, canonical specs, runtime wrappers, and human-facing skill guides.",
+    "constraints": [
+      "Do not rewrite skills during audit.",
+      "Do not route pure AI documentation cleanup to bdd-gwt-test-designer."
+    ],
+    "non_goals": [
+      "No production code changes.",
+      "No BDD scenario design."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Clear top-level skill responsibilities and routing boundaries.",
+    "review_findings": [],
+    "user_constraints": [
+      "Each skill should have a clear responsibility and avoid unsuitable routing."
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-audit",
+    "steps": [
+      "Inventory skill specs, wrappers, and guides.",
+      "Compare names, descriptions, triggers, constraints, and references.",
+      "Identify overlap, missing skill boundaries, and rename candidates."
+    ],
+    "validation": [
+      "Confirm every registered skill appears in the audit."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

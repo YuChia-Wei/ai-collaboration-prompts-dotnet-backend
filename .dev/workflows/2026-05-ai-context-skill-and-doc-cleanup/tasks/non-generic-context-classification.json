@@ -1,0 +1,48 @@
+{
+  "task_id": "non-generic-context-classification",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Classify .ai and .dev files as universal concept, .NET backend implementation, repo-specific truth, archive, or deferred.",
+    "files": [
+      ".ai/",
+      ".dev/"
+    ],
+    "dependency_radius": "AI assets and project documentation.",
+    "constraints": [
+      "Patterns and conceptual design may be universal.",
+      "Implementation and code-planning details are non-universal or tech-stack-specific."
+    ],
+    "non_goals": [
+      "Do not move files during classification."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Clear file classification before relocation.",
+    "review_findings": [],
+    "user_constraints": [
+      "DDD, CA, Repository, and concept design can be universal.",
+      "Implementation and code-planning material is non-universal."
+    ]
+  },
+  "execution": {
+    "operation_type": "context-classification",
+    "steps": [
+      "Inventory candidate non-generic files.",
+      "Classify files by concept versus implementation boundary.",
+      "Produce relocation recommendations."
+    ],
+    "validation": [
+      "Confirm recommendations cover .ai and .dev hotspots."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

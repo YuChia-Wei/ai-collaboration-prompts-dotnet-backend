@@ -1,0 +1,47 @@
+{
+  "task_id": "skill-boundary-corrections",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Apply low-risk skill boundary corrections identified by the audit.",
+    "files": [
+      ".ai/assets/skills/",
+      ".agents/skills/",
+      ".claude/skills/",
+      ".dev/guides/ai-collaboration-guides/"
+    ],
+    "dependency_radius": "Canonical skill specs, runtime wrappers, human-facing guide indexes.",
+    "constraints": [
+      "Keep wrappers thin.",
+      "Keep BDD scenario design separate from AI context governance."
+    ],
+    "non_goals": [
+      "Do not delete or merge skills unless the audit clearly proves redundancy."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Aligned skill names, triggers, descriptions, and indexes.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "skill-boundary-update",
+    "steps": [
+      "Apply low-risk canonical spec and wrapper wording updates.",
+      "Sync guide indexes if skill routing descriptions change.",
+      "Record deferred high-risk changes."
+    ],
+    "validation": [
+      "Search for stale skill names or conflicting routing text."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
