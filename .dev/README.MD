@@ -1,6 +1,6 @@
-# .NET 專案文檔
+# AI 協作知識與 Context Governance
 
-> 此目錄包含 .NET 專案的技術規範、歷史決策紀錄、經驗教訓與標準。
+> 此目錄包含本 repo 的 human-facing 知識治理、AI context 標準、workflow artifacts、技術規範、歷史決策紀錄與經驗教訓。
 
 ## 📁 目錄結構
 
@@ -9,7 +9,7 @@
 | `adr/` | ADR 治理層（template / index / 建立時機） |
 | `guides/` | 一般 human-facing guides（ai collaboration / design / implementation / learning） |
 | `lessons/` | 經驗教訓與錯誤案例 |
-| `operations/` | 分散式系統 runtime / 維運文件（context map、event catalog、MQ topology、runbook） |
+| `operations/` | runtime / 維運文件與過往專案殘留 truth 的整理位置（context map、event catalog、MQ topology、runbook） |
 | `requirement/` | 技術需求與規格 |
 | `workflows/` | 跨 skill / subagent workflow artifacts（plan / review-report / task） |
 | `specs/` | 詳細規格指南 |
@@ -18,11 +18,12 @@
 
 ## 🚀 Quick Start
 
-1. **架構概覽**: 請先閱讀 [`../ARCHITECTURE.md`](../ARCHITECTURE.md)
-2. **技術選型**: [`requirement/TECH-STACK-REQUIREMENTS.MD`](requirement/TECH-STACK-REQUIREMENTS.MD)
-3. **Code Review**: [`standards/CODE-REVIEW-CHECKLIST.md`](standards/CODE-REVIEW-CHECKLIST.md)
-4. **架構規則入口**: [`standards/README.md`](standards/README.md)
-5. **Application 詞彙邊界**: [`standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD`](standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
+1. **Repo identity**: 請先閱讀 [`../README.md`](../README.md) 或 [`../README.en.md`](../README.en.md)
+2. **AI context boundary**: [`standards/AI-CONTEXT-BOUNDARY.md`](standards/AI-CONTEXT-BOUNDARY.md)
+3. **Language policy**: [`standards/AI-CONTEXT-LANGUAGE-POLICY.md`](standards/AI-CONTEXT-LANGUAGE-POLICY.md)
+4. **Workflow gate**: [`standards/WORKFLOW-GATE-POLICY.md`](standards/WORKFLOW-GATE-POLICY.md)
+5. **Git commit policy**: [`standards/GIT-COMMIT-POLICY.md`](standards/GIT-COMMIT-POLICY.md)
+6. **Repo init skill guide**: [`guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`](guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md)
 
 ## 🔗 相關資源
 
@@ -39,7 +40,7 @@
 - Canonical Skill Registry: `.ai/assets/skills/README.MD`
 - Agents Runtime Wrappers: `.agents/skills/README.md`
 - Claude Runtime Wrappers: `.claude/skills/README.md`
-- 專案入口: `AGENTS.md`
+- 專案入口: `agents.md`
 
 ## 📌 內容定位
 
@@ -50,9 +51,9 @@
 
 ### `.dev/` 內部常見協作文件
 
-- `.dev/requirement/`: functional / non-functional requirement docs
-- `.dev/specs/`: function specs 與行為規格
-- `.dev/operations/`: distributed runtime truth 與維運文件
+- `.dev/requirement/`: requirement docs 與過往 project-specific requirement truth 的整理位置
+- `.dev/specs/`: spec organization、function specs 與行為規格
+- `.dev/operations/`: runtime truth、維運文件與過往 project-specific operations truth 的整理位置
 - `.dev/workflows/`: 多 skill / subagent handoff 所需的 `plan`、`review-report`、`task`
 
 當工作涉及多 skill 接力、subagent 分工或 staged refactoring 時，優先從這四類文件建立共同上下文。

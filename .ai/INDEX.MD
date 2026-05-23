@@ -10,8 +10,8 @@
   - `.ai/` 與 `.dev/` 的放置規則
 - `SUB-AGENT-SYSTEM.MD`
   - sub-agent 系統、routing、artifact 讀寫規則
-- `CODE-REVIEW-INDEX.MD`
-  - code review workflow 入口
+- `assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
+  - .NET backend code review workflow 入口
 
 ## Prompt Assets
 
