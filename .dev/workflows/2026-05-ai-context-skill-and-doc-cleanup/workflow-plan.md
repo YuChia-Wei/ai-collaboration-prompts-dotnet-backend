@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-05-ai-context-skill-and-doc-cleanup`
 - `owner_skill`: `ai-context-governance`
-- `status`: `active`
+- `status`: `completed`
 
 ## Context
 
@@ -125,10 +125,20 @@
 ## Notes
 
 - Open questions:
-  - None at workflow start. Ambiguous classification decisions should be documented in audit artifacts or deferred if they need user direction.
+  - None remaining.
 - Dependencies:
   - `.dev/standards/AI-CONTEXT-BOUNDARY.md`
   - `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md`
   - `.dev/standards/GIT-COMMIT-POLICY.md`
   - `.dev/standards/WORKFLOW-GATE-POLICY.md`
   - `.ai/assets/skills/ai-context-governance/skill.yaml`
+
+## Completion Summary
+
+- Audited current skill responsibilities and found no rename, merge, or deletion required.
+- Clarified routing between `ai-context-governance`, `bdd-gwt-test-designer`, and downstream test generation sub-agents.
+- Classified `.ai` and `.dev` context by universal concept, .NET backend implementation, repo-specific truth, runtime wrapper, and deferred-review categories.
+- Moved low-risk .NET backend AI reference files from `.ai/` root into `.ai/assets/tech-stacks/dotnet-backend/references/`.
+- Added `README.en.md` as a bounded English root README variant and linked it from the zh-TW root README.
+- Rewrote `.dev/TEAM-GIT-FLOW-RULES.MD` for the current single-mainline `main` flow with no-ff merge guidance.
+- Validated task JSON files, stale moved paths, obsolete branch-flow terms, and whitespace checks.
