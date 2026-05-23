@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Define commit title, body, issue-number syntax, and autonomous commit timing.",
     "files": [
@@ -41,9 +41,17 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Added git commit policy with issue-number title syntax, no-issue fallback syntax, body format, and workflow commit timing rules.",
+    "files_changed": [
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".dev/standards/README.md",
+      ".dev/README.MD",
+      "agents.md",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/git-commit-policy.json"
+    ],
+    "tests_run": [
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

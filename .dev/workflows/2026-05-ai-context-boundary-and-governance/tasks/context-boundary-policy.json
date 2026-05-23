@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Define universal, tech-stack-specific, and repo-specific AI context placement rules.",
     "files": [
@@ -42,9 +42,17 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Added AI context boundary policy and linked it from standards, .dev README, and .ai directory rules.",
+    "files_changed": [
+      ".dev/standards/AI-CONTEXT-BOUNDARY.md",
+      ".dev/standards/README.md",
+      ".dev/README.MD",
+      ".ai/DIRECTORY-RULES.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/context-boundary-policy.json"
+    ],
+    "tests_run": [
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

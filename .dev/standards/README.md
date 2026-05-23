@@ -8,8 +8,16 @@ Use WolverineFx for CQRS/MQ/Event Sourcing, EF Core for ORM, xUnit + BDDfy (Gher
 
 - `ASPNET-CORE-CONFIGURATION-CHECKLIST.md`
   - ASP.NET Core configuration checklist
+- `AI-CONTEXT-BOUNDARY.md`
+  - AI context ownership and folder placement policy
+- `AI-CONTEXT-LANGUAGE-POLICY.md`
+  - language policy for agent-facing and human-facing context
 - `CODE-REVIEW-CHECKLIST.md`
   - code review checklist 與審查準則
+- `GIT-COMMIT-POLICY.md`
+  - commit title, body, and timing policy for agent-assisted work
+- `WORKFLOW-GATE-POLICY.md`
+  - rules for when agents should create workflow artifacts
 - `anti-patterns.md`
   - 反模式與禁止事項
 - `best-practices.md`
@@ -34,6 +42,7 @@ Operational guides、setup walkthroughs、FAQ、troubleshooting 文件已移到 
 - anti-pattern / best-practice
 - project structure single source of truth
 - 需要長期穩定引用的標準入口
+- AI context governance, commit policy, and workflow gate policy
 
 ## Do Not Put Here
 

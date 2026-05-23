@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Define when agents must create workflow artifacts proactively.",
     "files": [
@@ -40,9 +40,18 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Added workflow gate policy and linked it from agents.md, workflow README, standards README, and .dev README.",
+    "files_changed": [
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/README.md",
+      ".dev/README.MD",
+      ".dev/workflows/README.MD",
+      "agents.md",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/workflow-gate-policy.json"
+    ],
+    "tests_run": [
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

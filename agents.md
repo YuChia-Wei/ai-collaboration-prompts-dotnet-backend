@@ -47,6 +47,19 @@ Workflow artifact location:
 - Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json`
 - Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary feature folders unless the user explicitly requests it.
 
+### Workflow Gate (Required)
+
+1. Read `.dev/standards/WORKFLOW-GATE-POLICY.md` when work may affect source-of-truth, AI context, skill routing, or more than one stage.
+2. Create workflow artifacts proactively when the gate requires workflow mode.
+3. Keep small, local, single-pass changes in direct mode.
+
+### Git Commit Policy (Required When Committing)
+
+1. Follow `.dev/standards/GIT-COMMIT-POLICY.md`.
+2. Use `<type>(#<issue-number>|<scope>): <summary>` when an issue number exists.
+3. Use `<type>(<scope>): <summary>` when no issue number exists.
+4. For workflow-stage commits, include `Why`, `What`, `Validation`, and `Workflow` body sections.
+
 ### Repo Structure Sync (When framework files are copied to another repo)
 
 1. Keep framework-level guides, standards, scripts, and collaboration rules.

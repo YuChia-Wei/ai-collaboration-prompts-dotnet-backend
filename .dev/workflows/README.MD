@@ -46,7 +46,8 @@
 ## 使用原則
 
 - 小任務或單一 skill 任務，不強制建立本目錄內容
-- 只有進入 optional workflow mode 時，才建立對應 workflow 資料夾
+- 進入 workflow mode 時，建立對應 workflow 資料夾
+- workflow mode 的判斷以 `.dev/standards/WORKFLOW-GATE-POLICY.md` 為準
 - 若同一 workflow 有多輪 review，可在 `review-report.md` 中追加輪次，或由使用者明確決定是否拆新 workflow
 
 ## Workflow 觸發條件
@@ -59,6 +60,9 @@
 - 需要保存 document refactor 的 decision trail
 - 需要整理 source-of-truth，而不是只做單次修改
 - 需要在多輪作業中追蹤哪些內容已完成、哪些刻意延後
+- 會影響未來 agent 行為、AI context 邊界、skill routing、或 runtime wrapper 結構
+
+詳細 gate 規則見 `.dev/standards/WORKFLOW-GATE-POLICY.md`。
 
 反之，若只是：
 

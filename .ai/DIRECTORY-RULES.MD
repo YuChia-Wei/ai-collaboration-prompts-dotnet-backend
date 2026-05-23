@@ -1,5 +1,10 @@
 # 📁 Directory Rules - 目錄使用規則（.NET）
 
+Canonical policy:
+
+- `.dev/standards/AI-CONTEXT-BOUNDARY.md`
+- `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md`
+
 ## 🚨 重要原則：`.ai/` vs `.dev/` vs runtime wrappers
 
 ### `.ai/` 目錄 - 通用 AI Coding 框架

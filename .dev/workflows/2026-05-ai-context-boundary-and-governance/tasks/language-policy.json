@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Define English, Traditional Chinese Taiwan, and bilingual documentation rules.",
     "files": [
@@ -46,9 +46,17 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Added AI context language policy with English defaults for agent-facing context and zh-TW allowance for human-facing project truth.",
+    "files_changed": [
+      ".dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md",
+      ".dev/standards/README.md",
+      ".dev/README.MD",
+      ".ai/DIRECTORY-RULES.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/language-policy.json"
+    ],
+    "tests_run": [
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }
