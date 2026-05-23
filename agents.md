@@ -13,7 +13,7 @@
 2. Use `.dev/ARCHITECTURE.MD`, `.dev/standards/`, and `.dev/guides/` as the canonical source of architecture and collaboration rules.
 3. For reusable AI-specific prompts, use `.ai/` folder.
 4. For top-level skills, use `.ai/assets/skills/README.MD` as the canonical skill registry.
-5. When preparing this framework for reuse in another repo, follow `.dev/PORTABLE-PACKAGING-GUIDE.MD`.
+5. When preparing this framework for reuse in another repo, run `repo-structure-sync` and follow its migration boundary reference.
 
 ---
 
@@ -47,13 +47,13 @@ Workflow artifact location:
 - Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json`
 - Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary feature folders unless the user explicitly requests it.
 
-### Portable Packaging (When framework files are copied to another repo)
+### Repo Structure Sync (When framework files are copied to another repo)
 
 1. Keep framework-level guides, standards, scripts, and collaboration rules.
 2. Remove or rewrite project-specific requirement, spec, operations, workflow, and legacy decision history.
 3. Rebuild `.dev/requirement/`, `.dev/specs/`, `.dev/operations/`, and any project-specific decision history from the target project's facts.
 4. Run `repo-structure-sync` to scan the target repo structure and refresh repo-specific architecture sections in `agents.md`, `.dev/`, and necessary `.ai/` entry docs.
-5. Treat `.dev/PORTABLE-PACKAGING-GUIDE.MD` as the authoritative migration boundary.
+5. Treat `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` as the authoritative migration boundary.
 
 ---
 
@@ -88,7 +88,7 @@ When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as th
 | `.ai/CODE-REVIEW-INDEX.MD` | Code Review 索引 |
 | `.ai/SUB-AGENT-SYSTEM.MD` | Sub-agent 系統說明 |
 | `.ai/BUILDING-BLOCKS-CLASS-INDEX.MD` | 共用介面索引 |
-| `.ai/assets/` | Portable canonical AI assets |
+| `.ai/assets/` | Canonical reusable AI assets |
 | `.ai/scripts/` | .NET code generation scripts |
 
 ### Project Knowledge (`.dev/`)

@@ -9,7 +9,7 @@
 - 掃描新 repo 的 git 結構與 .NET project structure
 - 盤點 solution、`*.csproj`、shared libraries、test projects、deploy folders
 - 把複製過去後已過時的 `.dev/`、`.ai/`、`agents.md` 架構區塊改成新 repo 版本
-- 區分哪些內容應保留為 portable collaboration rules，哪些必須改寫成新專案真相
+- 區分哪些內容應保留為 reusable collaboration rules，哪些必須改寫成新專案真相
 
 ## 這個 Skill 不應該做什麼
 
@@ -162,8 +162,8 @@ Return:
 
 ## 它和其他文件的關係
 
-- 先看 `.dev/PORTABLE-PACKAGING-GUIDE.MD`
-- 再用 `repo-structure-sync` 重建 repo-specific architecture truth
+- `repo-structure-sync` 內建 migration boundary rules，見 `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`
+- 先用這個 skill 重建 repo-specific architecture truth
 - 完成後才進一步使用 `requirement-author`、`spec-author`、`ddd-ca-hex-architect`
 
 ## 怎麼下 Prompt
@@ -189,7 +189,7 @@ Update only the repo-specific architecture sections in:
 - .ai/INDEX.MD
 
 Use actual repo evidence from the git tree, solution files, csproj files, and package references.
-Keep portable collaboration rules unchanged unless the files clearly prove they no longer apply.
+Keep reusable collaboration rules unchanged unless the files clearly prove they no longer apply.
 Return confirmed facts, inferred items, and the docs you updated.
 ```
 
@@ -208,13 +208,13 @@ Do not edit files yet.
 Return a proposed update plan with confirmed vs inferred facts.
 ```
 
-## 範本 3：限制只更新 portable migration 入口文件
+## 範本 3：限制只更新 migration boundary 入口文件
 
 ```text
-Use $repo-structure-sync, but limit changes to the migration entry docs only:
+Use $repo-structure-sync, but limit changes to migration boundary guidance and entry docs only:
 - agents.md
-- .dev/PORTABLE-PACKAGING-GUIDE.MD
-- .dev/PORTABLE-TRANSFER-CHECKLIST.MD
+- .ai/assets/skills/repo-structure-sync/references/migration-boundaries.md
+- .dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md
 
 Add guidance for how future agents should scan the target repo and refresh architecture truth after template installation.
 Do not touch specs or operations docs.

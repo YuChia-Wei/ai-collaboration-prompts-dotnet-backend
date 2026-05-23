@@ -16,7 +16,7 @@
 ## Prompt Assets
 
 - `assets/`
-  - canonical source root for portable AI assets
+  - canonical source root for reusable AI assets
 - `assets/shared/`
   - shared rules / prompt fragments / reusable supporting materials
 - `assets/sub-agent-role-prompts/`

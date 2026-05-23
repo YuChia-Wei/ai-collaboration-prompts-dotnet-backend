@@ -10,8 +10,7 @@
       ".dev/adr/",
       "AGENTS.md",
       ".dev/README.MD",
-      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
-      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD",
+      ".ai/assets/skills/repo-structure-sync/references/migration-boundaries.md",
       ".dev/requirement/TECH-STACK-REQUIREMENTS.MD"
     ],
     "dependency_radius": "Decision archive plus repo-level entry docs that previously referenced ADRs",
@@ -40,7 +39,7 @@
     "operation_type": "archive-retirement",
     "steps": [
       "Deleted .dev/adr/ADR-* decision files",
-      "Rewrote .dev/adr/README.md, INDEX.md, and PORTABILITY-NOTES.MD as retirement/archive notes",
+      "Rewrote .dev/adr/README.md and INDEX.md as retirement/archive notes",
       "Updated AGENTS, .dev entry docs, portable guides, and skill references to use standards/guides/architecture as canonical sources",
       "Removed explicit ADR-number references from remaining canonical docs"
     ],
@@ -60,8 +59,7 @@
       ".dev/adr/",
       "AGENTS.md",
       ".dev/README.MD",
-      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
-      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD",
+      ".ai/assets/skills/repo-structure-sync/references/migration-boundaries.md",
       ".dev/requirement/TECH-STACK-REQUIREMENTS.MD",
       ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/workflow-plan.md",
       ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/legacy-decision-retirement-and-index-cleanup.json"

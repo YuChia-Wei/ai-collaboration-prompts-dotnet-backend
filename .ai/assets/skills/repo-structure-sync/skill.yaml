@@ -35,6 +35,7 @@ workflow:
     description: "If needed, pass a compact source packet to a stronger model or sub-agent"
 references:
   - ".ai/assets/skills/repo-structure-sync/references/scan-playbook.md"
+  - ".ai/assets/skills/repo-structure-sync/references/migration-boundaries.md"
   - ".ai/assets/skills/repo-structure-sync/references/escalation-checklist.md"
   - ".ai/assets/skills/repo-structure-sync/references/delegation-rules.md"
   - ".ai/assets/skills/repo-structure-sync/references/document-targets.md"

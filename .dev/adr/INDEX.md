@@ -9,7 +9,6 @@
 | `README.md` | ADR 治理說明 |
 | `ADR-TEMPLATE.md` | 新 ADR 樣板 |
 | `WHEN-TO-CREATE-ADR.MD` | 何時需要建立 ADR |
-| `PORTABILITY-NOTES.MD` | 可攜移植說明 |
 
 ## Status Rule
 

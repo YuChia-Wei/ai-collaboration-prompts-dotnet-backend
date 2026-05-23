@@ -28,8 +28,7 @@
 
 - Human-facing AI Collaboration Guides: `guides/ai-collaboration-guides/`
 - AI Prompts: `.ai/`
-- Portable Canonical AI Assets: `.ai/assets/`
-- Portable Packaging Guide: `PORTABLE-PACKAGING-GUIDE.MD`
+- Canonical AI Assets: `.ai/assets/`
 - Repo Structure Sync Guide: `guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
 - Team Git Flow Rules: `TEAM-GIT-FLOW-RULES.MD`
 - Canonical Skill Registry: `.ai/assets/skills/README.MD`
@@ -53,8 +52,8 @@
 
 當工作涉及多 skill 接力、subagent 分工或 staged refactoring 時，優先從這四類文件建立共同上下文。
 
-## Portable 使用原則
+## Template Sync 使用原則
 
 - `.dev/` 可作為新專案的知識治理骨架直接複製
 - 但 `.dev/requirement/`、`.dev/specs/`、`.dev/operations/` 與任何 project-specific 歷史決策紀錄通常屬於專案真相，不應原封不動沿用
-- 移植規則與保留/重寫邊界見 `PORTABLE-PACKAGING-GUIDE.MD`
+- 移植規則與保留/重寫邊界由 `repo-structure-sync` skill 的 `migration-boundaries.md` 維護

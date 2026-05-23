@@ -10,8 +10,7 @@
       ".dev/adr/",
       "AGENTS.md",
       ".dev/README.MD",
-      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
-      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD"
+      ".ai/assets/skills/repo-structure-sync/references/migration-boundaries.md"
     ],
     "dependency_radius": "Repo-level governance and portable packaging docs",
     "constraints": [
@@ -45,7 +44,7 @@
     "validation": [
       ".dev/adr/ contains governance assets",
       "Canonical rule docs still live outside .dev/adr/",
-      "Portable packaging docs describe the keep-vs-rebuild boundary correctly"
+      "Repo structure sync migration boundary docs describe the keep-vs-rebuild boundary correctly"
     ],
     "deferred_items": [
       "Optionally add an ADR example file later if the repo wants a filled sample",
@@ -57,13 +56,11 @@
     "files_changed": [
       ".dev/adr/README.md",
       ".dev/adr/INDEX.md",
-      ".dev/adr/PORTABILITY-NOTES.MD",
       ".dev/adr/ADR-TEMPLATE.md",
       ".dev/adr/WHEN-TO-CREATE-ADR.MD",
       "AGENTS.md",
       ".dev/README.MD",
-      ".dev/PORTABLE-PACKAGING-GUIDE.MD",
-      ".dev/PORTABLE-TRANSFER-CHECKLIST.MD",
+      ".ai/assets/skills/repo-structure-sync/references/migration-boundaries.md",
       ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/tasks/portable-baseline-finalization.json"
     ],
     "tests_run": [],

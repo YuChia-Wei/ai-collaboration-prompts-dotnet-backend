@@ -109,7 +109,7 @@ dotnet distributed architecture lab 是一個採用 .NET 10、容器化技術和
 | ./.codex                        | codex cli 的資源                                                                               |
 | ./.gemini                       | gemini cli 的資源                                                                              |
 | ./.github                       | github & github copilot 的資源                                                                 |
-| ./.ai/assets                    | portable canonical AI assets（skills / commands / shared packages）                           |
+| ./.ai/assets                    | canonical reusable AI assets（skills / commands / shared packages）                           |
 | ./.specify                      | spec-kit 的語法腳本及 prompt 範本                                                                   |
 | ./.specify/kit-command-prompts  | spec-kit 在各種 ai agents cli 中所使用的自訂 prompt 的備份文件，包含中譯檔案，用於研究 spec-kit 的運作邏輯                  |
 | ./.specify/memory               | spec-kit 的規範文件 (constitution)                                                               |
@@ -155,7 +155,7 @@ dotnet distributed architecture lab 是一個採用 .NET 10、容器化技術和
   - Codex: `agents.md`
 - AI Agent CLI Extension Commands
   - Codex / Gemini CLI / GitHub Copilot：`.agents/skills/`
-- Portable AI Asset Canonical Source
+- AI Asset Canonical Source
   - `.ai/assets/`
 - Tool-specific 目錄僅保留工具限定資料，例如 `.gemini/settings.json`、`.github/copilot-instructions.md`
 - > wrapper 目錄（`.agents/skills/`、`.claude/skills/`）應視為薄包裝入口，真正的單一真相以 `.ai/assets/` 為準

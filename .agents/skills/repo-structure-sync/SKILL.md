@@ -14,6 +14,7 @@ This is a thin current-runtime wrapper.
 - Human Guide: `.dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
 - References:
   - `.ai/assets/skills/repo-structure-sync/references/scan-playbook.md`
+  - `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`
   - `.ai/assets/skills/repo-structure-sync/references/escalation-checklist.md`
   - `.ai/assets/skills/repo-structure-sync/references/delegation-rules.md`
   - `.ai/assets/skills/repo-structure-sync/references/document-targets.md`

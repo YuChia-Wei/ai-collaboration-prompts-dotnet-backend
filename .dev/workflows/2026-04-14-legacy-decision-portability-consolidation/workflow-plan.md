@@ -211,7 +211,7 @@ If one source record contains both a hard rule and a tutorial:
   - no retired source record remains the only discoverable source of an active rule
 - Tests/validation expectations:
   - link/reference sanity check across updated docs
-  - portability review against `.dev/PORTABLE-PACKAGING-GUIDE.MD`
+  - migration boundary review against `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`
   - terminology review to remove stale non-.NET-first wording where .NET canonical docs already exist
 
 ## Suggested Task Breakdown
@@ -248,7 +248,7 @@ If one source record contains both a hard rule and a tutorial:
   - whether `.dev/standards/prompts/` should remain as a human-facing prompt catalog or be reduced after `.ai/assets/` becomes the stronger canonical prompt source
   - whether some low-value historical decision records should be deleted immediately instead of being migrated
 - Dependencies:
-  - `.dev/PORTABLE-PACKAGING-GUIDE.MD`
+  - `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`
   - `.dev/adr/README.md`
   - `.dev/adr/INDEX.md`
   - `.ai/DIRECTORY-RULES.MD`
