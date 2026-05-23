@@ -20,6 +20,8 @@
 
 - `workflow mode` 不只適用於程式碼重構，也適用於文件補全、文件重構、與 source-of-truth 校準
 - 若程式碼問題本質上來自文件缺口，應先進 document workflow，再決定是否展開 code workflow
+- AI context、prompt 邊界、skill routing、wrapper sync、README language policy 這類文件治理工作，使用 `ai-context-governance`
+- `bdd-gwt-test-designer` 只負責測試意圖、Given-When-Then scenario 與 assertion plan，不負責 AI context cleanup 或 test code generation
 
 ## 主要文件入口
 

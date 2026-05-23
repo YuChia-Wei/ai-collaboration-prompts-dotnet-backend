@@ -8,7 +8,8 @@
   - 先做 Given-When-Then 測試設計
   - 拆 scenarios、assertion points、coverage gaps
 - 既有 test generation sub-agents
-  - 把 scenario 設計轉成 xUnit + BDDfy 測試碼
+  - 在 BDD 設計完成後，作為 downstream handoff，把 scenario 設計轉成 xUnit + BDDfy 測試碼
+  - 不屬於 `bdd-gwt-test-designer` 自身責任
 - `code-reviewer`
   - 檢查測試是否符合規範、coverage 是否足夠
 - `ddd-ca-hex-architect`
@@ -27,6 +28,8 @@
 - 路徑依測試目標選擇 `aggregate/`、`use-cases/`、`integration/`、`cross-domain/`、`e2e/`
 
 ### 2. 再生成測試程式碼
+
+這一步不是 `bdd-gwt-test-designer` 的責任。只有在 scenarios、assertion points、coverage gaps 已經明確後，才交給 delegated test generation sub-agent workflow。
 
 依測試類型交給 delegated sub-agent workflow：
 
@@ -73,5 +76,6 @@ architect 覆核後，再回到 `bdd-gwt-test-designer` 繼續拆 scenario。
 
 - 不要跳過 scenario design 就直接大批生成測試
 - 不要讓 `bdd-gwt-test-designer` 直接充當 test code generator
+- 不要把 downstream test generation sub-agent 的責任寫回 `bdd-gwt-test-designer`
 - 不要讓 test generation workflow 自行發明缺失的 acceptance criteria
 - 不要把 architecture ambiguity 當成測試設計問題硬解

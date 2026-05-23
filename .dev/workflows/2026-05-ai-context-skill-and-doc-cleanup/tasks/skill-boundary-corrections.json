@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Apply low-risk skill boundary corrections identified by the audit.",
     "files": [
@@ -39,9 +39,17 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Applied low-risk skill routing corrections by centralizing ai-context-governance routing and clarifying that BDD test generation is downstream from bdd-gwt-test-designer scenario design.",
+    "files_changed": [
+      ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/skill-boundary-corrections.json"
+    ],
+    "tests_run": [
+      "rg -n \"ai-context-governance|bdd-gwt-test-designer|test generation\" .dev/guides/ai-collaboration-guides",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }
