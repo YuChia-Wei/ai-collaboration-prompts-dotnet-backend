@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Move or archive low-risk non-generic files based on classification results.",
     "files": [
@@ -38,9 +38,23 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Moved low-risk .NET backend-specific .ai top-level references into .ai/assets/tech-stacks/dotnet-backend/references and updated entry indexes and internal links.",
+    "files_changed": [
+      ".ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/COMMON-PITFALLS.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/FAILURE-CASES.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/README.MD",
+      ".ai/INDEX.MD",
+      "agents.md",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/non-generic-context-relocation.json"
+    ],
+    "tests_run": [
+      "rg old .ai top-level reference names",
+      "rg stale ../.dev links in moved references",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

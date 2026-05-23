@@ -1,7 +1,7 @@
 # Building Blocks 類別索引（概念層）
 
 這是 .NET 版 Building Blocks 的**概念設計**類別索引，描述完整架構的目標類別。
-實際專案中已實作的類別請參考 [`.dev/BUILDING-BLOCKS-CLASS-INDEX.MD`](../.dev/BUILDING-BLOCKS-CLASS-INDEX.MD)。
+實際專案中已實作的類別請參考 [`.dev/BUILDING-BLOCKS-CLASS-INDEX.MD`](../../../../../.dev/BUILDING-BLOCKS-CLASS-INDEX.MD)。
 
 > [!NOTE]
 > 以下 namespace 為設計目標命名，實際套件完成後請更新。

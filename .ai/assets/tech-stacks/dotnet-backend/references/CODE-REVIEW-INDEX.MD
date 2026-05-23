@@ -25,14 +25,14 @@
 
 | 檔案模式 | 檢查清單位置 | 檢查重點 | 優先級 |
 |---------|------------|---------|--------|
-| `src/Domain/**/Aggregates/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Aggregate（先做 type-first 判定）** | 1. 先判定 `EsAggregateRoot` 或 `AggregateRoot`<br>2. ES 才檢查 Apply/When<br>3. non-ES 檢查 invariant 與事件一致性 | **CRITICAL** |
-| `src/Application/**/UseCases/Commands/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler** | 1. CQRS 分離<br>2. Command 是否只操作 write model<br>3. Result/CqrsOutput 處理是否明確 | HIGH |
-| `src/Application/**/UseCases/Queries/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler / Projection** | 1. Query 是否無副作用<br>2. Projection 使用正確 | HIGH |
-| `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. write side 是否符合 `IDomainRepository<TEntity, TId>`<br>2. domain wrapper 是否僅薄封裝<br>3. query 方法是否從 domain repository 移除 | HIGH |
-| `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller 是否足夠薄<br>2. DTO 是否獨立檔案<br>3. HTTP status 正確 | MEDIUM |
-| `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper 是否為 static/sealed？<br>2. 一個 DTO 對一個 Mapper<br>3. Outbox toDomain 是否處理有/無 events 兩種情況 | **HIGH** |
-| `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>＋ [Outbox README](../.dev/standards/examples/outbox/README.md) | 1. 是否實作 `IOutboxData<TId>`<br>2. Domain events 欄位是否標記為 NotMapped<br>3. EF Core key/column naming 是否正確 | MEDIUM |
-| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD 規範 / UseCase 測試** | 1. xUnit + BDDfy（Gherkin 風格命名）<br>2. 不使用 BaseTestClass<br>3. NSubstitute 使用 | HIGH |
+| `src/Domain/**/Aggregates/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Aggregate（先做 type-first 判定）** | 1. 先判定 `EsAggregateRoot` 或 `AggregateRoot`<br>2. ES 才檢查 Apply/When<br>3. non-ES 檢查 invariant 與事件一致性 | **CRITICAL** |
+| `src/Application/**/UseCases/Commands/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler** | 1. CQRS 分離<br>2. Command 是否只操作 write model<br>3. Result/CqrsOutput 處理是否明確 | HIGH |
+| `src/Application/**/UseCases/Queries/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler / Projection** | 1. Query 是否無副作用<br>2. Projection 使用正確 | HIGH |
+| `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. write side 是否符合 `IDomainRepository<TEntity, TId>`<br>2. domain wrapper 是否僅薄封裝<br>3. query 方法是否從 domain repository 移除 | HIGH |
+| `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller 是否足夠薄<br>2. DTO 是否獨立檔案<br>3. HTTP status 正確 | MEDIUM |
+| `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper 是否為 static/sealed？<br>2. 一個 DTO 對一個 Mapper<br>3. Outbox toDomain 是否處理有/無 events 兩種情況 | **HIGH** |
+| `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>＋ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. 是否實作 `IOutboxData<TId>`<br>2. Domain events 欄位是否標記為 NotMapped<br>3. EF Core key/column naming 是否正確 | MEDIUM |
+| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD 規範 / UseCase 測試** | 1. xUnit + BDDfy（Gherkin 風格命名）<br>2. 不使用 BaseTestClass<br>3. NSubstitute 使用 | HIGH |
 
 ---
 
@@ -102,10 +102,10 @@ public static Plan ToDomain(PlanData data)
 
 ### 📚 相關文件
 
-- **完整檢查清單**: [CODE-REVIEW-CHECKLIST.md](../.dev/standards/CODE-REVIEW-CHECKLIST.md)
-- **Aggregate 規範**: [aggregate-standards.md](../.dev/standards/coding-standards/aggregate-standards.md)
-- **Mapper 規範**: [mapper-standards.md](../.dev/standards/coding-standards/mapper-standards.md)
-- **Outbox 範例**: [examples/outbox/README.md](../.dev/standards/examples/outbox/README.md)
+- **完整檢查清單**: [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)
+- **Aggregate 規範**: [aggregate-standards.md](../../../../../.dev/standards/coding-standards/aggregate-standards.md)
+- **Mapper 規範**: [mapper-standards.md](../../../../../.dev/standards/coding-standards/mapper-standards.md)
+- **Outbox 範例**: [examples/outbox/README.md](../../../../../.dev/standards/examples/outbox/README.md)
 
 ---
 
