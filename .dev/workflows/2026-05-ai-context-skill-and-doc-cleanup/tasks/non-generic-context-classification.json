@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Classify .ai and .dev files as universal concept, .NET backend implementation, repo-specific truth, archive, or deferred.",
     "files": [
@@ -40,9 +40,17 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Classified .ai and .dev documentation into universal concept, dotnet-backend implementation, repo-specific truth, runtime-wrapper, and deferred-review classes. Identified low-risk .ai top-level files for later relocation and deferred high-risk scripts/sub-agent system moves.",
+    "files_changed": [
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/non-generic-context-classification.md",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/non-generic-context-classification.json"
+    ],
+    "tests_run": [
+      "Listed .ai top-level files",
+      "Listed .dev/standards files",
+      "Listed .dev guide files",
+      "Reviewed selected .ai/assets/shared and dotnet-backend shared files"
+    ],
     "follow_up_needed": false
   }
 }
