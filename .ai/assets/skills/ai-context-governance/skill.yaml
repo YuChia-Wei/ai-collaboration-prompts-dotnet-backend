@@ -1,0 +1,58 @@
+asset_id: "ai-context-governance"
+asset_type: "skill-spec"
+title: "AI Context Governance"
+purpose: "Govern AI collaboration context boundaries, documentation language policy, skill routing, runtime wrapper sync, and AI context migration without performing product feature implementation or BDD scenario design."
+portability: "portable"
+audience: "agent-facing"
+source_of_truth: "canonical"
+triggers:
+  - "AI context governance"
+  - "context cleanup"
+  - "prompt boundary"
+  - "skill routing cleanup"
+  - "documentation governance"
+  - "language policy"
+  - "wrapper sync"
+inputs:
+  - "AI context files under .ai, .agents, .claude, and .dev"
+  - "workflow plan or task JSON for context cleanup"
+  - "desired universal versus tech-stack-specific boundary"
+  - "language and audience constraints"
+outputs:
+  - "context classification"
+  - "boundary policy updates"
+  - "language policy updates"
+  - "skill routing and wrapper sync updates"
+  - "migration plan or completed context move batch"
+constraints:
+  - "Do not use this skill for BDD scenario design"
+  - "Do not use this skill for production code implementation"
+  - "Do not redesign domain architecture unless asked to coordinate with an architecture skill"
+  - "Keep runtime wrappers thin and point them to canonical specs"
+  - "Prefer folder placement over per-file metadata for context classification"
+workflow:
+  - step: 1
+    description: "Classify context by audience, scope, language, and action"
+  - step: 2
+    description: "Check context placement against boundary and language policies"
+  - step: 3
+    description: "Plan or execute the smallest safe policy, routing, wrapper, or move batch"
+  - step: 4
+    description: "Update indexes and task results, then validate references"
+references:
+  - ".ai/assets/skills/ai-context-governance/references/context-boundary-playbook.md"
+  - ".ai/assets/skills/ai-context-governance/references/language-policy-playbook.md"
+  - ".ai/assets/skills/ai-context-governance/references/workflow-and-commit-playbook.md"
+  - ".ai/assets/skills/ai-context-governance/references/output-contract.md"
+examples:
+  - ".dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md"
+human_guide: ".dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md"
+wrapper_targets:
+  - "claude"
+  - "codex"
+wrapper_metadata:
+  claude:
+    wrapper_path: ".claude/skills/ai-context-governance/"
+  codex:
+    wrapper_path: ".agents/skills/ai-context-governance/"
+status: "active"

@@ -27,10 +27,15 @@
 ## 🔗 相關資源
 
 - Human-facing AI Collaboration Guides: `guides/ai-collaboration-guides/`
+- AI Context Governance Skill Guide: `guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
 - AI Prompts: `.ai/`
 - Canonical AI Assets: `.ai/assets/`
 - Repo Structure Sync Guide: `guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
 - Team Git Flow Rules: `TEAM-GIT-FLOW-RULES.MD`
+- AI Context Boundary: `standards/AI-CONTEXT-BOUNDARY.md`
+- AI Context Language Policy: `standards/AI-CONTEXT-LANGUAGE-POLICY.md`
+- Git Commit Policy: `standards/GIT-COMMIT-POLICY.md`
+- Workflow Gate Policy: `standards/WORKFLOW-GATE-POLICY.md`
 - Canonical Skill Registry: `.ai/assets/skills/README.MD`
 - Agents Runtime Wrappers: `.agents/skills/README.md`
 - Claude Runtime Wrappers: `.claude/skills/README.md`

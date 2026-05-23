@@ -1,0 +1,62 @@
+{
+  "task_id": "language-policy",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Define English, Traditional Chinese Taiwan, and bilingual documentation rules.",
+    "files": [
+      ".dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md",
+      ".dev/README.MD",
+      ".ai/README.MD",
+      "agents.md"
+    ],
+    "dependency_radius": "Documentation language and audience policy.",
+    "constraints": [
+      "Agent-facing execution context should be English.",
+      "Human-facing requirement and guide text may use Traditional Chinese Taiwan wording.",
+      "Bilingual files are reserved for entry points."
+    ],
+    "non_goals": [
+      "Do not translate every existing document."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Low-token agent context and maintainable human-readable docs.",
+    "review_findings": [],
+    "user_constraints": [
+      ".ai, .agents, .claude, .dev/specs, .dev/standards, and index files should be English by default.",
+      ".dev/requirement may use Traditional Chinese Taiwan wording.",
+      "README and AGENTS entry files may have bilingual variants."
+    ]
+  },
+  "execution": {
+    "operation_type": "policy-definition",
+    "steps": [
+      "Add language policy.",
+      "Define when bilingual variants are allowed.",
+      "Avoid requiring translations for every file."
+    ],
+    "validation": [
+      "Check that policy resolves .dev/specs path naming correctly."
+    ],
+    "deferred_items": [
+      "Translation migration is a future workflow unless explicitly requested."
+    ]
+  },
+  "results": {
+    "summary": "Added AI context language policy with English defaults for agent-facing context and zh-TW allowance for human-facing project truth.",
+    "files_changed": [
+      ".dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md",
+      ".dev/standards/README.md",
+      ".dev/README.MD",
+      ".ai/DIRECTORY-RULES.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/language-policy.json"
+    ],
+    "tests_run": [
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

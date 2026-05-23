@@ -1,67 +1,72 @@
 # .ai
 
-本目錄放置 agent-facing 的可重用 AI 資產，不是 human-facing guide 入口，也不是 skill runtime 安裝位置。
+This directory contains agent-facing reusable AI assets. It is not the human-facing guide entry point and not the runtime installation location for a specific agent tool.
 
-## 目錄角色
+## Role
 
 - reusable prompts
 - shared rules
-- automation / validation scripts
-- sub-agent workflow reference
+- automation and validation scripts
+- sub-agent workflow references
 
-## 與其他目錄的分工
+## Directory Boundaries
 
 - `.ai/`
-  - 給 agent 重用的 prompts、rules、scripts
+  - reusable prompts, rules, scripts, and canonical AI assets for agents
 - `.dev/guides/ai-collaboration-guides/`
-  - 給人看的 AI collaboration guides、skill guide、prompt guide、workflow guide
+  - human-facing AI collaboration guides, skill guides, prompt guides, and workflow guides
 - `.ai/assets/skills/`
-  - canonical skill registry 與 skill specs
-- `.agents/skills/` / `.claude/skills/`
+  - canonical skill registry and skill specs
+- `.ai/assets/tech-stacks/`
+  - tech-stack-specific reusable AI context
+- `.agents/skills/` and `.claude/skills/`
   - repo-local runtime wrappers
 - `.dev/workflows/`
-  - 多 skill / subagent handoff artifacts
+  - cross-skill or sub-agent handoff artifacts
 
-## Template Sync 使用原則
+## Template Sync Rules
 
-- `.ai/` 應作為可直接複製到其他 repo 的 agent-facing baseline
-- 內容應優先保持 framework-level、agent-reusable、repo-agnostic
-- 若某檔案開始描述當前專案的 source of truth，應回放到 `.dev/`
-- 模板移植到新 repo 後，應優先使用 `repo-structure-sync` 來刷新 `agents.md`、`.dev/` 與必要的 `.ai/` 架構入口描述，而不是把 repo truth 直接堆進 `.ai/`
-- 更完整的移植邊界見 `assets/skills/repo-structure-sync/references/migration-boundaries.md`
+- Keep `.ai/` agent-facing and reusable.
+- Prefer framework-level and repo-agnostic context under `.ai/assets/shared/`.
+- Put stack-specific reusable context under `.ai/assets/tech-stacks/<profile>/`.
+- Move project-specific source of truth back to `.dev/`.
+- After copying this template into a target repo, use `repo-structure-sync` to refresh `agents.md`, `.dev/`, and needed `.ai/` entry docs from target repo facts.
+- See `assets/skills/repo-structure-sync/references/migration-boundaries.md` for migration boundaries.
 
-## 核心文件
+## Core Files
 
 - `INDEX.MD`
-  - `.ai/` 索引入口
+  - `.ai/` navigation entry
 - `SUB-AGENT-SYSTEM.MD`
-  - sub-agent 系統與 routing 規則
+  - sub-agent system and routing rules
 - `CODE-REVIEW-INDEX.MD`
-  - code review 入口
+  - code review entry
 - `DIRECTORY-RULES.MD`
-  - `.ai/` 與 `.dev/` 的放置規則
+  - `.ai` and `.dev` placement rules
 
-## 子目錄
+## Subdirectories
 
 - `assets/`
-  - canonical source for skills、sub-agent role prompts、shared packages、templates
+  - canonical source for skills, sub-agent role prompts, shared packages, tech-stack profiles, and templates
 - `scripts/`
-  - validation / review / generation scripts
+  - validation, review, and generation scripts
 
-## 多 Agent 情境下的 skill 收納
+## Multi-Agent Skill Storage
 
-若同時使用 Codex、Gemini、GitHub Copilot：
+When using Codex, Gemini, GitHub Copilot, or Claude-compatible wrappers:
 
-- `.ai/` 應作為跨 agent 可重用資產
-- `.dev/guides/ai-collaboration-guides/` 應作為 human-facing canonical guide
-- `.ai/assets/skills/` 應作為 top-level skill 的 canonical source
-- `.ai/assets/sub-agent-role-prompts/` 應作為 delegated sub-agent role 的 canonical source
-- `.agents/skills/` 與 `.claude/skills/` 應作為 repo-local runtime wrappers
+- `.ai/` is the cross-agent reusable asset root.
+- `.dev/guides/ai-collaboration-guides/` is the human-facing guide root.
+- `.ai/assets/skills/` is the canonical source for top-level skills.
+- `.ai/assets/sub-agent-role-prompts/` is the canonical source for delegated worker roles.
+- `.agents/skills/` and `.claude/skills/` are repo-local runtime wrappers.
 
-若要讓某 skill 成為 Codex 本機可直接使用的 runtime skill，應視為本機安裝/同步問題，而不是將 `.ai/` 或 `.dev/` 改成 runtime 路徑。
+Making a skill directly available to a local runtime is a runtime installation or wrapper sync task. Do not turn `.ai/` or `.dev/` into runtime-specific directories.
 
-更完整的收納策略見：
+See also:
 
 - `../.dev/guides/ai-collaboration-guides/AI-ASSET-LOCATION-STRATEGY.md`
+- `../.dev/standards/AI-CONTEXT-BOUNDARY.md`
+- `../.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md`
 
 

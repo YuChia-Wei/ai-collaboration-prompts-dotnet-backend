@@ -1,0 +1,69 @@
+{
+  "task_id": "dotnet-backend-context-extraction",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Create .NET backend-only AI context folders and move or reference backend-specific materials.",
+    "files": [
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".ai/assets/README.MD",
+      ".ai/INDEX.MD"
+    ],
+    "dependency_radius": "AI asset structure and tech-stack-specific prompt ownership.",
+    "constraints": [
+      "Exclude Razor, Blazor, MAUI, and other .NET frontend frameworks.",
+      "Move gradually and preserve canonical links."
+    ],
+    "non_goals": [
+      "Do not create mono-system or full-stack template folders."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Folder-based separation between universal and .NET backend-only AI context.",
+    "review_findings": [],
+    "user_constraints": [
+      "Prefer folder classification for file management."
+    ]
+  },
+  "execution": {
+    "operation_type": "context-restructure",
+    "steps": [
+      "Create tech-stack folder structure.",
+      "Add README or index for dotnet-backend scope.",
+      "Move only low-risk backend-specific supporting materials or add migration notes when moving is risky."
+    ],
+    "validation": [
+      "Search for stale paths after moves.",
+      "Confirm universal shared folders do not describe .NET backend-only rules."
+    ],
+    "deferred_items": [
+      "Large prompt moves may be split into a follow-up workflow if links are too broad."
+    ]
+  },
+  "results": {
+    "summary": "Created .ai/assets/tech-stacks/dotnet-backend and moved low-risk .NET backend-specific shared materials out of universal shared context.",
+    "files_changed": [
+      ".ai/assets/tech-stacks/README.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/README.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/code-review-checklist.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/domain-rules.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/dto-conventions.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/testing-standards.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md",
+      ".ai/assets/README.MD",
+      ".ai/assets/shared/README.MD",
+      ".ai/INDEX.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/context-classification.md",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/dotnet-backend-context-extraction.json"
+    ],
+    "tests_run": [
+      "rg old shared file paths before move",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

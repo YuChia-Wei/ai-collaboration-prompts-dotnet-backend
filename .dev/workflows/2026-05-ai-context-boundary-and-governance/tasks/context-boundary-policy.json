@@ -1,0 +1,58 @@
+{
+  "task_id": "context-boundary-policy",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Define universal, tech-stack-specific, and repo-specific AI context placement rules.",
+    "files": [
+      ".dev/standards/AI-CONTEXT-BOUNDARY.md",
+      ".ai/DIRECTORY-RULES.MD",
+      ".dev/README.MD",
+      "agents.md"
+    ],
+    "dependency_radius": "Documentation ownership and AI context routing.",
+    "constraints": [
+      "Folder placement is the primary classification mechanism.",
+      "Metadata is reserved for machine-readable canonical assets."
+    ],
+    "non_goals": [
+      "Do not redesign production architecture.",
+      "Do not create a full-stack template in this workflow."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Clear context ownership boundaries.",
+    "review_findings": [],
+    "user_constraints": [
+      "Current specialized context is .NET backend only and excludes .NET frontend frameworks."
+    ]
+  },
+  "execution": {
+    "operation_type": "policy-definition",
+    "steps": [
+      "Add context boundary policy.",
+      "Update entry documents to point to the policy.",
+      "Document universal, dotnet-backend, and repo-specific placement rules."
+    ],
+    "validation": [
+      "Search for conflicting placement guidance."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Added AI context boundary policy and linked it from standards, .dev README, and .ai directory rules.",
+    "files_changed": [
+      ".dev/standards/AI-CONTEXT-BOUNDARY.md",
+      ".dev/standards/README.md",
+      ".dev/README.MD",
+      ".ai/DIRECTORY-RULES.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/context-boundary-policy.json"
+    ],
+    "tests_run": [
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

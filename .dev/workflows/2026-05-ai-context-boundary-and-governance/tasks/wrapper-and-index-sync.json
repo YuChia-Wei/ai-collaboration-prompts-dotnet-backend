@@ -1,0 +1,60 @@
+{
+  "task_id": "wrapper-and-index-sync",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Sync registries, wrappers, README files, indexes, and agents.md after policy and skill changes.",
+    "files": [
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".ai/INDEX.MD",
+      ".dev/README.MD",
+      "agents.md"
+    ],
+    "dependency_radius": "Navigation and runtime wrapper consistency.",
+    "constraints": [
+      "Wrappers must stay thin.",
+      "Do not duplicate canonical rule bodies into indexes."
+    ],
+    "non_goals": [
+      "Do not rewrite unrelated guides."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Consistent navigation after context governance changes.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "index-sync",
+    "steps": [
+      "Update skill registries.",
+      "Update wrapper indexes.",
+      "Update top-level navigation docs.",
+      "Search for stale references."
+    ],
+    "validation": [
+      "Run reference searches for new skill and policy paths.",
+      "Run git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Synced AI and wrapper entry indexes after adding ai-context-governance and dotnet-backend tech-stack context.",
+    "files_changed": [
+      ".ai/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".dev/README.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/wrapper-and-index-sync.json"
+    ],
+    "tests_run": [
+      "rg -n \"ai-context-governance|tech-stacks/dotnet-backend|AI-CONTEXT-GOVERNANCE\"",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

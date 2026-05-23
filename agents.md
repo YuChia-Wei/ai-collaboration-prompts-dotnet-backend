@@ -47,6 +47,19 @@ Workflow artifact location:
 - Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json`
 - Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary feature folders unless the user explicitly requests it.
 
+### Workflow Gate (Required)
+
+1. Read `.dev/standards/WORKFLOW-GATE-POLICY.md` when work may affect source-of-truth, AI context, skill routing, or more than one stage.
+2. Create workflow artifacts proactively when the gate requires workflow mode.
+3. Keep small, local, single-pass changes in direct mode.
+
+### Git Commit Policy (Required When Committing)
+
+1. Follow `.dev/standards/GIT-COMMIT-POLICY.md`.
+2. Use `<type>(#<issue-number>|<scope>): <summary>` when an issue number exists.
+3. Use `<type>(<scope>): <summary>` when no issue number exists.
+4. For workflow-stage commits, include `Why`, `What`, `Validation`, and `Workflow` body sections.
+
 ### Repo Structure Sync (When framework files are copied to another repo)
 
 1. Keep framework-level guides, standards, scripts, and collaboration rules.
@@ -74,6 +87,7 @@ Workflow artifact location:
 - Human-facing skill guides: `.dev/guides/ai-collaboration-guides/README.MD`
 
 When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as the source of truth.
+Use `ai-context-governance` for AI context cleanup, prompt boundary, language policy, skill routing, and wrapper sync work. Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
 ---
 
@@ -124,6 +138,7 @@ When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as th
 | Path | Description |
 | :--- | :--- |
 | `.dev/guides/ai-collaboration-guides/README.MD` | AI collaboration guides 入口 |
+| `.dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the AI context governance skill |
 | `.dev/guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Repo wrapper 與本機 runtime 的使用說明 |
 | `.dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the architect skill |
 | `.dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the BDD GWT test designer skill |
