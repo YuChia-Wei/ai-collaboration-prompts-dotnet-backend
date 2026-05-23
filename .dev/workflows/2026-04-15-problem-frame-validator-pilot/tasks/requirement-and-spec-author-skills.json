@@ -1,0 +1,72 @@
+{
+  "task_id": "requirement-and-spec-author-skills",
+  "owner_skill": "staged-refactor-implementer",
+  "related_plan_id": "workflow-plan-2026-04-15-problem-frame-validator-pilot",
+  "related_review_report_id": "review-report-2026-04-15-problem-frame-validator-pilot",
+  "status": "completed",
+  "scope": {
+    "target": "Promote requirement and spec authoring from prompt-guide-only to formal skill support",
+    "files": [
+      ".ai/assets/skills/requirement-author/skill.yaml",
+      ".ai/assets/skills/spec-author/skill.yaml",
+      ".claude/skills/requirement-author/SKILL.md",
+      ".claude/skills/spec-author/SKILL.md",
+      ".agents/skills/requirement-author/SKILL.md",
+      ".agents/skills/spec-author/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md"
+    ],
+    "dependency_radius": "Skill assets, wrapper skills, and guide/index updates",
+    "constraints": [
+      "Reuse existing requirement and spec guides as the human-facing truth",
+      "Keep the skills focused on authoring, not architecture redesign or implementation",
+      "Avoid introducing a second conflicting schema"
+    ],
+    "non_goals": [
+      "No code generation",
+      "No runtime wrapper metadata beyond current repo conventions"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Create a full documentation-authoring skill chain from requirement through problem frame",
+    "review_findings": [
+      "Requirement and spec authoring had guides but no formal top-level skills",
+      "The user wants those transitions to be toolable and reusable across projects"
+    ],
+    "user_constraints": [
+      "Add the skills now rather than leaving them as guide-only",
+      "Clarify how the problem-frame skill and sub-agent should be used"
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-formalization",
+    "steps": [
+      "Create requirement-author skill assets and wrappers",
+      "Create spec-author skill assets and wrappers",
+      "Update indexes and strategy docs to match the new formal skill status"
+    ],
+    "validation": [
+      "The new skills point to the existing guide truth",
+      "The new skills have clear boundaries and handoff rules",
+      "Repo indexes list the skills as active"
+    ],
+    "deferred_items": [
+      "Possible future sub-agent prompts for requirement and spec authoring",
+      "Forward-testing these skills on imported real project documents"
+    ]
+  },
+  "results": {
+    "summary": "Added formal requirement-author and spec-author skills, aligned them with existing guides, and updated repo indexes and strategy docs.",
+    "files_changed": [
+      ".ai/assets/skills/requirement-author/skill.yaml",
+      ".ai/assets/skills/spec-author/skill.yaml",
+      ".claude/skills/requirement-author/SKILL.md",
+      ".claude/skills/spec-author/SKILL.md",
+      ".agents/skills/requirement-author/SKILL.md",
+      ".agents/skills/spec-author/SKILL.md"
+    ],
+    "tests_run": [
+      "Structural verification by file presence and index alignment"
+    ],
+    "follow_up_needed": true
+  }
+}

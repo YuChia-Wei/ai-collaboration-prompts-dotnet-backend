@@ -1,0 +1,81 @@
+{
+  "task_id": "problem-frame-authoring-baseline",
+  "owner_skill": "staged-refactor-implementer",
+  "related_plan_id": "workflow-plan-2026-04-15-problem-frame-validator-pilot",
+  "related_review_report_id": "review-report-2026-04-15-problem-frame-validator-pilot",
+  "status": "completed",
+  "scope": {
+    "target": "Add a human-facing authoring guide plus reusable skill and sub-agent assets for first-pass problem-frame drafting",
+    "files": [
+      ".dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md",
+      ".ai/assets/skills/problem-frame-author/skill.yaml",
+      ".ai/assets/skills/problem-frame-author/references/authoring-playbook.md",
+      ".ai/assets/skills/problem-frame-author/references/source-mapping.md",
+      ".ai/assets/skills/problem-frame-author/references/output-contract.md",
+      ".ai/assets/sub-agent-role-prompts/problem-frame-sub-agent/sub-agent.yaml",
+      ".ai/assets/sub-agent-role-prompts/problem-frame-sub-agent/references/authoring-playbook.md",
+      ".claude/skills/problem-frame-author/SKILL.md",
+      ".claude/skills/problem-frame-author/references/authoring-playbook.md",
+      ".claude/skills/problem-frame-author/references/source-mapping.md",
+      ".claude/skills/problem-frame-author/references/output-contract.md",
+      ".agents/skills/problem-frame-author/SKILL.md",
+      ".agents/skills/problem-frame-author/references/authoring-playbook.md",
+      ".agents/skills/problem-frame-author/references/source-mapping.md",
+      ".agents/skills/problem-frame-author/references/output-contract.md"
+    ],
+    "dependency_radius": "AI collaboration guides, skill assets, and problem-frame sub-agent prompt definitions",
+    "constraints": [
+      "Keep the skill focused on drafting, not compliance claims",
+      "Make the guide useful both from documents and reverse-engineering from code",
+      "Follow existing asset and wrapper structure"
+    ],
+    "non_goals": [
+      "No automatic code generation",
+      "No claim that the new skill is already battle-tested in downstream projects"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Make problem-frame authoring repeatable enough that the validator can be adopted in real projects",
+    "review_findings": [
+      "The pilot added validator-ready examples but still needed an authoring path",
+      "The user wants a reusable skill or sub-agent prompt that can work from requirement/spec or code"
+    ],
+    "user_constraints": [
+      "Prefer assets that can later be imported into a current project",
+      "Keep the work aligned with the existing workflow"
+    ]
+  },
+  "execution": {
+    "operation_type": "problem-frame-authoring-baseline",
+    "steps": [
+      "Add a human-facing authoring guide",
+      "Add a portable problem-frame-author skill asset",
+      "Add a canonical problem-frame-sub-agent prompt asset",
+      "Add top-level wrapper skill definitions under .claude and .agents",
+      "Update repo indexes so the new assets are discoverable"
+    ],
+    "validation": [
+      "The guide explains how to derive a first problem frame from requirements/specs or code",
+      "The skill and sub-agent assets clearly stop before claiming spec compliance",
+      "The new assets align with the existing repository structure"
+    ],
+    "deferred_items": [
+      "Runtime-specific wrappers under other agent folders if future adoption requires them",
+      "Forward-testing the new skill on real downstream project documents"
+    ]
+  },
+  "results": {
+    "summary": "Added a first-pass problem-frame authoring guide, a reusable problem-frame-author skill asset, and a canonical problem-frame-sub-agent prompt so teams can draft validator-ready inputs from requirements/specs or code.",
+    "files_changed": [
+      ".dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md",
+      ".ai/assets/skills/problem-frame-author/skill.yaml",
+      ".ai/assets/sub-agent-role-prompts/problem-frame-sub-agent/sub-agent.yaml",
+      ".claude/skills/problem-frame-author/SKILL.md",
+      ".agents/skills/problem-frame-author/SKILL.md"
+    ],
+    "tests_run": [
+      "Structural verification by file presence and index updates"
+    ],
+    "follow_up_needed": true
+  }
+}

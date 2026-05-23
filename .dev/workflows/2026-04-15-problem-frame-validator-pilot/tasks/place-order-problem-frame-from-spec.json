@@ -1,0 +1,74 @@
+{
+  "task_id": "place-order-problem-frame-from-spec",
+  "owner_skill": "problem-frame-author",
+  "related_plan_id": "workflow-plan-2026-04-15-problem-frame-validator-pilot",
+  "related_review_report_id": "review-report-2026-04-15-problem-frame-validator-pilot",
+  "status": "completed",
+  "scope": {
+    "target": "Draft a first-pass place-order problem frame from existing requirement and spec documents",
+    "files": [
+      ".dev/requirement/distributed-commerce-bounded-context-overview.md",
+      ".dev/specs/domains/order/usecase/place-order.json",
+      ".dev/specs/domains/order/entity/order-spec.md",
+      ".dev/specs/tests/order/use-cases/place-order.test-spec.md",
+      ".dev/specs/tests/order/integration/order-placement-and-lifecycle-messaging.test-spec.md",
+      ".dev/problem-frames/orders/cbf/place-order/frame.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/machine/machine.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/machine/use-case.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/controlled-domain/aggregate.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/acceptance.yaml"
+    ],
+    "dependency_radius": "Requirement/spec/test-spec files plus new problem-frame artifacts",
+    "constraints": [
+      "Use only repository-local requirement/spec truth as the primary source",
+      "Mark deferred runtime concerns instead of inventing retry semantics",
+      "Keep the first-pass frame validator-ready and MQ-first aware"
+    ],
+    "non_goals": [
+      "No production code generation",
+      "No claim of full runtime retry or duplicate-handling specification"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Demonstrate that existing repository requirement/spec files can seed first-pass problem frames",
+    "review_findings": [
+      "PlaceOrder already has both use-case spec and integration-aware test specs",
+      "Orders and Inventory collaboration is MQ-first and suitable for a CBF example"
+    ],
+    "user_constraints": [
+      "Continue work from the current git state",
+      "Use existing requirement/spec files to produce a real problem-frame draft"
+    ]
+  },
+  "execution": {
+    "operation_type": "problem-frame-drafting-from-existing-spec",
+    "steps": [
+      "Extract the use case contract and collaboration rules from requirement/spec/test-spec files",
+      "Map those findings into frame.yaml, machine.yaml, use-case.yaml, aggregate.yaml, and acceptance.yaml",
+      "Preserve deferred runtime concerns as explicit gaps rather than invented behavior"
+    ],
+    "validation": [
+      "The draft references existing requirement/spec truth",
+      "The draft captures inventory reservation as a prerequisite for order placement",
+      "The draft keeps MQ-only collaboration visible"
+    ],
+    "deferred_items": [
+      "Retry, duplicate publication, and eventual-consistency timing details",
+      "Future contract-level tests for collaboration failure variants"
+    ]
+  },
+  "results": {
+    "summary": "Added a first-pass CBF problem frame for Orders.PlaceOrder based on existing requirement, use-case spec, aggregate spec, and test spec files.",
+    "files_changed": [
+      ".dev/problem-frames/orders/cbf/place-order/frame.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/machine/machine.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/machine/use-case.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/controlled-domain/aggregate.yaml",
+      ".dev/problem-frames/orders/cbf/place-order/acceptance.yaml"
+    ],
+    "tests_run": [
+      "Source-truth inspection against requirement/spec/test-spec documents"
+    ],
+    "follow_up_needed": true
+  }
+}
