@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Create .NET backend-only AI context folders and move or reference backend-specific materials.",
     "files": [
@@ -43,9 +43,27 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Created .ai/assets/tech-stacks/dotnet-backend and moved low-risk .NET backend-specific shared materials out of universal shared context.",
+    "files_changed": [
+      ".ai/assets/tech-stacks/README.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/README.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/code-review-checklist.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/domain-rules.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/dto-conventions.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/testing-standards.md",
+      ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md",
+      ".ai/assets/README.MD",
+      ".ai/assets/shared/README.MD",
+      ".ai/INDEX.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/context-classification.md",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/dotnet-backend-context-extraction.json"
+    ],
+    "tests_run": [
+      "rg old shared file paths before move",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

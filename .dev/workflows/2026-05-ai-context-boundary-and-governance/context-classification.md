@@ -20,7 +20,8 @@ This inventory classifies current documentation and AI context by audience, scop
 | `.ai/DIRECTORY-RULES.MD` | agent | universal | en | rewrite | Current rules are mostly zh-TW and mix `.NET` assumptions with general placement rules. |
 | `.ai/assets/README.MD` | agent | universal | en | rewrite | Should describe canonical assets and new tech-stack folders. |
 | `.ai/assets/CANONICAL-SCHEMA.MD` | agent | universal | en | keep | Machine-readable asset schema direction is broadly reusable. |
-| `.ai/assets/shared/` | agent | mixed | en | split | Contains reusable rules plus .NET backend-specific rules such as architecture, DTO, testing, and domain rules. |
+| `.ai/assets/shared/` | agent | universal | en | keep | Universal shared rules only after moving .NET backend-specific files to `tech-stacks/dotnet-backend`. |
+| `.ai/assets/tech-stacks/dotnet-backend/` | agent | dotnet-backend | en | keep | New home for .NET backend-only reusable AI context. |
 | `.ai/assets/skills/` | agent | mixed | en | split | Skill specs are reusable as structure, but several skills are .NET backend-specific by purpose. |
 | `.ai/assets/sub-agent-role-prompts/` | agent | mixed | en | split | Command/query/reactor/aggregate roles are .NET backend-specific; generic role rules can remain shared. |
 | `.ai/assets/sub-agent-role-prompts/frontend-sub-agent/` | agent | out-of-scope | en | defer | Frontend role exists but is not part of the .NET backend-only profile; decide later whether it belongs in a separate full-stack template. |
@@ -42,7 +43,7 @@ This inventory classifies current documentation and AI context by audience, scop
 
 ## Duplication and Boundary Hotspots
 
-- `.ai/assets/shared/architecture-config.md`, `domain-rules.md`, `dto-conventions.md`, `testing-standards.md`, and `testing-strategy.md` appear reusable in shape but .NET backend-specific in content.
+- `.ai/assets/tech-stacks/dotnet-backend/shared/` now owns .NET backend-specific shared rules that were previously under `.ai/assets/shared/`.
 - `.ai/assets/skills/ddd-ca-hex-architect`, command/query/reactor implementers, and spec compliance validator are strongly tied to the current .NET backend architecture.
 - `.ai/assets/sub-agent-role-prompts/frontend-sub-agent` is a real capability but does not fit the declared .NET backend-only profile.
 - `.dev/standards/` currently mixes human explanatory material, executable review standards, examples, and backend-specific rules.
@@ -52,6 +53,6 @@ This inventory classifies current documentation and AI context by audience, scop
 
 1. Define durable boundary and language policy before moving files.
 2. Add dedicated `ai-context-governance` skill so AI documentation cleanup is not routed through BDD or code implementation skills.
-3. Create `.ai/assets/tech-stacks/dotnet-backend/` for backend-only agent context.
-4. Move low-risk backend-specific supporting materials first; defer high-link-count moves until indexes are stable.
+3. Keep using `.ai/assets/tech-stacks/dotnet-backend/` for backend-only agent context.
+4. Move additional low-risk backend-specific supporting materials in small batches; defer high-link-count moves until indexes are stable.
 5. Keep bilingual variants limited to entry files to avoid translation sprawl.

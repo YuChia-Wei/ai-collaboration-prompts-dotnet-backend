@@ -15,6 +15,7 @@
   skills/
   sub-agent-role-prompts/
   shared/
+  tech-stacks/
   templates/
 ```
 
@@ -25,7 +26,9 @@
 - `sub-agent-role-prompts/`
   - canonical delegated worker-role definitions
 - `shared/`
-  - shared rules、contracts、templates、prompt packages、supporting materials
+  - universal shared rules、contracts、templates、prompt packages、supporting materials
+- `tech-stacks/`
+  - stack-specific reusable AI context, such as `.NET backend` rules that are not universal
 - `templates/`
   - canonical spec templates
 
@@ -51,6 +54,7 @@
 - `skills/` 是 top-level runtime capability 的 canonical source
 - `sub-agent-role-prompts/` 是 delegated worker-role 的 canonical source
 - `shared/` 與 `sub-agent-role-prompts/*/references/` 承接 reusable supporting materials
+- `tech-stacks/` 承接特定技術棧可重用但非 universal 的 agent-facing context
 - `.agents/skills/`、`.claude/skills/` 若存在，應視為 wrapper / compatibility layer，而不是 canonical source
 - 其他 agent-specific 目錄若存在，應只保留工具限定資料，不應承擔 skill / prompt canonical source
 

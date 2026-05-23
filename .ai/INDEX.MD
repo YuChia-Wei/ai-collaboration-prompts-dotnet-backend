@@ -18,7 +18,11 @@
 - `assets/`
   - canonical source root for reusable AI assets
 - `assets/shared/`
-  - shared rules / prompt fragments / reusable supporting materials
+  - universal shared rules / prompt fragments / reusable supporting materials
+- `assets/tech-stacks/`
+  - tech-stack-specific reusable AI context
+- `assets/tech-stacks/dotnet-backend/`
+  - .NET backend-only agent context; excludes Razor, Blazor, MAUI, and other .NET frontend frameworks
 - `assets/sub-agent-role-prompts/`
   - delegated sub-agent role prompt canonical assets
 - `assets/skills/`
