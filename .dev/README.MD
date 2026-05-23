@@ -27,6 +27,7 @@
 ## 🔗 相關資源
 
 - Human-facing AI Collaboration Guides: `guides/ai-collaboration-guides/`
+- AI Context Governance Skill Guide: `guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
 - AI Prompts: `.ai/`
 - Canonical AI Assets: `.ai/assets/`
 - Repo Structure Sync Guide: `guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`

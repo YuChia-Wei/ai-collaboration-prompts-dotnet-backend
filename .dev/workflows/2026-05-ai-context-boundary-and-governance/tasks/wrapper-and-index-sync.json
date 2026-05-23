@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Sync registries, wrappers, README files, indexes, and agents.md after policy and skill changes.",
     "files": [
@@ -43,9 +43,18 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Synced AI and wrapper entry indexes after adding ai-context-governance and dotnet-backend tech-stack context.",
+    "files_changed": [
+      ".ai/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".dev/README.MD",
+      ".dev/workflows/2026-05-ai-context-boundary-and-governance/tasks/wrapper-and-index-sync.json"
+    ],
+    "tests_run": [
+      "rg -n \"ai-context-governance|tech-stacks/dotnet-backend|AI-CONTEXT-GOVERNANCE\"",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }
