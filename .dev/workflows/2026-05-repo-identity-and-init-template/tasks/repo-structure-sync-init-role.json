@@ -1,0 +1,17 @@
+{
+  "id": "repo-structure-sync-init-role",
+  "title": "Promote repo-structure-sync as repo init and template adaptation skill",
+  "status": "pending",
+  "description": "Update the repo-structure-sync skill spec and references so copied AI context frameworks use it as the first skill after being placed in an existing or empty target repository.",
+  "inputs": [
+    ".ai/assets/skills/repo-structure-sync/skill.yaml",
+    ".ai/assets/skills/repo-structure-sync/references/*.md",
+    ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
+  ],
+  "outputs": [
+    ".ai/assets/skills/repo-structure-sync/skill.yaml",
+    ".ai/assets/skills/repo-structure-sync/references/*.md",
+    ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
+  ],
+  "validation": []
+}

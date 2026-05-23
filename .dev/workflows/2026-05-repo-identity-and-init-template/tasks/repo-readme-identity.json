@@ -1,0 +1,16 @@
+{
+  "id": "repo-readme-identity",
+  "title": "Rewrite root README files as repository identity documents",
+  "status": "pending",
+  "description": "Replace historical sample-product README content with this repository's AI context, knowledge extraction, and reusable collaboration framework purpose.",
+  "inputs": [
+    "README.md",
+    "README.en.md",
+    "user-stated repository goals"
+  ],
+  "outputs": [
+    "README.md",
+    "README.en.md"
+  ],
+  "validation": []
+}
