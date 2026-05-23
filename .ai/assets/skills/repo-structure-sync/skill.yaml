@@ -1,20 +1,23 @@
 asset_id: "repo-structure-sync"
 asset_type: "skill-spec"
 title: "Repo Structure Sync"
-purpose: "Scan a freshly copied target git repository and refresh repo-specific architecture sections in `.dev/`, `.ai/`, and `agents.md` while keeping framework-level collaboration rules stable."
+purpose: "Initialize a target repository after this AI context framework has been copied in by scanning repository facts and refreshing repo-specific architecture sections in `.dev/`, `.ai/`, and `agents.md` while keeping framework-level collaboration rules stable."
 portability: "portable"
 audience: "agent-facing"
 source_of_truth: "canonical"
 triggers:
+  - "repo init"
+  - "initialize copied AI context"
   - "repo sync"
   - "structure sync"
   - "portable install"
   - "template copy"
 inputs:
-  - "target repository file tree"
+  - "target repository file tree, including empty or near-empty repositories"
   - "solution files and csproj files"
   - "copied template docs that may be stale"
 outputs:
+  - "repo init verdict"
   - "repo inventory"
   - "complexity verdict"
   - "safe direct update targets"
@@ -26,12 +29,14 @@ constraints:
   - "Prefer low-cost inventory first and escalate only when the checklist requires it"
 workflow:
   - step: 1
-    description: "Run a low-cost inventory pass and extract only file-backed facts"
+    description: "Identify target repository mode: empty repo, existing repo, or copied-template repo"
   - step: 2
-    description: "Evaluate P0 and P1 triggers to decide whether escalation is needed"
+    description: "Run a low-cost inventory pass and extract only file-backed facts"
   - step: 3
-    description: "Update only the architecture-facing docs that can be safely synced from confirmed facts"
+    description: "Evaluate P0 and P1 triggers to decide whether escalation is needed"
   - step: 4
+    description: "Update only the architecture-facing docs that can be safely synced from confirmed facts"
+  - step: 5
     description: "If needed, pass a compact source packet to a stronger model or sub-agent"
 references:
   - ".ai/assets/skills/repo-structure-sync/references/scan-playbook.md"
