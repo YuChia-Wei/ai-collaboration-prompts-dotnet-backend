@@ -1,7 +1,7 @@
 {
   "id": "repo-readme-identity",
   "title": "Rewrite root README files as repository identity documents",
-  "status": "pending",
+  "status": "completed",
   "description": "Replace historical sample-product README content with this repository's AI context, knowledge extraction, and reusable collaboration framework purpose.",
   "inputs": [
     "README.md",
@@ -12,5 +12,9 @@
     "README.md",
     "README.en.md"
   ],
-  "validation": []
+  "validation": [
+    "Replaced historical sample-product README content with repository identity content.",
+    "Kept README.md as Traditional Chinese and README.en.md as English.",
+    "Removed root README references to copied product runtime services, endpoints, and package snapshots."
+  ]
 }

@@ -1,126 +1,97 @@
-# Distributed Architecture Lab
+# AI Collaboration Knowledge Base and .NET Backend Context Framework
 
 [繁體中文](README.md)
 
-`dotnet distributed architecture lab` is a sample backend project built with **.NET 10**, **C# 14**, containerization, and modern architecture practices such as **Clean Architecture**, **DDD**, and **CQRS**.
+This repository extracts, organizes, and evolves my software development knowledge together with reusable AI Agent context, skills, sub-agent prompts, and collaboration workflows.
 
-It is meant to show how a distributed system can be organized with DDD, CA, CQRS, and message-driven integration. The repo also demonstrates spec-driven collaboration with AI agents and Spec-Kit.
+It is not a product repository. It is a portable AI collaboration framework. When this context is copied into an existing repository or an empty new repository, run `repo-structure-sync` first as the repo initialization skill so target-repository facts replace template or historical source-project facts.
 
-The current solution centers on two business domains:
+## Goals
 
-- **SaleOrders**
-- **SaleProducts**
+- Extract software development knowledge, including software engineering, system architecture, software architecture, DDD, Clean Architecture, CQRS, testing strategy, and .NET development experience.
+- Maintain AI Agent context, skills, sub-agent prompts, workflow rules, and validation rules.
+- Separate universal knowledge from tech-stack-specific knowledge.
+- Preserve the current non-universal capability set: .NET, C#, backend Web API, and DDD / CA / CQRS / message-driven backend development.
+- Remove or isolate historical source-project facts, converting them to templates or repo-init inputs when useful.
 
-These services communicate asynchronously through **RabbitMQ** or **Kafka**.
+## Context Layers
 
-## Architecture
+### Universal AI Context
 
-- **Clean Architecture** for dependency and responsibility separation
-- **Domain-Driven Design** for core domain modeling
-- **CQRS** for splitting write and read flows
-- **WolverineFx** for command, query, and message handling
-- **PostgreSQL** as the main database
-- **Docker** for runtime and deployment
+Universal context should be reusable across languages, frameworks, and product types. Examples:
 
-## Tech Stack
+- AI collaboration workflows and workflow gates
+- git commit policy
+- skill routing and sub-agent collaboration rules
+- system and software architecture principles
+- conceptual DDD, Clean Architecture, and CQRS guidance
+- requirement, spec, ADR, review, and validation governance
 
-- **Runtime:** .NET 10
-- **Language:** C# 14
-- **Messaging / handlers:** WolverineFx
-- **Database:** PostgreSQL
-- **Broker:** RabbitMQ / Kafka
-- **Containerization:** Docker
+### Non-Universal AI Context
 
-## Package Snapshot
+This repository's current non-universal context is `.NET backend`:
 
-Version numbers below reflect the current `*.csproj` files:
+- C# / .NET backend implementation standards
+- Web API / worker / consumer backend project structure
+- WolverineFx, Dapper, EF Core, PostgreSQL, RabbitMQ, and Kafka experience
+- DDD / CA / CQRS implementation planning and code review rules for .NET backend systems
 
-- `WolverineFx` `5.16.2` with `WolverineFx.Kafka` and `WolverineFx.RabbitMQ`
-- `Dapper` `2.1.66`
-- `Npgsql` `10.0.1`
-- `xunit` `2.9.3`
-- `xunit.runner.visualstudio` `3.1.5`
-- `Microsoft.NET.Test.Sdk` `18.0.1`
+These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be clearly marked as dotnet-backend-specific.
 
-## Run the Project
-
-The project is fully containerized. You only need Docker and Docker Compose on your machine.
-
-1. Choose the message broker in `docker-compose/docker-compose.yml` by setting `QUEUE_SERVICE`:
-   - `Kafka` is the default
-   - change it to `RabbitMQ` to use RabbitMQ instead
-
-2. Start the full stack from the repository root:
-
-   ```bash
-   docker-compose -f ./docker-compose/docker-compose.yml up -d
-   ```
-
-3. The compose setup brings up:
-   - `orders-api`
-   - `orders-consumer`
-   - `product-api`
-   - `product-consumer`
-   - `postgres`
-   - `rabbitmq` when RabbitMQ is selected
-   - `kafka` and `kafka-ui` when Kafka is selected
-
-## API Endpoints
-
-Both web APIs expose interactive documentation through Scalar.
-
-### Orders API
-
-- API docs: http://localhost:8080/scalar/v1
-- OpenAPI spec: http://localhost:8080/openapi/v1
-
-### Products API
-
-- API docs: http://localhost:8090/scalar/v1
-- OpenAPI spec: http://localhost:8090/openapi/v1
-
-## Service UIs
-
-- **Kafka UI:** http://localhost:8088
-- **RabbitMQ Management UI:** http://localhost:15672
-  - Username: `guest`
-  - Password: `guest`
-
-## Repository Layout
+## Main Directories
 
 | Path | Purpose |
 | --- | --- |
-| `./.codex` | Codex CLI assets |
-| `./.gemini` | Gemini CLI assets |
-| `./.github` | GitHub and GitHub Copilot assets |
-| `./.ai/assets` | Canonical reusable AI assets, including skills, commands, and shared packages |
-| `./.specify` | Spec-Kit scripts and prompt templates |
-| `./docker-compose` | Docker Compose files, deployment settings, and related data |
-| `./docs` | Documentation and working notes |
-| `./https` | HTTP request files for quick API testing |
-| `./specs` | Feature specifications generated through spec-driven development |
-| `./sql-script` | Database scripts |
-| `./src` | .NET source code |
-| `./src/BC-Contracts` | Cross-boundary communication contracts, including integration events and request/reply DTOs |
-| `./src/BuildingBlocks` | Shared architectural building blocks such as `AggregateRoot` and `ValueObject` |
-| `./src/Shared` | Shared kernel concepts used across bounded contexts |
-| `./src/<DomainName>` | A business domain |
-| `./src/<DomainName>/DomainCore` | Domain core projects, including domain, application, and infrastructure concerns as needed |
-| `./src/<DomainName>/Presentation` | Presentation projects such as Web API and consumer hosts |
-| `./tests` | Test projects, including xUnit tests and k6 E2E scripts |
+| `.ai/` | Agent-facing reusable AI context, canonical assets, scripts, and skill specs |
+| `.ai/assets/shared/` | Universal prompt fragments, rules, and reusable materials |
+| `.ai/assets/tech-stacks/dotnet-backend/` | .NET C# backend Web API specific context |
+| `.ai/assets/skills/` | Canonical skill specs and skill registry |
+| `.ai/assets/sub-agent-role-prompts/` | Canonical source for sub-agent role prompts |
+| `.agents/skills/` | Codex/current runtime skill wrappers |
+| `.claude/skills/` | Claude-compatible skill wrappers |
+| `.dev/` | Human-facing governance, standards, guides, requirements, specs, and workflow artifacts |
+| `.dev/workflows/` | Cross-skill and sub-agent workflow plans, tasks, and review reports |
+| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
 
-## AI Collaboration Context
+## Important Skills
 
-This repository keeps its AI collaboration rules and reusable prompts in dedicated folders:
+- `ai-context-governance`
+  - Governs context boundaries, language policy, skill routing, wrapper sync, AI documentation cleanup, and context moves.
+- `repo-structure-sync`
+  - Performs repo initialization. After this AI context is copied into an existing or empty target repository, use this skill first to inventory the target repo and refresh `agents.md`, `.dev/`, and required `.ai/` entry docs.
+- `ddd-ca-hex-architect`
+  - Designs .NET backend DDD / Clean Architecture / Hexagonal / CQRS architecture.
+- `code-reviewer`
+  - Reviews .NET backend code.
 
-- `agents.md` and `.github/copilot-instructions.md` provide default context for supported AI tools
-- `.agents/skills/` and `.claude/skills/` are thin runtime wrappers
-- `.ai/assets/` is the canonical source for reusable AI assets
+The canonical skill registry is `.ai/assets/skills/README.MD`.
 
-The repo also includes translated Spec-Kit prompt material so the workflow can be studied and reused across Codex, Gemini CLI, and GitHub Copilot.
+## Language Policy
 
-## Spec-Driven Development
+- Agent-facing context should prefer English to reduce token cost and improve cross-agent portability.
+- Human-facing documents should prefer Traditional Chinese for Taiwan usage.
+- Root README files are maintained in both languages:
+  - `README.md`
+  - `README.en.md`
+- See `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md` for the full policy.
 
-- [Spec-Kit](https://github.com/github/spec-kit)
+## Using This Framework in Another Repo
 
-The repo is set up to support spec-driven collaboration with AI agents, including constitutions, plans, tasks, and implementation flows.
+When this context is copied into another repository:
+
+1. Copy the needed `.ai/`, `.dev/`, `.agents/`, `.claude/`, and agent entry files.
+2. Run `repo-structure-sync` immediately.
+3. Rebuild repo-specific truth from the target repo's files, solution, projects, packages, infrastructure config, and existing docs.
+4. Remove or rewrite source-repo-specific requirements, specs, operations docs, workflow artifacts, and ADRs.
+5. Preserve framework-level rules unless the target repo clearly requires a change.
+
+See `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` for the detailed boundary.
+
+## Current Cleanup Direction
+
+Some early sample-backend and historical source-project material still exists in this repository. It should gradually be:
+
+- deleted;
+- moved into `.ai/assets/tech-stacks/dotnet-backend/`;
+- rewritten as templates;
+- or kept under `.dev/` only when clearly marked as historical workflow or migration artifacts.
