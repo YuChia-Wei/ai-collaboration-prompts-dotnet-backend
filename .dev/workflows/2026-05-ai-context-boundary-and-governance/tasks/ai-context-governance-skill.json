@@ -1,0 +1,55 @@
+{
+  "task_id": "ai-context-governance-skill",
+  "owner_skill": "skill-creator",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Create a dedicated top-level skill for AI context cleanup and documentation governance.",
+    "files": [
+      ".ai/assets/skills/ai-context-governance/",
+      ".agents/skills/ai-context-governance/",
+      ".claude/skills/ai-context-governance/",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md",
+      ".ai/assets/skills/README.MD"
+    ],
+    "dependency_radius": "Skill taxonomy, wrappers, and human-facing guide indexes.",
+    "constraints": [
+      "Do not route AI context cleanup to bdd-gwt-test-designer.",
+      "Keep runtime wrappers thin.",
+      "Keep SKILL.md concise and use references for details."
+    ],
+    "non_goals": [
+      "No BDD scenario design.",
+      "No production code implementation.",
+      "No domain architecture redesign."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Dedicated AI context governance capability.",
+    "review_findings": [],
+    "user_constraints": [
+      "Each skill should have a clear responsibility and avoid unsuitable skill routing."
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-creation",
+    "steps": [
+      "Create canonical skill spec and references.",
+      "Create Codex and Claude wrappers.",
+      "Create human-facing guide.",
+      "Update skill registries and wrapper indexes."
+    ],
+    "validation": [
+      "Search for BDD skill references in AI context cleanup guidance.",
+      "Confirm wrappers point to canonical spec."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

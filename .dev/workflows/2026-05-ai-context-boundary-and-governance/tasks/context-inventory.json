@@ -1,0 +1,55 @@
+{
+  "task_id": "context-inventory",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Inventory AI context files and classify audience, scope, language, and migration action.",
+    "files": [
+      ".ai/",
+      ".agents/",
+      ".claude/",
+      ".dev/",
+      "agents.md",
+      "README.md"
+    ],
+    "dependency_radius": "Repository documentation and AI context assets only.",
+    "constraints": [
+      "Do not move files during inventory.",
+      "Classify by folder first, then by file content when needed."
+    ],
+    "non_goals": [
+      "No production code changes.",
+      "No full translation pass."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Separated universal AI context and .NET backend-only AI context.",
+    "review_findings": [],
+    "user_constraints": [
+      "AI-facing context should be English.",
+      "Human-facing context should use Traditional Chinese Taiwan wording."
+    ]
+  },
+  "execution": {
+    "operation_type": "documentation-inventory",
+    "steps": [
+      "Scan AI context and documentation roots.",
+      "Create a classification artifact with audience, scope, language, and action columns.",
+      "Mark likely universal and dotnet-backend-specific hotspots."
+    ],
+    "validation": [
+      "Confirm classification artifact covers .ai, .agents, .claude, .dev, README, and agents.md."
+    ],
+    "deferred_items": [
+      "File moves are handled by later tasks."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "task_id": "git-commit-policy",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Define commit title, body, issue-number syntax, and autonomous commit timing.",
+    "files": [
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      "agents.md"
+    ],
+    "dependency_radius": "Agent git behavior and workflow-stage commits.",
+    "constraints": [
+      "Use <type>(#<issue-number>|<scope>): <summary> when issue number exists.",
+      "Use <type>(<scope>): <summary> when no issue number exists.",
+      "Workflow-stage commits must include Why, What, Validation, and Workflow body sections."
+    ],
+    "non_goals": [
+      "Do not rewrite historical commits."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Predictable agent commit behavior.",
+    "review_findings": [],
+    "user_constraints": [
+      "This workflow has no issue number.",
+      "Apply the policy during this workflow."
+    ]
+  },
+  "execution": {
+    "operation_type": "policy-definition",
+    "steps": [
+      "Add git commit policy.",
+      "Update agent instructions.",
+      "Use the policy for subsequent commits in this workflow."
+    ],
+    "validation": [
+      "Verify examples cover issue-number and no-issue cases."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

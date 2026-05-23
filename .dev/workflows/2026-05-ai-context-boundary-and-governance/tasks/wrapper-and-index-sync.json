@@ -1,0 +1,51 @@
+{
+  "task_id": "wrapper-and-index-sync",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Sync registries, wrappers, README files, indexes, and agents.md after policy and skill changes.",
+    "files": [
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".ai/INDEX.MD",
+      ".dev/README.MD",
+      "agents.md"
+    ],
+    "dependency_radius": "Navigation and runtime wrapper consistency.",
+    "constraints": [
+      "Wrappers must stay thin.",
+      "Do not duplicate canonical rule bodies into indexes."
+    ],
+    "non_goals": [
+      "Do not rewrite unrelated guides."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Consistent navigation after context governance changes.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "index-sync",
+    "steps": [
+      "Update skill registries.",
+      "Update wrapper indexes.",
+      "Update top-level navigation docs.",
+      "Search for stale references."
+    ],
+    "validation": [
+      "Run reference searches for new skill and policy paths.",
+      "Run git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

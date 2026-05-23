@@ -1,0 +1,51 @@
+{
+  "task_id": "dotnet-backend-context-extraction",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-boundary-and-governance",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Create .NET backend-only AI context folders and move or reference backend-specific materials.",
+    "files": [
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".ai/assets/README.MD",
+      ".ai/INDEX.MD"
+    ],
+    "dependency_radius": "AI asset structure and tech-stack-specific prompt ownership.",
+    "constraints": [
+      "Exclude Razor, Blazor, MAUI, and other .NET frontend frameworks.",
+      "Move gradually and preserve canonical links."
+    ],
+    "non_goals": [
+      "Do not create mono-system or full-stack template folders."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Folder-based separation between universal and .NET backend-only AI context.",
+    "review_findings": [],
+    "user_constraints": [
+      "Prefer folder classification for file management."
+    ]
+  },
+  "execution": {
+    "operation_type": "context-restructure",
+    "steps": [
+      "Create tech-stack folder structure.",
+      "Add README or index for dotnet-backend scope.",
+      "Move only low-risk backend-specific supporting materials or add migration notes when moving is risky."
+    ],
+    "validation": [
+      "Search for stale paths after moves.",
+      "Confirm universal shared folders do not describe .NET backend-only rules."
+    ],
+    "deferred_items": [
+      "Large prompt moves may be split into a follow-up workflow if links are too broad."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
