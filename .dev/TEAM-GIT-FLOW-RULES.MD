@@ -1,163 +1,116 @@
 # Team Git Flow Rules
 
-> Status:
-> working-branch governance draft
->
-> Release rule:
-> keep this document as a reusable framework file, but rewrite the branch rules and examples so they match the target project's actual git flow before publishing to `main`.
+This document defines the current repository git flow.
 
-## Purpose
+## Core Rule
 
-This document defines the expected git flow, branch responsibilities, and branch naming rules used while building and refining the portable AI prompts baseline.
+`main` is the only long-lived trunk.
 
-This file is intended to remain as part of the reusable template baseline, but its branch model and naming examples should be replaced with the target project's own git flow rules during release preparation.
+All feature, workflow, documentation, and agent work branches start from `main` and merge back to `main` when complete.
 
 ## Branch Model
 
-### Long-lived branches
+### Long-Lived Branches
 
-#### `main`
+| Branch | Role |
+| --- | --- |
+| `main` | Single trunk and integration branch. Must stay coherent and reviewable. |
 
-- role: release-quality output branch
-- meaning: the content on `main` should already be in a state that can be imported into another git repository as a template baseline
-- expectation:
-  - no temporary workflow execution records
-  - no team-only working governance notes
-  - no branch-local cleanup leftovers
+Do not create persistent `develop`, `baseline`, `release`, or agent-specific long-lived branches for normal work.
 
-#### `baseline/portable-ai-prompts`
+### Short-Lived Branches
 
-- role: primary working branch
-- meaning: this is the day-to-day integration branch for ongoing prompt/framework cleanup and restructuring
-- expectation:
-  - may contain temporary workflow artifacts
-  - may contain temporary team coordination notes
-  - may contain branch-local working documents that must be removed before release back to `main`
+Use short-lived branches for bounded work:
 
-### Short-lived working branches
+| Prefix | Use |
+| --- | --- |
+| `codex/` | Codex-owned workflow or task branch. |
+| `claude/` | Claude-owned workflow or task branch. |
+| `gemini/` | Gemini-owned workflow or task branch. |
+| `docs/` | Human-authored documentation branch when no agent prefix is appropriate. |
+| `fix/` | Small human-authored fix branch when no agent prefix is appropriate. |
 
-#### `codex/<workflow-id>`
+Use the agent prefix when an agent performs the work.
 
-- role: Codex implementation branch
-- use when:
-  - Codex executes a bounded workflow or staged task
-  - work should remain isolated until reviewed or integrated
+## Normal Flow
 
-#### `gemini/<workflow-id>`
+1. Start from a clean `main`.
+2. Create a short-lived branch:
 
-- role: Gemini implementation branch
-- use when:
-  - Gemini participates in a bounded workflow
-  - multi-agent collaboration requires branch isolation
+   ```text
+   <prefix>/<topic>
+   ```
 
-#### `claude/<workflow-id>`
+3. Make focused commits following `.dev/standards/GIT-COMMIT-POLICY.md`.
+4. Run the narrowest meaningful validation.
+5. Merge back to `main` with no fast-forward:
 
-- role: Claude implementation branch
-- use when:
-  - Claude participates in a bounded workflow
-  - multi-agent collaboration requires branch isolation
+   ```bash
+   git checkout main
+   git merge --no-ff <branch-name>
+   ```
 
-### Release branch
+6. Confirm `main` is clean after merge.
 
-#### `release/portable-baseline`
+## Workflow Branches
 
-- role: release cleanup and transition branch
-- base expectation: created from `main`
-- integration expectation: merge `baseline/portable-ai-prompts` into this branch, remove non-portable artifacts, then merge back to `main`
-- purpose:
-  - perform final cleanup before release
-  - verify the branch contains only portable baseline content
-  - keep release-oriented removal work out of the main working branch
-
-## Expected Flow
-
-### Normal working flow
-
-1. Start from `baseline/portable-ai-prompts`
-2. Create a short-lived agent branch such as `codex/<workflow-id>`
-3. Complete the bounded workflow or staged work
-4. Merge back into `baseline/portable-ai-prompts`
-
-### Release preparation flow
-
-1. Create or refresh `release/portable-baseline` from `main`
-2. Merge `baseline/portable-ai-prompts` into `release/portable-baseline`
-3. Remove non-release artifacts
-4. Confirm the branch is suitable as a portable repo template
-5. Merge `release/portable-baseline` back into `main`
-
-## Cleanup Rules Before Merging To `main`
-
-The following content should be removed or normalized before release is merged into `main`:
-
-- workflow execution records under `.dev/workflows/`, keeping only reusable templates when appropriate
-- temporary branch governance notes such as this file
-- any team-only coordination notes that are not part of the portable baseline
-- any project-specific operational truth that should not ship as repo template content
-
-## Naming Rules
-
-### Branch prefixes
-
-- `baseline/`
-  - long-lived working baseline branch
-- `codex/`
-  - Codex-owned workflow branch
-- `gemini/`
-  - Gemini-owned workflow branch
-- `claude/`
-  - Claude-owned workflow branch
-- `release/`
-  - release cleanup branch
-
-### Workflow id rule
-
-Use a branch suffix that is stable, human-readable, and traceable to the workflow or task theme.
-
-Recommended format:
+When work uses `.dev/workflows/<workflow-id>/`, prefer:
 
 ```text
-<yyyy-mm-topic>
-<yyyy-mm-dd-topic>
-<workflow-id-from-.dev/workflows>
+codex/<workflow-id>
+claude/<workflow-id>
+gemini/<workflow-id>
 ```
 
 Examples:
 
-- `codex/2026-04-legacy-script-rename`
-- `codex/2026-04-14-legacy-script-rename`
-- `gemini/problem-frame-validator-pilot`
+```text
+codex/2026-05-ai-context-skill-and-doc-cleanup
+claude/payment-refactor-stage-1
+gemini/spec-cleanup
+```
 
-## Responsibility Boundaries
+## Merge Rule
 
-### `baseline/portable-ai-prompts`
+Use `--no-ff` for workflow and multi-commit branches so the branch work remains visible as a grouped unit.
 
-- can accumulate active work
-- can carry temporary artifacts
-- should remain the main integration line for ongoing restructuring
+Fast-forward merge is acceptable only for tiny direct-mode branches when the user or maintainer explicitly chooses it.
 
-### `release/portable-baseline`
+## Commit Rule
 
-- should be focused on subtraction, cleanup, and release validation
-- should not become a second long-term working branch
-- should exist to produce a `main`-safe final state
+Commit formatting and commit timing are defined in:
 
-### `main`
+```text
+.dev/standards/GIT-COMMIT-POLICY.md
+```
 
-- should stay clean, portable, and publishable
-- should represent the final reusable template shape
+Do not duplicate detailed commit message rules here.
 
-## Decision Notes
+## Workflow Gate
 
-- `main` is treated as release output, not day-to-day integration
-- `baseline/portable-ai-prompts` plays the role that many repositories would normally assign to `main`
-- `release/portable-baseline` exists because the final release shape requires explicit cleanup and artifact removal
+When deciding whether a task needs a workflow branch and workflow artifacts, follow:
 
-## Review Trigger
+```text
+.dev/standards/WORKFLOW-GATE-POLICY.md
+```
 
-Revisit this document if any of the following change:
+## Cleanup Before Merge
 
-- the repository starts publishing versioned releases directly from the working branch
-- `main` stops being the portable template output branch
-- multi-agent collaboration introduces additional persistent branch types
-- release cleanup becomes fully automated and no longer needs a dedicated branch
+Before merging a short-lived branch back to `main`:
+
+- confirm workflow task statuses are accurate;
+- confirm validation was run or skipped with a documented reason;
+- remove accidental temporary files;
+- keep intentional workflow artifacts when they are part of the decision trail;
+- run `git status --short` and confirm only intended changes were committed.
+
+## Outdated Branch Models
+
+The following branch models are not used for current work:
+
+- persistent `baseline/*` integration branches;
+- persistent `release/*` cleanup branches;
+- `develop` as a second long-lived integration line;
+- agent-specific long-lived branches.
+
+Reintroduce any of these only after updating this document and the related workflow policy.

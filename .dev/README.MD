@@ -14,7 +14,7 @@
 | `workflows/` | 跨 skill / subagent workflow artifacts（plan / review-report / task） |
 | `specs/` | 詳細規格指南 |
 | `standards/` | 技術標準、Code Review Checklist、專案結構 |
-| `TEAM-GIT-FLOW-RULES.MD` | 團隊 git flow / branch naming 規則草案，可在發佈前改寫成目標專案版本 |
+| `TEAM-GIT-FLOW-RULES.MD` | single-mainline git flow 與 branch naming 規則 |
 
 ## 🚀 Quick Start
 

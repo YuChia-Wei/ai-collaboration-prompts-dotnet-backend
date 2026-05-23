@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Rewrite TEAM-GIT-FLOW-RULES to the current single-mainline branch model.",
     "files": [
@@ -42,9 +42,16 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Rewrote TEAM-GIT-FLOW-RULES to the current single-mainline model: main is the only long-lived trunk, short-lived branches merge back with no-ff, and commit/workflow details link to canonical standards.",
+    "files_changed": [
+      ".dev/TEAM-GIT-FLOW-RULES.MD",
+      ".dev/README.MD",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/mainline-git-flow-simplification.json"
+    ],
+    "tests_run": [
+      "rg outdated branch model terms in .dev/TEAM-GIT-FLOW-RULES.MD",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }
