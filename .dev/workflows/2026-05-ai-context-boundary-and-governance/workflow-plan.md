@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-05-ai-context-boundary-and-governance`
 - `owner_skill`: `ddd-ca-hex-architect`
-- `status`: `active`
+- `status`: `completed`
 
 ## Context
 
@@ -154,8 +154,17 @@
 ## Notes
 
 - Open questions:
-  - None requiring user direction before implementation. Default decisions are recorded in this plan.
+  - None remaining.
 - Dependencies:
   - `.dev/workflows/README.MD`
   - `.ai/assets/skills/README.MD`
   - `.dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md`
+
+## Completion Summary
+
+- Created context inventory and classification.
+- Added AI context boundary, language, git commit, and workflow gate policies.
+- Created the dedicated `ai-context-governance` skill with canonical spec, references, Codex wrapper, Claude wrapper, and human guide.
+- Extracted .NET backend-only shared context into `.ai/assets/tech-stacks/dotnet-backend/`.
+- Synced key indexes and wrapper README files.
+- Validated all workflow task JSON files and checked for stale moved shared paths.
