@@ -1,5 +1,7 @@
 # 分散式架構練習專案
 
+[English](README.en.md)
+
 dotnet distributed architecture lab 是一個採用 .NET 10、容器化技術和現代軟體架構原則（如 Clean Architecture、DDD、CQRS）建構的範例專案。
 
 此專案旨在展示如何利用 DDD 以及 Clean Architecture 、CQRS、Message Queue 等概念、技術建立一個分散式架構。
