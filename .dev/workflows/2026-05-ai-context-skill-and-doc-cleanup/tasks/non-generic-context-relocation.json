@@ -1,0 +1,60 @@
+{
+  "task_id": "non-generic-context-relocation",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Move or archive low-risk non-generic files based on classification results.",
+    "files": [
+      ".ai/",
+      ".dev/"
+    ],
+    "dependency_radius": "AI assets, standards, guides, and indexes.",
+    "constraints": [
+      "Use sub-agent or low-cost worker for pure file movement when helpful.",
+      "Run stale reference search after moves."
+    ],
+    "non_goals": [
+      "Do not move high-risk files without reference plan."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Cleaner universal versus non-universal file placement.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "context-relocation",
+    "steps": [
+      "Move low-risk files in small batches.",
+      "Update indexes and references.",
+      "Record deferred high-risk moves."
+    ],
+    "validation": [
+      "Run rg for stale old paths.",
+      "Run git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Moved low-risk .NET backend-specific .ai top-level references into .ai/assets/tech-stacks/dotnet-backend/references and updated entry indexes and internal links.",
+    "files_changed": [
+      ".ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/COMMON-PITFALLS.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/references/FAILURE-CASES.MD",
+      ".ai/assets/tech-stacks/dotnet-backend/README.MD",
+      ".ai/INDEX.MD",
+      "agents.md",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/non-generic-context-relocation.json"
+    ],
+    "tests_run": [
+      "rg old .ai top-level reference names",
+      "rg stale ../.dev links in moved references",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "task_id": "non-generic-context-classification",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Classify .ai and .dev files as universal concept, .NET backend implementation, repo-specific truth, archive, or deferred.",
+    "files": [
+      ".ai/",
+      ".dev/"
+    ],
+    "dependency_radius": "AI assets and project documentation.",
+    "constraints": [
+      "Patterns and conceptual design may be universal.",
+      "Implementation and code-planning details are non-universal or tech-stack-specific."
+    ],
+    "non_goals": [
+      "Do not move files during classification."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Clear file classification before relocation.",
+    "review_findings": [],
+    "user_constraints": [
+      "DDD, CA, Repository, and concept design can be universal.",
+      "Implementation and code-planning material is non-universal."
+    ]
+  },
+  "execution": {
+    "operation_type": "context-classification",
+    "steps": [
+      "Inventory candidate non-generic files.",
+      "Classify files by concept versus implementation boundary.",
+      "Produce relocation recommendations."
+    ],
+    "validation": [
+      "Confirm recommendations cover .ai and .dev hotspots."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Classified .ai and .dev documentation into universal concept, dotnet-backend implementation, repo-specific truth, runtime-wrapper, and deferred-review classes. Identified low-risk .ai top-level files for later relocation and deferred high-risk scripts/sub-agent system moves.",
+    "files_changed": [
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/non-generic-context-classification.md",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/non-generic-context-classification.json"
+    ],
+    "tests_run": [
+      "Listed .ai top-level files",
+      "Listed .dev/standards files",
+      "Listed .dev guide files",
+      "Reviewed selected .ai/assets/shared and dotnet-backend shared files"
+    ],
+    "follow_up_needed": false
+  }
+}

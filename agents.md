@@ -21,7 +21,7 @@
 
 ### Code Review (Required)
 
-1. Read `.ai/CODE-REVIEW-INDEX.MD`.
+1. Read `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`.
 2. Read `.ai/assets/skills/code-reviewer/references/checklist-reference.md` for the canonical review quick reference.
 3. Identify file type and read the matching section in `.dev/standards/CODE-REVIEW-CHECKLIST.md`.
 4. Build a checklist comparison table.
@@ -99,9 +99,9 @@ Use `ai-context-governance` for AI context cleanup, prompt boundary, language po
 | :--- | :--- |
 | `.ai/INDEX.MD` | AI 文件入口 |
 | `.ai/README.MD` | .NET Framework 概覽 |
-| `.ai/CODE-REVIEW-INDEX.MD` | Code Review 索引 |
+| `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD` | .NET backend Code Review 索引 |
 | `.ai/SUB-AGENT-SYSTEM.MD` | Sub-agent 系統說明 |
-| `.ai/BUILDING-BLOCKS-CLASS-INDEX.MD` | 共用介面索引 |
+| `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend 共用介面索引 |
 | `.ai/assets/` | Canonical reusable AI assets |
 | `.ai/scripts/` | .NET code generation scripts |
 

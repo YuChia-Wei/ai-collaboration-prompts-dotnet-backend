@@ -1,0 +1,60 @@
+{
+  "task_id": "index-sync-and-final-validation",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-05-ai-context-skill-and-doc-cleanup",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Sync indexes and finalize workflow validation.",
+    "files": [
+      "agents.md",
+      ".ai/INDEX.MD",
+      ".dev/README.MD",
+      ".dev/INDEX.md",
+      ".ai/assets/skills/README.MD",
+      ".dev/guides/ai-collaboration-guides/README.MD"
+    ],
+    "dependency_radius": "Navigation docs, indexes, workflow final status.",
+    "constraints": [
+      "Do not duplicate canonical rule bodies in indexes.",
+      "Keep final validation evidence in workflow task results."
+    ],
+    "non_goals": [
+      "No unrelated cleanup."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Consistent navigation after cleanup.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "index-sync-final-validation",
+    "steps": [
+      "Update affected indexes.",
+      "Validate JSON task files.",
+      "Search for stale references.",
+      "Mark workflow plan completed."
+    ],
+    "validation": [
+      "ConvertFrom-Json for task files.",
+      "rg stale reference checks.",
+      "git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Completed final workflow validation, confirmed no stale moved .ai paths or obsolete git flow terms, validated task JSON files, and marked the workflow completed.",
+    "files_changed": [
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/workflow-plan.md",
+      ".dev/workflows/2026-05-ai-context-skill-and-doc-cleanup/tasks/index-sync-and-final-validation.json"
+    ],
+    "tests_run": [
+      "Select-String pending task status check",
+      "ConvertFrom-Json for all workflow task JSON files",
+      "rg stale moved .ai references and obsolete git flow terms",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

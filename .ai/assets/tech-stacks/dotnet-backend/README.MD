@@ -25,8 +25,17 @@ Excluded:
 
 ```text
 .ai/assets/tech-stacks/dotnet-backend/
+  references/
   shared/
 ```
+
+## References
+
+- `references/BUILDING-BLOCKS-CLASS-INDEX.MD`
+- `references/CODE-REVIEW-INDEX.MD`
+- `references/CODE-TEMPLATES.MD`
+- `references/COMMON-PITFALLS.MD`
+- `references/FAILURE-CASES.MD`
 
 ## Current Shared Materials
 

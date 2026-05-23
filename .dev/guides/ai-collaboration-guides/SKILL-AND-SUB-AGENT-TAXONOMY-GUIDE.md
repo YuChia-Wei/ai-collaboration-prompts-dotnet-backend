@@ -30,6 +30,7 @@
 
 例：
 
+- `ai-context-governance`
 - `ddd-ca-hex-architect`
 - `code-reviewer`
 - `bdd-gwt-test-designer`
@@ -86,6 +87,13 @@ canonical source：
   - 設計 scenario 與 assertion plan
 - `usecase-test-sub-agent` / `aggregate-test-sub-agent` / `reactor-test-sub-agent`
   - 實作具體測試
+
+### AI Context / Documentation Governance
+
+- `ai-context-governance`
+  - 整理 `.ai/`、`.dev/`、`.agents/`、`.claude/` 的 AI context 邊界、語言政策、skill routing、wrapper sync 與 context migration
+- 不要把純 AI 文件整理、prompt 邊界整理、README 語言策略、或 wrapper/index sync 交給 `bdd-gwt-test-designer`
+- `bdd-gwt-test-designer` 只在主要工作是測試意圖、Given-When-Then scenario、assertion plan 時使用
 
 ### Review
 

@@ -41,14 +41,16 @@
 
 ## Supporting References
 
-- `BUILDING-BLOCKS-CLASS-INDEX.MD`
-  - BuildingBlocks 類型索引
-- `FAILURE-CASES.MD`
-  - 常見錯誤案例
-- `COMMON-PITFALLS.MD`
-  - 常見陷阱與解法
-- `CODE-TEMPLATES.MD`
-  - .NET 程式碼模板
+- `assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD`
+  - .NET backend BuildingBlocks type index
+- `assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
+  - .NET backend code review quick index
+- `assets/tech-stacks/dotnet-backend/references/FAILURE-CASES.MD`
+  - .NET backend failure cases
+- `assets/tech-stacks/dotnet-backend/references/COMMON-PITFALLS.MD`
+  - .NET backend common pitfalls
+- `assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD`
+  - .NET backend code templates
 
 ## Related Human-Facing Docs
 
