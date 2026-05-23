@@ -34,6 +34,7 @@
 - `guides/ai-collaboration-guides/AI-ASSET-LOCATION-STRATEGY.md`
 - `guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md`
 - `guides/ai-collaboration-guides/AI-SKILL-GUIDE-STANDARDS.md`
+- `guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
 - `guides/ai-collaboration-guides/AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
 - `guides/ai-collaboration-guides/AI-REFACTORING-SKILL-CONTRACTS.md`
 - `guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md`

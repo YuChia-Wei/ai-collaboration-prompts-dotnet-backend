@@ -87,6 +87,7 @@ Workflow artifact location:
 - Human-facing skill guides: `.dev/guides/ai-collaboration-guides/README.MD`
 
 When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as the source of truth.
+Use `ai-context-governance` for AI context cleanup, prompt boundary, language policy, skill routing, and wrapper sync work. Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
 ---
 
@@ -137,6 +138,7 @@ When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as th
 | Path | Description |
 | :--- | :--- |
 | `.dev/guides/ai-collaboration-guides/README.MD` | AI collaboration guides 入口 |
+| `.dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the AI context governance skill |
 | `.dev/guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Repo wrapper 與本機 runtime 的使用說明 |
 | `.dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the architect skill |
 | `.dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the BDD GWT test designer skill |

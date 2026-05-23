@@ -24,6 +24,7 @@
 
 目前 canonical skill registry 包含：
 
+- `ai-context-governance`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
 - `command-use-case-implementer`
