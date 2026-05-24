@@ -1,12 +1,14 @@
 # AGENTS.md
 
+[Traditional Chinese](agents.zh-tw.md)
+
 ## Scope & Precedence
 
 - This document is the root collaboration guide for AI agents and humans working in this repository.
 - This repository is an AI collaboration knowledge base and reusable context framework, not a product application repository.
 - If a subdirectory has another `AGENTS.*` file, the deeper file takes precedence.
 - Command priority: User/Approval > Subfolder AGENTS > This file > Other general documents.
-- 若有設定 IDE 的 MCP Server，且該 MCP Server 提供重構功能，優先使用 IDE MCP Server 的重構能力。
+- If an IDE MCP server is configured and provides refactoring capabilities, prefer the IDE MCP refactoring tools.
 
 ## Repository Identity
 
