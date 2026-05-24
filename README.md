@@ -1,248 +1,97 @@
-# 分散式架構練習專案
+# AI 協作知識庫與 .NET Backend Context Framework
 
 [English](README.en.md)
 
-dotnet distributed architecture lab 是一個採用 .NET 10、容器化技術和現代軟體架構原則（如 Clean Architecture、DDD、CQRS）建構的範例專案。
+這個 repository 用來萃取、整理並演化我的軟體開發知識，以及可被 AI Agents 重複使用的 context、skills、sub-agent prompts 與協作 workflow。
 
-此專案旨在展示如何利用 DDD 以及 Clean Architecture 、CQRS、Message Queue 等概念、技術建立一個分散式架構。
+它不是產品專案本身，而是一個可攜式的 AI 協作框架。當這套 context 被帶到既有專案或全新空專案時，應先使用 `repo-structure-sync` 進行 repo init，讓目標專案的真實結構取代本 repo 中的 template 或歷史專案資訊。
 
-同時，有鑑於近年 AI Agent CLI 以及 Spec-Drive Development 的興起，也會利用此專案展示如何利用 Spec-kit 與 AI Agent CLI 合作完成此練習專案。
+## 目標
 
-目前專案包含兩個核心業務領域：**訂單 (SaleOrders)** 和 **產品 (SaleProducts)**，並透過 RabbitMQ 或 Kafka 進行非同步通訊。
+- 萃取軟體開發知識，包括軟體工程、系統架構、軟體架構、DDD、Clean Architecture、CQRS、測試策略與 .NET 開發經驗。
+- 建立 AI Agents 可直接使用的 context、skills、sub-agent prompts、工作流規則與驗證規則。
+- 區分通用知識與非通用技術棧知識。
+- 保留目前可重用的非通用能力：.NET、C#、後端 Web API、DDD / CA / CQRS / message-driven backend 開發。
+- 移除或隔離過往專案殘留資訊，必要時轉成 template 或 repo init 的輸入材料。
 
-## 架構原則
+## Context 分層
 
-本專案嚴格遵循以下架構原則：
+### 通用 AI Context
 
-- **Clean Architecture (CA):** 強制性的關注點分離和依賴規則，確保業務邏輯的獨立性。
-- **Domain-Driven Design (DDD):** 專注於核心業務領域和領域邏輯。
-- **Command Query Responsibility Segregation (CQRS):** 將讀取和寫入操作分離，以優化效能和可擴展性。
+通用內容應能被不同語言、框架、產品型態重複使用，例如：
 
-## 核心技術
+- AI 協作流程與 workflow gate
+- git commit policy
+- skill routing 與 sub-agent 協作規則
+- system/software architecture 設計原則
+- DDD、Clean Architecture、CQRS 等概念層說明
+- requirement、spec、ADR、review、validation 的文件治理方式
 
-- **主要框架:** .NET 10
-- **主要語言:** C# 14
-- **訊息/命令/查詢處理:** WolverineFx
-- **資料庫:** PostgreSQL
-- **訊息代理:** RabbitMQ / Kafka
-- **容器化:** Docker
+### 非通用 AI Context
 
-### NuGet 版本快照（以目前 `*.csproj` 為準）
+目前本 repo 的非通用內容主要是 `.NET backend`：
 
-- `WolverineFx`: `5.16.2`（含 `WolverineFx.Kafka` / `WolverineFx.RabbitMQ`）
-- `Dapper`: `2.1.66`
-- `Npgsql`: `10.0.1`
-- `xunit`: `2.9.3`
-- `xunit.runner.visualstudio`: `3.1.5`
-- `Microsoft.NET.Test.Sdk`: `18.0.1`
+- C# / .NET backend 實作規範
+- Web API / worker / consumer 類型的 backend 專案結構
+- WolverineFx、Dapper、EF Core、PostgreSQL、RabbitMQ、Kafka 等 backend stack 經驗
+- DDD / CA / CQRS 在 .NET backend 中的實作規劃與 code review 規則
 
-## 如何啟動專案
+這些內容應放在 `.ai/assets/tech-stacks/dotnet-backend/` 或明確標示為 dotnet-backend 專用。
 
-本專案已完全容器化，您只需要在本機安裝 Docker 和 Docker Compose 即可輕鬆啟動。
+## 主要目錄
 
-1.  **選擇訊息代理 (Message Broker)**
+| Path | 用途 |
+| --- | --- |
+| `.ai/` | Agent-facing reusable AI context、canonical assets、scripts、skills specs |
+| `.ai/assets/shared/` | 通用 prompt fragments、規則與可重用材料 |
+| `.ai/assets/tech-stacks/dotnet-backend/` | .NET C# backend Web API 專用 context |
+| `.ai/assets/skills/` | canonical skill specs 與 skill registry |
+| `.ai/assets/sub-agent-role-prompts/` | sub-agent role prompt 的 canonical source |
+| `.agents/skills/` | Codex/current runtime skill wrappers |
+| `.claude/skills/` | Claude-compatible skill wrappers |
+| `.dev/` | Human-facing governance、standards、guides、requirements、specs、workflow artifacts |
+| `.dev/workflows/` | 跨 skill / sub-agent 的 workflow plan、task、review-report |
+| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
 
-    在 `docker-compose/docker-compose.yml` 檔案中，您可以透過設定 `QUEUE_SERVICE` 環境變數來選擇要使用的訊息代理。
+## 重要 Skills
 
-    - **使用 Kafka (預設):**
-      ```yaml
-      # 在 orders-api, orders-consumer, product-api, product-consumer 中
-      environment:
-        - QUEUE_SERVICE=Kafka
-      ```
+- `ai-context-governance`
+  - 用於 context 分層、語言政策、skill routing、wrapper sync、AI 文件治理與搬移。
+- `repo-structure-sync`
+  - 用於 repo init。當這套 AI context 被複製到既有或全新目標 repo 後，第一個應使用此 skill 盤點目標 repo 並刷新 `agents.md`、`.dev/` 與必要 `.ai/` 入口文件。
+- `ddd-ca-hex-architect`
+  - 用於 .NET backend 的 DDD / Clean Architecture / Hexagonal / CQRS 架構設計。
+- `code-reviewer`
+  - 用於 .NET backend code review。
 
-    - **使用 RabbitMQ:**
-      將 `QUEUE_SERVICE` 的值改為 `RabbitMQ`。
-      ```yaml
-      # 在 orders-api, orders-consumer, product-api, product-consumer 中
-      environment:
-        - QUEUE_SERVICE=RabbitMQ
-      ```
+完整 skill registry 以 `.ai/assets/skills/README.MD` 為準。
 
-2.  **Clone 專案庫**
-    ```bash
-    git clone https://github.com/YuChia/dotnet-mq-arch-lab.git
-    cd dotnet-mq-arch-lab
-    ```
+## 語言政策
 
-3.  **使用 Docker Compose 啟動所有服務**
-    在專案根目錄下，執行以下指令：
-    ```bash
-    docker-compose -f ./docker-compose/docker-compose.yml up -d
-    ```
-    此指令將會建置並啟動所有必要的服務，包括：
-    - `orders-api`
-    - `orders-consumer`
-    - `product-api`
-    - `product-consumer`
-    - `postgres`
-    - `rabbitmq` (如果選擇 RabbitMQ)
-    - `kafka` (如果選擇 Kafka)
-    - `kafka-ui` (如果選擇 Kafka)
+- AI 主要使用的 context 優先使用英文，以降低 token 成本並提升跨 agent 可攜性。
+- Human-facing 文件優先使用繁體中文台灣用語。
+- 根目錄 README 維護中英雙語版本：
+  - `README.md`
+  - `README.en.md`
+- 詳細規範請見 `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md`。
 
-## OpenApi with Scalar
+## 在其他 repo 使用
 
-專案的 Web API 提供了基於 Scalar 的互動式 API 文件。當專案成功啟動後，您可以透過以下連結存取：
+當這套 context 被帶到其他 repository：
 
-- **訂單服務 (Orders API):**
-  - **API 文件:** [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1)
-  - **OpenAPI Spec:** [http://localhost:8080/openapi/v1](http://localhost:8080/openapi/v1)
+1. 複製必要的 `.ai/`、`.dev/`、`.agents/`、`.claude/` 與 agent entry files。
+2. 立即執行 `repo-structure-sync`。
+3. 依目標 repo 的檔案、solution、project、package、infra config 與既有文件重建 repo-specific truth。
+4. 移除或重寫與來源 repo 綁定的 requirement、spec、operation、workflow 與 ADR。
+5. 保留通用 framework-level rules，除非目標 repo 明確需要調整。
 
-- **產品服務 (Products API):**
-  - **API 文件:** [http://localhost:8090/scalar/v1](http://localhost:8090/scalar/v1)
-  - **OpenAPI Spec:** [http://localhost:8090/openapi/v1](http://localhost:8090/openapi/v1)
+詳細邊界請見 `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`。
 
-## 服務監控
+## 目前整理方向
 
-- **Kafka UI:**
-  當使用 Kafka 時，您可以透過 [http://localhost:8088](http://localhost:8088) 來存取 Kafka UI。
+本 repo 仍保留部分早期練習專案與 sample backend 的歷史資料。這些內容會逐步被：
 
-- **RabbitMQ Management UI:**
-  當使用 RabbitMQ 時，您可以透過 [http://localhost:15672](http://localhost:15672) 來監控 RabbitMQ 的佇列和訊息。
-  - **帳號:** `guest`
-  - **密碼:** `guest`
-
-## 目錄內容說明
-
-### 專案結構
-
-| 資料夾位置                           | 內容                                                                                          |
-|---------------------------------|---------------------------------------------------------------------------------------------|
-| ./.codex                        | codex cli 的資源                                                                               |
-| ./.gemini                       | gemini cli 的資源                                                                              |
-| ./.github                       | github & github copilot 的資源                                                                 |
-| ./.ai/assets                    | canonical reusable AI assets（skills / commands / shared packages）                           |
-| ./.specify                      | spec-kit 的語法腳本及 prompt 範本                                                                   |
-| ./.specify/kit-command-prompts  | spec-kit 在各種 ai agents cli 中所使用的自訂 prompt 的備份文件，包含中譯檔案，用於研究 spec-kit 的運作邏輯                  |
-| ./.specify/memory               | spec-kit 的規範文件 (constitution)                                                               |
-| ./.specify/scripts              | spec-kit 使用的執行語法 (區分 bash 與 powershell)                                                     |
-| ./.specify/templates            | spec-kit 使用的範本文件                                                                            |
-| ./docker-compose                | docker compose 檔案與部署設定、資料                                                                   |
-| ./docs                          | 說明文件與開發時額外想要記錄的議題資料                                                                         |
-| ./https                         | 用於快速測試的 http 檔案                                                                             |
-| ./https/<Context>               | <Context>領域的 web api 測試用 http 檔案                                                            |
-| ./specs                         | 功能規格，Spec-driven development with AI 時產生的規格文件                                               |
-| ./sql-script                    | 資料庫語法                                                                                       |
-| ./src                           | dotnet 原始碼資料夾                                                                               |
-| ./src/BC-Contracts              | 跨領域通訊合約 — BC 間的 Integration Events、Request/Reply Contracts、跨 BC DTO                         |
-| ./src/BuildingBlocks            | 架構基礎設施 — 無業務語義的抽象基底與介面（AggregateRoot、ValueObject 等）                                     |
-| ./src/Shared                    | 通用領域核心（Shared Kernel）— 跨 BC 共享的 Value Objects、Enums 等領域概念                                 |
-| ./src/<DomainName>              | <DomainName>領域                                                                              |
-| ./src/<DomainName>/DomainCore   | <DomainName>領域的核心專案，包括但不限於領域物件層、應用層、基礎建設層等專案                                                |
-| ./src/<DomainName>/Presentation | <DomainName>領域的展現層專案，包括但不限於 WebApi、Consumer                                                 |
-| ./tests                         | 測試專案資料夾，包括但不限於「使用 Xunit 開發的 dotnet 測試專案」、「使用 k6 撰寫的 E2E 測試腳本」                               |
-
-### 設計、筆記等文件紀錄
-
-- 設計相關
-  - [order / product 中的 command/command handler 做法比較](./docs/program-desighe/command-handler-comparison-of-practices.md)
-  - [bc contracts 專案分類](./docs/program-desighe/bc-contracts.md)
-- AI 協作紀錄 (AI Agent CLI 的對話輸出紀錄)
-  - 功能 002 : order cancel
-    - [使用 codex cli 進行實作的紀錄](./docs/SDD-ai-agent-history/feat-002/codex-chat-memo.md)
-  - 功能 003 : product consumer order cancelled
-    - [使用 gemini cli 執行 spec-kit 命令的紀錄](./docs/SDD-ai-agent-history/feat-003/spec-kit-gemini-cli-gen-history.md)
-    - [使用 codex cli 進行實作的紀錄](./docs/SDD-ai-agent-history/feat-003/codex-cli-work-summary.md)
-
-## AI Agents CLI 協作
-
-:::info
-本專案內包含各 prompt 的中文翻譯文件，可用於觀察 spec-kit 社群是如何建立相關 prompt
-:::
-
-- AI Agent CLI Default Context
-  - Gemini CLI: `agents.md`
-    - > 為了方便 gemini 與 codex 共用 default context，有額外於 `.gemini/settings.json` 中設定 `defaultContext`
-  - GitHub Copilot: `.github/copilot-instructions.md`
-  - Codex: `agents.md`
-- AI Agent CLI Extension Commands
-  - Codex / Gemini CLI / GitHub Copilot：`.agents/skills/`
-- AI Asset Canonical Source
-  - `.ai/assets/`
-- Tool-specific 目錄僅保留工具限定資料，例如 `.gemini/settings.json`、`.github/copilot-instructions.md`
-- > wrapper 目錄（`.agents/skills/`、`.claude/skills/`）應視為薄包裝入口，真正的單一真相以 `.ai/assets/` 為準
-
-### Spec-Driven Development (規格驅動開發)
-
-- [Spec-Kit](https://github.com/github/spec-kit)
-
-#### agent cli commands
-
-> 更新三種 AI Agent 的 spec kit 工具
-
-```powershell
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai copilot --no-git --script sh
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai copilot --no-git --script ps
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai codex --no-git --script sh
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai codex --no-git --script ps
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai gemini --no-git --script sh
-uvx --from git+https://github.com/github/spec-kit.git specify init --here --ai gemini --no-git --script ps
-```
-
-> agent cli 的完整擴充命令清單以及 cli 支援狀況以 spec-kit 官方文件為主
-
-```terminaloutput
-╭───────────────────────────────────────────────────────────────────── Agent Folder Security ──────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                  │
-│  Some agents may store credentials, auth tokens, or other identifying and private artifacts in the agent folder within your project.                             │
-│  Consider adding .github/ (or parts of it) to .gitignore to prevent accidental credential leakage.                                                               │
-│                                                                                                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-╭─────────────────────────────────────────────────────────────────────────── Next Steps ───────────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                  │
-│  1. You're already in the project directory!                                                                                                                     │
-│  2. Start using slash commands with your AI agent:                                                                                                               │
-│     2.1 /speckit.constitution - Establish project principles                                                                                                     │
-│     2.2 /speckit.specify - Create baseline specification                                                                                                         │
-│     2.3 /speckit.plan - Create implementation plan                                                                                                               │
-│     2.4 /speckit.tasks - Generate actionable tasks                                                                                                               │
-│     2.5 /speckit.implement - Execute implementation                                                                                                              │
-│                                                                                                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-╭────────────────────────────────────────────────────────────────────── Enhancement Commands ──────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                  │
-│  Optional commands that you can use for your specs (improve quality & confidence)                                                                                │
-│                                                                                                                                                                  │
-│  ○ /speckit.clarify (optional) - Ask structured questions to de-risk ambiguous areas before planning (run before /speckit.plan if used)                          │
-│  ○ /speckit.analyze (optional) - Cross-artifact consistency & alignment report (after /speckit.tasks, before /speckit.implement)                                 │
-│  ○ /speckit.checklist (optional) - Generate quality checklists to validate requirements completeness, clarity, and consistency (after /speckit.plan)             │
-│                                                                                                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
-
-##### codex output
-
-```terminaloutput
-
-╭───────────────────────────────────────────────────────────────────── Agent Folder Security ──────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                  │
-│  Some agents may store credentials, auth tokens, or other identifying and private artifacts in the agent folder within your project.                             │
-│  Consider adding .codex/ (or parts of it) to .gitignore to prevent accidental credential leakage.                                                                │
-│                                                                                                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-╭─────────────────────────────────────────────────────────────────────────── Next Steps ───────────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                  │
-│  1. You're already in the project directory!                                                                                                                     │
-│  2. Set CODEX_HOME environment variable before running Codex: setx CODEX_HOME '.\dotnet-mq-arch-lab\.codex'                                       │
-│  3. Start using slash commands with your AI agent:                                                                                                               │
-│     2.1 /speckit.constitution - Establish project principles                                                                                                     │
-│     2.2 /speckit.specify - Create baseline specification                                                                                                         │
-│     2.3 /speckit.plan - Create implementation plan                                                                                                               │
-│     2.4 /speckit.tasks - Generate actionable tasks                                                                                                               │
-│     2.5 /speckit.implement - Execute implementation                                                                                                              │
-│                                                                                                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-
-╭────────────────────────────────────────────────────────────────────── Enhancement Commands ──────────────────────────────────────────────────────────────────────╮
-│                                                                                                                                                                  │
-│  Optional commands that you can use for your specs (improve quality & confidence)                                                                                │
-│                                                                                                                                                                  │
-│  ○ /speckit.clarify (optional) - Ask structured questions to de-risk ambiguous areas before planning (run before /speckit.plan if used)                          │
-│  ○ /speckit.analyze (optional) - Cross-artifact consistency & alignment report (after /speckit.tasks, before /speckit.implement)                                 │
-│  ○ /speckit.checklist (optional) - Generate quality checklists to validate requirements completeness, clarity, and consistency (after /speckit.plan)             │
-│                                                                                                                                                                  │
-╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
-```
+- 刪除；
+- 轉移到 `.ai/assets/tech-stacks/dotnet-backend/`；
+- 改寫為 template；
+- 或保留在 `.dev/` 中作為明確標示的歷史 workflow / migration artifact。

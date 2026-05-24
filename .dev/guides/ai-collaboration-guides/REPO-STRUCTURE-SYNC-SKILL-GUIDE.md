@@ -1,14 +1,17 @@
 # Repo Structure Sync Skill Guide
 
-本文件說明如何在把這個 AI agent prompts template 複製到新 repo 後，使用 `repo-structure-sync` 快速重建架構文件。
+本文件說明如何在把這套 AI context framework 複製到既有 repo 或全新空 repo 後，使用 `repo-structure-sync` 進行 repo init 與架構入口文件同步。
+
+`repo-structure-sync` 應被視為 template 安裝後第一個使用的 skill。它的責任不是設計產品功能，而是先判斷目標 repo 的真實狀態，清掉或改寫從來源 template 帶過來的過時專案資訊。
 
 ## 這個 Skill 可以做什麼
 
 適合用在下列工作：
 
 - 掃描新 repo 的 git 結構與 .NET project structure
+- 判斷目標 repo 是空 repo、既有 repo，還是已混入 template 舊資訊的 repo
 - 盤點 solution、`*.csproj`、shared libraries、test projects、deploy folders
-- 把複製過去後已過時的 `.dev/`、`.ai/`、`agents.md` 架構區塊改成新 repo 版本
+- 把複製過去後已過時的 root README、`.dev/`、`.ai/`、`agents.md` 架構區塊改成新 repo 版本
 - 區分哪些內容應保留為 reusable collaboration rules，哪些必須改寫成新專案真相
 
 ## 這個 Skill 不應該做什麼
@@ -17,6 +20,7 @@
 
 - 直接替新 repo 補完整業務需求或 spec
 - 假裝知道不存在於檔案裡的 bounded context 細節
+- 在空 repo 中發明產品名稱、API endpoint、message broker、database、package version 或部署拓撲
 - 把 `.ai/` 改成大量記錄專案真相的資料夾
 - 大量重寫 `.dev/specs/`、`.dev/operations/` 或 workflow artifacts
 
@@ -24,9 +28,20 @@
 
 建議在下列時機使用：
 
-1. 你剛把這份 template 複製到另一個 git repo
-2. 你已經刪掉明顯不適用的舊專案 artifacts
-3. 你想先把架構入口文件改正，再開始撰寫 requirement / specs / operations
+1. 你剛把這套 AI context framework 複製到另一個 git repo
+2. 你剛在空 repo 中加入這套 context
+3. 你尚未確認哪些 README / agents / `.dev` 內容是 template 舊資訊
+4. 你想先把架構入口文件改正，再開始撰寫 requirement / specs / operations
+
+## Repo Init 模式判斷
+
+先判斷目標 repo 屬於哪一種：
+
+| 模式 | 判斷依據 | 處理方式 |
+| --- | --- | --- |
+| 空 repo / 近似空 repo | 尚無 solution、src、tests、產品文件 | 保留 collaboration framework，將產品架構標示為尚未初始化，不要補假資料 |
+| 既有 repo | 已有 source、tests、package、infra、README 或 docs | 依檔案證據重建 repo-specific truth |
+| template copied repo | 已有 `.ai` / `.dev` / agents，但混有來源 repo 名稱、domain、endpoint、service | 保留 framework-level rules，改寫或移除來源 repo 專案真相 |
 
 ## 建議模型策略
 
@@ -98,13 +113,15 @@
 第一輪最好固定回傳這幾段：
 
 1. `Evidence Used`
-2. `Confirmed Repo Facts`
-3. `P0 Hits`
-4. `P1 Hits`
-5. `Complexity Verdict`
-6. `Safe Direct Updates`
-7. `Escalation Targets`
-8. `Source Packet`
+2. `Target Repository Mode`
+3. `Confirmed Repo Facts`
+4. `Copied or Stale Template Facts`
+5. `P0 Hits`
+6. `P1 Hits`
+7. `Complexity Verdict`
+8. `Safe Direct Updates`
+9. `Escalation Targets`
+10. `Source Packet`
 
 這樣第二輪就能直接接手，不用重新理解上下文。
 
@@ -115,6 +132,7 @@
 - index table
 - stack version table
 - quick-start links
+- root README 的 repo identity 與明顯過時資訊
 - 根據檔案事實做的簡單架構條列
 - 舊 repo 名稱或舊路徑的直接替換
 
@@ -170,17 +188,25 @@ Return:
 
 好的 prompt 至少應包含：
 
-1. 這是剛移植完成的新 repo
-2. 只更新架構入口與索引文件
-3. 以檔案結構、solution、`*.csproj`、套件參考為準
-4. 保留 collaboration rules，不要亂改 reusable framework guidance
+1. 這是剛移植完成或剛加入 AI context framework 的 repo
+2. 先判斷是空 repo、既有 repo，或 template copied repo
+3. 只更新 README、agents、架構入口與索引文件
+4. 以檔案結構、solution、`*.csproj`、套件參考為準
+5. 保留 collaboration rules，不要亂改 reusable framework guidance
 
 ## 範本 1：剛安裝完模板後做第一次同步
 
 ```text
 Use $repo-structure-sync to scan this repository after the template was copied in.
 
-Update only the repo-specific architecture sections in:
+First classify the target repository mode:
+- empty or near-empty repo
+- existing repo
+- copied-template repo with stale source-project facts
+
+Update only the repo-specific entry and architecture sections in:
+- README.md
+- README.en.md
 - agents.md
 - .dev/ARCHITECTURE.MD
 - .dev/requirement/TECH-STACK-REQUIREMENTS.MD

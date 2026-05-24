@@ -39,10 +39,10 @@ This directory contains agent-facing reusable AI assets. It is not the human-fac
   - `.ai/` navigation entry
 - `SUB-AGENT-SYSTEM.MD`
   - sub-agent system and routing rules
-- `CODE-REVIEW-INDEX.MD`
-  - code review entry
 - `DIRECTORY-RULES.MD`
   - `.ai` and `.dev` placement rules
+- `assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
+  - .NET backend code review entry
 
 ## Subdirectories
 

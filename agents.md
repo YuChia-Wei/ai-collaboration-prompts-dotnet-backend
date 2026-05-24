@@ -1,83 +1,104 @@
 # AGENTS.md
 
+[Traditional Chinese](agents.zh-tw.md)
+
 ## Scope & Precedence
 
-- This document serves as the collaboration guideline for AI agents and humans across the entire repository.
-- If a subdirectory has another AGENTS.* file, the deeper one takes precedence.
+- This document is the root collaboration guide for AI agents and humans working in this repository.
+- This repository is an AI collaboration knowledge base and reusable context framework, not a product application repository.
+- If a subdirectory has another `AGENTS.*` file, the deeper file takes precedence.
 - Command priority: User/Approval > Subfolder AGENTS > This file > Other general documents.
-- 若有設定 IDE 的 MCP Server 則優先使用 IDE MCP Server 中有提供的重構功能。
+- If an IDE MCP server is configured and provides refactoring capabilities, prefer the IDE MCP refactoring tools.
+
+## Repository Identity
+
+This repository exists to:
+
+- extract software engineering, architecture, .NET backend, and AI collaboration knowledge;
+- maintain reusable AI Agent context, skills, sub-agent prompts, and workflow rules;
+- separate universal AI context from tech-stack-specific context;
+- preserve current non-universal capability for .NET C# backend Web API development;
+- remove, isolate, or templatize historical source-project facts.
+
+Do not treat historical sample backend information as current product truth unless a file explicitly states that it is retained as a template, migration artifact, or dotnet-backend reference.
 
 ## Quick Start for AI Agents
 
-1. Read `.dev/ARCHITECTURE.MD` and `.dev/requirement/TECH-STACK-REQUIREMENTS.MD`.
-2. Use `.dev/ARCHITECTURE.MD`, `.dev/standards/`, and `.dev/guides/` as the canonical source of architecture and collaboration rules.
-3. For reusable AI-specific prompts, use `.ai/` folder.
-4. For top-level skills, use `.ai/assets/skills/README.MD` as the canonical skill registry.
-5. When preparing this framework for reuse in another repo, run `repo-structure-sync` and follow its migration boundary reference.
-
----
+1. Read `README.md` or `README.en.md` to understand this repo's purpose.
+2. Read `.dev/standards/AI-CONTEXT-BOUNDARY.md` and `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md` before moving or rewriting AI context.
+3. Use `.ai/assets/skills/README.MD` as the canonical skill registry.
+4. Use `.dev/guides/ai-collaboration-guides/README.MD` for human-facing skill and workflow guides.
+5. Use `.ai/INDEX.MD` and `.ai/README.MD` for agent-facing AI asset navigation.
 
 ## Mandatory Workflows
 
-### Code Review (Required)
+### Workflow Gate
 
-1. Read `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`.
-2. Read `.ai/assets/skills/code-reviewer/references/checklist-reference.md` for the canonical review quick reference.
-3. Identify file type and read the matching section in `.dev/standards/CODE-REVIEW-CHECKLIST.md`.
-4. Build a checklist comparison table.
-5. Categorize issues (CRITICAL / MUST FIX / SHOULD FIX).
-6. If tests apply, run `dotnet test --filter FullyQualifiedName~[TestClassName]`.
-
-### Spec Compliance (Required for Problem Frames)
-
-When using problem-frame workflows:
-1. Run `spec-compliance-validator` skill.
-2. **Gate**: coverage must be 100%. If not, return to implementation/test generation.
-
-### Task Execution (If task-*.json is used)
-
-1. Read task JSON.
-2. Implement.
-3. Run tests (if required).
-4. Update `status` + `results` in task JSON.
-
-Workflow artifact location:
-- Use `.dev/workflows/<workflow-id>/workflow-plan.md`
-- Use `.dev/workflows/<workflow-id>/review-report.md`
-- Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json`
-- Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary feature folders unless the user explicitly requests it.
-
-### Workflow Gate (Required)
-
-1. Read `.dev/standards/WORKFLOW-GATE-POLICY.md` when work may affect source-of-truth, AI context, skill routing, or more than one stage.
+1. Read `.dev/standards/WORKFLOW-GATE-POLICY.md` when work may affect source-of-truth, AI context, skill routing, wrapper sync, or more than one stage.
 2. Create workflow artifacts proactively when the gate requires workflow mode.
 3. Keep small, local, single-pass changes in direct mode.
 
-### Git Commit Policy (Required When Committing)
+Workflow artifact location:
+
+- Use `.dev/workflows/<workflow-id>/workflow-plan.md`
+- Use `.dev/workflows/<workflow-id>/review-report.md` when review output is produced.
+- Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json` for task tracking.
+- Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary folders unless the user explicitly requests it.
+
+### Git Commit Policy
 
 1. Follow `.dev/standards/GIT-COMMIT-POLICY.md`.
 2. Use `<type>(#<issue-number>|<scope>): <summary>` when an issue number exists.
 3. Use `<type>(<scope>): <summary>` when no issue number exists.
 4. For workflow-stage commits, include `Why`, `What`, `Validation`, and `Workflow` body sections.
 
-### Repo Structure Sync (When framework files are copied to another repo)
+### AI Context Governance
 
-1. Keep framework-level guides, standards, scripts, and collaboration rules.
-2. Remove or rewrite project-specific requirement, spec, operations, workflow, and legacy decision history.
-3. Rebuild `.dev/requirement/`, `.dev/specs/`, `.dev/operations/`, and any project-specific decision history from the target project's facts.
-4. Run `repo-structure-sync` to scan the target repo structure and refresh repo-specific architecture sections in `agents.md`, `.dev/`, and necessary `.ai/` entry docs.
-5. Treat `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` as the authoritative migration boundary.
+Use `ai-context-governance` for:
 
----
+- universal versus tech-stack-specific context classification;
+- AI documentation cleanup;
+- language policy changes;
+- skill routing changes;
+- runtime wrapper sync;
+- context migration planning or execution.
 
-## Sub-agent System Overview
+Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
-- Primary reference: `.ai/SUB-AGENT-SYSTEM.MD`
-- Use `.ai/assets/sub-agent-role-prompts/` for canonical delegated sub-agent definitions.
-- Use `.ai/assets/shared/` for shared rules, examples, and supporting materials.
-- Use `.ai/scripts/` for .NET code generation scripts.
+### Repo Init / Template Adaptation
 
----
+Use `repo-structure-sync` as the first skill after this framework is copied into an existing or empty target repository.
+
+The skill must:
+
+1. inventory the target repository from file-backed facts;
+2. identify copied template or historical source-project truth;
+3. refresh target-specific `agents.md`, `.dev/`, and necessary `.ai/` entry docs;
+4. preserve framework-level collaboration rules unless the target repo clearly invalidates them;
+5. remove or rewrite source-repo-specific requirements, specs, operations docs, workflow artifacts, and ADRs.
+
+Treat `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` as the authoritative migration boundary.
+
+### Code Review
+
+Use `code-reviewer` only when reviewing .NET backend code or dotnet-backend implementation guidance.
+
+When code review applies:
+
+1. Read `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`.
+2. Read `.ai/assets/skills/code-reviewer/references/checklist-reference.md`.
+3. Identify file type and read the matching checklist under `.dev/standards/`.
+4. Build a checklist comparison table.
+5. Categorize issues as `CRITICAL`, `MUST FIX`, or `SHOULD FIX`.
+6. If tests apply in the target repo, run the narrowest meaningful test command.
+
+### Spec Compliance
+
+When using problem-frame workflows:
+
+1. Run `spec-compliance-validator`.
+2. Gate: coverage must be 100%.
+3. If coverage is not 100%, return to implementation or test generation before claiming completion.
 
 ## Skill Routing
 
@@ -87,64 +108,71 @@ Workflow artifact location:
 - Human-facing skill guides: `.dev/guides/ai-collaboration-guides/README.MD`
 
 When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as the source of truth.
-Use `ai-context-governance` for AI context cleanup, prompt boundary, language policy, skill routing, and wrapper sync work. Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
----
+Use these boundaries:
+
+| Need | Skill |
+| --- | --- |
+| AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
+| First sync after copying this framework into a target repo | `repo-structure-sync` |
+| .NET backend architecture design | `ddd-ca-hex-architect` |
+| GWT scenario and assertion design | `bdd-gwt-test-designer` |
+| .NET backend code review | `code-reviewer` |
+| Requirement authoring | `requirement-author` |
+| Spec authoring | `spec-author` |
+| Problem frame authoring | `problem-frame-author` |
 
 ## File & Directory Index
 
-### AI-Specific (`.ai/`)
+### Root Entry Docs
 
 | Path | Description |
 | :--- | :--- |
-| `.ai/INDEX.MD` | AI 文件入口 |
-| `.ai/README.MD` | .NET Framework 概覽 |
-| `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD` | .NET backend Code Review 索引 |
-| `.ai/SUB-AGENT-SYSTEM.MD` | Sub-agent 系統說明 |
-| `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend 共用介面索引 |
+| `README.md` | Human-facing Traditional Chinese repository identity |
+| `README.en.md` | English repository identity |
+| `agents.md` | Root agent collaboration guide |
+| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
+
+### AI Assets (`.ai/`)
+
+| Path | Description |
+| :--- | :--- |
+| `.ai/INDEX.MD` | Agent-facing AI asset index |
+| `.ai/README.MD` | `.ai/` purpose and boundary guide |
 | `.ai/assets/` | Canonical reusable AI assets |
-| `.ai/scripts/` | .NET code generation scripts |
+| `.ai/assets/shared/` | Universal shared AI context |
+| `.ai/assets/tech-stacks/dotnet-backend/` | .NET backend-specific context |
+| `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD` | .NET backend code review entry |
+| `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend building block reference |
+| `.ai/assets/skills/` | Canonical skill specs |
+| `.ai/assets/sub-agent-role-prompts/` | Canonical sub-agent role prompts |
+| `.ai/scripts/` | Validation, review, and generation scripts |
 
-### Project Knowledge (`.dev/`)
-
-| Path | Description |
-| :--- | :--- |
-| `.dev/ARCHITECTURE.MD` | 系統架構 |
-| `.dev/README.MD` | 專案知識入口 |
-| `.dev/adr/` | ADR 治理層（template / index / 建立時機） |
-| `.dev/guides/` | 學習指南 |
-| `.dev/lessons/` | 經驗教訓 |
-| `.dev/requirement/` | 技術需求 |
-| `.dev/workflows/` | 跨 skill / subagent workflow artifacts（plan / review-report / task） |
-| `.dev/specs/` | 功能規格與行為規格 |
-| `.dev/standards/` | Code Review Checklist, Project Structure |
-
-### Claude Skills (`.claude/skills/`)
+### Project Knowledge and Governance (`.dev/`)
 
 | Path | Description |
 | :--- | :--- |
-| `.claude/skills/README.md` | Claude-compatible runtime wrapper index |
-| `.claude/skills/<skill>/` | Claude-compatible skill wrapper |
+| `.dev/README.MD` | Human-facing project knowledge index |
+| `.dev/standards/` | Governance, context, workflow, coding, review, and structure standards |
+| `.dev/guides/` | Human-facing guides |
+| `.dev/adr/` | ADR governance and retained decisions |
+| `.dev/requirement/` | Requirements and requirement authoring materials |
+| `.dev/specs/` | Specification organization and retained specs |
+| `.dev/operations/` | Operations docs and operations document guides |
+| `.dev/workflows/` | Workflow artifacts |
 
-### Agents Skills (`.agents/skills/`)
+### Runtime Skill Wrappers
 
 | Path | Description |
 | :--- | :--- |
 | `.agents/skills/README.md` | Current runtime wrapper index |
 | `.agents/skills/<skill>/` | Current runtime skill wrapper |
+| `.claude/skills/README.md` | Claude-compatible wrapper index |
+| `.claude/skills/<skill>/` | Claude-compatible skill wrapper |
 
-### AI Collaboration Guides (`.dev/guides/ai-collaboration-guides/`)
+## Language Rules
 
-| Path | Description |
-| :--- | :--- |
-| `.dev/guides/ai-collaboration-guides/README.MD` | AI collaboration guides 入口 |
-| `.dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the AI context governance skill |
-| `.dev/guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Repo wrapper 與本機 runtime 的使用說明 |
-| `.dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the architect skill |
-| `.dev/guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the BDD GWT test designer skill |
-| `.dev/guides/ai-collaboration-guides/USE-CASE-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for command / query / reactor implementer skills |
-| `.dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the repo structure sync skill |
-| `.dev/guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md` | Human-facing guide for deriving a first problem frame from requirement/spec/code |
-| `.dev/guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the refactor implementation skill |
-| `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md` | Human-facing guide and prompt templates for invoking the tactical refactor skill |
-| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
+- Agent-facing context should prefer English unless the source material is inherently human-facing Traditional Chinese.
+- Human-facing guides and README content should prefer Traditional Chinese Taiwan usage.
+- Keep runtime wrappers thin and point them to canonical specs.
+- Prefer folder placement over per-file metadata for context classification.

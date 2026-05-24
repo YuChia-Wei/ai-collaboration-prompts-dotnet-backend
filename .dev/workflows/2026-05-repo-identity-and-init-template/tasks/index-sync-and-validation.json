@@ -1,0 +1,28 @@
+{
+  "id": "index-sync-and-validation",
+  "title": "Sync indexes and validate stale references",
+  "status": "completed",
+  "description": "Update related indexes and verify that root entry docs no longer expose historical sample product facts as this repository's current purpose.",
+  "inputs": [
+    ".ai/README.MD",
+    ".ai/INDEX.MD",
+    ".dev/README.MD",
+    "README.md",
+    "README.en.md",
+    "agents.md"
+  ],
+  "outputs": [
+    ".ai/README.MD",
+    ".ai/INDEX.MD",
+    ".dev/README.MD",
+    ".dev/workflows/2026-05-repo-identity-and-init-template/workflow-plan.md",
+    ".dev/workflows/2026-05-repo-identity-and-init-template/tasks/*.json"
+  ],
+  "validation": [
+    "Updated .ai/README.MD and .ai/INDEX.MD to use dotnet-backend reference paths for code review entry docs.",
+    "Updated .dev/README.MD to describe this repository's AI context governance role instead of a generic .NET project doc root.",
+    "Checked root entry docs for stale sample-project names and runtime service references.",
+    "Parsed all workflow task JSON files with ConvertFrom-Json.",
+    "Ran git diff --check."
+  ]
+}

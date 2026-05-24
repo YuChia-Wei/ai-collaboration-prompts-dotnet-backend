@@ -1,6 +1,6 @@
 # Document Targets
 
-This skill updates repo-specific architecture areas only.
+This skill updates repo-specific architecture and repo-init entry areas only.
 
 ## Primary Targets
 
@@ -17,6 +17,24 @@ Preserve:
 
 - collaboration precedence
 - mandatory workflow rules unless the user explicitly changes them
+- skill routing rules that are framework-level rather than target-project-specific
+
+### Root `README.md` and `README.en.md`
+
+Update:
+
+- repository identity
+- setup and run instructions when file-backed facts exist
+- product or framework purpose
+- directory layout that reflects the target repo
+- links to target-relevant docs
+
+Preserve:
+
+- bilingual README convention when present
+- framework usage notes when the repo is intentionally an AI context framework
+
+For empty repos, keep README content minimal and do not invent product domains, services, endpoints, or stack versions.
 
 ### `.dev/ARCHITECTURE.MD`
 

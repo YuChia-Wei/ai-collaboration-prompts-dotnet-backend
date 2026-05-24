@@ -1,0 +1,20 @@
+{
+  "id": "agents-entry-rewrite",
+  "title": "Rewrite agents.md as this repository's agent operating guide",
+  "status": "completed",
+  "description": "Remove target-product assumptions from the root agent entry and clarify collaboration rules, context boundaries, and repo-init routing.",
+  "inputs": [
+    "agents.md",
+    ".dev/standards/AI-CONTEXT-BOUNDARY.md",
+    ".dev/standards/GIT-COMMIT-POLICY.md",
+    ".dev/standards/WORKFLOW-GATE-POLICY.md"
+  ],
+  "outputs": [
+    "agents.md"
+  ],
+  "validation": [
+    "Rewrote agents.md as the root guide for this AI context framework repository.",
+    "Removed target product quick-start assumptions from agents.md.",
+    "Added explicit repo identity, skill routing, repo-init, workflow gate, and language rules."
+  ]
+}
