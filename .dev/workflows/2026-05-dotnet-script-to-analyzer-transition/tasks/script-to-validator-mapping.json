@@ -1,7 +1,7 @@
 {
   "id": "script-to-validator-mapping",
   "title": "Map scripts to replacement validators",
-  "status": "pending",
+  "status": "completed",
   "description": "Map scripts to Roslyn analyzer, architecture test, dotnet tool/test, orchestrator, AI workflow script, or retirement targets.",
   "inputs": [
     ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md",
@@ -10,5 +10,8 @@
   "outputs": [
     ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
   ],
-  "validation": []
+  "validation": [
+    "Mapped scripts to Roslyn analyzer, architecture test, dotnet tool/test, orchestrator, AI workflow script, or retirement targets.",
+    "Defined first analyzer, architecture test, and dotnet tool/test backlog."
+  ]
 }

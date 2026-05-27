@@ -1,7 +1,7 @@
 {
   "id": "script-inventory",
   "title": "Inventory and classify .ai/scripts",
-  "status": "pending",
+  "status": "completed",
   "description": "List each current script, identify its validation behavior, and classify whether it should remain as workflow glue or move to dotnet-native validation.",
   "inputs": [
     ".ai/scripts/"
@@ -9,5 +9,9 @@
   "outputs": [
     ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md"
   ],
-  "validation": []
+  "validation": [
+    "Listed each current .ai/scripts top-level file and classified its transition target.",
+    "Grouped .ai/scripts/generated as generated regex checks to retire after replacement coverage exists.",
+    "Separated AI workflow/context governance scripts from C# semantic validation scripts."
+  ]
 }
