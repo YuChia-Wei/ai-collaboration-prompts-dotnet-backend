@@ -1,0 +1,16 @@
+{
+  "id": "skill-routing-sync",
+  "title": "Update skill and guide routing",
+  "status": "pending",
+  "description": "Update relevant skill or guide references so AI agents preserve software engineering reasoning context while executable C# validation moves toward dotnet-native tooling.",
+  "inputs": [
+    ".ai/assets/skills/",
+    ".agents/skills/",
+    ".claude/skills/",
+    ".dev/guides/ai-collaboration-guides/"
+  ],
+  "outputs": [
+    "updated skill or guide docs as needed"
+  ],
+  "validation": []
+}

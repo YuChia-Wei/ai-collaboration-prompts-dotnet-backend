@@ -1,0 +1,16 @@
+{
+  "id": "workflow-bootstrap",
+  "title": "Create dotnet script to analyzer transition workflow",
+  "status": "completed",
+  "description": "Create workflow artifacts that capture the transition goal, decisions, classification model, stages, non-goals, and completion criteria.",
+  "inputs": [
+    "user decisions about shell script retention",
+    "user decisions about analyzer location and source-included template model",
+    ".dev/standards/GIT-COMMIT-POLICY.md"
+  ],
+  "outputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/workflow-plan.md",
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/tasks/*.json"
+  ],
+  "validation": []
+}

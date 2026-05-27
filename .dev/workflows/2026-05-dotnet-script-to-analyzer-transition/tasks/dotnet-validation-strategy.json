@@ -1,0 +1,15 @@
+{
+  "id": "dotnet-validation-strategy",
+  "title": "Define dotnet-native validation strategy",
+  "status": "pending",
+  "description": "Document how Roslyn analyzers, .editorconfig, dotnet format, architecture tests, integration tests, and dotnet tools replace grep-based C# checks while preserving AI reasoning context.",
+  "inputs": [
+    ".ai/scripts/",
+    ".dev/standards/",
+    ".ai/assets/skills/"
+  ],
+  "outputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md"
+  ],
+  "validation": []
+}

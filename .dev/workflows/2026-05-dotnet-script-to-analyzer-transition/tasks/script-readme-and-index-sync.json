@@ -1,0 +1,19 @@
+{
+  "id": "script-readme-and-index-sync",
+  "title": "Update script README and indexes",
+  "status": "pending",
+  "description": "Update script and AI context indexes so current scripts are documented as transitional where appropriate and shell scripts are not presented as final dotnet C# validation.",
+  "inputs": [
+    ".ai/scripts/README.md",
+    ".ai/INDEX.MD",
+    ".ai/README.MD",
+    "agents.md"
+  ],
+  "outputs": [
+    ".ai/scripts/README.md",
+    ".ai/INDEX.MD",
+    ".ai/README.MD",
+    "agents.md"
+  ],
+  "validation": []
+}

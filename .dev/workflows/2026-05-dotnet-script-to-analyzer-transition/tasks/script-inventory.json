@@ -1,0 +1,13 @@
+{
+  "id": "script-inventory",
+  "title": "Inventory and classify .ai/scripts",
+  "status": "pending",
+  "description": "List each current script, identify its validation behavior, and classify whether it should remain as workflow glue or move to dotnet-native validation.",
+  "inputs": [
+    ".ai/scripts/"
+  ],
+  "outputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md"
+  ],
+  "validation": []
+}

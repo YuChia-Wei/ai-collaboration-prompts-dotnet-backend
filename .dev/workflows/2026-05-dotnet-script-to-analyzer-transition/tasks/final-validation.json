@@ -1,0 +1,14 @@
+{
+  "id": "final-validation",
+  "title": "Finalize workflow validation",
+  "status": "pending",
+  "description": "Validate JSON task files, markdown whitespace, stale references, and final workflow status.",
+  "inputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/"
+  ],
+  "outputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/workflow-plan.md",
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/tasks/final-validation.json"
+  ],
+  "validation": []
+}
