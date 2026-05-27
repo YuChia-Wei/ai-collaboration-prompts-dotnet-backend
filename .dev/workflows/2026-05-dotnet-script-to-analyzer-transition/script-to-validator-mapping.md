@@ -44,9 +44,9 @@
 
 ### Analyzer Backlog
 
-1. Repository analyzer rules.
-2. Use case analyzer rules.
-3. Aggregate/domain entity analyzer rules.
+1. Repository analyzer rules. Bootstrap rule: `DBA1001`.
+2. Use case analyzer rules. Bootstrap rule: `DBA1002`.
+3. Aggregate/domain entity analyzer rules. Bootstrap rule: `DBA1003`.
 
 ### Architecture Test Backlog
 

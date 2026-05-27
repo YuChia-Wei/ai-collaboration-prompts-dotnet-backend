@@ -84,3 +84,6 @@ Workflow-stage commits include `Why`, `What`, `Validation`, and `Workflow` body 
 - Rewrote `.ai/scripts/README.md` to mark scripts as transitional workflow/context/orchestration helpers.
 - Updated skill and guide routing so transitional `.ai/scripts` are not treated as final C# semantic validation.
 - Fixed current code review index references to the dotnet-backend reference path.
+- Created the first source-included Roslyn analyzer template under `tools/DotnetBackendAnalyzers/`.
+- Added initial analyzer tests for repository, use case, and aggregate/entity rules.
+- Fixed `global.json` from invalid `10.0.0` SDK version to installed feature band `10.0.300`.

@@ -73,9 +73,14 @@ dotnet tool run repo-context-lint
 
 First analyzer batch:
 
-1. repository rules;
-2. use case rules;
-3. domain entity / aggregate rules.
+1. repository rules: bootstrap coverage exists as `DBA1001`;
+2. use case rules: bootstrap coverage exists as `DBA1002`;
+3. domain entity / aggregate rules: bootstrap coverage exists as `DBA1003`.
+
+Analyzer source template:
+
+- `tools/DotnetBackendAnalyzers/`
+- `tools/DotnetBackendAnalyzers.Tests/`
 
 ### Replace With Dotnet Tool Or Tests
 

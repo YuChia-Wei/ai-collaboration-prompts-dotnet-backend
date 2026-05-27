@@ -54,6 +54,14 @@ tools/
 
 The analyzer project should be split into another repo only after the rule set and AI context integration stabilize.
 
+Current bootstrap:
+
+- `tools/DotnetBackendAnalyzers/`
+- `tools/DotnetBackendAnalyzers.Tests/`
+- `DBA1001` repository query method rule
+- `DBA1002` use case / handler `IServiceProvider` injection rule
+- `DBA1003` aggregate/entity infrastructure dependency rule
+
 ## First Analyzer Rule Families
 
 ### Repository Rules
@@ -64,6 +72,8 @@ Target current `check-repository-compliance.sh` behavior, then refine semantics:
 - require repository abstractions to follow the selected generic repository pattern when applicable;
 - detect repository interfaces/classes using syntax and symbol analysis instead of filename grep.
 
+Bootstrap coverage: `DBA1001` reports query-style methods on domain repository interfaces while allowing identity lookup methods.
+
 ### Use Case Rules
 
 Target current `check-usecase-compliance.sh` behavior, then refine:
@@ -73,6 +83,8 @@ Target current `check-usecase-compliance.sh` behavior, then refine:
 - validate handler/use case public entry point shape by symbol, not text pattern;
 - detect direct infrastructure calls when architecture boundaries forbid them.
 
+Bootstrap coverage: `DBA1002` reports `IServiceProvider` constructor injection on use case or handler classes.
+
 ### Domain Entity / Aggregate Rules
 
 Target current `check-aggregate-compliance.sh` behavior, then refine:
@@ -80,6 +92,8 @@ Target current `check-aggregate-compliance.sh` behavior, then refine:
 - forbid infrastructure dependencies such as `DbContext` in aggregates/entities;
 - validate domain event application conventions where the target profile requires them;
 - validate guard/invariant usage only where the rule can be expressed without forcing one implementation style.
+
+Bootstrap coverage: `DBA1003` reports `DbContext` references in classes that look like aggregates/entities.
 
 ## CI Gate Model
 

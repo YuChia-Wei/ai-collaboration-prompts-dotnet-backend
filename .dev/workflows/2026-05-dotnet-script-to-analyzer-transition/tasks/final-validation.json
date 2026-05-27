@@ -14,6 +14,7 @@
     "Parsed all workflow task JSON files with ConvertFrom-Json.",
     "Searched active docs for stale .ai/CODE-REVIEW-INDEX references and updated non-historical references.",
     "Searched updated script and skill docs for transitional validation routing language.",
+    "Ran dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj.",
     "Ran git diff --check."
   ]
 }
