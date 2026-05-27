@@ -1,6 +1,6 @@
 # Dotnet Script To Analyzer Transition Workflow
 
-Status: active
+Status: completed
 
 ## Goal
 
@@ -75,3 +75,12 @@ Workflow-stage commits include `Why`, `What`, `Validation`, and `Workflow` body 
 - AI reasoning context is explicitly preserved as separate from executable validation gates.
 - Script README and indexes no longer imply grep-based C# checks are the final validation mechanism.
 - Validation passes for JSON task files, markdown whitespace, and updated references.
+
+## Completion Summary
+
+- Inventoried `.ai/scripts` and classified each script into AI workflow, orchestrator, analyzer, architecture test, dotnet tool/test, generated regex retirement, or update-needed targets.
+- Defined dotnet-native validation strategy while explicitly preserving AI software engineering reasoning context.
+- Mapped the first analyzer backlog to repository, use case, and domain entity / aggregate rules.
+- Rewrote `.ai/scripts/README.md` to mark scripts as transitional workflow/context/orchestration helpers.
+- Updated skill and guide routing so transitional `.ai/scripts` are not treated as final C# semantic validation.
+- Fixed current code review index references to the dotnet-backend reference path.

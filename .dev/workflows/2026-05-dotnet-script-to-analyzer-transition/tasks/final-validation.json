@@ -1,7 +1,7 @@
 {
   "id": "final-validation",
   "title": "Finalize workflow validation",
-  "status": "pending",
+  "status": "completed",
   "description": "Validate JSON task files, markdown whitespace, stale references, and final workflow status.",
   "inputs": [
     ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/"
@@ -10,5 +10,10 @@
     ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/workflow-plan.md",
     ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/tasks/final-validation.json"
   ],
-  "validation": []
+  "validation": [
+    "Parsed all workflow task JSON files with ConvertFrom-Json.",
+    "Searched active docs for stale .ai/CODE-REVIEW-INDEX references and updated non-historical references.",
+    "Searched updated script and skill docs for transitional validation routing language.",
+    "Ran git diff --check."
+  ]
 }
