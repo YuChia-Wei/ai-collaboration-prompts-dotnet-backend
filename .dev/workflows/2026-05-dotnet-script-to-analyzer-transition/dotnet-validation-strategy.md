@@ -61,6 +61,7 @@ Current bootstrap:
 - `DBA1001` repository query method rule
 - `DBA1002` use case / handler `IServiceProvider` injection rule
 - `DBA1003` aggregate/entity infrastructure dependency rule
+- `tools/DotnetBackendAnalyzers/templates/Directory.Build.props.snippet` for source-included target repo wiring
 
 ## First Analyzer Rule Families
 

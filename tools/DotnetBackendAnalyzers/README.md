@@ -19,3 +19,19 @@ dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.cspr
 ## Source-Included Usage Direction
 
 For now this project is intended to travel with the AI context framework as source. Do not package it as NuGet until the rules and AI skill integration stabilize.
+
+## Wire Into A Target Repo
+
+After copying this analyzer source into a target repo, wire it into target projects through `Directory.Build.props`.
+
+Use:
+
+- `templates/Directory.Build.props.snippet`
+
+The snippet adds the analyzer project as a `ProjectReference` with:
+
+- `OutputItemType="Analyzer"`
+- `ReferenceOutputAssembly="false"`
+- `PrivateAssets="all"`
+
+This lets target projects receive analyzer diagnostics during `dotnet build` without referencing the analyzer as a runtime assembly.
