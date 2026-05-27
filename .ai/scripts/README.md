@@ -56,6 +56,12 @@ dotnet format --verify-no-changes
 dotnet tool run repo-context-lint
 ```
 
+Current transitional behavior:
+
+- runs `dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj`;
+- still runs legacy grep-based C# checks until analyzer coverage is wired into target projects;
+- labels first-batch grep checks as transitional.
+
 ### Replace With Roslyn Analyzer Or Architecture Tests
 
 - `check-repository-compliance.sh`

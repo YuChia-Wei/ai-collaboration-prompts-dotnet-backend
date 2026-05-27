@@ -1,0 +1,21 @@
+{
+  "id": "orchestrator-transition-update",
+  "title": "Move check-all and code-review scripts toward dotnet-native orchestration",
+  "status": "completed",
+  "description": "Update orchestrator scripts so they no longer use old JPA/Spring migration wording and begin invoking the analyzer source template tests as a dotnet-native validation step.",
+  "inputs": [
+    ".ai/scripts/check-all.sh",
+    ".ai/scripts/code-review.sh",
+    "tools/DotnetBackendAnalyzers.Tests/"
+  ],
+  "outputs": [
+    ".ai/scripts/check-all.sh",
+    ".ai/scripts/code-review.sh"
+  ],
+  "validation": [
+    "C:\\Program Files\\Git\\bin\\bash.exe -n .ai/scripts/check-all.sh",
+    "C:\\Program Files\\Git\\bin\\bash.exe -n .ai/scripts/code-review.sh",
+    "rg -n \"JPA|Spring|pending \\\\.NET translation|script not yet available\" .ai/scripts/check-all.sh .ai/scripts/code-review.sh",
+    "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj"
+  ]
+}

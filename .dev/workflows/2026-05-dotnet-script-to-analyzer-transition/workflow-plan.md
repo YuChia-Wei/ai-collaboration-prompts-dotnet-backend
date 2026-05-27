@@ -87,3 +87,4 @@ Workflow-stage commits include `Why`, `What`, `Validation`, and `Workflow` body 
 - Created the first source-included Roslyn analyzer template under `tools/DotnetBackendAnalyzers/`.
 - Added initial analyzer tests for repository, use case, and aggregate/entity rules.
 - Fixed `global.json` from invalid `10.0.0` SDK version to installed feature band `10.0.300`.
+- Updated `check-all.sh` and `code-review.sh` toward dotnet-native orchestration by removing old JPA/Spring migration wording and adding analyzer template test execution to `check-all.sh`.
