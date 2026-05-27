@@ -152,7 +152,7 @@ ASPNETCORE_ENVIRONMENT=test-outbox dotnet test
 ## Automated Check
 Preferred active entry point:
 
-- `.ai/scripts/check-test-di-compliance.sh`
+- `.ai/scripts/check-test-di-compliance.sh` is a transitional helper. Prefer analyzer or test architecture rules after dotnet-native validation exists.
 
 ## Common Mistakes
 
