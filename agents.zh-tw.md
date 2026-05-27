@@ -147,7 +147,7 @@ Workflow artifact 位置：
 | `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend building block reference |
 | `.ai/assets/skills/` | Canonical skill specs |
 | `.ai/assets/sub-agent-role-prompts/` | Canonical sub-agent role prompts |
-| `.ai/scripts/` | Validation、review 與 generation scripts |
+| `.ai/scripts/` | 過渡期 AI workflow scripts、context governance checks 與本機工具 orchestration helpers |
 
 ### Project Knowledge and Governance (`.dev/`)
 

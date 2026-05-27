@@ -146,7 +146,7 @@ Use these boundaries:
 | `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend building block reference |
 | `.ai/assets/skills/` | Canonical skill specs |
 | `.ai/assets/sub-agent-role-prompts/` | Canonical sub-agent role prompts |
-| `.ai/scripts/` | Validation, review, and generation scripts |
+| `.ai/scripts/` | Transitional AI workflow scripts, context governance checks, and local tool orchestration helpers |
 
 ### Project Knowledge and Governance (`.dev/`)
 

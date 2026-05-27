@@ -49,7 +49,7 @@ This directory contains agent-facing reusable AI assets. It is not the human-fac
 - `assets/`
   - canonical source for skills, sub-agent role prompts, shared packages, tech-stack profiles, and templates
 - `scripts/`
-  - validation, review, and generation scripts
+  - transitional AI workflow scripts, context governance checks, and local tool orchestration helpers
 
 ## Multi-Agent Skill Storage
 
