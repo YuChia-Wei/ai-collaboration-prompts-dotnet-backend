@@ -2,37 +2,77 @@
 
 Use this playbook after the workflow gate confirms the work needs stage planning, skill orchestration, or durable task tracking.
 
-## Routing Rules
+## Routing Model
 
-| Work intent | Route to | Notes |
+Route in two steps:
+
+1. Map each stage to a generic capability slot.
+2. Resolve the slot through the active capability profile or skill discovery.
+
+If the active profile has no matching downstream skill, use `skill-discovery-playbook.md` to inspect available skills. If discovery is low-confidence or finds no match, use `fallback-playbooks.md` and clearly mark the stage as fallback-mode.
+
+## Generic Capability Slots
+
+| Work intent | Capability slot | Expected specialist output |
 | --- | --- | --- |
-| AI context cleanup, language policy, prompt boundary, wrapper sync, skill registry cleanup | `ai-context-governance` | Use this for `.ai`, `.dev`, `.agents`, `.claude`, and context migration governance. |
-| First sync after copying this framework into another repo | `repo-structure-sync` | Use before requirement, spec, or architecture authoring in the target repo. |
-| Requirement drafting or normalization | `requirement-author` | Stop at requirement quality; do not jump into specs unless explicitly staged. |
-| Spec drafting or normalization | `spec-author` | Use after requirement truth is clear. |
-| First problem frame extraction | `problem-frame-author` | Use when a validator-ready problem frame is needed. |
-| .NET backend architecture design | `ddd-ca-hex-architect` | Use for bounded contexts, aggregates, ports/adapters, CQRS, messaging, or architecture refactoring direction. |
-| GWT scenario and assertion design | `bdd-gwt-test-designer` | Use for test intent and scenario design only. |
-| Command use case implementation | `command-use-case-implementer` | Use after requirement/spec/architecture direction is stable. |
-| Query use case implementation | `query-use-case-implementer` | Use after read-model/query behavior is clear. |
-| Reactor implementation | `reactor-implementer` | Use for event-driven consistency or projection reactions. |
-| Staged refactoring execution | `staged-refactor-implementer` | Use when the refactor stage is already decided. |
-| Local tactical refactor | `tactical-refactor-implementer` | Use for one object or symbol with bounded local change. |
-| .NET backend code review | `code-reviewer` | Use for code quality review; do not use it as a planning skill. |
-| Problem-frame compliance gate | `spec-compliance-validator` | Use when problem-frame coverage must be validated. |
+| Workflow planning, stage sequencing, task tracking, validation and commit checkpoints | `workflow-orchestration` | Stage plan, artifact decision, checkpoint plan, final evidence summary. |
+| AI context cleanup, language policy, prompt boundaries, wrapper sync, skill registry cleanup | `context-governance` | Context classification, source-of-truth decision, migration or wrapper sync plan. |
+| First sync after copying a framework or template into a target repo | `repo-initialization` | Repo inventory, stale template fact classification, entry document refresh plan. |
+| Requirement drafting or normalization | `requirements` | Requirement draft, assumptions, gaps, source-truth notes. |
+| Spec drafting or normalization | `specification` | Behavior or component spec, source references, handoff notes. |
+| First problem-frame extraction | `problem-framing` | Validator-ready problem frame draft and source evidence. |
+| Architecture design or architecture refactoring direction | `architecture` | Bounded design decision, tradeoffs, target structure, non-goals. |
+| GWT scenario and assertion design | `test-design` | Scenarios, assertion points, test level recommendation. |
+| Bounded implementation | `implementation` | Code or document changes for a bounded task, narrow validation. |
+| Refactoring execution | `refactoring` | Scoped refactor changes and regression validation. |
+| Code or artifact review | `review` | Findings, severity, evidence, residual risk. |
+| Compliance or coverage gate | `compliance-validation` | Coverage result, missing evidence, pass/fail gate. |
+
+## Local Profile Resolution
+
+For this repository, resolve slots through `capability-profile.md`.
+
+The current local profile maps slots to these concrete skills:
+
+| Capability slot | Local skill |
+| --- | --- | --- |
+| `context-governance` | `ai-context-governance` |
+| `repo-initialization` | `repo-structure-sync` |
+| `requirements` | `requirement-author` |
+| `specification` | `spec-author` |
+| `problem-framing` | `problem-frame-author` |
+| `architecture` | `ddd-ca-hex-architect` |
+| `test-design` | `bdd-gwt-test-designer` |
+| `implementation` | `command-use-case-implementer`, `query-use-case-implementer`, or `reactor-implementer` |
+| `refactoring` | `staged-refactor-implementer` or `tactical-refactor-implementer` |
+| `review` | `code-reviewer` |
+| `compliance-validation` | `spec-compliance-validator` |
+
+## Skill Discovery Resolution
+
+When no explicit profile exists, or when the profile does not cover a capability slot:
+
+1. read `skill-discovery-playbook.md`;
+2. inspect available skill metadata and wrapper descriptions;
+3. prefer declared `capability_slots`;
+4. infer only when the candidate is clear;
+5. report confidence and evidence in the workflow plan;
+6. fall back when confidence is low or no candidate exists.
 
 ## Orchestration Boundaries
 
 - `dev-workflow` may decide the stage sequence, update workflow task status, and request the next skill.
 - `dev-workflow` must not invent downstream skill findings or claim a domain result without running or applying the downstream workflow.
-- When two skills could apply, route by the source of truth being changed:
-  - process, context, language, wrapper, or registry truth: `ai-context-governance`
-  - product or code architecture truth: `ddd-ca-hex-architect`
-  - requirement truth: `requirement-author`
-  - behavior specification truth: `spec-author`
-  - test scenario truth: `bdd-gwt-test-designer`
-  - implementation truth: an implementer skill
-  - review truth: `code-reviewer` or `spec-compliance-validator`
+- When two capability slots could apply, route by the source of truth being changed:
+  - process, context, language, wrapper, or registry truth: `context-governance`
+  - repo template or initialization truth: `repo-initialization`
+  - product or code architecture truth: `architecture`
+  - requirement truth: `requirements`
+  - behavior specification truth: `specification`
+  - test scenario truth: `test-design`
+  - implementation truth: `implementation`
+  - review truth: `review` or `compliance-validation`
+- If no matching local skill exists, call out fallback-mode explicitly and use `fallback-playbooks.md`.
 
 ## Handoff Packet
 

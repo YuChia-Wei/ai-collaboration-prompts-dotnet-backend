@@ -1,0 +1,82 @@
+{
+  "task_id": "dev-workflow-core-profile-adjustment",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-06-dev-workflow-core-profile",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Adjust dev-workflow toward core orchestration, local capability profile, and fallback playbooks.",
+    "files": [
+      ".ai/assets/skills/dev-workflow/skill.yaml",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/capability-profile.md",
+      ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md",
+      ".ai/assets/skills/dev-workflow/references/runtime-coordination.md",
+      ".agents/skills/dev-workflow/SKILL.md",
+      ".claude/skills/dev-workflow/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/workflows/2026-06-dev-workflow-core-profile/workflow-plan.md",
+      ".dev/workflows/2026-06-dev-workflow-core-profile/tasks/dev-workflow-core-profile-adjustment.json"
+    ],
+    "dependency_radius": "Dev workflow skill behavior, routing quality boundary, and human guide.",
+    "constraints": [
+      "Keep current local skill routing available through a profile.",
+      "Do not claim standalone fallback equals specialist skill quality.",
+      "Keep agent-facing references in English and human guide in Traditional Chinese."
+    ],
+    "non_goals": [
+      "No external package release.",
+      "No other skill redesign."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Publishable dev-workflow core with repo-local profile and fallback boundaries.",
+    "review_findings": [],
+    "user_constraints": [
+      "The skill exists to organize existing skills, so quality without those skills must be represented honestly."
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-refinement",
+    "steps": [
+      "Update skill.yaml to define core, profile, and fallback modes.",
+      "Refactor routing playbook around generic capability slots.",
+      "Add local capability profile mapping to current repository skills.",
+      "Add skill discovery rules for repositories that have similar downstream skills.",
+      "Add fallback playbooks for missing downstream skills.",
+      "Add runtime coordination guidance for Codex Goal and Claude workflow prompts.",
+      "Update the human guide with quality boundaries."
+    ],
+    "validation": [
+      "ConvertFrom-Json for task files.",
+      "rg skill discovery, capability profile, fallback, and runtime coordination references.",
+      "git diff --check."
+    ],
+    "deferred_items": [
+      "External package structure and release metadata."
+    ]
+  },
+  "results": {
+    "summary": "Adjusted dev-workflow into a core/profile/discovery/fallback design and documented runtime coordination prompts for Codex Goal and Claude workflow usage.",
+    "files_changed": [
+      ".ai/assets/skills/dev-workflow/skill.yaml",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/capability-profile.md",
+      ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md",
+      ".ai/assets/skills/dev-workflow/references/runtime-coordination.md",
+      ".agents/skills/dev-workflow/SKILL.md",
+      ".claude/skills/dev-workflow/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/workflows/2026-06-dev-workflow-core-profile/workflow-plan.md",
+      ".dev/workflows/2026-06-dev-workflow-core-profile/tasks/dev-workflow-core-profile-adjustment.json"
+    ],
+    "tests_run": [
+      "ConvertFrom-Json for .dev/workflows/2026-06-dev-workflow-core-profile/tasks/*.json",
+      "rg skill discovery, capability profile, fallback, and runtime coordination references",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}
