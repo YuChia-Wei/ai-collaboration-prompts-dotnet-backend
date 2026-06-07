@@ -1,0 +1,58 @@
+{
+  "task_id": "skill-boundary-design",
+  "owner_skill": "skill-creator",
+  "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Define dev-workflow ownership, delegation boundaries, and routing behavior.",
+    "files": [
+      ".ai/assets/skills/dev-workflow/skill.yaml",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/output-contract.md"
+    ],
+    "dependency_radius": "Skill registry and existing skill boundaries.",
+    "constraints": [
+      "Do not duplicate downstream skill internals.",
+      "Keep dev-workflow focused on orchestration."
+    ],
+    "non_goals": [
+      "No implementation of domain work."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "A development workflow orchestration skill.",
+    "review_findings": [],
+    "user_constraints": [
+      "The skill should drive other skills instead of mixing all development process rules into root instructions."
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-design",
+    "steps": [
+      "Define trigger conditions.",
+      "Define inputs and outputs.",
+      "Define delegation rules.",
+      "Define reference playbooks."
+    ],
+    "validation": [
+      "Search for references to dev-workflow.",
+      "Review against existing skill registry."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Defined dev-workflow as a universal orchestration skill for workflow mode decisions, workflow artifacts, skill routing, validation checkpoints, and commit checkpoints without replacing downstream domain skills.",
+    "files_changed": [
+      ".ai/assets/skills/dev-workflow/skill.yaml",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/output-contract.md"
+    ],
+    "tests_run": [
+      "Manual comparison against existing canonical skill registry and wrapper patterns"
+    ],
+    "follow_up_needed": false
+  }
+}

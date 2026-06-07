@@ -23,11 +23,13 @@
 3. **Language policy**: [`standards/AI-CONTEXT-LANGUAGE-POLICY.md`](standards/AI-CONTEXT-LANGUAGE-POLICY.md)
 4. **Workflow gate**: [`standards/WORKFLOW-GATE-POLICY.md`](standards/WORKFLOW-GATE-POLICY.md)
 5. **Git commit policy**: [`standards/GIT-COMMIT-POLICY.md`](standards/GIT-COMMIT-POLICY.md)
-6. **Repo init skill guide**: [`guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`](guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md)
+6. **Dev workflow skill guide**: [`guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md`](guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md)
+7. **Repo init skill guide**: [`guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`](guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md)
 
 ## 🔗 相關資源
 
 - Human-facing AI Collaboration Guides: `guides/ai-collaboration-guides/`
+- Dev Workflow Skill Guide: `guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md`
 - AI Context Governance Skill Guide: `guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
 - AI Prompts: `.ai/`
 - Canonical AI Assets: `.ai/assets/`

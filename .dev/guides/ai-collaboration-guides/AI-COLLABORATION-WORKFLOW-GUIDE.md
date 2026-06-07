@@ -9,6 +9,8 @@
 - 何時需要 workflow mode
 - 何時適合引入 subagent
 
+若任務本身是「規劃並驅動多階段作業」，優先使用 `dev-workflow`。這個 skill 負責判斷 direct mode / workflow mode、建立 workflow artifacts、安排 skill routing、驗證 checkpoint 與 commit checkpoint；各階段的實際專業工作仍交給對應 skill。
+
 ## 核心原則
 
 - 先建立對人與 AI 都可讀的文件，再進入生成或重構
@@ -323,6 +325,7 @@ subagent 不應：
 ## 相關文件
 
 - `REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`
+- `DEV-WORKFLOW-SKILL-GUIDE.md`
 - `BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md`
 - `BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`
 - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`

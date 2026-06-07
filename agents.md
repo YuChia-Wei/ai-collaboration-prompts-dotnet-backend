@@ -65,6 +65,12 @@ Use `ai-context-governance` for:
 
 Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
+### Development Workflow Orchestration
+
+Use `dev-workflow` when the work needs multi-stage planning, workflow artifacts, skill routing, sub-agent coordination, validation checkpoints, or commit checkpoints.
+
+The skill may coordinate downstream skills, but it must not replace their domain responsibilities.
+
 ### Repo Init / Template Adaptation
 
 Use `repo-structure-sync` as the first skill after this framework is copied into an existing or empty target repository.
@@ -113,6 +119,7 @@ Use these boundaries:
 
 | Need | Skill |
 | --- | --- |
+| Multi-stage development workflow orchestration, workflow artifacts, skill routing, validation and commit checkpoints | `dev-workflow` |
 | AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
 | First sync after copying this framework into a target repo | `repo-structure-sync` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |

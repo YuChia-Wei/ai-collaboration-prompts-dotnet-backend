@@ -1,0 +1,57 @@
+{
+  "task_id": "final-validation",
+  "owner_skill": "skill-creator",
+  "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Validate dev-workflow skill extraction and close the workflow.",
+    "files": [
+      ".dev/workflows/2026-06-dev-workflow-skill/workflow-plan.md",
+      ".dev/workflows/2026-06-dev-workflow-skill/tasks/final-validation.json"
+    ],
+    "dependency_radius": "All files changed by this workflow.",
+    "constraints": [
+      "Do not mark the workflow completed before validation passes.",
+      "Record validation commands in task results."
+    ],
+    "non_goals": [
+      "No additional feature work during final validation."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Validated and committed dev-workflow skill.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "final-validation",
+    "steps": [
+      "Parse task JSON files.",
+      "Search references.",
+      "Run whitespace validation.",
+      "Mark workflow completed."
+    ],
+    "validation": [
+      "ConvertFrom-Json for task files.",
+      "rg dev-workflow reference checks.",
+      "rg English-only check for agents.md.",
+      "git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Completed final validation for the dev-workflow skill extraction and marked the workflow completed.",
+    "files_changed": [
+      ".dev/workflows/2026-06-dev-workflow-skill/workflow-plan.md",
+      ".dev/workflows/2026-06-dev-workflow-skill/tasks/final-validation.json"
+    ],
+    "tests_run": [
+      "ConvertFrom-Json for .dev/workflows/2026-06-dev-workflow-skill/tasks/*.json",
+      "rg dev-workflow reference checks across canonical assets, wrappers, guides, README files, and root agent files",
+      "rg CJK character check for agents.md",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

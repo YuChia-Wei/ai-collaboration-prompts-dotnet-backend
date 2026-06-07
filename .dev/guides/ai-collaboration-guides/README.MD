@@ -23,6 +23,7 @@
 - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`: `ddd-ca-hex-architect`、`code-reviewer`、`staged-refactor-implementer`、`tactical-refactor-implementer` 的邊界與工作流
 - `AI-REFACTORING-SKILL-CONTRACTS.md`: 四個重構 skill 的最小 input / output contract 與 handoff 規則
 - `AI-COLLABORATION-WORKFLOW-GUIDE.md`: requirement / spec / testing / refactor / review 的整體 AI 協作流程
+- `DEV-WORKFLOW-SKILL-GUIDE.md`: `dev-workflow` 的使用說明、workflow mode 判斷、skill routing 與 commit / validation checkpoint prompt 範本
 - `AI-ASSET-LOCATION-STRATEGY.md`: 多 agent 情境下 skill / prompt / guide / workflow artifact 的收納策略
 - `AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`: `ai-context-governance` 的使用說明與 AI context 文件治理 prompt 範本
 - `LOCAL-RUNTIME-WRAPPER-GUIDE.md`: repo wrapper 與本機 runtime 的使用方式

@@ -28,6 +28,7 @@
 - `bdd-gwt-test-designer`
 - `code-reviewer`
 - `command-use-case-implementer`
+- `dev-workflow`
 - `ddd-ca-hex-architect`
 - `problem-frame-author`
 - `query-use-case-implementer`
