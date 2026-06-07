@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-06-dev-workflow-skill`
 - `owner_skill`: `skill-creator`
-- `status`: `in_progress`
+- `status`: `completed`
 
 ## Context
 
@@ -92,3 +92,11 @@
   - `.dev/standards/GIT-COMMIT-POLICY.md`
   - `.ai/assets/skills/README.MD`
   - `.ai/assets/skills/ai-context-governance/skill.yaml`
+
+## Completion Summary
+
+- Added `dev-workflow` as a universal orchestration skill for workflow mode decisions, workflow artifacts, skill routing, validation checkpoints, and commit checkpoints.
+- Added canonical references for routing, workflow artifacts, and output contracts.
+- Added thin Codex/current-runtime and Claude-compatible wrappers.
+- Added a Traditional Chinese human-facing guide and updated repository, skill, wrapper, workflow, and root agent indexes.
+- Validated task JSON parsing, reference discoverability, English-only `agents.md`, and whitespace checks.
