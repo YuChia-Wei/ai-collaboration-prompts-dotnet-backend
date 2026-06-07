@@ -2,7 +2,9 @@
 
 本文件說明如何使用 `dev-workflow` 作為開發流程協調 skill，讓 AI Agent 先判斷 direct mode / workflow mode，再決定要把各階段交給哪個 skill 或 sub-agent。
 
-`dev-workflow` 的重點不是自己做架構設計、實作、review 或文件治理，而是把這些工作切成可追蹤的 stage，並在正確時機派給對應 skill。
+`dev-workflow` 的重點不是自己做架構設計、實作、review 或文件治理，而是把這些工作切成可追蹤的 stage，先對應到通用 capability slot，再透過本 repo 的 capability profile 派給對應 skill。
+
+若沒有對應的下游 skill 或 project standard，`dev-workflow` 只能降級為 fallback-mode：產出最低限度 checklist、handoff prompt 與風險說明。這種輸出不能宣稱與專職 skill 的品質相同。
 
 ## 這個 Skill 可以做什麼
 
@@ -11,7 +13,9 @@
 - 判斷一個需求是否需要 workflow mode
 - 建立或更新 `.dev/workflows/<workflow-id>/` 下的 workflow plan 與 task JSON
 - 規劃 multi-skill handoff，例如 requirement -> spec -> architecture -> implementation -> review
-- 判斷每個 stage 應該使用哪個 skill
+- 判斷每個 stage 屬於哪個 capability slot
+- 依 capability profile 找出本 repo 對應的 skill
+- 在缺少對應 skill 時切換 fallback-mode
 - 設定 validation checkpoint 與 commit checkpoint
 - 整理交棒給 sub-agent 或其他 skill 的 source packet
 - 在 workflow 結束時回報 validation、commit、尚未決策事項與後續建議
@@ -26,6 +30,7 @@
 - 取代 `repo-structure-sync` 做 repo init
 - 取代 `bdd-gwt-test-designer` 做 GWT scenario 與 assertion design
 - 直接跳過 requirement / spec / review，只因為已經有 workflow plan
+- 在沒有下游 skill 的情況下宣稱已完成同等品質的架構、review、test design 或 implementation 判斷
 
 ## 最適合什麼時候用
 
@@ -38,12 +43,23 @@
 5. 任務需要 sub-agent 或不同模型分工
 6. 你想把「開發流程怎麼跑」從單一 skill 中抽出來統一管理
 
+## 三種使用模式
+
+| 模式 | 說明 | 品質邊界 |
+| --- | --- | --- |
+| Core mode | 只使用 `dev-workflow` 的通用 orchestration 規則 | 可以規劃 stage、handoff、validation，但不保證專業內容品質 |
+| Profile mode | 使用本 repo 的 capability profile，把 stage 派給現有 skills | 可以維持目前這種明確 skill 分工品質 |
+| Fallback mode | 找不到對應 skill 或標準時，使用最低限度 checklist | 只能作為臨時風險控管與交棒，不等同專職 skill |
+
+目前本 repo 預設使用 Profile mode。
+
 ## 建議輸出
 
 使用 `dev-workflow` 時，建議要求它輸出：
 
 - workflow mode 判斷
-- 選用 skill 與理由
+- capability slot 與選用 skill
+- 是否有 stage 使用 fallback-mode
 - workflow artifact path
 - stage 清單與每個 stage 的 owner skill
 - validation checkpoint
@@ -73,6 +89,7 @@ Return:
 3. workflow artifacts
 4. current stage status
 5. validation and commits
+6. fallback-mode stages, if any
 ```
 
 ### 範本 2：只規劃，不先執行
@@ -86,9 +103,10 @@ Goal:
 Please return:
 1. whether this should be direct mode or workflow mode
 2. stage breakdown
-3. skill routing for each stage
+3. capability slot and skill routing for each stage
 4. files likely to change
 5. decisions I must make before execution
+6. which stages would fall back if no specialist skill is available
 ```
 
 ### 範本 3：整理既有 workflow 狀態
@@ -111,6 +129,9 @@ Check:
 | --- | --- |
 | 決定 direct mode / workflow mode | `dev-workflow` |
 | 建立 workflow plan 與 task JSON | `dev-workflow` |
+| 通用 capability slot 判斷 | `dev-workflow` |
+| 本 repo capability profile 維護 | `.ai/assets/skills/dev-workflow/references/capability-profile.md` |
+| 缺少下游 skill 時的最低限度 checklist | `.ai/assets/skills/dev-workflow/references/fallback-playbooks.md` |
 | AI context、語言政策、wrapper sync | `ai-context-governance` |
 | repo init / template adaptation | `repo-structure-sync` |
 | requirement 草稿與正規化 | `requirement-author` |
@@ -125,5 +146,8 @@ Check:
 
 - `dev-workflow` 只放流程協調規則。
 - domain skill 的專業規則不要複製進 `dev-workflow`。
+- portable core 應使用 generic capability slot，不直接綁定本 repo 的 skill 名稱。
+- 本 repo 的 skill 對應應放在 capability profile。
+- fallback playbook 必須明確標示品質限制，不能包裝成專職 skill 結果。
 - 若 routing 規則改變，先更新 `.ai/assets/skills/dev-workflow/skill.yaml` 與 references，再同步 wrapper 與 guide。
 - 若 workflow artifact 格式改變，應同步檢查 `.dev/standards/WORKFLOW-GATE-POLICY.md` 與 `.dev/standards/GIT-COMMIT-POLICY.md`。

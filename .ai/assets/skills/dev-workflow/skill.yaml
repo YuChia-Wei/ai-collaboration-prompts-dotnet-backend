@@ -1,7 +1,7 @@
 asset_id: "dev-workflow"
 asset_type: "skill-spec"
 title: "Development Workflow"
-purpose: "Coordinate multi-stage development, documentation, refactoring, and AI collaboration work by deciding direct mode versus workflow mode, creating or updating workflow artifacts, routing stages to the right skills, and enforcing validation and commit checkpoints."
+purpose: "Coordinate multi-stage development, documentation, refactoring, and AI collaboration work by deciding direct mode versus workflow mode, creating or updating workflow artifacts, mapping stages to capability slots, using local profiles when available, and enforcing validation and commit checkpoints."
 portability: "universal"
 audience:
   - "AI agents coordinating repository work"
@@ -29,14 +29,18 @@ inputs:
   - "issue number, branch policy, validation expectations, and handoff requirements when provided"
 outputs:
   - "direct-mode or workflow-mode decision"
-  - "selected skill routing plan"
+  - "capability-slot routing plan"
+  - "local skill routing plan when a capability profile exists"
   - "workflow plan and task artifacts when workflow mode applies"
   - "stage status, validation checkpoints, and commit timing recommendations"
   - "handoff packet for downstream skills or sub-agents"
+  - "fallback checklist when no matching downstream skill or profile is available"
   - "final execution summary with validation evidence and remaining decisions"
 constraints:
-  - "Do not replace downstream domain skills; delegate architecture, implementation, review, requirement, spec, context governance, or repo initialization work to the matching skill."
-  - "Do not use bdd-gwt-test-designer for general workflow governance or AI documentation cleanup."
+  - "Do not claim standalone fallback output has the same quality as a matching downstream specialist skill or project-specific standard."
+  - "Do not replace downstream domain skills; delegate architecture, implementation, review, requirement, spec, context governance, or repo initialization work to the matching local skill when the profile provides one."
+  - "When no matching downstream skill exists, use fallback playbooks only to create a minimum viable checklist, handoff prompt, or quality gate."
+  - "Do not use test-design capability for general workflow governance or AI documentation cleanup."
   - "When workflow mode applies, keep workflow artifacts under .dev/workflows/<workflow-id>/."
   - "Do not scatter workflow artifacts under .ai, .agents/skills, .claude/skills, or arbitrary folders unless the user explicitly requests it."
   - "Preserve user decisions, explicit constraints, branch rules, commit policy, and validation expectations."
@@ -49,13 +53,15 @@ workflow:
   - step: 3
     description: "If workflow mode applies, create or update .dev/workflows/<workflow-id>/workflow-plan.md and task JSON artifacts."
   - step: 4
-    description: "Route each stage to the matching skill or sub-agent using the routing playbook."
+    description: "Map each stage to a generic capability slot, then use the active capability profile to route to a local skill or use a fallback playbook."
   - step: 5
     description: "Coordinate stage execution, status updates, validation checkpoints, and commit timing."
   - step: 6
     description: "Close with evidence: changed files, validation, commits, open decisions, and recommended next action."
 references:
   - ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
+  - ".ai/assets/skills/dev-workflow/references/capability-profile.md"
+  - ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md"
   - ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/output-contract.md"
 examples:
