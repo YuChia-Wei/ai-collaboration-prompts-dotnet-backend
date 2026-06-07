@@ -15,6 +15,7 @@
 - 規劃 multi-skill handoff，例如 requirement -> spec -> architecture -> implementation -> review
 - 判斷每個 stage 屬於哪個 capability slot
 - 依 capability profile 找出本 repo 對應的 skill
+- 在沒有 profile 對應時，依 skill discovery playbook 檢查可用 skill 並標示 confidence
 - 在缺少對應 skill 時切換 fallback-mode
 - 設定 validation checkpoint 與 commit checkpoint
 - 整理交棒給 sub-agent 或其他 skill 的 source packet
@@ -49,6 +50,7 @@
 | --- | --- | --- |
 | Core mode | 只使用 `dev-workflow` 的通用 orchestration 規則 | 可以規劃 stage、handoff、validation，但不保證專業內容品質 |
 | Profile mode | 使用本 repo 的 capability profile，把 stage 派給現有 skills | 可以維持目前這種明確 skill 分工品質 |
+| Discovery mode | 沒有 profile 對應時，掃描可用 skill metadata 或 wrapper description | 可半自動找出候選 skill，但必須標示 confidence |
 | Fallback mode | 找不到對應 skill 或標準時，使用最低限度 checklist | 只能作為臨時風險控管與交棒，不等同專職 skill |
 
 目前本 repo 預設使用 Profile mode。
@@ -59,6 +61,7 @@
 
 - workflow mode 判斷
 - capability slot 與選用 skill
+- skill discovery confidence 與 mapping evidence
 - 是否有 stage 使用 fallback-mode
 - workflow artifact path
 - stage 清單與每個 stage 的 owner skill
@@ -89,7 +92,8 @@ Return:
 3. workflow artifacts
 4. current stage status
 5. validation and commits
-6. fallback-mode stages, if any
+6. inferred skill mappings and confidence
+7. fallback-mode stages, if any
 ```
 
 ### 範本 2：只規劃，不先執行
@@ -106,7 +110,8 @@ Please return:
 3. capability slot and skill routing for each stage
 4. files likely to change
 5. decisions I must make before execution
-6. which stages would fall back if no specialist skill is available
+6. which stages would use discovered skills
+7. which stages would fall back if no specialist skill is available
 ```
 
 ### 範本 3：整理既有 workflow 狀態
@@ -131,6 +136,7 @@ Check:
 | 建立 workflow plan 與 task JSON | `dev-workflow` |
 | 通用 capability slot 判斷 | `dev-workflow` |
 | 本 repo capability profile 維護 | `.ai/assets/skills/dev-workflow/references/capability-profile.md` |
+| 可用 skill 自動辨識與 confidence 規則 | `.ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md` |
 | 缺少下游 skill 時的最低限度 checklist | `.ai/assets/skills/dev-workflow/references/fallback-playbooks.md` |
 | AI context、語言政策、wrapper sync | `ai-context-governance` |
 | repo init / template adaptation | `repo-structure-sync` |
@@ -148,6 +154,7 @@ Check:
 - domain skill 的專業規則不要複製進 `dev-workflow`。
 - portable core 應使用 generic capability slot，不直接綁定本 repo 的 skill 名稱。
 - 本 repo 的 skill 對應應放在 capability profile。
+- 下游 skill 若要被穩定自動辨識，應宣告 `capability_slots`；沒有宣告時只能推論並標示 confidence。
 - fallback playbook 必須明確標示品質限制，不能包裝成專職 skill 結果。
 - 若 routing 規則改變，先更新 `.ai/assets/skills/dev-workflow/skill.yaml` 與 references，再同步 wrapper 與 guide。
 - 若 workflow artifact 格式改變，應同步檢查 `.dev/standards/WORKFLOW-GATE-POLICY.md` 與 `.dev/standards/GIT-COMMIT-POLICY.md`。

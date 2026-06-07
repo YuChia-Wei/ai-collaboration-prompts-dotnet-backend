@@ -9,6 +9,7 @@
     "files": [
       ".ai/assets/skills/dev-workflow/skill.yaml",
       ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md",
       ".ai/assets/skills/dev-workflow/references/capability-profile.md",
       ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md",
       ".agents/skills/dev-workflow/SKILL.md",
@@ -41,12 +42,13 @@
       "Update skill.yaml to define core, profile, and fallback modes.",
       "Refactor routing playbook around generic capability slots.",
       "Add local capability profile mapping to current repository skills.",
+      "Add skill discovery rules for repositories that have similar downstream skills.",
       "Add fallback playbooks for missing downstream skills.",
       "Update the human guide with quality boundaries."
     ],
     "validation": [
       "ConvertFrom-Json for task files.",
-      "rg capability profile and fallback references.",
+      "rg skill discovery, capability profile, and fallback references.",
       "git diff --check."
     ],
     "deferred_items": [
@@ -54,10 +56,11 @@
     ]
   },
   "results": {
-    "summary": "Adjusted dev-workflow into a core/profile/fallback design: generic capability slots, this repository's local capability profile, and explicit fallback-mode quality boundaries.",
+    "summary": "Adjusted dev-workflow into a core/profile/discovery/fallback design: generic capability slots, this repository's local capability profile, confidence-based skill discovery, and explicit fallback-mode quality boundaries.",
     "files_changed": [
       ".ai/assets/skills/dev-workflow/skill.yaml",
       ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md",
       ".ai/assets/skills/dev-workflow/references/capability-profile.md",
       ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md",
       ".agents/skills/dev-workflow/SKILL.md",
@@ -68,7 +71,7 @@
     ],
     "tests_run": [
       "ConvertFrom-Json for .dev/workflows/2026-06-dev-workflow-core-profile/tasks/*.json",
-      "rg capability profile and fallback references",
+      "rg skill discovery, capability profile, and fallback references",
       "git diff --check"
     ],
     "follow_up_needed": false

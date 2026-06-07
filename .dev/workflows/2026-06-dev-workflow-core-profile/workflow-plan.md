@@ -15,13 +15,14 @@
 - Current scope:
   - `dev-workflow` canonical spec, references, human guide, and workflow tracking.
 - Why this workflow now:
-  - The skill should explicitly distinguish core orchestration, repo-local routing profiles, and fallback playbooks.
+  - The skill should explicitly distinguish core orchestration, repo-local routing profiles, confidence-based skill discovery, and fallback playbooks.
 
 ## Target Direction
 
 - Target architecture summary:
   - `dev-workflow` core defines generic workflow orchestration.
   - A local profile maps generic capability slots to this repository's concrete skills.
+  - Skill discovery can infer available downstream skills when no explicit profile mapping exists.
   - Fallback playbooks describe minimum viable checks when a downstream skill is missing.
   - The skill must state that professional stage quality depends on downstream skills or equivalent project standards.
 - Key constraints:
@@ -44,7 +45,7 @@
 
 ### Stage 2: Core/Profile/Fallback Refactor
 - Goal:
-  - Refactor the canonical spec and references to distinguish core orchestration, local profile routing, and fallback playbooks.
+  - Refactor the canonical spec and references to distinguish core orchestration, local profile routing, skill discovery, and fallback playbooks.
 - Scope:
   - `.ai/assets/skills/dev-workflow/`.
 
@@ -63,7 +64,7 @@
 ## Validation Strategy
 
 - Parse task JSON files with `ConvertFrom-Json`.
-- Search for `capability profile`, `fallback`, and local skill mappings.
+- Search for `skill discovery`, `capability profile`, `fallback`, and local skill mappings.
 - Run `git diff --check`.
 
 ## Notes
@@ -75,5 +76,6 @@
 
 - Refactored `dev-workflow` toward a portable core orchestration model.
 - Added generic capability slots and local profile resolution.
+- Added confidence-based skill discovery for repositories that already have similar downstream skills.
 - Added fallback playbooks for missing downstream skills or project standards.
 - Updated runtime wrappers and the human guide to document profile-mode and fallback-mode quality boundaries.

@@ -7,9 +7,9 @@ Use this playbook after the workflow gate confirms the work needs stage planning
 Route in two steps:
 
 1. Map each stage to a generic capability slot.
-2. Resolve the slot through the active capability profile.
+2. Resolve the slot through the active capability profile or skill discovery.
 
-If the active profile has no matching downstream skill, use `fallback-playbooks.md` and clearly mark the stage as fallback-mode.
+If the active profile has no matching downstream skill, use `skill-discovery-playbook.md` to inspect available skills. If discovery is low-confidence or finds no match, use `fallback-playbooks.md` and clearly mark the stage as fallback-mode.
 
 ## Generic Capability Slots
 
@@ -47,6 +47,17 @@ The current local profile maps slots to these concrete skills:
 | `refactoring` | `staged-refactor-implementer` or `tactical-refactor-implementer` |
 | `review` | `code-reviewer` |
 | `compliance-validation` | `spec-compliance-validator` |
+
+## Skill Discovery Resolution
+
+When no explicit profile exists, or when the profile does not cover a capability slot:
+
+1. read `skill-discovery-playbook.md`;
+2. inspect available skill metadata and wrapper descriptions;
+3. prefer declared `capability_slots`;
+4. infer only when the candidate is clear;
+5. report confidence and evidence in the workflow plan;
+6. fall back when confidence is low or no candidate exists.
 
 ## Orchestration Boundaries
 

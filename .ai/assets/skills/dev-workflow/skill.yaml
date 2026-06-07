@@ -26,11 +26,13 @@ inputs:
   - "applicable workflow gate and commit policy"
   - "current workflow artifacts, if any"
   - "canonical skill registry and relevant skill specs"
+  - "available downstream skill metadata or runtime wrapper descriptions"
   - "issue number, branch policy, validation expectations, and handoff requirements when provided"
 outputs:
   - "direct-mode or workflow-mode decision"
   - "capability-slot routing plan"
   - "local skill routing plan when a capability profile exists"
+  - "skill discovery result with confidence when routing is inferred"
   - "workflow plan and task artifacts when workflow mode applies"
   - "stage status, validation checkpoints, and commit timing recommendations"
   - "handoff packet for downstream skills or sub-agents"
@@ -40,6 +42,7 @@ constraints:
   - "Do not claim standalone fallback output has the same quality as a matching downstream specialist skill or project-specific standard."
   - "Do not replace downstream domain skills; delegate architecture, implementation, review, requirement, spec, context governance, or repo initialization work to the matching local skill when the profile provides one."
   - "When no matching downstream skill exists, use fallback playbooks only to create a minimum viable checklist, handoff prompt, or quality gate."
+  - "When downstream skill mapping is inferred, report confidence and evidence before relying on the route."
   - "Do not use test-design capability for general workflow governance or AI documentation cleanup."
   - "When workflow mode applies, keep workflow artifacts under .dev/workflows/<workflow-id>/."
   - "Do not scatter workflow artifacts under .ai, .agents/skills, .claude/skills, or arbitrary folders unless the user explicitly requests it."
@@ -53,13 +56,14 @@ workflow:
   - step: 3
     description: "If workflow mode applies, create or update .dev/workflows/<workflow-id>/workflow-plan.md and task JSON artifacts."
   - step: 4
-    description: "Map each stage to a generic capability slot, then use the active capability profile to route to a local skill or use a fallback playbook."
+    description: "Map each stage to a generic capability slot, then use the active capability profile or skill discovery playbook to route to a local skill or use a fallback playbook."
   - step: 5
     description: "Coordinate stage execution, status updates, validation checkpoints, and commit timing."
   - step: 6
     description: "Close with evidence: changed files, validation, commits, open decisions, and recommended next action."
 references:
   - ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
+  - ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/capability-profile.md"
   - ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md"
   - ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md"
