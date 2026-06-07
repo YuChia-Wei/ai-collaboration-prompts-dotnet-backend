@@ -17,6 +17,7 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md`
   - `.ai/assets/skills/dev-workflow/references/capability-profile.md`
   - `.ai/assets/skills/dev-workflow/references/fallback-playbooks.md`
+  - `.ai/assets/skills/dev-workflow/references/runtime-coordination.md`
   - `.ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md`
   - `.ai/assets/skills/dev-workflow/references/output-contract.md`
 

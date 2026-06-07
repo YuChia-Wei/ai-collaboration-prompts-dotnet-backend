@@ -55,6 +55,103 @@
 
 目前本 repo 預設使用 Profile mode。
 
+## Runtime Coordination：Codex Goal 與 Claude Workflow
+
+`dev-workflow` 可以和 runtime 內建的 goal / workflow 功能搭配，但分工不同：
+
+| 層級 | 負責內容 |
+| --- | --- |
+| Codex Goal | 保存本次 thread 的 durable objective，讓長任務有明確完成條件 |
+| Claude workflow / slash command / routine | 作為 Claude runtime 中可重複觸發的流程入口 |
+| `dev-workflow` | 定義本 repo/team 的開發流程協調規則、artifact、skill routing、validation 與 commit checkpoint |
+| downstream skills | 執行 requirement、spec、architecture、test-design、implementation、review 等專業階段 |
+
+原則是：runtime 負責承載與追蹤，`dev-workflow` 負責流程政策與 skill routing。
+
+### Codex Goal Prompt 範例
+
+在 Codex 中建立 goal 時，可以這樣下：
+
+```text
+Goal:
+- 完成 <描述目標>。
+
+Use $dev-workflow as the orchestration policy.
+
+Rules:
+- Detect the current entry point from existing requirement/spec/workflow artifacts.
+- If only raw intent exists, route the first stage to requirements.
+- If requirement/spec already exists, continue from the earliest missing capability.
+- Create or update .dev/workflows/<workflow-id>/ when workflow mode applies.
+- Resolve stages through capability slots, local profile, or skill discovery.
+- Use fallback-mode only when no downstream skill or reliable standard exists.
+- Commit after coherent validated stages.
+- Keep working until the goal is complete or a direction decision is required from me.
+
+Return:
+1. current entry point
+2. selected stages and owner skills
+3. workflow artifacts
+4. validation checkpoints
+5. commits
+6. open decisions
+```
+
+### Claude Workflow Prompt 範例
+
+在 Claude workflow、slash command 或 routine 中，可以把 `dev-workflow` 放進 workflow prompt：
+
+```text
+Run the team development workflow.
+
+Use $dev-workflow as the orchestration policy for this repository.
+
+Objective:
+- <描述目標>
+
+Existing artifacts:
+- <requirement/spec/workflow/task paths, if any>
+
+Constraints:
+- follow the repo's branch and commit policy
+- create workflow artifacts when required
+- route stages through capability slots and the active profile
+- use skill discovery when no profile mapping exists
+- report fallback-mode stages explicitly
+- stop only when complete, blocked by a direction decision, or validation fails
+
+Return:
+1. direct/workflow mode decision
+2. entry point detection
+3. stage plan
+4. selected skills and discovery confidence
+5. workflow artifact paths
+6. validation and commit checkpoints
+7. open decisions
+```
+
+### 已完成前置步驟後再接續
+
+如果你已先使用 `requirement-author` 或 `spec-author`，不要要求 `dev-workflow` 重跑前置階段。改用：
+
+```text
+Use $dev-workflow to continue from existing artifacts.
+
+Objective:
+- <描述目標>
+
+Completed upstream artifacts:
+- requirement: <path>
+- spec: <path or none>
+
+Rules:
+- Do not redo completed upstream artifacts unless they conflict with current repo evidence.
+- Detect the earliest missing capability.
+- Continue with architecture, test-design, implementation, review, and validation as needed.
+- Create or update workflow artifacts if workflow mode applies.
+- Commit after coherent validated stages.
+```
+
 ## 建議輸出
 
 使用 `dev-workflow` 時，建議要求它輸出：

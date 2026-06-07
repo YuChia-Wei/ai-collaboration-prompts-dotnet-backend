@@ -12,6 +12,7 @@
       ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md",
       ".ai/assets/skills/dev-workflow/references/capability-profile.md",
       ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md",
+      ".ai/assets/skills/dev-workflow/references/runtime-coordination.md",
       ".agents/skills/dev-workflow/SKILL.md",
       ".claude/skills/dev-workflow/SKILL.md",
       ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
@@ -44,11 +45,12 @@
       "Add local capability profile mapping to current repository skills.",
       "Add skill discovery rules for repositories that have similar downstream skills.",
       "Add fallback playbooks for missing downstream skills.",
+      "Add runtime coordination guidance for Codex Goal and Claude workflow prompts.",
       "Update the human guide with quality boundaries."
     ],
     "validation": [
       "ConvertFrom-Json for task files.",
-      "rg skill discovery, capability profile, and fallback references.",
+      "rg skill discovery, capability profile, fallback, and runtime coordination references.",
       "git diff --check."
     ],
     "deferred_items": [
@@ -56,13 +58,14 @@
     ]
   },
   "results": {
-    "summary": "Adjusted dev-workflow into a core/profile/discovery/fallback design: generic capability slots, this repository's local capability profile, confidence-based skill discovery, and explicit fallback-mode quality boundaries.",
+    "summary": "Adjusted dev-workflow into a core/profile/discovery/fallback design and documented runtime coordination prompts for Codex Goal and Claude workflow usage.",
     "files_changed": [
       ".ai/assets/skills/dev-workflow/skill.yaml",
       ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
       ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md",
       ".ai/assets/skills/dev-workflow/references/capability-profile.md",
       ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md",
+      ".ai/assets/skills/dev-workflow/references/runtime-coordination.md",
       ".agents/skills/dev-workflow/SKILL.md",
       ".claude/skills/dev-workflow/SKILL.md",
       ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
@@ -71,7 +74,7 @@
     ],
     "tests_run": [
       "ConvertFrom-Json for .dev/workflows/2026-06-dev-workflow-core-profile/tasks/*.json",
-      "rg skill discovery, capability profile, and fallback references",
+      "rg skill discovery, capability profile, fallback, and runtime coordination references",
       "git diff --check"
     ],
     "follow_up_needed": false

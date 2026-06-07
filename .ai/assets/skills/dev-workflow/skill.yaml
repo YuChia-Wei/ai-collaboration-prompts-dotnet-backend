@@ -22,6 +22,7 @@ triggers:
   - "multi-skill handoff"
 inputs:
   - "user goal and explicit constraints"
+  - "runtime goal or workflow context when available"
   - "current repository state and git status"
   - "applicable workflow gate and commit policy"
   - "current workflow artifacts, if any"
@@ -36,6 +37,7 @@ outputs:
   - "workflow plan and task artifacts when workflow mode applies"
   - "stage status, validation checkpoints, and commit timing recommendations"
   - "handoff packet for downstream skills or sub-agents"
+  - "runtime coordination prompt when the user wants Codex Goal or Claude workflow integration"
   - "fallback checklist when no matching downstream skill or profile is available"
   - "final execution summary with validation evidence and remaining decisions"
 constraints:
@@ -43,6 +45,7 @@ constraints:
   - "Do not replace downstream domain skills; delegate architecture, implementation, review, requirement, spec, context governance, or repo initialization work to the matching local skill when the profile provides one."
   - "When no matching downstream skill exists, use fallback playbooks only to create a minimum viable checklist, handoff prompt, or quality gate."
   - "When downstream skill mapping is inferred, report confidence and evidence before relying on the route."
+  - "Do not make a runtime goal or runtime workflow the source of truth for repository process rules; use runtime features to carry dev-workflow execution."
   - "Do not use test-design capability for general workflow governance or AI documentation cleanup."
   - "When workflow mode applies, keep workflow artifacts under .dev/workflows/<workflow-id>/."
   - "Do not scatter workflow artifacts under .ai, .agents/skills, .claude/skills, or arbitrary folders unless the user explicitly requests it."
@@ -66,6 +69,7 @@ references:
   - ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/capability-profile.md"
   - ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md"
+  - ".ai/assets/skills/dev-workflow/references/runtime-coordination.md"
   - ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/output-contract.md"
 examples:

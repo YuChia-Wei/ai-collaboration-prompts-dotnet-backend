@@ -78,4 +78,5 @@
 - Added generic capability slots and local profile resolution.
 - Added confidence-based skill discovery for repositories that already have similar downstream skills.
 - Added fallback playbooks for missing downstream skills or project standards.
+- Added runtime coordination guidance for using Codex Goal and Claude workflow as execution carriers for `dev-workflow`.
 - Updated runtime wrappers and the human guide to document profile-mode and fallback-mode quality boundaries.
