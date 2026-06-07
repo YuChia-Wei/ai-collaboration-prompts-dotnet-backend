@@ -1,0 +1,45 @@
+{
+  "task_id": "runtime-wrapper-sync",
+  "owner_skill": "skill-creator",
+  "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Add thin runtime wrappers for the dev-workflow skill.",
+    "files": [
+      ".agents/skills/dev-workflow/SKILL.md",
+      ".claude/skills/dev-workflow/SKILL.md"
+    ],
+    "dependency_radius": "Runtime wrapper indexes and canonical skill spec.",
+    "constraints": [
+      "Wrappers must point to the canonical spec.",
+      "Wrappers must not become source-of-truth documents."
+    ],
+    "non_goals": [
+      "Do not add runtime-specific business rules."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Consistent runtime availability for dev-workflow.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "wrapper-sync",
+    "steps": [
+      "Create Codex wrapper.",
+      "Create Claude-compatible wrapper.",
+      "Update wrapper indexes."
+    ],
+    "validation": [
+      "Search wrapper indexes for dev-workflow."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

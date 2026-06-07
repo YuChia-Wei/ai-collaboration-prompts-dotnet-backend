@@ -1,0 +1,51 @@
+{
+  "task_id": "guide-and-index-sync",
+  "owner_skill": "skill-creator",
+  "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Add human guide and update navigation/routing indexes.",
+    "files": [
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/README.MD",
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      "agents.md",
+      "agents.zh-tw.md"
+    ],
+    "dependency_radius": "Human-facing guide navigation and root skill routing.",
+    "constraints": [
+      "Human guide should use Traditional Chinese Taiwan usage.",
+      "Agent-facing root AGENTS content should remain English."
+    ],
+    "non_goals": [
+      "Do not rewrite unrelated root instructions."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Discoverable dev-workflow routing guidance.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "guide-index-sync",
+    "steps": [
+      "Create human guide.",
+      "Update canonical and runtime indexes.",
+      "Update root skill routing instructions."
+    ],
+    "validation": [
+      "Search updated files for dev-workflow.",
+      "Confirm agents.md remains English-only."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
