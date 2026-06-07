@@ -1,0 +1,19 @@
+{
+  "id": "analyzer-source-template-bootstrap",
+  "title": "Create source-included dotnet backend analyzer template",
+  "status": "completed",
+  "description": "Create the initial source-included Roslyn analyzer project and tests for repository, use case, and aggregate/entity rules.",
+  "inputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md",
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md"
+  ],
+  "outputs": [
+    "tools/DotnetBackendAnalyzers/",
+    "tools/DotnetBackendAnalyzers.Tests/",
+    "tools/DotnetBackendAnalyzers/templates/Directory.Build.props.snippet",
+    "global.json"
+  ],
+  "validation": [
+    "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj"
+  ]
+}

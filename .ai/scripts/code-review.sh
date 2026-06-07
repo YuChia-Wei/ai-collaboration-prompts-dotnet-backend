@@ -30,7 +30,7 @@ COMMIT_RANGE="${1:-main...HEAD}"
 CHECK_REPOSITORY=false
 CHECK_MAPPER=false
 CHECK_CODING_STANDARDS=false
-CHECK_JPA_PROJECTION=false
+CHECK_PROJECTION_CONFIG=false
 CHECK_SPEC=false
 CHECK_AGGREGATE=false
 CHECK_USECASE=false
@@ -89,7 +89,7 @@ run_check() {
 run_check_pending() {
     local script_name=$1
     local description=$2
-    local reason=${3:-".NET translation pending"}
+    local reason=${3:-"dotnet-native replacement pending"}
 
     echo -e "${YELLOW}⊖${NC} TODO: $description ($reason)"
     ((WARNINGS++))
@@ -187,9 +187,9 @@ while IFS= read -r file; do
 
     # Projection / Read Model (.NET)
     if echo "$file" | grep -E "Projection\\.cs|ReadModel\\.cs|/Projections/|/ReadModels/" > /dev/null; then
-        if [ "$CHECK_JPA_PROJECTION" = false ]; then
+        if [ "$CHECK_PROJECTION_CONFIG" = false ]; then
             echo "  • Projection changes detected → will check projection configuration"
-            CHECK_JPA_PROJECTION=true
+            CHECK_PROJECTION_CONFIG=true
         fi
     fi
 
@@ -262,7 +262,7 @@ done <<< "$CHANGED_FILES"
 # If nothing specific detected, run basic checks
 if [ "$CHECK_REPOSITORY" = false ] && \
    [ "$CHECK_MAPPER" = false ] && \
-   [ "$CHECK_JPA_PROJECTION" = false ] && \
+   [ "$CHECK_PROJECTION_CONFIG" = false ] && \
    [ "$CHECK_AGGREGATE" = false ] && \
    [ "$CHECK_USECASE" = false ] && \
    [ "$CHECK_CONTROLLER" = false ] && \
@@ -292,7 +292,7 @@ if [ "$CHECK_MAPPER" = true ]; then
 fi
 
 # Projection Check
-if [ "$CHECK_JPA_PROJECTION" = true ]; then
+if [ "$CHECK_PROJECTION_CONFIG" = true ]; then
     run_check_pending "check-projection-config.sh" "Projection Configuration"
 fi
 

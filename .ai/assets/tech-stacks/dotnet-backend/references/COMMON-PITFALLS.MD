@@ -121,7 +121,7 @@ public void Rule_Success_case()
 
 1. 使用 Sub-agent Workflow
 2. 參考 `.dev/standards/examples/`
-3. 執行 `.ai/scripts/check-all.sh`
-4. 查看 `.ai/CODE-REVIEW-INDEX.md`
+3. 執行 `.ai/scripts/check-all.sh` 作為過渡期本機 orchestrator
+4. 查看 `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
 
 最後更新：2026-02-01

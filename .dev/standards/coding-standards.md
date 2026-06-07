@@ -274,15 +274,17 @@ public async Task HandleAsync(UpdatePendingOrdersCommand cmd)
 ## 自動化檢查
 
 ```bash
-# 執行 dotnet 版完整檢查
+# Transitional local orchestrator
 .ai/scripts/check-all.sh
 
-# Spec compliance
+# Transitional spec helper
 .ai/scripts/check-spec-compliance.sh <spec-file> <task-name>
 
-# Mutation testing
+# Mutation testing runner
 .ai/scripts/check-mutation-coverage.sh
 ```
+
+> `.ai/scripts` 目前是過渡期 AI workflow / orchestration 區。C# 語意規則應逐步移轉到 Roslyn Analyzer、`.editorconfig`、`dotnet format`、architecture tests、dotnet tests 或 dotnet tools。
 
 ## 相關文件
 

@@ -33,11 +33,11 @@
 ## Script Assets
 
 - `scripts/`
-  - validation / review / generation scripts
+  - transitional AI workflow scripts, context governance checks, and local tool orchestration helpers
 - `scripts/generated/`
-  - generated check scripts
+  - generated regex checks planned for retirement after dotnet-native replacements exist
 - `scripts/README.md`
-  - scripts 使用入口
+  - script transition policy and inventory entry
 
 ## Supporting References
 

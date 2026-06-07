@@ -1,0 +1,23 @@
+{
+  "id": "script-readme-and-index-sync",
+  "title": "Update script README and indexes",
+  "status": "completed",
+  "description": "Update script and AI context indexes so current scripts are documented as transitional where appropriate and shell scripts are not presented as final dotnet C# validation.",
+  "inputs": [
+    ".ai/scripts/README.md",
+    ".ai/INDEX.MD",
+    ".ai/README.MD",
+    "agents.md"
+  ],
+  "outputs": [
+    ".ai/scripts/README.md",
+    ".ai/INDEX.MD",
+    ".ai/README.MD",
+    "agents.md"
+  ],
+  "validation": [
+    "Rewrote .ai/scripts/README.md around transitional script policy and dotnet-native validation migration.",
+    "Updated .ai/README.MD, .ai/INDEX.MD, agents.md, and agents.zh-tw.md script descriptions.",
+    "Documented generated regex checks as retirement candidates after replacement coverage exists."
+  ]
+}

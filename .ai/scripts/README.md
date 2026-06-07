@@ -1,104 +1,131 @@
-# AI Scripts Collection
+# AI Scripts
 
-這個目錄包含自動化檢查與驗證腳本，用於支援目前的 .NET 10 + WolverineFx + Dapper/Npgsql + EF Core 工作流。
+This directory contains transitional AI workflow scripts, context governance checks, and local tool orchestration helpers.
 
-> Note:
-> 對外預設入口已統一為 .NET 命名，legacy script names 已完成退場。
+It is no longer the long-term home for authoritative C# semantic validation. Rules that inspect C# syntax, symbols, type dependencies, attributes, or framework API usage should move to dotnet-native validation mechanisms such as Roslyn analyzers, `.editorconfig`, `dotnet format`, architecture tests, integration tests, or dotnet tools.
 
-## Quick Start
+## Current Transition
 
-### Code Review
+Workflow: `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/`
+
+Key files:
+
+- `script-inventory.md`
+- `dotnet-validation-strategy.md`
+- `script-to-validator-mapping.md`
+
+## Retention Policy
+
+Shell or PowerShell scripts may remain when they are:
+
+- AI workflow glue;
+- prompt or context portability checks;
+- repository file-system automation;
+- local or CI orchestration over dotnet-native tools;
+- non-C# semantic checks.
+
+Shell or PowerShell scripts should be retired or replaced when they:
+
+- use grep/find/plain-text matching to decide C# architecture correctness;
+- duplicate `.editorconfig`, built-in analyzers, Roslyn analyzers, `dotnet format`, architecture tests, or dotnet tests;
+- generate regex-based C# validation scripts from markdown and present them as formal gates.
+
+## Script Classes
+
+### Keep As AI Workflow Or Context Governance
+
+- `check-prompt-portability.sh`
+- `check-coding-standards.sh`
+
+These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
+
+### Keep As Orchestrator Only
+
+- `check-all.sh`
+- `code-review.sh`
+
+These may remain as local workflow entry points, but their future role is to invoke dotnet-native validation and summarize outputs. They should not remain regex-based C# validators.
+
+Future `check-all.sh` shape:
+
 ```bash
-./.ai/scripts/code-review.sh
-./.ai/scripts/code-review.sh HEAD~3..HEAD
-./.ai/scripts/code-review.sh staged
+dotnet restore
+dotnet build
+dotnet test
+dotnet format --verify-no-changes
+dotnet tool run repo-context-lint
 ```
 
-### Full Project Checks
-```bash
-./.ai/scripts/check-all.sh
-./.ai/scripts/check-all.sh --quick
-./.ai/scripts/check-all.sh --critical
-```
+Current transitional behavior:
 
-### Recommended .NET-Named Checks
-```bash
-./.ai/scripts/check-projection-config.sh
-./.ai/scripts/check-dotnet-config.sh
-./.ai/scripts/check-test-di-compliance.sh
-```
+- runs `dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj`;
+- still runs legacy grep-based C# checks until analyzer coverage is wired into target projects;
+- labels first-batch grep checks as transitional.
 
-## Naming Policy
+### Replace With Roslyn Analyzer Or Architecture Tests
 
-### Preferred active names
-
-- `check-projection-config.sh`
-- `check-dotnet-config.sh`
+- `check-repository-compliance.sh`
+- `check-usecase-compliance.sh`
+- `check-aggregate-compliance.sh`
+- `check-controller-compliance.sh`
+- `check-mapper-compliance.sh`
+- `check-projection-compliance.sh`
+- `check-archive-compliance.sh`
+- `check-test-compliance.sh`
 - `check-test-di-compliance.sh`
+- `check-data-class-annotations.sh`
+- `check-domain-events-compliance.sh`
+- `check-framework-api-compliance.sh`
 
-## Script Inventory
+First analyzer batch:
 
-```text
-.ai/scripts/
-├── code-review.sh
-├── check-all.sh
-├── check-aggregate-compliance.sh
-├── check-archive-compliance.sh
-├── check-coding-standards.sh
-├── check-controller-compliance.sh
-├── check-data-class-annotations.sh
-├── check-domain-events-compliance.sh
-├── check-dotnet-config.sh
-├── check-framework-api-compliance.sh
-├── check-mapper-compliance.sh
-├── check-mutation-coverage.sh
-├── check-projection-compliance.sh
-├── check-projection-config.sh
-├── check-prompt-portability.sh
-├── check-repository-compliance.sh
-├── check-spec-compliance.sh
-├── check-test-compliance.sh
-├── check-test-di-compliance.sh
-├── check-usecase-compliance.sh
-├── generate-check-scripts-from-md.sh
-├── MD-SCRIPT-GENERATION-GUIDE.md
-└── generated/
-```
+1. repository rules: bootstrap coverage exists as `DBA1001`;
+2. use case rules: bootstrap coverage exists as `DBA1002`;
+3. domain entity / aggregate rules: bootstrap coverage exists as `DBA1003`.
 
-## Stage 6 Alignment Notes
+Analyzer source template:
 
-- `.NET` naming is now the default recommendation in docs and orchestrator scripts.
-- Legacy wrapper retirement is complete for the projection/config/test-DI script trio.
+- `tools/DotnetBackendAnalyzers/`
+- `tools/DotnetBackendAnalyzers.Tests/`
 
-## Script Notes
+### Replace With Dotnet Tool Or Tests
 
-### `code-review.sh`
+- `check-dockerfile-csproj-copy-sync.ps1`
+- `check-dotnet-config.sh`
+- `check-projection-config.sh`
+- `check-spec-compliance.sh`
+- `check-mutation-coverage.sh`
+- `test-profile-startup.sh`
+- `validate-dual-profile-config.sh`
 
-- smart entry point for review-time checks
-- selects checks based on changed files
+These are not necessarily Roslyn analyzer rules. They belong in dotnet tools, integration tests, config tests, Stryker.NET configuration, or CI orchestration.
 
-### `check-all.sh`
+### Retire Generated Regex Checks
 
-- full project health report
-- supports `--quick`, `--critical`, and full mode
+- `generate-check-scripts-from-md.sh`
+- `parse-md-rules.py`
+- `MD-SCRIPT-GENERATION-GUIDE.md`
+- `generated/`
 
-### `check-projection-config.sh`
+These assets generate or document grep-based C# checks from markdown. They should be retired once analyzer/test replacements exist.
 
-- preferred entry point for projection/read-model configuration checks
-- canonical implementation owner
+## AI Reasoning Context
 
-### `check-dotnet-config.sh`
+Do not remove software engineering reasoning context from `.ai`, `.dev`, or skills as part of this transition.
 
-- preferred entry point for DI/config/environment checks
-- canonical implementation owner
+Analyzers and CI gates can enforce formalizable rules, but they do not replace design reasoning used by:
 
-### `check-test-di-compliance.sh`
+- `bdd-gwt-test-designer`;
+- `code-reviewer`;
+- `ddd-ca-hex-architect`;
+- requirement/spec/problem-frame authoring skills.
 
-- preferred entry point for test DI compliance checks
-- canonical implementation owner
+The context remains useful even when executable validation moves to dotnet-native tooling.
 
 ## Related Files
 
-- [AGENTS.md](../../AGENTS.md)
-- [.dev/operations/README.MD](../../.dev/operations/README.MD)
-- [.dev/specs/tests/TEST-SPEC-GUIDE.MD](../../.dev/specs/tests/TEST-SPEC-GUIDE.MD)
+- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md`
+- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md`
+- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md`
+- `.ai/assets/tech-stacks/dotnet-backend/README.MD`
+- `.dev/standards/AI-CONTEXT-BOUNDARY.md`

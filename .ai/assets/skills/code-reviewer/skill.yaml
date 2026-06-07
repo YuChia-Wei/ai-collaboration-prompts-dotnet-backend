@@ -17,6 +17,8 @@ outputs:
 constraints:
   - "Do not define target architecture"
   - "Do not output a staged refactoring plan"
+  - "Preserve software engineering reasoning even when analyzer or test output is available"
+  - "Treat .ai/scripts C# grep checks as transitional aids, not final semantic validation"
 workflow:
   - step: 1
     description: "Read the review index and checklist"
@@ -25,7 +27,7 @@ workflow:
   - step: 3
     description: "Separate architecture-level and code-level findings"
 references:
-  - ".ai/CODE-REVIEW-INDEX.MD"
+  - ".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"
   - ".ai/assets/skills/code-reviewer/references/checklist-reference.md"
   - ".dev/standards/CODE-REVIEW-CHECKLIST.md"
 examples:

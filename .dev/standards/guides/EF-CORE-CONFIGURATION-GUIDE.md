@@ -58,7 +58,7 @@ Unable to resolve service for type 'EfPlanProjection'
 ## 🔍 自動檢查
 
 ```bash
-# TODO: Rename legacy script name to check-ef-projection-config.sh.
+# Transitional helper. Long-term validation should move to analyzer, config tests, or dotnet tool coverage.
 .ai/scripts/check-projection-config.sh
 ```
 

@@ -1,0 +1,23 @@
+{
+  "id": "final-validation",
+  "title": "Finalize workflow validation",
+  "status": "completed",
+  "description": "Validate JSON task files, markdown whitespace, stale references, and final workflow status.",
+  "inputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/"
+  ],
+  "outputs": [
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/workflow-plan.md",
+    ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/tasks/final-validation.json"
+  ],
+  "validation": [
+    "Parsed all workflow task JSON files with ConvertFrom-Json.",
+    "Searched active docs for stale .ai/CODE-REVIEW-INDEX references and updated non-historical references.",
+    "Searched updated script and skill docs for transitional validation routing language.",
+    "Ran C:\\Program Files\\Git\\bin\\bash.exe -n .ai/scripts/check-all.sh.",
+    "Ran C:\\Program Files\\Git\\bin\\bash.exe -n .ai/scripts/code-review.sh.",
+    "Confirmed check-all.sh and code-review.sh no longer contain old JPA/Spring migration wording.",
+    "Ran dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj.",
+    "Ran git diff --check."
+  ]
+}

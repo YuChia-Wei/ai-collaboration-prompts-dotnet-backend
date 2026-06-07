@@ -100,13 +100,49 @@ run_check() {
     echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 }
 
-# Function to mark a check as pending .NET translation
+run_command_check() {
+    local command_text=$1
+    local description=$2
+    local is_critical=$3
+    local is_quick=$4
+
+    if [ "$MODE" == "critical" ] && [ "$is_critical" != "true" ]; then
+        echo -e "${YELLOW}⊖${NC} Skipping: $description (non-critical)"
+        ((SKIPPED_CHECKS++))
+        return
+    fi
+
+    if [ "$MODE" == "quick" ] && [ "$is_quick" != "true" ]; then
+        echo -e "${YELLOW}⊖${NC} Skipping: $description (not quick)"
+        ((SKIPPED_CHECKS++))
+        return
+    fi
+
+    ((TOTAL_CHECKS++))
+
+    echo ""
+    echo -e "${CYAN}▶ Running:${NC} $description"
+    echo "  Command: $command_text"
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+
+    if (cd "$PROJECT_ROOT" && eval "$command_text"); then
+        echo -e "${GREEN}✓ PASSED${NC}: $description"
+        ((PASSED_CHECKS++))
+    else
+        echo -e "${RED}✗ FAILED${NC}: $description"
+        ((FAILED_CHECKS++))
+    fi
+
+    echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+}
+
+# Function to mark a check as pending dotnet-native replacement
 run_check_pending() {
     local script_name=$1
     local description=$2
     local is_critical=$3
     local is_quick=$4
-    local reason=${5:-".NET translation pending"}
+    local reason=${5:-"dotnet-native replacement pending"}
 
     # Skip logic based on mode
     if [ "$MODE" == "critical" ] && [ "$is_critical" != "true" ]; then
@@ -156,19 +192,23 @@ echo -e "${BLUE}Starting checks at $(date '+%Y-%m-%d %H:%M:%S')${NC}"
 echo ""
 echo -e "${MAGENTA}════ Critical Checks ════${NC}"
 
-# Coding standards are fundamental
+# Coding standards are fundamental for AI context and standards docs
 run_check "check-coding-standards.sh" \
     "Coding Standards Compliance" \
     "true" "true"
 
-# Repository pattern compliance is critical
-run_check "check-repository-compliance.sh" \
-    "Repository Pattern Compliance" \
+run_command_check "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj" \
+    "Dotnet Backend Analyzer Template Tests" \
     "true" "true"
 
-# Mapper compliance is critical
+# Repository pattern compliance is transitional until analyzer coverage is wired into target projects
+run_check "check-repository-compliance.sh" \
+    "Repository Pattern Compliance (transitional grep; analyzer target DBA1001)" \
+    "true" "true"
+
+# Mapper compliance is transitional until analyzer coverage exists
 run_check "check-mapper-compliance.sh" \
-    "Mapper Design Compliance" \
+    "Mapper Design Compliance (transitional grep)" \
     "true" "true"
 
 # ====================================================================
@@ -179,14 +219,14 @@ if [ "$MODE" != "critical" ]; then
     echo ""
     echo -e "${MAGENTA}════ Important Checks ════${NC}"
     
-    # Aggregate compliance
+    # Aggregate compliance is transitional until analyzer coverage is wired into target projects
     run_check "check-aggregate-compliance.sh" \
-        "Aggregate Pattern Compliance" \
+        "Aggregate Pattern Compliance (transitional grep; analyzer target DBA1003)" \
         "false" "true"
     
-    # UseCase compliance
+    # UseCase compliance is transitional until analyzer coverage is wired into target projects
     run_check "check-usecase-compliance.sh" \
-        "UseCase Pattern Compliance" \
+        "UseCase Pattern Compliance (transitional grep; analyzer target DBA1002)" \
         "false" "true"
     
     # Controller compliance
@@ -194,18 +234,18 @@ if [ "$MODE" != "critical" ]; then
         "Controller Pattern Compliance" \
         "false" "true"
     
-    # JPA configuration (pending .NET translation)
+    # Projection configuration helper remains transitional
     run_check_pending "check-projection-config.sh" \
-        "JPA Projection Configuration" \
-        "false" "true"
+        "Projection Configuration" \
+        "false" "true" "replace with analyzer, config tests, or dotnet tool"
     
     # Spec compliance is important
     run_spec_compliance_check
     
-    # Dependencies check (script not yet ported)
+    # Dependencies check (dotnet-native replacement not yet available)
     run_check_pending "check-dependencies.sh" \
         "Dependencies and Versions" \
-        "false" "true" "script not yet available in .NET"
+        "false" "true" "dotnet-native replacement not yet available"
 fi
 
 # ====================================================================
@@ -221,10 +261,10 @@ if [ "$MODE" == "full" ]; then
         "Test Standards Compliance" \
         "false" "false"
     
-    # Spring DI Test compliance (pending .NET translation)
+    # Test DI compliance helper remains transitional
     run_check_pending "check-test-di-compliance.sh" \
-        "Spring DI Test Compliance" \
-        "true" "false"
+        "Test DI Compliance" \
+        "true" "false" "replace with analyzer or test architecture rules"
     
     # Projection compliance
     run_check "check-projection-compliance.sh" \
@@ -236,15 +276,15 @@ if [ "$MODE" == "full" ]; then
         "Archive Pattern Compliance" \
         "false" "false"
     
-    # Template sync check (script not yet ported)
+    # Template sync check (dotnet-native replacement not yet available)
     run_check_pending "check-template-sync.sh" \
         "Template Synchronization" \
-        "false" "false" "script not yet available in .NET"
+        "false" "false" "dotnet-native replacement not yet available"
     
-    # ADR index update (script not yet ported)
+    # ADR index update (dotnet-native replacement not yet available)
     run_check_pending "update-adr-index.sh" \
         "ADR Index Update" \
-        "false" "false" "script not yet available in .NET"
+        "false" "false" "dotnet-native replacement not yet available"
     
     # Add ADR script (if needed)
     if [ -f "$SCRIPT_DIR/add-adr.sh" ]; then

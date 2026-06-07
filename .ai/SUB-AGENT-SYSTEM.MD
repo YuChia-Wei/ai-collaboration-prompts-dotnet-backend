@@ -327,7 +327,7 @@ Code Review 有 MUST FIX 時必須先修正再進行後續步驟。
 
 ## 🔗 相關文件
 
-- `.ai/CODE-REVIEW-INDEX.md`
+- `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
 - `.ai/assets/`
 - `.dev/requirement/`
 - `.dev/specs/`
