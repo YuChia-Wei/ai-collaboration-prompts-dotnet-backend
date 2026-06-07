@@ -65,6 +65,12 @@ Workflow artifact 位置：
 
 不要將純 AI 文件治理工作交給 `bdd-gwt-test-designer`。
 
+### Development Workflow Orchestration
+
+當工作需要多階段規劃、workflow artifacts、skill routing、sub-agent coordination、validation checkpoint 或 commit checkpoint 時，使用 `dev-workflow`。
+
+該 skill 可以協調 downstream skills，但不應取代它們各自的專業責任。
+
 ### Repo Init / Template Adaptation
 
 當這套 framework 被複製到既有或全新目標 repository 後，第一個 skill 應使用 `repo-structure-sync`。
@@ -113,6 +119,7 @@ Workflow artifact 位置：
 
 | 需求 | Skill |
 | --- | --- |
+| 多階段開發流程協調、workflow artifacts、skill routing、validation 與 commit checkpoint | `dev-workflow` |
 | AI context cleanup、prompt boundary、language policy、wrapper sync | `ai-context-governance` |
 | 將此 framework 複製到目標 repo 後的第一次同步 | `repo-structure-sync` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |

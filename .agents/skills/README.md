@@ -23,6 +23,7 @@ This directory contains the current repo-local skill wrappers for Codex and comp
 - `bdd-gwt-test-designer`
 - `code-reviewer`
 - `command-use-case-implementer`
+- `dev-workflow`
 - `ddd-ca-hex-architect`
 - `problem-frame-author`
 - `query-use-case-implementer`

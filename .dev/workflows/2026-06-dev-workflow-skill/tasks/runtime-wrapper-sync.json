@@ -3,7 +3,7 @@
   "owner_skill": "skill-creator",
   "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Add thin runtime wrappers for the dev-workflow skill.",
     "files": [
@@ -37,9 +37,16 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Added thin Codex/current-runtime and Claude-compatible wrappers that point to the canonical dev-workflow skill spec and references.",
+    "files_changed": [
+      ".agents/skills/dev-workflow/SKILL.md",
+      ".claude/skills/dev-workflow/SKILL.md",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md"
+    ],
+    "tests_run": [
+      "Manual wrapper comparison against repo-structure-sync wrapper pattern"
+    ],
     "follow_up_needed": false
   }
 }

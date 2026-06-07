@@ -3,7 +3,7 @@
   "owner_skill": "skill-creator",
   "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Define dev-workflow ownership, delegation boundaries, and routing behavior.",
     "files": [
@@ -43,9 +43,16 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Defined dev-workflow as a universal orchestration skill for workflow mode decisions, workflow artifacts, skill routing, validation checkpoints, and commit checkpoints without replacing downstream domain skills.",
+    "files_changed": [
+      ".ai/assets/skills/dev-workflow/skill.yaml",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/output-contract.md"
+    ],
+    "tests_run": [
+      "Manual comparison against existing canonical skill registry and wrapper patterns"
+    ],
     "follow_up_needed": false
   }
 }

@@ -3,15 +3,20 @@
   "owner_skill": "skill-creator",
   "related_plan_id": "workflow-plan-2026-06-dev-workflow-skill",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Add human guide and update navigation/routing indexes.",
     "files": [
       ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md",
       ".dev/guides/ai-collaboration-guides/README.MD",
       ".ai/assets/skills/README.MD",
       ".agents/skills/README.md",
       ".claude/skills/README.md",
+      ".dev/README.MD",
+      ".dev/INDEX.md",
+      "README.md",
+      "README.en.md",
       "agents.md",
       "agents.zh-tw.md"
     ],
@@ -43,9 +48,24 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Added the Traditional Chinese dev-workflow human guide and updated canonical, runtime, repository, and root routing indexes so the new skill is discoverable.",
+    "files_changed": [
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/README.MD",
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".dev/README.MD",
+      ".dev/INDEX.md",
+      "README.md",
+      "README.en.md",
+      "agents.md",
+      "agents.zh-tw.md"
+    ],
+    "tests_run": [
+      "Manual index sync review"
+    ],
     "follow_up_needed": false
   }
 }
