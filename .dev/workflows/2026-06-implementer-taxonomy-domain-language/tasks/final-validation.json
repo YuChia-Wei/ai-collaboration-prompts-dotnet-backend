@@ -1,0 +1,48 @@
+{
+  "task_id": "final-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-06-implementer-taxonomy-domain-language",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Validate and close the implementer taxonomy and domain language workflow.",
+    "files": [
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/workflow-plan.md",
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/tasks/final-validation.json"
+    ],
+    "dependency_radius": "All files changed by this workflow.",
+    "constraints": [
+      "Do not close workflow before validation passes.",
+      "Record validation evidence."
+    ],
+    "non_goals": [
+      "No additional migration work during final validation."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Validated workflow completion.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "final-validation",
+    "steps": [
+      "Parse task JSON files.",
+      "Search references.",
+      "Run whitespace validation.",
+      "Mark workflow completed."
+    ],
+    "validation": [
+      "ConvertFrom-Json for task files.",
+      "rg reference checks.",
+      "git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

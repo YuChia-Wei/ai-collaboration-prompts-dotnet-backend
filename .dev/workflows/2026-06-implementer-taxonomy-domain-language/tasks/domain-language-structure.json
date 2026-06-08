@@ -1,0 +1,62 @@
+{
+  "task_id": "domain-language-structure",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-06-implementer-taxonomy-domain-language",
+  "related_review_report_id": "",
+  "status": "pending",
+  "scope": {
+    "target": "Create target-repository-safe domain ubiquitous language structure and migration boundaries.",
+    "files": [
+      ".dev/domain-language/README.MD",
+      ".dev/domain-language/templates/bounded-context-language-template.md",
+      ".dev/domain-language/templates/domain-event-language-template.md",
+      ".dev/domain-language/templates/aggregate-vocabulary-template.md",
+      ".ai/assets/skills/repo-structure-sync/references/migration-boundaries.md",
+      ".dev/README.MD",
+      ".dev/INDEX.md"
+    ],
+    "dependency_radius": "Human-facing domain language templates and repo init migration boundary guidance.",
+    "constraints": [
+      "Provide templates only, not product truth.",
+      "Defer technical glossary.",
+      "Do not create terminology skill."
+    ],
+    "non_goals": [
+      "No technical glossary.",
+      "No target product vocabulary."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Domain language structure that is safe to copy into target repositories.",
+    "review_findings": [],
+    "user_constraints": [
+      "Focus domain ubiquitous language first.",
+      "Technical glossary can be handled later.",
+      "Do not create terminology skill."
+    ]
+  },
+  "execution": {
+    "operation_type": "domain-language-structure",
+    "steps": [
+      "Create domain-language README and templates.",
+      "Update repo-structure-sync migration boundaries.",
+      "Update .dev indexes as needed.",
+      "Validate references."
+    ],
+    "validation": [
+      "rg domain-language references.",
+      "ConvertFrom-Json for workflow tasks.",
+      "git diff --check."
+    ],
+    "deferred_items": [
+      "technical glossary",
+      "terminology-governance skill"
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
