@@ -3,7 +3,7 @@
   "owner_skill": "dev-workflow",
   "related_plan_id": "workflow-plan-2026-06-implementer-taxonomy-domain-language",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Validate and close the implementer taxonomy and domain language workflow.",
     "files": [
@@ -40,9 +40,18 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Closed the workflow after validating task JSON, active implementer references, domain-language references, and whitespace.",
+    "files_changed": [
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/workflow-plan.md",
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/tasks/final-validation.json"
+    ],
+    "tests_run": [
+      "ConvertFrom-Json for task files",
+      "rg old implementer names in active AI/context paths",
+      "rg new implementer names in active AI/context paths",
+      "rg domain-language references",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

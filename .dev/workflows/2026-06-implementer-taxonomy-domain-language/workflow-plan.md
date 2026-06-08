@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-06-implementer-taxonomy-domain-language`
 - `owner_skill`: `dev-workflow`
-- `status`: `in_progress`
+- `status`: `completed`
 
 ## Context
 
@@ -95,4 +95,7 @@ Reason:
 
 ## Completion Summary
 
-- Pending.
+- Completed.
+- Workstream A migrated active implementer routing to `slice-implementer` and `local-change-implementer`, with command/query/reactor preserved as `slice-implementer` mode references and old active skill entries removed.
+- Workstream B created template-only `.dev/domain-language/` structure and updated `repo-structure-sync` migration boundaries so filled domain vocabulary is treated as target-repository truth.
+- `ddd-ca-hex-architect` was not needed because no DDD ubiquitous language semantics became ambiguous; this workflow created templates and governance boundaries only.
