@@ -2,30 +2,32 @@
 
 ## Metadata
 
-- Version: 0.2
+- Version: 0.3
 - Date: 2026-06-08
 - Owner: YuChia-Wei
 - Scope: In
-  - Rename and clarify generic implementation skills whose current names overemphasize refactoring.
-  - Define intent and scope rules for routing code change work.
+  - Rename and clarify implementation skills around a scope-first taxonomy.
+  - Define `slice-implementer` and `local-change-implementer` responsibilities.
+  - Convert command/query/reactor implementers from independent skills into slice modes/references unless a later spec proves they must remain separate.
   - Record the current test implementer discussion without creating a test skill yet.
 - Scope: Out
   - Do not implement the rename in this requirement.
   - Do not modify runtime wrappers, canonical skill registry, or dev-workflow profile yet.
-  - Do not redesign command/query/reactor implementer responsibilities unless required by the final routing decision.
+  - Do not create new executable test skill in this requirement.
 
 ## Context & Goals
 
 The current `staged-refactor-implementer` and `tactical-refactor-implementer` names can mislead AI agents. In other projects, agents recommended refactor implementer skills for work that started from new requirements, bug fixes, validation failures, or review remediation. The problem is not that the work never includes refactoring. The problem is that `refactor` is a technique or intent, not the safest primary routing category for all code changes.
 
-This repository needs implementation skill names and routing rules that describe the safe change boundary or architectural role, rather than overclassifying work as refactoring.
+This repository needs implementation skill names and routing rules that describe the safe change boundary. Architecture roles such as command, query, and reactor should become implementation modes or references under the bounded slice implementer unless a later spec proves they need independent skill identity.
 
 Goals:
 
 - Reduce incorrect routing of feature, fix, and remediation work into refactor-only skills.
 - Keep generic implementation skill count small.
-- Describe generic change skills by change scope and blast radius.
-- Re-evaluate whether architecture-role implementers such as command, query, and reactor implementers need to remain separate from generic change-slice implementation.
+- Use a scope-first classification model for implementer skills.
+- Describe implementation skills by bounded slice or local blast radius.
+- Preserve command/query/reactor rules as modes, playbooks, or references under the slice implementer.
 - Decide whether test authoring needs a dedicated skill or should remain part of existing BDD/spec/implementation flows.
 
 Success means a future `dev-workflow` execution can rename and update the affected skills without re-opening the basic naming rationale.
@@ -43,22 +45,33 @@ Success means a future `dev-workflow` execution can rename and update the affect
 
 ## Functional Requirements
 
-### FR-1: Rename Generic Refactor Skills By Change Scope
+### FR-1: Rename Refactor Skills Into Scope-First Implementers
 
-The repository should rename generic refactor implementer skills to neutral change-oriented names.
+The repository should rename generic refactor implementer skills to neutral scope-oriented names.
 
-Recommended naming:
+Decided naming:
 
 | Current skill | Recommended new name | Meaning |
 | --- | --- | --- |
-| `staged-refactor-implementer` | `change-slice-implementer` | Implements one bounded change slice that may be feature, fix, remediation, cleanup, or refactor. |
+| `staged-refactor-implementer` | `slice-implementer` | Implements one bounded implementation slice that may be feature, fix, remediation, cleanup, refactor, command, query, reactor, or generic. |
 | `tactical-refactor-implementer` | `local-change-implementer` | Implements one local code change around a class, object, method, symbol, or direct call sites. |
 
 The final names must avoid implying that the skill is only for behavior-preserving refactoring.
 
-### FR-2: Separate Work Intent From Change Scope
+### FR-2: Use Scope-First Routing With Mode-Based Architecture Roles
 
-Generic implementation skills should require explicit intent and scope.
+Implementer routing should be scope-first:
+
+1. `dev-workflow` decides whether implementation is needed.
+2. `slice-implementer` handles a bounded implementation slice.
+3. `slice-implementer` selects a mode/reference such as command, query, reactor, generic, remediation, or refactor.
+4. `local-change-implementer` may handle small local technical changes inside or outside a slice.
+
+The future implementation should treat command/query/reactor as `slice-implementer` modes/references, not independent top-level implementer skills, unless a later spec identifies a non-mergeable specialist contract.
+
+### FR-3: Separate Work Intent From Scope And Mode
+
+Implementation prompts and task artifacts should distinguish intent, scope, and mode.
 
 Intent examples:
 
@@ -76,45 +89,77 @@ Scope examples:
 - `slice`
 - `architecture-level`
 
-Routing should choose the skill primarily by safe scope and architectural role, then record the intent in the task or prompt.
+Mode examples:
 
-### FR-3: Re-Evaluate Implementer Classification Consistency
+- `command`
+- `query`
+- `reactor`
+- `generic`
+- `refactor`
+- `remediation`
 
-The current implementer skill family mixes different classification axes:
+Routing should choose the skill primarily by safe scope, then record intent and mode in the task or prompt.
 
-- architecture role: `command-use-case-implementer`, `query-use-case-implementer`, `reactor-implementer`;
-- change scope: proposed `change-slice-implementer`, `local-change-implementer`;
-- original technique-oriented naming: refactor implementers.
+### FR-4: Convert Architecture-Role Implementers Into Slice Modes/References
 
-This inconsistency must be resolved before skill rename implementation.
+The repository should migrate the following implementer skills into `slice-implementer` modes or references:
 
-Open classification question:
+- `command-use-case-implementer`
+- `query-use-case-implementer`
+- `reactor-implementer`
 
-- If `change-slice-implementer` can handle a bounded cross-role change, can it also handle command, query, or reactor changes?
-- If yes, why should command/query/reactor remain separate skills?
-- If no, what specialist quality or architecture contract do command/query/reactor skills provide that a generic change-slice skill cannot?
+Their existing constraints and playbooks should be preserved unless a later discussion explicitly changes them.
 
-This requirement does not decide the final answer yet.
+Expected mode/reference structure:
 
-Recommended analysis direction:
+```text
+.ai/assets/skills/slice-implementer/references/modes/
+  command-use-case.md
+  query-use-case.md
+  reactor.md
+  generic-slice.md
+```
 
-1. compare command/query/reactor implementer outputs against a generic change-slice output contract;
-2. identify whether their value is architecture-specific implementation knowledge, prompt convenience, or historical naming;
-3. keep only distinctions that can be explained clearly to a team.
+Rationale:
 
-### FR-4: Update Dev Workflow Routing
+- Command/query/reactor are important architecture roles, but they are still bounded implementation slice variants.
+- Keeping them as modes avoids mixing architecture-role skill names with scope-based skill names.
+- This is easier to explain to a team: one bounded slice implementer, with architecture-specific modes.
 
-The future implementation must update `dev-workflow` capability routing so code changes are not automatically treated as refactoring.
+### FR-5: Define Local Change As Lower-Level Technical Execution
+
+`local-change-implementer` should be a lower-level local execution skill. It can be invoked directly for small edits, or by `slice-implementer` when a slice contains local class/object/symbol changes.
+
+`local-change-implementer` handles:
+
+- single class/object/method/symbol changes;
+- direct call-site updates;
+- coding style or small technical corrections;
+- local SQL/ORM implementation adjustments;
+- behavior-preserving local refactoring.
+
+It must stop and hand off when it discovers:
+
+- class extraction;
+- interface extraction;
+- new abstraction boundary;
+- dependency direction changes;
+- domain language changes;
+- multi-module behavior changes.
+
+### FR-6: Update Dev Workflow Routing
+
+The future implementation must update `dev-workflow` capability routing so code changes are routed by scope, intent, and mode instead of refactor-oriented categories.
 
 `dev-workflow` should classify:
 
 1. current entry point;
 2. work intent;
-3. architecture role, if any;
-4. change scope;
-5. owner skill.
+3. implementation scope;
+4. slice mode, if any;
+5. owner skill or local sub-skill.
 
-### FR-5: Remove Old Skill Names Without Alias
+### FR-7: Remove Old Skill Names Without Alias
 
 The future rename should remove old skill names instead of keeping deprecated aliases.
 
@@ -125,7 +170,7 @@ The migration should:
 - leave historical workflow artifacts unchanged unless a short migration note is useful;
 - rely on git history for recovery if a deleted skill name needs to be inspected later.
 
-### FR-6: Defer Test Implementer Skill
+### FR-8: Defer Test Implementer Skill
 
 The repository should not create a test author, test writer, or test implementer skill in this workflow.
 
@@ -149,51 +194,55 @@ Deferred candidate:
 - Human-facing guides should use Traditional Chinese Taiwan usage.
 - Migration may remove old runtime skill names directly; compatibility aliases are not required.
 - Reference updates must be validated with search.
+- The final implementer taxonomy should be easy to explain as scope-first with mode-specific references.
 
 ## Constraints & Assumptions
 
 - This requirement assumes the current repository purpose is clear enough and does not require a root `agents.md` rewrite.
-- The rename will affect `.ai/assets/skills/`, `.agents/skills/`, `.claude/skills/`, `.dev/guides/ai-collaboration-guides/`, skill registries, and `dev-workflow` profile references.
+- The migration will affect `.ai/assets/skills/`, `.agents/skills/`, `.claude/skills/`, `.dev/guides/ai-collaboration-guides/`, skill registries, and `dev-workflow` profile references.
 - Historical workflow artifacts should not be rewritten solely to replace old skill names.
 - The future implementation should be driven by `dev-workflow` and likely executed with `ai-context-governance` for skill registry and wrapper migration.
-- Implementer classification must remain an open decision until the architecture-role versus change-scope distinction can be explained clearly.
+- Original skill restrictions should be preserved during rename/mode migration unless explicitly changed in a later spec.
 
 ## Domain / Business Rules
 
-- A skill name should use one consistent classification model within the implementer family, or explicitly document why a different axis is used.
+- Implementer skill names should use a scope-first classification model.
 - `refactor` is an intent or implementation technique, not the default category for all code changes.
-- A generic change implementer must not redefine architecture direction.
+- `slice-implementer` must not redefine architecture direction.
 - A local change implementer must not expand into a multi-module redesign.
-- A change slice implementer must not silently broaden the agreed slice.
+- `slice-implementer` must not silently broaden the agreed slice.
 - If local change work requires extracting a class, extracting an interface, changing dependency direction, or changing domain language, it must stop and escalate to architecture review or a larger change-slice workflow.
+- Command/query/reactor implementation rules should be preserved as slice modes/references.
 
 ## Acceptance Criteria
 
-- The future implementation has a migration plan for replacing `staged-refactor-implementer` and `tactical-refactor-implementer`.
-- The new names are based on safe change scope or architectural role, not refactor-only terminology.
-- `dev-workflow` routing distinguishes intent, scope, and architecture role.
+- The future implementation has a migration plan for replacing `staged-refactor-implementer`, `tactical-refactor-implementer`, `command-use-case-implementer`, `query-use-case-implementer`, and `reactor-implementer`.
+- The new top-level implementer names are based on safe change scope, not refactor-only or architecture-role terminology.
+- `dev-workflow` routing distinguishes intent, scope, and slice mode.
 - Old skill names are removed directly, or any retained alias is justified against the current no-alias decision.
 - Test implementer is explicitly deferred and not mixed into the rename workflow.
-- The implementer family classification model is documented before any rename is implemented.
+- Command/query/reactor rules are preserved as `slice-implementer` references or modes.
+- `local-change-implementer` can be invoked by `slice-implementer` for local technical changes and has explicit escalation rules.
 - Updated files pass reference search and whitespace validation.
 
 ## User Decisions Required
 
 | Decision | Recommended approach | Why |
 | --- | --- | --- |
-| Final new name for `staged-refactor-implementer` | `change-slice-implementer` | Names the bounded slice without implying pure refactor. |
+| Final new name for `staged-refactor-implementer` | `slice-implementer` | Short, scope-first, and suitable for feature, fix, remediation, refactor, command, query, reactor, or generic slices. |
 | Final new name for `tactical-refactor-implementer` | `local-change-implementer` | Names local blast radius clearly and naturally. |
 | Keep deprecated aliases? | No | The repository is still being actively organized and git history is enough for recovery. |
 | Create test skill now? | No | Boundary overlaps are not resolved yet. |
 | If test skill is created later, preferred term? | `test-implementer` | The possible gap is executable test creation, while BDD/test design is already covered. |
+| Keep command/query/reactor as independent implementer skills? | No, migrate to `slice-implementer` modes/references | Scope-first taxonomy is easier to explain and avoids mixing classification axes. |
 
 ## Open Decisions
 
 | Decision | Current concern | Suggested next step |
 | --- | --- | --- |
-| Should command/query/reactor implementers remain separate from `change-slice-implementer`? | The current taxonomy mixes architecture role and change scope, making it hard to explain to a team. | Compare their actual input/output contracts and decide whether the architecture-specific skills provide unique value. |
-| Should `change-slice-implementer` become the single bounded implementation skill? | It may be able to handle command/query/reactor work if given clear requirements/specs. | Evaluate whether specialist skills mainly encode architecture knowledge or just convenience prompts. |
-| Where should local change escalate? | Local changes can discover new class/interface/dependency needs. | Require escalation to architect or change-slice planning when new abstraction or architecture boundary appears. |
+| Exact mode/reference file structure | Needs implementation-level detail. | Define in spec or dev-workflow plan before moving files. |
+| Whether `local-change-implementer` remains a standalone runtime skill or only a sub-skill | It can be useful directly, but also acts as lower-level execution for slices. | Keep it as standalone unless implementation complexity proves otherwise. |
+| Whether test implementation deserves a future skill | The likely need is executable test creation, not test design. | Defer to separate requirement for `test-implementer`. |
 
 ## Recommended Next Skill
 
@@ -201,9 +250,10 @@ Use `dev-workflow` after user decisions are confirmed.
 
 Expected downstream stages:
 
-1. `dev-workflow`: plan the implementer taxonomy decision workflow before renaming.
-2. `ai-context-governance`: execute confirmed skill rename migration and wrapper/index sync.
-3. Optional `ddd-ca-hex-architect`: evaluate whether command/query/reactor skills encode architecture-specific contracts that should remain separate.
+1. `spec-author`: decide whether an implementation spec is needed for the migration file map and mode contracts.
+2. `dev-workflow`: plan and execute the implementer taxonomy migration.
+3. `ai-context-governance`: execute confirmed skill rename/move migration and wrapper/index sync.
+4. Optional `ddd-ca-hex-architect`: review command/query/reactor mode contracts if architectural constraints become ambiguous.
 
 ## References
 
@@ -213,3 +263,6 @@ Expected downstream stages:
 - `.dev/guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
 - `.ai/assets/skills/dev-workflow/references/capability-profile.md`
 - `.ai/assets/skills/dev-workflow/references/routing-playbook.md`
+- `.ai/assets/skills/command-use-case-implementer/skill.yaml`
+- `.ai/assets/skills/query-use-case-implementer/skill.yaml`
+- `.ai/assets/skills/reactor-implementer/skill.yaml`

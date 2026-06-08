@@ -34,7 +34,7 @@
       "Evaluate whether repo core purpose is clear enough to avoid agents updates.",
       "Use no deprecated aliases for renamed refactor skills.",
       "Defer test skill creation; if needed later, evaluate test-implementer.",
-      "Keep implementer taxonomy as an open decision because architecture-role and change-scope naming are mixed."
+      "Adopt a scope-first implementer taxonomy: slice-implementer, local-change-implementer, and command/query/reactor as slice modes or references."
     ]
   },
   "execution": {
@@ -57,11 +57,13 @@
       "Domain language template and standards implementation.",
       "Technical glossary design."
       ,
-      "Implementer taxonomy decision."
+      "Exact slice mode/reference file structure.",
+      "Whether local-change-implementer remains standalone or sub-skill only.",
+      "Future test-implementer requirement."
     ]
   },
   "results": {
-    "summary": "Created and updated requirement documents that capture skill naming, implementer taxonomy, test skill deferral, and domain ubiquitous language needs, including required user decisions and recommended approaches.",
+    "summary": "Created and updated requirement documents that capture scope-first implementer taxonomy decisions, test skill deferral, and domain ubiquitous language needs, including required user decisions and recommended approaches.",
     "files_changed": [
       ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD",
       ".dev/requirement/DOMAIN-UBIQUITOUS-LANGUAGE-REQUIREMENTS.MD",
