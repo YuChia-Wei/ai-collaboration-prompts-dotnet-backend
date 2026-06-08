@@ -31,7 +31,10 @@
     "user_constraints": [
       "Focus domain ubiquitous language first; defer technical glossary.",
       "Explain decisions needed and recommended approach.",
-      "Evaluate whether repo core purpose is clear enough to avoid agents updates."
+      "Evaluate whether repo core purpose is clear enough to avoid agents updates.",
+      "Use no deprecated aliases for renamed refactor skills.",
+      "Defer test skill creation; if needed later, evaluate test-implementer.",
+      "Keep implementer taxonomy as an open decision because architecture-role and change-scope naming are mixed."
     ]
   },
   "execution": {
@@ -53,10 +56,12 @@
       "Test author skill decision implementation.",
       "Domain language template and standards implementation.",
       "Technical glossary design."
+      ,
+      "Implementer taxonomy decision."
     ]
   },
   "results": {
-    "summary": "Created requirement documents that capture the skill naming/test authoring and domain ubiquitous language needs, including required user decisions and recommended approaches.",
+    "summary": "Created and updated requirement documents that capture skill naming, implementer taxonomy, test skill deferral, and domain ubiquitous language needs, including required user decisions and recommended approaches.",
     "files_changed": [
       ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD",
       ".dev/requirement/DOMAIN-UBIQUITOUS-LANGUAGE-REQUIREMENTS.MD",
