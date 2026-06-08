@@ -1,10 +1,10 @@
 # Optional Minimal Workflow Mode
 
-本文件定義四個重構 skill 的「可選的最小 workflow 模式」。
+本文件定義 architecture / review / implementer 協作時的「可選的最小 workflow 模式」。
 
 ## 為什麼是可選的
 
-這四個 skill 預設都應該可以直接使用。
+相關 skill 預設都應該可以直接使用。
 
 也就是：
 
@@ -33,7 +33,7 @@
 
 下列情況建議啟用：
 
-- 先 architect，再 review，再 staged implement，再 review
+- 先 architect，再 review，再 slice implement，再 review
 - 要保留每一輪 stage 的上下文
 - 要把 architecture decision 與 implementation scope 對齊
 - 要避免每輪都重新解釋需求與邊界
@@ -83,7 +83,7 @@
 
 ### `tasks/<task-id>.json`
 
-由 `staged-refactor-implementer` 或 `tactical-refactor-implementer` 建立或更新。
+由 `slice-implementer` 或 `local-change-implementer` 建立或更新。
 
 用途：
 
@@ -100,7 +100,7 @@
 2. code-reviewer
    需要時建立 review-report.md
 
-3. staged-refactor-implementer / tactical-refactor-implementer
+3. slice-implementer / local-change-implementer
    需要時建立對應的 `tasks/<task-id>.json`
 
 4. code-reviewer

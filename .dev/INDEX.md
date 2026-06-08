@@ -47,8 +47,8 @@
 - `guides/ai-collaboration-guides/REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`
 - `guides/ai-collaboration-guides/REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`
 - `guides/ai-collaboration-guides/SPEC-DESIGNER-PROMPT-GUIDE.md`
-- `guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
+- `guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md`
+- `guides/ai-collaboration-guides/LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md`
 - `.ai/assets/skills/README.MD`
 - `.agents/skills/README.md`
 - `.claude/skills/README.md`

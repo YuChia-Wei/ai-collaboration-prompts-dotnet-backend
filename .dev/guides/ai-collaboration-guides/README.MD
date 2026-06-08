@@ -20,7 +20,7 @@
 
 ## 目前文件
 
-- `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`: `ddd-ca-hex-architect`、`code-reviewer`、`staged-refactor-implementer`、`tactical-refactor-implementer` 的邊界與工作流
+- `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`: `ddd-ca-hex-architect`、`code-reviewer`、`slice-implementer`、`local-change-implementer` 的邊界與工作流
 - `AI-REFACTORING-SKILL-CONTRACTS.md`: 四個重構 skill 的最小 input / output contract 與 handoff 規則
 - `AI-COLLABORATION-WORKFLOW-GUIDE.md`: requirement / spec / testing / refactor / review 的整體 AI 協作流程
 - `DEV-WORKFLOW-SKILL-GUIDE.md`: `dev-workflow` 的使用說明、workflow mode 判斷、skill routing 與 commit / validation checkpoint prompt 範本
@@ -33,12 +33,11 @@
 - `REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`: template 複製到新 repo 後，掃描結構並同步架構入口文件的指南
 - `PROBLEM-FRAME-AUTHORING-GUIDE.md`: 從 requirement/spec/code 快速萃取第一版 problem frame 的指南
 - `BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`: `bdd-gwt-test-designer` 與 test generation / review workflow 的搭配方式
-- `USE-CASE-IMPLEMENTER-SKILL-GUIDE.md`: `command-use-case-implementer`、`query-use-case-implementer`、`reactor-implementer` 的人類入口與 prompt 範本
+- `SLICE-IMPLEMENTER-SKILL-GUIDE.md`: `slice-implementer` 的使用說明、mode 選擇與 bounded implementation prompt 範本
+- `LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md`: `local-change-implementer` 的使用說明與局部技術變更 prompt 範本
 - `REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`: requirement / spec 是否應該做成 prompt 或 skill 的邊界與採用策略
 - `REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`: requirement markdown 草稿與補齊工作的 prompt 範本
 - `SPEC-DESIGNER-PROMPT-GUIDE.md`: use case / adapter / entity spec 整理工作的 prompt 範本
-- `STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`: `staged-refactor-implementer` 的使用說明與 prompt 範本
-- `TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`: `tactical-refactor-implementer` 的使用說明與 prompt 範本
 - `AI-SKILL-GUIDE-STANDARDS.md`: 本目錄內 AI collaboration guides 的通用撰寫與分工規範
 
 ## Workflow Templates

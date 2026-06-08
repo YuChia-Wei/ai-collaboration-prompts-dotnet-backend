@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-06-implementer-taxonomy-domain-language",
   "related_review_report_id": "",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Migrate implementer skills to a scope-first taxonomy.",
     "files": [
@@ -63,9 +63,35 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Migrated active implementer taxonomy to slice-implementer and local-change-implementer, removed old active skill entries, and preserved command/query/reactor constraints as slice mode references.",
+    "files_changed": [
+      ".ai/assets/skills/slice-implementer/",
+      ".ai/assets/skills/local-change-implementer/",
+      ".agents/skills/slice-implementer/",
+      ".agents/skills/local-change-implementer/",
+      ".claude/skills/slice-implementer/",
+      ".claude/skills/local-change-implementer/",
+      ".dev/guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md",
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".ai/assets/skills/dev-workflow/references/capability-profile.md",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".dev/guides/README.MD",
+      ".dev/INDEX.md",
+      ".dev/guides/ai-collaboration-guides/",
+      ".dev/workflows/templates/",
+      "agents.md",
+      "agents.zh-tw.md"
+    ],
+    "tests_run": [
+      "rg old implementer names in active AI/context paths",
+      "rg new implementer names in active AI/context paths",
+      "ConvertFrom-Json workflow task validation",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

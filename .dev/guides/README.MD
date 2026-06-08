@@ -41,9 +41,9 @@
 - `LOCAL-RUNTIME-WRAPPER-GUIDE.md`
   - repo wrapper 與本機 runtime 的使用方式
 - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
-  - refactoring skills 的邊界與分工
+  - architecture / review / implementer 協作邊界與分工
 - `AI-REFACTORING-SKILL-CONTRACTS.md`
-  - refactoring skills 的 input/output contract
+  - architecture / review / implementer 的 input/output contract
 - `AI-SKILL-GUIDE-STANDARDS.md`
   - AI guide 文件撰寫規則
 - `BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`
@@ -62,10 +62,10 @@
   - requirement 設計 prompt 使用範本
 - `SPEC-DESIGNER-PROMPT-GUIDE.md`
   - spec 設計 prompt 使用範本
-- `STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
-  - staged refactor implementer 使用說明
-- `TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
-  - tactical refactor implementer 使用說明
+- `SLICE-IMPLEMENTER-SKILL-GUIDE.md`
+  - slice implementer 使用說明
+- `LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md`
+  - local change implementer 使用說明
 
 ### `design-guides/`
 

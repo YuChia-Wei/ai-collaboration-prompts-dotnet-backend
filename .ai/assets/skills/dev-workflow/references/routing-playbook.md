@@ -23,8 +23,8 @@ If the active profile has no matching downstream skill, use `skill-discovery-pla
 | First problem-frame extraction | `problem-framing` | Validator-ready problem frame draft and source evidence. |
 | Architecture design or architecture refactoring direction | `architecture` | Bounded design decision, tradeoffs, target structure, non-goals. |
 | GWT scenario and assertion design | `test-design` | Scenarios, assertion points, test level recommendation. |
-| Bounded implementation | `implementation` | Code or document changes for a bounded task, narrow validation. |
-| Refactoring execution | `refactoring` | Scoped refactor changes and regression validation. |
+| Bounded slice implementation | `implementation` | Code or document changes for a bounded slice, narrow validation. |
+| Local technical change | `local-change` | Local class, object, method, symbol, SQL/ORM, or direct-call-site changes and narrow validation. |
 | Code or artifact review | `review` | Findings, severity, evidence, residual risk. |
 | Compliance or coverage gate | `compliance-validation` | Coverage result, missing evidence, pass/fail gate. |
 
@@ -43,8 +43,8 @@ The current local profile maps slots to these concrete skills:
 | `problem-framing` | `problem-frame-author` |
 | `architecture` | `ddd-ca-hex-architect` |
 | `test-design` | `bdd-gwt-test-designer` |
-| `implementation` | `command-use-case-implementer`, `query-use-case-implementer`, or `reactor-implementer` |
-| `refactoring` | `staged-refactor-implementer` or `tactical-refactor-implementer` |
+| `implementation` | `slice-implementer` |
+| `local-change` | `local-change-implementer` |
 | `review` | `code-reviewer` |
 | `compliance-validation` | `spec-compliance-validator` |
 

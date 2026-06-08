@@ -128,6 +128,8 @@ Use these boundaries:
 | Requirement authoring | `requirement-author` |
 | Spec authoring | `spec-author` |
 | Problem frame authoring | `problem-frame-author` |
+| Bounded implementation slice | `slice-implementer` |
+| Local technical code change | `local-change-implementer` |
 
 ## File & Directory Index
 

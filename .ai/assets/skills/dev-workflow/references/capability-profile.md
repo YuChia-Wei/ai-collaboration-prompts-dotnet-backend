@@ -24,11 +24,10 @@ The core `dev-workflow` skill should stay publishable. Repository-specific skill
 | `problem-framing` | `problem-frame-author` | Requirement, spec, code, or tests need a first problem-frame draft. |
 | `architecture` | `ddd-ca-hex-architect` | The task needs DDD, Clean Architecture, CQRS, ports/adapters, bounded context, aggregate, or .NET backend architecture direction. |
 | `test-design` | `bdd-gwt-test-designer` | The task needs Given-When-Then scenarios, assertion points, or test design notes. |
-| `implementation` | `command-use-case-implementer` | A command-side use case is ready for bounded implementation. |
-| `implementation` | `query-use-case-implementer` | A query-side use case is ready for bounded implementation. |
-| `implementation` | `reactor-implementer` | An event-driven reactor is ready for bounded implementation. |
-| `refactoring` | `staged-refactor-implementer` | A refactoring stage is already decided and needs execution. |
-| `refactoring` | `tactical-refactor-implementer` | One object or symbol needs a local tactical refactor. |
+| `implementation` | `slice-implementer` | A bounded implementation slice is ready, using command, query, reactor, generic, remediation, or refactor mode as needed. |
+| `implementation` | `local-change-implementer` | A local class, object, method, symbol, SQL/ORM, or direct-call-site technical change is ready. |
+| `refactoring` | `slice-implementer` | A behavior-preserving refactor slice is already decided and needs execution. |
+| `refactoring` | `local-change-implementer` | One local refactor around a class, object, method, symbol, or direct call sites is needed. |
 | `review` | `code-reviewer` | .NET backend code or dotnet-backend implementation guidance needs review. |
 | `compliance-validation` | `spec-compliance-validator` | Problem-frame workflows need a 100% coverage gate. |
 

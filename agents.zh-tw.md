@@ -128,6 +128,8 @@ Workflow artifact 位置：
 | Requirement authoring | `requirement-author` |
 | Spec authoring | `spec-author` |
 | Problem frame authoring | `problem-frame-author` |
+| Bounded implementation slice | `slice-implementer` |
+| 局部技術程式變更 | `local-change-implementer` |
 
 ## 檔案與目錄索引
 

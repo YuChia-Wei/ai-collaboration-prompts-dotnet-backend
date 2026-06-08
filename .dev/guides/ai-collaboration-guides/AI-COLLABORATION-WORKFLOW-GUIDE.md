@@ -116,9 +116,12 @@
 
 依情境交給：
 
-- `command-use-case-implementer`
-- `query-use-case-implementer`
-- `reactor-implementer`
+- `slice-implementer`
+  - command use case mode
+  - query use case mode
+  - reactor mode
+  - generic slice mode
+- `local-change-implementer` when the task is only a local class, object, method, symbol, SQL/ORM, or direct-call-site change
 - 或既有 test generation prompt / subagent
 
 ### Step 6: code review
@@ -148,7 +151,7 @@
 ```text
 1. architecture diagnosis
 2. review findings
-3. staged or tactical execution
+3. slice or local execution
 4. review again
 5. iterate if needed
 ```
@@ -182,8 +185,10 @@
 
 依範圍交給：
 
-- `staged-refactor-implementer`
-- `tactical-refactor-implementer`
+- `slice-implementer`
+  - bounded feature, fix, review remediation, refactor, or documentation slice
+- `local-change-implementer`
+  - one local class, object, method, symbol, SQL/ORM, or direct-call-site technical change
 
 若是 document workflow，execution 應優先使用下列切法：
 
@@ -312,8 +317,8 @@ subagent 不應：
 ### 中游執行層
 
 - test generation
-- staged refactor implementation
-- tactical local refactor
+- bounded slice implementation
+- local technical change
 - 一般 generation subagents
 
 ### 下游驗證層

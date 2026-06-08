@@ -6,7 +6,7 @@
 
 - `command-sub-agent`、`query-sub-agent`、`reactor-sub-agent` 這三類 use case / consistency sub-agents 已改收斂為 delegated sub-agent role prompts
 - 其 delegated canonical source 應以 `.ai/assets/sub-agent-role-prompts/` 下的 `sub-agent.yaml` 與 references 為準，而不再以單一 prompt 檔作為唯一真相
-- 對應的 top-level implementation entry 現在分別由 `command-use-case-implementer`、`query-use-case-implementer`、`reactor-implementer` 承擔
+- 對應的 top-level implementation entry 現在由 `slice-implementer` 承擔，並依 command / query / reactor mode references 套用原本限制
 - `bdd-gwt-test-designer` 與 `code-reviewer` 保持 top-level skills；test generation 與 delegated review 應優先建模為 sub-agent role prompts
 - 若未來需要 delegated runtime wrapper，應在專門的 sub-agent wrapper strategy 中處理
 - 舊 prompt-first sub-agent assets 與 `.ai/assets/commands/*` 已自活躍層移除，不應再作為主入口或相容層依賴
@@ -157,7 +157,7 @@
 - 功能行為與驗收條件優先讀取 `.dev/specs/`
 - 用於 use case、規則、行為流程、驗證基準
 
-### Refactor Workflow Artifacts
+### Workflow Artifacts
 
 - 若任務進入 multi-skill 或 multi-agent handoff，workflow artifact 應放在 `.dev/workflows/`
 - 標準位置：
@@ -167,15 +167,15 @@
 
 ### 讀寫原則
 
-- architect / reviewer / refactor implementer 類型 agent 可讀取 workflow artifact
+- architect / reviewer / implementer 類型 agent 可讀取 workflow artifact
 - 若任務明確要求更新 stage 狀態或結果，可更新對應 `tasks/<task-id>.json`
 - 未被授權更新 artifact 的 sub-agent，預設只讀不寫
 - 不要把 workflow artifact 散放到 `.ai/`、`.claude/skills/`、feature 目錄或臨時文件
 
-## 🤝 Refactor Skill Integration Rule
+## 🤝 Implementer Skill Integration Rule
 
-sub-agent 不應自行取代 refactor skills。
-當任務涉及重構決策、review、stage execution 或 tactical cleanup 時，應依下列分工與對應關係協作。
+sub-agent 不應自行取代 top-level implementer skills。
+當任務涉及架構決策、review、bounded slice execution 或 local technical change 時，應依下列分工與對應關係協作。
 
 ### `ddd-ca-hex-architect`
 
@@ -204,41 +204,43 @@ sub-agent 不應自行取代 refactor skills。
 - delegated code-review sub-agents 應視為 `code-reviewer` 的 worker roles，而不是新的 top-level review skill
 - generation sub-agent 不應自稱完成 review；如需正式 findings，應交給 reviewer
 
-### `staged-refactor-implementer`
+### `slice-implementer`
 
 適用於：
 
 - 已有 architect direction 或 review findings
-- 需要在單一 stage 內做 bounded implementation change
+- 需要在單一 bounded slice 內做 implementation change
+- 需要依 command / query / reactor mode reference 落地功能路線
 - 需要明確維持相容性、限制 scope、更新驗證
 
 與 sub-agent 的關係：
 
-- 若 Command / Query / Reactor / Aggregate 類型 sub-agent 的任務其實是 stage 級重構，應優先由 staged implementer 主導
-- 專門的 generation sub-agent 可作為 stage 內的執行幫手，但不應自行擴張 scope
+- 若 Command / Query / Reactor / Aggregate 類型 sub-agent 的任務其實是 bounded slice，應優先由 `slice-implementer` 主導
+- 專門的 generation sub-agent 可作為 slice 內的執行幫手，但不應自行擴張 scope
 
-### `tactical-refactor-implementer`
+### `local-change-implementer`
 
 適用於：
 
 - extract method
 - safe local rename
-- 一個主要目標周圍的小範圍局部整理
+- 一個主要目標周圍的小範圍局部技術調整
+- 局部 SQL / ORM 寫法變更
 
 與 sub-agent 的關係：
 
-- 一般 generation sub-agent 不應直接宣告自己在做 tactical refactor
-- 若只是單一類別內的 extract method 或 local rename，可由 main agent 直接使用 tactical skill
-- 若 sub-agent 被要求處理這類小範圍整理，應遵守 tactical 的 dependency radius，不得擴張成新型別引入
+- 一般 generation sub-agent 不應直接宣告自己在做 local technical change
+- 若只是單一類別內的 extract method 或 local rename，可由 main agent 直接使用 local change skill
+- 若 sub-agent 被要求處理這類小範圍整理，應遵守 local dependency radius，不得擴張成新型別引入
 
-## 🧭 Sub-agent 與 Refactor Skill 對照
+## 🧭 Sub-agent 與 Implementer Skill 對照
 
 | 類型 | 預設搭配 | 何時升級 |
 | :--- | :--- | :--- |
-| Command / Query / Reactor / Aggregate generation | `staged-refactor-implementer` | 需要重畫邊界、extract class/interface、semantic rename 時升級到 `ddd-ca-hex-architect` |
-| Test generation | `bdd-gwt-test-designer` + `staged-refactor-implementer` 或 `tactical-refactor-implementer` | 若測試缺口反映架構問題，回到 `code-reviewer` 或 `ddd-ca-hex-architect` |
+| Command / Query / Reactor / Aggregate generation | `slice-implementer` with mode references | 需要重畫邊界、extract class/interface、semantic rename 時升級到 `ddd-ca-hex-architect` |
+| Test generation | `bdd-gwt-test-designer` + `slice-implementer` 或 `local-change-implementer` | 若測試缺口反映架構問題，回到 `code-reviewer` 或 `ddd-ca-hex-architect` |
 | Code Review Agent | `code-reviewer` | 若 findings 指向 architecture decision，交回 `ddd-ca-hex-architect` |
-| Profile / Outbox / Infrastructure agents | `staged-refactor-implementer` | 若涉及結構重切或命名語意變更，先經 `ddd-ca-hex-architect` |
+| Profile / Outbox / Infrastructure agents | `slice-implementer` | 若涉及結構重切或命名語意變更，先經 `ddd-ca-hex-architect` |
 
 ## ✍ Artifact 更新權限
 
@@ -246,7 +248,7 @@ sub-agent 不應自行取代 refactor skills。
   - 可建立或更新 `workflow-plan.md`
 - `code-reviewer`:
   - 可建立或更新 `review-report.md`
-- `staged-refactor-implementer` / `tactical-refactor-implementer`:
+- `slice-implementer` / `local-change-implementer`:
   - 可建立或更新 `tasks/<task-id>.json`
 - 一般 sub-agent:
   - 預設只讀
@@ -256,13 +258,15 @@ sub-agent 不應自行取代 refactor skills。
 ## 💻 實際執行範例（簡版）
 
 ### Command Use Case
-- Top-Level Skill: `.ai/assets/skills/command-use-case-implementer/skill.yaml`
+- Top-Level Skill: `.ai/assets/skills/slice-implementer/skill.yaml`
+- Mode Reference: `.ai/assets/skills/slice-implementer/references/modes/command-use-case.md`
 - Canonical Sub-Agent Asset: `.ai/assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`
 - 輸入：spec + `project-config.yaml`
 - 輸出：Handler + Domain Events + Repository Save
 
 ### Query Use Case
-- Top-Level Skill: `.ai/assets/skills/query-use-case-implementer/skill.yaml`
+- Top-Level Skill: `.ai/assets/skills/slice-implementer/skill.yaml`
+- Mode Reference: `.ai/assets/skills/slice-implementer/references/modes/query-use-case.md`
 - Canonical Sub-Agent Asset: `.ai/assets/sub-agent-role-prompts/query-sub-agent/sub-agent.yaml`
 - 輸出：Projection + DTO + Mapper
 
@@ -270,7 +274,8 @@ sub-agent 不應自行取代 refactor skills。
 - Canonical Sub-Agent Asset: `.ai/assets/sub-agent-role-prompts/controller-sub-agent/sub-agent.yaml`
 
 ### Reactor
-- Top-Level Skill: `.ai/assets/skills/reactor-implementer/skill.yaml`
+- Top-Level Skill: `.ai/assets/skills/slice-implementer/skill.yaml`
+- Mode Reference: `.ai/assets/skills/slice-implementer/references/modes/reactor.md`
 - Canonical Sub-Agent Asset: `.ai/assets/sub-agent-role-prompts/reactor-sub-agent/sub-agent.yaml`
 
 ### Reconciler
@@ -282,9 +287,9 @@ sub-agent 不應自行取代 refactor skills。
 ## 🔧 使用指南（對使用者）
 
 ```
-"請使用 command-use-case-implementer 實作 create-product use case"
-"請使用 query-use-case-implementer 實作 get-product use case"
-"請使用 reactor-implementer 實作 notify-sprint-to-select-backlog-item"
+"請使用 slice-implementer 的 command use case mode 實作 create-product use case"
+"請使用 slice-implementer 的 query use case mode 實作 get-product use case"
+"請使用 slice-implementer 的 reactor mode 實作 notify-sprint-to-select-backlog-item"
 "請使用 reconciler-sub-agent workflow 實作定期校正"
 "請使用 outbox-sub-agent workflow 為 Product 實作 Outbox Pattern"
 ```
@@ -339,7 +344,8 @@ Code Review 有 MUST FIX 時必須先修正再進行後續步驟。
 
 ```
 Task: Implement [command-name] use case
-Top-Level Skill: .ai/assets/skills/command-use-case-implementer/skill.yaml
+Top-Level Skill: .ai/assets/skills/slice-implementer/skill.yaml
+Mode Reference: .ai/assets/skills/slice-implementer/references/modes/command-use-case.md
 Sub-Agent Asset: .ai/assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml
 
 Task: Generate tests for [use-case-name]
