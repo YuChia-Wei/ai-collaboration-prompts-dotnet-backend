@@ -17,6 +17,12 @@
 - `requirement/requirement.md`（需求範例）
 - `requirement/README-UML.md`（UML/PlantUML 說明）
 
+## Domain Language
+- `domain-language/README.MD`
+- `domain-language/templates/bounded-context-language-template.md`
+- `domain-language/templates/aggregate-vocabulary-template.md`
+- `domain-language/templates/domain-event-language-template.md`
+
 ## Specs
 - `specs/SPEC-GUIDE.md`
 - `specs/SPEC-ORGANIZATION-GUIDE.md`

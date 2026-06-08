@@ -166,6 +166,7 @@ Use these boundaries:
 | `.dev/guides/` | Human-facing guides |
 | `.dev/adr/` | ADR governance and retained decisions |
 | `.dev/requirement/` | Requirements and requirement authoring materials |
+| `.dev/domain-language/` | Domain ubiquitous language templates and target-repo vocabulary area |
 | `.dev/specs/` | Specification organization and retained specs |
 | `.dev/operations/` | Operations docs and operations document guides |
 | `.dev/workflows/` | Workflow artifacts |

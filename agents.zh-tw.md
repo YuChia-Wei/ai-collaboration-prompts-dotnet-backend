@@ -167,6 +167,7 @@ Workflow artifact 位置：
 | `.dev/guides/` | Human-facing guides |
 | `.dev/adr/` | ADR governance and retained decisions |
 | `.dev/requirement/` | Requirements and requirement authoring materials |
+| `.dev/domain-language/` | 領域統一詞彙範本與目標 repo 詞彙收納區 |
 | `.dev/specs/` | Specification organization and retained specs |
 | `.dev/operations/` | Operations docs and operations document guides |
 | `.dev/workflows/` | Workflow artifacts |

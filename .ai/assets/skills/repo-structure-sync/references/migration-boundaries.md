@@ -10,6 +10,7 @@ Usually keep these areas as reusable collaboration structure:
 
 - `.ai/` canonical agent assets, scripts, shared rules, sub-agent definitions, and templates
 - `.dev/guides/` human-facing guides and skill usage guides
+- `.dev/domain-language/templates/` domain language authoring templates
 - `.dev/standards/` structure rules, code review checklist, examples, and organization principles
 - `.dev/adr/` governance files: `README.md`, `INDEX.md`, `ADR-TEMPLATE.md`, and `WHEN-TO-CREATE-ADR.MD`
 - `.dev/workflows/README.MD` workflow artifact contract
@@ -26,6 +27,7 @@ Do not carry these over as project truth. Rebuild them from the target repositor
 - bounded-context requirements and project-specific non-functional requirements
 - `.dev/specs/domains/`
 - `.dev/specs/tests/`
+- filled `.dev/domain-language/` files that define bounded contexts, aggregate vocabulary, domain events, commands, queries, reactions, aliases, forbidden terms, or naming decisions
 - `.dev/operations/context-map.md`
 - `.dev/operations/event-catalog.md`
 - `.dev/operations/mq-topology.md`
@@ -62,6 +64,12 @@ Keep authoring guides. Rewrite tech stack, bounded-context overview, project-spe
 
 Keep taxonomy, naming rules, `SPEC-GUIDE.MD`, `SPEC-ORGANIZATION-GUIDE.MD`, `tests/README.MD`, and `tests/TEST-SPEC-GUIDE.MD`. Rewrite bounded contexts, aggregates, use cases, scenarios, assertions, cross-domain specs, and E2E specs.
 
+### `.dev/domain-language/`
+
+Keep `README.MD` and files under `templates/` as authoring structure. Rewrite or remove filled domain language files unless they are validated against the target repository's requirements, specs, code, API contracts, events, and domain expert decisions.
+
+Do not carry source-repo domain terms, aliases, forbidden terms, aggregate vocabulary, command phrases, state names, or event interpretations into a target repo as truth.
+
 ### `.dev/operations/`
 
 Keep document-type guides and README files. Rewrite producer, consumer, queue, topic, retry, DLQ, incident, context map, event catalog, MQ topology, and runbook truth.
@@ -81,6 +89,7 @@ Before finishing a sync:
 - confirm root README files describe the target repo rather than the source template repo
 - confirm `agents.md` stack and directory rules match the target repo
 - confirm `.dev/ARCHITECTURE.MD` and `.dev/requirement/TECH-STACK-REQUIREMENTS.MD` are rebuilt from target facts
+- confirm `.dev/domain-language/` contains templates only or target-validated domain terms
 - confirm `.ai/scripts/README.md` lists only scripts that still apply
 - search `.dev/specs/` and `.dev/operations/` for source-repo names, routes, services, event names, queues, and topics
 - confirm `.dev/adr/` is governance only unless target-specific ADRs were intentionally authored
