@@ -28,7 +28,7 @@ Example:
 ```json
 {
   "ConnectionStrings": {
-    "MainDb": "Host=localhost;Port=5432;Database=app;Username=app;Password=app"
+    "MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   },
   "Profiles": {
     "Mode": "outbox"

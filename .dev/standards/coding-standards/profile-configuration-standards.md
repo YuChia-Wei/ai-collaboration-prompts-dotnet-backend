@@ -50,7 +50,7 @@ builder.Configuration.AddJsonFile($"appsettings.{profile}.json");
     "Mode": "Outbox"
   },
   "ConnectionStrings": {
-    "Outbox": "Host=localhost;Port=5432;Database=app_test;Username=postgres;Password=root"
+    "Outbox": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   }
 }
 ```

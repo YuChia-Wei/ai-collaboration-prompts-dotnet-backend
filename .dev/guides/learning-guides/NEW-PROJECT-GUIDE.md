@@ -1,6 +1,6 @@
-# AiScrum Project Structure and New Project Setup Guide (Dotnet)
+# ExampleApp Project Structure and New Project Setup Guide (Dotnet)
 
-This guide explains how to create a new dotnet project based on the AiScrum structure.
+This guide explains how to create a new dotnet project based on the ExampleApp structure.
 
 ## Table of Contents
 1. Prerequisites
@@ -41,7 +41,7 @@ mkdir -p src/Api src/Application src/Domain src/Infrastructure src/tests
 # 4) Create .ai and .dev folders
 mkdir -p .ai/{config,guides,prompts,scripts,tech-stacks,workflows}
 mkdir -p .dev/{adr,specs,tasks}
-mkdir -p .dev/tasks/{feature,test,refactoring,frontend,main}
+mkdir -p .dev/tasks/{feature,test,refactoring,main}
 mkdir -p .dev/specs/{use-cases,aggregates,domain-events}
 ```
 

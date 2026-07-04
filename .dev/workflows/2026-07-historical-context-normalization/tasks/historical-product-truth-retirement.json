@@ -2,7 +2,7 @@
   "task_id": "historical-product-truth-retirement",
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Remove or neutralize historical product truth and fixed runtime facts.",
     "constraints": [
@@ -32,9 +32,29 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Removed product-specific requirements, specs, test specs, problem frames, operations truth, frontend implementation assets, and stale implementation indexes; neutralized reusable examples and retained React/Vite only as future multi-stack placement guidance.",
+    "files_changed": [
+      ".dev/requirement/",
+      ".dev/specs/",
+      ".dev/problem-frames/",
+      ".dev/operations/",
+      ".dev/standards/",
+      ".dev/guides/",
+      ".ai/assets/sub-agent-role-prompts/frontend-sub-agent/",
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".ai/scripts/check-prompt-portability.sh",
+      "README.md",
+      "README.en.md"
+    ],
+    "tests_run": [
+      "retired product identifier search",
+      "fixed credential and connection string search",
+      "frontend implementation reference search",
+      "changed JSON parse",
+      "deleted path reference search",
+      "Git Bash .ai/scripts/check-prompt-portability.sh",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

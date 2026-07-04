@@ -20,7 +20,7 @@ Canonical policy:
 - `.ai/assets/shared/` 應作為 shared rules / examples / supporting materials 的可重用資產
 
 **絕對不能包含**：
-- ❌ 專案名稱（如 AiScrum, CompanyX）
+- ❌ 專案名稱（如 ExampleApp, CompanyX）
 - ❌ 專案特定 namespace（如 Company.Product）
 - ❌ 專案特定的業務邏輯或領域模型
 - ❌ 專案的 ADR、規格、任務
@@ -70,7 +70,7 @@ Canonical policy:
 ### 3. 檔案命名規則
 
 #### `.ai/` 目錄檔案
-- 使用通用術語（Product, Sprint, Task）
+- 使用通用術語（Product, Iteration, Task）
 - 避免專案特定術語
 - 範例程式碼使用 `Example.*` 或 `BuildingBlocks.*` 命名
 
@@ -83,7 +83,7 @@ Canonical policy:
 
 ```bash
 # 檢查 .ai/ 是否包含專案特定內容（請替換你的專案名稱）
-rg -n "AiScrum|CompanyX|MyProject" .ai/ --glob "!**/.git/**"
+rg -n "ExampleApp|CompanyX|MyProject" .ai/ --glob "!**/.git/**"
 ```
 
 ## 🚀 AI 行動準則

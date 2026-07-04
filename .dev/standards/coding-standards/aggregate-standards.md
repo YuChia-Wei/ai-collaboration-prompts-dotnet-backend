@@ -73,7 +73,7 @@ public class ScrumTeam : AggregateRoot<ScrumTeamId>
 
 ```csharp
 // ✅ 正確：Aggregate Root 必須實作 IsDeleted
-public class ProductBacklogItem : AggregateRoot<PbiId>
+public class WorkItem : AggregateRoot<WorkItemId>
 {
     public bool IsDeleted { get; private set; }  // 必須欄位：軟刪除標記
     
@@ -82,7 +82,7 @@ public class ProductBacklogItem : AggregateRoot<PbiId>
     {
         switch (@event)
         {
-            case ProductBacklogItemDeleted e:
+            case WorkItemDeleted e:
                 IsDeleted = true;  // 標記為已刪除
                 break;
             // 其他事件處理...
@@ -425,7 +425,7 @@ protected override void When(IDomainEvent @event)
 - 需要唯一標識符
 - 有生命週期
 - 狀態會改變
-- 例如：Task, Sprint, User
+- 例如：Task, Iteration, User
 
 ### 選擇 Value Object 當：
 - 通過屬性值識別

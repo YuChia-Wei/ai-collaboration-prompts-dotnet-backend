@@ -57,10 +57,10 @@
 ## 範本與示例
 
 - 可重用範本：`templates/cbf-external-system/`
-- 外部付款授權示例：`payments/cbf/authorize-payment/`
-- 由既有 requirement/spec 萃取的訂單下單示例：`orders/cbf/place-order/`
 - 快速 authoring 指南：`../guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md`
 - 可重用起草 skill：`.claude/skills/problem-frame-author/`
+
+本 framework repository 不保留產品專用 Problem Frame。目標 repo 應從自身 requirements、specs、code 與 user-confirmed truth 建立實際 frames。
 
 ## 對 validator 的價值
 

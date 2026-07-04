@@ -69,6 +69,8 @@
 
 ### `design-guides/`
 
+- `MULTI-STACK-CONTEXT-PLACEMENT-NOTES.md`
+  - 未來 frontend、其他語言與 multi-stack context 的收納評估筆記
 - `DATA-CLASS-STANDARDS.md`
   - data class 設計準則與使用界線
 - `EZDDD-FRAMEWORK-REFERENCE.md`

@@ -59,7 +59,7 @@ src/Api/
     "Provider": "PostgreSQL"
   },
   "ConnectionStrings": {
-    "MainDb": "Host=localhost;Port=5432;Database=aiscrum;Username=postgres;Password=root"
+    "MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   },
   "Outbox": {
     "PollingIntervalMs": 5000,
@@ -107,7 +107,7 @@ src/Api/
     "Provider": "PostgreSQL"
   },
   "ConnectionStrings": {
-    "MainDb": "Host=localhost;Port=5800;Database=testdb;Username=postgres;Password=root"
+    "MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   }
 }
 ```

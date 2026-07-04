@@ -88,7 +88,7 @@ public static class TestProfileRegistration
 ```json
 {
   "ConnectionStrings": {
-    "Outbox": "Host=localhost;Port=5800;Database=board_test;Username=postgres;Password=root"
+    "Outbox": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   }
 }
 ```

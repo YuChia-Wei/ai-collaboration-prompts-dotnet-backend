@@ -64,7 +64,7 @@ project-root/
 
 - `.slnx` 的方案資料夾（Solution Folder）採「邏輯分組」，可不對應實體資料夾結構。
 - 方案資料夾命名固定使用前後斜線格式：`/{Group}/`、`/{Group}/{SubGroup}/`（例如：`/Order/DomainCore/`）。
-- 邏輯分組建議以 Bounded Context 與層級語意為主（如 `Inventory/DomainCore`、`Order/Presentation`）。
+- 邏輯分組建議以 Bounded Context 與層級語意為主（如 `<ContextA>/DomainCore`、`<ContextB>/Presentation`）。
 - `tests` 可維持單一頂層群組：`/tests/`。
 
 ## Application 層資料夾結構

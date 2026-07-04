@@ -59,20 +59,20 @@ public interface IDomainRepository<TAggregate, TId>
 }
 
 // 在 Handler 中使用
-public sealed class CreateProductHandler
+public sealed class CreateRecordHandler
 {
-    private readonly IDomainRepository<Product, ProductId> _repository;
+    private readonly IDomainRepository<Record, RecordId> _repository;
 
-    public CreateProductHandler(IDomainRepository<Product, ProductId> repository)
+    public CreateRecordHandler(IDomainRepository<Record, RecordId> repository)
     {
         _repository = repository;
     }
 }
 
 // ❌ 錯誤：為每個 Aggregate 創建特定 Interface 加入額外方法
-public interface IProductRepository : IDomainRepository<Product, ProductId>
+public interface IRecordRepository : IDomainRepository<Record, RecordId>
 {
-    Task<Product?> GetByNameAsync(string name);  // ❌ 不應該加入查詢方法
+    Task<Record?> GetByNameAsync(string name);  // ❌ 不應該加入查詢方法
 }
 ```
 
@@ -81,35 +81,35 @@ public interface IProductRepository : IDomainRepository<Product, ProductId>
 ### 2. Repository 實作 (EF Core)
 
 ```csharp
-// ✅ 正確：Product Repository 實作
-public class ProductRepository : IRepository<Product, ProductId>
+// ✅ 正確：Record Repository 實作
+public class RecordRepository : IRepository<Record, RecordId>
 {
     private readonly ApplicationDbContext _context;
 
-    public ProductRepository(ApplicationDbContext context)
+    public RecordRepository(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<Product?> FindByIdAsync(ProductId id, CancellationToken ct = default)
+    public async Task<Record?> FindByIdAsync(RecordId id, CancellationToken ct = default)
     {
-        var data = await _context.Products
+        var data = await _context.Records
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == id.Value, ct);
 
-        return data is null ? null : ProductMapper.ToDomain(data);
+        return data is null ? null : RecordMapper.ToDomain(data);
     }
 
-    public async Task SaveAsync(Product aggregate, CancellationToken ct = default)
+    public async Task SaveAsync(Record aggregate, CancellationToken ct = default)
     {
-        var data = ProductMapper.ToData(aggregate);
+        var data = RecordMapper.ToData(aggregate);
 
-        var existing = await _context.Products
+        var existing = await _context.Records
             .FirstOrDefaultAsync(x => x.Id == data.Id, ct);
 
         if (existing is null)
         {
-            await _context.Products.AddAsync(data, ct);
+            await _context.Records.AddAsync(data, ct);
         }
         else
         {
@@ -119,14 +119,14 @@ public class ProductRepository : IRepository<Product, ProductId>
         aggregate.ClearDomainEvents();
     }
 
-    public async Task DeleteAsync(Product aggregate, CancellationToken ct = default)
+    public async Task DeleteAsync(Record aggregate, CancellationToken ct = default)
     {
-        var data = await _context.Products
+        var data = await _context.Records
             .FirstOrDefaultAsync(x => x.Id == aggregate.Id.Value, ct);
 
         if (data is not null)
         {
-            _context.Products.Remove(data);
+            _context.Records.Remove(data);
         }
 
         aggregate.ClearDomainEvents();
@@ -177,9 +177,9 @@ public static class RepositoryServiceExtensions
 {
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<IRepository<Product, ProductId>, ProductRepository>();
-        services.AddScoped<IRepository<Sprint, SprintId>, SprintRepository>();
-        services.AddScoped<IRepository<ProductBacklogItem, PbiId>, PbiRepository>();
+        services.AddScoped<IRepository<Record, RecordId>, RecordRepository>();
+        services.AddScoped<IRepository<Iteration, IterationId>, IterationRepository>();
+        services.AddScoped<IRepository<WorkItem, WorkItemId>, WorkItemRepository>();
 
         return services;
     }
@@ -196,7 +196,7 @@ public static class RepositoryServiceExtensions
 // ✅ 正確：EF Core Entity 設計
 namespace YourProject.Infrastructure.Persistence.Entities;
 
-public class ProductData
+public class RecordData
 {
     public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
@@ -222,16 +222,16 @@ public class ProductData
 
 ```csharp
 // ✅ 正確：使用 Fluent API 配置
-public class ProductDataConfiguration : IEntityTypeConfiguration<ProductData>
+public class RecordDataConfiguration : IEntityTypeConfiguration<RecordData>
 {
-    public void Configure(EntityTypeBuilder<ProductData> builder)
+    public void Configure(EntityTypeBuilder<RecordData> builder)
     {
-        builder.ToTable("products");
+        builder.ToTable("records");
 
         builder.HasKey(x => x.Id);
 
         builder.Property(x => x.Id)
-            .HasColumnName("product_id")
+            .HasColumnName("record_id")
             .HasMaxLength(50)
             .IsRequired();
 
@@ -273,10 +273,10 @@ public class ProductDataConfiguration : IEntityTypeConfiguration<ProductData>
 
 ```csharp
 // ✅ 正確：Query Repository - 純資料存取，回傳 DTO/ID
-public interface IProductQueryRepository
+public interface IRecordQueryRepository
 {
-    Task<ProductDto?> GetByIdAsync(Guid productId, CancellationToken ct = default);
-    Task<IReadOnlyList<ProductDto>> GetByStateAsync(string state, CancellationToken ct = default);
+    Task<RecordDto?> GetByIdAsync(Guid recordId, CancellationToken ct = default);
+    Task<IReadOnlyList<RecordDto>> GetByStateAsync(string state, CancellationToken ct = default);
     Task<IReadOnlyList<Guid>> GetIdsByStateAsync(string state, CancellationToken ct = default);
 }
 ```
@@ -292,13 +292,13 @@ public interface IProductQueryRepository
 
 ```csharp
 // ✅ 正確：Query Service - 查詢業務邏輯
-public interface IProductQueryService
+public interface IRecordQueryService
 {
     // 組合多個 Repository 查詢
-    Task<ProductWithDetailsDto> GetProductWithDetailsAsync(Guid productId, CancellationToken ct = default);
+    Task<RecordWithDetailsDto> GetRecordWithDetailsAsync(Guid recordId, CancellationToken ct = default);
 
     // 提供 IDs 給 Command Handler 使用
-    Task<IReadOnlyList<Guid>> GetActiveProductIdsAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<Guid>> GetActiveRecordIdsAsync(CancellationToken ct = default);
 }
 ```
 
@@ -340,21 +340,21 @@ public class EfCoreUnitOfWork : IUnitOfWork
 }
 
 // 在 Handler 中使用
-public sealed class CreateProductHandler
+public sealed class CreateRecordHandler
 {
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IRepository<Record, RecordId> _repository;
     private readonly IUnitOfWork _unitOfWork;
 
-    public async Task<Result<ProductId>> Handle(
-        CreateProductCommand command,
+    public async Task<Result<RecordId>> Handle(
+        CreateRecordCommand command,
         CancellationToken ct)
     {
-        var product = new Product(...);
+        var record = new Record(...);
 
-        await _repository.SaveAsync(product, ct);
+        await _repository.SaveAsync(record, ct);
         await _unitOfWork.CommitAsync(ct);  // 提交交易
 
-        return Result.Success(product.Id);
+        return Result.Success(record.Id);
     }
 }
 ```
@@ -367,13 +367,13 @@ public sealed class CreateProductHandler
 
 ```csharp
 // ✅ 正確：只讀查詢使用 AsNoTracking
-public async Task<Product?> FindByIdAsync(ProductId id, CancellationToken ct)
+public async Task<Record?> FindByIdAsync(RecordId id, CancellationToken ct)
 {
-    var data = await _context.Products
+    var data = await _context.Records
         .AsNoTracking()  // 提升效能
         .FirstOrDefaultAsync(x => x.Id == id.Value, ct);
 
-    return data is null ? null : ProductMapper.ToDomain(data);
+    return data is null ? null : RecordMapper.ToDomain(data);
 }
 ```
 

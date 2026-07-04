@@ -48,17 +48,14 @@ Use for:
 - outbox mapping
 - environment/profile isolation
 
-### API and Frontend Boundary
+### API Boundary
 - `.ai/assets/sub-agent-role-prompts/controller-sub-agent/references/implementation-guidance.md`
 - `.ai/assets/sub-agent-role-prompts/controller-code-review-sub-agent/sub-agent.yaml`
 - `.ai/assets/sub-agent-role-prompts/controller-test-sub-agent/sub-agent.yaml`
-- `.ai/assets/sub-agent-role-prompts/frontend-sub-agent/sub-agent.yaml`
-- `.ai/assets/sub-agent-role-prompts/frontend-sub-agent/references/api-integration-guidance.md`
 
 Use for:
 - API contract shape
 - controller boundary rules
-- frontend/backend contract alignment
 
 ### Quality Gates
 - `.ai/assets/sub-agent-role-prompts/code-review-sub-agent/sub-agent.yaml`

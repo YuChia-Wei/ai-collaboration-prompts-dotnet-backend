@@ -1,7 +1,9 @@
 # Building Blocks 類別索引（概念層）
 
 這是 .NET 版 Building Blocks 的**概念設計**類別索引，描述完整架構的目標類別。
-實際專案中已實作的類別請參考 [`.dev/BUILDING-BLOCKS-CLASS-INDEX.MD`](../../../../../.dev/BUILDING-BLOCKS-CLASS-INDEX.MD)。
+本文件是可重用的 .NET backend building-block reference，不代表 framework repository 已實作這些型別。
+
+目標 repo 若需要 implementation index，應由 `repo-structure-sync` 或文件 workflow 依實際 source code 產生，不應從來源 template 複製。
 
 > [!NOTE]
 > 以下 namespace 為設計目標命名，實際套件完成後請更新。
@@ -157,7 +159,7 @@ BuildingBlocks.Infrastructure.OptimisticLockingFailureException
 
 ### 概念 vs 實作
 - 📘 此文件為**概念設計**索引，涵蓋完整架構目標
-- 📗 已實作的類別請參考 `.dev/BUILDING-BLOCKS-CLASS-INDEX.MD`
+- 📗 目標 repo 的已實作類別應依實際 source code 另外建立 implementation index
 - ✅ `BuildingBlocks.*` 為暫定命名，不代表最終套件
 
 ### 常見錯誤路徑（請避免）

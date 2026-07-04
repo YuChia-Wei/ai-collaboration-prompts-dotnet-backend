@@ -39,7 +39,7 @@ Placeholder values should come from repository evidence. A generated `.dev/proje
 - `{dbTestName}` -> board_test
 - `{dbTestUsername}` -> postgres
 - `{dbTestPassword}` -> root
-- `{dbTestConnectionString}` -> Host=localhost;Port=5800;Database=board_test;Username=postgres;Password=root
+- `{dbTestConnectionString}` -> Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
 - `{dbTestSchema}` -> message_store
 
 ### Production Environment Database
@@ -48,7 +48,7 @@ Placeholder values should come from repository evidence. A generated `.dev/proje
 - `{dbProductionName}` -> board
 - `{dbProductionUsername}` -> postgres
 - `{dbProductionPassword}` -> root
-- `{dbProductionConnectionString}` -> Host=localhost;Port=5500;Database=board;Username=postgres;Password=root
+- `{dbProductionConnectionString}` -> Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
 - `{dbProductionSchema}` -> message_store
 
 ### AI Environment Database
@@ -57,14 +57,10 @@ Placeholder values should come from repository evidence. A generated `.dev/proje
 - `{dbAiName}` -> board_ai
 - `{dbAiUsername}` -> postgres
 - `{dbAiPassword}` -> root
-- `{dbAiConnectionString}` -> Host=localhost;Port=6600;Database=board_ai;Username=postgres;Password=root
+- `{dbAiConnectionString}` -> Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
 - `{dbAiSchema}` -> message_store
 
 ### Frontend Configuration
-- `{frontendFramework}` -> React
-- `{frontendLanguage}` -> TypeScript
-- `{frontendPort}` -> 3000
-- `{frontendBuildTool}` -> Vite
 - `{reactVersion}` -> 18.3.1
 - `{typescriptVersion}` -> 5.5.3
 - `{viteVersion}` -> 5.4.1

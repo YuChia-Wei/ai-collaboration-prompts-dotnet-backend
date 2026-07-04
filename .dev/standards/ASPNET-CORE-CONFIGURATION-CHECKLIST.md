@@ -9,19 +9,19 @@
 ### ❌ 錯誤：使用錯誤的 port
 ```json
 // 錯誤
-"MainDb": "Host=localhost;Port=5500;Database=app;Username=app;Password=app"
+"MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
 
 // 正確
-"MainDb": "Host=localhost;Port=5432;Database=app;Username=app;Password=app"
+"MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
 ```
 
 ### ❌ 錯誤：schema 配置方式錯誤
 ```json
 // 錯誤：未指定 schema 或使用錯誤鍵
-"MainDb": "Host=localhost;Port=5432;Database=app;Username=app;Password=app"
+"MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
 
 // 正確：在連線字串指定 schema
-"MainDb": "Host=localhost;Port=5432;Database=app;Username=app;Password=app;Search Path=message_store"
+"MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD};Search Path=${DB_SCHEMA}"
 ```
 
 ## 2. 套件依賴配置

@@ -127,14 +127,6 @@
 - **重點**：`IOutboxData<TId>`、`IOutboxMapper<TAggregate,TData>`、`NotMapped` 欄位
 - **Canonical Sub-Agent Asset**：`.ai/assets/sub-agent-role-prompts/outbox-sub-agent/sub-agent.yaml`
 
-### Frontend Sub-agents
-
-#### 19. Frontend Component Generation Agent
-- **Prompt**：`.ai/assets/sub-agent-role-prompts/frontend-sub-agent/references/component-generation-guidance.md`
-
-#### 20. Frontend API Integration Agent
-- **Canonical Sub-Agent Asset**：`.ai/assets/sub-agent-role-prompts/frontend-sub-agent/sub-agent.yaml`
-
 ## 📋 標準工作流程
 
 1. 讀 spec → 解析需求

@@ -42,25 +42,25 @@ Pattern (forbidden): new .*UseCase
 
 #### 核心規則
 1. **建立（Create）**：使用巢狀路徑表達歸屬關係
-   - 範例：`POST /api/v1/products/{productId}/pbis`
-   - 語意：在特定 Product 的 PBI 集合中新增項目
+   - 範例：`POST /api/v1/resources/{resourceId}/work-items`
+   - 語意：在特定 Resource 的 Work Item 集合中新增項目
 
 2. **資源位址（Canonical URL）**：使用扁平路徑尊重獨立性
-   - 範例：`GET/PATCH/DELETE /api/v1/pbis/{pbiId}`
-   - 語意：PBI 作為 Aggregate Root 有獨立的資源位址
+   - 範例：`GET/PATCH/DELETE /api/v1/work-items/{workItemId}`
+   - 語意：Work Item 作為 Aggregate Root 有獨立的資源位址
 
 #### 完整路由範例
 
 ```csharp
-// ProductBacklogItems 路由
-[HttpPost("/api/v1/products/{productId}/pbis")]    // 建立 PBI（檢查 Product 存在）
-[HttpGet("/api/v1/pbis/{pbiId}")]                  // 查詢單筆 PBI
-[HttpPatch("/api/v1/pbis/{pbiId}")]                // 更新 PBI
-[HttpDelete("/api/v1/pbis/{pbiId}")]               // 刪除 PBI
-[HttpGet("/api/v1/products/{productId}/pbis")]     // 列出某 Product 的所有 PBI
+// WorkItems 路由
+[HttpPost("/api/v1/resources/{resourceId}/work-items")]    // 建立 Work Item（檢查 Resource 存在）
+[HttpGet("/api/v1/work-items/{workItemId}")]                  // 查詢單筆 Work Item
+[HttpPatch("/api/v1/work-items/{workItemId}")]                // 更新 Work Item
+[HttpDelete("/api/v1/work-items/{workItemId}")]               // 刪除 Work Item
+[HttpGet("/api/v1/resources/{resourceId}/work-items")]     // 列出某 Resource 的所有 Work Item
 
 // Task 路由
-[HttpPost("/api/v1/pbis/{pbiId}/tasks")]           // 建立 Task（檢查 PBI 存在）
+[HttpPost("/api/v1/work-items/{workItemId}/tasks")]           // 建立 Task（檢查 Work Item 存在）
 [HttpGet("/api/v1/tasks/{taskId}")]                // 查詢單筆 Task
 [HttpPatch("/api/v1/tasks/{taskId}")]              // 更新 Task
 [HttpDelete("/api/v1/tasks/{taskId}")]             // 刪除 Task
@@ -72,15 +72,15 @@ Pattern (forbidden): new .*UseCase
 
 ```csharp
 // ✅ Allowed: delegate to handler
-[HttpPost("/products")]
-public async Task<IActionResult> Create(CreateProductRequest request)
+[HttpPost("/resources")]
+public async Task<IActionResult> Create(CreateResourceRequest request)
     => Ok(await _handler.Handle(request));
 
 // ❌ Forbidden: controller contains business logic
-[HttpPost("/products")]
-public IActionResult Create(CreateProductRequest request)
+[HttpPost("/resources")]
+public IActionResult Create(CreateResourceRequest request)
 {
-    var entity = new Product(request.Name);
+    var entity = new Resource(request.Name);
     _dbContext.Add(entity);
     _dbContext.SaveChanges();
     return Ok();
@@ -95,24 +95,24 @@ public IActionResult Create(CreateProductRequest request)
 
 ```csharp
 // ✅ 正確：使用 record 定義 Request
-public sealed record CreateProductRequest(
+public sealed record CreateResourceRequest(
     [Required] string Name,
     [Required] string UserId,
     string? Description = null);
 
-public sealed record UpdateProductRequest(
+public sealed record UpdateResourceRequest(
     [Required] string Name,
     string? Description = null);
 
 // ✅ 正確：使用 record 定義 Response
-public sealed record ProductResponse(
+public sealed record ResourceResponse(
     string Id,
     string Name,
     string State,
     DateTime CreatedAt);
 
 // ❌ 錯誤：使用 class 定義 DTO
-public class CreateProductRequest  // 應該使用 record
+public class CreateResourceRequest  // 應該使用 record
 {
     public string Name { get; set; }
     public string UserId { get; set; }
@@ -128,12 +128,12 @@ public class CreateProductRequest  // 應該使用 record
 ```csharp
 // ✅ 正確：Constructor Injection
 [ApiController]
-[Route("api/v1/products")]
-public class ProductsController : ControllerBase
+[Route("api/v1/resources")]
+public class ResourcesController : ControllerBase
 {
-    private readonly CreateProductHandler _handler;
+    private readonly CreateResourceHandler _handler;
     
-    public ProductsController(CreateProductHandler handler)
+    public ResourcesController(CreateResourceHandler handler)
     {
         _handler = handler;
     }
@@ -141,9 +141,9 @@ public class ProductsController : ControllerBase
 
 // ❌ 錯誤：[FromServices] 注入
 [HttpPost]
-public async Task<IActionResult> CreateProduct(
-    [FromBody] CreateProductRequest request,
-    [FromServices] CreateProductHandler handler)  // FORBIDDEN!
+public async Task<IActionResult> CreateResource(
+    [FromBody] CreateResourceRequest request,
+    [FromServices] CreateResourceHandler handler)  // FORBIDDEN!
 {
     // ...
 }
@@ -157,13 +157,13 @@ public async Task<IActionResult> CreateProduct(
 
 ```csharp
 // GET - 200 OK
-return Ok(productDto);
+return Ok(resourceDto);
 
 // POST - 201 Created
-return CreatedAtAction(nameof(GetProduct), new { id = productId }, response);
+return CreatedAtAction(nameof(GetResource), new { id = resourceId }, response);
 
 // PUT - 200 OK
-return Ok(updatedProduct);
+return Ok(updatedResource);
 
 // DELETE - 204 No Content
 return NoContent();
@@ -184,7 +184,7 @@ if (!result.IsSuccess)
     });
 
 // 404 Not Found - 資源不存在
-if (product is null)
+if (resource is null)
     return NotFound();
 
 // 409 Conflict - 資源衝突
@@ -203,7 +203,7 @@ if (result.Error?.Contains("already exists") == true)
 return BadRequest(new ProblemDetails
 {
     Title = "Validation Failed",
-    Detail = "Product name is required",
+    Detail = "Resource name is required",
     Status = StatusCodes.Status400BadRequest,
     Instance = HttpContext.Request.Path,
     Extensions = 
@@ -223,13 +223,13 @@ return ValidationProblem(ModelState);
 ### 使用 FluentValidation（推薦）
 
 ```csharp
-public class CreateProductRequestValidator : AbstractValidator<CreateProductRequest>
+public class CreateResourceRequestValidator : AbstractValidator<CreateResourceRequest>
 {
-    public CreateProductRequestValidator()
+    public CreateResourceRequestValidator()
     {
         RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Product name is required")
-            .MaximumLength(100).WithMessage("Product name must not exceed 100 characters");
+            .NotEmpty().WithMessage("Resource name is required")
+            .MaximumLength(100).WithMessage("Resource name must not exceed 100 characters");
             
         RuleFor(x => x.UserId)
             .NotEmpty().WithMessage("User ID is required");

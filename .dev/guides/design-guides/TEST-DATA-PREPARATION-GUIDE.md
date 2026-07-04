@@ -73,22 +73,22 @@ Each test must prepare its own data and must not rely on the execution order of 
   - Product basics (id, name, state)
   - ProductGoal (via SetProductGoalUseCase)
   - DefinitionOfDone (via DefineDefinitionOfDoneUseCase)
-  - Related ProductBacklogItems (if needed for query)
+  - Related WorkItems (if needed for query)
 
-### Sprint test data
+### Iteration test data
 - Must include:
-  - Sprint basics (id, name, state)
-  - SprintGoal (via DefineSprintGoalUseCase)
-  - Timebox settings (via SetSprintTimeboxUseCase)
-  - Selected PBIs (via SelectProductBacklogItemUseCase)
+  - Iteration basics (id, name, state)
+  - IterationGoal (via DefineIterationGoalUseCase)
+  - Timebox settings (via SetIterationTimeboxUseCase)
+  - Selected Work Items (via SelectWorkItemUseCase)
   - Team members (if needed for query)
 
-### ProductBacklogItem test data
+### WorkItem test data
 - Must include:
-  - PBI basics (id, name, description, state)
-  - Estimates (via EstimateProductBacklogItemUseCase)
+  - Work Item basics (id, name, description, state)
+  - Estimates (via EstimateWorkItemUseCase)
   - Tasks (via CreateTaskUseCase)
-  - Sprint linkage (if already selected)
+  - Iteration linkage (if already selected)
   - Priority/importance fields
 
 ## Test Template (xUnit + BDDfy)

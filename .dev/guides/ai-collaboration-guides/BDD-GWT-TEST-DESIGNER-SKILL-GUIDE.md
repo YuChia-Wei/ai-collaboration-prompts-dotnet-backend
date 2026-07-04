@@ -84,8 +84,8 @@ Return:
 
 建議路徑範例：
 
-- `.dev/specs/tests/order/use-cases/place-order.test-spec.md`
-- `.dev/specs/tests/inventory-item/integration/decrease-stock-repository.test-spec.md`
+- `.dev/specs/tests/<context>/use-cases/<use-case>.test-spec.md`
+- `.dev/specs/tests/<context>/integration/<integration-target>.test-spec.md`
 - `.dev/specs/tests/cross-domain/place-order-and-reserve-stock.test-spec.md`
 
 ## 範本 2：從既有程式行為逆向整理 scenarios

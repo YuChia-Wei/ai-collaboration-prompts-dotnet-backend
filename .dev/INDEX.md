@@ -33,6 +33,7 @@
 - `legacy/ask/`
 - `workflows/README.MD`
 - `guides/README.MD`
+- `guides/design-guides/MULTI-STACK-CONTEXT-PLACEMENT-NOTES.md`
 
 ## AI Agent & Skills
 - `AGENTS.md`
