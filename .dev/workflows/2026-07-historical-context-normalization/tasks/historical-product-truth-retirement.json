@@ -1,0 +1,40 @@
+{
+  "task_id": "historical-product-truth-retirement",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
+  "status": "pending",
+  "scope": {
+    "target": "Remove or neutralize historical product truth and fixed runtime facts.",
+    "constraints": [
+      "Remove artifacts duplicated by canonical templates.",
+      "Remove Products, Orders, Inventory, SaleProducts, SaleOrders, and source-project runtime facts from active context.",
+      "Keep React and Vite only in an explicitly future-planning guide."
+    ],
+    "non_goals": [
+      "No full-stack profile.",
+      "No frontend skill.",
+      "No analyzer implementation."
+    ]
+  },
+  "execution": {
+    "operation_type": "context-truth-retirement",
+    "steps": [
+      "Create an inventory and disposition map.",
+      "Remove duplicated product specs, test specs, problem frames, and operations truth.",
+      "Neutralize reusable examples and credentials.",
+      "Create future multi-stack context placement guidance.",
+      "Update indexes."
+    ],
+    "validation": [
+      "Search retired product names.",
+      "Search fixed credentials and connection strings.",
+      "Run git diff --check."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "task_id": "governance-metadata-normalization",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
+  "status": "pending",
+  "scope": {
+    "target": "Normalize completed workflow and requirement status metadata.",
+    "constraints": [
+      "Preserve original requirement decisions.",
+      "Do not rewrite historical task contents solely for terminology changes."
+    ],
+    "non_goals": [
+      "No product truth migration in this task."
+    ]
+  },
+  "execution": {
+    "operation_type": "governance-metadata-normalization",
+    "steps": [
+      "Find completed workflows with active or missing plan status.",
+      "Add completion status or completion note.",
+      "Add implementation outcomes to implemented requirements.",
+      "Validate status consistency."
+    ],
+    "validation": [
+      "Parse task JSON.",
+      "Search workflow plan statuses.",
+      "Run git diff --check."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

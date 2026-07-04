@@ -1,0 +1,37 @@
+{
+  "task_id": "final-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
+  "status": "pending",
+  "scope": {
+    "target": "Validate and close historical context normalization.",
+    "constraints": [
+      "Do not close before all workstream validation passes."
+    ],
+    "non_goals": [
+      "No new migration work during final validation."
+    ]
+  },
+  "execution": {
+    "operation_type": "final-validation",
+    "steps": [
+      "Parse workflow JSON and YAML templates.",
+      "Run product-name and credential searches.",
+      "Validate expected paths and links.",
+      "Run git diff --check.",
+      "Close the workflow."
+    ],
+    "validation": [
+      "ConvertFrom-Json.",
+      "YAML parse.",
+      "Reference searches.",
+      "git diff --check."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

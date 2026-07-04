@@ -1,0 +1,37 @@
+{
+  "task_id": "repo-structure-sync-project-config",
+  "owner_skill": "repo-structure-sync",
+  "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
+  "status": "pending",
+  "scope": {
+    "target": "Make repo-structure-sync the owner of evidence-based .dev/project-config.yaml generation.",
+    "constraints": [
+      "Do not invent project facts for empty repositories.",
+      "Use placeholders for credentials and environment-specific values.",
+      "Keep the runtime wrapper thin."
+    ],
+    "non_goals": [
+      "No source generator or compiled project-config tool."
+    ]
+  },
+  "execution": {
+    "operation_type": "repo-init-template-integration",
+    "steps": [
+      "Create canonical project-config template.",
+      "Update scan, document target, migration, and output rules.",
+      "Update the human guide and wrapper references.",
+      "Remove the source-product root project config."
+    ],
+    "validation": [
+      "Parse YAML template.",
+      "Search project-config ownership references.",
+      "Run git diff --check."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
