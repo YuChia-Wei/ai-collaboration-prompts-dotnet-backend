@@ -1,0 +1,37 @@
+{
+  "task_id": "controller-analyzer-replacement",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-2",
+  "status": "pending",
+  "scope": {
+    "target": "Replace controller grep compliance checks with Roslyn diagnostics DBA1004-DBA1006.",
+    "constraints": [
+      "Use syntax and semantic model APIs.",
+      "Remove only controller scripts whose replacement is complete."
+    ],
+    "non_goals": [
+      "No cross-assembly architecture tests.",
+      "No unrelated script removal."
+    ]
+  },
+  "execution": {
+    "operation_type": "analyzer-replacement",
+    "steps": [
+      "Add controller analyzer and descriptors.",
+      "Add positive and negative tests.",
+      "Remove controller grep scripts.",
+      "Update check-all and transition docs."
+    ],
+    "validation": [
+      "dotnet analyzer tests",
+      "controller script reference search",
+      "git diff --check"
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
