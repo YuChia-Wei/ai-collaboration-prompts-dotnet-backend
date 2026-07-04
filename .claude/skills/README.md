@@ -22,18 +22,15 @@ This directory contains Claude-compatible skill wrappers.
 - `ai-context-governance`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
-- `command-use-case-implementer`
 - `dev-workflow`
 - `ddd-ca-hex-architect`
+- `local-change-implementer`
 - `problem-frame-author`
-- `query-use-case-implementer`
-- `reactor-implementer`
 - `repo-structure-sync`
 - `requirement-author`
+- `slice-implementer`
 - `spec-author`
 - `spec-compliance-validator`
-- `staged-refactor-implementer`
-- `tactical-refactor-implementer`
 
 ## Wrapper Rules
 

@@ -7,6 +7,7 @@
 | 資料夾 | 說明 |
 | :--- | :--- |
 | `adr/` | ADR 治理層（template / index / 建立時機） |
+| `domain-language/` | 領域統一詞彙的範本與目標 repo domain language 收納區 |
 | `guides/` | 一般 human-facing guides（ai collaboration / design / implementation / learning） |
 | `lessons/` | 經驗教訓與錯誤案例 |
 | `operations/` | runtime / 維運文件與過往專案殘留 truth 的整理位置（context map、event catalog、MQ topology、runbook） |
@@ -31,6 +32,7 @@
 - Human-facing AI Collaboration Guides: `guides/ai-collaboration-guides/`
 - Dev Workflow Skill Guide: `guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md`
 - AI Context Governance Skill Guide: `guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
+- Domain Language Templates: `domain-language/`
 - AI Prompts: `.ai/`
 - Canonical AI Assets: `.ai/assets/`
 - Repo Structure Sync Guide: `guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md`
@@ -54,14 +56,15 @@
 ### `.dev/` 內部常見協作文件
 
 - `.dev/requirement/`: requirement docs 與過往 project-specific requirement truth 的整理位置
+- `.dev/domain-language/`: 領域統一詞彙、bounded context language、aggregate vocabulary、domain event language 的範本與收納區
 - `.dev/specs/`: spec organization、function specs 與行為規格
 - `.dev/operations/`: runtime truth、維運文件與過往 project-specific operations truth 的整理位置
 - `.dev/workflows/`: 多 skill / subagent handoff 所需的 `plan`、`review-report`、`task`
 
-當工作涉及多 skill 接力、subagent 分工或 staged refactoring 時，優先從這四類文件建立共同上下文。
+當工作涉及多 skill 接力、subagent 分工或 staged refactoring 時，優先從這些文件建立共同上下文。
 
 ## Template Sync 使用原則
 
 - `.dev/` 可作為新專案的知識治理骨架直接複製
-- 但 `.dev/requirement/`、`.dev/specs/`、`.dev/operations/` 與任何 project-specific 歷史決策紀錄通常屬於專案真相，不應原封不動沿用
+- 但 `.dev/requirement/`、`.dev/domain-language/` 中已填寫的領域詞彙、`.dev/specs/`、`.dev/operations/` 與任何 project-specific 歷史決策紀錄通常屬於專案真相，不應原封不動沿用
 - 移植規則與保留/重寫邊界由 `repo-structure-sync` skill 的 `migration-boundaries.md` 維護

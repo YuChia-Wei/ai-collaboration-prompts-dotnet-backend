@@ -59,5 +59,7 @@ Return the files updated, boundary decisions, and validation performed.
   - 處理 domain / architecture design；可協助重大 context 邊界決策。
 - `repo-structure-sync`
   - 用於 template 複製到 target repo 後，依 target repo facts 重建架構入口文件。
-- `staged-refactor-implementer`
-  - 用於已決定的 staged refactor；若是 AI context governance，應先由本 skill 定義邊界。
+- `slice-implementer`
+  - 用於已決定的 bounded implementation slice；若是 AI context governance，應先由本 skill 定義邊界。
+- `local-change-implementer`
+  - 用於局部技術變更；不應用來主導 AI context governance。

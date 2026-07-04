@@ -67,5 +67,5 @@
 
 ## Recommended Next Skill
 
-- `ddd-ca-hex-architect | code-reviewer | staged-refactor-implementer | tactical-refactor-implementer | bdd-gwt-test-designer`
+- `ddd-ca-hex-architect | code-reviewer | slice-implementer | local-change-implementer | bdd-gwt-test-designer`
 - Reason:

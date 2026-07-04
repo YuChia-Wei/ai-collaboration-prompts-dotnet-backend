@@ -128,6 +128,8 @@ Workflow artifact 位置：
 | Requirement authoring | `requirement-author` |
 | Spec authoring | `spec-author` |
 | Problem frame authoring | `problem-frame-author` |
+| Bounded implementation slice | `slice-implementer` |
+| 局部技術程式變更 | `local-change-implementer` |
 
 ## 檔案與目錄索引
 
@@ -165,6 +167,7 @@ Workflow artifact 位置：
 | `.dev/guides/` | Human-facing guides |
 | `.dev/adr/` | ADR governance and retained decisions |
 | `.dev/requirement/` | Requirements and requirement authoring materials |
+| `.dev/domain-language/` | 領域統一詞彙範本與目標 repo 詞彙收納區 |
 | `.dev/specs/` | Specification organization and retained specs |
 | `.dev/operations/` | Operations docs and operations document guides |
 | `.dev/workflows/` | Workflow artifacts |

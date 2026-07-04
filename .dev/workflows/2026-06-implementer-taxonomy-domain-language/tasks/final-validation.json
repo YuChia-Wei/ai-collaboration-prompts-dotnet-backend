@@ -1,0 +1,57 @@
+{
+  "task_id": "final-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-06-implementer-taxonomy-domain-language",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Validate and close the implementer taxonomy and domain language workflow.",
+    "files": [
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/workflow-plan.md",
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/tasks/final-validation.json"
+    ],
+    "dependency_radius": "All files changed by this workflow.",
+    "constraints": [
+      "Do not close workflow before validation passes.",
+      "Record validation evidence."
+    ],
+    "non_goals": [
+      "No additional migration work during final validation."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Validated workflow completion.",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "final-validation",
+    "steps": [
+      "Parse task JSON files.",
+      "Search references.",
+      "Run whitespace validation.",
+      "Mark workflow completed."
+    ],
+    "validation": [
+      "ConvertFrom-Json for task files.",
+      "rg reference checks.",
+      "git diff --check."
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Closed the workflow after validating task JSON, active implementer references, domain-language references, and whitespace.",
+    "files_changed": [
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/workflow-plan.md",
+      ".dev/workflows/2026-06-implementer-taxonomy-domain-language/tasks/final-validation.json"
+    ],
+    "tests_run": [
+      "ConvertFrom-Json for task files",
+      "rg old implementer names in active AI/context paths",
+      "rg new implementer names in active AI/context paths",
+      "rg domain-language references",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

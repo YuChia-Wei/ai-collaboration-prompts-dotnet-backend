@@ -17,6 +17,12 @@
 - `requirement/requirement.md`（需求範例）
 - `requirement/README-UML.md`（UML/PlantUML 說明）
 
+## Domain Language
+- `domain-language/README.MD`
+- `domain-language/templates/bounded-context-language-template.md`
+- `domain-language/templates/aggregate-vocabulary-template.md`
+- `domain-language/templates/domain-event-language-template.md`
+
 ## Specs
 - `specs/SPEC-GUIDE.md`
 - `specs/SPEC-ORGANIZATION-GUIDE.md`
@@ -47,8 +53,8 @@
 - `guides/ai-collaboration-guides/REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`
 - `guides/ai-collaboration-guides/REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`
 - `guides/ai-collaboration-guides/SPEC-DESIGNER-PROMPT-GUIDE.md`
-- `guides/ai-collaboration-guides/STAGED-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/TACTICAL-REFACTOR-IMPLEMENTER-SKILL-GUIDE.md`
+- `guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md`
+- `guides/ai-collaboration-guides/LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md`
 - `.ai/assets/skills/README.MD`
 - `.agents/skills/README.md`
 - `.claude/skills/README.md`

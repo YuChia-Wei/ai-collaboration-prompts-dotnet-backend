@@ -27,18 +27,15 @@
 - `ai-context-governance`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
-- `command-use-case-implementer`
 - `dev-workflow`
 - `ddd-ca-hex-architect`
+- `local-change-implementer`
 - `problem-frame-author`
-- `query-use-case-implementer`
 - `repo-structure-sync`
 - `requirement-author`
-- `reactor-implementer`
+- `slice-implementer`
 - `spec-author`
 - `spec-compliance-validator`
-- `staged-refactor-implementer`
-- `tactical-refactor-implementer`
 
 ## 與 Wrapper 的關係
 

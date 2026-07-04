@@ -1,0 +1,97 @@
+{
+  "task_id": "implementer-taxonomy-migration",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-06-implementer-taxonomy-domain-language",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Migrate implementer skills to a scope-first taxonomy.",
+    "files": [
+      ".ai/assets/skills/slice-implementer/",
+      ".ai/assets/skills/local-change-implementer/",
+      ".agents/skills/slice-implementer/",
+      ".agents/skills/local-change-implementer/",
+      ".claude/skills/slice-implementer/",
+      ".claude/skills/local-change-implementer/",
+      ".dev/guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md",
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".dev/guides/ai-collaboration-guides/README.MD",
+      "agents.md",
+      "agents.zh-tw.md"
+    ],
+    "dependency_radius": "Skill registry, runtime wrappers, human guides, dev-workflow profile, and root routing.",
+    "constraints": [
+      "Remove old skill names directly; do not retain deprecated aliases.",
+      "Preserve old skill restrictions as new skill constraints or mode references unless explicitly changed.",
+      "Command/query/reactor become slice modes or references."
+    ],
+    "non_goals": [
+      "Do not create test-implementer.",
+      "Do not rewrite historical workflow artifacts."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Scope-first implementer taxonomy.",
+    "review_findings": [],
+    "user_constraints": [
+      "slice-implementer is the bounded implementation slice skill.",
+      "local-change-implementer is lower-level local technical execution.",
+      "command/query/reactor are slice modes/references.",
+      "No deprecated aliases."
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-taxonomy-migration",
+    "steps": [
+      "Create slice-implementer canonical skill and mode references.",
+      "Create local-change-implementer canonical skill.",
+      "Create runtime wrappers for new skills.",
+      "Remove old canonical and runtime skill directories.",
+      "Update registries, guides, dev-workflow profile, and root routing.",
+      "Validate references."
+    ],
+    "validation": [
+      "rg old and new skill names.",
+      "ConvertFrom-Json for workflow tasks.",
+      "git diff --check."
+    ],
+    "deferred_items": [
+      "test-implementer requirement."
+    ]
+  },
+  "results": {
+    "summary": "Migrated active implementer taxonomy to slice-implementer and local-change-implementer, removed old active skill entries, and preserved command/query/reactor constraints as slice mode references.",
+    "files_changed": [
+      ".ai/assets/skills/slice-implementer/",
+      ".ai/assets/skills/local-change-implementer/",
+      ".agents/skills/slice-implementer/",
+      ".agents/skills/local-change-implementer/",
+      ".claude/skills/slice-implementer/",
+      ".claude/skills/local-change-implementer/",
+      ".dev/guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md",
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".ai/assets/skills/dev-workflow/references/capability-profile.md",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".dev/guides/README.MD",
+      ".dev/INDEX.md",
+      ".dev/guides/ai-collaboration-guides/",
+      ".dev/workflows/templates/",
+      "agents.md",
+      "agents.zh-tw.md"
+    ],
+    "tests_run": [
+      "rg old implementer names in active AI/context paths",
+      "rg new implementer names in active AI/context paths",
+      "ConvertFrom-Json workflow task validation",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

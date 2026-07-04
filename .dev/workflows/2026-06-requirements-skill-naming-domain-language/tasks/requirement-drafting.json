@@ -1,0 +1,80 @@
+{
+  "task_id": "requirement-drafting",
+  "owner_skill": "requirement-author",
+  "related_plan_id": "workflow-plan-2026-06-requirements-skill-naming-domain-language",
+  "related_review_report_id": "",
+  "status": "completed",
+  "scope": {
+    "target": "Draft requirements for implementation skill naming and domain ubiquitous language management.",
+    "files": [
+      ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD",
+      ".dev/requirement/DOMAIN-UBIQUITOUS-LANGUAGE-REQUIREMENTS.MD",
+      ".dev/workflows/2026-06-requirements-skill-naming-domain-language/workflow-plan.md",
+      ".dev/workflows/2026-06-requirements-skill-naming-domain-language/tasks/requirement-drafting.json"
+    ],
+    "dependency_radius": "Requirement documents only; future workflow will implement skill and structure changes.",
+    "constraints": [
+      "Use requirement-author and stop at requirement quality.",
+      "Do not rename skills in this pass.",
+      "Do not implement technical glossary in this pass.",
+      "Do not update agents unless repository identity is unclear."
+    ],
+    "non_goals": [
+      "No runtime wrapper changes.",
+      "No canonical skill rename.",
+      "No glossary directory creation."
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Clear requirements for future dev-workflow execution.",
+    "review_findings": [],
+    "user_constraints": [
+      "Focus domain ubiquitous language first; defer technical glossary.",
+      "Explain decisions needed and recommended approach.",
+      "Evaluate whether repo core purpose is clear enough to avoid agents updates.",
+      "Use no deprecated aliases for renamed refactor skills.",
+      "Defer test skill creation; if needed later, evaluate test-implementer.",
+      "Adopt a scope-first implementer taxonomy: slice-implementer, local-change-implementer, and command/query/reactor as slice modes or references."
+    ]
+  },
+  "execution": {
+    "operation_type": "requirement-authoring",
+    "steps": [
+      "Inspect requirement-author guidance.",
+      "Inspect current repository identity docs.",
+      "Draft skill implementer naming requirement.",
+      "Draft domain ubiquitous language requirement.",
+      "Validate JSON and whitespace."
+    ],
+    "validation": [
+      "ConvertFrom-Json for task files.",
+      "rg requirement title and open decision checks.",
+      "git diff --check."
+    ],
+    "deferred_items": [
+      "Skill rename migration.",
+      "Test author skill decision implementation.",
+      "Domain language template and standards implementation.",
+      "Technical glossary design."
+      ,
+      "Exact slice mode/reference file structure.",
+      "Whether local-change-implementer remains standalone or sub-skill only.",
+      "Future test-implementer requirement."
+    ]
+  },
+  "results": {
+    "summary": "Created and updated requirement documents that capture scope-first implementer taxonomy decisions, test skill deferral, and domain ubiquitous language needs, including required user decisions and recommended approaches.",
+    "files_changed": [
+      ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD",
+      ".dev/requirement/DOMAIN-UBIQUITOUS-LANGUAGE-REQUIREMENTS.MD",
+      ".dev/workflows/2026-06-requirements-skill-naming-domain-language/workflow-plan.md",
+      ".dev/workflows/2026-06-requirements-skill-naming-domain-language/tasks/requirement-drafting.json"
+    ],
+    "tests_run": [
+      "ConvertFrom-Json for .dev/workflows/2026-06-requirements-skill-naming-domain-language/tasks/*.json",
+      "rg requirement title and open decision checks",
+      "git diff --check"
+    ],
+    "follow_up_needed": true
+  }
+}

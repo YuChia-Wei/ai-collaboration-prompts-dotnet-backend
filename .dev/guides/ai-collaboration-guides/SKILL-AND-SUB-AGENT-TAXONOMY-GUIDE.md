@@ -34,7 +34,8 @@
 - `ddd-ca-hex-architect`
 - `code-reviewer`
 - `bdd-gwt-test-designer`
-- `staged-refactor-implementer`
+- `slice-implementer`
+- `local-change-implementer`
 
 canonical source：
 
@@ -131,7 +132,7 @@ shared rules 沒有獨立輸入輸出 contract，不應假裝成 worker role。
 
 - taxonomy 與 asset 放置策略：
   - `AI-ASSET-LOCATION-STRATEGY.md`
-- delegated worker 與 refactor skill 的互動：
+- delegated worker 與 implementer skill 的互動：
   - `.ai/SUB-AGENT-SYSTEM.MD`
   - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
 - 模式選擇理由：
