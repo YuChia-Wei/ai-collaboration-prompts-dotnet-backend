@@ -4,7 +4,7 @@
 Set up the testing infrastructure for a new .NET project to support multi-profile testing (test-inmemory and test-outbox).
 
 ## Prerequisites
-1. .NET SDK installed (version defined in `.dev/project-config.yaml`)
+1. .NET SDK installed (version confirmed from `global.json`, project files, or generated `.dev/project-config.yaml`)
 2. WolverineFx and EF Core packages available
 3. A shared time provider (DateProvider/TimeProvider) is defined for deterministic tests
 

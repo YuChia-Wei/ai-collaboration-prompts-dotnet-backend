@@ -19,6 +19,7 @@ inputs:
 outputs:
   - "repo init verdict"
   - "repo inventory"
+  - "evidence-based `.dev/project-config.yaml` or an explicit not-initialized decision"
   - "complexity verdict"
   - "safe direct update targets"
   - "source packet for escalation"
@@ -35,7 +36,7 @@ workflow:
   - step: 3
     description: "Evaluate P0 and P1 triggers to decide whether escalation is needed"
   - step: 4
-    description: "Update only the architecture-facing docs that can be safely synced from confirmed facts"
+    description: "Generate or update `.dev/project-config.yaml` and architecture-facing docs only from confirmed facts"
   - step: 5
     description: "If needed, pass a compact source packet to a stronger model or sub-agent"
 references:
@@ -45,6 +46,7 @@ references:
   - ".ai/assets/skills/repo-structure-sync/references/delegation-rules.md"
   - ".ai/assets/skills/repo-structure-sync/references/document-targets.md"
   - ".ai/assets/skills/repo-structure-sync/references/output-contract.md"
+  - ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
 examples:
   - ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
 human_guide: ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"

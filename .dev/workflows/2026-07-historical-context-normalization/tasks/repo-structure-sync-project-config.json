@@ -2,7 +2,7 @@
   "task_id": "repo-structure-sync-project-config",
   "owner_skill": "repo-structure-sync",
   "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Make repo-structure-sync the owner of evidence-based .dev/project-config.yaml generation.",
     "constraints": [
@@ -29,9 +29,24 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Moved project-config template ownership to repo-structure-sync, defined evidence-based generation rules, removed source-product project config, and updated active references.",
+    "files_changed": [
+      ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml",
+      ".ai/assets/skills/repo-structure-sync/skill.yaml",
+      ".ai/assets/skills/repo-structure-sync/references/",
+      ".agents/skills/repo-structure-sync/SKILL.md",
+      ".claude/skills/repo-structure-sync/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md",
+      ".dev/ARCHITECTURE.md",
+      ".dev/INDEX.md",
+      ".dev/project-config.yaml"
+    ],
+    "tests_run": [
+      "YAML 1.2 JSON-compatible syntax parsed with ConvertFrom-Json",
+      "project-config ownership reference search",
+      "ConvertFrom-Json",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

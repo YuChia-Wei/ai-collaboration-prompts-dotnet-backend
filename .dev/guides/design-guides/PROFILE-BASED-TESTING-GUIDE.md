@@ -38,7 +38,7 @@ This project uses profile-based testing to run the same tests against multiple r
 - Characteristics: real PostgreSQL, transactional verification
 - Speed: medium
 - Settings: `appsettings.test-outbox.json`
-- Requires: PostgreSQL on localhost:5800 (per project-config.yaml)
+- Requires: a test database endpoint supplied by target-repository configuration or test infrastructure
 
 ### 3. test-esdb (planned)
 - Purpose: event sourcing integration tests

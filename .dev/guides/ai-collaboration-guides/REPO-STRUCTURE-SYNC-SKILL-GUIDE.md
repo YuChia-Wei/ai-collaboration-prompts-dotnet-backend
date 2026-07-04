@@ -12,6 +12,7 @@
 - 判斷目標 repo 是空 repo、既有 repo，還是已混入 template 舊資訊的 repo
 - 盤點 solution、`*.csproj`、shared libraries、test projects、deploy folders
 - 把複製過去後已過時的 root README、`.dev/`、`.ai/`、`agents.md` 架構區塊改成新 repo 版本
+- 依 repo evidence 產生或更新 `.dev/project-config.yaml`
 - 區分哪些內容應保留為 reusable collaboration rules，哪些必須改寫成新專案真相
 
 ## 這個 Skill 不應該做什麼
@@ -21,6 +22,7 @@
 - 直接替新 repo 補完整業務需求或 spec
 - 假裝知道不存在於檔案裡的 bounded context 細節
 - 在空 repo 中發明產品名稱、API endpoint、message broker、database、package version 或部署拓撲
+- 從來源 template 複製 credentials、connection strings、ports、queue names 或 bounded contexts
 - 把 `.ai/` 改成大量記錄專案真相的資料夾
 - 大量重寫 `.dev/specs/`、`.dev/operations/` 或 workflow artifacts
 
@@ -42,6 +44,17 @@
 | 空 repo / 近似空 repo | 尚無 solution、src、tests、產品文件 | 保留 collaboration framework，將產品架構標示為尚未初始化，不要補假資料 |
 | 既有 repo | 已有 source、tests、package、infra、README 或 docs | 依檔案證據重建 repo-specific truth |
 | template copied repo | 已有 `.ai` / `.dev` / agents，但混有來源 repo 名稱、domain、endpoint、service | 保留 framework-level rules，改寫或移除來源 repo 專案真相 |
+
+## Project Config 產生規則
+
+`repo-structure-sync` 是 `.dev/project-config.yaml` 的產生與同步入口。
+
+- canonical shape：`.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
+- 先完成 inventory，再填入有檔案證據或使用者確認的欄位。
+- 未知值保持 `null` 或空集合。
+- 空 repo 可不建立 project config，或使用 `generationStatus: not-initialized`。
+- 不得沿用來源 repo 的 credentials、connection strings、ports、產品名稱、bounded contexts、queue 或 deployment topology。
+- 產生後將主要證據路徑記錄在 `evidence.files`。
 
 ## 建議模型策略
 
@@ -115,13 +128,14 @@
 1. `Evidence Used`
 2. `Target Repository Mode`
 3. `Confirmed Repo Facts`
-4. `Copied or Stale Template Facts`
-5. `P0 Hits`
-6. `P1 Hits`
-7. `Complexity Verdict`
-8. `Safe Direct Updates`
-9. `Escalation Targets`
-10. `Source Packet`
+4. `Project Config Decision`
+5. `Copied or Stale Template Facts`
+6. `P0 Hits`
+7. `P1 Hits`
+8. `Complexity Verdict`
+9. `Safe Direct Updates`
+10. `Escalation Targets`
+11. `Source Packet`
 
 這樣第二輪就能直接接手，不用重新理解上下文。
 
@@ -209,6 +223,7 @@ Update only the repo-specific entry and architecture sections in:
 - README.en.md
 - agents.md
 - .dev/ARCHITECTURE.MD
+- .dev/project-config.yaml
 - .dev/requirement/TECH-STACK-REQUIREMENTS.MD
 - .dev/README.MD
 - .ai/README.MD

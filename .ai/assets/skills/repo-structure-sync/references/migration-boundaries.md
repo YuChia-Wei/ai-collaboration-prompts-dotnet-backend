@@ -60,6 +60,10 @@ When the target repo is empty or near-empty:
 
 Keep authoring guides. Rewrite tech stack, bounded-context overview, project-specific NFR, and entries tied to a broker, database, deployment model, or other target-specific reality.
 
+### `.dev/project-config.yaml`
+
+Treat this file as generated target-repository truth. Rebuild it from `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml` after scanning the target repository. Never preserve source-template credentials, connection strings, product names, bounded contexts, ports, queues, or environment topology.
+
 ### `.dev/specs/`
 
 Keep taxonomy, naming rules, `SPEC-GUIDE.MD`, `SPEC-ORGANIZATION-GUIDE.MD`, `tests/README.MD`, and `tests/TEST-SPEC-GUIDE.MD`. Rewrite bounded contexts, aggregates, use cases, scenarios, assertions, cross-domain specs, and E2E specs.

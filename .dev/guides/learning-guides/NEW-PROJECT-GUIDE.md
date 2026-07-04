@@ -15,7 +15,7 @@ This guide explains how to create a new dotnet project based on the AiScrum stru
 ## Prerequisites
 
 ### Environment requirements
-- .NET SDK (version defined in `.dev/project-config.yaml`)
+- .NET SDK (version confirmed from `global.json`, project files, or generated `.dev/project-config.yaml`)
 - Git
 - PostgreSQL (test port 5800, production port 5500)
 - Your IDE (Rider, Visual Studio, VS Code)
@@ -52,7 +52,7 @@ mkdir -p .dev/specs/{use-cases,aggregates,domain-events}
 
 ## Step 3: Configure project metadata
 
-Create `.dev/project-config.yaml` as the single source of truth:
+Run `repo-structure-sync` to generate `.dev/project-config.yaml` from repository evidence:
 
 ```yaml
 projectName: MyScrum

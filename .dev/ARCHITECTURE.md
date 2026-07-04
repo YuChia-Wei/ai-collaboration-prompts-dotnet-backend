@@ -1,6 +1,6 @@
 # Architecture
 
-本文件提供專案架構全貌。詳細技術選型見 [TECH-STACK-REQUIREMENTS.MD](./requirement/TECH-STACK-REQUIREMENTS.MD)，專案結構見 [project-structure.md](./standards/project-structure.md)。
+本文件提供可重用的 .NET backend architecture context 入口。詳細技術選型見 [TECH-STACK-REQUIREMENTS.MD](./requirement/TECH-STACK-REQUIREMENTS.MD)，專案結構見 [project-structure.md](./standards/project-structure.md)。
 
 ## Architecture Overview
 
@@ -21,8 +21,8 @@
 
 - `Use Case`、`Command`、`Query`、`Handler`、`Application Service` 的關係見 [USECASE-COMMAND-HANDLER-RELATIONSHIP.MD](./standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
 
-### Architecture Config Driven
-本專案的 command-sub-agent 會依照 [`project-config.yaml`](./project-config.yaml) 的 `architecture` 區塊自動產生對應結構：
-- 依 aggregate 設定選擇 Outbox / InMemory / Event Sourcing
-- 依 `commandDefaults.dualProfileSupport` 產生雙 Profile 配置
-- repository / mapper / data model 產生邏輯由 config 控制
+### Target Repository Configuration
+
+本 framework repository 不保存產品專用 `.dev/project-config.yaml`。
+
+當 framework 被帶到目標 repo 時，先使用 `repo-structure-sync` 掃描 repo evidence，再依 `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml` 產生 `.dev/project-config.yaml`。未確認的 architecture、database、messaging、frontend 或 deployment facts 必須保持空白。
