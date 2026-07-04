@@ -2,13 +2,18 @@
 
 Source-included Roslyn analyzer template for this AI context framework's .NET backend profile.
 
-The first rules intentionally mirror only the highest-priority transition targets from `.ai/scripts`:
+Current diagnostics:
 
 - `DBA1001`: domain repositories should not expose query-style methods.
 - `DBA1002`: use cases or handlers should not inject `IServiceProvider`.
 - `DBA1003`: aggregates/entities should not reference infrastructure types such as `DbContext`.
+- `DBA1004`: concrete controller classes should declare `ApiControllerAttribute`.
+- `DBA1005`: controllers should not reference `DbContext` or call `SaveChanges`.
+- `DBA1006`: controllers should not directly construct handler or use-case types.
 
-These analyzers replace grep-based C# semantic checks over time. They do not replace AI software engineering reasoning context used by review and architecture skills.
+`DBA1004` through `DBA1006` replace the former controller grep compliance script. Other grep-based checks remain transitional until their own replacement diagnostics or tests exist.
+
+Analyzers do not replace AI software engineering reasoning context used by review and architecture skills.
 
 ## Run Tests
 

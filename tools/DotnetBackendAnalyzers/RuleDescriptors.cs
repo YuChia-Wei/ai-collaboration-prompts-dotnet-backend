@@ -30,4 +30,31 @@ internal static class RuleDescriptors
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
         description: "Domain aggregates and entities must remain independent from infrastructure concerns such as EF Core DbContext.");
+
+    public static readonly DiagnosticDescriptor ControllerApiAttribute = new(
+        id: "DBA1004",
+        title: "Controller should declare ApiControllerAttribute",
+        messageFormat: "Controller '{0}' does not declare ApiControllerAttribute",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "ASP.NET Core API controllers should use ApiControllerAttribute for consistent API behavior and validation.");
+
+    public static readonly DiagnosticDescriptor ControllerPersistenceAccess = new(
+        id: "DBA1005",
+        title: "Controller should not access persistence directly",
+        messageFormat: "Controller '{0}' directly references persistence member or type '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Controllers should delegate application behavior and must not use DbContext or SaveChanges directly.");
+
+    public static readonly DiagnosticDescriptor ControllerDirectConstruction = new(
+        id: "DBA1006",
+        title: "Controller should not construct handlers or use cases",
+        messageFormat: "Controller '{0}' directly constructs '{1}'; inject or dispatch the dependency instead",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Controllers should receive application dependencies through dependency injection or a dispatch mechanism.");
 }
