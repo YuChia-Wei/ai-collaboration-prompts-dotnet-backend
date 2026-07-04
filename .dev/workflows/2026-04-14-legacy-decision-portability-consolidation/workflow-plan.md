@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-04-14-legacy-decision-portability-consolidation`
 - `owner_skill`: `ddd-ca-hex-architect`
-- `status`: `active`
+- `status`: `completed`
 
 ## Context
 
@@ -244,6 +244,10 @@ If one source record contains both a hard rule and a tutorial:
 
 ## Notes
 
+- Completion note:
+  - all workflow task artifacts are marked `done`;
+  - active guidance was moved into canonical `.ai` assets or `.dev` standards/guides;
+  - remaining questions are future governance considerations, not incomplete workflow tasks.
 - Open questions:
   - whether `.dev/standards/prompts/` should remain as a human-facing prompt catalog or be reduced after `.ai/assets/` becomes the stronger canonical prompt source
   - whether some low-value historical decision records should be deleted immediately instead of being migrated

@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-04-14-legacy-script-rename`
 - `owner_skill`: `ddd-ca-hex-architect`
-- `status`: `active`
+- `status`: `completed`
 
 ## Context
 
@@ -113,3 +113,9 @@ Convert script ownership to `.NET`-first names while preserving backward compati
 - renamed script ownership structure
 - updated `.ai/scripts/README.md`
 - a task artifact recording execution and validation
+
+## Completion Summary
+
+- All workflow task artifacts are marked `done`.
+- Canonical .NET-first script names became the active ownership paths.
+- Later analyzer-transition work may retire transitional scripts, but that is a separate workflow.

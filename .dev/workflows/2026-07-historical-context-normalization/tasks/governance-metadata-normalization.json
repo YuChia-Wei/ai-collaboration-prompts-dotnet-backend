@@ -2,7 +2,7 @@
   "task_id": "governance-metadata-normalization",
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Normalize completed workflow and requirement status metadata.",
     "constraints": [
@@ -28,9 +28,18 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Normalized completed workflow statuses and added implementation outcomes to implemented requirements.",
+    "files_changed": [
+      ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/workflow-plan.md",
+      ".dev/workflows/2026-04-14-legacy-script-rename/workflow-plan.md",
+      ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD",
+      ".dev/requirement/DOMAIN-UBIQUITOUS-LANGUAGE-REQUIREMENTS.MD"
+    ],
+    "tests_run": [
+      "workflow plan status scan",
+      "ConvertFrom-Json",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }
