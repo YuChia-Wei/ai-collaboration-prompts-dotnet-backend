@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-07-dotnet-validator-phase-2`
 - `owner_skill`: `dev-workflow`
-- `status`: `in_progress`
+- `status`: `completed`
 
 ## Inputs
 
@@ -33,4 +33,7 @@
 
 ## Completion Summary
 
-- Pending.
+- Added controller diagnostics `DBA1004` through `DBA1006` with positive and negative tests.
+- Removed controller grep scripts and their generated check.
+- Updated `check-all.sh` so analyzer tests are executable gates and remaining grep replacements are explicit TODOs.
+- Fixed shell counter behavior and stale coding-standards prompt checks discovered during orchestration validation.
