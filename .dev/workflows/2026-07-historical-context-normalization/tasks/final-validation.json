@@ -2,7 +2,7 @@
   "task_id": "final-validation",
   "owner_skill": "dev-workflow",
   "related_plan_id": "workflow-plan-2026-07-historical-context-normalization",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Validate and close historical context normalization.",
     "constraints": [
@@ -29,9 +29,19 @@
     ]
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Validated and closed historical context normalization after all workstreams completed.",
+    "files_changed": [
+      ".dev/workflows/2026-07-historical-context-normalization/workflow-plan.md",
+      ".dev/workflows/2026-07-historical-context-normalization/tasks/final-validation.json"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore: 4 passed",
+      "Git Bash .ai/scripts/check-prompt-portability.sh",
+      "ConvertFrom-Json for workflow tasks and project-config template",
+      "retired active-context identifier and credential search",
+      "required and retired path validation",
+      "git diff --check"
+    ],
     "follow_up_needed": false
   }
 }

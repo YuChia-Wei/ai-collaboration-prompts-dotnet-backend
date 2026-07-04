@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-07-historical-context-normalization`
 - `owner_skill`: `dev-workflow`
-- `status`: `in_progress`
+- `status`: `completed`
 
 ## Inputs
 
@@ -56,4 +56,7 @@ Dotnet validator replacement phase 2 is excluded and will use a separate workflo
 
 ## Completion Summary
 
-- Pending.
+- Completed governance metadata normalization, historical product truth retirement, and repo-structure-sync project config integration.
+- Removed product-specific requirements, specs, test specs, problem frames, operations truth, fixed credentials, and frontend implementation assets from active paths.
+- Preserved React / Vite only as future multi-stack context placement exploration.
+- Dotnet validator replacement phase 2 remains a separate next workflow.
