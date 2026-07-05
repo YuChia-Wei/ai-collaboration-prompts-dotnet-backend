@@ -58,6 +58,12 @@ Replace the remaining Mapper, Aggregate, UseCase, and Projection grep-based chec
 
 - Mapper policy: require static mappers only, or allow both static mappers and sealed stateless mapper services.
 
+## Progress
+
+- Stage 1 completed: Phase 3 requirements and enforcement ownership are documented.
+- Stage 2 pending: Mapper policy decision.
+- Aggregate/UseCase and Projection streams are ready for implementation after the requirement commit.
+
 ## Constraints
 
 - Do not create custom analyzers for formatting or coding-style preferences already supported by `.editorconfig` and standard .NET analyzers.
