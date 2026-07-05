@@ -5,7 +5,7 @@
 - Plan ID: `workflow-plan-2026-07-repository-pattern-standards-alignment`
 - Workflow ID: `2026-07-repository-pattern-standards-alignment`
 - Owner skill: `dev-workflow`
-- Status: `in-progress`
+- Status: `completed`
 - Created: `2026-07-05`
 - Branch: `codex/repository-pattern-standards-alignment`
 - Rebased onto: local `main` at `2d4130c`
@@ -500,7 +500,7 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ### S4 — Align validation tooling
 
-- Status: in_progress
+- Status: completed
 - Owner: `slice-implementer`
 - Goal: align `DBA1001` with the approved contract and retire the repository grep validation path.
 - Scope:
@@ -524,7 +524,7 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ### S5 — Final consistency validation and closure
 
-- Status: pending
+- Status: completed
 - Owner: `dev-workflow`
 - Goal: verify the complete rule family and close the workflow.
 - Validation:
@@ -568,4 +568,21 @@ Each workflow-stage commit must include `Why`, `What`, `Validation`, and `Workfl
   approved commit/event lifecycle.
 - Semantic analyzer validation agrees with the canonical standards.
 - Final validation evidence is recorded.
+
+## Completion Summary
+
+- D1-D10 are resolved and implemented.
+- Portable aggregate persistence uses
+  `IAggregateRepository<TAggregate, TId>` with `FindByIdAsync` and `SaveAsync`.
+- `IDomainRepository<TAggregate, TId>` remains a compatibility contract derived
+  from the canonical interface and receives the same Aggregate Root enforcement.
+- Pure reads use `IQueryRepository` ports; QueryService remains conditional.
+- Target-specific batch capability guidance is documented without publishing a
+  mandatory portable batch interface.
+- DBA1001 now performs inheritance-based semantic validation with error severity;
+  all 36 analyzer tests pass.
+- Legacy repository grep scripts were removed and cannot be regenerated from the
+  Markdown parser.
+- The separate Use Case/Handler boundary remains intentionally deferred in
+  `tasks/follow-up-usecase-handler-boundary.json`.
 

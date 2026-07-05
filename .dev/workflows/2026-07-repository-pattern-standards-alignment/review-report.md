@@ -423,3 +423,33 @@ Conclusion:
 - this workflow should refer to the application orchestration boundary as a Use Case and avoid broad Handler rewrites;
 - a separate follow-up workflow should establish Controller -> IUseCase as the synchronous API default and reposition Handler responsibilities.
 
+## Final Validation Result
+
+The baseline findings F1-F8 were resolved by the approved D1-D10 decisions and the
+completed workflow stages:
+
+- the portable contract is persistence-technology neutral;
+- aggregate, query, and capability-specific write ports have distinct roles;
+- aggregate repositories use the canonical two-method asynchronous contract;
+- soft delete, restricted purge, explicit exceptional Unit of Work, and
+  post-commit event acknowledgement have defined ownership;
+- query layering is conditional rather than a mandatory pass-through pair;
+- DBA1001 enforces canonical, compatibility, derived, Aggregate Root, method
+  signature, query read-only, and generic writable CRUD boundaries;
+- the legacy repository grep scripts are retired.
+
+Validation evidence:
+
+- all 36 `DotnetBackendAnalyzers.Tests` tests passed;
+- all eight workflow task JSON files parsed;
+- relative links in 51 workflow-changed Markdown files resolved;
+- changed shell scripts passed Git Bash syntax checks;
+- the coding-standards integrity script exited successfully with 13
+  non-blocking structural warnings that are not repository-contract
+  contradictions;
+- targeted searches found no active references to the retired repository scripts.
+
+Residual work is limited to the intentionally deferred repository-wide language
+migration and the separate Use Case/Handler boundary workflow. Neither changes the
+closed repository-pattern decisions.
+
