@@ -1,0 +1,51 @@
+{
+  "task_id": "mapper-validation",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "completed",
+  "depends_on": [
+    "rule-classification-and-requirements",
+    "mapper-policy-decision"
+  ],
+  "scope": {
+    "target": "Deterministic Mapper validation and replacement of mapper grep checks",
+    "constraints": [
+      "Do not implement until the Mapper policy is approved.",
+      "Do not attempt to prove mapping completeness through syntax matching."
+    ],
+    "non_goals": [
+      "Repository validation",
+      "Product-specific mapping conventions"
+    ]
+  },
+  "validation": [
+    "Analyzer positive and negative tests",
+    "Mapper script reference search",
+    "git diff --check"
+  ],
+  "deferred_items": [],
+  "results": {
+    "summary": "Added static-only and forbidden dependency Mapper diagnostics, removed both Mapper grep scripts, and preserved mapping completeness as a test and AI review concern.",
+    "files_changed": [
+      "tools/DotnetBackendAnalyzers/MapperComplianceAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/RuleDescriptors.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers.Tests/MapperComplianceAnalyzerTests.cs",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/code-review.sh",
+      ".ai/scripts/README.md",
+      ".ai/scripts/check-mapper-compliance.sh",
+      ".ai/scripts/generated/check-mapper.sh",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore: 14 passed",
+      "Git Bash syntax check for check-all.sh and code-review.sh",
+      "Mapper retired-script reference search",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}
+

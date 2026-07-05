@@ -1,0 +1,50 @@
+{
+  "task_id": "mapper-policy-decision",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "completed",
+  "depends_on": [
+    "rule-classification-and-requirements"
+  ],
+  "scope": {
+    "target": "Resolve static-only versus static-or-sealed Mapper policy",
+    "constraints": [
+      "Preserve Mapper as a conversion responsibility.",
+      "Do not permit Repository, UseCase, Handler, I/O, or business orchestration dependencies."
+    ],
+    "non_goals": [
+      "Implementing the Mapper analyzer",
+      "Selecting a product-specific mapping library"
+    ]
+  },
+  "inputs": [
+    ".dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD",
+    ".dev/standards/coding-standards/mapper-standards.md",
+    "User decision"
+  ],
+  "execution_steps": [
+    "Present both Mapper policy options and tradeoffs.",
+    "Record the selected option in the requirement and Mapper standard.",
+    "Unblock mapper-validation."
+  ],
+  "validation": [
+    "Requirement and standard state one consistent policy",
+    "Automated Pattern markers do not contradict normative text"
+  ],
+  "deferred_items": [],
+  "results": {
+    "summary": "Selected static-only Mapper policy and retained a future role-classification reference for transformations outside pure object mapping.",
+    "files_changed": [
+      ".dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD",
+      ".dev/standards/coding-standards/mapper-standards.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/workflow-plan.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/tasks/mapper-policy-decision.json"
+    ],
+    "tests_run": [
+      "Requirement and Mapper standard policy comparison",
+      "Pattern marker and normative text consistency check",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

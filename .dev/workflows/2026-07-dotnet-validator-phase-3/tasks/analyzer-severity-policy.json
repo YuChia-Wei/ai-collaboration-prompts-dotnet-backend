@@ -1,0 +1,49 @@
+{
+  "task_id": "analyzer-severity-policy",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "completed",
+  "depends_on": [
+    "mapper-validation",
+    "aggregate-usecase-validation",
+    "projection-configuration-validation"
+  ],
+  "scope": {
+    "target": "Separate semantic analyzer capability from target-repository severity policy",
+    "constraints": [
+      "Do not duplicate standard .NET coding-style diagnostics.",
+      "Allow target repositories to override every DBA diagnostic through editorconfig."
+    ],
+    "non_goals": [
+      "Selecting one mandatory severity profile for every team",
+      "Changing Repository policy"
+    ]
+  },
+  "execution_steps": [
+    "Record the editorconfig overlap audit in the Phase 3 requirement.",
+    "Add a target-repository analyzer severity template.",
+    "Document build-gate requirements and per-repository overrides."
+  ],
+  "validation": [
+    "Diagnostic ID inventory comparison",
+    "Template reference check",
+    "git diff --check"
+  ],
+  "deferred_items": [],
+  "results": {
+    "summary": "Confirmed that DBA diagnostics cover architecture semantics not expressed by the existing editorconfig, and added a per-diagnostic target-repository severity template.",
+    "files_changed": [
+      ".dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/workflow-plan.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/tasks/analyzer-severity-policy.json",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig"
+    ],
+    "tests_run": [
+      "Diagnostic ID inventory comparison",
+      "Analyzer severity template reference check",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

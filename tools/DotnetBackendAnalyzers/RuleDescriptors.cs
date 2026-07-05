@@ -57,4 +57,67 @@ internal static class RuleDescriptors
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
         description: "Controllers should receive application dependencies through dependency injection or a dispatch mechanism.");
+
+    public static readonly DiagnosticDescriptor MapperMustBeStatic = new(
+        id: "DBA1007",
+        title: "Mapper should be static",
+        messageFormat: "Mapper '{0}' must be a static class",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Object mappers are deterministic pure transformations and must not have instance state or an injection graph.");
+
+    public static readonly DiagnosticDescriptor MapperForbiddenDependency = new(
+        id: "DBA1008",
+        title: "Mapper should not depend on application or persistence services",
+        messageFormat: "Mapper '{0}' references forbidden dependency type '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Object mappers must not depend on repositories, use cases, or handlers.");
+
+    public static readonly DiagnosticDescriptor EventSourcedAggregateDirectMutation = new(
+        id: "DBA1009",
+        title: "Event-sourced aggregate state should change through event transitions",
+        messageFormat: "Event-sourced aggregate '{0}' mutates member '{1}' outside a When transition",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "EsAggregateRoot state changes must be applied by event transition methods so replay produces the same state.");
+
+    public static readonly DiagnosticDescriptor UseCaseDependencyResolution = new(
+        id: "DBA1010",
+        title: "Use case should not use service locator or attribute injection",
+        messageFormat: "Use case or handler '{0}' uses forbidden dependency resolution '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Use cases must declare explicit constructor dependencies and must not use service locator or attribute-based injection.");
+
+    public static readonly DiagnosticDescriptor MixedCommandQueryHandler = new(
+        id: "DBA1011",
+        title: "Handler should not mix command and query responsibilities",
+        messageFormat: "Handler '{0}' handles both command and query marker types",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "CQRS handlers must keep command and query responsibilities separate.");
+
+    public static readonly DiagnosticDescriptor UseCaseDirectRepositoryConstruction = new(
+        id: "DBA1012",
+        title: "Use case should not construct repositories",
+        messageFormat: "Use case or handler '{0}' directly constructs repository type '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Repository ports must be injected into use cases; concrete repository construction belongs in the composition root.");
+
+    public static readonly DiagnosticDescriptor ProjectionWriteOperation = new(
+        id: "DBA1013",
+        title: "Projection should not perform persistence writes",
+        messageFormat: "Projection '{0}' calls persistence write operation '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Projection services are read-side ports and must not call DbContext or DbSet write operations.");
 }

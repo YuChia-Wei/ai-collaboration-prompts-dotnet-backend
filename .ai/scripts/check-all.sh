@@ -201,15 +201,16 @@ run_command_check "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendA
     "Dotnet Backend Analyzer Template Tests" \
     "true" "true"
 
+run_command_check "dotnet test tools/DotnetBackendValidation.Tests/DotnetBackendValidation.Tests.csproj" \
+    "Dotnet Backend Configuration Validation Tests" \
+    "true" "true"
+
 # Repository grep validation is not executed as a gate.
 run_check_pending "check-repository-compliance.sh" \
     "Repository Pattern Compliance" \
     "true" "true" "DBA1001 exists; remaining script rules still need dotnet-native replacements"
 
-# Mapper grep validation is not executed as a gate.
-run_check_pending "check-mapper-compliance.sh" \
-    "Mapper Design Compliance" \
-    "true" "true" "replace with Roslyn analyzer"
+# Mapper source validation is covered by DBA1007-DBA1008 in analyzer tests.
 
 # ====================================================================
 # Important Checks (run in full and quick modes)
@@ -219,22 +220,11 @@ if [ "$MODE" != "critical" ]; then
     echo ""
     echo -e "${MAGENTA}════ Important Checks ════${NC}"
     
-    # Aggregate grep validation is not executed as a gate.
-    run_check_pending "check-aggregate-compliance.sh" \
-        "Aggregate Pattern Compliance" \
-        "false" "true" "DBA1003 exists; remaining script rules still need dotnet-native replacements"
-    
-    # Use case grep validation is not executed as a gate.
-    run_check_pending "check-usecase-compliance.sh" \
-        "UseCase Pattern Compliance" \
-        "false" "true" "DBA1002 exists; remaining script rules still need dotnet-native replacements"
+    # Aggregate and UseCase source validation is covered by DBA1002-DBA1003 and DBA1009-DBA1012.
     
     # Controller compliance is covered by DBA1004-DBA1006 in analyzer tests.
 
-    # Projection configuration helper remains transitional
-    run_check_pending "check-projection-config.sh" \
-        "Projection Configuration" \
-        "false" "true" "replace with analyzer, config tests, or dotnet tool"
+    # Projection source and EF model registration are covered by DBA1013 and configuration validation tests.
     
     # Spec compliance is important
     run_spec_compliance_check
@@ -262,11 +252,6 @@ if [ "$MODE" == "full" ]; then
     run_check_pending "check-test-di-compliance.sh" \
         "Test DI Compliance" \
         "true" "false" "replace with analyzer or test architecture rules"
-    
-    # Projection compliance
-    run_check "check-projection-compliance.sh" \
-        "Projection Pattern Compliance" \
-        "false" "false"
     
     # Archive compliance
     run_check "check-archive-compliance.sh" \
