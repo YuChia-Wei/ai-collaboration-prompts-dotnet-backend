@@ -9,7 +9,9 @@
 
 ## ABSOLUTELY FORBIDDEN
 - Hardcode environment/profile inside test classes.
-- Create custom repository interfaces for domain operations.
+- Expose public generic writable CRUD repositories.
+- Add query methods to aggregate repositories.
+- Use a batch repository for a single-ID operation.
 - Use BaseTestClass for tests.
 - Add debug output (Console.WriteLine / logging as debugging).
 - Mix command/query responsibilities.
@@ -21,6 +23,10 @@
 - Use explicit error handling and return typed results.
 - Preserve DDD/CA/CQRS/ES/Outbox concepts from the Java prompts.
 - Keep prompt output portable across repositories (see `.ai/assets/shared/PROMPT-PORTABILITY-RULES.md`).
+- Use `IAggregateRepository<TAggregate, TId>` for Aggregate Root persistence and
+  `IQueryRepository`-derived ports for read models.
+- Treat `IDomainRepository<TAggregate, TId>` as a compatibility alias that inherits
+  `IAggregateRepository<TAggregate, TId>`.
 
 ## Layered Validation Rules
 - **Aggregate Root / Use Case**: Contract.require / ensure / invariant
@@ -44,7 +50,7 @@
 - Keep outbox schema consistent with metadata requirements
 
 
-## EF Core Mapping Completeness
+## EF Core Mapping Completeness (when EF Core is selected)
 - Project Decision Slot: Mapping completeness policy (e.g., aggregate roots, owned types, soft-delete behavior).
 - All aggregate entities and owned types must be mapped.
 - No missing fields in EF Core configurations.
@@ -80,7 +86,7 @@ var options = new JsonSerializerOptions
 
 TODO: finalize mapper rules for domain event serialization and metadata fields.
 
-## Profile-Based DI Examples
+## Profile-Based DI Examples (illustrative, when these adapters are selected)
 - Project Decision Slot: Environment-profile matrix and DI registration strategy.
 - Use environment checks to select DI registrations.
 

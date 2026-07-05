@@ -5,7 +5,7 @@ When initializing a new project, two fatal errors appear frequently:
 
 ### Error 1: DI registration missing
 ```
-No service for type 'IRepository<Product, ProductId>' has been registered.
+No service for type 'IAggregateRepository<Product, ProductId>' has been registered.
 ```
 
 ### Error 2: DbContext configuration missing
@@ -26,7 +26,7 @@ Unable to resolve service for type 'AppDbContext' while attempting to activate .
 ### 3. Dependency chain (Outbox)
 ```
 CreateProductUseCase
-  -> IRepository<Product, ProductId>
+  -> IAggregateRepository<Product, ProductId>
      -> OutboxRepository
         -> OutboxStore / OutboxClient
            -> DbContext + Wolverine Outbox

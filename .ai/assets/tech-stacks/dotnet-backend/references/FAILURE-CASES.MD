@@ -83,16 +83,25 @@ var metadata = new Dictionary<string, string>();
 
 ## Architecture Violations
 
-### 7. Custom Repository Interfaces
-**❌ WRONG**: Adding custom methods to repository interfaces
+### 7. Mixed Repository Responsibilities
+**❌ WRONG**: Adding query methods to an aggregate repository
 ```csharp
-public interface IProductRepository : IRepository<Product, ProductId>
+public interface IProductRepository : IAggregateRepository<Product, ProductId>
 {
     Task<IReadOnlyList<Product>> FindByNameAsync(string name);
 }
 ```
 
-**✅ CORRECT**: Use generic repository, queries go to Projection
+**✅ CORRECT**: Keep aggregate writes on the aggregate contract and put read
+criteria on a read-only query port
+```csharp
+public interface IProductQueryRepository : IQueryRepository
+{
+    Task<IReadOnlyList<ProductSummary>> FindByNameAsync(
+        string name,
+        CancellationToken cancellationToken);
+}
+```
 
 ### 8. Static Factory Methods in Aggregates
 **❌ WRONG**: Using static factories for Aggregate creation

@@ -17,8 +17,10 @@
 1. Aggregate 規則先做 type-first 判定：
    - `EsAggregateRoot<TId>` 套 ES 規則
    - `AggregateRoot<TId>`（非 ES）不套 `Apply/When` 規則
-2. Repository 規則以 `IDomainRepository<TEntity, TId>` 為 write side 基準。
-3. Query 能力必須在 `I<Domain>QueryService` + `I<Domain>QueryRepository`。
+2. Repository 規則以 `IAggregateRepository<TAggregate, TId>` 為 write side
+   基準；`IDomainRepository<TAggregate, TId>` 僅是必須繼承前者的相容入口。
+3. Query 能力放在繼承 `IQueryRepository` 的唯讀 query port。只有組合、政策
+   或計算需求才需要額外 QueryService。
 4. `.dev/project-config.yaml` 只做輔助判定，與型別衝突時以型別為準並標記 MUST FIX。
 
 ### 📋 檔案類型快速對應表
@@ -28,7 +30,7 @@
 | `src/Domain/**/Aggregates/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Aggregate（先做 type-first 判定）** | 1. 先判定 `EsAggregateRoot` 或 `AggregateRoot`<br>2. ES 才檢查 Apply/When<br>3. non-ES 檢查 invariant 與事件一致性 | **CRITICAL** |
 | `src/Application/**/UseCases/Commands/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler** | 1. CQRS 分離<br>2. Command 是否只操作 write model<br>3. Result/CqrsOutput 處理是否明確 | HIGH |
 | `src/Application/**/UseCases/Queries/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler / Projection** | 1. Query 是否無副作用<br>2. Projection 使用正確 | HIGH |
-| `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. write side 是否符合 `IDomainRepository<TEntity, TId>`<br>2. domain wrapper 是否僅薄封裝<br>3. query 方法是否從 domain repository 移除 | HIGH |
+| `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. write side 是否符合 `IAggregateRepository<TAggregate, TId>`<br>2. generic type 是否為 Aggregate Root<br>3. query/write 能力是否分離 | HIGH |
 | `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller 是否足夠薄<br>2. DTO 是否獨立檔案<br>3. HTTP status 正確 | MEDIUM |
 | `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper 是否為 static/sealed？<br>2. 一個 DTO 對一個 Mapper<br>3. Outbox toDomain 是否處理有/無 events 兩種情況 | **HIGH** |
 | `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>＋ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. 是否實作 `IOutboxData<TId>`<br>2. Domain events 欄位是否標記為 NotMapped<br>3. EF Core key/column naming 是否正確 | MEDIUM |
@@ -151,7 +153,20 @@ Report output must include:
 
 Repository checks in review:
 
-- Write side baseline: `IDomainRepository<TEntity, TId>`.
-- Domain-specific repository interface is allowed only as a thin wrapper inheriting `IDomainRepository<TEntity, TId>` with no extra methods.
-- Query capabilities must be placed in `I<Domain>QueryService` and `I<Domain>QueryRepository`.
-- If query methods are found in a domain repository, classify as MUST FIX.
+- Write side baseline: `IAggregateRepository<TAggregate, TId>` with only
+  `FindByIdAsync` and `SaveAsync`.
+- `IDomainRepository<TAggregate, TId>` is a compatibility interface and must inherit
+  `IAggregateRepository<TAggregate, TId>`.
+- Canonical, compatibility, and derived repository interfaces may target Aggregate
+  Roots only.
+- Query capabilities belong to a read-only port inheriting `IQueryRepository`; a
+  QueryService is conditional, not mandatory.
+- Public generic writable CRUD repositories and query methods on aggregate
+  repositories are MUST FIX.
+- Batch aggregate access is not part of the portable core. A target-specific batch
+  port requires measured need and complete execution semantics; using one for a
+  single ID is a review failure.
+- Physical deletion must use a restricted purge capability. Soft deletion is
+  aggregate behavior followed by `SaveAsync`.
+- Explicit `IUnitOfWork` is allowed only for a use case that documents exceptional
+  all-or-nothing consistency. It must not be introduced merely to reduce IO calls.

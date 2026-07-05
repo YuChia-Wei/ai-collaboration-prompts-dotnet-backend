@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Example.Plans.Domain;
 using Example.Tags.Domain;
 
@@ -6,10 +7,12 @@ namespace Example.Plans.UseCases;
 
 public sealed class AssignTagService : IAssignTagUseCase
 {
-    private readonly IRepository<Plan, PlanId> _planRepository;
-    private readonly IRepository<Tag, TagId> _tagRepository;
+    private readonly IAggregateRepository<Plan, PlanId> _planRepository;
+    private readonly IAggregateRepository<Tag, TagId> _tagRepository;
 
-    public AssignTagService(IRepository<Plan, PlanId> planRepository, IRepository<Tag, TagId> tagRepository)
+    public AssignTagService(
+        IAggregateRepository<Plan, PlanId> planRepository,
+        IAggregateRepository<Tag, TagId> tagRepository)
     {
         Contract.RequireNotNull("Plan repository", planRepository);
         Contract.RequireNotNull("Tag repository", tagRepository);
@@ -17,7 +20,7 @@ public sealed class AssignTagService : IAssignTagUseCase
         _tagRepository = tagRepository;
     }
 
-    public CqrsOutput Execute(AssignTagInput input)
+    public async Task<CqrsOutput> Execute(AssignTagInput input)
     {
         Contract.RequireNotNull("Input", input);
         Contract.RequireNotNull("Plan id", input.PlanId);
@@ -25,10 +28,10 @@ public sealed class AssignTagService : IAssignTagUseCase
         Contract.RequireNotNull("Task id", input.TaskId);
         Contract.RequireNotNull("Tag id", input.TagId);
 
-        var plan = _planRepository.FindById(PlanId.ValueOf(input.PlanId!))
+        var plan = await _planRepository.FindByIdAsync(PlanId.ValueOf(input.PlanId!))
                    ?? throw new ArgumentException($"Plan not found: {input.PlanId}");
 
-        var tag = _tagRepository.FindById(TagId.ValueOf(input.TagId!))
+        var tag = await _tagRepository.FindByIdAsync(TagId.ValueOf(input.TagId!))
                   ?? throw new ArgumentException($"Tag not found: {input.TagId}");
 
         var projectName = ProjectName.ValueOf(input.ProjectName!);
@@ -42,14 +45,14 @@ public sealed class AssignTagService : IAssignTagUseCase
         var project = plan.GetProject(projectName)!;
         plan.AssignTag(project.Id, taskId, TagId.ValueOf(input.TagId!));
 
-        _planRepository.Save(plan);
+        await _planRepository.SaveAsync(plan);
 
         return CqrsOutput.Create()
             .SetExitCode(ExitCode.Success);
     }
 
     // Wolverine handler entry point
-    public CqrsOutput Handle(AssignTagInput input) => Execute(input);
+    public Task<CqrsOutput> Handle(AssignTagInput input) => Execute(input);
 }
 
 // TODO: Replace with the Tag aggregate from the ezDDD .NET port.

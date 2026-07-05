@@ -7,7 +7,8 @@ This checklist enforces DDD, Clean Architecture, CQRS, Event Sourcing, Outbox, a
 - BaseTestClass usage in tests
 - Controllers contain business logic
 - DTOs defined as inner classes
-- Custom repository interfaces for domain writes
+- Public generic writable CRUD repositories
+- Aggregate repositories that expose query or bulk convenience methods
 - Direct state assignment in aggregate constructors
 
 ## Aggregate Root (Event Sourcing)
@@ -31,6 +32,16 @@ This checklist enforces DDD, Clean Architecture, CQRS, Event Sourcing, Outbox, a
 - [ ] Command handlers use write models only
 - [ ] Query handlers do not mutate state
 - [ ] Result/ExitCode handling is explicit
+- [ ] Explicit Unit of Work appears only for documented exceptional strong consistency
+
+## Repository
+- [ ] Aggregate writes use `IAggregateRepository<TAggregate, TId>` or its
+      `IDomainRepository<TAggregate, TId>` compatibility alias
+- [ ] Repository generic type is an Aggregate Root
+- [ ] Base aggregate contract exposes only `FindByIdAsync` and `SaveAsync`
+- [ ] Read ports inherit `IQueryRepository` and expose no write capability
+- [ ] Batch ports, when target-specific, document measured need and complete
+      execution semantics
 
 ## Outbox
 - [ ] Events persisted before publishing

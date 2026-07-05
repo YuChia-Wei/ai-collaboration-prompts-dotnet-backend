@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
   "related_review_report_id": "repository-pattern-standards-baseline-review",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Synchronize approved repository rules across active AI context, prompts, guides, tests, and examples",
     "files": [
@@ -60,9 +60,24 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Synchronized role-based aggregate/query repository rules across canonical AI references, skill and sub-agent guidance, human guides, prompts, checklists, and active examples. Examples now use IAggregateRepository and the approved asynchronous two-method contract. The Markdown-generated repository checker guide is explicitly deprecated in favor of semantic Roslyn analysis.",
+    "files_changed": [
+      ".ai/assets/skills/ddd-ca-hex-architect/",
+      ".ai/assets/skills/slice-implementer/",
+      ".ai/assets/sub-agent-role-prompts/",
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".ai/scripts/MD-SCRIPT-GENERATION-GUIDE.md",
+      ".dev/guides/",
+      ".dev/standards/anti-patterns.md",
+      ".dev/standards/best-practices.md",
+      ".dev/standards/examples/",
+      ".dev/standards/prompts/create-use-case-prompt.md"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "targeted rg searches for IRepository, legacy method sets, mandatory QueryService pairing, and hardcoded persistence defaults",
+      "relative Markdown link validation for changed files"
+    ],
     "follow_up_needed": true
   }
 }

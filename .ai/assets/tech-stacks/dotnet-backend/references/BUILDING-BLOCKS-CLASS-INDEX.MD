@@ -35,19 +35,27 @@ BuildingBlocks.Application.Cqrs.CqrsOutput
 ## Repository Pattern 類別
 
 ```
-BuildingBlocks.Domain.IDomainRepository<TEntity, TId>  # 領域 Repository 介面（FindByIdAsync/SaveAsync/DeleteAsync）
-BuildingBlocks.Application.Repositories.IRepository    # 通用 Repository（設計目標）
-BuildingBlocks.Application.Repositories.OutboxRepository
+BuildingBlocks.Domain.IAggregateRepository<TAggregate, TId> # Aggregate Root Repository（FindByIdAsync/SaveAsync）
+BuildingBlocks.Domain.IDomainRepository<TAggregate, TId>    # 舊產品相容別名；必須繼承 IAggregateRepository
+BuildingBlocks.Application.Queries.IQueryRepository         # 唯讀 Query Port 標記
+BuildingBlocks.Application.Repositories.IAggregatePurgePort<TAggregate, TId> # 受限制的實體刪除能力
+BuildingBlocks.Application.Repositories.IUnitOfWork          # 顯式強一致性交易邊界
+BuildingBlocks.Application.Repositories.OutboxRepository     # 僅在目標技術配置採用時
 BuildingBlocks.Application.Repositories.IOutboxData
 BuildingBlocks.Application.Repositories.IOutboxMapper
 BuildingBlocks.Application.Repositories.IRepositoryPeer
 BuildingBlocks.Application.Repositories.IStoreData
 ```
 
+Portable core 不定義通用 writable CRUD 或標準 batch repository。目標 repo
+若因量測結果建立 batch port，必須同時定義 chunking、concurrency、failure、
+domain-event 與 outbox semantics。
+
 ## Query Pattern 類別
 
 ```
 BuildingBlocks.Application.Queries.IQuery
+BuildingBlocks.Application.Queries.IQueryRepository
 BuildingBlocks.Application.Queries.IProjection
 BuildingBlocks.Application.Queries.IProjectionInput
 BuildingBlocks.Application.Queries.IArchive
@@ -77,7 +85,7 @@ BuildingBlocks.Application.Reactors.IReactor
 BuildingBlocks.Application.Reactors.IGenericReactor
 ```
 
-## Outbox Infrastructure 類別
+## Outbox Infrastructure 類別（條件式）
 
 ```
 BuildingBlocks.Infrastructure.Outbox.OutboxRepositoryPeer
@@ -87,6 +95,9 @@ BuildingBlocks.Infrastructure.Outbox.OutboxStoreAdapter
 BuildingBlocks.Infrastructure.Outbox.EfCoreOutboxClient
 BuildingBlocks.Infrastructure.Outbox.IOrmClient
 ```
+
+以上 Outbox/ORM 類別只有在目標 repository 選用對應實作時才適用；本 framework
+不指定資料庫、ORM 或 messaging package。
 
 ## InMemory Infrastructure 類別
 

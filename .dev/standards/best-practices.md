@@ -66,7 +66,7 @@ public static class PlanEvents
 ```csharp
 public sealed class CreatePlanHandler
 {
-    private readonly IRepository<Plan, PlanId> _repository;
+    private readonly IAggregateRepository<Plan, PlanId> _repository;
 
     public async Task<CqrsOutput<PlanDto>> Handle(CreatePlanInput input)
     {
@@ -92,7 +92,7 @@ public sealed record CreateTaskInput(
 public sealed class UnassignTaskWhenTagDeleted
 {
     private readonly IFindPlansByTagIdInquiry _inquiry;
-    private readonly IRepository<Plan, PlanId> _planRepository;
+    private readonly IAggregateRepository<Plan, PlanId> _planRepository;
 
     public async Task Handle(TagDeleted e)
     {

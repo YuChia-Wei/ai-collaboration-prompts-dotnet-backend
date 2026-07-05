@@ -1,19 +1,20 @@
 using System;
+using System.Threading.Tasks;
 using Example.Plans.Domain;
 
 namespace Example.Plans.UseCases;
 
 public sealed class CreateTaskService : ICreateTaskUseCase
 {
-    private readonly IRepository<Plan, PlanId> _planRepository;
+    private readonly IAggregateRepository<Plan, PlanId> _planRepository;
 
-    public CreateTaskService(IRepository<Plan, PlanId> planRepository)
+    public CreateTaskService(IAggregateRepository<Plan, PlanId> planRepository)
     {
         Contract.RequireNotNull("PlanRepository", planRepository);
         _planRepository = planRepository;
     }
 
-    public CqrsOutput Execute(CreateTaskInput input)
+    public async Task<CqrsOutput> Execute(CreateTaskInput input)
     {
         try
         {
@@ -24,7 +25,7 @@ public sealed class CreateTaskService : ICreateTaskUseCase
             Contract.RequireNotNull("Project name", input.ProjectName);
             Contract.RequireNotNull("Task name", input.TaskName);
 
-            var plan = _planRepository.FindById(input.PlanId!);
+            var plan = await _planRepository.FindByIdAsync(input.PlanId!);
             if (plan == null)
             {
                 output.SetId(input.PlanId!.Value)
@@ -34,7 +35,7 @@ public sealed class CreateTaskService : ICreateTaskUseCase
             }
 
             var taskId = plan.CreateTask(input.ProjectName!, TaskId.Create(), input.TaskName!);
-            _planRepository.Save(plan);
+            await _planRepository.SaveAsync(plan);
 
             output.SetId(taskId.Value)
                   .SetExitCode(ExitCode.Success);
@@ -47,5 +48,5 @@ public sealed class CreateTaskService : ICreateTaskUseCase
     }
 
     // Wolverine handler entry point
-    public CqrsOutput Handle(CreateTaskInput input) => Execute(input);
+    public Task<CqrsOutput> Handle(CreateTaskInput input) => Execute(input);
 }

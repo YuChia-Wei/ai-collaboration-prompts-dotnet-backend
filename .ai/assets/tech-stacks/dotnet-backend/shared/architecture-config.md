@@ -6,13 +6,14 @@
 
 ## Supported Patterns
 - **inmemory**: In-memory repository + message broker
-- **outbox**: EF Core + Outbox message store
+- **outbox**: Transactional message store using the target repository's selected adapter
 - **eventsourcing**: Event store + replay
 
 ## Mapping Rules
-- Command handlers use write model repositories
-- Query handlers use read model projections
+- Command flows use `IAggregateRepository<TAggregate, TId>` for Aggregate Roots
+- Query flows use read-only ports inheriting `IQueryRepository`
 - Reactor handlers process event data (not domain entities)
+- Persistence libraries and databases are selected by the target repository
 
 ## DI Registration Rules
 - Register repositories per profile/environment

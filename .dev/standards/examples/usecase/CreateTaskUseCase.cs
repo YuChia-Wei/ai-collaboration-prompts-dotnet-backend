@@ -1,10 +1,11 @@
 using Example.Plans.Domain;
+using System.Threading.Tasks;
 
 namespace Example.Plans.UseCases;
 
 public interface ICreateTaskUseCase : ICommand<CreateTaskInput, CqrsOutput>
 {
-    CqrsOutput Execute(CreateTaskInput input);
+    Task<CqrsOutput> Execute(CreateTaskInput input);
 }
 
 public sealed class CreateTaskInput : IInput

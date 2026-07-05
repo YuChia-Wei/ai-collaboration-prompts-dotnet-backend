@@ -55,7 +55,7 @@ public sealed class CreateIterationTests
 
     async Task Then_the_sprint_is_persisted()
     {
-        var repo = _scope.ServiceProvider.GetRequiredService<IRepository<Iteration, IterationId>>();
+        var repo = _scope.ServiceProvider.GetRequiredService<IAggregateRepository<Iteration, IterationId>>();
         var saved = await repo.FindByIdAsync(IterationId.ValueOf(_state.Output!.Id));
         Assert.NotNull(saved);
     }

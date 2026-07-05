@@ -16,7 +16,10 @@ Use this mode when the slice implements one bounded command-side use case.
 - Commands may change aggregate state.
 - Keep aggregate boundary and command responsibility explicit.
 - Keep repository access aligned with the current DI model.
-- Do not add custom repository interfaces for write-side flows.
+- Use `IAggregateRepository<TAggregate, TId>` (or the documented
+  `IDomainRepository` compatibility alias) for Aggregate Root persistence.
+- Do not add generic writable CRUD, query methods, or bulk convenience methods to
+  the aggregate repository contract.
 - Follow the active storage profile and architecture configuration.
 - Keep validation notes explicit when tests or review are still pending.
 

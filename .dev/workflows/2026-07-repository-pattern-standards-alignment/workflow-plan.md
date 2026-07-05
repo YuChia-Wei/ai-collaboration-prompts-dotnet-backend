@@ -57,15 +57,15 @@ The baseline findings are retained in [review-report.md](./review-report.md).
 - Hexagonal Architecture defines application ports and infrastructure adapters.
 - Cross-bounded-context communication remains MQ-only.
 - Domain objects remain independent of ORM, broker, and transport concerns.
-- Write-side technology is currently declared as Dapper + Npgsql.
-- Read/projection technology is currently declared as EF Core or Dapper.
+- Persistence and query technology are target-repository decisions.
+- Technology-specific guidance applies only when the target selects that adapter.
 - Runtime wrappers must remain thin.
 - `.dev/standards/**` is agent-facing execution context; new normative text should follow the language policy.
 - User decisions must be recorded before canonical standards are rewritten.
 
 ## Target Direction
 
-The following direction is recommended but is not approved until the open decisions are answered:
+The following approved direction governs this workflow:
 
 1. Separate aggregate persistence, pure query access, and technical/operational writes into distinct semantic ports.
 2. Permit aggregate repositories to load and persist Aggregate Roots only; child entities are persisted through their owning Aggregate Root.
@@ -483,7 +483,7 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ### S3 — Synchronize dependent context
 
-- Status: pending
+- Status: completed
 - Owner: `ai-context-governance`
 - Goal: propagate approved rules without duplicating canonical ownership.
 - Scope:
@@ -564,7 +564,8 @@ Each workflow-stage commit must include `Why`, `What`, `Validation`, and `Workfl
 - D1-D10 are resolved or explicitly deferred.
 - Canonical standards contain no internal contradiction for the repository rule family.
 - Active prompts, guides, examples, and checks do not override the canonical contract.
-- Transaction/outbox examples match the approved command-side technology.
-- Generated validation agrees with its source.
+- Transaction/outbox examples state their adapter assumptions and preserve the
+  approved commit/event lifecycle.
+- Semantic analyzer validation agrees with the canonical standards.
 - Final validation evidence is recorded.
 
