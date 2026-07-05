@@ -1,0 +1,55 @@
+{
+  "task_id": "resolve-repository-pattern-decisions",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "pending",
+  "scope": {
+    "target": "Resolve D1-D9 before canonical repository rules are changed",
+    "files": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/resolve-repository-pattern-decisions.json"
+    ],
+    "dependency_radius": "All later workflow stages",
+    "constraints": [
+      "Do not infer unresolved architecture direction",
+      "Record the reason and impact of each approved decision",
+      "Mark intentionally postponed decisions as deferred"
+    ],
+    "non_goals": [
+      "No canonical standards implementation",
+      "No dependent-context synchronization"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Approved repository, query, persistence, transaction, deletion, and validation contract",
+    "review_findings": [
+      "Nine direction decisions remain open"
+    ],
+    "user_constraints": [
+      "Avoid later correction errors by asking for decisions first"
+    ]
+  },
+  "execution": {
+    "operation_type": "architecture-decision-resolution",
+    "steps": [
+      "Present D1-D9 with recommended defaults and tradeoffs",
+      "Record user decisions",
+      "Update target direction and downstream task constraints",
+      "Mark deferred decisions and their blocked scope"
+    ],
+    "validation": [
+      "Every decision has an explicit state",
+      "Downstream tasks reference the approved direction",
+      "No contradiction remains between selected decisions"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+

@@ -1,0 +1,69 @@
+{
+  "task_id": "align-canonical-repository-standards",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "pending",
+  "scope": {
+    "target": "Create one canonical repository pattern execution contract",
+    "files": [
+      ".dev/ARCHITECTURE.MD",
+      ".dev/requirement/TECH-STACK-REQUIREMENTS.MD",
+      ".dev/standards/coding-standards.md",
+      ".dev/standards/coding-standards/repository-standards.md",
+      ".dev/standards/coding-standards/projection-standards.md",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/README.md",
+      ".dev/standards/project-structure.md",
+      ".dev/standards/rationale/generic-repository-only-rationale.MD",
+      ".dev/standards/rationale/query-side-layering-rationale.MD"
+    ],
+    "dependency_radius": "Architecture, command/query handlers, persistence adapters, profiles, tests, outbox, and code review guidance",
+    "constraints": [
+      "Depends on completion of resolve-repository-pattern-decisions",
+      "Preserve DDD, Clean Architecture, CQRS, and Hexagonal boundaries",
+      "Do not invent concrete Wolverine APIs",
+      "Keep canonical normative rules out of tutorial examples"
+    ],
+    "non_goals": [
+      "No broad guide or example synchronization in this task",
+      "No validation script implementation",
+      "No unrelated technology upgrade"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Approved D1-D9 direction",
+    "review_findings": [
+      "F1-F7 require canonical standards changes"
+    ],
+    "user_constraints": [
+      "Do not proceed until decision questions are answered"
+    ]
+  },
+  "execution": {
+    "operation_type": "canonical-document-refactor",
+    "steps": [
+      "Update architecture and technology ownership statements",
+      "Define repository port contract and adapter responsibilities",
+      "Define deletion, concurrency, Unit of Work, outbox, and event lifecycle",
+      "Define query-side layering and naming",
+      "Update rationale and navigation summaries"
+    ],
+    "validation": [
+      "Search for contradictory abstraction names and method counts",
+      "Search for EF Core command-side requirements that violate the approved stack",
+      "Check project structure against port and adapter placement",
+      "Run git diff --check and changed-link validation"
+    ],
+    "deferred_items": [
+      "Dependent prompt, guide, example, and check synchronization"
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+

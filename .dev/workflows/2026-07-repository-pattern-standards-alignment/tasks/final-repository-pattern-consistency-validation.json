@@ -1,0 +1,53 @@
+{
+  "task_id": "final-repository-pattern-consistency-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "pending",
+  "scope": {
+    "target": "Validate and close the repository pattern standards alignment workflow",
+    "files": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/"
+    ],
+    "dependency_radius": "All files changed by the workflow",
+    "constraints": [
+      "All implementation tasks must be completed or explicitly deferred",
+      "Do not claim closure with unresolved contradictory active guidance",
+      "Record skipped validation and residual risk"
+    ],
+    "non_goals": [
+      "No new architecture decisions during final validation",
+      "No unrelated cleanup"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "A validated, internally consistent repository pattern rule family",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "workflow-final-validation",
+    "steps": [
+      "Parse changed task JSON",
+      "Run whitespace and Markdown/reference checks",
+      "Run targeted repository-rule searches",
+      "Run changed script validation",
+      "Record residual risks and deferred work",
+      "Close workflow tasks and plan"
+    ],
+    "validation": [
+      "All changed JSON parses",
+      "git diff --check passes",
+      "Changed Markdown links resolve",
+      "Repository rule searches match approved decisions",
+      "Changed scripts pass syntax and focused behavior checks"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}
