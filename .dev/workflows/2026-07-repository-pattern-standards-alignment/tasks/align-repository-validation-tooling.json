@@ -25,7 +25,11 @@
       "Do not restore repository grep validation as a gate",
       "Distinguish domain repository ports from query/read repository ports",
       "Preserve target-repository severity configurability",
-      "Do not encode transaction or lifecycle intent as syntax-only diagnostics"
+      "Do not encode transaction or lifecycle intent as syntax-only diagnostics",
+      "Use error severity for repository contract violations",
+      "Recognize IAggregateRepository, compatibility IDomainRepository, and derived aggregate-specific interfaces by semantic type relationships",
+      "Treat Aggregate batch persistence as a target-specific opt-in capability rather than a default repository contract",
+      "Do not introduce IBatchUseCase-based diagnostics before the deferred Use Case and Handler taxonomy workflow is resolved"
     ],
     "non_goals": [
       "No unrelated script migration",
@@ -48,6 +52,10 @@
     "operation_type": "bounded-analyzer-and-script-retirement-slice",
     "steps": [
       "Translate approved D1-D4 and D10 decisions into deterministic analyzer behavior",
+      "Validate Aggregate Root generic constraints across canonical, compatibility, and derived contracts",
+      "Validate IQueryRepository read-only behavior",
+      "Keep framework-level diagnostics focused on the portable base Aggregate repository",
+      "Document extension points for target-repository batch markers, analyzers, or architecture tests",
       "Add positive, negative, and false-positive analyzer tests",
       "Assign non-deterministic transaction and lifecycle rules to tests or AI review",
       "Retire source and generated repository grep scripts after replacement evidence passes",

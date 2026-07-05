@@ -23,7 +23,12 @@
       "Depends on completion of resolve-repository-pattern-decisions",
       "Preserve DDD, Clean Architecture, CQRS, and Hexagonal boundaries",
       "Do not invent concrete Wolverine APIs",
-      "Keep canonical normative rules out of tutorial examples"
+      "Keep canonical normative rules out of tutorial examples",
+      "Do not require a database, ORM, or persistence package",
+      "Keep package-specific implementation rules conditional",
+      "Preserve IDomainRepository as a validated compatibility contract derived from IAggregateRepository",
+      "Do not redefine the Use Case and Handler relationship in this task",
+      "Do not publish Aggregate batch persistence as a default building-block dependency"
     ],
     "non_goals": [
       "No broad guide or example synchronization in this task",
@@ -44,9 +49,12 @@
     "operation_type": "canonical-document-refactor",
     "steps": [
       "Update architecture and technology ownership statements",
+      "Define aggregate persistence, pure query, and capability-specific writer ports",
       "Define repository port contract and adapter responsibilities",
-      "Define deletion, concurrency, Unit of Work, outbox, and event lifecycle",
+      "Define soft deletion, restricted physical purge, concurrency, explicit strong-consistency Unit of Work, outbox, and event lifecycle",
+      "Define an optional target-repository Aggregate batch capability pattern, opt-in evidence, and transaction/failure semantics without publishing a mandatory portable batch interface if D3 approves it",
       "Define query-side layering and naming",
+      "Move technology choices from universal requirements to conditional implementation guidance",
       "Update rationale and navigation summaries"
     ],
     "validation": [
@@ -56,7 +64,8 @@
       "Run git diff --check and changed-link validation"
     ],
     "deferred_items": [
-      "Dependent prompt, guide, example, and check synchronization"
+      "Dependent prompt, guide, example, and check synchronization",
+      "Use Case, Handler, Controller, and synchronous invocation realignment"
     ]
   },
   "results": {

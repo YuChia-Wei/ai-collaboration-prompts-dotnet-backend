@@ -5,7 +5,7 @@
 - Plan ID: `workflow-plan-2026-07-repository-pattern-standards-alignment`
 - Workflow ID: `2026-07-repository-pattern-standards-alignment`
 - Owner skill: `dev-workflow`
-- Status: `awaiting-user-decisions`
+- Status: `in-progress`
 - Created: `2026-07-05`
 - Branch: `codex/repository-pattern-standards-alignment`
 - Rebased onto: local `main` at `2d4130c`
@@ -67,74 +67,361 @@ The baseline findings are retained in [review-report.md](./review-report.md).
 
 The following direction is recommended but is not approved until the open decisions are answered:
 
-1. Use `IDomainRepository<TAggregate, TId>` as the command-side outbound port name.
-2. Keep the generic contract limited to aggregate lifecycle operations.
-3. Exclude bulk operations from the generic contract.
-4. Model soft deletion as aggregate behavior followed by `SaveAsync`; reserve physical purge for a separate maintenance port.
-5. Use Dapper + Npgsql for command-side adapters and EF Core or Dapper for query adapters.
-6. Let the transaction coordinator own connection, transaction, commit, rollback, and atomic outbox persistence.
-7. Clear recorded domain events only after successful atomic persistence.
-8. Use direct query ports for simple reads; introduce an application query service only for composition or query-side policy.
-9. Prevent empty custom repository wrappers, while allowing explicitly justified aggregate-lifecycle ports.
-10. Align the existing `DBA1001` Roslyn analyzer with the approved repository contract, add positive/negative/false-positive tests, and retire the non-gating repository grep script.
+1. Separate aggregate persistence, pure query access, and technical/operational writes into distinct semantic ports.
+2. Permit aggregate repositories to load and persist Aggregate Roots only; child entities are persisted through their owning Aggregate Root.
+3. Do not expose a general-purpose writable repository or CRUD abstraction to Application code.
+4. Keep the aggregate repository contract limited to approved aggregate lifecycle operations.
+5. Exclude bulk operations from the shared aggregate repository contract.
+6. Model soft deletion as aggregate behavior followed by persistence; reserve physical purge for a separate maintenance capability.
+7. Keep the normative repository contract database-, ORM-, and package-neutral.
+8. Put EF Core, Dapper, Npgsql, event-store, and other adapter-specific rules in conditional implementation guidance.
+9. Let the transaction boundary own commit, rollback, and atomic outbox persistence; repositories participate without independently committing.
+10. Clear or acknowledge recorded domain events only after successful atomic persistence.
+11. Use direct query ports for simple reads; introduce an application query service only for composition or query-side policy.
+12. Use capability-specific write ports such as outbox, projection, import, or purge writers when data is not aggregate state.
+13. Align the existing `DBA1001` Roslyn analyzer with the approved semantic contract, add positive/negative/false-positive tests, and retire the non-gating repository grep script.
+
+## Repository Role Model
+
+### Aggregate persistence port
+
+- Purpose: rehydrate and persist one Aggregate Root consistency boundary.
+- Allowed domain result: Aggregate Root only.
+- Disallowed: returning or persisting a child entity independently.
+- Disallowed: UI search, reporting, filtering, paging, and arbitrary DTO queries.
+- Implementation: an outbound adapter using the target system's selected database and package.
+
+### Pure query port
+
+- Working name: `IQueryRepository`.
+- Purpose: execute read-model queries without aggregate mutation.
+- Return types: DTOs, read models, scalar values, identifiers, or pages.
+- Disallowed: aggregate/domain mutation and persistence writes.
+- A query port may be use-case-specific rather than a generic query CRUD interface.
+
+### Technical or operational write port
+
+- Examples: `IOutboxStore`, `IProjectionWriter`, `IInboxStore`, `IIdempotencyStore`, `IBulkImportWriter`, or `IDataPurgePort`.
+- Purpose: write data that is not the state of an Aggregate Root, or perform an explicitly approved operational capability.
+- Naming rule: name the business/technical capability; do not call it a general repository.
+- Implementation: an Infrastructure adapter.
+- A persistence helper used only inside an adapter does not need to become an Application port.
+
+### Port and adapter relationship
+
+- Repository/query/writer interfaces express Application-required semantics and are outbound ports.
+- EF Core, Dapper, SQL, event-store, file, cache, and broker implementations are outbound adapters.
+- Choosing Adapter Pattern does not remove the need for a semantic port when Application code has a dependency.
+- If a write is an internal implementation detail of an adapter, keep it internal instead of creating another public port.
 
 ## Open Decisions
 
-### D1 — Canonical abstraction name
+### D1 — Aggregate repository name and compatibility shape
 
-- Recommended: `IDomainRepository<TAggregate, TId>`.
-- Alternative: retain `IRepository<TAggregate, TId>`.
-- Impact: at least 24 documentation/context files currently reference `IRepository<`, while two primary standards reference `IDomainRepository<`.
+Status: resolved by user.
 
-### D2 — Generic operation set and deletion semantics
+Decision:
 
-- Recommended: `FindByIdAsync` and `SaveAsync`; soft delete is an aggregate behavior; physical purge uses a separate maintenance port.
-- Alternative: retain `DeleteAsync` in the generic contract with one explicitly defined semantic.
-- Must not proceed with both physical delete and mandatory soft delete as simultaneous defaults.
+- `IAggregateRepository<TAggregate, TId>` is the canonical contract for new code.
+- `IDomainRepository<TAggregate, TId>` remains as a compatibility contract and must inherit `IAggregateRepository<TAggregate, TId>`.
+- Both contracts require `TAggregate` to be an Aggregate Root.
+- New code should prefer `IAggregateRepository`.
+- Compatibility must not suppress violations: analyzers must inspect `IDomainRepository`, its generic argument, and every derived aggregate-specific interface.
+- A legacy `IDomainRepository<ChildEntity, TId>` remains a violation and must be reported.
 
-### D3 — Bulk aggregate operations
+Migration consequence:
 
-- Recommended: remove `FindByIdsAsync` and `SaveAllAsync` from the generic contract; use independent commands, messaging, or an explicitly bounded batch port.
-- Alternative: retain bulk methods and define transaction, partial-failure, concurrency, and aggregate-consistency rules.
+- Existing products can adopt the context without renaming every valid aggregate repository first.
+- The compatibility contract creates a semantic bridge, not a second repository model.
+- Empty aggregate-specific wrappers remain discouraged; they are allowed only for compatibility or approved aggregate-specific lifecycle semantics.
 
-### D4 — Custom repository interfaces
+### D2 — Aggregate repository operation contract
 
-- Recommended: prohibit empty wrappers and read-model query methods; permit an exception only for stable aggregate-lifecycle semantics that cannot be represented by the generic port.
-- Alternative: absolute prohibition with no exception.
+Status: resolved by user.
 
-### D5 — Command-side persistence technology
+Decision:
 
-- Recommended: confirm Dapper + Npgsql as canonical and rewrite EF Core command-side examples.
-- Alternative: change the tech-stack requirement to EF Core or allow per-target selection.
-- This decision also determines the Unit of Work and concurrency examples.
+- The shared aggregate repository exposes:
+- `FindByIdAsync`
+- `SaveAsync`
+- `SaveAsync` persists a new or changed Aggregate according to adapter rules.
+- Soft delete is an Aggregate behavior followed by `SaveAsync`.
+- Physical deletion is required but is not part of the shared aggregate repository.
+- Physical deletion uses a separately named restricted capability such as `IAggregatePurgePort<TAggregate, TId>` or a target-specific retention/deletion port.
+- A hard-delete use case must still apply authorization, retention, legal, and aggregate eligibility rules before invoking the purge port.
 
-### D6 — Unit of Work and outbox integration depth
+### D3 — Multiple instances of the same Aggregate type
 
-- Recommended: define the framework-neutral atomicity contract first, then run a technical verification task against the selected Wolverine + Dapper/Npgsql integration before publishing concrete APIs.
-- Alternative: retain EF Core-specific transaction examples.
-- Concrete library APIs must not be invented without verification.
+Status: resolved by user after final traceability audit.
+
+Clarified scenario:
+
+- a query port identifies multiple `ProductAggregate` identifiers;
+- the application loads `List<ProductAggregate>`;
+- each Aggregate executes its own domain behavior;
+- the application persists all changed Product Aggregates.
+
+This is not the same as coordinating different Aggregate types such as Product and Order.
+
+Architectural interpretation:
+
+- loading by a collection of identities remains Aggregate access, not read-model querying;
+- applying behavior to each Aggregate remains valid domain behavior;
+- batch IO is a legitimate performance capability;
+- batch IO does not mean the Aggregates form one consistency boundary;
+- Unit of Work controls transaction/commit semantics and does not replace batch IO optimization.
+
+Options:
+
+#### Option A — Put batch methods on every aggregate repository
+
+```text
+IAggregateRepository<TAggregate, TId>
+  FindByIdAsync
+  SaveAsync
+  FindByIdsAsync
+  SaveAllAsync
+```
+
+Advantages:
+
+- simple consumer API;
+- direct support for the described workflow.
+
+Risks:
+
+- every adapter must implement batch behavior even when it cannot optimize it;
+- normal Use Cases can casually expand into large batch transactions;
+- `SaveAllAsync` atomicity and partial-failure behavior are easy to leave undefined;
+- event-store, document, relational, and remote adapters may have materially different capabilities.
+
+#### Option B — Optional aggregate batch capability
+
+```text
+IAggregateRepository<TAggregate, TId>
+  FindByIdAsync
+  SaveAsync
+
+IAggregateBatchRepository<TAggregate, TId>
+  FindByIdsAsync
+  SaveAllAsync
+```
+
+Conditionally recommended, but the portable core should define the capability pattern rather than ship a mandatory concrete interface.
+
+Rules:
+
+- the portable context documents an opt-in Aggregate batch persistence capability but does not require a concrete `IAggregateBatchRepository` type;
+- a target repository may define `IAggregateBatchRepository`, `IProductAggregateBatchPort`, or an equivalent semantic port after the opt-in conditions are satisfied;
+- a target batch port must not inherit `IAggregateRepository<TAggregate, TId>`;
+- it is not registered by default and does not appear in normal Use Case templates;
+- a target repository introduces it only after recording expected cardinality, measured IO pressure, batch limits, and failure semantics;
+- both generic arguments remain constrained to Aggregate Root and its identifier;
+- only batch-oriented Use Cases inject the batch capability;
+- `FindByIdsAsync` is identity-based loading only, not status/filter querying;
+- query repository obtains the candidate IDs;
+- each Aggregate must execute its own domain behavior before persistence;
+- batch persistence must preserve concurrency checks and pending events for each Aggregate;
+- large input sets must be chunked;
+- missing IDs, duplicate IDs, ordering, maximum batch size, concurrency failures, and partial failures must be specified;
+- aggregate-specific adapters may implement both interfaces;
+- adapters without real batch support are not forced to expose the capability.
+- common code-review guidance must challenge batch dependencies used only to wrap one ID in a collection.
+- framework-level analyzer rules must not depend on `IBatchUseCase` until the deferred Use Case/Handler workflow defines that taxonomy.
+
+#### Option C — Loop over the single-aggregate contract
+
+```text
+foreach id:
+  aggregate = FindByIdAsync(id)
+  aggregate.DoBehavior()
+  SaveAsync(aggregate)
+```
+
+Advantages:
+
+- clearest per-Aggregate semantics;
+- works with every adapter.
+
+Risks:
+
+- may produce N+1 IO;
+- performance can be unacceptable for large sets;
+- adapters cannot reliably optimize across calls without additional infrastructure.
+
+Transaction semantics:
+
+- `FindByIdsAsync` / `SaveAllAsync` optimize IO; they do not by themselves request strong business consistency.
+- `IUnitOfWork` is injected only when all changed Aggregates must commit or roll back atomically.
+- Without an atomic business requirement, process bounded chunks and expose per-item/chunk failure handling rather than opening one large transaction.
+- An all-or-nothing transaction over an unbounded list is prohibited.
+- For imports, migrations, rebuilds, and purges that do not execute normal Aggregate behavior, use a separate capability-specific writer instead of `IAggregateBatchRepository`.
+
+Decision:
+
+- portable core uses Option C and exposes only the single-Aggregate contract;
+- portable standards document, but do not publish, the Option B target-specific batch capability pattern;
+- no canonical batch interface appears in portable building blocks, default templates, or default DI;
+- target repositories may introduce a batch port only after measured need and complete semantics are recorded;
+- target-repository architecture tests or analyzers may enforce local batch markers after the Use Case taxonomy is resolved;
+- code review remains responsible for whether batch justification is genuine;
+- `IUnitOfWork` is required only when business semantics demand all-or-nothing commit, not merely for batch IO;
+- non-atomic bulk processing uses bounded chunks, retry, and resumable progress.
+
+Final audit:
+
+- original cause: the active standards disagreed between a three-method and five-method default repository contract;
+- actual requirement: some target systems may need efficient identity-based loading and persistence of multiple instances of the same Aggregate type;
+- non-requirement: every target system does not need batch persistence;
+- mismatch found: making `IAggregateBatchRepository` and `IBatchUseCase` canonical would turn an optional optimization into portable architecture law;
+- corrected solution: keep the portable Aggregate repository minimal and document a target-specific batch extension pattern with explicit opt-in evidence and semantics.
+
+### D4 — Preventing the writable-repository broken-window effect
+
+Status: resolved by user.
+
+Decision:
+
+- prohibit `IRepository<TEntity, TId>`-style CRUD ports available to general Application code;
+- aggregate persistence ports accept Aggregate Roots only;
+- query ports cannot write;
+- technical writes use capability-specific names and do not return Aggregates;
+- Infrastructure may use private DAO/table-gateway helpers inside adapters;
+- Application code cannot inject those private helpers.
+- explicitly ban public general-purpose `IGenericRepository`, `IWritableRepository`, and `ICrudRepository` contracts.
+
+### D5 — Persistence technology policy
+
+Status: resolved by user.
+
+Decision:
+
+- The normative contract must not require a database, ORM, or persistence package.
+- Each target system selects its own persistence technology.
+- Technology-specific content is conditional guidance, not a universal repository requirement.
+
+Guidance consequence:
+
+- EF Core guidance should explain tracking policy by use case, projection behavior, concurrency, model registration, and asynchronous terminal operators.
+- A query does not always require `ToListAsync`; use the terminal operator matching cardinality, such as `ToListAsync`, `SingleOrDefaultAsync`, `FirstOrDefaultAsync`, `AnyAsync`, or `CountAsync`.
+- Dapper, Npgsql, event-store, and other guidance should document their own transaction, mapping, concurrency, and materialization concerns.
+
+### D6 — Transaction boundary, Unit of Work visibility, and domain-event acknowledgement
+
+Status: resolved by user.
+
+Decision:
+
+- Eventual consistency remains the default for coordination across Aggregates.
+- A Use Case requiring synchronous strong consistency explicitly injects `IUnitOfWork`.
+- Explicit injection is exceptional and communicates the stronger consistency requirement in the dependency graph.
+- A normal single-Aggregate Use Case does not automatically require `IUnitOfWork`.
+- Repository adapters do not independently commit when participating in the explicit Unit of Work.
+- Transaction middleware/decorators may implement infrastructure mechanics, but must not hide whether the Use Case declares the strong-consistency dependency.
+- Repository-owned independent commits are prohibited when an operation has multiple atomic participants.
+
+Required lifecycle contract:
+
+1. execute Use Case orchestration and Aggregate behavior;
+2. capture pending domain events;
+3. persist aggregate changes and required outbox records atomically;
+4. commit;
+5. acknowledge/clear recorded events only after successful commit;
+6. preserve retry/concurrency behavior on failure.
+
+Boundary note:
+
+- This decision uses `Use Case` as the application orchestration object.
+- Current repository documents do not consistently separate Use Case from Handler; that terminology and invocation model is deferred to a follow-up workflow.
 
 ### D7 — Query-side layering
 
-- Recommended: a simple query handler depends on an application query port implemented by Infrastructure; add an application Query Service only for multi-source composition or query-side policy.
-- Alternative: require Query Repository + Query Service for every query.
+Status: resolved by user.
+
+Decision:
+
+- A simple query handler may depend directly on an Application query port implemented by Infrastructure.
+- Add an Application Query Service only for multi-source composition, reusable query policy, or non-trivial calculation.
+- Do not require a pass-through Query Repository + Query Service pair for every query.
 
 ### D8 — Remediation breadth
 
-- Recommended: update canonical standards and active agent context first, then examples/guides, then generated checks in separate validated stages.
-- Alternative: one atomic rewrite of all references.
+Status: resolved by user.
+
+Decision:
+
+- update canonical standards first;
+- synchronize active context and examples second;
+- align validator/tooling third;
+- validate and close last.
 
 ### D9 — Language migration
 
-- Recommended: keep this workflow focused on behavior and boundary consistency; schedule standards-language normalization separately.
-- Alternative: convert every touched normative standard to English during this workflow.
+Status: resolved by user.
 
-### D10 — Repository validation ownership and default severity
+Decision:
 
-- Recommended: use `DBA1001` for deterministic repository-interface semantics, architecture/configuration tests for cross-layer facts, and AI review/tests for transaction and lifecycle intent.
-- Recommended default template severity: `warning`, configurable by each target repository.
-- Alternative: make repository diagnostics an unconditional error gate or leave the existing bootstrap analyzer unchanged.
-- The current grep script must not return as a CI gate.
+- defer broad standards translation to a separate workflow;
+- do not use sub-agents for translation in this workflow;
+- keep this workflow focused on architecture semantics and consistency.
+
+### D10 — Semantic validation contract
+
+Status: resolved by user.
+
+Decision:
+
+- `IAggregateRepository<,>` and `IQueryRepository` semantic contracts are mandatory for analyzer classification;
+- compatibility `IDomainRepository<,>` and all aggregate-specific interfaces derived from either aggregate contract are covered;
+- aggregate repository generic argument must be an Aggregate Root;
+- child domain entities cannot be exposed as independently persisted repository roots;
+- only the approved D2 lifecycle methods are allowed on the shared aggregate repository;
+- query repository ports cannot expose persistence write operations;
+- query repositories do not return mutable Aggregate Roots or child domain entities;
+- capability-specific writers are not misclassified as aggregate repositories;
+- ORM/package-specific behavior is excluded from the generic analyzer.
+
+Enforcement ownership:
+
+- Roslyn analyzer: type relationships, method surface, return/parameter types, forbidden dependencies.
+- Architecture/configuration tests: cross-assembly placement and runtime model registration.
+- Unit/integration tests and AI review: transaction atomicity, event acknowledgement, query efficiency, mapping completeness.
+
+- semantic marker/base contracts replace naming heuristics;
+- analyzer severity is `error`;
+- aggregate-specific repository interfaces derived from the canonical or compatibility aggregate contracts are included;
+- repository grep scripts are retired after equivalent analyzer tests pass.
+
+## Follow-up Workflow Candidate: Use Case and Handler Boundary
+
+The current repository is not aligned with the user's intended model.
+
+User target:
+
+- Use Case and Handler are separate application objects.
+- API Controller injects a Use Case interface.
+- API Controller does not publish a Command to invoke normal synchronous application behavior.
+- Handler is not the default Use Case implementation.
+
+Current conflicting rules:
+
+- `USECASE-COMMAND-HANDLER-RELATIONSHIP.MD` says Handler is normally the Use Case implementation.
+- `controller-standards.md` injects concrete Handler objects.
+- controller examples inject `IUseCase`.
+- command/query skill references prefer Wolverine handlers.
+
+Recommended follow-up:
+
+- open a separate workflow after Repository Pattern alignment;
+- redefine Use Case, Command, Handler, Controller, synchronous invocation, and message-handler roles;
+- update controller/use-case standards, project structure, prompts, examples, analyzers, and tests together;
+- keep event/MQ handlers distinct from synchronous API Use Case invocation.
+
+Tracking:
+
+- retained as deferred task `follow-up-usecase-handler-boundary`;
+- must be promoted into a new workflow after Repository Pattern alignment closes;
+- intentionally excluded from the current canonical standards implementation stage.
 
 ## Skill Routing
 
@@ -163,9 +450,9 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ### S1 — Resolve architecture decisions
 
-- Status: pending
+- Status: completed
 - Owner: `ddd-ca-hex-architect`
-- Goal: obtain and record D1-D10 decisions.
+- Goal: D1-D10 decision resolution completed.
 - Output:
   - updated decision section in this plan;
   - `tasks/resolve-repository-pattern-decisions.json`
@@ -248,6 +535,15 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
   - shell syntax checks for changed scripts;
   - relevant repository validation commands;
   - residual risks and deferred work documented.
+
+### Deferred follow-up — Use Case and Handler boundary
+
+- Status: deferred
+- Owner: `dev-workflow`
+- Artifact:
+  - `tasks/follow-up-usecase-handler-boundary.json`
+- Trigger:
+  - open a dedicated workflow after this Repository Pattern workflow closes.
 
 ## Commit Checkpoints
 

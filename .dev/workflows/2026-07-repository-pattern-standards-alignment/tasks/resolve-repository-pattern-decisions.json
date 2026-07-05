@@ -3,7 +3,7 @@
   "owner_skill": "ddd-ca-hex-architect",
   "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
   "related_review_report_id": "repository-pattern-standards-baseline-review",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Resolve D1-D10 before canonical repository rules are changed",
     "files": [
@@ -24,16 +24,32 @@
   "inputs": {
     "architecture_target": "Approved repository, query, persistence, transaction, deletion, and validation contract",
     "review_findings": [
-      "Ten direction decisions remain open after rebase revalidation"
+      "D1, D2, D4, D5, D6, D7, D8, D9, and D10 are resolved",
+      "D3 concerns multiple instances of the same Aggregate type, not multiple Aggregate types",
+      "D3 resolved to a minimal portable repository plus documented target-specific batch extension pattern",
+      "The current Use Case and Handler relationship is inconsistent with the user's target and requires a separate workflow"
     ],
     "user_constraints": [
-      "Avoid later correction errors by asking for decisions first"
+      "Avoid later correction errors by asking for decisions first",
+      "Do not prescribe database or persistence packages in the normative contract",
+      "Use conditional technology guidance for EF Core, Dapper, and other adapters",
+      "Use conditional query layering",
+      "Apply staged remediation",
+      "Defer translation and do not use translation sub-agents in this workflow",
+      "Keep IDomainRepository as an IAggregateRepository compatibility contract",
+      "Provide a separate restricted physical purge capability",
+      "Use explicit IUnitOfWork injection only for Use Cases declaring synchronous strong consistency",
+      "Require semantic repository markers with error-level analyzer coverage"
     ]
   },
   "execution": {
     "operation_type": "architecture-decision-resolution",
     "steps": [
-      "Present D1-D10 with recommended defaults and tradeoffs",
+      "Record resolved D5, D7, D8, and D9 decisions",
+      "Present reframed D1-D4, D6, and D10 with explicit role boundaries, options, and tradeoffs",
+      "Record resolved D1, D2, D4, D6, and D10 decisions",
+      "Explain and confirm the D3 same-Aggregate-type batch loading and persistence rule",
+      "Record the Use Case and Handler boundary as a separate follow-up workflow",
       "Record user decisions",
       "Update target direction and downstream task constraints",
       "Mark deferred decisions and their blocked scope"
@@ -46,9 +62,20 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
+    "summary": "Resolved D1-D10. The portable repository contract is aggregate-root-only and technology-neutral, IDomainRepository is a compatibility contract, batch persistence is a target-specific opt-in pattern, query access is read-only, explicit Unit of Work signals exceptional strong consistency, and semantic repository analyzer violations are errors.",
+    "files_changed": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/review-report.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/resolve-repository-pattern-decisions.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-canonical-repository-standards.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-repository-validation-tooling.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/follow-up-usecase-handler-boundary.json"
+    ],
+    "tests_run": [
+      "Parsed all workflow task JSON files",
+      "Validated workflow Markdown links",
+      "git diff --check"
+    ],
     "follow_up_needed": true
   }
 }

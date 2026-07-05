@@ -297,3 +297,129 @@ The current repository compliance scripts were inspected but intentionally not u
 
 The largest unresolved risk is the concrete Dapper/Npgsql/Wolverine atomic outbox integration. The standards can define the required transaction semantics now, but concrete configuration and API examples require a focused verification step before publication.
 
+## User Clarification Impact
+
+The user confirmed that persistence technology must be selected by each target system rather than mandated by the reusable repository contract. This changes F1 remediation:
+
+- the conflict is resolved by removing mandatory command-side ORM selection from the normative repository contract;
+- EF Core, Dapper, Npgsql, event-store, and Wolverine details become conditional implementation guidance;
+- technology-specific guidance must explain safe usage without presenting one package as the only valid adapter.
+
+The user also clarified the expected role split:
+
+- pure reads use `IQueryRepository`;
+- Aggregate persistence uses a dedicated domain/aggregate repository role;
+- general writable repositories must not create a path around Aggregate invariants;
+- exceptional technical writes require explicit capability boundaries.
+
+Architecture correction:
+
+- repositories should persist Aggregate Roots, not child domain entities independently;
+- repository ports and adapter implementations are complementary concepts, not alternative patterns;
+- performance or strong consistency does not automatically justify a generic writable repository.
+
+Resolved decisions:
+
+- D5: technology-neutral normative contract with conditional adapter guidance.
+- D7: conditional query layering.
+- D8: staged remediation.
+- D9: translation deferred to a separate workflow without translation sub-agents here.
+
+Still open:
+
+- D3 only: confirm the proposed same-bounded-context multi-Aggregate strong-consistency exception.
+
+## Decision Update: Aggregate Compatibility, Purge, Consistency, and Validation
+
+Resolved:
+
+- D1: `IAggregateRepository<,>` is canonical; `IDomainRepository<,>` remains as a compatibility contract derived from it.
+- D2: the shared aggregate repository uses `FindByIdAsync` and `SaveAsync`; soft delete is Aggregate behavior; physical purge uses a separate restricted capability.
+- D4: public general-purpose writable/CRUD repositories are prohibited.
+- D6: eventual consistency is the default; a Use Case explicitly injects `IUnitOfWork` only when it declares synchronous strong consistency.
+- D10: semantic markers are mandatory, diagnostics are errors, and derived/compatibility repository contracts are covered.
+
+Compatibility safety:
+
+- preserving `IDomainRepository` avoids migration noise in existing products;
+- analyzer coverage must still reject child-entity repository roots;
+- compatibility is not an exemption from Aggregate Root rules.
+
+Revised D3 scope:
+
+- D3 concerns a collection of the same Aggregate type, such as `List<ProductAggregate>`.
+- The expected flow may query candidate IDs, load Aggregates by those identities, execute behavior on each Aggregate, and persist the changed collection.
+- Batch identity loading is not read-model querying.
+- Batch IO is a valid performance capability and is not replaced by Unit of Work.
+- Unit of Work controls all-or-nothing transaction semantics; batch methods control IO shape.
+- The portable design keeps `FindByIdAsync` and `SaveAsync` on the base contract and documents an optional target-repository batch capability pattern for `FindByIdsAsync` and `SaveAllAsync`.
+- Adapters without meaningful batch support can use the single-Aggregate fallback.
+- Batch contracts must define missing/duplicate ID behavior, ordering, chunk limits, concurrency, pending-event/outbox behavior, and partial failure.
+- All-or-nothing transactions over unbounded lists are prohibited.
+- A target batch capability must not inherit the base Aggregate repository, must not appear in default templates or DI, and requires target-repository opt-in evidence.
+- The portable context should not publish a mandatory `IAggregateBatchRepository` or `IBatchUseCase` type.
+- Target-specific static analysis may enforce dependency shape after the Use Case taxonomy is resolved, but code review must still decide whether the claimed batch need is genuine.
+
+## D3 Final Traceability Audit
+
+### Original inconsistency
+
+- `repository-standards.md` declares five repository methods.
+- summary/checklist material declares three methods.
+- the validator currently allows the five-method set.
+- the standards do not define whether batch methods are universal requirements, optional optimizations, or transaction semantics.
+
+### Actual scenario
+
+- query-side logic selects Product Aggregate identifiers by read-model criteria;
+- application logic rehydrates multiple Product Aggregate Roots by identity;
+- each Product Aggregate independently executes the same domain behavior;
+- changed Aggregates are persisted efficiently;
+- the operation may or may not require all-or-nothing commit semantics.
+
+### Forces
+
+- preserve Aggregate behavior and optimistic concurrency per instance;
+- avoid N+1 IO when measured volume justifies optimization;
+- avoid advertising batch writes to normal single-item Use Cases;
+- support adapters that cannot implement meaningful batching;
+- keep transaction semantics separate from IO shape;
+- preserve domain events and outbox obligations per Aggregate;
+- avoid depending on an unresolved Use Case/Handler taxonomy.
+
+### Option assessment
+
+- Five methods on every Aggregate repository: solves IO access but violates interface segregation and makes optional capability look mandatory.
+- Single methods only with no extension guidance: preserves architecture but leaves known high-volume scenarios without a governed path.
+- Mandatory portable batch repository plus batch Use Case marker: improves enforcement but overfits an optional target concern and depends on unresolved Use Case terminology.
+- Minimal portable repository plus documented target-specific batch capability pattern: matches the original inconsistency and supports optimization without making it universal.
+
+### Audit conclusion
+
+The best-matching solution is:
+
+1. portable `IAggregateRepository` contains `FindByIdAsync` and `SaveAsync`;
+2. portable standards describe, but do not publish as mandatory, a target-specific Aggregate batch capability;
+3. target opt-in requires measured need and explicit identity, chunking, concurrency, transaction, failure, event, and outbox semantics;
+4. Unit of Work is used only when the business requires all-or-nothing commit, not merely to reduce IO;
+5. portable analyzer rules validate the base repository;
+6. batch dependency analyzers wait for target-specific markers and the deferred Use Case/Handler taxonomy;
+7. code review remains the final gate for whether the optimization is justified.
+
+## Adjacent Finding: Use Case and Handler Model Is Not Yet Aligned
+
+The user's target model is not the current canonical default.
+
+Evidence:
+
+- `.dev/standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD` treats Handler as the default Use Case implementation.
+- `.dev/standards/coding-standards/controller-standards.md` injects concrete Handler objects.
+- `.dev/standards/examples/controller/README.md` instead injects `IUseCase`.
+- command/query implementation references prefer Wolverine handlers.
+
+Conclusion:
+
+- the repository currently contains competing invocation models;
+- this workflow should refer to the application orchestration boundary as a Use Case and avoid broad Handler rewrites;
+- a separate follow-up workflow should establish Controller -> IUseCase as the synchronous API default and reposition Handler responsibilities.
+
