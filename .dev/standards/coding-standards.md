@@ -5,7 +5,7 @@
 這是 .NET 技術棧的編碼標準主文件，統整所有專門領域的編碼規範。
 保留 DDD / Clean Architecture / CQRS / Event Sourcing 的設計精神。
 
-**技術棧**：.NET 10 (C# 14) + WolverineFx + Dapper/EF Core + PostgreSQL
+**技術範圍**：.NET backend。Database、ORM、event store、broker 與 package 由 target repository evidence 決定；本 repo 的套件文件是 conditional/reference guidance。
 
 ## 專門領域編碼標準
 
@@ -25,8 +25,9 @@
 - 錯誤處理與驗證
 
 ### 4. [Repository Standards](./coding-standards/repository-standards.md)
-- Repository 介面限制（只允許三個方法）
-- Dapper / EF Core 實作規範
+- Aggregate Repository canonical/compatibility contract
+- Pure Query Repository marker
+- Conditional adapter guidance
 - Outbox 與一致性要求
 
 ### 5. [Test Standards](./coding-standards/test-standards.md)
@@ -117,148 +118,48 @@
 | Integration Event Handlers | `./src/<Domain>/Presentation/<DomainName>.Consumer/IntegrationEventHandlers` |
 | Integration Event Schema | `./src/BC-Contracts/Lab.MessageSchemas.<Domain>` |
 
-### ⚠ Repository 設計規範（嚴格 CQRS）
+### ⚠ Repository 與 Query Port 規範
 
-Repository 是取得 Aggregate 進行**修改**的唯一入口，遵循 by-identity 原則。
-
-#### Generic Repository 介面
+Portable Aggregate Repository：
 
 ```csharp
-public interface IDomainRepository<TAggregateRoot, TId>
+public interface IAggregateRepository<TAggregate, TId>
+    where TAggregate : AggregateRoot<TId>
 {
-    // 基本操作
-    Task<TAggregateRoot?> FindByIdAsync(TId id);
-    Task SaveAsync(TAggregateRoot aggregate);
-    Task DeleteAsync(TAggregateRoot aggregate);
-
-    // 批次操作（效能優化，語意相同）
-    Task<IReadOnlyList<TAggregateRoot>> FindByIdsAsync(IEnumerable<TId> ids);
-    Task SaveAllAsync(IEnumerable<TAggregateRoot> aggregates);
+    Task<TAggregate?> FindByIdAsync(TId id, CancellationToken cancellationToken = default);
+    Task SaveAsync(TAggregate aggregate, CancellationToken cancellationToken = default);
 }
 ```
 
-#### Repository 規則
-
-| 規則 | 說明 |
-|------|------|
-| ✅ 允許 | `FindByIdAsync(TId)` - by identity 取得單一 Aggregate |
-| ✅ 允許 | `FindByIdsAsync(List<TId>)` - 批次版本，效能優化 |
-| ❌ 禁止 | 回傳 DTO（那是 QueryService 職責） |
-| ❌ 禁止 | 複雜查詢如 `GetByCustomerId()`（應使用 QueryService 先取得 IDs） |
-| ❌ 禁止 | 自定義 Repository 介面擴展查詢方法 |
-
-#### Query Side 分層（嚴格 CQRS）
-
-Query Side 採用 **Query Repository + Query Service** 雙層設計，分離資料存取與業務邏輯。
-
-> 📖 模式理由詳見 [query-side-layering-rationale.MD](./rationale/query-side-layering-rationale.MD)
-
-#### 介面與實作放置位置
-
-| 類型 | 介面位置 | 實作位置 |
-|------|---------|---------|
-| `IDomainRepository<T, TId>` | `BuildingBlocks.Application` | `<Domain>.Infrastructure/Repositories` |
-| `I<Domain>QueryRepository` | `<Domain>.Applications/Ports` | `<Domain>.Infrastructure/QueryRepositories` |
-| `I<Domain>QueryService` | `<Domain>.Applications/Ports` | `<Domain>.Applications/QueryServices` |
-
-**目錄結構範例**：
-```
-<DomainName>.Applications/
-├── Ports/                       # 介面定義 (Ports)
-│   ├── IOrderQueryRepository.cs
-│   └── IOrderQueryService.cs
-├── QueryServices/               # Query Service 實作
-│   └── OrderQueryService.cs
-├── Commands/
-└── Queries/
-
-<DomainName>.Infrastructure/
-├── Repositories/                # Domain Repository 實作
-│   └── OrderDomainRepository.cs
-└── QueryRepositories/           # Query Repository 實作
-    └── OrderQueryRepository.cs
-```
-
-> 💡 **為什麼 QueryService 介面和實作都在 Application？**
-> QueryService 是查詢業務邏輯，不是技術基礎設施。它組合其他 Ports（QueryRepository），不直接操作資料庫，符合 Clean Architecture。
-
-| 層級 | 類別 | 職責 | 位置 |
-|------|------|------|------|
-| Infrastructure | Query Repository | 純資料存取，回傳 DTO/ID | `<Domain>.Infrastructure/QueryRepositories` |
-| Application | Query Service | 查詢業務邏輯、組合、計算 | `<Domain>.Applications/QueryServices` |
-
-#### Query Repository 規範
+Compatibility：
 
 ```csharp
-// Infrastructure 層 - 純資料存取
-public interface IOrderQueryRepository
+public interface IDomainRepository<TAggregate, TId>
+    : IAggregateRepository<TAggregate, TId>
+    where TAggregate : AggregateRoot<TId>
 {
-    Task<OrderDto?> GetByIdAsync(Guid orderId);
-    Task<IReadOnlyList<OrderDto>> GetByCustomerIdAsync(Guid customerId);
-    Task<IReadOnlyList<Guid>> GetIdsByStatusAsync(OrderStatus status);
 }
 ```
 
-| 規則 | 說明 |
-|------|------|
-| ✅ 允許 | 回傳 DTO、ID 列表 |
-| ✅ 允許 | 使用 Dapper 或 EF Core Projection |
-| ❌ 禁止 | 包含業務邏輯 |
-| ❌ 禁止 | 回傳 Aggregate |
+核心規則：
 
-#### Query Service 規範
+- Repository root 必須是 Aggregate Root，禁止 child Entity repository。
+- Shared Aggregate Repository 只有 `FindByIdAsync` 與 `SaveAsync`。
+- Soft delete 是 Aggregate behavior + `SaveAsync`。
+- Physical purge 使用 restricted capability port。
+- Query ports 必須實作 `IQueryRepository` 且只讀。
+- 簡單 Query 可直接使用 Query Repository；只有 composition/policy/calculation 才增加 Application Query Service。
+- Database、ORM、event store 與 package 由 target repo 決定。
+- Batch persistence 是 target-specific opt-in pattern，不是 portable default interface。
+- 一般單 Aggregate Use Case 不預設注入 `IUnitOfWork`；只有明確 strong consistency requirement 才顯式依賴。
+- Commit 成功前不得 clear/acknowledge pending Domain Events。
 
-```csharp
-// Application 層 - 查詢業務邏輯
-public interface IOrderQueryService
-{
-    // 組合多個 Repository 查詢
-    Task<OrderWithItemsDto> GetOrderWithItemsAsync(Guid orderId);
+完整規則：
 
-    // 包含計算/轉換邏輯
-    Task<OrderSummaryDto> GetOrderSummaryAsync(Guid customerId);
-
-    // 提供 IDs 給 Command Handler 使用
-    Task<IReadOnlyList<Guid>> GetPendingOrderIdsForCustomerAsync(Guid customerId);
-}
-```
-
-| 規則 | 說明 |
-|------|------|
-| ✅ 允許 | 組合多個 Query Repository |
-| ✅ 允許 | 包含計算、轉換邏輯 |
-| ✅ 允許 | 回傳 ID 列表供 Command 使用 |
-| ❌ 禁止 | 直接存取資料庫 |
-| ❌ 禁止 | 回傳 Aggregate |
-
-#### 嚴格 CQRS 使用範例
-
-```csharp
-// 情境：更新特定客戶所有待處理訂單
-public async Task HandleAsync(UpdatePendingOrdersCommand cmd)
-{
-    // Step 1: Query Service 取得符合條件的 Order IDs
-    var orderIds = await _queryService.GetPendingOrderIdsForCustomerAsync(cmd.CustomerId);
-
-    // Step 2: Domain Repository 載入 Aggregates 並修改
-    var orders = await _repository.FindByIdsAsync(orderIds);
-    foreach (var order in orders)
-    {
-        order.UpdateSomething();
-    }
-    await _repository.SaveAllAsync(orders);
-}
-```
-
-> ⚠️ **注意**：批次更新多個 Aggregate 時，請考慮是否違反「一個交易只修改一個 Aggregate」原則。如不需強一致性，建議透過 Message Bus 發送多個獨立 Command。
-
-### ⚠ ORM 使用策略
-
-| 場景 | 選擇 | 理由 |
-|------|------|------|
-| Command (Write) | Dapper + Npgsql | 精確控制 SQL、效能最佳化 |
-| Query (Read/Projection) | EF Core 或 Dapper | 快速開發或效能需求 |
-| Complex Query | Dapper | 複雜 SQL、效能關鍵查詢 |
+- [Repository Standards](./coding-standards/repository-standards.md)
+- [Projection Standards](./coding-standards/projection-standards.md)
+- [Aggregate Repository Rationale](./rationale/generic-repository-only-rationale.MD)
+- [Query-side Layering Rationale](./rationale/query-side-layering-rationale.MD)
 
 ### ⚠ Profile-Based Testing
 - **禁止使用 BaseTestClass / BaseUseCaseTest 作為測試父類**

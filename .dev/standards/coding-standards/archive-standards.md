@@ -189,7 +189,7 @@ public static class ArchiveServiceExtensions
 
 ```csharp
 // Repository：Write Model 的 Aggregate 持久化
-IRepository<Product, ProductId> repository;
+IAggregateRepository<Product, ProductId> repository;
 await repository.FindByIdAsync(id);  // 返回 Product 領域物件
 await repository.SaveAsync(product); // 儲存領域物件
 
@@ -244,7 +244,7 @@ public class UserCreatedReactor
 
 ### Archive 實作
 - [ ] 實作在 `Infrastructure.Persistence.Archives`
-- [ ] 使用 EF Core
+- [ ] 若 adapter 使用 EF Core，遵守 EF Core tracking/materialization guidance
 - [ ] 使用 `ArgumentNullException.ThrowIfNull`
 - [ ] 透過 DI 註冊
 

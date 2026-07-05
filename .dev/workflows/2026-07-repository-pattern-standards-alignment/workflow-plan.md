@@ -462,7 +462,7 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ### S2 — Align canonical standards
 
-- Status: pending
+- Status: completed
 - Owner: `ddd-ca-hex-architect`
 - Goal: rewrite the normative repository, query, transaction, deletion, and persistence rules.
 - Primary targets:

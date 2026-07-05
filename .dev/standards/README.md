@@ -1,8 +1,10 @@
-# .NET CA + WolverineFx + EF Core Tech Stack
+# .NET Backend Architecture and Coding Standards
 
-This folder contains the .NET adaptation of the source CA ezddd tech stack.
-All architecture and development rules (DDD/CA/CQRS, event sourcing, outbox, contract testing, mutation testing) must be preserved.
-Use WolverineFx for CQRS/MQ/Event Sourcing, EF Core for ORM, xUnit + BDDfy (Gherkin-style naming) for BDD, and NSubstitute for mocks.
+This folder contains reusable .NET backend architecture and development standards.
+
+DDD / Clean Architecture / CQRS boundaries are normative. Database, ORM, event store, message broker, test package, and runtime versions are selected by each target repository from file-backed evidence.
+
+EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, BDDfy, and NSubstitute documents are conditional/reference guidance unless target repository configuration explicitly adopts them.
 
 ## Structure
 

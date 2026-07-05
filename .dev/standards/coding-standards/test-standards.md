@@ -66,12 +66,12 @@ public class CreateProductHandlerTests : IntegrationTestBase
 // ✅ 正確：獨立的測試類別
 public class CreateProductHandlerTests
 {
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IAggregateRepository<Product, ProductId> _repository;
     private readonly CreateProductHandler _handler;
     
     public CreateProductHandlerTests()
     {
-        _repository = Substitute.For<IRepository<Product, ProductId>>();
+        _repository = Substitute.For<IAggregateRepository<Product, ProductId>>();
         _handler = new CreateProductHandler(_repository, ...);
     }
 }
@@ -89,12 +89,12 @@ public class CreateProductHandlerTests
 {
     private CreateProductCommand _command = null!;
     private Result<ProductId> _result = null!;
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IAggregateRepository<Product, ProductId> _repository;
     private readonly CreateProductHandler _handler;
 
     public CreateProductHandlerTests()
     {
-        _repository = Substitute.For<IRepository<Product, ProductId>>();
+        _repository = Substitute.For<IAggregateRepository<Product, ProductId>>();
         var unitOfWork = Substitute.For<IUnitOfWork>();
         var logger = Substitute.For<ILogger<CreateProductHandler>>();
         _handler = new CreateProductHandler(_repository, unitOfWork, logger);
@@ -242,7 +242,7 @@ public void Rename_Throws_WhenNameIsNull()
 
 ```csharp
 // ✅ 正確：NSubstitute
-var repository = Substitute.For<IRepository<Product, ProductId>>();
+var repository = Substitute.For<IAggregateRepository<Product, ProductId>>();
 repository.FindByIdAsync(Arg.Any<ProductId>(), Arg.Any<CancellationToken>())
     .Returns(Task.FromResult<Product?>(existingProduct));
 
@@ -250,7 +250,7 @@ repository.FindByIdAsync(Arg.Any<ProductId>(), Arg.Any<CancellationToken>())
 await repository.Received(1).SaveAsync(Arg.Any<Product>(), Arg.Any<CancellationToken>());
 
 // ❌ 錯誤：Moq
-var repository = new Mock<IRepository<Product, ProductId>>();  // FORBIDDEN!
+var repository = new Mock<IAggregateRepository<Product, ProductId>>();  // FORBIDDEN!
 repository.Setup(x => x.FindByIdAsync(...)).ReturnsAsync(existingProduct);
 repository.Verify(x => x.SaveAsync(...), Times.Once);
 ```
