@@ -6,7 +6,7 @@
 - Version: 0.1
 - Date: 2026-07-05
 - Owner: YuChia-Wei
-- Status: Draft - awaiting Mapper policy decision
+- Status: Approved for implementation
 - In Scope: Mapper、Aggregate、UseCase、Projection 的 validator ownership、dotnet-native validation 與對應 script retirement
 - Out of Scope: Repository interface 規範、dependency/version validation、產品專屬架構規則
 
@@ -43,26 +43,25 @@ Phase 3 的目標不是把 grep 規則逐字改寫成 C#，而是先依規則性
 
 Mapper 的角色是執行 Domain、Data 與 DTO 間的資料轉換，不應查詢 Repository、呼叫 UseCase/Handler，或承擔 business orchestration。
 
-下列政策尚待決策：
-
-#### Option A：Static-only Mapper
+#### Static-only Mapper
 
 - Mapper 必須是 `static class`，mapping methods 必須是 static。
-- 優點：強制純轉換、沒有 instance state、沒有 DI graph、analyzer 規則單純。
-- 缺點：不適合需要注入 serialization policy、localization 或其他 conversion collaborator 的情境；替換與 mocking 彈性較低。
-- 若轉換需要外部 dependency，應將該行為建模為 adapter、assembler 或 translator service，而不是 Mapper。
-
-#### Option B：Static 或 Sealed Stateless Mapper Service
-
-- 允許 `static class`，也允許 `sealed class` 的 instance mapper。
-- Instance mapper 不得依賴 Repository、UseCase、Handler 或其他會執行 I/O／business orchestration 的服務。
-- 優點：可經 DI 組合 conversion collaborators，也能實作介面並替換。
-- 缺點：更容易讓 Mapper 累積 state、I/O 或 business logic；analyzer 必須定義並維護更複雜的 dependency allowlist。
-
-無論採用何種 option：
-
+- Mapper 必須是 deterministic pure transformation，不得持有 instance state、使用 DI、執行 I/O 或作出 business decision。
+- Mapper 不得依賴 Repository、UseCase、Handler、clock、current-user context、network 或 database。
 - Argument null handling 優先交由 standard analyzers、nullable reference types 或 tests，不以方法內是否出現固定文字判斷。
 - 欄位是否完整對稱映射必須由 mapping tests 或 AI review 驗證，不由 syntax analyzer 猜測。
+
+需要 instance dependency、外部資料或 orchestration 的轉換不屬於 Phase 3 定義的 Object Mapper。未來遇到這類需求時，依責任使用下列角色：
+
+| 行為 | 建議角色 |
+| --- | --- |
+| 合併多個來源建立物件 | Assembler |
+| 查詢外部資料補充欄位 | Enricher |
+| 協定或語意邊界轉換 | Translator / Adapter |
+| 包含 business decision | Domain Service / Application Service |
+| persistence rehydration orchestration | Repository Adapter |
+
+上述角色表僅作未來分類參考；Phase 3 不建立其 analyzer、skill 或 implementation template。
 
 ### FR-3：Aggregate Validation Profiles
 
@@ -123,7 +122,7 @@ Aggregate validation 採用 shared baseline 加上 type-specific profile：
 - `EsAggregateRoot` 與 `AggregateRoot` 是目前 dotnet-backend profile 的 canonical type distinction。
 - Projection marker interface 名稱暫定為 `IProjectionReadModel`；若實際 framework 已存在等價介面，實作時應採用既有 canonical type。
 - 現有 `.editorconfig` 已包含 primary constructor 與多項 coding-style preference，但部分 severity 為 `suggestion` 或 `silent`，目前不等同 CI failure。
-- Mapper policy 是唯一尚未確認、會阻擋對應 analyzer implementation 的方向決策。
+- Mapper 採 static-only policy；需要 instance dependency 或 orchestration 的轉換必須重新分類責任。
 
 ## Domain / Architecture Rules
 
@@ -136,7 +135,7 @@ Aggregate validation 採用 shared baseline 加上 type-specific profile：
 
 - 每項 Phase 3 規則都具有明確 enforcement owner。
 - Repository validation 沒有被 Phase 3 修改或移除。
-- Mapper policy 經使用者確認後才實作 diagnostic。
+- Mapper diagnostic 強制 static-only pure transformation policy。
 - Event Sourcing diagnostics 只套用於 `EsAggregateRoot`。
 - Normal `AggregateRoot` 不因缺少 `Apply/When` 被回報。
 - UseCase custom diagnostics 不重複 `.editorconfig` 可處理的 coding style。
@@ -146,9 +145,11 @@ Aggregate validation 採用 shared baseline 加上 type-specific profile：
 - `check-all.sh` 不再列出已完成的 Mapper、Aggregate、UseCase、Projection TODO。
 - `git diff --check` 通過。
 
-## Open Decision
+## Resolved Decisions
 
-- Mapper 採 Option A（static-only）或 Option B（static 或 sealed stateless service）。
+- Mapper 採 Option A：static-only。
+- Option B 與其可能情境不納入 Phase 3。
+- 超出 pure object mapping 的需求依角色參考表重新分類。
 
 ## References
 

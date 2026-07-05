@@ -2,7 +2,7 @@
   "task_id": "mapper-policy-decision",
   "owner_skill": "ddd-ca-hex-architect",
   "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
-  "status": "pending",
+  "status": "completed",
   "depends_on": [
     "rule-classification-and-requirements"
   ],
@@ -33,8 +33,18 @@
   ],
   "deferred_items": [],
   "results": {
-    "files_changed": [],
-    "tests_run": [],
-    "follow_up_needed": true
+    "summary": "Selected static-only Mapper policy and retained a future role-classification reference for transformations outside pure object mapping.",
+    "files_changed": [
+      ".dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD",
+      ".dev/standards/coding-standards/mapper-standards.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/workflow-plan.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/tasks/mapper-policy-decision.json"
+    ],
+    "tests_run": [
+      "Requirement and Mapper standard policy comparison",
+      "Pattern marker and normative text consistency check",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
   }
 }

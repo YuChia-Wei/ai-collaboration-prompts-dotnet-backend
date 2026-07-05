@@ -28,7 +28,7 @@ Replace the remaining Mapper, Aggregate, UseCase, and Projection grep-based chec
 ## Stages
 
 1. Normalize Phase 3 requirements and validator ownership.
-2. Resolve the Mapper policy decision.
+2. Resolve the Mapper policy decision. Completed: static-only.
 3. Implement Mapper validation.
 4. Implement Aggregate and UseCase validation.
 5. Add the Projection marker-interface and EF Core configuration-test template.
@@ -54,14 +54,15 @@ Replace the remaining Mapper, Aggregate, UseCase, and Projection grep-based chec
 - `dotnet test` for the analyzer and configuration-test templates.
 - `git diff --check`.
 
-## Open Decision
+## Resolved Decision
 
-- Mapper policy: require static mappers only, or allow both static mappers and sealed stateless mapper services.
+- Mapper uses the static-only policy.
+- Transformations that need instance dependencies, external data, or orchestration must use a more accurate role such as Assembler, Enricher, Translator, Adapter, or Domain/Application Service.
 
 ## Progress
 
 - Stage 1 completed: Phase 3 requirements and enforcement ownership are documented.
-- Stage 2 pending: Mapper policy decision.
+- Stage 2 completed: Mapper uses the static-only policy.
 - Aggregate/UseCase and Projection streams are ready for implementation after the requirement commit.
 
 ## Constraints

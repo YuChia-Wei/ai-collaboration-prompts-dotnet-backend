@@ -20,7 +20,7 @@ Mapper 負責 Domain 與 DTO / Data 物件的轉換。
 
 ```yaml
 # Mapper 規則
-Pattern (required, any): static class|sealed class
+Pattern (required): static class
 Pattern (required): ArgumentNullException\.ThrowIfNull
 
 # 禁止規則
