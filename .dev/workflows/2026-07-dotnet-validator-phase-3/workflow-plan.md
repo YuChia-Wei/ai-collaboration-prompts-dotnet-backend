@@ -32,8 +32,9 @@ Replace the remaining Mapper, Aggregate, UseCase, and Projection grep-based chec
 3. Implement Mapper validation.
 4. Implement Aggregate and UseCase validation.
 5. Add the Projection marker-interface and EF Core configuration-test template.
-6. Retire replaced scripts and update orchestration and documentation.
-7. Run final validation and close the workflow.
+6. Define target-repository analyzer severity policy through `.editorconfig`.
+7. Retire replaced scripts and update orchestration and documentation.
+8. Run final validation and close the workflow.
 
 ## Routing
 

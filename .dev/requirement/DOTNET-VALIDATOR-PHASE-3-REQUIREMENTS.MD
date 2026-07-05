@@ -39,6 +39,22 @@ Phase 3 的目標不是把 grep 規則逐字改寫成 C#，而是先依規則性
 - 已可由 standard .NET analyzer 支援的 coding style 不得重複實作 custom analyzer。
 - `.editorconfig` 規則只有在 build、`dotnet format --verify-no-changes` 或其他 CI command 實際執行且 severity 足以阻擋時，才能宣稱為 gate。
 
+現有與 Phase 3 diagnostics 的 ownership audit：
+
+| Rule family | Existing `.editorconfig` coverage | Decision |
+| --- | --- | --- |
+| Field readonly、accessibility、naming、formatting、primary-constructor preference | Yes | 使用 standard IDE/.NET diagnostics，不建立 DBA rule |
+| Repository query semantics | No | `DBA1001` 保留；Repository policy 另案整理 |
+| UseCase dependency resolution 與 CQRS role mixing | No | `DBA1002`、`DBA1010`-`DBA1012` |
+| Domain/aggregate infrastructure dependency | No | `DBA1003` |
+| Event-sourced aggregate transition boundary | No | `DBA1009` |
+| Controller API/persistence/application boundary | No | `DBA1004`-`DBA1006` |
+| Static-only Mapper role與 forbidden architecture dependencies | No | `DBA1007`-`DBA1008` |
+| Projection persistence writes | No | `DBA1013` |
+| EF projection read-model registration | No | `DotnetBackendValidation` configuration test |
+
+Custom analyzer 的存在只提供 semantic detection capability。各 target repository 必須能透過 `.editorconfig` 的 `dotnet_diagnostic.DBAxxxx.severity`，依 architecture profile 與團隊共識調整為 `none`、`suggestion`、`warning` 或 `error`。
+
 ### FR-2：Mapper Validation
 
 Mapper 的角色是執行 Domain、Data 與 DTO 間的資料轉換，不應查詢 Repository、呼叫 UseCase/Handler，或承擔 business orchestration。

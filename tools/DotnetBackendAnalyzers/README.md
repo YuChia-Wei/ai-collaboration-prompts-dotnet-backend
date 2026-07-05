@@ -39,6 +39,7 @@ After copying this analyzer source into a target repo, wire it into target proje
 Use:
 
 - `templates/Directory.Build.props.snippet`
+- `templates/analyzer-severity.editorconfig`
 
 The snippet adds the analyzer project as a `ProjectReference` with:
 
@@ -47,3 +48,7 @@ The snippet adds the analyzer project as a `ProjectReference` with:
 - `PrivateAssets="all"`
 
 This lets target projects receive analyzer diagnostics during `dotnet build` without referencing the analyzer as a runtime assembly.
+
+The severity template keeps each architecture diagnostic independently configurable. Target repositories may use `none`, `suggestion`, `warning`, or `error` according to their architecture profile and team agreement.
+
+Custom DBA diagnostics run during build after the analyzer project is wired in. Standard IDE coding-style preferences may additionally require `EnforceCodeStyleInBuild`, `dotnet format --verify-no-changes`, or an equivalent CI command. A warning blocks the build only when warnings are treated as errors.
