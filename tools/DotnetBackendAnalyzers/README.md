@@ -10,8 +10,10 @@ Current diagnostics:
 - `DBA1004`: concrete controller classes should declare `ApiControllerAttribute`.
 - `DBA1005`: controllers should not reference `DbContext` or call `SaveChanges`.
 - `DBA1006`: controllers should not directly construct handler or use-case types.
+- `DBA1007`: object mappers should be static classes.
+- `DBA1008`: object mappers should not depend on repositories, use cases, or handlers.
 
-`DBA1004` through `DBA1006` replace the former controller grep compliance script. Other grep-based checks remain transitional until their own replacement diagnostics or tests exist.
+`DBA1004` through `DBA1006` replace the former controller grep compliance script. `DBA1007` and `DBA1008` replace the former mapper grep compliance scripts.
 
 Analyzers do not replace AI software engineering reasoning context used by review and architecture skills.
 

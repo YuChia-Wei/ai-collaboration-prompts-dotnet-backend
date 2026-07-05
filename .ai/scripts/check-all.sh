@@ -206,10 +206,7 @@ run_check_pending "check-repository-compliance.sh" \
     "Repository Pattern Compliance" \
     "true" "true" "DBA1001 exists; remaining script rules still need dotnet-native replacements"
 
-# Mapper grep validation is not executed as a gate.
-run_check_pending "check-mapper-compliance.sh" \
-    "Mapper Design Compliance" \
-    "true" "true" "replace with Roslyn analyzer"
+# Mapper source validation is covered by DBA1007-DBA1008 in analyzer tests.
 
 # ====================================================================
 # Important Checks (run in full and quick modes)

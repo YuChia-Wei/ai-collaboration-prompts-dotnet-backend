@@ -67,7 +67,6 @@ Current transitional behavior:
 - `check-repository-compliance.sh`
 - `check-usecase-compliance.sh`
 - `check-aggregate-compliance.sh`
-- `check-mapper-compliance.sh`
 - `check-projection-compliance.sh`
 - `check-archive-compliance.sh`
 - `check-test-compliance.sh`
@@ -85,6 +84,7 @@ First analyzer batch:
 Completed replacement:
 
 - controller rules: `DBA1004`, `DBA1005`, and `DBA1006`; the controller grep scripts have been removed.
+- mapper rules: `DBA1007` and `DBA1008`; the mapper grep scripts have been removed.
 
 Analyzer source template:
 

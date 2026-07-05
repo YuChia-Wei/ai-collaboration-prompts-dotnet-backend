@@ -57,4 +57,22 @@ internal static class RuleDescriptors
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
         description: "Controllers should receive application dependencies through dependency injection or a dispatch mechanism.");
+
+    public static readonly DiagnosticDescriptor MapperMustBeStatic = new(
+        id: "DBA1007",
+        title: "Mapper should be static",
+        messageFormat: "Mapper '{0}' must be a static class",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Object mappers are deterministic pure transformations and must not have instance state or an injection graph.");
+
+    public static readonly DiagnosticDescriptor MapperForbiddenDependency = new(
+        id: "DBA1008",
+        title: "Mapper should not depend on application or persistence services",
+        messageFormat: "Mapper '{0}' references forbidden dependency type '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Object mappers must not depend on repositories, use cases, or handlers.");
 }

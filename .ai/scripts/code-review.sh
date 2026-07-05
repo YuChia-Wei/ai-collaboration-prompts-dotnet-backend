@@ -288,7 +288,8 @@ fi
 
 # Mapper Check
 if [ "$CHECK_MAPPER" = true ]; then
-    run_check_pending "check-mapper-compliance.sh" "Mapper Design Compliance"
+    echo -e "${BLUE}ℹ${NC} Mapper build diagnostics: DBA1007-DBA1008"
+    echo "  Continue AI review for mapping completeness and responsibility boundaries."
 fi
 
 # Projection Check
