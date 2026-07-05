@@ -1,0 +1,31 @@
+{
+  "task_id": "projection-configuration-validation",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "pending",
+  "depends_on": [
+    "rule-classification-and-requirements"
+  ],
+  "scope": {
+    "target": "Projection interface and EF Core model registration validation template",
+    "constraints": [
+      "Identify projections through an interface rather than filename matching.",
+      "Validate EF Core model registration at test time rather than through source regex."
+    ],
+    "non_goals": [
+      "Requiring EF Core for Dapper-only read models",
+      "Product-specific projection discovery"
+    ]
+  },
+  "validation": [
+    "Configuration-test template tests",
+    "Projection script reference search",
+    "git diff --check"
+  ],
+  "deferred_items": [],
+  "results": {
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

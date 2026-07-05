@@ -1,0 +1,54 @@
+{
+  "task_id": "rule-classification-and-requirements",
+  "owner_skill": "requirement-author",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "in_progress",
+  "scope": {
+    "target": "Phase 3 validator ownership and requirements",
+    "files": [
+      ".dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/workflow-plan.md"
+    ],
+    "dependency_radius": "Mapper, Aggregate, UseCase, Projection, editorconfig, and transitional validation scripts",
+    "constraints": [
+      "Repository validation is deferred.",
+      "Mapper implementation remains blocked until the user selects a policy.",
+      "Event-sourcing rules apply only to EsAggregateRoot.",
+      "Projection identification uses an interface."
+    ],
+    "non_goals": [
+      "Implementing analyzers in the requirement stage",
+      "Revising Repository standards",
+      "Replacing standard .NET coding-style diagnostics"
+    ]
+  },
+  "inputs": [
+    "User decisions from 2026-07-05",
+    ".editorconfig",
+    ".dev/standards/coding-standards/",
+    "tools/DotnetBackendAnalyzers/",
+    ".ai/scripts/check-all.sh"
+  ],
+  "execution_steps": [
+    "Classify rules by enforcement mechanism.",
+    "Document AggregateRoot and EsAggregateRoot validation profiles.",
+    "Document the Projection interface and configuration-test direction.",
+    "Record the unresolved Mapper decision.",
+    "Define acceptance criteria for Phase 3."
+  ],
+  "validation": [
+    "Requirement structure review",
+    "JSON parse",
+    "git diff --check"
+  ],
+  "deferred_items": [
+    "Repository validation",
+    "Dependency and version validation"
+  ],
+  "results": {
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+

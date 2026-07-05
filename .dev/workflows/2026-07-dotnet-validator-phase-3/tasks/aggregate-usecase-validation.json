@@ -1,0 +1,34 @@
+{
+  "task_id": "aggregate-usecase-validation",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "pending",
+  "depends_on": [
+    "rule-classification-and-requirements"
+  ],
+  "scope": {
+    "target": "Aggregate profile and UseCase deterministic validation",
+    "constraints": [
+      "Apply/When rules target EsAggregateRoot only.",
+      "Normal AggregateRoot retains domain purity and invariant review without Event Sourcing ceremony.",
+      "Coding style remains owned by editorconfig and standard analyzers."
+    ],
+    "non_goals": [
+      "Proving business invariant completeness",
+      "Enforcing private readonly fields or public constructors",
+      "Repository validation"
+    ]
+  },
+  "validation": [
+    "Analyzer positive and negative tests",
+    "Aggregate and UseCase script reference search",
+    "git diff --check"
+  ],
+  "deferred_items": [],
+  "results": {
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+
