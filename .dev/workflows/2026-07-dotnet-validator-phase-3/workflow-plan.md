@@ -4,7 +4,7 @@
 
 - `plan_id`: `workflow-plan-2026-07-dotnet-validator-phase-3`
 - `owner_skill`: `dev-workflow`
-- `status`: `in_progress`
+- `status`: `completed`
 
 ## Goal
 
@@ -64,7 +64,18 @@ Replace the remaining Mapper, Aggregate, UseCase, and Projection grep-based chec
 
 - Stage 1 completed: Phase 3 requirements and enforcement ownership are documented.
 - Stage 2 completed: Mapper uses the static-only policy.
-- Aggregate/UseCase and Projection streams are ready for implementation after the requirement commit.
+- Mapper, Aggregate/UseCase, Projection, and severity-policy stages are completed.
+
+## Completion Summary
+
+- Added `DBA1007`-`DBA1013` with positive, negative, and false-positive regression coverage.
+- Added marker-based EF Core projection model registration validation.
+- Removed nine Mapper, Aggregate, UseCase, and Projection grep/config scripts.
+- Updated `check-all.sh` to run analyzer and configuration validation test suites.
+- Added per-repository `.editorconfig` severity control for all 13 current diagnostics.
+- Preserved AI review ownership for invariant completeness, mapping completeness, query efficiency, transaction boundaries, and other design intent.
+- Final validation passed with 27 analyzer tests, 2 configuration tests, and 3 quick checks.
+- Repository and dependency/version validation remain deferred by design.
 
 ## Constraints
 

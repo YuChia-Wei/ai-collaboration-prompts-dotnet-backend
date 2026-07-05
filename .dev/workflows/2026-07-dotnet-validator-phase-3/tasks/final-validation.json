@@ -1,0 +1,62 @@
+{
+  "task_id": "final-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
+  "status": "completed",
+  "depends_on": [
+    "mapper-validation",
+    "aggregate-usecase-validation",
+    "projection-configuration-validation",
+    "analyzer-severity-policy"
+  ],
+  "scope": {
+    "target": "Validate and close .NET Validator Phase 3",
+    "constraints": [
+      "Repository validation must remain deferred and unchanged.",
+      "Do not close while active references to retired scripts remain."
+    ],
+    "non_goals": [
+      "Repository rule implementation",
+      "Dependency or version validation"
+    ]
+  },
+  "execution_steps": [
+    "Run analyzer and configuration validation test suites.",
+    "Run quick orchestration checks.",
+    "Compare diagnostic and severity inventories.",
+    "Search active paths for retired scripts and completed TODOs.",
+    "Parse workflow JSON and run git diff check.",
+    "Close the requirement and workflow."
+  ],
+  "validation": [
+    "dotnet test",
+    "check-all.sh --quick",
+    "diagnostic inventory comparison",
+    "reference search",
+    "ConvertFrom-Json",
+    "git diff --check"
+  ],
+  "deferred_items": [
+    "Repository validation",
+    "Dependency and version validation"
+  ],
+  "results": {
+    "summary": "Validated and closed .NET Validator Phase 3 with Repository and dependency/version validation intentionally deferred.",
+    "files_changed": [
+      ".dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/workflow-plan.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-3/tasks/final-validation.json"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore: 27 passed",
+      "dotnet test tools/DotnetBackendValidation.Tests/DotnetBackendValidation.Tests.csproj --no-restore: 2 passed",
+      "Git Bash .ai/scripts/check-all.sh --quick: 3 passed, 3 intentionally skipped",
+      "Retired Phase 3 scripts present: 0",
+      "Diagnostic/severity inventory delta: 0 across 13 IDs",
+      "All Phase 3 task JSON files parsed",
+      "Active path reference search passed",
+      "git diff --check passed"
+    ],
+    "follow_up_needed": false
+  }
+}

@@ -6,7 +6,7 @@
 - Version: 0.1
 - Date: 2026-07-05
 - Owner: YuChia-Wei
-- Status: Approved for implementation
+- Status: Implemented
 - In Scope: Mapper、Aggregate、UseCase、Projection 的 validator ownership、dotnet-native validation 與對應 script retirement
 - Out of Scope: Repository interface 規範、dependency/version validation、產品專屬架構規則
 
@@ -178,4 +178,13 @@ Aggregate validation 採用 shared baseline 加上 type-specific profile：
 - `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
 - `.ai/scripts/check-all.sh`
 - `tools/DotnetBackendAnalyzers/`
+
+## Implementation Outcome
+
+- Added `DBA1007`-`DBA1013` for Mapper, Event Sourcing Aggregate, UseCase, and Projection semantic rules.
+- Extended `DBA1002` to cover primary constructors and non-constructor `IServiceProvider` dependencies.
+- Added `DotnetBackendValidation` for marker-based EF Core projection model registration.
+- Added a target-repository `.editorconfig` severity template covering `DBA1001`-`DBA1013`.
+- Removed Mapper, Aggregate, UseCase, and Projection grep/config scripts after replacement validation passed.
+- Retained Repository and dependency/version validation as explicit deferred work.
 
