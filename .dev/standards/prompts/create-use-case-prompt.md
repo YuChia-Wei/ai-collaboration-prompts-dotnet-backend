@@ -37,9 +37,9 @@ Path: `src/Application/<Aggregate>/UseCases/Commands/<UseCase>Handler.cs`
 ```csharp
 public sealed class CreateTagHandler
 {
-    private readonly IRepository<Tag, TagId> _repository;
+    private readonly IAggregateRepository<Tag, TagId> _repository;
 
-    public CreateTagHandler(IRepository<Tag, TagId> repository)
+    public CreateTagHandler(IAggregateRepository<Tag, TagId> repository)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }

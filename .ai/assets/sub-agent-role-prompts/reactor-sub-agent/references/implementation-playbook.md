@@ -12,7 +12,9 @@ Use this delegated sub-agent role when the main agent needs a worker focused on 
 
 - Reactors handle event data, not domain entities
 - Use WolverineFx message handlers for event processing
-- Do not query another aggregate's repository directly; use query services
+- Do not query another aggregate's write repository directly; use a read-only
+  `IQueryRepository` port or an established QueryService when composition or policy
+  requires one
 
 ## Output Structure
 

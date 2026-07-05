@@ -10,7 +10,8 @@ Use this delegated sub-agent role when the main agent needs a worker focused on 
 ## Rules
 
 - Persist events before publish
-- Use EF Core for the message store
+- Use the target repository's selected message-store adapter; when EF Core is
+  selected, apply the EF Core tracking and asynchronous materialization rules
 - Keep metadata for audit
 - Configure outbox services in DI
 

@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Example.Plans.UseCases;
 
 public interface ICreatePlanUseCase : ICommand<CreatePlanInput, CqrsOutput>
 {
-    CqrsOutput Execute(CreatePlanInput input);
+    Task<CqrsOutput> Execute(CreatePlanInput input);
 }
 
 public sealed class CreatePlanInput : IInput

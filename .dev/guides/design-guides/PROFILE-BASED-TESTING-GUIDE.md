@@ -70,7 +70,7 @@ public sealed class CreateProductFeature : IClassFixture<TestProfileFixture>
 ### Step 2: Resolve dependencies via DI
 ```csharp
 var useCase = _fixture.Services.GetRequiredService<ICreateProductUseCase>();
-var repository = _fixture.Services.GetRequiredService<IRepository<Product, ProductId>>();
+var repository = _fixture.Services.GetRequiredService<IAggregateRepository<Product, ProductId>>();
 ```
 
 ### Step 3: Write BDDfy tests with Gherkin-style naming
@@ -159,7 +159,7 @@ E2E Tests           -        ✅     -     -
 var repo = new InMemoryProductRepository();
 
 // Correct
-var repo = _fixture.Services.GetRequiredService<IRepository<Product, ProductId>>();
+var repo = _fixture.Services.GetRequiredService<IAggregateRepository<Product, ProductId>>();
 ```
 
 ### 2. Do not set ASPNETCORE_ENVIRONMENT inside test classes

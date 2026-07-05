@@ -126,7 +126,7 @@ public sealed class CreateOrderHandler
 ```csharp
 public sealed class CreateOrderHandler
 {
-    private readonly IRepository<Order, OrderId> _repository;
+    private readonly IAggregateRepository<Order, OrderId> _repository;
 
     public async Task<CqrsOutput> Handle(CreateOrderInput input)
     {
@@ -185,7 +185,7 @@ public class PlanData
 ### 7. ❌ Repository 添加自定義查詢方法
 ```csharp
 // 錯誤：Repository 不得新增查詢方法
-public interface IUserRepository : IRepository<User, UserId>
+public interface IUserRepository : IAggregateRepository<User, UserId>
 {
     IEnumerable<User> FindByEmail(string email);
     IEnumerable<User> FindActiveUsers();
@@ -193,12 +193,12 @@ public interface IUserRepository : IRepository<User, UserId>
 ```
 
 ✅ **正確做法**：
-- Repository 僅保留 findById / save / delete
-- 查詢用 Projection/Inquiry
+- Aggregate Repository 僅保留 `FindByIdAsync` / `SaveAsync`
+- 查詢使用繼承 `IQueryRepository` 的唯讀 port
 
 ### 8. ❌ Repository 包含業務邏輯
 ```csharp
-public interface IUserRepository : IRepository<User, UserId>
+public interface IUserRepository : IAggregateRepository<User, UserId>
 {
     void DeactivateInactiveUsers(int days); // 業務規則
 }
@@ -223,7 +223,7 @@ public sealed class InMemoryPlanRepository : IPlanRepository
 ✅ **正確做法**：
 - 使用 EF Core InMemory/Sqlite provider + Outbox
 - 或使用 Testcontainers + 真實 PostgreSQL
-- 測試仍需遵守 Repository 三方法規則
+- 測試仍需遵守 Aggregate Repository 的 `FindByIdAsync` / `SaveAsync` 契約
 
 ### 10. ❌ 測試實現細節
 ```csharp
@@ -236,7 +236,7 @@ Assert.True(ReflectionHelper.GetField(task, "_isCompleted"));
 ### 11. ❌ 過度 Mock
 ```csharp
 // 錯誤：Mock 過多
-var repo = Substitute.For<IRepository>();
+var repo = Substitute.For<IAggregateRepository<Order, OrderId>>();
 var bus = Substitute.For<IMessageBus>();
 var mapper = Substitute.For<IMapper>();
 ```

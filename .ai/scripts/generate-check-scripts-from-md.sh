@@ -82,6 +82,9 @@ class MarkdownRuleParser:
 
     def parse(self):
         """Parse markdown file and extract rules"""
+        if Path(self.md_file).name == "repository-standards.md":
+            return self.rules
+
         with open(self.md_file, 'r', encoding='utf-8') as f:
             content = f.read()
 
@@ -519,8 +522,8 @@ if [ "$DRY_RUN" = false ]; then
         if [ -f "$md_file" ]; then
             base_name=$(basename "$md_file" .md)
 
-            # Skip the main coding-standards.md (it's an overview)
-            if [[ "$base_name" == "coding-standards" ]]; then
+            # Repository rules require Roslyn symbol analysis (DBA1001).
+            if [[ "$base_name" == "coding-standards" || "$base_name" == "repository-standards" ]]; then
                 continue
             fi
 
@@ -540,6 +543,9 @@ else
     echo "Would process:"
     for md_file in "$STANDARDS_DIR"/*.md; do
         if [ -f "$md_file" ]; then
+            if [[ "$(basename "$md_file")" == "repository-standards.md" ]]; then
+                continue
+            fi
             echo "  - $(basename "$md_file")"
         fi
     done
@@ -592,7 +598,7 @@ if [ "$DRY_RUN" = false ]; then
     echo ""
     echo "Next steps:"
     echo "1. Review generated scripts in $OUTPUT_DIR"
-    echo "2. Test with: $OUTPUT_DIR/check-repository.sh"
+    echo "2. Run dotnet analyzer tests for semantic C# rules"
     echo "3. When markdown changes, just re-run this generator"
 else
     echo -e "${YELLOW}Dry run complete. Run without --dry-run to generate files.${NC}"

@@ -17,7 +17,7 @@ outputs:
   - "follow-up validation notes"
 constraints:
   - "Use WolverineFx handlers for commands"
-  - "Use the repository DI model; do not introduce custom repository interfaces"
+  - "Use IAggregateRepository for Aggregate Root writes; do not introduce generic writable CRUD or mix query methods into it"
   - "Tests follow xUnit + BDDfy naming guidance and no BaseTestClass"
 workflow:
   - step: 1

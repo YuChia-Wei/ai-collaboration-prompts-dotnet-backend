@@ -1,0 +1,84 @@
+{
+  "task_id": "synchronize-repository-context-and-examples",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Synchronize approved repository rules across active AI context, prompts, guides, tests, and examples",
+    "files": [
+      ".ai/assets/skills/ddd-ca-hex-architect/",
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".ai/assets/sub-agent-role-prompts/",
+      ".ai/scripts/MD-SCRIPT-GENERATION-GUIDE.md",
+      ".dev/guides/",
+      ".dev/standards/anti-patterns.md",
+      ".dev/standards/best-practices.md",
+      ".dev/standards/coding-standards/archive-standards.md",
+      ".dev/standards/coding-standards/profile-configuration-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".dev/standards/examples/",
+      ".dev/standards/prompts/"
+    ],
+    "dependency_radius": "Future agent generation, review, test, profile, and onboarding behavior",
+    "constraints": [
+      "Depends on completion of align-canonical-repository-standards",
+      "Keep runtime wrappers thin",
+      "Keep .NET-only rules out of universal shared context",
+      "Do not make examples the source of truth",
+      "Label intentionally deferred historical content"
+    ],
+    "non_goals": [
+      "No canonical architecture redesign",
+      "No unrelated AI context cleanup",
+      "No broad translation migration unless D9 approves it"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Approved canonical repository standards",
+    "review_findings": [
+      "At least 24 documentation/context files use the legacy repository name",
+      "Prompts, tests, profiles, and examples inherit conflicting contracts"
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "context-and-example-synchronization",
+    "steps": [
+      "Classify affected files by audience and ownership",
+      "Update active agent context and prompt references",
+      "Update human guides and examples",
+      "Label deferred historical material",
+      "Run reference and boundary checks"
+    ],
+    "validation": [
+      "No active dependent document overrides the canonical standards",
+      "Runtime wrappers contain pointers rather than duplicated rules",
+      "Repository naming and method searches match the approved contract",
+      "Changed links resolve"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Synchronized role-based aggregate/query repository rules across canonical AI references, skill and sub-agent guidance, human guides, prompts, checklists, and active examples. Examples now use IAggregateRepository and the approved asynchronous two-method contract. The Markdown-generated repository checker guide is explicitly deprecated in favor of semantic Roslyn analysis.",
+    "files_changed": [
+      ".ai/assets/skills/ddd-ca-hex-architect/",
+      ".ai/assets/skills/slice-implementer/",
+      ".ai/assets/sub-agent-role-prompts/",
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".ai/scripts/MD-SCRIPT-GENERATION-GUIDE.md",
+      ".dev/guides/",
+      ".dev/standards/anti-patterns.md",
+      ".dev/standards/best-practices.md",
+      ".dev/standards/examples/",
+      ".dev/standards/prompts/create-use-case-prompt.md"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "targeted rg searches for IRepository, legacy method sets, mandatory QueryService pairing, and hardcoded persistence defaults",
+      "relative Markdown link validation for changed files"
+    ],
+    "follow_up_needed": true
+  }
+}
+

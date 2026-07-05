@@ -1,0 +1,100 @@
+{
+  "task_id": "align-canonical-repository-standards",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Create one canonical repository pattern execution contract",
+    "files": [
+      ".dev/ARCHITECTURE.MD",
+      ".dev/requirement/TECH-STACK-REQUIREMENTS.MD",
+      ".dev/standards/coding-standards.md",
+      ".dev/standards/coding-standards/repository-standards.md",
+      ".dev/standards/coding-standards/projection-standards.md",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/README.md",
+      ".dev/standards/project-structure.md",
+      ".dev/standards/rationale/generic-repository-only-rationale.MD",
+      ".dev/standards/rationale/query-side-layering-rationale.MD"
+    ],
+    "dependency_radius": "Architecture, command/query handlers, persistence adapters, profiles, tests, outbox, and code review guidance",
+    "constraints": [
+      "Depends on completion of resolve-repository-pattern-decisions",
+      "Preserve DDD, Clean Architecture, CQRS, and Hexagonal boundaries",
+      "Do not invent concrete Wolverine APIs",
+      "Keep canonical normative rules out of tutorial examples",
+      "Do not require a database, ORM, or persistence package",
+      "Keep package-specific implementation rules conditional",
+      "Preserve IDomainRepository as a validated compatibility contract derived from IAggregateRepository",
+      "Do not redefine the Use Case and Handler relationship in this task",
+      "Do not publish Aggregate batch persistence as a default building-block dependency"
+    ],
+    "non_goals": [
+      "No broad guide or example synchronization in this task",
+      "No validation script implementation",
+      "No unrelated technology upgrade"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Approved D1-D10 direction",
+    "review_findings": [
+      "F1-F7 require canonical standards changes"
+    ],
+    "user_constraints": [
+      "Do not proceed until decision questions are answered"
+    ]
+  },
+  "execution": {
+    "operation_type": "canonical-document-refactor",
+    "steps": [
+      "Update architecture and technology ownership statements",
+      "Define aggregate persistence, pure query, and capability-specific writer ports",
+      "Define repository port contract and adapter responsibilities",
+      "Define soft deletion, restricted physical purge, concurrency, explicit strong-consistency Unit of Work, outbox, and event lifecycle",
+      "Define an optional target-repository Aggregate batch capability pattern, opt-in evidence, and transaction/failure semantics without publishing a mandatory portable batch interface if D3 approves it",
+      "Define query-side layering and naming",
+      "Move technology choices from universal requirements to conditional implementation guidance",
+      "Update rationale and navigation summaries"
+    ],
+    "validation": [
+      "Search for contradictory abstraction names and method counts",
+      "Search for EF Core command-side requirements that violate the approved stack",
+      "Check project structure against port and adapter placement",
+      "Run git diff --check and changed-link validation"
+    ],
+    "deferred_items": [
+      "Dependent prompt, guide, example, and check synchronization",
+      "Use Case, Handler, Controller, and synchronous invocation realignment"
+    ]
+  },
+  "results": {
+    "summary": "Aligned canonical architecture and coding standards around a two-method Aggregate Repository, IDomainRepository compatibility, read-only IQueryRepository ports, restricted purge capability, explicit strong-consistency Unit of Work, target-specific batch extensions, and technology-neutral adapter selection.",
+    "files_changed": [
+      ".dev/ARCHITECTURE.MD",
+      ".dev/requirement/TECH-STACK-REQUIREMENTS.MD",
+      ".dev/standards/README.md",
+      ".dev/standards/coding-standards.md",
+      ".dev/standards/coding-standards/README.md",
+      ".dev/standards/coding-standards/archive-standards.md",
+      ".dev/standards/coding-standards/profile-configuration-standards.md",
+      ".dev/standards/coding-standards/projection-standards.md",
+      ".dev/standards/coding-standards/repository-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/project-structure.md",
+      ".dev/standards/rationale/generic-repository-only-rationale.MD",
+      ".dev/standards/rationale/query-side-layering-rationale.MD",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-canonical-repository-standards.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md"
+    ],
+    "tests_run": [
+      "Searched canonical standards for legacy IRepository, three/five-method, mandatory ORM, and mandatory dual-query-layer rules",
+      "Validated changed Markdown local links",
+      "Validated balanced Markdown code fences",
+      "git diff --check"
+    ],
+    "follow_up_needed": true
+  }
+}
+

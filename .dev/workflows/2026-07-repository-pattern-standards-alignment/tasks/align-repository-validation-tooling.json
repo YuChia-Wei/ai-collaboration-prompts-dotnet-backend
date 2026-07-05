@@ -1,0 +1,97 @@
+{
+  "task_id": "align-repository-validation-tooling",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Align DBA1001 with the approved canonical contract and retire repository grep validation",
+    "files": [
+      "tools/DotnetBackendAnalyzers/RepositoryQueryMethodAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers.Tests/RepositoryQueryMethodAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig",
+      ".ai/scripts/check-repository-compliance.sh",
+      ".ai/scripts/generated/check-repository.sh",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/README.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
+    ],
+    "dependency_radius": "Local compliance checks and generated validation artifacts",
+    "constraints": [
+      "Depends on canonical standards and dependent-context synchronization",
+      "Do not encode semantic architecture rules as unscoped regex",
+      "Do not restore repository grep validation as a gate",
+      "Distinguish domain repository ports from query/read repository ports",
+      "Preserve target-repository severity configurability",
+      "Do not encode transaction or lifecycle intent as syntax-only diagnostics",
+      "Use error severity for repository contract violations",
+      "Recognize IAggregateRepository, compatibility IDomainRepository, and derived aggregate-specific interfaces by semantic type relationships",
+      "Treat Aggregate batch persistence as a target-specific opt-in capability rather than a default repository contract",
+      "Do not introduce IBatchUseCase-based diagnostics before the deferred Use Case and Handler taxonomy workflow is resolved"
+    ],
+    "non_goals": [
+      "No unrelated script migration",
+      "No unrelated analyzer implementation",
+      "No product-specific namespace or folder assumptions"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Executable validation that agrees with the approved repository contract",
+    "review_findings": [
+      "Scripts check the old interface name",
+      "The forbidden pattern rejects allowed identity methods",
+      "Query repositories are included in domain repository checks",
+      "Relative base-path logic differs by script location",
+      "DBA1001 already provides bootstrap semantic validation but hard-codes the unresolved five-method policy"
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "bounded-analyzer-and-script-retirement-slice",
+    "steps": [
+      "Translate approved D1-D4 and D10 decisions into deterministic analyzer behavior",
+      "Validate Aggregate Root generic constraints across canonical, compatibility, and derived contracts",
+      "Validate IQueryRepository read-only behavior",
+      "Keep framework-level diagnostics focused on the portable base Aggregate repository",
+      "Document extension points for target-repository batch markers, analyzers, or architecture tests",
+      "Add positive, negative, and false-positive analyzer tests",
+      "Assign non-deterministic transaction and lifecycle rules to tests or AI review",
+      "Retire source and generated repository grep scripts after replacement evidence passes",
+      "Update check orchestration, README, and validator ownership documents"
+    ],
+    "validation": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj",
+      "Allowed repository lifecycle methods pass",
+      "Forbidden query-style methods fail",
+      "Query/read repositories and unrelated interfaces produce no diagnostics",
+      "check-all.sh no longer references retired repository scripts",
+      "Documentation and validator ownership mappings agree"
+    ],
+    "deferred_items": [
+      "Cross-assembly architecture tests not required by the approved D10 scope"
+    ]
+  },
+  "results": {
+    "summary": "Implemented inheritance-based DBA1001 repository classification, Aggregate Root and compatibility checks, approved async method-surface/signature checks, query read-only checks, and generic writable CRUD rejection. Removed the legacy repository grep path and prevented the Markdown generator from recreating it. Full analyzer validation passed after NuGet user-level access was authorized.",
+    "files_changed": [
+      "tools/DotnetBackendAnalyzers/RepositoryQueryMethodAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers.Tests/RepositoryQueryMethodAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers/RuleDescriptors.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig",
+      ".ai/scripts/",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore (exit 0 without console/build evidence)",
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --logger console;verbosity=normal (blocked: NuGet user-level lock)",
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --logger console;verbosity=normal (sandbox escalation authorized; 36/36 passed)",
+      "git diff --check",
+      "targeted retired-script reference search"
+    ],
+    "follow_up_needed": false
+  }
+}
+

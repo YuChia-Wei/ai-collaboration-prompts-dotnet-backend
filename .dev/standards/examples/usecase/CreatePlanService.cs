@@ -1,19 +1,20 @@
 using System;
+using System.Threading.Tasks;
 using Example.Plans.Domain;
 
 namespace Example.Plans.UseCases;
 
 public sealed class CreatePlanService : ICreatePlanUseCase
 {
-    private readonly IRepository<Plan, PlanId> _planRepository;
+    private readonly IAggregateRepository<Plan, PlanId> _planRepository;
 
-    public CreatePlanService(IRepository<Plan, PlanId> planRepository)
+    public CreatePlanService(IAggregateRepository<Plan, PlanId> planRepository)
     {
         Contract.RequireNotNull("PlanRepository", planRepository);
         _planRepository = planRepository;
     }
 
-    public CqrsOutput Execute(CreatePlanInput input)
+    public async Task<CqrsOutput> Execute(CreatePlanInput input)
     {
         try
         {
@@ -31,13 +32,13 @@ public sealed class CreatePlanService : ICreatePlanUseCase
             }
 
             var planId = PlanId.ValueOf(input.Id!);
-            if (_planRepository.FindById(planId) != null)
+            if (await _planRepository.FindByIdAsync(planId) != null)
             {
                 throw new ArgumentException($"Plan with id {input.Id} already exists");
             }
 
             var plan = new Plan(planId, input.Name ?? string.Empty, input.UserId!);
-            _planRepository.Save(plan);
+            await _planRepository.SaveAsync(plan);
 
             output.SetId(input.Id)
                   .SetExitCode(ExitCode.Success);
@@ -50,5 +51,5 @@ public sealed class CreatePlanService : ICreatePlanUseCase
     }
 
     // Wolverine handler entry point
-    public CqrsOutput Handle(CreatePlanInput input) => Execute(input);
+    public Task<CqrsOutput> Handle(CreatePlanInput input) => Execute(input);
 }

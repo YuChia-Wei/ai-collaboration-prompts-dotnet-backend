@@ -6,12 +6,12 @@ internal static class RuleDescriptors
 {
     public static readonly DiagnosticDescriptor RepositoryQueryMethod = new(
         id: "DBA1001",
-        title: "Domain repository should not expose query methods",
-        messageFormat: "Repository member '{0}' looks like a query method; use projection, inquiry, archive, or query-side services instead",
+        title: "Repository contract violation",
+        messageFormat: "{0}",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
-        description: "Domain repositories are write-side aggregate access ports. Query behavior should live on the read side.");
+        description: "Aggregate repositories, query repositories, and compatibility contracts must preserve their distinct semantic boundaries.");
 
     public static readonly DiagnosticDescriptor UseCaseServiceProviderInjection = new(
         id: "DBA1002",

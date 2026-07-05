@@ -1,0 +1,85 @@
+{
+  "task_id": "repository-pattern-analysis-and-decision-frame",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Retain the repository pattern baseline analysis and create a decision-safe remediation workflow",
+    "files": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/review-report.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/repository-pattern-analysis-and-decision-frame.json"
+    ],
+    "dependency_radius": "Repository standards, architecture references, prompts, guides, examples, and transitional validation scripts",
+    "constraints": [
+      "Do not modify canonical repository standards before user decisions are recorded",
+      "Do not treat historical examples as current product truth",
+      "Do not use the current repository regex scripts as a compliance gate",
+      "Do not create commits without user authorization"
+    ],
+    "non_goals": [
+      "No canonical standards rewrite",
+      "No prompt or example migration",
+      "No validation script correction",
+      "No product code implementation"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Create one coherent DDD, Clean Architecture, CQRS, and Hexagonal repository pattern contract",
+    "review_findings": [
+      "Command-side persistence conflicts between Dapper/Npgsql and EF Core",
+      "Repository abstraction name and method count are inconsistent",
+      "Soft-delete, Unit of Work, outbox, and event-clear timing are not coherent",
+      "Query-side layering and custom-interface placement conflict",
+      "Generated repository checks do not implement the current standard"
+    ],
+    "user_constraints": [
+      "Open a workflow",
+      "Persist the prior analysis",
+      "Plan the modification work",
+      "List decisions required from the user before implementation"
+    ]
+  },
+  "execution": {
+    "operation_type": "workflow-bootstrap-and-architecture-baseline",
+    "steps": [
+      "Applied the workflow gate and selected workflow mode",
+      "Read the repository architecture, tech-stack, repository, query, workflow, and context-governance sources",
+      "Retained evidence-backed findings in a review report",
+      "Defined staged remediation, validation, and commit checkpoints",
+      "Recorded decisions that must not be inferred"
+    ],
+    "validation": [
+      "Parse all workflow task JSON files",
+      "Run git diff --check",
+      "Confirm required workflow files exist",
+      "Confirm the workflow is awaiting user decisions"
+    ],
+    "deferred_items": [
+      "Resolve D1-D9 with the user",
+      "Rewrite canonical repository standards",
+      "Synchronize dependent context and examples",
+      "Align repository validation tooling"
+    ]
+  },
+  "results": {
+    "summary": "Opened the workflow, retained the evidence-backed repository pattern analysis, defined staged remediation, and recorded nine decisions that must be resolved before canonical standards change.",
+    "files_changed": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/review-report.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/repository-pattern-analysis-and-decision-frame.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/resolve-repository-pattern-decisions.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-canonical-repository-standards.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/synchronize-repository-context-and-examples.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-repository-validation-tooling.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/final-repository-pattern-consistency-validation.json"
+    ],
+    "tests_run": [
+      "Parsed all workflow task JSON files with PowerShell ConvertFrom-Json",
+      "Validated local Markdown links in workflow-plan.md and review-report.md",
+      "git diff --check"
+    ],
+    "follow_up_needed": true
+  }
+}

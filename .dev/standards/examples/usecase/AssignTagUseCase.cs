@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Example.Plans.UseCases;
 
 public interface IAssignTagUseCase : ICommand<AssignTagInput, CqrsOutput>
 {
-    CqrsOutput Execute(AssignTagInput input);
+    Task<CqrsOutput> Execute(AssignTagInput input);
 }
 
 public sealed class AssignTagInput : IInput

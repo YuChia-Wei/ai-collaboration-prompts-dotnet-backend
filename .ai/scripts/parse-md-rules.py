@@ -15,6 +15,9 @@ class MarkdownRuleParser:
         
     def parse(self):
         """Parse markdown file and extract rules"""
+        if Path(self.md_file).name == "repository-standards.md":
+            return self.rules
+
         with open(self.md_file, 'r', encoding='utf-8') as f:
             content = f.read()
         

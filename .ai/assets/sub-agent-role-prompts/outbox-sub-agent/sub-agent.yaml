@@ -1,7 +1,7 @@
 asset_id: "outbox-sub-agent"
 asset_type: "sub-agent-role-prompt"
 title: "Outbox Sub-Agent"
-purpose: "Define the delegated worker-role prompt for implementing the Outbox Pattern using WolverineFx and EF Core."
+purpose: "Define the delegated worker-role prompt for implementing the Outbox Pattern with the target repository's selected messaging and persistence adapters."
 role_kind: "infrastructure-sub-agent"
 triggers:
   - "outbox sub-agent"
@@ -16,7 +16,7 @@ outputs:
   - "validation notes"
 constraints:
   - "Persist events before publish"
-  - "Use EF Core for message store"
+  - "Use the target repository's selected message-store adapter and apply its technology-specific rules"
   - "Keep metadata for audit"
   - "Configure Outbox in DI"
 workflow:

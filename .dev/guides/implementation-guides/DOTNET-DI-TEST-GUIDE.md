@@ -14,12 +14,12 @@
 public sealed class CreateProductFeature : IClassFixture<TestProfileFixture>
 {
     private readonly ICreateProductUseCase _useCase;
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IAggregateRepository<Product, ProductId> _repository;
 
     public CreateProductFeature(TestProfileFixture fixture)
     {
         _useCase = fixture.Services.GetRequiredService<ICreateProductUseCase>();
-        _repository = fixture.Services.GetRequiredService<IRepository<Product, ProductId>>();
+        _repository = fixture.Services.GetRequiredService<IAggregateRepository<Product, ProductId>>();
     }
 }
 ```
@@ -92,14 +92,14 @@ Wrong (legacy):
 ```csharp
 public sealed class TestContext
 {
-    public IRepository<Product, ProductId> Repository;
+    public IAggregateRepository<Product, ProductId> Repository;
     public IMessageBus Bus;
 }
 ```
 
 Correct (DI + profile-based):
 ```csharp
-var repository = _services.GetRequiredService<IRepository<Product, ProductId>>();
+var repository = _services.GetRequiredService<IAggregateRepository<Product, ProductId>>();
 ```
 
 ### Step 2: Use fixtures for state reset (no BaseTestClass)
@@ -164,7 +164,7 @@ var repo = new InMemoryProductRepository();
 
 Correct:
 ```csharp
-var repo = _services.GetRequiredService<IRepository<Product, ProductId>>();
+var repo = _services.GetRequiredService<IAggregateRepository<Product, ProductId>>();
 ```
 
 ### 2. Manual service construction

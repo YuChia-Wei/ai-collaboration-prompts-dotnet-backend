@@ -215,8 +215,8 @@ echo "----------------------------------------"
 # Check for duplicate content between main and specialized files
 echo -e "${BLUE}Checking for unnecessary duplication:${NC}"
 
-if grep -q "Repository 只能有三個方法" "$MAIN_FILE" 2>/dev/null && \
-   grep -q "Repository 只能有三個方法" "$STANDARDS_DIR/repository-standards.md" 2>/dev/null; then
+if grep -q "FindByIdAsync.*SaveAsync" "$MAIN_FILE" 2>/dev/null && \
+   grep -q "FindByIdAsync.*SaveAsync" "$STANDARDS_DIR/repository-standards.md" 2>/dev/null; then
     echo -e "  ${YELLOW}⚠${NC} Repository rules might be duplicated"
     WARNINGS=$((WARNINGS + 1))
 else

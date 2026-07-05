@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Example.Plans.UseCases;
 
 public interface IDeleteTaskUseCase : ICommand<DeleteTaskInput, CqrsOutput>
 {
-    CqrsOutput Execute(DeleteTaskInput input);
+    Task<CqrsOutput> Execute(DeleteTaskInput input);
 }
 
 public sealed class DeleteTaskInput : IInput

@@ -9,9 +9,9 @@ public sealed record CreateTaskInput(string PlanId, string ProjectName, string T
 
 public sealed class CreateTaskHandler
 {
-    private readonly IRepository<Plan, PlanId> _repository;
+    private readonly IAggregateRepository<Plan, PlanId> _repository;
 
-    public CreateTaskHandler(IRepository<Plan, PlanId> repository)
+    public CreateTaskHandler(IAggregateRepository<Plan, PlanId> repository)
     {
         Contract.RequireNotNull(nameof(repository), repository);
         _repository = repository;
@@ -105,7 +105,7 @@ Objects.RequireNotNull(name, "name cannot be null");
 
 ### Constructor Validation
 ```csharp
-public CreateRecordHandler(IRepository<Record, RecordId> repository)
+public CreateRecordHandler(IAggregateRepository<Record, RecordId> repository)
 {
     Contract.RequireNotNull(nameof(repository), repository);
     _repository = repository;
@@ -165,32 +165,33 @@ public interface ICreateRecordUseCase
 ```csharp
 public sealed class CreateRecordHandler
 {
-    private readonly IRepository<Record, RecordId> _repository;
+    private readonly IAggregateRepository<Record, RecordId> _repository;
 
-    public CreateRecordHandler(IRepository<Record, RecordId> repository)
+    public CreateRecordHandler(IAggregateRepository<Record, RecordId> repository)
     {
         _repository = repository;
     }
 }
 
-// ❌ DO NOT create custom repository interfaces for domain writes
-// public interface RecordRepository : IRepository<Record, RecordId> { }
+// Compatibility is allowed only for existing products and must preserve the same contract:
+// public interface IDomainRepository<TAggregate, TId>
+//     : IAggregateRepository<TAggregate, TId> { }
 ```
 
-## Projection Template (EF Core)
+## Query Repository Template (EF Core adapter example)
 
 ```csharp
-public interface IRecordProjection
+public interface IRecordQueryRepository : IQueryRepository
 {
     Task<RecordDto?> FindByIdAsync(string recordId);
     Task<IReadOnlyList<RecordDto>> FindAllAsync();
 }
 
-public sealed class EfRecordProjection : IRecordProjection
+public sealed class EfRecordQueryRepository : IRecordQueryRepository
 {
     private readonly AppDbContext _db;
 
-    public EfRecordProjection(AppDbContext db)
+    public EfRecordQueryRepository(AppDbContext db)
     {
         _db = db;
     }

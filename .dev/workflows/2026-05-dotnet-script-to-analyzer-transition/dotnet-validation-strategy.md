@@ -58,7 +58,7 @@ Current bootstrap:
 
 - `tools/DotnetBackendAnalyzers/`
 - `tools/DotnetBackendAnalyzers.Tests/`
-- `DBA1001` repository query method rule
+- `DBA1001` aggregate/query repository contract rule
 - `DBA1002` use case / handler `IServiceProvider` injection rule
 - `DBA1003` aggregate/entity infrastructure dependency rule
 - `tools/DotnetBackendAnalyzers/templates/Directory.Build.props.snippet` for source-included target repo wiring
@@ -67,13 +67,16 @@ Current bootstrap:
 
 ### Repository Rules
 
-Target current `check-repository-compliance.sh` behavior, then refine semantics:
+`DBA1001` replaces `check-repository-compliance.sh` with symbol-based rules:
 
-- forbid custom query methods on domain repositories when the profile requires projection/inquiry/archive;
-- require repository abstractions to follow the selected generic repository pattern when applicable;
-- detect repository interfaces/classes using syntax and symbol analysis instead of filename grep.
-
-Bootstrap coverage: `DBA1001` reports query-style methods on domain repository interfaces while allowing identity lookup methods.
+- classify `IAggregateRepository<,>`, compatibility `IDomainRepository<,>`, and
+  derived ports by inheritance;
+- require Aggregate Root generic arguments;
+- restrict the portable aggregate contract to `FindByIdAsync` and `SaveAsync`;
+- require `IQueryRepository` ports to remain read-only and avoid mutable domain
+  return types;
+- reject public generic writable CRUD repository contracts;
+- leave target-specific batch capabilities outside the portable analyzer.
 
 ### Use Case Rules
 

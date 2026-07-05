@@ -72,19 +72,28 @@ project-root/
 ```
 <DomainName>.Applications/
 ├── Ports/                       # 介面定義 (依賴反轉)
-│   ├── I<Domain>QueryRepository.cs
-│   └── I<Domain>QueryService.cs
-├── QueryServices/               # Query Service 實作
+│   ├── Queries/
+│   │   └── I<Feature>QueryRepository.cs
+│   ├── Persistence/             # 只有 domain-specific capability 才放置
+│   │   └── I<Capability>Port.cs
+│   └── I<Feature>QueryService.cs # optional composition port
+├── QueryServices/               # Optional Application query composition
 │   └── <Domain>QueryService.cs
 ├── Commands/                    # Command + Handler
 │   └── Create<Entity>Command.cs
 ├── Queries/                     # Query + Handler
 │   └── Get<Entity>Query.cs
 ├── DomainEventHandlers/         # Domain Event 處理器
-├── Repositories/                # Domain Repository 介面 (繼承 BuildingBlocks)
-│   └── I<Domain>DomainRepository.cs
 └── Dtos/                        # Application 層 DTO (Input/Output)
 ```
+
+Portable Aggregate Repository contract 位於 `BuildingBlocks.Application`：
+
+- `IAggregateRepository<TAggregate, TId>`
+- compatibility `IDomainRepository<TAggregate, TId>`
+- `IQueryRepository` marker
+
+不要為每個 Aggregate 預設建立空殼 `I<Aggregate>Repository`。只有相容既有程式碼或增加已核准的 Aggregate lifecycle/capability 語意時才建立 domain-specific port。
 
 ### Application 詞彙與責任
 
@@ -119,18 +128,20 @@ Controller
 
 ```
 <DomainName>.Infrastructure/
-├── Repositories/                # Domain Repository 實作
-│   └── <Domain>DomainRepository.cs
+├── Repositories/                # Aggregate Repository adapters
+│   └── <Aggregate>Repository.cs
 ├── QueryRepositories/           # Query Repository 實作
-│   └── <Domain>QueryRepository.cs
-├── Persistence/                 # EF Core DbContext, Configurations
+│   └── <Feature>QueryRepository.cs
+├── Persistence/                 # Target-selected DB/ORM/event-store configuration
+├── Writers/                     # Outbox/Projection/Import/Purge capability adapters
 └── Messaging/                   # MQ 相關實作
+```
 
 ## Clean Architecture 分層
 
 - **Domain**：Aggregate、Entity、Value Object、Domain Events
 - **Application**：UseCase/Handler、Ports、Policies
-- **Infrastructure**：Dapper/EF Core、Outbox、Message Bus、Repository 實作
+- **Infrastructure**：target-selected persistence、Outbox、Message Bus、Repository/Query/Writer adapters
 - **Presentation**：Controllers、DTO 轉換、驗證、MQ Consumers
 
 ## 命名與依賴方向
@@ -146,6 +157,14 @@ Controller
 - 同 BC / 同 process 內，可使用 in-process dispatcher、mediator、Wolverine handler invocation 或直接呼叫 application port
 - 跨 BC communication 才強制使用 MQ / message bus
 - 不要把 message bus 視為 use case 本身
+
+### Persistence Port Rules
+
+- Aggregate Repository 只接受 Aggregate Root。
+- Child Entity 透過 owning Aggregate Root 持久化。
+- Query Repository 實作 `IQueryRepository` 且只讀。
+- Physical purge、Outbox、Projection、Import 等使用 capability-specific ports。
+- Target-specific batch persistence 不進入 portable/default project template。
 
 ## 跨 BC 通訊規則
 

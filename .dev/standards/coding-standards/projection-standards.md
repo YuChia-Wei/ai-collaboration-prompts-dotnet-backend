@@ -1,296 +1,181 @@
-# Projection 編碼規範 (.NET)
+# Projection 與 Query Repository 編碼規範 (.NET)
 
-本文件定義 Projection Pattern 的編碼標準，用於處理查詢需求和資料投影。
+本文件定義 CQRS read side 的 port、adapter、optional Query Service 與 provider-specific 注意事項。
 
----
+## 核心規則
 
-## 📌 概述
+- Query side 不修改 Domain state。
+- Query side 回傳 DTO、read model、ID、scalar 或 page，不回傳可保存的 Aggregate Root。
+- Query Repository 是 Application outbound port，implementation 是 Infrastructure adapter。
+- 簡單 Query 不強制增加 pass-through Query Service。
+- Provider-specific tracking、materialization 與 model registration 規則只套用於使用該 provider 的 adapter。
 
-Projection 為 CQRS 的 Read Model，負責查詢與效能優化。
+## Query Repository Port
 
-- **只讀操作**：Projection 不得包含 Domain 變更行為
-- **讀寫分離**：Read Model 與 Write Model 必須分離
-- **效能優化**：使用 EF Core Query/Projection 提升效能
-
-**Projection** 是一種查詢模式，在 CQRS 架構中，專門用於「Query Model」：
-
-- 複雜查詢需求（Repository 只限定在 Command Model 操作單一 Aggregate 使用）
-- 跨聚合查詢
-- 報表和統計查詢
-- 返回 DTO (Data Transfer Object) 而非領域物件
-- Handler 層的 Query 物件會呼叫 Projection，取得 DTO 傳給呼叫端
-
----
-
-## 🏷️ 自動化驗證責任
-
-- `DBA1013`：實作 canonical `IProjection` marker 的 query service 不得呼叫 EF Core persistence write operations。
-- `DotnetBackendValidation`：實作 `IProjectionReadModel` marker 的 EF read model 必須存在於 assembled `DbContext.Model`。
-- `AsNoTracking`、projection shape 與 query efficiency：依 provider、global tracking policy 與實際 query 由 tests、profiling 和 AI review 判斷，不以 source text 作為 CI gate。
-- Dapper-only DTO 與 query service 不受 EF model registration gate 約束。
-
----
-
-## 🔴 必須遵守的規則 (MUST FOLLOW)
-
-### 1. Query Service Interface 設計
-
-#### 命名空間
+所有 query repository port 必須實作 canonical marker：
 
 ```csharp
-// ✅ 正確：定義在 Application 層
-namespace YourProject.Application.Records.Queries;
-
-// ❌ 錯誤：不要放在 Infrastructure 層
-namespace YourProject.Infrastructure.Queries;  // 錯誤！
-```
-
-#### Interface 命名規範
-
-```csharp
-// ✅ 正確：使用 I[Aggregate]QueryService 命名
-public interface IRecordQueryService { }
-public interface IIterationQueryService { }
-public interface IWorkItemQueryService { }
-
-// ❌ 錯誤：不要使用其他命名模式
-public interface IRecordProjection { }       // 不要用 Projection
-public interface IRecordFinder { }           // 不要用 Finder
-public interface RecordDtoProjection { }     // 不要用 DtoProjection
-```
-
-#### 方法設計
-
-```csharp
-// ✅ 正確：返回 DTO 物件
-public interface IRecordQueryService
+public interface IQueryRepository
 {
-    Task<RecordDto?> GetByIdAsync(RecordId id, CancellationToken ct = default);
-    Task<List<RecordDto>> GetByStateAsync(string state, CancellationToken ct = default);
-    Task<PagedResult<RecordDto>> GetPagedAsync(
-        string? filter, 
-        int page, 
-        int size, 
-        CancellationToken ct = default);
-}
-
-// ❌ 錯誤：不要返回領域物件
-public interface IRecordQueryService
-{
-    Task<Record?> GetByIdAsync(RecordId id);  // 錯誤！應返回 DTO
-}
-
-// ❌ 錯誤：不要返回 Data (Persistence Object)
-public interface IRecordQueryService
-{
-    Task<RecordData?> GetByIdAsync(string id);  // 錯誤！應返回 DTO
 }
 ```
 
----
-
-### 2. Query Service 實作
-
-#### 實作位置
-
 ```csharp
-// ✅ 正確：實作放在 Infrastructure 層
-namespace YourProject.Infrastructure.Persistence.QueryServices;
-```
-
-#### EF Core 實作範例
-
-```csharp
-// ✅ 正確：使用 EF Core 實作
-namespace YourProject.Infrastructure.Persistence.QueryServices;
-
-public class RecordQueryService : IRecordQueryService
+public interface IProductQueryRepository : IQueryRepository
 {
-    private readonly ApplicationDbContext _context;
+    Task<ProductDetailsDto?> FindDetailsAsync(
+        ProductId id,
+        CancellationToken cancellationToken = default);
 
-    public RecordQueryService(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+    Task<IReadOnlyList<ProductId>> FindIdsByStatusAsync(
+        ProductStatus status,
+        CancellationToken cancellationToken = default);
 
-    public async Task<RecordDto?> GetByIdAsync(RecordId id, CancellationToken ct = default)
-    {
-        var data = await _context.Records
-            .AsNoTracking()
-            .Where(x => x.Id == id.Value)
-            .FirstOrDefaultAsync(ct);
-        
-        return data is null ? null : RecordMapper.ToDto(data);
-    }
-
-    public async Task<List<RecordDto>> GetByStateAsync(string state, CancellationToken ct = default)
-    {
-        return await _context.Records
-            .AsNoTracking()
-            .Where(x => x.State == state)
-            .Select(x => RecordMapper.ToDto(x))
-            .ToListAsync(ct);
-    }
-
-    public async Task<PagedResult<RecordDto>> GetPagedAsync(
-        string? filter,
-        int page,
-        int size,
-        CancellationToken ct = default)
-    {
-        var query = _context.Records.AsNoTracking();
-        
-        if (!string.IsNullOrEmpty(filter))
-        {
-            query = query.Where(x => x.Name.Contains(filter));
-        }
-        
-        var totalCount = await query.CountAsync(ct);
-        
-        var items = await query
-            .OrderBy(x => x.Name)
-            .Skip(page * size)
-            .Take(size)
-            .Select(x => RecordMapper.ToDto(x))
-            .ToListAsync(ct);
-        
-        return new PagedResult<RecordDto>(items, totalCount, page, size);
-    }
+    Task<PagedResult<ProductSummaryDto>> SearchAsync(
+        ProductSearchCriteria criteria,
+        CancellationToken cancellationToken = default);
 }
 ```
 
----
+允許：
 
-### 3. DI 註冊
+- use-case/read-model-specific criteria；
+- DTO/read model projection；
+- identity list、scalar、count、existence；
+- paging、sorting、filtering；
+- EF Core、Dapper、SQL 或其他 read adapter。
 
-```csharp
-// ✅ 正確：在 Program.cs 或 ServiceExtensions 中註冊
-public static class QueryServiceExtensions
-{
-    public static IServiceCollection AddQueryServices(this IServiceCollection services)
-    {
-        services.AddScoped<IRecordQueryService, RecordQueryService>();
-        services.AddScoped<IIterationQueryService, IterationQueryService>();
-        services.AddScoped<IWorkItemQueryService, WorkItemQueryService>();
-        
-        return services;
-    }
-}
+禁止：
+
+- `Save`、`Add`、`Update`、`Delete`、`Remove`；
+- `SaveChanges` 或等價 persistence write；
+- 回傳 mutable Aggregate Root 或 child Entity；
+- Domain behavior；
+- 把 Query Repository 當成 Aggregate persistence port。
+
+## Query Application Flow
+
+### Simple query
+
+Application boundary 可以直接依賴 Query Repository：
+
+```text
+Application Query Boundary
+  -> IProductQueryRepository
+  -> Infrastructure Query Adapter
+  -> DTO / Read Model
 ```
 
----
+### Composed query
 
-### 4. PagedResult 定義
+只有在下列情況新增 Application Query Service：
+
+- 組合多個 Query Repository；
+- 組合 remote/read cache source；
+- 可重用 query policy；
+- 非單純 mapping 的 calculation/orchestration。
+
+```text
+Application Query Boundary
+  -> ProductQueryService
+     -> IProductQueryRepository
+     -> IInventoryQueryRepository
+  -> DTO / Read Model
+```
+
+Query Service implementation 位於 Application，且不得直接依賴 DbContext、connection 或 provider API。
+
+Infrastructure 若直接實作 Query Repository port，不應再把該 adapter 命名為 Application Query Service。
+
+## Candidate IDs for Aggregate Behavior
+
+Query Repository 可以先取得符合 read criteria 的 Aggregate IDs：
 
 ```csharp
-// ✅ 定義分頁結果類別
+var ids = await productQueries.FindIdsByStatusAsync(
+    ProductStatus.Expired,
+    cancellationToken);
+```
+
+Application 接著依 identity 重新載入 Aggregate，並由每個 Aggregate 重新驗證當前狀態與 invariant。
+
+Query 結果是 candidate snapshot，不得直接視為 command-side truth。
+
+## DTO 與 Paging
+
+DTO 建議使用 immutable `record`：
+
+```csharp
+public sealed record ProductSummaryDto(
+    string Id,
+    string Name,
+    string Status);
+```
+
+Paged result 必須明確包含 items 與 paging metadata：
+
+```csharp
 public sealed record PagedResult<T>(
     IReadOnlyList<T> Items,
-    int TotalCount,
+    long TotalCount,
     int Page,
-    int PageSize)
-{
-    public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
-    public bool HasPreviousPage => Page > 0;
-    public bool HasNextPage => Page < TotalPages - 1;
-}
+    int PageSize);
 ```
 
----
+不得要求所有 Query Repository 都提供 paging；只有 use case 需要時才加入。
 
-## 🎯 使用場景指南
+## Conditional EF Core Guidance
 
-### 何時使用 Projection (Query Service)
+只有 EF Core query adapter 適用：
 
-- ✅ 複雜查詢需求（JOIN、聚合、統計）
-- ✅ 跨聚合查詢
-- ✅ 報表和分析查詢
-- ✅ UI 特定的查詢需求
-- ✅ 分頁和排序
-- ❌ Write Model 的 CRUD 操作（使用 Repository）
+- Read-only query 優先使用 direct projection。
+- 若 global tracking policy 未關閉 tracking，read model query 應明確使用 `AsNoTracking()`。
+- Aggregate command-side load 不套用本節的 read-model tracking規則。
+- 使用符合 cardinality 的 async terminal operator：
+  - collection: `ToListAsync`
+  - zero-or-one: `SingleOrDefaultAsync` 或 `FirstOrDefaultAsync`
+  - existence: `AnyAsync`
+  - count: `CountAsync` / `LongCountAsync`
+- 不得以 `ToList()`、`.Result` 或 `.Wait()` 取代 async execution。
+- 避免 client-side evaluation 與不必要的 entity materialization。
+- Optimistic concurrency 與 command-side persistence 不屬於 Query Repository。
 
-### 與 Repository 的區別
+EF projection read model 若需要 model registration validation，實作 `IProjectionReadModel` 或 target repo 的等價 marker。
 
-```csharp
-// Repository：Write Model 的 Aggregate 持久化
-IRepository<Record, RecordId> repository;
-await repository.FindByIdAsync(id);  // 返回 Record 領域物件
-await repository.SaveAsync(record); // 儲存領域物件
+## Conditional Dapper / SQL Guidance
 
-// Query Service (Projection)：Read Model 的查詢和資料投影
-IRecordQueryService queryService;
-await queryService.GetByIdAsync(id);       // 返回 RecordDto
-await queryService.GetPagedAsync(...);     // 返回分頁結果
-```
+- SQL 必須 parameterized。
+- Mapping 必須覆蓋 DTO/read model required fields。
+- 大量結果必須定義 paging、streaming 或 bounded materialization。
+- Query cancellation 應傳遞給 provider API。
+- Transaction 只有在 query consistency requirement 明確需要時使用。
 
----
+## Automated Validation Ownership
 
-## 🎯 DTO 設計
+- Roslyn analyzer：
+  - `IQueryRepository` derived ports 不得宣告 persistence write methods；
+  - 不得回傳 Aggregate Root 或 child Entity；
+  - projection services 不得呼叫 provider write APIs。
+- Configuration tests：
+  - EF read models 的 assembled model registration。
+- Tests / profiling / AI review：
+  - query shape、N+1、index usage、tracking policy、mapping completeness、performance。
 
-### 使用 Record 定義 DTO
+不得使用檔名或 grep 判斷 Query Repository 語意。
 
-```csharp
-// ✅ 正確：使用 record 定義 DTO
-public sealed record RecordDto
-{
-    public required string Id { get; init; }
-    public required string Name { get; init; }
-    public required string State { get; init; }
-    public DateTime CreatedAt { get; init; }
-    public List<string> Tags { get; init; } = new();
-    public int? TaskCount { get; init; }
-}
+## Review Checklist
 
-// DTO with nested objects
-public sealed record RecordDetailDto
-{
-    public required string Id { get; init; }
-    public required string Name { get; init; }
-    public DefinitionOfDoneDto? DefinitionOfDone { get; init; }
-    public List<TaskDto> Tasks { get; init; } = new();
-}
-```
+- [ ] Query Repository 實作 `IQueryRepository`。
+- [ ] Port 位於 Application，adapter 位於 Infrastructure。
+- [ ] 回傳 DTO/read model/ID/scalar/page。
+- [ ] 沒有 write methods 或 provider writes。
+- [ ] 簡單 Query 沒有不必要的 pass-through Query Service。
+- [ ] Candidate IDs 在 command flow 中重新載入 Aggregate 並驗證 invariant。
+- [ ] Provider-specific async/materialization 規則正確。
+- [ ] Large result set 有 paging/streaming/bound。
 
----
+## Related Documents
 
-## 🔍 檢查清單
-
-### Query Service Interface
-- [ ] 定義在 `Application` 層
-- [ ] 使用 `I[Aggregate]QueryService` 命名
-- [ ] 方法返回 DTO，不是領域物件或 Data 物件
-- [ ] 支援 `CancellationToken`
-- [ ] 有分頁方法
-
-### Query Service 實作
-- [ ] 實作在 `Infrastructure.Persistence.QueryServices`
-- [ ] 使用 `AsNoTracking()` 提升效能
-- [ ] 處理 null 值和空集合
-- [ ] 使用 Mapper 轉換為 DTO
-- [ ] 透過 DI 註冊
-
-### DTO
-- [ ] 使用 `record` 定義
-- [ ] 使用 `required` 標記必要欄位
-- [ ] 使用 `init` setter
-- [ ] 集合有預設值
-
----
-
-## 📂 程式碼範例
-
-更多完整範例請參考：
-
-| 範例 | 路徑 |
-|------|------|
-| Projection 範例 | [../examples/projection/](../examples/projection/) |
-| Projection 指南 | [../examples/projection-example.md](../examples/projection-example.md) |
-| DTO 範例 | [../examples/dto/](../examples/dto/) |
-
----
-
-## 相關文件
-
-- [repository-standards.md](repository-standards.md)
-- [usecase-standards.md](usecase-standards.md)
-- [mapper-standards.md](mapper-standards.md)
+- [Repository Standards](repository-standards.md)
+- [Use Case Standards](usecase-standards.md)
+- [Query-side Layering Rationale](../rationale/query-side-layering-rationale.MD)

@@ -84,11 +84,11 @@ DOTNET_ENVIRONMENT=test,test-outbox dotnet test
 if (builder.Environment.IsEnvironment("TestOutbox") || builder.Environment.IsEnvironment("Outbox"))
 {
     services.AddDbContext<AppDbContext>(...);
-    services.AddScoped<IRepository<Product, ProductId>, OutboxProductRepository>();
+    services.AddScoped<IAggregateRepository<Product, ProductId>, OutboxProductRepository>();
 }
 else
 {
-    services.AddSingleton<IRepository<Product, ProductId>, InMemoryProductRepository>();
+    services.AddSingleton<IAggregateRepository<Product, ProductId>, InMemoryProductRepository>();
 }
 ```
 
@@ -117,9 +117,9 @@ Outbox 與 TestOutbox profile 必須完整包含：
 // ✅ 正確：依賴抽象
 public sealed class TestDataInitializer
 {
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IAggregateRepository<Product, ProductId> _repository;
 
-    public TestDataInitializer(IRepository<Product, ProductId> repository)
+    public TestDataInitializer(IAggregateRepository<Product, ProductId> repository)
     {
         _repository = repository;
     }

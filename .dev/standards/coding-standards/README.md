@@ -15,10 +15,11 @@
   - 📋 包含完整程式碼模板
 
 - **[repository-standards.md](./repository-standards.md)** - Repository 模式規範
-  - Generic Repository 使用原則
-  - EF Core 實作
-  - IUnitOfWork 設計
-  - 軟刪除過濾機制
+  - Aggregate Repository 與 compatibility contract
+  - Query Repository marker
+  - Physical purge 與 optional batch capability
+  - Transaction / Domain Event lifecycle
+  - Conditional adapter guidance
 
 - **[usecase-standards.md](./usecase-standards.md)** - Handler/Use Case 層規範
   - Command vs Query 分離原則 (CQRS)
@@ -74,9 +75,12 @@
 ### 必須遵守的核心規則
 
 #### 1. Repository 規範
-- ❌ 絕對不要創建自定義 Repository 介面
-- ✅ 直接使用 `IRepository<Aggregate, AggregateId>`
-- ✅ Repository 只能有三個方法: `FindByIdAsync()`, `SaveAsync()`, `DeleteAsync()`
+- ✅ 新程式碼使用 `IAggregateRepository<Aggregate, AggregateId>`
+- ✅ 既有 `IDomainRepository<Aggregate, AggregateId>` 作為 compatibility contract
+- ✅ Shared Aggregate Repository 只有 `FindByIdAsync()`、`SaveAsync()`
+- ❌ 禁止 child Entity repository 與公開 generic CRUD repository
+- ✅ Query port 實作 `IQueryRepository` 且保持只讀
+- ✅ Physical purge 與 target-specific batch persistence 使用獨立 capability
 
 #### 2. Aggregate 設計
 - ✅ 每個 Aggregate 必須支援軟刪除 (`IsDeleted`)
@@ -112,18 +116,11 @@
 
 ---
 
-## 🛠️ 技術棧
+## 🛠️ 技術選擇
 
-| 類別 | 技術 | 版本 |
-|------|------|------|
-| 語言/Runtime | C# / .NET | 8.0 |
-| ORM | EF Core | 8.x |
-| Message Bus | WolverineFx | Latest |
-| 測試框架 | xUnit + BDDfy | Latest |
-| Mocking | NSubstitute | Latest |
-| Assertion | FluentAssertions | Latest |
-| 資料庫 | PostgreSQL | 16.x |
-| 訊息佇列 | Kafka | 3.x |
+Database、ORM、event store、message broker 與 package version 由 target repository evidence 決定。
+
+本 framework 可保留 EF Core、Dapper、Npgsql、WolverineFx、RabbitMQ、Kafka、xUnit、NSubstitute 等 conditional/reference guidance，但不得把 reference selection 當成所有 target repo 的 mandatory truth。
 
 ---
 

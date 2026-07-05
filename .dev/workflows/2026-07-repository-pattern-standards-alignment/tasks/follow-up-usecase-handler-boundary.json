@@ -1,0 +1,78 @@
+{
+  "task_id": "follow-up-usecase-handler-boundary",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "deferred",
+  "scope": {
+    "target": "Open a dedicated workflow to separate synchronous Use Case objects from message or command Handlers",
+    "files": [
+      ".dev/standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/controller-standards.md",
+      ".dev/standards/project-structure.md",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/",
+      ".ai/assets/sub-agent-role-prompts/command-sub-agent/",
+      ".ai/assets/sub-agent-role-prompts/query-sub-agent/",
+      ".ai/assets/skills/slice-implementer/references/modes/",
+      ".dev/standards/examples/controller/",
+      "tools/DotnetBackendAnalyzers/"
+    ],
+    "dependency_radius": "Controller invocation, Use Case contracts, Command/Query DTOs, synchronous handlers, MQ/event handlers, prompts, examples, tests, and analyzers",
+    "constraints": [
+      "Do not execute inside the Repository Pattern standards implementation",
+      "Preserve MQ-only cross-bounded-context communication",
+      "Controller should depend on an application Use Case interface for synchronous API behavior",
+      "Do not assume publishing a Command is the default synchronous API invocation mechanism",
+      "Keep message/event Handler responsibilities distinct from Use Case responsibilities"
+    ],
+    "non_goals": [
+      "No Use Case or Handler standards rewrite in the Repository Pattern workflow",
+      "No production code implementation",
+      "No message transport redesign"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Controller -> IUseCase -> Use Case implementation as the synchronous API default, with Handler as a distinct role",
+    "review_findings": [
+      "The canonical relationship document currently treats Handler as the default Use Case implementation",
+      "Controller standards inject concrete Handlers",
+      "Controller examples inject IUseCase",
+      "Command/query prompts prefer Wolverine handlers",
+      "Current guidance contains competing invocation models"
+    ],
+    "user_constraints": [
+      "Use Case and Handler are separate independent objects",
+      "API Controller injects a Use Case interface",
+      "Normal synchronous API behavior does not publish a Command",
+      "Persist this follow-up so it is not forgotten"
+    ]
+  },
+  "execution": {
+    "operation_type": "future-workflow-bootstrap",
+    "steps": [
+      "Open a dedicated workflow after Repository Pattern alignment closes",
+      "Inventory all Use Case, Handler, Controller, Command, Query, and Wolverine role definitions",
+      "Resolve synchronous invocation and message-handler boundaries",
+      "Update canonical standards before prompts, examples, tests, and analyzers",
+      "Run cross-reference and validator consistency checks"
+    ],
+    "validation": [
+      "Dedicated workflow artifact exists before implementation",
+      "Controller, Use Case, Handler, and message-delivery roles have one canonical definition",
+      "Prompts, examples, tests, and analyzers match the approved invocation model"
+    ],
+    "deferred_items": [
+      "All implementation is deferred until the Repository Pattern workflow closes"
+    ]
+  },
+  "results": {
+    "summary": "Recorded as an explicit follow-up because current standards conflict with the user's intended Use Case and Handler separation.",
+    "files_changed": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/follow-up-usecase-handler-boundary.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

@@ -12,7 +12,8 @@ Use this delegated sub-agent role when the main agent needs a worker focused on 
 
 - Use WolverineFx handlers for commands
 - Use `CqrsOutput` equivalent or the current repository result pattern
-- Repository dependencies come from DI; do not add custom repository interfaces
+- Repository dependencies come from DI; use `IAggregateRepository` for Aggregate
+  Root writes and do not add generic writable CRUD or query methods to it
 - Tests follow xUnit + BDDfy-style naming guidance and no `BaseTestClass`
 
 ## Output Structure

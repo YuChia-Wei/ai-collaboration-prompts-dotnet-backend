@@ -45,9 +45,9 @@ public sealed record CreateProductCommand(
 
 public sealed class CreateProductHandler
 {
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IAggregateRepository<Product, ProductId> _repository;
     
-    public CreateProductHandler(IRepository<Product, ProductId> repository)
+    public CreateProductHandler(IAggregateRepository<Product, ProductId> repository)
     {
         _repository = repository;
     }
@@ -98,17 +98,14 @@ Use case / handler / service / mapper / projection 本身也不得依賴 DI attr
 // ✅ 正確：Constructor Injection
 public sealed class CreateProductHandler
 {
-    private readonly IRepository<Product, ProductId> _repository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IAggregateRepository<Product, ProductId> _repository;
     private readonly ILogger<CreateProductHandler> _logger;
     
     public CreateProductHandler(
-        IRepository<Product, ProductId> repository,
-        IUnitOfWork unitOfWork,
+        IAggregateRepository<Product, ProductId> repository,
         ILogger<CreateProductHandler> logger)
     {
         _repository = repository;
-        _unitOfWork = unitOfWork;
         _logger = logger;
     }
 }
@@ -118,7 +115,7 @@ public sealed class CreateProductHandler
 {
     public CreateProductHandler(IServiceProvider provider)
     {
-        var repo = provider.GetService<IRepository<Product, ProductId>>();  // FORBIDDEN!
+        var repo = provider.GetService<IAggregateRepository<Product, ProductId>>();  // FORBIDDEN!
     }
 }
 ```
@@ -175,7 +172,6 @@ public async Task<Result<ProductId>> Handle(
     {
         var product = new Product(...);
         await _repository.SaveAsync(product, ct);
-        await _unitOfWork.CommitAsync(ct);
         
         return Result.Success(product.Id);
     }
@@ -186,6 +182,48 @@ public async Task<Result<ProductId>> Handle(
     }
 }
 ```
+
+### 5. Strong consistency 必須顯式宣告
+
+Eventual consistency 是跨 Aggregate coordination 的預設。
+
+一般單一 Aggregate flow 不因使用 Repository 就自動依賴 `IUnitOfWork`。
+
+只有 application Use Case 明確要求多個 persistence participant 同步 commit/rollback 時，才顯式注入：
+
+```csharp
+public sealed class StrongConsistencyApplicationOperation
+{
+    private readonly IAggregateRepository<Order, OrderId> _orders;
+    private readonly IAggregateRepository<Reservation, ReservationId> _reservations;
+    private readonly IUnitOfWork _unitOfWork;
+
+    public StrongConsistencyApplicationOperation(
+        IAggregateRepository<Order, OrderId> orders,
+        IAggregateRepository<Reservation, ReservationId> reservations,
+        IUnitOfWork unitOfWork)
+    {
+        _orders = orders;
+        _reservations = reservations;
+        _unitOfWork = unitOfWork;
+    }
+
+    public async Task ExecuteAsync(CancellationToken cancellationToken)
+    {
+        // Load Aggregates, execute each Aggregate's behavior, and save them.
+        await _unitOfWork.CommitAsync(cancellationToken);
+    }
+}
+```
+
+規則：
+
+- `IUnitOfWork` dependency 必須有 business consistency justification。
+- 不得只因減少 IO round trips 而宣告 strong consistency。
+- Repository 參與 Unit of Work 時不得自行 commit。
+- Commit 成功後才 acknowledge/clear pending Domain Events。
+
+> Use Case 與 Handler 的角色分離仍由後續 workflow 處理；本節只定義 transaction dependency，不改變目前 invocation model。
 
 ---
 
@@ -199,8 +237,10 @@ public async Task<Result<ProductId>> Handle(
 
 ### CQRS 分離
 - [ ] Command 和 Query 是獨立的 Handler
-- [ ] Command 使用 Repository
-- [ ] Query 使用專門的 QueryService
+- [ ] Command 使用 Aggregate Repository
+- [ ] Query 使用 `IQueryRepository` port
+- [ ] 只有 composition/policy/calculation 才增加 Query Service
+- [ ] `IUnitOfWork` 只有明確 strong consistency justification 才注入
 
 ### Command/Query Records
 - [ ] 使用 `sealed record`
@@ -224,17 +264,14 @@ public sealed record Create[Aggregate]Command(
 // Handler
 public sealed class Create[Aggregate]Handler
 {
-    private readonly IRepository<[Aggregate], [Aggregate]Id> _repository;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IAggregateRepository<[Aggregate], [Aggregate]Id> _repository;
     private readonly ILogger<Create[Aggregate]Handler> _logger;
 
     public Create[Aggregate]Handler(
-        IRepository<[Aggregate], [Aggregate]Id> repository,
-        IUnitOfWork unitOfWork,
+        IAggregateRepository<[Aggregate], [Aggregate]Id> repository,
         ILogger<Create[Aggregate]Handler> logger)
     {
         _repository = repository;
-        _unitOfWork = unitOfWork;
         _logger = logger;
     }
 
@@ -251,7 +288,6 @@ public sealed class Create[Aggregate]Handler
             );
 
             await _repository.SaveAsync(aggregate, ct);
-            await _unitOfWork.CommitAsync(ct);
 
             return Result.Success(aggregate.Id);
         }

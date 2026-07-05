@@ -1,423 +1,314 @@
 # Repository 編碼規範 (.NET)
 
-本文件定義 Repository 的編碼標準，包含介面設計、實作原則、EF Core Entity 設計等規範。
+本文件是 Aggregate persistence 與 query-side data access 的 canonical standard。
 
-> **Projection 規範**: 複雜查詢相關規範請參考 [Projection 編碼規範](./projection-standards.md)
+本規範定義 application port 語意，不指定資料庫、ORM、event store 或套件。EF Core、Dapper、Npgsql 與其他 adapter 的內容只作條件式實作指引。
 
----
+## 核心邊界
 
-## 📌 概述
+Repository 規則分為三種角色：
 
-Repository 只負責 Aggregate 的基本存取（Command Side），查詢需求需透過 Query Repository + Query Service（Query Side）。
+| 角色 | 用途 | 可否修改資料 | 主要回傳型別 |
+| --- | --- | --- | --- |
+| Aggregate Repository | 重新載入與持久化 Aggregate Root | 是 | Aggregate Root |
+| Query Repository | 純查詢 read model | 否 | DTO、read model、ID、scalar、page |
+| Capability-specific Writer | Outbox、projection、import、purge 等明確能力 | 是 | 依能力定義，不回傳 Aggregate |
 
-- **Repository 五個方法**：`FindByIdAsync`, `FindByIdsAsync`, `SaveAsync`, `SaveAllAsync`, `DeleteAsync`
-- **禁止自定義查詢方法**：複雜查詢使用 Query Repository + Query Service
-- **將讀寫模型分離**：Domain Repository 用於 Write Model，Query Repository 用於 Read Model
+Repository interface 是 Application outbound port。EF Core、Dapper、SQL、event store、file 或 remote persistence implementation 是 Infrastructure outbound adapter。
 
-> 📖 模式理由詳見 [../../standards/rationale/query-side-layering-rationale.MD](../../standards/rationale/query-side-layering-rationale.MD)
+## Aggregate Repository
 
----
-
-## 🏷️ Pattern 標記（自動化檢查用）
-
-以下標記供自動化 Code Review 腳本使用：
-
-```yaml
-# Repository 規則
-Pattern (required, any): IDomainRepository<
-
-# 允許的方法
-Pattern (allowed): FindByIdAsync|FindByIdsAsync|SaveAsync|SaveAllAsync|DeleteAsync
-
-# 禁止規則（Repository 不應有自定義查詢）
-Pattern (forbidden, i): GetBy|QueryBy|SearchBy|FindByName|FindByStatus
-```
-
----
-
-## 🔴 必須遵守的規則 (MUST FOLLOW)
-
-### 1. Repository Interface 設計
-
-使用泛型 Repository Interface：
+### Canonical contract
 
 ```csharp
-// ✅ 正確：定義泛型 Repository Interface
-namespace Lab.BuildingBlocks.Application;
+public interface IAggregateRepository<TAggregate, TId>
+    where TAggregate : AggregateRoot<TId>
+{
+    Task<TAggregate?> FindByIdAsync(
+        TId id,
+        CancellationToken cancellationToken = default);
 
+    Task SaveAsync(
+        TAggregate aggregate,
+        CancellationToken cancellationToken = default);
+}
+```
+
+規則：
+
+- `TAggregate` 必須是 Aggregate Root。
+- Child Entity 不得擁有可由 Application 獨立注入的 Repository。
+- `FindByIdAsync` 只按 Aggregate identity 載入。
+- `SaveAsync` 表達「持久化已完成 domain behavior 的 Aggregate」。
+- Adapter 可依技術採 insert、update、upsert、tracked persistence 或 event append。
+- Repository 不得包含 status、name、filter、paging 或 DTO query methods。
+- Repository 不得自行執行 domain behavior。
+- Repository 不得在 persistence 成功前清除 pending Domain Events。
+
+### Compatibility contract
+
+既有產品可能已使用 `IDomainRepository` 表示 Aggregate Repository。為降低 context 導入時的無效遷移噪音，保留 compatibility contract：
+
+```csharp
 public interface IDomainRepository<TAggregate, TId>
+    : IAggregateRepository<TAggregate, TId>
     where TAggregate : AggregateRoot<TId>
 {
-    // 基本操作
-    Task<TAggregate?> FindByIdAsync(TId id, CancellationToken ct = default);
-    Task SaveAsync(TAggregate aggregate, CancellationToken ct = default);
-    Task DeleteAsync(TAggregate aggregate, CancellationToken ct = default);
-
-    // 批次操作（效能優化，語意相同）
-    Task<IReadOnlyList<TAggregate>> FindByIdsAsync(IEnumerable<TId> ids, CancellationToken ct = default);
-    Task SaveAllAsync(IEnumerable<TAggregate> aggregates, CancellationToken ct = default);
-}
-
-// 在 Handler 中使用
-public sealed class CreateRecordHandler
-{
-    private readonly IDomainRepository<Record, RecordId> _repository;
-
-    public CreateRecordHandler(IDomainRepository<Record, RecordId> repository)
-    {
-        _repository = repository;
-    }
-}
-
-// ❌ 錯誤：為每個 Aggregate 創建特定 Interface 加入額外方法
-public interface IRecordRepository : IDomainRepository<Record, RecordId>
-{
-    Task<Record?> GetByNameAsync(string name);  // ❌ 不應該加入查詢方法
 }
 ```
 
----
+規則：
 
-### 2. Repository 實作 (EF Core)
+- 新程式碼優先使用 `IAggregateRepository<TAggregate, TId>`。
+- `IDomainRepository<TAggregate, TId>` 不是第二種 repository model。
+- Compatibility contract 仍必須套用所有 Aggregate Root 限制。
+- `IDomainRepository<ChildEntity, TId>` 是違規，不得因相容性而忽略。
+- Aggregate-specific interface 只用於相容既有程式碼或提供明確型別別名；
+  不得新增 shared contract 以外的方法。
+- 禁止只為重新命名而建立無語意的空殼 interface。
+
+## 禁止的通用寫入介面
+
+Application code 不得依賴可接受任意 Entity 或 table model 的公開 CRUD abstraction，例如：
+
+- `IRepository<TEntity, TId>`
+- `IGenericRepository<TEntity, TId>`
+- `IWritableRepository<TEntity, TId>`
+- `ICrudRepository<TEntity, TId>`
+
+Infrastructure adapter 內部可以使用 private/internal DAO、table gateway 或 persistence helper，但不得把它們直接暴露為 Application port。
+
+## Query Repository
+
+### Marker
 
 ```csharp
-// ✅ 正確：Record Repository 實作
-public class RecordRepository : IRepository<Record, RecordId>
+public interface IQueryRepository
 {
-    private readonly ApplicationDbContext _context;
-
-    public RecordRepository(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
-    public async Task<Record?> FindByIdAsync(RecordId id, CancellationToken ct = default)
-    {
-        var data = await _context.Records
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id.Value, ct);
-
-        return data is null ? null : RecordMapper.ToDomain(data);
-    }
-
-    public async Task SaveAsync(Record aggregate, CancellationToken ct = default)
-    {
-        var data = RecordMapper.ToData(aggregate);
-
-        var existing = await _context.Records
-            .FirstOrDefaultAsync(x => x.Id == data.Id, ct);
-
-        if (existing is null)
-        {
-            await _context.Records.AddAsync(data, ct);
-        }
-        else
-        {
-            _context.Entry(existing).CurrentValues.SetValues(data);
-        }
-
-        aggregate.ClearDomainEvents();
-    }
-
-    public async Task DeleteAsync(Record aggregate, CancellationToken ct = default)
-    {
-        var data = await _context.Records
-            .FirstOrDefaultAsync(x => x.Id == aggregate.Id.Value, ct);
-
-        if (data is not null)
-        {
-            _context.Records.Remove(data);
-        }
-
-        aggregate.ClearDomainEvents();
-    }
 }
 ```
 
----
-
-### 3. InMemory Repository（測試用）
+Query-specific port 必須實作 marker：
 
 ```csharp
-// ✅ 正確：InMemory Repository 實作
-public class InMemoryRepository<TAggregate, TId> : IRepository<TAggregate, TId>
+public interface IProductQueryRepository : IQueryRepository
+{
+    Task<ProductDetailsDto?> FindDetailsAsync(
+        ProductId id,
+        CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyList<ProductId>> FindIdsByStatusAsync(
+        ProductStatus status,
+        CancellationToken cancellationToken = default);
+}
+```
+
+規則：
+
+- Query Repository 是純讀取 port。
+- 允許回傳 DTO、read model、ID、scalar 或 page。
+- 禁止回傳可被修改後保存的 Aggregate Root 或 child Entity。
+- 禁止 `Save`、`Add`、`Update`、`Delete`、`Remove` 或等價 persistence write。
+- Query criteria 可以依 use case/read model 設計，不必模擬 Aggregate Repository。
+- Query Repository implementation 位於 Infrastructure。
+
+### Optional Query Service
+
+簡單 Query 可以由 Application boundary 直接依賴 Query Repository。
+
+只有在下列情況才新增 Application Query Service：
+
+- 組合多個 Query Repository 或外部 read source；
+- 有可重用的 query policy；
+- 有非單純 mapping 的 calculation 或 orchestration。
+
+禁止為每個 Query 強制建立 pass-through Query Service。
+
+## Delete 與 Purge
+
+### Soft delete
+
+Soft delete 是 Aggregate behavior：
+
+```csharp
+aggregate.Delete(actorId, reason);
+await repository.SaveAsync(aggregate, cancellationToken);
+```
+
+Repository 不應以 physical row deletion 取代 Aggregate deletion invariant。
+
+### Physical purge
+
+Physical deletion 使用獨立且受限的 capability port，不放入 shared Aggregate Repository：
+
+```csharp
+public interface IAggregatePurgePort<TAggregate, TId>
     where TAggregate : AggregateRoot<TId>
 {
-    private readonly Dictionary<TId, TAggregate> _store = new();
-
-    public Task<TAggregate?> FindByIdAsync(TId id, CancellationToken ct = default)
-    {
-        _store.TryGetValue(id, out var aggregate);
-        return Task.FromResult(aggregate);
-    }
-
-    public Task SaveAsync(TAggregate aggregate, CancellationToken ct = default)
-    {
-        _store[aggregate.Id] = aggregate;
-        aggregate.ClearDomainEvents();
-        return Task.CompletedTask;
-    }
-
-    public Task DeleteAsync(TAggregate aggregate, CancellationToken ct = default)
-    {
-        _store.Remove(aggregate.Id);
-        aggregate.ClearDomainEvents();
-        return Task.CompletedTask;
-    }
+    Task PurgeAsync(
+        TId id,
+        CancellationToken cancellationToken = default);
 }
 ```
 
----
+Purge Use Case 必須先完成：
 
-### 4. DI 註冊
+- authorization；
+- retention policy；
+- legal/audit constraints；
+- Aggregate eligibility；
+- related outbox/archive/attachment cleanup policy。
 
-```csharp
-// ✅ 正確：在 Program.cs 或 ServiceExtensions 中註冊
-public static class RepositoryServiceExtensions
-{
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
-    {
-        services.AddScoped<IRepository<Record, RecordId>, RecordRepository>();
-        services.AddScoped<IRepository<Iteration, IterationId>, IterationRepository>();
-        services.AddScoped<IRepository<WorkItem, WorkItemId>, WorkItemRepository>();
+## Transaction 與 Unit of Work
 
-        return services;
-    }
-}
-```
+Eventual consistency 是跨 Aggregate coordination 的預設。
 
----
+一般單一 Aggregate Use Case 不因使用 Repository 就自動注入 `IUnitOfWork`。
 
-## 🎯 EF Core Entity (Data Model) 設計
-
-### Entity 結構
+只有 Use Case 明確要求多個 persistence participant 同步 commit/rollback 時，才顯式依賴：
 
 ```csharp
-// ✅ 正確：EF Core Entity 設計
-namespace YourProject.Infrastructure.Persistence.Entities;
-
-public class RecordData
-{
-    public string Id { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-    public string State { get; set; } = string.Empty;
-    public string CreatorId { get; set; } = string.Empty;
-    public bool IsDeleted { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
-
-    // 複雜物件序列化為 JSON
-    public string? DefinitionOfDoneJson { get; set; }
-    public string? TagsJson { get; set; }
-
-    // 導航屬性（如需要）
-    public List<TaskData> Tasks { get; set; } = new();
-
-    // 樂觀鎖
-    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
-}
-```
-
-### Fluent Configuration
-
-```csharp
-// ✅ 正確：使用 Fluent API 配置
-public class RecordDataConfiguration : IEntityTypeConfiguration<RecordData>
-{
-    public void Configure(EntityTypeBuilder<RecordData> builder)
-    {
-        builder.ToTable("records");
-
-        builder.HasKey(x => x.Id);
-
-        builder.Property(x => x.Id)
-            .HasColumnName("record_id")
-            .HasMaxLength(50)
-            .IsRequired();
-
-        builder.Property(x => x.Name)
-            .HasMaxLength(100)
-            .IsRequired();
-
-        builder.Property(x => x.IsDeleted)
-            .IsRequired();
-
-        builder.Property(x => x.RowVersion)
-            .IsRowVersion();
-
-        // 索引
-        builder.HasIndex(x => x.Name);
-        builder.HasIndex(x => x.State);
-
-        // 軟刪除過濾
-        builder.HasQueryFilter(x => !x.IsDeleted);
-    }
-}
-```
-
----
-
-## 🎯 Query Side 分層（嚴格 CQRS）
-
-查詢操作採用 **Query Repository + Query Service** 雙層設計。
-
-### 介面與實作放置位置
-
-| 類型 | 介面位置 | 實作位置 |
-|------|---------|---------|
-| `IDomainRepository<T, TId>` | `BuildingBlocks.Application` | `<Domain>.Infrastructure/Repositories` |
-| `I<Domain>QueryRepository` | `<Domain>.Applications/Ports` | `<Domain>.Infrastructure/QueryRepositories` |
-| `I<Domain>QueryService` | `<Domain>.Applications/Ports` | `<Domain>.Applications/QueryServices` |
-
-### Query Repository（Infrastructure 層）
-
-```csharp
-// ✅ 正確：Query Repository - 純資料存取，回傳 DTO/ID
-public interface IRecordQueryRepository
-{
-    Task<RecordDto?> GetByIdAsync(Guid recordId, CancellationToken ct = default);
-    Task<IReadOnlyList<RecordDto>> GetByStateAsync(string state, CancellationToken ct = default);
-    Task<IReadOnlyList<Guid>> GetIdsByStateAsync(string state, CancellationToken ct = default);
-}
-```
-
-| 規則 | 說明 |
-|------|------|
-| ✅ 允許 | 回傳 DTO、ID 列表 |
-| ✅ 允許 | 使用 Dapper 或 EF Core Projection |
-| ❌ 禁止 | 包含業務邏輯 |
-| ❌ 禁止 | 回傳 Aggregate |
-
-### Query Service（Application 層）
-
-```csharp
-// ✅ 正確：Query Service - 查詢業務邏輯
-public interface IRecordQueryService
-{
-    // 組合多個 Repository 查詢
-    Task<RecordWithDetailsDto> GetRecordWithDetailsAsync(Guid recordId, CancellationToken ct = default);
-
-    // 提供 IDs 給 Command Handler 使用
-    Task<IReadOnlyList<Guid>> GetActiveRecordIdsAsync(CancellationToken ct = default);
-}
-```
-
-| 規則 | 說明 |
-|------|------|
-| ✅ 允許 | 組合多個 Query Repository |
-| ✅ 允許 | 包含計算、轉換邏輯 |
-| ✅ 允許 | 回傳 ID 列表供 Command 使用 |
-| ❌ 禁止 | 直接存取資料庫 |
-| ❌ 禁止 | 回傳 Aggregate |
-
----
-
-## 🎯 事務管理
-
-### 使用 IUnitOfWork
-
-```csharp
-// ✅ 正確：定義 IUnitOfWork
 public interface IUnitOfWork
 {
-    Task<int> CommitAsync(CancellationToken ct = default);
-}
-
-// EF Core 實作
-public class EfCoreUnitOfWork : IUnitOfWork
-{
-    private readonly DbContext _context;
-
-    public EfCoreUnitOfWork(DbContext context)
-    {
-        _context = context;
-    }
-
-    public Task<int> CommitAsync(CancellationToken ct = default)
-    {
-        return _context.SaveChangesAsync(ct);
-    }
-}
-
-// 在 Handler 中使用
-public sealed class CreateRecordHandler
-{
-    private readonly IRepository<Record, RecordId> _repository;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public async Task<Result<RecordId>> Handle(
-        CreateRecordCommand command,
-        CancellationToken ct)
-    {
-        var record = new Record(...);
-
-        await _repository.SaveAsync(record, ct);
-        await _unitOfWork.CommitAsync(ct);  // 提交交易
-
-        return Result.Success(record.Id);
-    }
+    Task CommitAsync(CancellationToken cancellationToken = default);
 }
 ```
 
----
+規則：
 
-## 🎯 效能優化
+- 顯式 dependency 表達 exceptional strong-consistency requirement。
+- Repository 在參與外部 Unit of Work 時不得自行 commit。
+- Repository-owned independent commits 不得破壞 Aggregate + Outbox atomicity。
+- Transaction middleware/decorator 可以實作 mechanics，但不得隱藏 Use Case 宣告的強一致性 dependency。
 
-### 使用 AsNoTracking
+Domain Event lifecycle：
+
+1. 執行 Use Case orchestration 與 Aggregate behavior。
+2. 取得 pending Domain Events。
+3. 原子持久化 Aggregate state/events 與必要 Outbox records。
+4. Commit。
+5. Commit 成功後才 acknowledge/clear pending events。
+6. 失敗時保留 retry 與 optimistic concurrency 語意。
+
+## Target-specific Aggregate Batch Capability
+
+Portable building blocks 不發布 mandatory `IAggregateBatchRepository`。
+
+Target repository 只有在具備量測證據時，才可定義 batch port，例如：
 
 ```csharp
-// ✅ 正確：只讀查詢使用 AsNoTracking
-public async Task<Record?> FindByIdAsync(RecordId id, CancellationToken ct)
+public interface IProductAggregateBatchPort
 {
-    var data = await _context.Records
-        .AsNoTracking()  // 提升效能
-        .FirstOrDefaultAsync(x => x.Id == id.Value, ct);
+    Task<IReadOnlyList<ProductAggregate>> FindByIdsAsync(
+        IReadOnlyCollection<ProductId> ids,
+        CancellationToken cancellationToken = default);
 
-    return data is null ? null : RecordMapper.ToDomain(data);
+    Task SaveAllAsync(
+        IReadOnlyCollection<ProductAggregate> aggregates,
+        CancellationToken cancellationToken = default);
 }
 ```
 
----
+啟用條件：
 
-## 🔍 檢查清單
+- 預期 cardinality 確實大於一；
+- 已量測 N+1 IO、latency 或 throughput 問題；
+- Adapter 確實能提供有效 batch optimization；
+- 已定義 missing/duplicate IDs、ordering 與 maximum batch size；
+- 已定義 optimistic concurrency、partial failure、retry 與 resume；
+- 已定義每個 Aggregate 的 pending events 與 Outbox 語意；
+- 不把 batch port 放入 default template、default DI 或一般 Use Case。
 
-### Repository Interface
-- [ ] 使用泛型 `IRepository<TAggregate, TId>`
-- [ ] 只有三個基本方法
-- [ ] 透過 DI 註冊
+Batch port：
 
-### Repository 實作
-- [ ] 使用 EF Core
-- [ ] 呼叫 `ClearDomainEvents()` 在 Save/Delete 後
-- [ ] 使用 `AsNoTracking()` 於只讀查詢
+- 不繼承 `IAggregateRepository<TAggregate, TId>`；
+- 只接受 Aggregate Root；
+- `FindByIdsAsync` 仍是 identity-based load；
+- 不允許 status/filter query；
+- 不得替代逐一執行 Aggregate behavior。
 
-### EF Core Entity
-- [ ] 使用 Fluent API 配置
-- [ ] 有主鍵
-- [ ] 有樂觀鎖 (RowVersion)
-- [ ] 有軟刪除過濾 (`HasQueryFilter`)
-- [ ] 有必要的索引
+`IUnitOfWork` 決定 all-or-nothing business transaction；batch methods 只決定 IO shape。
 
-### 效能
-- [ ] 避免 N+1 查詢
-- [ ] 使用 `Include` 預載
-- [ ] 支援分頁查詢
+大量工作預設採 bounded chunks、retry 與 resumable progress。禁止對無上限集合建立單一長交易。
 
----
+Imports、migrations、projection rebuilds 或 purge 若不執行正常 Aggregate behavior，應使用 capability-specific writer，而不是 Aggregate batch port。
 
-## 📂 程式碼範例
+## Conditional Adapter Guidance
 
-更多完整範例請參考：
+### EF Core
 
-| 範例 | 路徑 |
-|------|------|
-| Outbox + Repository 範例 | [../examples/outbox/](../examples/outbox/) |
-| Profile Configs 範例 | [../examples/profile-configs/](../examples/profile-configs/) |
+- Query/read-model flow 應依 tracking policy 使用 `AsNoTracking` 或 direct projection。
+- Aggregate load 是否 tracking，取決於 adapter 採 direct domain mapping、persistence model mapping 或 tracked aggregate strategy。
+- 使用符合 cardinality 的 async terminal operator，例如 `ToListAsync`、`SingleOrDefaultAsync`、`FirstOrDefaultAsync`、`AnyAsync` 或 `CountAsync`。
+- 不得使用 sync-over-async。
+- Optimistic concurrency 必須有明確 token/version mapping 與 conflict handling。
+- `SaveChangesAsync` 成功前不得 clear Domain Events。
 
----
+### Dapper / direct SQL
 
-## 相關文件
+- Connection/transaction lifetime 必須與 Unit of Work 或 adapter atomic operation 對齊。
+- Update/delete SQL 必須檢查 optimistic concurrency version 或等價條件。
+- Multi-statement Aggregate persistence 與 Outbox 必須共用 atomic boundary。
+- Mapping completeness 由 tests 與 review 驗證。
 
-- [aggregate-standards.md](aggregate-standards.md)
-- [mapper-standards.md](mapper-standards.md)
-- [projection-standards.md](projection-standards.md)
+### Event store
+
+- Append 必須帶 expected version 或等價 concurrency condition。
+- 只 append pending events。
+- Append/commit 成功後才 mark events committed。
+- Snapshot 是 optimization，不得取代 event stream source of truth。
+
+## Automated Validation Ownership
+
+Repository semantic diagnostics 使用 Roslyn symbol/type analysis，不使用 filename 或 grep 作為 CI authority。
+
+必須驗證：
+
+- canonical `IAggregateRepository<,>` generic argument 是 Aggregate Root；
+- compatibility `IDomainRepository<,>` 與所有 derived interfaces 套用相同規則；
+- shared Aggregate Repository method surface 只有 `FindByIdAsync` 與 `SaveAsync`；
+- Query Repository marker 的 ports 不包含 writes 或 mutable domain return types；
+- child Entity 不得成為 repository root；
+- violations 的 default severity 是 `error`。
+
+Target-specific batch ports 的 analyzer/architecture-test 規則由 target repository 依 local marker 啟用。Portable analyzer 不依賴尚未完成的 Use Case/Handler taxonomy。
+
+## Review Checklist
+
+### Aggregate Repository
+
+- [ ] 使用 `IAggregateRepository<TAggregate, TId>`，或相容的 `IDomainRepository<TAggregate, TId>`。
+- [ ] `TAggregate` 是 Aggregate Root。
+- [ ] Shared contract 只有 `FindByIdAsync` 與 `SaveAsync`。
+- [ ] 沒有 child Entity repository。
+- [ ] 沒有 DTO/filter/paging query methods。
+- [ ] Repository 不執行 domain behavior。
+
+### Query Repository
+
+- [ ] 實作 `IQueryRepository` marker。
+- [ ] 只回傳 read-side types、IDs 或 scalar。
+- [ ] 沒有 persistence writes。
+- [ ] 簡單 Query 沒有不必要的 pass-through Query Service。
+
+### Transaction / Events
+
+- [ ] `IUnitOfWork` 只用於明確 strong-consistency Use Case。
+- [ ] Repository 參與 Unit of Work 時不自行 commit。
+- [ ] Aggregate state/events 與 Outbox 的 atomicity 已定義。
+- [ ] Commit 成功後才 clear/acknowledge pending events。
+
+### Optional Batch
+
+- [ ] Target repo 有量測證據與明確 batch semantics。
+- [ ] Batch port 未進入 portable/default contract。
+- [ ] 大量工作採 bounded chunks。
+- [ ] Partial failure、retry、concurrency 與 event/outbox 已定義。
+
+## Related Documents
+
+- [Aggregate Standards](aggregate-standards.md)
+- [Projection Standards](projection-standards.md)
+- [Use Case Standards](usecase-standards.md)
+- [Generic Repository Rationale](../rationale/generic-repository-only-rationale.MD)
+- [Query-side Layering Rationale](../rationale/query-side-layering-rationale.MD)

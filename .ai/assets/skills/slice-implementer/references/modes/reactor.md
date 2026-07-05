@@ -14,7 +14,9 @@ Use this mode when the slice implements one bounded reactor for event-driven con
 
 - Use WolverineFx message handlers for reactor/event processing.
 - Reactors work on event data, not live domain entities.
-- Do not query another aggregate repository directly; use query services or established projection paths.
+- Do not query another aggregate's write repository directly; use a read-only
+  `IQueryRepository` port or an established QueryService when composition or policy
+  requires one.
 - Keep MQ-driven consistency, projection, and integration effects explicit.
 - Keep validation notes explicit when tests or review are still pending.
 

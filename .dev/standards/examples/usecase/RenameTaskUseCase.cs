@@ -1,8 +1,10 @@
+using System.Threading.Tasks;
+
 namespace Example.Plans.UseCases;
 
 public interface IRenameTaskUseCase : ICommand<RenameTaskInput, CqrsOutput>
 {
-    CqrsOutput Execute(RenameTaskInput input);
+    Task<CqrsOutput> Execute(RenameTaskInput input);
 }
 
 public sealed class RenameTaskInput : IInput
