@@ -32,7 +32,7 @@
     ]
   },
   "inputs": {
-    "architecture_target": "Approved D1-D9 direction",
+    "architecture_target": "Approved D1-D10 direction",
     "review_findings": [
       "F1-F7 require canonical standards changes"
     ],

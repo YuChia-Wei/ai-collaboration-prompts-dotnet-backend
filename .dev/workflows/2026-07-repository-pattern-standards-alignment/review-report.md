@@ -5,6 +5,8 @@
 - Workflow: `2026-07-repository-pattern-standards-alignment`
 - Review type: architecture and context consistency baseline
 - Review date: `2026-07-05`
+- Revalidated after rebase: `2026-07-05`
+- Rebase target: local `main` at `2d4130c`
 - Review skills:
   - `ddd-ca-hex-architect`
   - `ai-context-governance`
@@ -42,6 +44,12 @@ The active material contradicts that intent in naming, method surface, ORM selec
 - `.ai/assets/skills/ddd-ca-hex-architect/references/architecture-playbook.md`
 - `.ai/scripts/check-repository-compliance.sh`
 - `.ai/scripts/generated/check-repository.sh`
+- `.dev/requirement/DOTNET-VALIDATOR-PHASE-3-REQUIREMENTS.MD`
+- `.dev/workflows/2026-07-dotnet-validator-phase-3/workflow-plan.md`
+- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md`
+- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md`
+- `tools/DotnetBackendAnalyzers/RepositoryQueryMethodAnalyzer.cs`
+- `tools/DotnetBackendAnalyzers.Tests/RepositoryQueryMethodAnalyzerTests.cs`
 
 ## Findings
 
@@ -191,9 +199,9 @@ Required resolution:
 - approve D4;
 - remove the mandatory custom-interface folder if generic-only remains the default.
 
-### F8 — Automated repository checks do not represent the current standard
+### F8 — Repository validation has a sound migration direction but still encodes the unresolved policy
 
-Severity: critical for enforcement
+Severity: high
 
 Evidence:
 
@@ -201,19 +209,22 @@ Evidence:
 - scripts target all `*Repository*.cs`, including query repositories;
 - the forbidden expression `FindBy|GetBy|QueryBy|SearchBy` rejects the allowed `FindByIdAsync`;
 - source and generated script locations use the same relative base calculation even though their directory depth differs;
-- the scripts encode older rule descriptions not present in the current pattern block.
+- `main` now explicitly marks the grep script as non-gating and pending replacement;
+- `DBA1001` already allows identity lookup and excludes query/read repository names;
+- `DBA1001` still hard-codes the unresolved five-method contract and classifies repositories primarily by interface name;
+- Validator Phase 3 intentionally deferred repository policy and validation to this workflow.
 
 Risk:
 
-- false positives against compliant code;
-- false negatives against the intended abstraction;
-- a passing check does not establish compliance.
+- the legacy script remains misleading if invoked directly;
+- changing D2-D4 without updating `DBA1001` would make analyzer behavior disagree with the standards;
+- broad name-based detection can report false positives or miss repository ports that use a different approved name.
 
 Required resolution:
 
 - do not use the current scripts as a completion gate;
-- separate simple textual checks from semantic architecture validation;
-- regenerate only after the canonical contract is approved.
+- approve D10 after D1-D4;
+- evolve `DBA1001` with semantic tests and retire the grep artifacts only after replacement coverage passes.
 
 ### F9 — Technology and language drift increases migration risk
 
@@ -250,19 +261,37 @@ Required resolution:
 
 ## Recommended Remediation Sequence
 
-1. Resolve D1-D9.
+1. Resolve D1-D10.
 2. Rewrite canonical architecture and coding standards.
 3. Update rationale documents to explain approved tradeoffs.
 4. Synchronize active agent context and prompts.
 5. Synchronize human guides and examples.
-6. Correct or replace validation tooling.
+6. Align `DBA1001`, add regression coverage, and retire repository grep validation.
 7. Run reference, JSON, Markdown, shell, and repository consistency checks.
+
+## Rebase Revalidation Result
+
+The rebase changes the validation-tooling plan but does not invalidate the architecture findings F1-F7 or the technology/language drift finding F9.
+
+Material changes from `main`:
+
+- Validator Phase 3 replaced Mapper, Aggregate, UseCase, and Projection grep checks with dotnet-native validation.
+- Projection standards now assign deterministic write-operation validation to `DBA1013` and EF model registration to `DotnetBackendValidation`.
+- Repository validation was explicitly excluded from Phase 3 and assigned to a separate repository-policy workflow.
+- `check-all.sh` no longer executes repository grep validation as a gate.
+- `DBA1001` is the existing repository analyzer bootstrap and must be treated as an implementation dependency of this workflow.
+
+Planning consequence:
+
+- S4 changes from repairing/regenerating grep scripts to extending `DBA1001`, adding semantic regression tests, and retiring the repository scripts.
+- A new user decision, D10, is required for enforcement ownership and default severity.
+- No previously listed architecture decision can be removed after the rebase.
 
 ## Validation Baseline
 
 The working tree was clean when the workflow was opened. No product tests apply to this bootstrap stage.
 
-The current repository compliance scripts were inspected but intentionally not used as an architecture gate because F8 shows that they contradict the active standards.
+The current repository compliance scripts were inspected but intentionally not used as an architecture gate. Rebase-updated `main` confirms this is the intended transitional state.
 
 ## Residual Risk
 

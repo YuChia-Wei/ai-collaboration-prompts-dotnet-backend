@@ -5,7 +5,7 @@
   "related_review_report_id": "repository-pattern-standards-baseline-review",
   "status": "pending",
   "scope": {
-    "target": "Resolve D1-D9 before canonical repository rules are changed",
+    "target": "Resolve D1-D10 before canonical repository rules are changed",
     "files": [
       ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
       ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/resolve-repository-pattern-decisions.json"
@@ -24,7 +24,7 @@
   "inputs": {
     "architecture_target": "Approved repository, query, persistence, transaction, deletion, and validation contract",
     "review_findings": [
-      "Nine direction decisions remain open"
+      "Ten direction decisions remain open after rebase revalidation"
     ],
     "user_constraints": [
       "Avoid later correction errors by asking for decisions first"
@@ -33,7 +33,7 @@
   "execution": {
     "operation_type": "architecture-decision-resolution",
     "steps": [
-      "Present D1-D9 with recommended defaults and tradeoffs",
+      "Present D1-D10 with recommended defaults and tradeoffs",
       "Record user decisions",
       "Update target direction and downstream task constraints",
       "Mark deferred decisions and their blocked scope"

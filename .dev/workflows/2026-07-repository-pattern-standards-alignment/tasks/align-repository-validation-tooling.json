@@ -1,27 +1,36 @@
 {
   "task_id": "align-repository-validation-tooling",
-  "owner_skill": "local-change-implementer",
+  "owner_skill": "slice-implementer",
   "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
   "related_review_report_id": "repository-pattern-standards-baseline-review",
   "status": "pending",
   "scope": {
-    "target": "Make repository validation checks consistent with the approved canonical contract",
+    "target": "Align DBA1001 with the approved canonical contract and retire repository grep validation",
     "files": [
+      "tools/DotnetBackendAnalyzers/RepositoryQueryMethodAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers.Tests/RepositoryQueryMethodAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig",
       ".ai/scripts/check-repository-compliance.sh",
       ".ai/scripts/generated/check-repository.sh",
-      ".ai/scripts/generate-check-scripts-from-md.sh",
-      ".dev/standards/coding-standards/repository-standards.md"
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/README.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
     ],
     "dependency_radius": "Local compliance checks and generated validation artifacts",
     "constraints": [
       "Depends on canonical standards and dependent-context synchronization",
       "Do not encode semantic architecture rules as unscoped regex",
-      "Generated output must not be edited without correcting its source",
-      "Distinguish domain repository targets from query repository targets"
+      "Do not restore repository grep validation as a gate",
+      "Distinguish domain repository ports from query/read repository ports",
+      "Preserve target-repository severity configurability",
+      "Do not encode transaction or lifecycle intent as syntax-only diagnostics"
     ],
     "non_goals": [
       "No unrelated script migration",
-      "No full Roslyn analyzer implementation unless separately approved"
+      "No unrelated analyzer implementation",
+      "No product-specific namespace or folder assumptions"
     ]
   },
   "inputs": {
@@ -30,28 +39,30 @@
       "Scripts check the old interface name",
       "The forbidden pattern rejects allowed identity methods",
       "Query repositories are included in domain repository checks",
-      "Relative base-path logic differs by script location"
+      "Relative base-path logic differs by script location",
+      "DBA1001 already provides bootstrap semantic validation but hard-codes the unresolved five-method policy"
     ],
     "user_constraints": []
   },
   "execution": {
-    "operation_type": "local-validation-tooling-correction",
+    "operation_type": "bounded-analyzer-and-script-retirement-slice",
     "steps": [
-      "Identify generator ownership and derived outputs",
-      "Narrow textual checks to safe enforceable rules",
-      "Assign semantic rules to architecture tests, analyzers, or explicit deferred work",
-      "Regenerate derived scripts",
-      "Run syntax and fixture-based positive/negative checks"
+      "Translate approved D1-D4 and D10 decisions into deterministic analyzer behavior",
+      "Add positive, negative, and false-positive analyzer tests",
+      "Assign non-deterministic transaction and lifecycle rules to tests or AI review",
+      "Retire source and generated repository grep scripts after replacement evidence passes",
+      "Update check orchestration, README, and validator ownership documents"
     ],
     "validation": [
-      "bash -n for changed shell scripts",
-      "Allowed identity lookup fixture passes",
-      "Forbidden custom query method fixture fails",
-      "Query repository fixture is outside the domain repository rule",
-      "Source and generated output are synchronized"
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj",
+      "Allowed repository lifecycle methods pass",
+      "Forbidden query-style methods fail",
+      "Query/read repositories and unrelated interfaces produce no diagnostics",
+      "check-all.sh no longer references retired repository scripts",
+      "Documentation and validator ownership mappings agree"
     ],
     "deferred_items": [
-      "Roslyn analyzer or architecture-test implementation if not approved in this workflow"
+      "Cross-assembly architecture tests not required by the approved D10 scope"
     ]
   },
   "results": {

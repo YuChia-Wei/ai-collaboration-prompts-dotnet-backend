@@ -1,0 +1,83 @@
+{
+  "task_id": "rebase-and-revalidate-repository-baseline",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-repository-pattern-standards-alignment",
+  "related_review_report_id": "repository-pattern-standards-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Rebase the workflow branch onto main and revalidate the repository pattern analysis against the updated validator architecture",
+    "files": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/review-report.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-repository-validation-tooling.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/rebase-and-revalidate-repository-baseline.json"
+    ],
+    "dependency_radius": "Repository decisions, validator ownership, Roslyn analyzer scope, transitional script retirement, and final validation",
+    "constraints": [
+      "Preserve the committed workflow bootstrap during rebase",
+      "Use rebase-updated main as the new evidence baseline",
+      "Do not resolve user architecture decisions",
+      "Do not modify canonical repository standards in this task"
+    ],
+    "non_goals": [
+      "No repository policy implementation",
+      "No analyzer implementation",
+      "No user decision inference"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "A rebase-aware remediation plan that accounts for the completed .NET Validator Phase 3 work",
+    "review_findings": [
+      "Main now explicitly treats the repository grep script as a non-gating transitional asset",
+      "DBA1001 already provides bootstrap semantic validation for repository query methods",
+      "DBA1001 currently encodes the five-method repository policy and uses a broad repository-name heuristic",
+      "Validator Phase 3 intentionally deferred repository policy to this workflow"
+    ],
+    "user_constraints": [
+      "Create a branch",
+      "Commit existing workflow content",
+      "Rebase onto main",
+      "Repeat the analysis and revise the plan before user decisions"
+    ]
+  },
+  "execution": {
+    "operation_type": "rebase-and-baseline-revalidation",
+    "steps": [
+      "Created the workflow branch and committed the existing workflow artifacts",
+      "Rebased the workflow branch onto local main",
+      "Compared the old baseline with main",
+      "Reviewed Validator Phase 3 requirements, workflow, script ownership, projection standards, and DBA1001",
+      "Updated the repository workflow plan and review report"
+    ],
+    "validation": [
+      "Run analyzer tests",
+      "Parse all workflow task JSON files",
+      "Run git diff --check",
+      "Confirm branch ancestry against main",
+      "Confirm the workflow remains awaiting user decisions"
+    ],
+    "deferred_items": [
+      "Resolve D1-D10",
+      "Implement canonical standards and validator changes"
+    ]
+  },
+  "results": {
+    "summary": "Created and committed the workflow branch, rebased it onto local main without conflicts, revalidated the repository analysis against completed Validator Phase 3 work, retained D1-D9, added D10, and changed S4 from grep-script repair to DBA1001 alignment plus script retirement.",
+    "files_changed": [
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/workflow-plan.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/review-report.md",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-canonical-repository-standards.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/align-repository-validation-tooling.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/resolve-repository-pattern-decisions.json",
+      ".dev/workflows/2026-07-repository-pattern-standards-alignment/tasks/rebase-and-revalidate-repository-baseline.json"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore",
+      "Parsed all workflow task JSON files with PowerShell ConvertFrom-Json",
+      "Validated local Markdown links in workflow-plan.md and review-report.md",
+      "git merge-base --is-ancestor main HEAD",
+      "git diff --check"
+    ],
+    "follow_up_needed": true
+  }
+}

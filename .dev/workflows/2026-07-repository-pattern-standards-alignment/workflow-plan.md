@@ -7,7 +7,10 @@
 - Owner skill: `dev-workflow`
 - Status: `awaiting-user-decisions`
 - Created: `2026-07-05`
-- Branch state at bootstrap: detached HEAD
+- Branch: `codex/repository-pattern-standards-alignment`
+- Rebased onto: local `main` at `2d4130c`
+- Bootstrap commit after rebase: `32f6227`
+- Original analysis baseline: `417cc5c`
 - Issue: not provided
 
 ## Problem Statement
@@ -73,7 +76,7 @@ The following direction is recommended but is not approved until the open decisi
 7. Clear recorded domain events only after successful atomic persistence.
 8. Use direct query ports for simple reads; introduce an application query service only for composition or query-side policy.
 9. Prevent empty custom repository wrappers, while allowing explicitly justified aggregate-lifecycle ports.
-10. Move semantic enforcement from broad regex checks to architecture tests, analyzers, or focused executable tests.
+10. Align the existing `DBA1001` Roslyn analyzer with the approved repository contract, add positive/negative/false-positive tests, and retire the non-gating repository grep script.
 
 ## Open Decisions
 
@@ -126,6 +129,13 @@ The following direction is recommended but is not approved until the open decisi
 - Recommended: keep this workflow focused on behavior and boundary consistency; schedule standards-language normalization separately.
 - Alternative: convert every touched normative standard to English during this workflow.
 
+### D10 — Repository validation ownership and default severity
+
+- Recommended: use `DBA1001` for deterministic repository-interface semantics, architecture/configuration tests for cross-layer facts, and AI review/tests for transaction and lifecycle intent.
+- Recommended default template severity: `warning`, configurable by each target repository.
+- Alternative: make repository diagnostics an unconditional error gate or leave the existing bootstrap analyzer unchanged.
+- The current grep script must not return as a CI gate.
+
 ## Skill Routing
 
 | Stage | Capability | Skill | Confidence | Evidence |
@@ -133,7 +143,7 @@ The following direction is recommended but is not approved until the open decisi
 | S0 | workflow orchestration | `dev-workflow` | High | Repository capability profile |
 | S0-S2 | architecture | `ddd-ca-hex-architect` | High | Repository capability profile |
 | S0, S3-S5 | context governance | `ai-context-governance` | High | Repository capability profile |
-| S4 | local tooling change | `local-change-implementer` | High | Repository capability profile |
+| S4 | bounded validator implementation | `slice-implementer` | High | Repository capability profile and completed Validator Phase 3 direction |
 
 No sub-agent work is planned. Specialist skills are applied sequentially in the current thread.
 
@@ -155,7 +165,7 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 - Status: pending
 - Owner: `ddd-ca-hex-architect`
-- Goal: obtain and record D1-D9 decisions.
+- Goal: obtain and record D1-D10 decisions.
 - Output:
   - updated decision section in this plan;
   - `tasks/resolve-repository-pattern-decisions.json`
@@ -204,18 +214,26 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 ### S4 — Align validation tooling
 
 - Status: pending
-- Owner: `local-change-implementer`
-- Goal: correct or retire repository regex checks and regenerate derived files.
+- Owner: `slice-implementer`
+- Goal: align `DBA1001` with the approved contract and retire the repository grep validation path.
 - Scope:
+  - `tools/DotnetBackendAnalyzers/RepositoryQueryMethodAnalyzer.cs`
+  - `tools/DotnetBackendAnalyzers.Tests/RepositoryQueryMethodAnalyzerTests.cs`
+  - `tools/DotnetBackendAnalyzers/README.md`
+  - `tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig`
   - `.ai/scripts/check-repository-compliance.sh`
   - `.ai/scripts/generated/check-repository.sh`
-  - generator source or pattern metadata where applicable
+  - `.ai/scripts/check-all.sh`
+  - `.ai/scripts/README.md`
+  - validator ownership and mapping documents
 - Validation:
-  - no rule rejects the allowed identity lookup;
-  - query repository files are not checked as domain repositories;
-  - source and generated checks agree;
-  - shell syntax validation passes;
-  - semantic rules are assigned to an appropriate executable validation layer.
+  - analyzer recognizes only the approved domain repository contract;
+  - allowed lifecycle methods pass;
+  - forbidden query-style methods fail;
+  - query/read repositories and unrelated interfaces do not produce false positives;
+  - analyzer positive, negative, and false-positive regression tests pass;
+  - the repository grep script and its generated artifact are removed only after replacement evidence passes;
+  - `check-all.sh`, README, and validator ownership documents agree.
 
 ### S5 — Final consistency validation and closure
 
@@ -233,19 +251,21 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ## Commit Checkpoints
 
-No commit is authorized by the current request. If commits are requested later, use these coherent boundaries:
+The workflow bootstrap was committed as `32f6227` after rebasing onto `main`.
 
-1. `workflow(workflow): bootstrap repository pattern alignment`
+Use these remaining coherent boundaries:
+
+1. `workflow(workflow): record repository pattern decisions`
 2. `docs(architecture): align repository pattern standards`
 3. `docs(ai-context): synchronize repository guidance`
-4. `chore(dotnet-backend): align repository validation checks`
+4. `feat(dotnet-backend): align repository validation`
 5. `workflow(workflow): close repository pattern alignment`
 
 Each workflow-stage commit must include `Why`, `What`, `Validation`, and `Workflow` sections.
 
 ## Completion Criteria
 
-- D1-D9 are resolved or explicitly deferred.
+- D1-D10 are resolved or explicitly deferred.
 - Canonical standards contain no internal contradiction for the repository rule family.
 - Active prompts, guides, examples, and checks do not override the canonical contract.
 - Transaction/outbox examples match the approved command-side technology.
