@@ -111,4 +111,13 @@ internal static class RuleDescriptors
         defaultSeverity: DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
         description: "Repository ports must be injected into use cases; concrete repository construction belongs in the composition root.");
+
+    public static readonly DiagnosticDescriptor ProjectionWriteOperation = new(
+        id: "DBA1013",
+        title: "Projection should not perform persistence writes",
+        messageFormat: "Projection '{0}' calls persistence write operation '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: "Projection services are read-side ports and must not call DbContext or DbSet write operations.");
 }

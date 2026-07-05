@@ -294,7 +294,9 @@ fi
 
 # Projection Check
 if [ "$CHECK_PROJECTION_CONFIG" = true ]; then
-    run_check_pending "check-projection-config.sh" "Projection Configuration"
+    echo -e "${BLUE}ℹ${NC} Projection build diagnostic: DBA1013"
+    echo "  Run DotnetBackendValidation tests for IProjectionReadModel EF registration."
+    echo "  Continue AI review for query shape, tracking policy, and read-model responsibility."
 fi
 
 # Coding Standards Check

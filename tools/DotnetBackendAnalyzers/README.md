@@ -16,6 +16,7 @@ Current diagnostics:
 - `DBA1010`: use cases should not use service locator or attribute-based property injection.
 - `DBA1011`: handlers should not mix command and query marker responsibilities.
 - `DBA1012`: use cases should not directly construct repositories.
+- `DBA1013`: projection services should not call EF persistence write operations.
 
 `DBA1004` through `DBA1006` replace the former controller grep compliance script. `DBA1007` and `DBA1008` replace the former mapper grep compliance scripts.
 

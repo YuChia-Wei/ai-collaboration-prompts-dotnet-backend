@@ -17,7 +17,7 @@
 | `check-aggregate-compliance.sh` | Replaced by Roslyn diagnostics `DBA1003` and `DBA1009` | Scripts removed. Invariant and event completeness remain test and AI review concerns. |
 | `check-controller-compliance.sh` | Replaced by Roslyn diagnostics `DBA1004`-`DBA1006` | Script removed. Cross-assembly Presentation boundary tests remain a separate future concern. |
 | `check-mapper-compliance.sh` | Replaced by Roslyn diagnostics `DBA1007`-`DBA1008` | Scripts removed after static-only shape and forbidden dependency coverage was added. Mapping completeness remains a test and AI review concern. |
-| `check-projection-compliance.sh` | Roslyn analyzer + architecture tests | Analyzer for read-model/projection code patterns; architecture tests for dependency direction. |
+| `check-projection-compliance.sh` | Replaced by `DBA1013` plus tests and AI review | Script removed. EF write operations are diagnostic violations; query efficiency and tracking policy remain test/review concerns. |
 | `check-archive-compliance.sh` | Roslyn analyzer | Only if archive conventions remain in the dotnet-backend profile. |
 | `check-test-compliance.sh` | `.editorconfig`, Roslyn analyzer, test architecture rules | Split framework/package bans, naming, base test class, and substitute usage by target mechanism. |
 | `check-test-di-compliance.sh` | Roslyn analyzer + test architecture rules | Replace DI pattern grep with analyzer/test checks. |
@@ -25,7 +25,7 @@
 | `check-domain-events-compliance.sh` | Roslyn analyzer | Event shape and forbidden legacy interfaces belong in analyzer. |
 | `check-framework-api-compliance.sh` | Roslyn analyzer | Forbidden/required framework API usage belongs in analyzer. |
 | `check-dotnet-config.sh` | Dotnet tool/test + analyzer split | Package/config scanning to dotnet tool; source API usage to analyzer. |
-| `check-projection-config.sh` | Dotnet tool/test + analyzer split | Config/file checks to dotnet tool; C# usage to analyzer. |
+| `check-projection-config.sh` | Replaced by `DotnetBackendValidation` configuration tests | Script removed. `IProjectionReadModel` implementations are checked against the assembled EF Core model. |
 | `check-spec-compliance.sh` | Dotnet spec compliance tool | Reads spec and repo files; not a Roslyn analyzer concern unless it compiles semantic model from projects. |
 | `check-dockerfile-csproj-copy-sync.ps1` | Dotnet tool or CI file validation | Keep PowerShell short term; can become dotnet repo validation tool. |
 | `check-mutation-coverage.sh` | Stryker.NET config + CI orchestration | Keep only as local runner if useful. |

@@ -65,7 +65,6 @@ Current transitional behavior:
 ### Replace With Roslyn Analyzer Or Architecture Tests
 
 - `check-repository-compliance.sh`
-- `check-projection-compliance.sh`
 - `check-archive-compliance.sh`
 - `check-test-compliance.sh`
 - `check-test-di-compliance.sh`
@@ -85,6 +84,7 @@ Completed replacement:
 - mapper rules: `DBA1007` and `DBA1008`; the mapper grep scripts have been removed.
 - aggregate rules: `DBA1003` and `DBA1009`; the aggregate grep scripts have been removed while invariant completeness remains test and AI review work.
 - use case rules: `DBA1002` and `DBA1010` through `DBA1012`; the use case grep scripts have been removed while transaction and error-handling design remain AI review work.
+- projection rules: `DBA1013` covers EF write operations and `DotnetBackendValidation` verifies marker-based EF model registration; the projection grep/config scripts have been removed.
 
 Analyzer source template:
 
@@ -95,7 +95,6 @@ Analyzer source template:
 
 - `check-dockerfile-csproj-copy-sync.ps1`
 - `check-dotnet-config.sh`
-- `check-projection-config.sh`
 - `check-spec-compliance.sh`
 - `check-mutation-coverage.sh`
 - `test-profile-startup.sh`

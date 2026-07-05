@@ -58,11 +58,11 @@ Unable to resolve service for type 'EfPlanProjection'
 ## 🔍 自動檢查
 
 ```bash
-# Transitional helper. Long-term validation should move to analyzer, config tests, or dotnet tool coverage.
-.ai/scripts/check-projection-config.sh
+dotnet test tools/DotnetBackendValidation.Tests/DotnetBackendValidation.Tests.csproj
 ```
 
-> Note: Script name is legacy; keep it until the rename is completed.
+目標 repository 應提供 `IProjectionReadModel` marker interface，並使用
+`ProjectionModelRegistrationValidator` 比對 marker implementations 與 assembled `DbContext.Model`。
 
 ## 📋 檢查清單
 

@@ -22,20 +22,12 @@ Projection 為 CQRS 的 Read Model，負責查詢與效能優化。
 
 ---
 
-## 🏷️ Pattern 標記（自動化檢查用）
+## 🏷️ 自動化驗證責任
 
-以下標記供自動化 Code Review 腳本使用：
-
-```yaml
-# Projection 規則（必須使用只讀查詢）
-Pattern (required, any): AsNoTracking|Select|ProjectTo
-
-# 禁止規則（不可在 Projection 中變更資料）
-Pattern (forbidden): SaveChanges
-Pattern (forbidden): Update\(
-Pattern (forbidden): Add\(
-Pattern (forbidden): Remove\(
-```
+- `DBA1013`：實作 canonical `IProjection` marker 的 query service 不得呼叫 EF Core persistence write operations。
+- `DotnetBackendValidation`：實作 `IProjectionReadModel` marker 的 EF read model 必須存在於 assembled `DbContext.Model`。
+- `AsNoTracking`、projection shape 與 query efficiency：依 provider、global tracking policy 與實際 query 由 tests、profiling 和 AI review 判斷，不以 source text 作為 CI gate。
+- Dapper-only DTO 與 query service 不受 EF model registration gate 約束。
 
 ---
 

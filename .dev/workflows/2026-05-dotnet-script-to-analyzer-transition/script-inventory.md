@@ -25,7 +25,7 @@ The risky category is the third one. It attempts to validate C# architecture and
 | `.ai/scripts/validate-dual-profile-config.sh` | Validates dual profile configuration files and startup shape. | No | `replace-with-dotnet-tool-or-test` | Prefer integration/config tests or dotnet tool if cross-file validation remains useful. |
 | `.ai/scripts/check-spec-compliance.sh` | Reads spec JSON and checks for named files in `src`. | No semantic C# analysis, but code-file existence check | `replace-with-dotnet-tool-or-test` | Replace with spec compliance validator implementation or dotnet tool; shell is acceptable only as transitional glue. |
 | `.ai/scripts/check-dotnet-config.sh` | Greps csproj, appsettings, and source for EF/Wolverine/outbox/in-memory DB configuration. | Partial | `replace-with-dotnet-tool-or-test` | Split: package/config checks to dotnet tool; C# API usage checks to analyzer. |
-| `.ai/scripts/check-projection-config.sh` | Greps source/config for projection and read-model configuration patterns. | Partial | `replace-with-dotnet-tool-or-test` | Split between analyzer, architecture tests, and config tests. |
+| `.ai/scripts/check-projection-config.sh` | Former source/config grep for projection registration. | Partial | `replaced-with-dotnet-test` | Replaced by `DotnetBackendValidation` EF model registration tests and removed in validator phase 3. |
 | `.ai/scripts/check-test-di-compliance.sh` | Greps test code/config for DI/test setup patterns. | Yes | `replace-with-roslyn-analyzer` | Replace C# checks with analyzer or test architecture rules. |
 | `.ai/scripts/check-data-class-annotations.sh` | Greps `*Data.cs` files for annotations/attributes. | Yes | `replace-with-roslyn-analyzer` | Replace with analyzer rule on symbols/attributes. |
 | `.ai/scripts/check-domain-events-compliance.sh` | Greps event files for event type, interfaces, metadata, and type mapping. | Yes | `replace-with-roslyn-analyzer` | Replace with analyzer rules for event shape and forbidden legacy interfaces. |
@@ -35,7 +35,7 @@ The risky category is the third one. It attempts to validate C# architecture and
 | `.ai/scripts/check-aggregate-compliance.sh` | Former auto-generated grep checks from aggregate standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1003` and `DBA1009`, then removed in validator phase 3. |
 | `.ai/scripts/check-controller-compliance.sh` | Auto-generated grep checks from controller standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1004`-`DBA1006` and removed in validator phase 2. |
 | `.ai/scripts/check-mapper-compliance.sh` | Former auto-generated grep checks from mapper standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1007`-`DBA1008` and removed in validator phase 3. |
-| `.ai/scripts/check-projection-compliance.sh` | Auto-generated grep checks from projection standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer / architecture test candidate. |
+| `.ai/scripts/check-projection-compliance.sh` | Former auto-generated grep checks from projection standards. | Yes | `replaced-with-analyzer-and-tests` | Replaced by `DBA1013`, configuration tests, and explicit AI review ownership, then removed in validator phase 3. |
 | `.ai/scripts/check-archive-compliance.sh` | Auto-generated grep checks from archive standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer candidate if archive rules remain part of dotnet-backend profile. |
 | `.ai/scripts/check-test-compliance.sh` | Auto-generated grep checks from test standards. | Yes | `replace-with-roslyn-analyzer` | Replace with analyzer, `.editorconfig`, or test architecture rules depending on rule. |
 | `.ai/scripts/generate-check-scripts-from-md.sh` | Generates grep-based shell checks from markdown coding standards. | Produces C# text checks | `retire-generated-regex-check` | Retire after analyzer/test mapping is stable. It should not remain the formal validation generator. |
@@ -49,7 +49,6 @@ Files under `.ai/scripts/generated/` are generated grep-based C# checks:
 
 - `check-archive.sh`
 - `check-controller.sh`
-- `check-projection.sh`
 - `check-repository.sh`
 - `check-test.sh`
 
