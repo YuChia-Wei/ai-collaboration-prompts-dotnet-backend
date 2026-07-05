@@ -4,7 +4,9 @@ Source-included Roslyn analyzer template for this AI context framework's .NET ba
 
 Current diagnostics:
 
-- `DBA1001`: domain repositories should not expose query-style methods.
+- `DBA1001` (error): enforces semantic aggregate/query repository boundaries,
+  compatibility inheritance, Aggregate Root constraints, the portable two-method
+  aggregate contract, and the prohibition on public generic writable CRUD ports.
 - `DBA1002`: use cases or handlers should not inject `IServiceProvider`.
 - `DBA1003`: aggregates/entities should not reference infrastructure types such as `DbContext`.
 - `DBA1004`: concrete controller classes should declare `ApiControllerAttribute`.
@@ -18,7 +20,13 @@ Current diagnostics:
 - `DBA1012`: use cases should not directly construct repositories.
 - `DBA1013`: projection services should not call EF persistence write operations.
 
-`DBA1004` through `DBA1006` replace the former controller grep compliance script. `DBA1007` and `DBA1008` replace the former mapper grep compliance scripts.
+`DBA1001` replaces the former repository grep compliance scripts. It classifies
+canonical, compatibility, and derived ports through interface inheritance rather
+than broad `Repository` name matching. Target-specific batch ports are intentionally
+outside this portable analyzer.
+
+`DBA1004` through `DBA1006` replace the former controller grep compliance script.
+`DBA1007` and `DBA1008` replace the former mapper grep compliance scripts.
 
 Analyzers do not replace AI software engineering reasoning context used by review and architecture skills.
 

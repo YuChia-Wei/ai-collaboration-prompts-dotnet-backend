@@ -205,11 +205,7 @@ run_command_check "dotnet test tools/DotnetBackendValidation.Tests/DotnetBackend
     "Dotnet Backend Configuration Validation Tests" \
     "true" "true"
 
-# Repository grep validation is not executed as a gate.
-run_check_pending "check-repository-compliance.sh" \
-    "Repository Pattern Compliance" \
-    "true" "true" "DBA1001 exists; remaining script rules still need dotnet-native replacements"
-
+# Repository source validation is covered by DBA1001 in analyzer tests.
 # Mapper source validation is covered by DBA1007-DBA1008 in analyzer tests.
 
 # ====================================================================

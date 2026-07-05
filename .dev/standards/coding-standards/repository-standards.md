@@ -63,7 +63,8 @@ public interface IDomainRepository<TAggregate, TId>
 - `IDomainRepository<TAggregate, TId>` 不是第二種 repository model。
 - Compatibility contract 仍必須套用所有 Aggregate Root 限制。
 - `IDomainRepository<ChildEntity, TId>` 是違規，不得因相容性而忽略。
-- Aggregate-specific interface 只有在相容既有程式碼或增加穩定 Aggregate lifecycle 語意時才建立。
+- Aggregate-specific interface 只用於相容既有程式碼或提供明確型別別名；
+  不得新增 shared contract 以外的方法。
 - 禁止只為重新命名而建立無語意的空殼 interface。
 
 ## 禁止的通用寫入介面

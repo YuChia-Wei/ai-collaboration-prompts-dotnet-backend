@@ -4,8 +4,8 @@
 
 [*.cs]
 
-# Repository policy. Reassess after the target repository defines its repository boundary.
-dotnet_diagnostic.DBA1001.severity = warning
+# Portable aggregate/query repository boundary is mandatory.
+dotnet_diagnostic.DBA1001.severity = error
 
 # Core application and domain architecture boundaries.
 dotnet_diagnostic.DBA1002.severity = warning

@@ -56,15 +56,13 @@ dotnet format --verify-no-changes
 dotnet tool run repo-context-lint
 ```
 
-Current transitional behavior:
+Current behavior:
 
 - runs `dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj`;
-- still runs legacy grep-based C# checks until analyzer coverage is wired into target projects;
-- labels first-batch grep checks as transitional.
+- does not invoke the retired repository grep checks.
 
 ### Replace With Roslyn Analyzer Or Architecture Tests
 
-- `check-repository-compliance.sh`
 - `check-archive-compliance.sh`
 - `check-test-compliance.sh`
 - `check-test-di-compliance.sh`
@@ -72,14 +70,12 @@ Current transitional behavior:
 - `check-domain-events-compliance.sh`
 - `check-framework-api-compliance.sh`
 
-First analyzer batch:
-
-1. repository rules: bootstrap coverage exists as `DBA1001`;
-2. use case rules: bootstrap coverage exists as `DBA1002`;
-3. domain entity / aggregate rules: bootstrap coverage exists as `DBA1003`.
-
 Completed replacement:
 
+- repository rules: `DBA1001` enforces canonical/compatibility inheritance,
+  Aggregate Root constraints, aggregate method surface, query-port read-only
+  behavior, and the generic writable CRUD prohibition; repository grep scripts
+  have been removed.
 - controller rules: `DBA1004`, `DBA1005`, and `DBA1006`; the controller grep scripts have been removed.
 - mapper rules: `DBA1007` and `DBA1008`; the mapper grep scripts have been removed.
 - aggregate rules: `DBA1003` and `DBA1009`; the aggregate grep scripts have been removed while invariant completeness remains test and AI review work.

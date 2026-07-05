@@ -500,7 +500,7 @@ No sub-agent work is planned. Specialist skills are applied sequentially in the 
 
 ### S4 — Align validation tooling
 
-- Status: pending
+- Status: in_progress
 - Owner: `slice-implementer`
 - Goal: align `DBA1001` with the approved contract and retire the repository grep validation path.
 - Scope:
