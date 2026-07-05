@@ -168,7 +168,7 @@ public class InMemoryProfileCollection : ICollectionFixture<ProfileFixture> { }
 // public class CreateProductUseCaseTests { ... }
 ```
 
-TODO: confirm environment names match `project-config.yaml` (e.g., `test-inmemory`, `test-outbox`).
+TODO: confirm environment names from target-repository evidence; use generated `.dev/project-config.yaml` only when present.
 
 ### Outbox Profile Notes
 - Requires PostgreSQL (message store schema).

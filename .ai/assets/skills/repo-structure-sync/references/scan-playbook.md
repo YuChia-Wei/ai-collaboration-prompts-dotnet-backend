@@ -16,6 +16,17 @@ Classify the target before editing:
 
 Do not infer product domains, bounded contexts, queues, routes, or deployment topology for an empty repo.
 
+## Project Config Generation
+
+Use `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml` as the canonical shape for target-repository project facts.
+
+- Generate `.dev/project-config.yaml` only after the inventory pass.
+- Populate a field only when repository evidence or user-confirmed truth supports it.
+- Keep unknown scalar values as `null` and unknown collections empty.
+- Do not copy credentials, connection strings, local ports, database names, queue names, or product identifiers from the source framework repo.
+- For an empty repository, either omit `.dev/project-config.yaml` or create the template shape with `generationStatus: not-initialized`; do not invent stack or product facts.
+- Record supporting paths under `evidence.files`.
+
 ## Evidence Order
 
 Prefer sources in this order:
@@ -38,6 +49,7 @@ Capture these facts before editing:
 - test frameworks and test project naming
 - database, ORM, message broker, and API host packages
 - container or deployment folders
+- existing `.dev/project-config.yaml` facts that conflict with stronger repository evidence
 
 ## .NET Structure Hints
 

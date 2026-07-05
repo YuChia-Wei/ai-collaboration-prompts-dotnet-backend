@@ -33,7 +33,7 @@ The risky category is the third one. It attempts to validate C# architecture and
 | `.ai/scripts/check-repository-compliance.sh` | Auto-generated grep checks from repository standards. | Yes | `replace-with-roslyn-analyzer` | First-batch analyzer candidate. |
 | `.ai/scripts/check-usecase-compliance.sh` | Auto-generated grep checks from use case standards. | Yes | `replace-with-roslyn-analyzer` | First-batch analyzer candidate. |
 | `.ai/scripts/check-aggregate-compliance.sh` | Auto-generated grep checks from aggregate standards. | Yes | `replace-with-roslyn-analyzer` | First-batch analyzer candidate. |
-| `.ai/scripts/check-controller-compliance.sh` | Auto-generated grep checks from controller standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer candidate. |
+| `.ai/scripts/check-controller-compliance.sh` | Auto-generated grep checks from controller standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1004`-`DBA1006` and removed in validator phase 2. |
 | `.ai/scripts/check-mapper-compliance.sh` | Auto-generated grep checks from mapper standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer candidate. |
 | `.ai/scripts/check-projection-compliance.sh` | Auto-generated grep checks from projection standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer / architecture test candidate. |
 | `.ai/scripts/check-archive-compliance.sh` | Auto-generated grep checks from archive standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer candidate if archive rules remain part of dotnet-backend profile. |

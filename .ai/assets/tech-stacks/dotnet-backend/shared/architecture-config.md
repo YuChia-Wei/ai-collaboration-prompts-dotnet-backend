@@ -1,7 +1,8 @@
 # Architecture Config (Dotnet)
 
 ## Source of Truth
-- `project-config.yaml` drives architecture mode, database settings, and profile support
+- A generated `.dev/project-config.yaml` may summarize confirmed architecture mode, database libraries, and profile support in a target repository.
+- Repository code, project files, and package references remain stronger evidence.
 
 ## Supported Patterns
 - **inmemory**: In-memory repository + message broker

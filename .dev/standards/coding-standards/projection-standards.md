@@ -47,7 +47,7 @@ Pattern (forbidden): Remove\(
 
 ```csharp
 // ✅ 正確：定義在 Application 層
-namespace YourProject.Application.Products.Queries;
+namespace YourProject.Application.Records.Queries;
 
 // ❌ 錯誤：不要放在 Infrastructure 層
 namespace YourProject.Infrastructure.Queries;  // 錯誤！
@@ -57,25 +57,25 @@ namespace YourProject.Infrastructure.Queries;  // 錯誤！
 
 ```csharp
 // ✅ 正確：使用 I[Aggregate]QueryService 命名
-public interface IProductQueryService { }
-public interface ISprintQueryService { }
-public interface IProductBacklogItemQueryService { }
+public interface IRecordQueryService { }
+public interface IIterationQueryService { }
+public interface IWorkItemQueryService { }
 
 // ❌ 錯誤：不要使用其他命名模式
-public interface IProductProjection { }       // 不要用 Projection
-public interface IProductFinder { }           // 不要用 Finder
-public interface ProductDtoProjection { }     // 不要用 DtoProjection
+public interface IRecordProjection { }       // 不要用 Projection
+public interface IRecordFinder { }           // 不要用 Finder
+public interface RecordDtoProjection { }     // 不要用 DtoProjection
 ```
 
 #### 方法設計
 
 ```csharp
 // ✅ 正確：返回 DTO 物件
-public interface IProductQueryService
+public interface IRecordQueryService
 {
-    Task<ProductDto?> GetByIdAsync(ProductId id, CancellationToken ct = default);
-    Task<List<ProductDto>> GetByStateAsync(string state, CancellationToken ct = default);
-    Task<PagedResult<ProductDto>> GetPagedAsync(
+    Task<RecordDto?> GetByIdAsync(RecordId id, CancellationToken ct = default);
+    Task<List<RecordDto>> GetByStateAsync(string state, CancellationToken ct = default);
+    Task<PagedResult<RecordDto>> GetPagedAsync(
         string? filter, 
         int page, 
         int size, 
@@ -83,15 +83,15 @@ public interface IProductQueryService
 }
 
 // ❌ 錯誤：不要返回領域物件
-public interface IProductQueryService
+public interface IRecordQueryService
 {
-    Task<Product?> GetByIdAsync(ProductId id);  // 錯誤！應返回 DTO
+    Task<Record?> GetByIdAsync(RecordId id);  // 錯誤！應返回 DTO
 }
 
 // ❌ 錯誤：不要返回 Data (Persistence Object)
-public interface IProductQueryService
+public interface IRecordQueryService
 {
-    Task<ProductData?> GetByIdAsync(string id);  // 錯誤！應返回 DTO
+    Task<RecordData?> GetByIdAsync(string id);  // 錯誤！應返回 DTO
 }
 ```
 
@@ -112,41 +112,41 @@ namespace YourProject.Infrastructure.Persistence.QueryServices;
 // ✅ 正確：使用 EF Core 實作
 namespace YourProject.Infrastructure.Persistence.QueryServices;
 
-public class ProductQueryService : IProductQueryService
+public class RecordQueryService : IRecordQueryService
 {
     private readonly ApplicationDbContext _context;
 
-    public ProductQueryService(ApplicationDbContext context)
+    public RecordQueryService(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task<ProductDto?> GetByIdAsync(ProductId id, CancellationToken ct = default)
+    public async Task<RecordDto?> GetByIdAsync(RecordId id, CancellationToken ct = default)
     {
-        var data = await _context.Products
+        var data = await _context.Records
             .AsNoTracking()
             .Where(x => x.Id == id.Value)
             .FirstOrDefaultAsync(ct);
         
-        return data is null ? null : ProductMapper.ToDto(data);
+        return data is null ? null : RecordMapper.ToDto(data);
     }
 
-    public async Task<List<ProductDto>> GetByStateAsync(string state, CancellationToken ct = default)
+    public async Task<List<RecordDto>> GetByStateAsync(string state, CancellationToken ct = default)
     {
-        return await _context.Products
+        return await _context.Records
             .AsNoTracking()
             .Where(x => x.State == state)
-            .Select(x => ProductMapper.ToDto(x))
+            .Select(x => RecordMapper.ToDto(x))
             .ToListAsync(ct);
     }
 
-    public async Task<PagedResult<ProductDto>> GetPagedAsync(
+    public async Task<PagedResult<RecordDto>> GetPagedAsync(
         string? filter,
         int page,
         int size,
         CancellationToken ct = default)
     {
-        var query = _context.Products.AsNoTracking();
+        var query = _context.Records.AsNoTracking();
         
         if (!string.IsNullOrEmpty(filter))
         {
@@ -159,10 +159,10 @@ public class ProductQueryService : IProductQueryService
             .OrderBy(x => x.Name)
             .Skip(page * size)
             .Take(size)
-            .Select(x => ProductMapper.ToDto(x))
+            .Select(x => RecordMapper.ToDto(x))
             .ToListAsync(ct);
         
-        return new PagedResult<ProductDto>(items, totalCount, page, size);
+        return new PagedResult<RecordDto>(items, totalCount, page, size);
     }
 }
 ```
@@ -177,9 +177,9 @@ public static class QueryServiceExtensions
 {
     public static IServiceCollection AddQueryServices(this IServiceCollection services)
     {
-        services.AddScoped<IProductQueryService, ProductQueryService>();
-        services.AddScoped<ISprintQueryService, SprintQueryService>();
-        services.AddScoped<IPbiQueryService, PbiQueryService>();
+        services.AddScoped<IRecordQueryService, RecordQueryService>();
+        services.AddScoped<IIterationQueryService, IterationQueryService>();
+        services.AddScoped<IWorkItemQueryService, WorkItemQueryService>();
         
         return services;
     }
@@ -221,13 +221,13 @@ public sealed record PagedResult<T>(
 
 ```csharp
 // Repository：Write Model 的 Aggregate 持久化
-IRepository<Product, ProductId> repository;
-await repository.FindByIdAsync(id);  // 返回 Product 領域物件
-await repository.SaveAsync(product); // 儲存領域物件
+IRepository<Record, RecordId> repository;
+await repository.FindByIdAsync(id);  // 返回 Record 領域物件
+await repository.SaveAsync(record); // 儲存領域物件
 
 // Query Service (Projection)：Read Model 的查詢和資料投影
-IProductQueryService queryService;
-await queryService.GetByIdAsync(id);       // 返回 ProductDto
+IRecordQueryService queryService;
+await queryService.GetByIdAsync(id);       // 返回 RecordDto
 await queryService.GetPagedAsync(...);     // 返回分頁結果
 ```
 
@@ -239,7 +239,7 @@ await queryService.GetPagedAsync(...);     // 返回分頁結果
 
 ```csharp
 // ✅ 正確：使用 record 定義 DTO
-public sealed record ProductDto
+public sealed record RecordDto
 {
     public required string Id { get; init; }
     public required string Name { get; init; }
@@ -250,7 +250,7 @@ public sealed record ProductDto
 }
 
 // DTO with nested objects
-public sealed record ProductDetailDto
+public sealed record RecordDetailDto
 {
     public required string Id { get; init; }
     public required string Name { get; init; }

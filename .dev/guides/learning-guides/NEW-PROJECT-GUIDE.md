@@ -1,6 +1,6 @@
-# AiScrum Project Structure and New Project Setup Guide (Dotnet)
+# ExampleApp Project Structure and New Project Setup Guide (Dotnet)
 
-This guide explains how to create a new dotnet project based on the AiScrum structure.
+This guide explains how to create a new dotnet project based on the ExampleApp structure.
 
 ## Table of Contents
 1. Prerequisites
@@ -15,7 +15,7 @@ This guide explains how to create a new dotnet project based on the AiScrum stru
 ## Prerequisites
 
 ### Environment requirements
-- .NET SDK (version defined in `.dev/project-config.yaml`)
+- .NET SDK (version confirmed from `global.json`, project files, or generated `.dev/project-config.yaml`)
 - Git
 - PostgreSQL (test port 5800, production port 5500)
 - Your IDE (Rider, Visual Studio, VS Code)
@@ -41,7 +41,7 @@ mkdir -p src/Api src/Application src/Domain src/Infrastructure src/tests
 # 4) Create .ai and .dev folders
 mkdir -p .ai/{config,guides,prompts,scripts,tech-stacks,workflows}
 mkdir -p .dev/{adr,specs,tasks}
-mkdir -p .dev/tasks/{feature,test,refactoring,frontend,main}
+mkdir -p .dev/tasks/{feature,test,refactoring,main}
 mkdir -p .dev/specs/{use-cases,aggregates,domain-events}
 ```
 
@@ -52,7 +52,7 @@ mkdir -p .dev/specs/{use-cases,aggregates,domain-events}
 
 ## Step 3: Configure project metadata
 
-Create `.dev/project-config.yaml` as the single source of truth:
+Run `repo-structure-sync` to generate `.dev/project-config.yaml` from repository evidence:
 
 ```yaml
 projectName: MyScrum

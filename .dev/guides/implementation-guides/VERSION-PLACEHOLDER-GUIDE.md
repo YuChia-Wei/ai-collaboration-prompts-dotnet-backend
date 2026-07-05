@@ -3,7 +3,7 @@
 This guide documents all placeholders that should be automatically replaced when generating code from templates.
 
 ## Configuration Source
-All placeholder values come from `.dev/project-config.yaml`.
+Placeholder values should come from repository evidence. A generated `.dev/project-config.yaml` may summarize confirmed values in target repositories.
 
 ## Available Placeholders
 
@@ -17,12 +17,12 @@ All placeholder values come from `.dev/project-config.yaml`.
 - `{aspnetCoreVersion}` -> 8.0.x
 
 ### Dependencies
-- `{wolverineVersion}` -> 3.x (set in project-config.yaml)
+- `{wolverineVersion}` -> version confirmed from target project package references
 - `{efCoreVersion}` -> 8.x
 - `{npgsqlVersion}` -> 8.x
 - `{xunitVersion}` -> 2.x
 - `{nsubstituteVersion}` -> 5.x
-- `{bddfyVersion}` -> 0.x (set in project-config.yaml)
+- `{bddfyVersion}` -> version confirmed from target test project package references
 - `{bddStyle}` -> Gherkin-style-naming
 
 ### Backend Configuration
@@ -39,7 +39,7 @@ All placeholder values come from `.dev/project-config.yaml`.
 - `{dbTestName}` -> board_test
 - `{dbTestUsername}` -> postgres
 - `{dbTestPassword}` -> root
-- `{dbTestConnectionString}` -> Host=localhost;Port=5800;Database=board_test;Username=postgres;Password=root
+- `{dbTestConnectionString}` -> Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
 - `{dbTestSchema}` -> message_store
 
 ### Production Environment Database
@@ -48,7 +48,7 @@ All placeholder values come from `.dev/project-config.yaml`.
 - `{dbProductionName}` -> board
 - `{dbProductionUsername}` -> postgres
 - `{dbProductionPassword}` -> root
-- `{dbProductionConnectionString}` -> Host=localhost;Port=5500;Database=board;Username=postgres;Password=root
+- `{dbProductionConnectionString}` -> Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
 - `{dbProductionSchema}` -> message_store
 
 ### AI Environment Database
@@ -57,14 +57,10 @@ All placeholder values come from `.dev/project-config.yaml`.
 - `{dbAiName}` -> board_ai
 - `{dbAiUsername}` -> postgres
 - `{dbAiPassword}` -> root
-- `{dbAiConnectionString}` -> Host=localhost;Port=6600;Database=board_ai;Username=postgres;Password=root
+- `{dbAiConnectionString}` -> Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
 - `{dbAiSchema}` -> message_store
 
 ### Frontend Configuration
-- `{frontendFramework}` -> React
-- `{frontendLanguage}` -> TypeScript
-- `{frontendPort}` -> 3000
-- `{frontendBuildTool}` -> Vite
 - `{reactVersion}` -> 18.3.1
 - `{typescriptVersion}` -> 5.5.3
 - `{viteVersion}` -> 5.4.1
@@ -79,24 +75,24 @@ All placeholder values come from `.dev/project-config.yaml`.
 
 ### When to Process Placeholders
 1. Always check for placeholders when reading spec files or templates
-2. Read `.dev/project-config.yaml` to get latest values
+2. Read repository files and generated `.dev/project-config.yaml`, when present, to get confirmed values
 3. Replace all placeholders before generating code
 
 ### Processing Steps
 1. Identify all placeholders in the template/spec
-2. Load configuration from `.dev/project-config.yaml`
+2. Load confirmed configuration from repository evidence and optional generated `.dev/project-config.yaml`
 3. Replace placeholders with actual values
 4. Validate all placeholders have been replaced
 
 ### Common Issues
-- Missing placeholder values -> check project-config.yaml
+- Missing placeholder values -> check repository evidence and rerun `repo-structure-sync`
 - Duplicate placeholders -> check templates and sync
 - Context-dependent placeholders -> extract from file path or naming convention
 
 ## Usage Notes
 
 1. Automatic replacement: AI replaces placeholders when generating code
-2. Single source of truth: `.dev/project-config.yaml`
+2. Evidence precedence: project files and source first, generated `.dev/project-config.yaml` second
 3. Environment-specific DB config for test/production/ai
 4. Schema note: all PostgreSQL connections use `message_store` schema only
 

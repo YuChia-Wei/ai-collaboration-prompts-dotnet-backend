@@ -1,0 +1,53 @@
+{
+  "task_id": "add-agent-execution-principles",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-agent-execution-principles",
+  "status": "completed",
+  "scope": {
+    "target": "Root bilingual agent collaboration guides",
+    "files": [
+      "agents.md",
+      "agents.zh-tw.md"
+    ],
+    "dependency_radius": "Root agent behavior only",
+    "constraints": [
+      "Preserve existing precedence, workflow, and skill routing rules.",
+      "Keep English and Traditional Chinese guidance semantically aligned.",
+      "Do not create a dedicated skill."
+    ],
+    "non_goals": [
+      "Changing downstream skill boundaries",
+      "Changing workflow or commit policy",
+      "Adding technology-specific implementation rules"
+    ]
+  },
+  "inputs": [
+    "User-approved execution principles",
+    "agents.md",
+    "agents.zh-tw.md"
+  ],
+  "execution_steps": [
+    "Add concise default execution principles to the English guide.",
+    "Add a Traditional Chinese Taiwan translation.",
+    "Validate semantic alignment and formatting.",
+    "Record results and close the workflow."
+  ],
+  "validation": [
+    "English and Traditional Chinese principle comparison",
+    "git diff --check"
+  ],
+  "deferred_items": [],
+  "results": {
+    "files_changed": [
+      "agents.md",
+      "agents.zh-tw.md",
+      ".dev/workflows/2026-07-agent-execution-principles/workflow-plan.md",
+      ".dev/workflows/2026-07-agent-execution-principles/tasks/add-agent-execution-principles.json"
+    ],
+    "tests_run": [
+      "Compared English and Traditional Chinese principle counts: 4 each",
+      "git diff --check: passed"
+    ],
+    "follow_up_needed": false
+  }
+}

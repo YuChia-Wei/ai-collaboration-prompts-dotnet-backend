@@ -15,6 +15,19 @@
   - Do not modify runtime wrappers, canonical skill registry, or dev-workflow profile yet.
   - Do not create new executable test skill in this requirement.
 
+## Implementation Outcome
+
+- Status: Implemented
+- Completed: 2026-06-09
+- Workflow: `.dev/workflows/2026-06-implementer-taxonomy-domain-language/`
+- Result:
+  - `slice-implementer` and `local-change-implementer` are active top-level skills;
+  - command, query, and reactor rules are `slice-implementer` mode references;
+  - old implementer skill names and wrappers were removed without aliases;
+  - `test-implementer` remains deferred.
+
+The original requirement wording below is preserved as decision history. Items described as future work or open decisions should be interpreted through this implementation outcome and the completed workflow.
+
 ## Context & Goals
 
 The current `staged-refactor-implementer` and `tactical-refactor-implementer` names can mislead AI agents. In other projects, agents recommended refactor implementer skills for work that started from new requirements, bug fixes, validation failures, or review remediation. The problem is not that the work never includes refactoring. The problem is that `refactor` is a technique or intent, not the safest primary routing category for all code changes.

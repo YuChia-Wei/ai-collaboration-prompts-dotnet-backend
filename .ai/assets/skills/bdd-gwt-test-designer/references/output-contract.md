@@ -45,6 +45,6 @@ For each scenario provide:
 
 Examples:
 
-- `.dev/specs/tests/order/use-cases/place-order.test-spec.md`
-- `.dev/specs/tests/inventory-item/integration/decrease-stock-repository.test-spec.md`
+- `.dev/specs/tests/<context>/use-cases/<use-case>.test-spec.md`
+- `.dev/specs/tests/<context>/integration/<integration-target>.test-spec.md`
 - `.dev/specs/tests/cross-domain/place-order-and-reserve-stock.test-spec.md`

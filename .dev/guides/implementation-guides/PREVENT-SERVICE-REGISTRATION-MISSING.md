@@ -97,7 +97,7 @@ Note: set the environment via `ASPNETCORE_ENVIRONMENT` or launchSettings; do not
 ```json
 {
   "ConnectionStrings": {
-    "Outbox": "Host=localhost;Port=5432;Database=aiscrum;Username=postgres;Password=root"
+    "Outbox": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   }
 }
 ```

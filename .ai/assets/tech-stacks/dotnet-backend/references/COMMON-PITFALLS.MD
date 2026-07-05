@@ -12,7 +12,7 @@
 **解決方案**：
 1. 只在 profile-specific configuration 中註冊一次。
 2. 使用 `ASPNETCORE_ENVIRONMENT` 控制 InMemory / Outbox。
-3. 依 `project-config.yaml` 的 profile 切換。
+3. 依 target repository 的實際 profile configuration 切換；generated `.dev/project-config.yaml` 僅作輔助摘要。
 
 **預防措施**：
 ```bash

@@ -91,9 +91,11 @@ See `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` f
 
 ## Current Cleanup Direction
 
-Some early sample-backend and historical source-project material still exists in this repository. It should gradually be:
+Product-specific requirements, specs, operations truth, problem frames, project config, and frontend implementation assets have been removed from active paths or converted into templates.
 
-- deleted;
-- moved into `.ai/assets/tech-stacks/dotnet-backend/`;
-- rewritten as templates;
-- or kept under `.dev/` only when clearly marked as historical workflow or migration artifacts.
+New content must preserve these boundaries:
+
+- reusable .NET backend context belongs under `.ai/assets/tech-stacks/dotnet-backend/`;
+- target-repository truth is created by `repo-structure-sync` from target evidence;
+- historical decisions remain only in explicitly labeled workflow or migration artifacts;
+- frontend and other languages remain context-placement exploration, not active profiles.

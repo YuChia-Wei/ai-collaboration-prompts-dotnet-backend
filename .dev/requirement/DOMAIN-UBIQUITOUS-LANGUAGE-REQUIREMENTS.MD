@@ -14,6 +14,18 @@
   - Do not define product-specific domain vocabulary for a real product.
   - Do not create a new terminology skill yet.
 
+## Implementation Outcome
+
+- Status: Implemented
+- Completed: 2026-06-09
+- Workflow: `.dev/workflows/2026-06-implementer-taxonomy-domain-language/`
+- Result:
+  - `.dev/domain-language/` now contains the human-facing boundary guide and templates;
+  - `repo-structure-sync` treats filled domain language as target-repository truth;
+  - technical glossary and terminology skill remain deferred.
+
+The original requirement wording below is preserved as decision history. Future-tense acceptance criteria should be read as completed outcomes unless explicitly listed as deferred above.
+
 ## Context & Goals
 
 This repository uses many DDD, Clean Architecture, Hexagonal Architecture, CQRS, and .NET backend concepts. Technical terminology may eventually need a glossary, but that work has source-of-truth and token-cost tradeoffs. The immediate need is narrower: establish how actual domain ubiquitous language should be stored and governed when this context framework is used in target repositories.

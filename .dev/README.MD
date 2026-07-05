@@ -10,8 +10,8 @@
 | `domain-language/` | 領域統一詞彙的範本與目標 repo domain language 收納區 |
 | `guides/` | 一般 human-facing guides（ai collaboration / design / implementation / learning） |
 | `lessons/` | 經驗教訓與錯誤案例 |
-| `operations/` | runtime / 維運文件與過往專案殘留 truth 的整理位置（context map、event catalog、MQ topology、runbook） |
-| `requirement/` | 技術需求與規格 |
+| `operations/` | target repo runtime / 維運文件的 authoring guides 與收納位置 |
+| `requirement/` | framework 與 target repo requirements 及 authoring materials |
 | `workflows/` | 跨 skill / subagent workflow artifacts（plan / review-report / task） |
 | `specs/` | 詳細規格指南 |
 | `standards/` | 技術標準、Code Review Checklist、專案結構 |
@@ -55,10 +55,10 @@
 
 ### `.dev/` 內部常見協作文件
 
-- `.dev/requirement/`: requirement docs 與過往 project-specific requirement truth 的整理位置
+- `.dev/requirement/`: requirement docs 與 requirement authoring materials
 - `.dev/domain-language/`: 領域統一詞彙、bounded context language、aggregate vocabulary、domain event language 的範本與收納區
 - `.dev/specs/`: spec organization、function specs 與行為規格
-- `.dev/operations/`: runtime truth、維運文件與過往 project-specific operations truth 的整理位置
+- `.dev/operations/`: target repo runtime truth 的 authoring guides 與收納位置
 - `.dev/workflows/`: 多 skill / subagent handoff 所需的 `plan`、`review-report`、`task`
 
 當工作涉及多 skill 接力、subagent 分工或 staged refactoring 時，優先從這些文件建立共同上下文。

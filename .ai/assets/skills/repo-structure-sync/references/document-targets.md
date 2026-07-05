@@ -4,6 +4,24 @@ This skill updates repo-specific architecture and repo-init entry areas only.
 
 ## Primary Targets
 
+### `.dev/project-config.yaml`
+
+Generate or update:
+
+- repository identity and target mode
+- detected languages and technology profiles
+- .NET SDK, target frameworks, solutions, and projects when present
+- source/test roots and host/library classifications
+- architecture, persistence, messaging, frontend, and deployment facts only when supported by evidence
+- evidence paths and unresolved facts
+
+Rules:
+
+- start from `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
+- use `null` or empty collections for unknown facts
+- never copy source-template credentials, connection strings, ports, domains, queues, or product names
+- treat repository files as stronger evidence than copied `.dev/project-config.yaml`
+
 ### `agents.md`
 
 Update:

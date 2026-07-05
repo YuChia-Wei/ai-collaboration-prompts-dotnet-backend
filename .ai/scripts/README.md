@@ -67,7 +67,6 @@ Current transitional behavior:
 - `check-repository-compliance.sh`
 - `check-usecase-compliance.sh`
 - `check-aggregate-compliance.sh`
-- `check-controller-compliance.sh`
 - `check-mapper-compliance.sh`
 - `check-projection-compliance.sh`
 - `check-archive-compliance.sh`
@@ -82,6 +81,10 @@ First analyzer batch:
 1. repository rules: bootstrap coverage exists as `DBA1001`;
 2. use case rules: bootstrap coverage exists as `DBA1002`;
 3. domain entity / aggregate rules: bootstrap coverage exists as `DBA1003`.
+
+Completed replacement:
+
+- controller rules: `DBA1004`, `DBA1005`, and `DBA1006`; the controller grep scripts have been removed.
 
 Analyzer source template:
 

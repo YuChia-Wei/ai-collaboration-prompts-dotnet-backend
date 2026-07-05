@@ -34,7 +34,7 @@
 若本機需要設定 Codex 指向 repo-local runtime state：
 
 ```powershell
-setx CODEX_HOME "C:\Github\YuChia\dotnet-mq-arch-lab\.codex"
+setx CODEX_HOME "<repo-path>\.codex"
 ```
 
 注意：

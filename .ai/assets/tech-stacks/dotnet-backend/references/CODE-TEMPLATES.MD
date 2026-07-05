@@ -54,32 +54,32 @@ public sealed class CreateTaskHandler
 ## Query Handler Template (Projection)
 
 ```csharp
-public sealed record GetProductInput(string ProductId);
-public sealed record GetProductOutput(ProductDto Product, ExitCode ExitCode, string? Message);
+public sealed record GetRecordInput(string RecordId);
+public sealed record GetRecordOutput(RecordDto Record, ExitCode ExitCode, string? Message);
 
-public sealed class GetProductHandler
+public sealed class GetRecordHandler
 {
-    private readonly IProductProjection _projection;
+    private readonly IRecordProjection _projection;
 
-    public GetProductHandler(IProductProjection projection)
+    public GetRecordHandler(IRecordProjection projection)
     {
         Contract.RequireNotNull(nameof(projection), projection);
         _projection = projection;
     }
 
-    public async Task<GetProductOutput> Handle(GetProductInput input)
+    public async Task<GetRecordOutput> Handle(GetRecordInput input)
     {
         Contract.RequireNotNull(nameof(input), input);
 
         try
         {
-            var dto = await _projection.FindByIdAsync(input.ProductId);
+            var dto = await _projection.FindByIdAsync(input.RecordId);
             if (dto == null)
             {
-                return new GetProductOutput(default!, ExitCode.FAILURE, "Product not found");
+                return new GetRecordOutput(default!, ExitCode.FAILURE, "Record not found");
             }
 
-            return new GetProductOutput(dto, ExitCode.SUCCESS, null);
+            return new GetRecordOutput(dto, ExitCode.SUCCESS, null);
         }
         catch (Exception ex)
         {
@@ -93,7 +93,7 @@ public sealed class GetProductHandler
 
 ### Aggregate Root Validation
 ```csharp
-Contract.RequireNotNull(nameof(productId), productId);
+Contract.RequireNotNull(nameof(recordId), recordId);
 Contract.Require(name.Length <= 100, "name exceeds maximum length");
 ```
 
@@ -105,7 +105,7 @@ Objects.RequireNotNull(name, "name cannot be null");
 
 ### Constructor Validation
 ```csharp
-public CreateProductHandler(IRepository<Product, ProductId> repository)
+public CreateRecordHandler(IRepository<Record, RecordId> repository)
 {
     Contract.RequireNotNull(nameof(repository), repository);
     _repository = repository;
@@ -115,34 +115,34 @@ public CreateProductHandler(IRepository<Product, ProductId> repository)
 ## Aggregate Constructor Template
 
 ```csharp
-public sealed class Product : AggregateRoot<ProductId>
+public sealed class Record : AggregateRoot<RecordId>
 {
-    public Product(ProductId productId, ProductName name)
+    public Record(RecordId recordId, RecordName name)
     {
-        Contract.RequireNotNull(nameof(productId), productId);
+        Contract.RequireNotNull(nameof(recordId), recordId);
         Contract.RequireNotNull(nameof(name), name);
-        Apply(new ProductCreated(productId, name, metadata: new Dictionary<string, string>(), DateProvider.Now()));
+        Apply(new RecordCreated(recordId, name, metadata: new Dictionary<string, string>(), DateProvider.Now()));
     }
 }
 
 // ❌ WRONG: Static factory hides event sourcing rules
-// public static Product Create(...) { ... }
+// public static Record Create(...) { ... }
 ```
 
 ## Domain Event Template
 
 ```csharp
-public sealed record ProductCreated(
-    ProductId ProductId,
-    ProductName Name,
+public sealed record RecordCreated(
+    RecordId RecordId,
+    RecordName Name,
     IReadOnlyDictionary<string, string> Metadata,
     Guid Id,
     DateTimeOffset OccurredOn
 )
 {
-    public ProductCreated
+    public RecordCreated
     {
-        Contract.RequireNotNull(nameof(ProductId), ProductId);
+        Contract.RequireNotNull(nameof(RecordId), RecordId);
         Contract.RequireNotNull(nameof(Name), Name);
         Contract.RequireNotNull(nameof(Metadata), Metadata); // Required
         Contract.RequireNotNull(nameof(Id), Id);
@@ -154,52 +154,52 @@ public sealed record ProductCreated(
 ## Use Case Interface Pattern (Optional)
 
 ```csharp
-public interface ICreateProductUseCase
+public interface ICreateRecordUseCase
 {
-    Task<CqrsOutput> Execute(CreateProductInput input);
+    Task<CqrsOutput> Execute(CreateRecordInput input);
 }
 ```
 
 ## Repository Usage Template
 
 ```csharp
-public sealed class CreateProductHandler
+public sealed class CreateRecordHandler
 {
-    private readonly IRepository<Product, ProductId> _repository;
+    private readonly IRepository<Record, RecordId> _repository;
 
-    public CreateProductHandler(IRepository<Product, ProductId> repository)
+    public CreateRecordHandler(IRepository<Record, RecordId> repository)
     {
         _repository = repository;
     }
 }
 
 // ❌ DO NOT create custom repository interfaces for domain writes
-// public interface ProductRepository : IRepository<Product, ProductId> { }
+// public interface RecordRepository : IRepository<Record, RecordId> { }
 ```
 
 ## Projection Template (EF Core)
 
 ```csharp
-public interface IProductProjection
+public interface IRecordProjection
 {
-    Task<ProductDto?> FindByIdAsync(string productId);
-    Task<IReadOnlyList<ProductDto>> FindAllAsync();
+    Task<RecordDto?> FindByIdAsync(string recordId);
+    Task<IReadOnlyList<RecordDto>> FindAllAsync();
 }
 
-public sealed class EfProductProjection : IProductProjection
+public sealed class EfRecordProjection : IRecordProjection
 {
     private readonly AppDbContext _db;
 
-    public EfProductProjection(AppDbContext db)
+    public EfRecordProjection(AppDbContext db)
     {
         _db = db;
     }
 
-    public async Task<ProductDto?> FindByIdAsync(string productId)
+    public async Task<RecordDto?> FindByIdAsync(string recordId)
     {
-        return await _db.Products
-            .Where(p => p.ProductId == productId)
-            .Select(ProductMapper.ToDto)
+        return await _db.Records
+            .Where(p => p.RecordId == recordId)
+            .Select(RecordMapper.ToDto)
             .FirstOrDefaultAsync();
     }
 }
@@ -208,9 +208,9 @@ public sealed class EfProductProjection : IProductProjection
 ## Mapper Template
 
 ```csharp
-public static class ProductMapper
+public static class RecordMapper
 {
-    public static ProductDto ToDto(Product product)
-        => new(product.Id.Value, product.Name.Value);
+    public static RecordDto ToDto(Record record)
+        => new(record.Id.Value, record.Name.Value);
 }
 ```

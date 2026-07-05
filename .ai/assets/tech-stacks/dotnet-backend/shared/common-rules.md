@@ -15,7 +15,8 @@
 - Mix command/query responsibilities.
 
 ## ALWAYS REQUIRED
-- Read `project-config.yaml` as the single source of truth for environment and architecture settings.
+- If `repo-structure-sync` generated `.dev/project-config.yaml`, use it as a secondary summary of confirmed environment and architecture facts.
+- Prefer project files, source types, and deployment configuration when they conflict with generated context.
 - Keep controllers thin: map DTOs <-> use cases only.
 - Use explicit error handling and return typed results.
 - Preserve DDD/CA/CQRS/ES/Outbox concepts from the Java prompts.
@@ -94,5 +95,5 @@ else if (env.IsEnvironment("test-outbox"))
 }
 ```
 
-TODO: finalize environment names and ensure they match `project-config.yaml`.
+TODO: confirm environment names from target-repository evidence and generated project context when present.
 

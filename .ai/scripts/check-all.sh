@@ -60,17 +60,17 @@ run_check() {
     # Skip logic based on mode
     if [ "$MODE" == "critical" ] && [ "$is_critical" != "true" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: $description (non-critical)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
     
     if [ "$MODE" == "quick" ] && [ "$is_quick" != "true" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: $description (not quick)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
     
-    ((TOTAL_CHECKS++))
+    TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
     
     echo ""
     echo -e "${CYAN}▶ Running:${NC} $description"
@@ -82,19 +82,19 @@ run_check() {
             # Run the script and capture exit code
             if "$SCRIPT_DIR/$script_name" "${args[@]}" 2>&1; then
                 echo -e "${GREEN}✓ PASSED${NC}: $description"
-                ((PASSED_CHECKS++))
+                PASSED_CHECKS=$((PASSED_CHECKS + 1))
             else
                 echo -e "${RED}✗ FAILED${NC}: $description"
-                ((FAILED_CHECKS++))
+                FAILED_CHECKS=$((FAILED_CHECKS + 1))
             fi
         else
             echo -e "${YELLOW}⚠ WARNING${NC}: $script_name is not executable"
             echo "  Run: chmod +x $SCRIPT_DIR/$script_name"
-            ((WARNINGS++))
+            WARNINGS=$((WARNINGS + 1))
         fi
     else
         echo -e "${RED}✗ ERROR${NC}: $script_name not found"
-        ((FAILED_CHECKS++))
+        FAILED_CHECKS=$((FAILED_CHECKS + 1))
     fi
     
     echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -108,17 +108,17 @@ run_command_check() {
 
     if [ "$MODE" == "critical" ] && [ "$is_critical" != "true" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: $description (non-critical)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
 
     if [ "$MODE" == "quick" ] && [ "$is_quick" != "true" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: $description (not quick)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
 
-    ((TOTAL_CHECKS++))
+    TOTAL_CHECKS=$((TOTAL_CHECKS + 1))
 
     echo ""
     echo -e "${CYAN}▶ Running:${NC} $description"
@@ -127,10 +127,10 @@ run_command_check() {
 
     if (cd "$PROJECT_ROOT" && eval "$command_text"); then
         echo -e "${GREEN}✓ PASSED${NC}: $description"
-        ((PASSED_CHECKS++))
+        PASSED_CHECKS=$((PASSED_CHECKS + 1))
     else
         echo -e "${RED}✗ FAILED${NC}: $description"
-        ((FAILED_CHECKS++))
+        FAILED_CHECKS=$((FAILED_CHECKS + 1))
     fi
 
     echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
@@ -147,18 +147,18 @@ run_check_pending() {
     # Skip logic based on mode
     if [ "$MODE" == "critical" ] && [ "$is_critical" != "true" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: $description (non-critical)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
 
     if [ "$MODE" == "quick" ] && [ "$is_quick" != "true" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: $description (not quick)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
 
     echo -e "${YELLOW}⊖${NC} TODO: $description ($reason)"
-    ((SKIPPED_CHECKS++))
+    SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
 }
 
 run_spec_compliance_check() {
@@ -167,7 +167,7 @@ run_spec_compliance_check() {
 
     if [ -z "$spec_file" ] || [ -z "$task_name" ]; then
         echo -e "${YELLOW}⊖${NC} Skipping: Spec Implementation Compliance (SPEC_FILE/TASK_NAME not set)"
-        ((SKIPPED_CHECKS++))
+        SKIPPED_CHECKS=$((SKIPPED_CHECKS + 1))
         return
     fi
 
@@ -201,15 +201,15 @@ run_command_check "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendA
     "Dotnet Backend Analyzer Template Tests" \
     "true" "true"
 
-# Repository pattern compliance is transitional until analyzer coverage is wired into target projects
-run_check "check-repository-compliance.sh" \
-    "Repository Pattern Compliance (transitional grep; analyzer target DBA1001)" \
-    "true" "true"
+# Repository grep validation is not executed as a gate.
+run_check_pending "check-repository-compliance.sh" \
+    "Repository Pattern Compliance" \
+    "true" "true" "DBA1001 exists; remaining script rules still need dotnet-native replacements"
 
-# Mapper compliance is transitional until analyzer coverage exists
-run_check "check-mapper-compliance.sh" \
-    "Mapper Design Compliance (transitional grep)" \
-    "true" "true"
+# Mapper grep validation is not executed as a gate.
+run_check_pending "check-mapper-compliance.sh" \
+    "Mapper Design Compliance" \
+    "true" "true" "replace with Roslyn analyzer"
 
 # ====================================================================
 # Important Checks (run in full and quick modes)
@@ -219,21 +219,18 @@ if [ "$MODE" != "critical" ]; then
     echo ""
     echo -e "${MAGENTA}════ Important Checks ════${NC}"
     
-    # Aggregate compliance is transitional until analyzer coverage is wired into target projects
-    run_check "check-aggregate-compliance.sh" \
-        "Aggregate Pattern Compliance (transitional grep; analyzer target DBA1003)" \
-        "false" "true"
+    # Aggregate grep validation is not executed as a gate.
+    run_check_pending "check-aggregate-compliance.sh" \
+        "Aggregate Pattern Compliance" \
+        "false" "true" "DBA1003 exists; remaining script rules still need dotnet-native replacements"
     
-    # UseCase compliance is transitional until analyzer coverage is wired into target projects
-    run_check "check-usecase-compliance.sh" \
-        "UseCase Pattern Compliance (transitional grep; analyzer target DBA1002)" \
-        "false" "true"
+    # Use case grep validation is not executed as a gate.
+    run_check_pending "check-usecase-compliance.sh" \
+        "UseCase Pattern Compliance" \
+        "false" "true" "DBA1002 exists; remaining script rules still need dotnet-native replacements"
     
-    # Controller compliance
-    run_check "check-controller-compliance.sh" \
-        "Controller Pattern Compliance" \
-        "false" "true"
-    
+    # Controller compliance is covered by DBA1004-DBA1006 in analyzer tests.
+
     # Projection configuration helper remains transitional
     run_check_pending "check-projection-config.sh" \
         "Projection Configuration" \

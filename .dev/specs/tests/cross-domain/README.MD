@@ -4,7 +4,7 @@
 
 適合放這裡的內容：
 
-- Order 與 Inventory 之間的協作流程
+- `<ContextA>` 與 `<ContextB>` 之間的協作流程
 - 多個 domain 共同參與的 MQ flow
 - eventual consistency 驗證路徑
 - compensation / retry / duplicate delivery 相關 scenario

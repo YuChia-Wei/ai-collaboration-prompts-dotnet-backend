@@ -38,11 +38,11 @@
 
 ### 🔴 Aggregate 具體檢查步驟（範例）
 
-當收到 `code review Sprint.cs` 時：
+當收到 `code review Iteration.cs` 時：
 
 #### Step 1: 讀取檢查清單
 ```
-我現在要 code review Sprint.cs
+我現在要 code review Iteration.cs
 這是一個 Aggregate Root，根據 DOTNET-CODE-REVIEW-INDEX.md，
 我必須先讀取 CODE-REVIEW-CHECKLIST.md 的 Aggregate Root 檢查章節。
 ```

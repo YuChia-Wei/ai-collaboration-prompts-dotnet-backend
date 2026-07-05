@@ -45,25 +45,25 @@ public sealed class EfProductProjection : IProductProjection { }
 ```
 src/Domain/
   Product.cs
-  Sprint.cs
+  Iteration.cs
 ```
 
 **✅ CORRECT**: One aggregate per folder
 ```
 src/Domain/Product/...
-src/Domain/Sprint/...
+src/Domain/Iteration/...
 ```
 
 ### 5. Missing Metadata in Domain Events
 **❌ WRONG**: Event without metadata
 ```csharp
-public sealed record PbiCreated(PbiId Id, string Name);
+public sealed record WorkItemCreated(WorkItemId Id, string Name);
 ```
 
 **✅ CORRECT**: Include metadata and timestamps
 ```csharp
-public sealed record PbiCreated(
-    PbiId Id,
+public sealed record WorkItemCreated(
+    WorkItemId Id,
     string Name,
     IReadOnlyDictionary<string, string> Metadata,
     Guid EventId,

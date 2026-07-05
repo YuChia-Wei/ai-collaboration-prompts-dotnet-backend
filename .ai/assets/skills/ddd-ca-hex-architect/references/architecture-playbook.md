@@ -26,7 +26,7 @@ This file distills the repo's non-negotiable architecture constraints for design
 
 ## Repo Constraints
 
-- Use `.dev/project-config.yaml` as the architecture mode source of truth when the task depends on profile or persistence mode.
+- Use repository code and project evidence as architecture truth. A generated `.dev/project-config.yaml` may be used as a secondary summary when present.
 - Cross-BC communication must use RabbitMQ or Kafka only.
 - Do not route BC collaboration through direct web API calls.
 - Use generic repository abstractions only; domain behavior belongs in aggregates or application services.

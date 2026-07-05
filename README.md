@@ -91,9 +91,11 @@
 
 ## 目前整理方向
 
-本 repo 仍保留部分早期練習專案與 sample backend 的歷史資料。這些內容會逐步被：
+產品專用 requirements、specs、operations truth、problem frames、project config 與 frontend implementation assets 已從 active paths 移除或範本化。
 
-- 刪除；
-- 轉移到 `.ai/assets/tech-stacks/dotnet-backend/`；
-- 改寫為 template；
-- 或保留在 `.dev/` 中作為明確標示的歷史 workflow / migration artifact。
+後續新增內容必須維持以下邊界：
+
+- reusable .NET backend context 放在 `.ai/assets/tech-stacks/dotnet-backend/`；
+- target-repository truth 由 `repo-structure-sync` 依目標 repo evidence 建立；
+- 歷史決策只保留在明確標示的 workflow / migration artifacts；
+- frontend 與其他語言目前只保留 context placement exploration，不視為 active profile。

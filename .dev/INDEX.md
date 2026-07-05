@@ -2,7 +2,7 @@
 
 ## Quick Start
 1. `ARCHITECTURE.md` — 專案架構與 system overview
-2. `project-config.yaml` — 機器可讀設定
+2. `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml` — target repo project config canonical template
 3. `standards/README.md` — .NET standards 單一真相
 4. `AGENTS.md` — AI Agent 統一操作手冊
 
@@ -33,6 +33,7 @@
 - `legacy/ask/`
 - `workflows/README.MD`
 - `guides/README.MD`
+- `guides/design-guides/MULTI-STACK-CONTEXT-PLACEMENT-NOTES.md`
 
 ## AI Agent & Skills
 - `AGENTS.md`

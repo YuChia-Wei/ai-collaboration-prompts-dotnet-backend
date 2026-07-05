@@ -25,7 +25,7 @@
 #### 1a. Command Code Generation Agent
 - **職責**：產生 Command use case 的 production code
 - **專注領域**：Aggregate 狀態變更、Domain Events、Repository Save、事務一致性
-- **架構感知**：依 `.dev/project-config.yaml` 決定 InMemory / Outbox / Event Sourcing 模式
+- **架構感知**：若目標 repo 已由 `repo-structure-sync` 產生 `.dev/project-config.yaml`，可將其作為輔助資訊；實際型別與 project evidence 優先
 - **Outbox 模式**：必須產生 Data / Mapper / OutboxRepository
 - **Canonical Sub-Agent Asset**：`.ai/assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`
 
@@ -126,14 +126,6 @@
 - **職責**：OutboxData / OutboxMapper / Repository 配置
 - **重點**：`IOutboxData<TId>`、`IOutboxMapper<TAggregate,TData>`、`NotMapped` 欄位
 - **Canonical Sub-Agent Asset**：`.ai/assets/sub-agent-role-prompts/outbox-sub-agent/sub-agent.yaml`
-
-### Frontend Sub-agents
-
-#### 19. Frontend Component Generation Agent
-- **Prompt**：`.ai/assets/sub-agent-role-prompts/frontend-sub-agent/references/component-generation-guidance.md`
-
-#### 20. Frontend API Integration Agent
-- **Canonical Sub-Agent Asset**：`.ai/assets/sub-agent-role-prompts/frontend-sub-agent/sub-agent.yaml`
 
 ## 📋 標準工作流程
 
@@ -261,7 +253,7 @@ sub-agent 不應自行取代 top-level implementer skills。
 - Top-Level Skill: `.ai/assets/skills/slice-implementer/skill.yaml`
 - Mode Reference: `.ai/assets/skills/slice-implementer/references/modes/command-use-case.md`
 - Canonical Sub-Agent Asset: `.ai/assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`
-- 輸入：spec + `project-config.yaml`
+- 輸入：spec + repository evidence + optional generated `.dev/project-config.yaml`
 - 輸出：Handler + Domain Events + Repository Save
 
 ### Query Use Case

@@ -19,6 +19,7 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/repo-structure-sync/references/delegation-rules.md`
   - `.ai/assets/skills/repo-structure-sync/references/document-targets.md`
   - `.ai/assets/skills/repo-structure-sync/references/output-contract.md`
+  - `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
 
 ## Wrapper Rules
 

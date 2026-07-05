@@ -10,6 +10,13 @@
 - Command priority: User/Approval > Subfolder AGENTS > This file > Other general documents.
 - If an IDE MCP server is configured and provides refactoring capabilities, prefer the IDE MCP refactoring tools.
 
+## Default Execution Principles
+
+- Do not invent project truth. State material assumptions, uncertainty, and tradeoffs. Ask only when an unresolved direction materially affects the outcome.
+- Implement the smallest coherent change that satisfies the defined acceptance criteria. Avoid speculative features, abstractions, and context.
+- Touch only files required by the task. Avoid unrelated cleanup, and remove artifacts introduced by your own changes.
+- Establish verifiable completion criteria before execution. Iterate until they pass, or report concrete blockers and any skipped validation.
+
 ## Repository Identity
 
 This repository exists to:

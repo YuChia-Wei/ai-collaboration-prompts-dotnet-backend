@@ -10,6 +10,13 @@
 - 指令優先順序：User/Approval > Subfolder AGENTS > This file > Other general documents。
 - 若有設定 IDE 的 MCP Server，且該 MCP Server 提供重構功能，優先使用 IDE MCP Server 的重構能力。
 
+## 預設執行原則
+
+- 不得捏造專案事實。明確說明會影響結果的假設、不確定性與取捨。只有在尚未決定的方向會實質影響成果時，才詢問使用者。
+- 實作符合既定驗收條件的最小且完整一致的變更。避免推測性的功能、抽象設計與 context。
+- 僅修改任務所需的檔案。避免無關的清理，並移除自身變更所引入的 artifacts。
+- 執行前先建立可驗證的完成條件。反覆修正直到條件通過；否則應回報具體阻礙與任何略過的 validation。
+
 ## Repository 定位
 
 這個 repository 的用途是：

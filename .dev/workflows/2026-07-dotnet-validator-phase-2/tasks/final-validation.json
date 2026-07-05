@@ -1,0 +1,46 @@
+{
+  "task_id": "final-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-2",
+  "status": "completed",
+  "scope": {
+    "target": "Validate and close dotnet validator phase 2.",
+    "constraints": [
+      "Do not close before analyzer tests and reference searches pass."
+    ],
+    "non_goals": [
+      "No additional analyzer scope during final validation."
+    ]
+  },
+  "execution": {
+    "operation_type": "final-validation",
+    "steps": [
+      "Parse workflow JSON.",
+      "Run analyzer tests.",
+      "Search removed script references.",
+      "Run git diff --check.",
+      "Close workflow."
+    ],
+    "validation": [
+      "ConvertFrom-Json",
+      "dotnet test",
+      "reference search",
+      "git diff --check"
+    ]
+  },
+  "results": {
+    "summary": "Validated and closed controller analyzer replacement phase 2.",
+    "files_changed": [
+      ".dev/workflows/2026-07-dotnet-validator-phase-2/workflow-plan.md",
+      ".dev/workflows/2026-07-dotnet-validator-phase-2/tasks/final-validation.json"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore: 10 passed",
+      "Git Bash .ai/scripts/check-all.sh --quick: 100% pass",
+      "controller diagnostic and retired script path validation",
+      "ConvertFrom-Json",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}
