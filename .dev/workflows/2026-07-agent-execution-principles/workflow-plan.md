@@ -3,7 +3,7 @@
 - Plan ID: `2026-07-agent-execution-principles`
 - Owner skill: `dev-workflow`
 - Supporting skill: `ai-context-governance`
-- Status: `in_progress`
+- Status: `completed`
 
 ## Problem
 
@@ -42,3 +42,9 @@ The principles must:
 
 None. The user approved adding the recommended principles and merging the completed branch into `main`.
 
+## Completion Summary
+
+- Added four default execution principles to the English root agent guide.
+- Added a semantically aligned Traditional Chinese Taiwan translation.
+- Kept the principles at the root collaboration layer instead of creating a dedicated skill.
+- Confirmed both guides contain four principles and `git diff --check` passes.

@@ -2,7 +2,7 @@
   "task_id": "add-agent-execution-principles",
   "owner_skill": "ai-context-governance",
   "related_plan_id": "2026-07-agent-execution-principles",
-  "status": "in_progress",
+  "status": "completed",
   "scope": {
     "target": "Root bilingual agent collaboration guides",
     "files": [
@@ -38,8 +38,16 @@
   ],
   "deferred_items": [],
   "results": {
-    "files_changed": [],
-    "tests_run": [],
+    "files_changed": [
+      "agents.md",
+      "agents.zh-tw.md",
+      ".dev/workflows/2026-07-agent-execution-principles/workflow-plan.md",
+      ".dev/workflows/2026-07-agent-execution-principles/tasks/add-agent-execution-principles.json"
+    ],
+    "tests_run": [
+      "Compared English and Traditional Chinese principle counts: 4 each",
+      "git diff --check: passed"
+    ],
     "follow_up_needed": false
   }
 }
