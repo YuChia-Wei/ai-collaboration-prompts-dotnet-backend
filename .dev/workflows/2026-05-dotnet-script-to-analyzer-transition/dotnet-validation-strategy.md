@@ -84,7 +84,7 @@ Target current `check-usecase-compliance.sh` behavior, then refine:
 - validate handler/use case public entry point shape by symbol, not text pattern;
 - detect direct infrastructure calls when architecture boundaries forbid them.
 
-Bootstrap coverage: `DBA1002` reports `IServiceProvider` constructor injection on use case or handler classes.
+Replacement coverage: `DBA1002` rejects `IServiceProvider` dependencies, while `DBA1010`-`DBA1012` cover service locator or attribute injection, mixed command/query handlers, and direct repository construction.
 
 ### Domain Entity / Aggregate Rules
 
@@ -94,7 +94,7 @@ Target current `check-aggregate-compliance.sh` behavior, then refine:
 - validate domain event application conventions where the target profile requires them;
 - validate guard/invariant usage only where the rule can be expressed without forcing one implementation style.
 
-Bootstrap coverage: `DBA1003` reports `DbContext` references in classes that look like aggregates/entities.
+Replacement coverage: `DBA1003` reports infrastructure references in aggregate/entity classes, and `DBA1009` prevents direct state mutation outside `When` only for `EsAggregateRoot`.
 
 ## CI Gate Model
 

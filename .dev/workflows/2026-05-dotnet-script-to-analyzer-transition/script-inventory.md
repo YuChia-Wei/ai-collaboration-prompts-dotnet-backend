@@ -31,8 +31,8 @@ The risky category is the third one. It attempts to validate C# architecture and
 | `.ai/scripts/check-domain-events-compliance.sh` | Greps event files for event type, interfaces, metadata, and type mapping. | Yes | `replace-with-roslyn-analyzer` | Replace with analyzer rules for event shape and forbidden legacy interfaces. |
 | `.ai/scripts/check-framework-api-compliance.sh` | Greps source for framework API usage and naming patterns. | Yes | `replace-with-roslyn-analyzer` | Replace with analyzer for forbidden/required API usage. |
 | `.ai/scripts/check-repository-compliance.sh` | Auto-generated grep checks from repository standards. | Yes | `replace-with-roslyn-analyzer` | First-batch analyzer candidate. |
-| `.ai/scripts/check-usecase-compliance.sh` | Auto-generated grep checks from use case standards. | Yes | `replace-with-roslyn-analyzer` | First-batch analyzer candidate. |
-| `.ai/scripts/check-aggregate-compliance.sh` | Auto-generated grep checks from aggregate standards. | Yes | `replace-with-roslyn-analyzer` | First-batch analyzer candidate. |
+| `.ai/scripts/check-usecase-compliance.sh` | Former auto-generated grep checks from use case standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1002` and `DBA1010`-`DBA1012`, then removed in validator phase 3. |
+| `.ai/scripts/check-aggregate-compliance.sh` | Former auto-generated grep checks from aggregate standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1003` and `DBA1009`, then removed in validator phase 3. |
 | `.ai/scripts/check-controller-compliance.sh` | Auto-generated grep checks from controller standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1004`-`DBA1006` and removed in validator phase 2. |
 | `.ai/scripts/check-mapper-compliance.sh` | Former auto-generated grep checks from mapper standards. | Yes | `replaced-with-roslyn-analyzer` | Replaced by `DBA1007`-`DBA1008` and removed in validator phase 3. |
 | `.ai/scripts/check-projection-compliance.sh` | Auto-generated grep checks from projection standards. | Yes | `replace-with-roslyn-analyzer` | Later analyzer / architecture test candidate. |
@@ -47,13 +47,11 @@ The risky category is the third one. It attempts to validate C# architecture and
 
 Files under `.ai/scripts/generated/` are generated grep-based C# checks:
 
-- `check-aggregate.sh`
 - `check-archive.sh`
 - `check-controller.sh`
 - `check-projection.sh`
 - `check-repository.sh`
 - `check-test.sh`
-- `check-usecase.sh`
 
 Transition class: `retire-generated-regex-check`.
 

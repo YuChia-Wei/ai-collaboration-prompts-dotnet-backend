@@ -65,8 +65,6 @@ Current transitional behavior:
 ### Replace With Roslyn Analyzer Or Architecture Tests
 
 - `check-repository-compliance.sh`
-- `check-usecase-compliance.sh`
-- `check-aggregate-compliance.sh`
 - `check-projection-compliance.sh`
 - `check-archive-compliance.sh`
 - `check-test-compliance.sh`
@@ -85,6 +83,8 @@ Completed replacement:
 
 - controller rules: `DBA1004`, `DBA1005`, and `DBA1006`; the controller grep scripts have been removed.
 - mapper rules: `DBA1007` and `DBA1008`; the mapper grep scripts have been removed.
+- aggregate rules: `DBA1003` and `DBA1009`; the aggregate grep scripts have been removed while invariant completeness remains test and AI review work.
+- use case rules: `DBA1002` and `DBA1010` through `DBA1012`; the use case grep scripts have been removed while transaction and error-handling design remain AI review work.
 
 Analyzer source template:
 

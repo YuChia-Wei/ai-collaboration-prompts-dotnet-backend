@@ -2,7 +2,7 @@
   "task_id": "aggregate-usecase-validation",
   "owner_skill": "slice-implementer",
   "related_plan_id": "workflow-plan-2026-07-dotnet-validator-phase-3",
-  "status": "pending",
+  "status": "completed",
   "depends_on": [
     "rule-classification-and-requirements"
   ],
@@ -26,9 +26,31 @@
   ],
   "deferred_items": [],
   "results": {
-    "files_changed": [],
-    "tests_run": [],
-    "follow_up_needed": true
+    "summary": "Added event-sourced aggregate mutation and deterministic UseCase diagnostics, preserved normal AggregateRoot behavior, and removed Aggregate and UseCase grep scripts.",
+    "files_changed": [
+      "tools/DotnetBackendAnalyzers/EventSourcedAggregateMutationAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/UseCaseServiceProviderInjectionAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/RuleDescriptors.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers.Tests/EventSourcedAggregateMutationAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers.Tests/UseCaseServiceProviderInjectionAnalyzerTests.cs",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/README.md",
+      ".ai/scripts/check-aggregate-compliance.sh",
+      ".ai/scripts/check-usecase-compliance.sh",
+      ".ai/scripts/generated/check-aggregate.sh",
+      ".ai/scripts/generated/check-usecase.sh",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md",
+      ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore: 23 passed",
+      "Git Bash syntax check for check-all.sh and code-review.sh",
+      "Aggregate and UseCase retired-script reference search",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
   }
 }
 

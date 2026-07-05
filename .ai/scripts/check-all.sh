@@ -216,15 +216,7 @@ if [ "$MODE" != "critical" ]; then
     echo ""
     echo -e "${MAGENTA}════ Important Checks ════${NC}"
     
-    # Aggregate grep validation is not executed as a gate.
-    run_check_pending "check-aggregate-compliance.sh" \
-        "Aggregate Pattern Compliance" \
-        "false" "true" "DBA1003 exists; remaining script rules still need dotnet-native replacements"
-    
-    # Use case grep validation is not executed as a gate.
-    run_check_pending "check-usecase-compliance.sh" \
-        "UseCase Pattern Compliance" \
-        "false" "true" "DBA1002 exists; remaining script rules still need dotnet-native replacements"
+    # Aggregate and UseCase source validation is covered by DBA1002-DBA1003 and DBA1009-DBA1012.
     
     # Controller compliance is covered by DBA1004-DBA1006 in analyzer tests.
 

@@ -12,6 +12,10 @@ Current diagnostics:
 - `DBA1006`: controllers should not directly construct handler or use-case types.
 - `DBA1007`: object mappers should be static classes.
 - `DBA1008`: object mappers should not depend on repositories, use cases, or handlers.
+- `DBA1009`: event-sourced aggregate state should mutate only inside `When` transitions.
+- `DBA1010`: use cases should not use service locator or attribute-based property injection.
+- `DBA1011`: handlers should not mix command and query marker responsibilities.
+- `DBA1012`: use cases should not directly construct repositories.
 
 `DBA1004` through `DBA1006` replace the former controller grep compliance script. `DBA1007` and `DBA1008` replace the former mapper grep compliance scripts.
 

@@ -13,8 +13,8 @@
 | Current asset | Replacement target | Notes |
 | --- | --- | --- |
 | `check-repository-compliance.sh` | Roslyn analyzer first batch | Replace filename/grep checks with symbol-aware repository diagnostics. |
-| `check-usecase-compliance.sh` | Roslyn analyzer first batch + architecture tests | Analyzer for handler/use case shape; architecture tests for layer boundaries. |
-| `check-aggregate-compliance.sh` | Roslyn analyzer first batch | Analyzer for aggregate/entity dependencies and domain rules. |
+| `check-usecase-compliance.sh` | Replaced by Roslyn diagnostics `DBA1002`, `DBA1010`-`DBA1012` | Scripts removed. Transaction boundaries, error handling, and behavior completeness remain test and AI review concerns. |
+| `check-aggregate-compliance.sh` | Replaced by Roslyn diagnostics `DBA1003` and `DBA1009` | Scripts removed. Invariant and event completeness remain test and AI review concerns. |
 | `check-controller-compliance.sh` | Replaced by Roslyn diagnostics `DBA1004`-`DBA1006` | Script removed. Cross-assembly Presentation boundary tests remain a separate future concern. |
 | `check-mapper-compliance.sh` | Replaced by Roslyn diagnostics `DBA1007`-`DBA1008` | Scripts removed after static-only shape and forbidden dependency coverage was added. Mapping completeness remains a test and AI review concern. |
 | `check-projection-compliance.sh` | Roslyn analyzer + architecture tests | Analyzer for read-model/projection code patterns; architecture tests for dependency direction. |
