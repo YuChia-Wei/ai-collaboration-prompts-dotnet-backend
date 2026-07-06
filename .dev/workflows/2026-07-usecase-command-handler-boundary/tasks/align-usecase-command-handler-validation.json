@@ -3,7 +3,7 @@
   "owner_skill": "slice-implementer",
   "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
   "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Align Roslyn analyzers and tests with the approved Use Case and Handler dependency model",
     "files": [
@@ -52,10 +52,21 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "follow_up_needed": true
+    "summary": "Added deterministic analyzer enforcement for Controller dependencies, canonical Use Case signatures, forbidden Use Case dependencies, and Command/Query Handler-to-Use-Case boundaries.",
+    "files_changed": [
+      "tools/DotnetBackendAnalyzers/ControllerComplianceAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/UseCaseServiceProviderInjectionAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/RuleDescriptors.cs",
+      "tools/DotnetBackendAnalyzers.Tests/ControllerComplianceAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers.Tests/UseCaseServiceProviderInjectionAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/align-usecase-command-handler-validation.json"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore (47 passed)"
+    ],
+    "follow_up_needed": false
   }
 }
 

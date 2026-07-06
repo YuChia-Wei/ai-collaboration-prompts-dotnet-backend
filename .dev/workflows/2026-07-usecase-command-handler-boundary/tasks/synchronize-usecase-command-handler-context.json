@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
   "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
-  "status": "pending",
+  "status": "completed",
   "scope": {
     "target": "Synchronize approved role boundaries across AI prompts, guides, examples, DI, and tests",
     "files": [
@@ -53,10 +53,25 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "follow_up_needed": true
+    "summary": "Synchronized command, query, controller, testing, DI, templates, guides, review guidance, and examples to the approved Use Case port and Handler adapter model. Retained legitimate Reactor and Consumer handlers.",
+    "files_changed": [
+      ".ai/assets/skills/slice-implementer/references/modes/",
+      ".ai/assets/sub-agent-role-prompts/",
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".dev/guides/",
+      ".dev/standards/examples/usecase/",
+      ".dev/standards/prompts/create-use-case-prompt.md",
+      ".dev/standards/CODE-REVIEW-CHECKLIST.md",
+      ".dev/standards/coding-standards.md",
+      ".dev/standards/anti-patterns.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/synchronize-usecase-command-handler-context.json"
+    ],
+    "tests_run": [
+      "Targeted role and invocation contradiction searches",
+      "Sub-agent mandatory-reference path search",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
   }
 }
 

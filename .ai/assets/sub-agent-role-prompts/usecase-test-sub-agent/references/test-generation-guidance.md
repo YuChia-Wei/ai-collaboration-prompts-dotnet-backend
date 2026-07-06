@@ -5,11 +5,11 @@ Generate use case tests using xUnit + BDDfy with Gherkin-style naming only (no `
 ## Mandatory References
 - `../assets/sub-agent-role-prompts/usecase-test-sub-agent/sub-agent.yaml`
 - `../assets/skills/bdd-gwt-test-designer/skill.yaml`
-- `.ai/assets/shared/testing-strategy.md`
-- `.ai/assets/shared/common-rules.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md`
 
 ## Rules
-- Follow ezSpec -> BDDfy mapping rules in .ai/assets/shared/testing-strategy.md
+- Follow ezSpec -> BDDfy mapping rules in .ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md
 - No BaseTestClass
 - Use NSubstitute for mocks
 - Verify domain events with async-safe assertions

@@ -80,8 +80,8 @@ public sealed class TestProfileFixture
 
 ### 3. Use NSubstitute for mocks
 ```csharp
-var messageBus = Substitute.For<IMessageBus>();
-services.AddSingleton(messageBus);
+var eventPublisher = Substitute.For<IProductEventPublisher>();
+services.AddSingleton(eventPublisher);
 ```
 
 ## Migration Guide
@@ -93,7 +93,7 @@ Wrong (legacy):
 public sealed class TestContext
 {
     public IAggregateRepository<Product, ProductId> Repository;
-    public IMessageBus Bus;
+    public IProductEventPublisher EventPublisher;
 }
 ```
 
@@ -113,8 +113,8 @@ public sealed class TestProfileFixture : IAsyncLifetime
 
 ### Step 3: Replace @MockBean with NSubstitute DI overrides
 ```csharp
-var bus = Substitute.For<IMessageBus>();
-services.AddSingleton(bus);
+var eventPublisher = Substitute.For<IProductEventPublisher>();
+services.AddSingleton(eventPublisher);
 ```
 
 ## Test Profile Configuration
@@ -170,7 +170,7 @@ var repo = _services.GetRequiredService<IAggregateRepository<Product, ProductId>
 ### 2. Manual service construction
 Wrong:
 ```csharp
-var useCase = new CreateProductHandler(repo);
+var useCase = new CreateProductUseCase(repo, eventPublisher);
 ```
 
 Correct:

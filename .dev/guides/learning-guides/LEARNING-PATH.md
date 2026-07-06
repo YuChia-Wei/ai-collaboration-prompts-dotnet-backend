@@ -146,11 +146,16 @@ When you need to implement a new feature:
 1. Find the closest example in `.dev/standards/examples/`
 2. Follow naming rules:
    - Use case: `<Operation><Aggregate>UseCase`
-   - Handler: `<Operation><Aggregate>Handler` or Wolverine handler class
-   - Input/Output: `<Operation><Aggregate>Request`, `<Aggregate>Response`
+   - Use Case: `I<Operation><Aggregate>UseCase` and
+     `<Operation><Aggregate>UseCase`
+   - Handler: only for an actual dispatch/message entry
+   - HTTP Input/Output: `<Operation><Aggregate>Request`,
+     `<Aggregate>Response`
+   - Use Case Input/Output: `<Operation><Aggregate>Input`,
+     `<Operation><Aggregate>Output`
 3. Apply correct patterns:
-   - Command: handler returns `CqrsOutput`
-   - Query: handler returns custom output DTOs
+   - Command: Use Case changes state and returns only the produced output
+   - Query: Use Case returns custom output DTOs without changing state
    - Test: xUnit + BDDfy (Gherkin-style naming), no BaseTestClass
 
 ## Common Pitfalls

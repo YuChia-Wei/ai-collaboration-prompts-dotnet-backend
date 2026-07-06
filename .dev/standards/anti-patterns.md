@@ -237,7 +237,7 @@ Assert.True(ReflectionHelper.GetField(task, "_isCompleted"));
 ```csharp
 // 錯誤：Mock 過多
 var repo = Substitute.For<IAggregateRepository<Order, OrderId>>();
-var bus = Substitute.For<IMessageBus>();
+var eventPublisher = Substitute.For<IOrderEventPublisher>();
 var mapper = Substitute.For<IMapper>();
 ```
 
@@ -259,7 +259,8 @@ public sealed class UserController : ControllerBase
 }
 ```
 
-✅ **正確做法**：Controller → UseCase/Handler → Domain → Repository。
+✅ **正確做法**：Controller → Use Case interface → Use Case implementation →
+Domain / outbound ports。Handler 只在真實 dispatch/message entry 存在。
 
 ## 效能反模式
 

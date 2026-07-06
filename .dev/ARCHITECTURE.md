@@ -29,7 +29,20 @@
 
 詞彙與責任邊界：
 
-- `Use Case`、`Command`、`Query`、`Handler`、`Application Service` 的關係見 [USECASE-COMMAND-HANDLER-RELATIONSHIP.MD](./standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
+- `Use Case`、`Command`、`Query`、`Handler` 的關係見 [USECASE-COMMAND-HANDLER-RELATIONSHIP.MD](./standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
+
+### Application Inbound Port Model
+
+- `I<Operation>UseCase` 是 Application inbound port。
+- `<Operation>UseCase` 使用 `ExecuteAsync` 實作 application orchestration。
+- HTTP Controller 預設直接依賴 Use Case interface。
+- 只有明確核准的純查詢 endpoint 可例外直連唯讀 Query Repository/Service。
+- Command/message Handler 只在真實 dispatch entry 存在，負責 mapping 後呼叫
+  一個 Use Case；Handler 不得成為 Use Case implementation。
+- Use Case 依賴 project-owned outbound event publisher port，不直接依賴
+  Wolverine `IMessageBus`。
+- Wolverine/MediatR/MQ-specific Handler 屬於 inbound adapter/composition
+  boundary；package-neutral convention Handler 才可留在 Application。
 
 ### Target Repository Configuration
 

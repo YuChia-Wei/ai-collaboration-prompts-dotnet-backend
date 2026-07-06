@@ -20,6 +20,16 @@
 - If `repo-structure-sync` generated `.dev/project-config.yaml`, use it as a secondary summary of confirmed environment and architecture facts.
 - Prefer project files, source types, and deployment configuration when they conflict with generated context.
 - Keep controllers thin: map DTOs <-> use cases only.
+- Model Use Cases as explicit `I<Operation>UseCase` inbound ports implemented by
+  `<Operation>UseCase.ExecuteAsync`.
+- Keep Use Case input/output transport-neutral and require a non-optional
+  `CancellationToken`.
+- Create a Handler only for a real dispatch/message entry; a Handler maps input
+  and invokes one Use Case.
+- Keep Wolverine conditional. Use Cases depend on project-owned outbound event
+  publisher ports, never directly on `IMessageBus` or another Use Case.
+- Default query endpoints to query Use Cases. Direct Query Repository/Service
+  access is only an explicitly selected pure-query exception.
 - Use explicit error handling and return typed results.
 - Preserve DDD/CA/CQRS/ES/Outbox concepts from the Java prompts.
 - Keep prompt output portable across repositories (see `.ai/assets/shared/PROMPT-PORTABILITY-RULES.md`).

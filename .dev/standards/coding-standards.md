@@ -75,7 +75,8 @@
 
 ### 4. Event Sourcing
 - 狀態變更以事件為主
-- WolverineFx 作為事件/訊息處理框架
+- WolverineFx 可作為 target-selected 事件/訊息 adapter，不是 portable
+  Application requirement
 
 ### 5. Testing Discipline
 - Mutation Testing (Stryker.NET)
@@ -102,12 +103,14 @@
 3. **Handler 原則**：保持 Handler 小而專注，避免在 Handler 內處理基礎設施細節（使用注入的服務）
 4. **冪等性**：Event 處理必須考慮 at-least-once delivery，在執行外部 I/O 前檢查重複
 
-### ⚠ Command/Query 檔案放置規則
+### ⚠ Use Case 與 optional Handler 放置規則
 
 | 類型 | 規則 | 檔案命名 |
 |------|------|---------|
-| Command | Command + Handler 放同一 `.cs` 檔 | 以 Command 名稱命名 |
-| Query | Query + Handler 放同一 `.cs` 檔 | 以 Query 名稱命名 |
+| Use Case port | 與 transport 無關的 interface | `I<Operation>UseCase.cs` |
+| Use Case implementation | Application orchestration | `<Operation>UseCase.cs` |
+| Dispatch Handler | 只有真實 dispatch entry 才建立 | `<Operation>CommandHandler.cs` |
+| MQ Consumer Handler | 放在 Consumer/Presentation adapter | `<Event>Handler.cs` |
 
 ### ⚠ Event 放置規則
 
@@ -168,7 +171,9 @@ public interface IDomainRepository<TAggregate, TId>
 - profile 命名、載入、DI 分支與 profile-specific infra 規則以 [Profile / Environment Configuration Standards](./coding-standards/profile-configuration-standards.md) 為準
 
 ### ⚠ Outbox / Inbox Pattern
-- 使用 WolverineFx 的 Outbox 機制確保事件發佈的可靠性
+- Use Case 依賴 project-owned event publisher port
+- target repository 選用 WolverineFx 時，可由 Infrastructure adapter 使用其
+  Outbox 機制確保事件發佈可靠性
 - 如導入 Inbox Pattern，Consumer 端亦應遵循相同慣例
 - 交易邊界：命令處理內的狀態改變需與儲存一致性策略對齊
 

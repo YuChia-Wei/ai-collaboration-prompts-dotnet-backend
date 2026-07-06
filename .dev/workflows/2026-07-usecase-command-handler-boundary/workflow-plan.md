@@ -5,7 +5,7 @@
 - Plan ID: `workflow-plan-2026-07-usecase-command-handler-boundary`
 - Workflow ID: `2026-07-usecase-command-handler-boundary`
 - Owner skill: `dev-workflow`
-- Status: `in-progress`
+- Status: `completed`
 - Created: `2026-07-06`
 - Branch: `codex/usecase-command-handler-alignment`
 - Base: `main` at merge commit `343ab29`
@@ -33,6 +33,10 @@ The current guidance, examples, prompts, project structure, tests, and analyzers
 not consistently implement that target.
 
 The evidence baseline is recorded in [review-report.md](./review-report.md).
+
+The user's D1-D12 decisions were compared with the attached discussion in
+[decision-difference-analysis.md](./decision-difference-analysis.md). The
+material differences were re-decided on `2026-07-07` and are recorded below.
 
 ## Scope
 
@@ -68,9 +72,7 @@ The evidence baseline is recorded in [review-report.md](./review-report.md).
   dependency on the Use Case, not hidden in a Handler.
 - Runtime packages such as Wolverine are conditional target-repository choices.
 
-## Preliminary Target Direction
-
-This direction is a proposal pending the decisions below:
+## Approved Target Direction
 
 ```text
 HTTP Request
@@ -106,140 +108,127 @@ Proposed responsibility split:
 - `Consumer` / event Handler / Reactor: message adapters or eventual-consistency
   workers, kept distinct from synchronous API Use Cases.
 
-## Open Decisions
+## Approved Decisions
 
 ### D1 — Use Case interface shape
 
-Decide the canonical operation signature and cancellation policy.
+`ExecuteAsync` is the mandatory operation name. Every asynchronous Use Case must
+declare a non-optional `CancellationToken` parameter.
 
-Proposed default:
+A dedicated, transport-neutral input object is the default:
 
 ```csharp
 public interface ICreateProductUseCase
 {
     Task<CreateProductOutput> ExecuteAsync(
         CreateProductInput input,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken);
 }
 ```
 
-Questions:
+Two exceptions are allowed:
 
-- Is `ExecuteAsync` the mandatory method name?
-- Does every Use Case accept a dedicated input object, including parameterless
-  operations?
-- Is `CancellationToken` mandatory for asynchronous Use Cases?
+- if the operation has no input other than cancellation, omit the input object;
+- if the operation has exactly one input value and that value uses a standard
+  platform type, the Use Case may accept that value directly.
+
+For this exception, a standard platform type means one scalar built-in or BCL
+value such as `string`, a numeric type, `bool`, `Guid`, or a date/time type. A
+collection, tuple, custom record/class, or multiple values requires a dedicated
+input object.
+
+```csharp
+Task ExecuteAsync(CancellationToken cancellationToken);
+
+Task<FindProductOutput> ExecuteAsync(
+    Guid productId,
+    CancellationToken cancellationToken);
+```
 
 ### D2 — Input versus Command
 
-Decide whether a Use Case accepts a transport-neutral `Input` or directly accepts
-an `ICommand<T>` object.
+A Use Case never accepts an HTTP request, broker contract, Wolverine Command, or
+other delivery contract as its Application input. It accepts its own
+transport-neutral input object, subject only to the no-input and single-standard-
+type exceptions in D1.
 
-Recommended direction:
-
-- Controller maps HTTP request to `CreateProductInput`;
-- `CreateProductInput` does not implement a dispatcher/package marker;
-- a message/command Handler maps `CreateProductCommand` to the same input when a
-  dispatch entry is needed.
-
-This prevents Application ports from becoming coupled to a selected dispatcher.
+A Controller maps its HTTP request to the Use Case input. When an actual dispatch
+entry exists, its Handler maps the message Command to the same Use Case input.
 
 ### D3 — Command Handler existence and role
 
-Decide whether a Command Handler:
-
-1. exists only when an actual command/message dispatch entry is configured; or
-2. is mandatory for every command Use Case even though Controllers do not use it.
-
-Recommended direction: option 1. A mandatory one-line Handler for every Use Case
-would add an unused layer and recreate the ambiguity under a new name.
+A Command Handler exists only when an actual command/message dispatch entry is
+configured. It is not mandatory for every command-style Use Case and is not added
+solely to wrap a Controller call.
 
 ### D4 — Controller dependency rule
 
-Confirm whether Controllers are strictly prohibited from injecting:
+By default, a Controller depends on one or more explicit Use Case interfaces. It
+must not inject:
 
 - concrete Handlers;
 - `IMessageBus`;
 - mediator/dispatcher abstractions;
-- repositories or Domain services.
+- write repositories;
+- Domain services.
 
-Recommended default: Controller injects one or more explicit Use Case interfaces
-only. Framework-specific endpoint models require a separately approved profile.
+An explicitly selected pure-query endpoint may inject an `IQueryRepository` or
+query service directly. This is an allowed but discouraged exception, not an
+alternative default. Without an explicit decision for that endpoint, the
+Controller must use a query Use Case.
 
 ### D5 — Query-side symmetry
 
-Decide whether synchronous queries also require:
+The default synchronous query flow is:
 
 ```text
 Controller -> I<GetProduct>UseCase -> GetProductUseCase -> IProductQueryRepository
 ```
 
-or whether direct Controller-to-query-handler dispatch remains allowed.
-
-Using one inbound-port rule for both commands and queries is more consistent, but
-must not force unnecessary QueryService layers.
+For a pure query only, an explicitly approved endpoint may call an
+`IQueryRepository` or query service directly. The developer must document why the
+extra coupling and loss of inbound-port symmetry are justified. Direct
+query-handler dispatch is not the approved exception.
 
 ### D6 — Handler placement
 
-Decide placement by handler type:
-
-- package-neutral in-process command Handler;
-- Wolverine/MediatR-specific Handler;
-- MQ Consumer Handler;
-- Domain Event Handler / Reactor.
-
-Recommended rule: package-neutral Use Cases remain in Application; transport- or
-framework-specific handlers belong to the inbound adapter/composition boundary.
-A convention-only Handler may remain in Application only when it has no package or
-transport dependency.
+Package-neutral convention Handlers may remain in Application. Wolverine-,
+MediatR-, MQ-, or other framework/transport-specific Handlers belong to the
+inbound adapter or composition boundary. In every placement, the Handler maps its
+delivery input and invokes one Use Case; it does not own the business workflow.
 
 ### D7 — Result and error ownership
 
-Decide whether Use Case Output owns typed success/failure semantics and whether
-Handlers may translate them.
-
-Recommended direction:
-
-- Use Case returns a transport-neutral typed Output/Result;
-- Controller maps it to HTTP;
-- message Handler maps failures to retry/dead-letter behavior;
-- Use Case does not return `IActionResult`, broker acknowledgements, or
-  framework-specific envelopes.
+A Use Case returns only a transport-neutral output produced by completing the
+operation. If the operation produces no output object, it returns `Task` rather
+than an artificial empty result. A Controller maps the outcome to HTTP, and a
+message Handler maps failure behavior to retry/dead-letter semantics. A Use Case
+never returns `IActionResult`, broker acknowledgements, or framework-specific
+envelopes.
 
 ### D8 — Transaction and event lifecycle ownership
 
-Confirm that repository, `IUnitOfWork`, outbox coordination, and pending Domain
-Event acknowledgement dependencies belong to the Use Case implementation.
-
-Recommended direction: Handler never introduces hidden strong consistency and
+Repository coordination, an exceptional explicit `IUnitOfWork`, outbox
+coordination, and pending Domain Event acknowledgement dependencies belong to the
+Use Case implementation. A Handler never introduces hidden strong consistency and
 does not independently commit after invoking a Use Case.
 
 ### D9 — Concrete implementation naming
 
-Choose one default:
-
-- `CreateProductUseCase`;
-- `CreateProductService`;
-- another explicit suffix.
-
-Recommended direction: `CreateProductUseCase` makes the concrete role visible and
-removes the ambiguous optional `Application Service` terminology.
+Use `CreateProductUseCase` and the `*UseCase` suffix for the concrete
+implementation. This workflow does not introduce, expand, or redefine
+`Application Service`; that concept remains outside this decision set.
 
 ### D10 — Compatibility and migration
 
-Decide how existing products that register
-`ICreateProductUseCase -> CreateProductHandler` migrate.
-
-Recommended staged rule:
-
-- flag the shape as legacy/deprecated, not silently valid;
-- introduce a concrete Use Case and move orchestration first;
-- retain the Handler only if a dispatch entry actually consumes it;
-- remove unused Handler registrations after callers migrate.
+Compatibility and concrete migration steps are deferred. They must be planned
+against the target product during an actual refactor, where the developer must be
+reminded to classify callers, registrations, and real dispatch entries before
+changing them. This workflow will not publish a generic migration recipe.
 
 ### D11 — Analyzer enforcement
 
-Decide mandatory severity and coverage for:
+Deterministic boundary violations are analyzer errors, including:
 
 - Controller dependencies on Handler, dispatcher, or message bus;
 - Use Case interface and implementation shape;
@@ -247,17 +236,22 @@ Decide mandatory severity and coverage for:
 - transport/package dependencies in Use Cases;
 - legacy classes that implement both Use Case and Handler entry points.
 
-Recommended default: deterministic boundary violations are errors; naming-only or
-migration advisories remain warnings until target-repository markers exist.
+The explicit pure-query exception from D4/D5 must not be reported as an error when
+the target project provides reliable evidence that the endpoint selected that
+profile. Naming-only or migration advisories remain warnings where deterministic
+target evidence is unavailable.
 
 ### D12 — Wolverine and dispatcher policy
 
-Confirm that Wolverine is:
+Use Cases depend on project-owned outbound event publisher ports, not directly on
+Wolverine `IMessageBus`. Infrastructure adapts those ports to Wolverine when the
+target repository selects Wolverine.
 
-- valid conditional guidance for messaging, outbox, consumers, and intentionally
-  selected dispatch;
-- not a portable requirement for normal synchronous API Use Cases;
-- not automatically introduced by command/query implementation prompts.
+Wolverine remains valid conditional guidance for messaging, outbox, consumers,
+and intentionally selected dispatch. It is not a portable requirement for normal
+synchronous API Use Cases and is not automatically introduced by command/query
+implementation prompts. A Use Case must not publish Commands or inject another
+Use Case.
 
 ## Skill Routing
 
@@ -285,17 +279,18 @@ Confirm that Wolverine is:
 
 ### S1 — Resolve architecture decisions
 
-- Status: pending
+- Status: completed
 - Owner: `ddd-ca-hex-architect`
 - Output:
   - approved D1-D12 decisions;
+  - `decision-difference-analysis.md`;
   - `tasks/resolve-usecase-command-handler-decisions.json`.
 - Gate:
-  - no canonical standards rewrite before user decisions are recorded.
+  - passed: R1-R4 were re-decided and D1-D12 are recorded.
 
 ### S2 — Align canonical standards
 
-- Status: pending
+- Status: completed
 - Owner: `ddd-ca-hex-architect`
 - Primary scope:
   - `.dev/ARCHITECTURE.md`;
@@ -305,7 +300,7 @@ Confirm that Wolverine is:
 
 ### S3 — Synchronize context, prompts, guides, and examples
 
-- Status: pending
+- Status: completed
 - Owner: `ai-context-governance`
 - Primary scope:
   - command/query/controller sub-agent prompts;
@@ -315,7 +310,7 @@ Confirm that Wolverine is:
 
 ### S4 — Align analyzers and executable validation
 
-- Status: pending
+- Status: completed
 - Owner: `slice-implementer`
 - Primary scope:
   - Controller and Use Case analyzer rules;
@@ -324,7 +319,7 @@ Confirm that Wolverine is:
 
 ### S5 — Final validation and closure
 
-- Status: pending
+- Status: completed
 - Owner: `dev-workflow`
 - Validation:
   - all task JSON parses;
@@ -357,3 +352,21 @@ sections.
 - Prompts, examples, tests, DI guidance, and analyzers agree with the approved
   model.
 - Migration guidance distinguishes legacy compatibility from the new default.
+
+## Completion Summary
+
+- D1-D12 are approved and implemented across canonical standards and active
+  reusable guidance.
+- Synchronous Controllers default to explicit Use Case interfaces; the only
+  direct data-access exception is an explicitly selected pure query using a
+  read-only Query Repository/Service.
+- Use Cases use `ExecuteAsync`, transport-neutral contracts, required
+  `CancellationToken`, project-owned outbound event publisher ports, and no
+  direct Wolverine or Use Case-to-Use Case dependency.
+- Command/Query Handlers exist only for real dispatch entries and adapt to one
+  Use Case; legitimate Reactor and Consumer handlers remain distinct.
+- Analyzer diagnostics `DBA1014` through `DBA1017` enforce the deterministic
+  boundaries, and 47 analyzer tests pass.
+- Product-specific migration sequencing remains deferred under D10.
+- Target repositories must provide evidence that a pure-query endpoint explicitly
+  selected the direct Query Repository/Service exception.

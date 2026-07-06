@@ -113,20 +113,22 @@ public Product(ProductId id, string name)
 
 ## 🧩 UseCase 層檢查
 
-### UseCase/Handler
-- [ ] Handler 與對應 use case 名稱一致，能清楚表達這次 business operation
-- [ ] Handler 可被視為 use case implementation，或明確委派給有實際價值的 Application Service
-- [ ] 不為了名詞完整性硬多包一層只有單行轉呼叫的 `*UseCaseService`
-- [ ] Handler 足夠薄，但仍完整承擔 application orchestration
+### Use Case / Handler
+- [ ] Use Case interface 是明確 inbound port，implementation 使用 `*UseCase`
+- [ ] operation 使用 `ExecuteAsync` 且包含不可省略的 `CancellationToken`
+- [ ] Input/Output 不沿用 HTTP、MQ、Wolverine/MediatR contract
+- [ ] Handler 只在真實 dispatch/message entry 存在
+- [ ] Handler 只負責 mapping 並呼叫一個 Use Case，不承擔 orchestration
+- [ ] Use Case 不直接依賴 `IMessageBus` 或另一個 Use Case
 - [ ] 不包含應放入 Aggregate 的 Domain 邏輯
 - [ ] 使用 constructor injection
 - [ ] 例外包裝為 UseCaseFailureException（若規範要求）
 
 ### Command / Query Boundary
-- [ ] Command / Query 是 request model，不承載業務執行邏輯
-- [ ] Command handler 處理狀態變更；Query handler 不改變 domain state
-- [ ] Query handler 優先使用 query repository / query service，不把讀取流程拉回 aggregate
-- [ ] 若抽出 Application Service，必須有明確 orchestration / reuse 價值
+- [ ] Command / Query delivery contract 不承載業務執行邏輯
+- [ ] Command Use Case 處理狀態變更；Query Use Case 不改變 domain state
+- [ ] Query Use Case 使用 query repository / query service，不把讀取流程拉回 aggregate
+- [ ] Controller 直連 Query Repository/Service 僅限明確核准的純查詢例外
 
 ### Repository / Domain Service Usage
 - [ ] Command side 透過 repository 載入與保存 aggregate

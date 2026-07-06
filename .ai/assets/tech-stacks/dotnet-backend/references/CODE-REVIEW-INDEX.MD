@@ -28,8 +28,7 @@
 | 檔案模式 | 檢查清單位置 | 檢查重點 | 優先級 |
 |---------|------------|---------|--------|
 | `src/Domain/**/Aggregates/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Aggregate（先做 type-first 判定）** | 1. 先判定 `EsAggregateRoot` 或 `AggregateRoot`<br>2. ES 才檢查 Apply/When<br>3. non-ES 檢查 invariant 與事件一致性 | **CRITICAL** |
-| `src/Application/**/UseCases/Commands/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler** | 1. CQRS 分離<br>2. Command 是否只操作 write model<br>3. Result/CqrsOutput 處理是否明確 | HIGH |
-| `src/Application/**/UseCases/Queries/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **UseCase/Handler / Projection** | 1. Query 是否無副作用<br>2. Projection 使用正確 | HIGH |
+| `src/Application/**/UseCases/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Use Case / Handler** | 1. 明確 `I*UseCase` inbound port<br>2. `ExecuteAsync` 與 transport-neutral contract<br>3. Handler 未承擔 orchestration | HIGH |
 | `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. write side 是否符合 `IAggregateRepository<TAggregate, TId>`<br>2. generic type 是否為 Aggregate Root<br>3. query/write 能力是否分離 | HIGH |
 | `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller 是否足夠薄<br>2. DTO 是否獨立檔案<br>3. HTTP status 正確 | MEDIUM |
 | `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper 是否為 static/sealed？<br>2. 一個 DTO 對一個 Mapper<br>3. Outbox toDomain 是否處理有/無 events 兩種情況 | **HIGH** |

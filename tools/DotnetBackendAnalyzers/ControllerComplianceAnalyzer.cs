@@ -18,7 +18,8 @@ public sealed class ControllerComplianceAnalyzer : DiagnosticAnalyzer
         ImmutableArray.Create(
             RuleDescriptors.ControllerApiAttribute,
             RuleDescriptors.ControllerPersistenceAccess,
-            RuleDescriptors.ControllerDirectConstruction);
+            RuleDescriptors.ControllerDirectConstruction,
+            RuleDescriptors.ControllerForbiddenDependency);
 
     public override void Initialize(AnalysisContext context)
     {
@@ -44,6 +45,50 @@ public sealed class ControllerComplianceAnalyzer : DiagnosticAnalyzer
         AnalyzeApiControllerAttribute(context, declaration, controllerSymbol);
         AnalyzePersistenceAccess(context, declaration);
         AnalyzeDirectConstruction(context, declaration);
+        AnalyzeInjectedDependencies(context, controllerSymbol);
+    }
+
+    private static void AnalyzeInjectedDependencies(
+        SyntaxNodeAnalysisContext context,
+        INamedTypeSymbol controllerSymbol)
+    {
+        foreach (var constructor in controllerSymbol.InstanceConstructors)
+        {
+            foreach (var parameter in constructor.Parameters)
+            {
+                if (!IsForbiddenControllerDependency(parameter.Type))
+                {
+                    continue;
+                }
+
+                var location = parameter.Locations.FirstOrDefault() ?? controllerSymbol.Locations[0];
+                context.ReportDiagnostic(Diagnostic.Create(
+                    RuleDescriptors.ControllerForbiddenDependency,
+                    location,
+                    controllerSymbol.Name,
+                    parameter.Type.Name));
+            }
+        }
+    }
+
+    private static bool IsForbiddenControllerDependency(ITypeSymbol type)
+    {
+        var name = type.Name;
+        if (name.EndsWith("Handler", StringComparison.Ordinal)
+            || name is "IMessageBus" or "IMediator" or "IDispatcher"
+            || name.EndsWith("Dispatcher", StringComparison.Ordinal)
+            || name.EndsWith("DomainService", StringComparison.Ordinal))
+        {
+            return true;
+        }
+
+        if (!name.EndsWith("Repository", StringComparison.Ordinal))
+        {
+            return false;
+        }
+
+        return !name.EndsWith("QueryRepository", StringComparison.Ordinal)
+            && !type.AllInterfaces.Any(contract => contract.Name == "IQueryRepository");
     }
 
     private static void AnalyzeApiControllerAttribute(

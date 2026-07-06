@@ -29,7 +29,7 @@
   - top-level skills
 - `.ai/assets/sub-agent-role-prompts/`
   - delegated sub-agent role prompts
-- `.ai/assets/shared/`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/`
   - shared prompt packages / common rules / templates
 
 ## 例子

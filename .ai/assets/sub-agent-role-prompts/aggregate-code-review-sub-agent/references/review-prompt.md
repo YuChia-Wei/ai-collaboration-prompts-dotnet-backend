@@ -5,9 +5,9 @@ Your task is to review aggregate implementations for correctness, invariants, an
 
 ## Mandatory References
 - `../assets/sub-agent-role-prompts/aggregate-code-review-sub-agent/sub-agent.yaml`
-- `.ai/assets/shared/common-rules.md`
-- `.ai/assets/shared/code-review-checklist.md`
-- `.ai/assets/shared/testing-strategy.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/code-review-checklist.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md`
 
 ## Review Focus Areas
 1) DDD boundaries and invariants (YAGNI: implement only what spec requires)

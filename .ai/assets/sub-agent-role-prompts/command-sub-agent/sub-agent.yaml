@@ -16,7 +16,8 @@ outputs:
   - "expected output structure and required rules"
   - "follow-up validation notes"
 constraints:
-  - "Use WolverineFx handlers for commands"
+  - "Implement an explicit I<Operation>UseCase and <Operation>UseCase with ExecuteAsync; add a Handler only when an actual dispatch/message entry exists"
+  - "Keep Wolverine conditional and outside the portable Use Case boundary"
   - "Use IAggregateRepository for Aggregate Root writes; do not introduce generic writable CRUD or mix query methods into it"
   - "Tests follow xUnit + BDDfy naming guidance and no BaseTestClass"
 workflow:
@@ -28,8 +29,8 @@ workflow:
     description: "Produce delegated implementation guidance or code changes with validation notes"
 references:
   - ".ai/assets/sub-agent-role-prompts/command-sub-agent/references/implementation-playbook.md"
-  - ".ai/assets/shared/common-rules.md"
-  - ".ai/assets/shared/architecture-config.md"
-  - ".ai/assets/shared/testing-strategy.md"
+  - ".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md"
+  - ".ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md"
+  - ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md"
 human_guide: ".ai/SUB-AGENT-SYSTEM.MD"
 
