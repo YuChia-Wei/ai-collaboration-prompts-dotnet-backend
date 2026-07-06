@@ -111,7 +111,7 @@ public sealed class ControllerComplianceAnalyzerTests
     }
 
     [Fact]
-    public async Task Allows_injected_handler_in_controller()
+    public async Task Reports_injected_handler_in_controller()
     {
         var diagnostics = await AnalyzerTestHelper.GetDiagnosticsAsync(
             new ControllerComplianceAnalyzer(),
@@ -133,6 +133,72 @@ public sealed class ControllerComplianceAnalyzerTests
             }
             """);
 
+        var diagnostic = Assert.Single(diagnostics);
+        Assert.Equal("DBA1014", diagnostic.Id);
+    }
+
+    [Fact]
+    public async Task Allows_injected_use_case_interface_in_controller()
+    {
+        var diagnostics = await AnalyzerTestHelper.GetDiagnosticsAsync(
+            new ControllerComplianceAnalyzer(),
+            """
+            using System;
+
+            public sealed class ApiControllerAttribute : Attribute { }
+            public interface ICreateResourceUseCase { }
+
+            [ApiController]
+            public sealed class ResourceController
+            {
+                public ResourceController(ICreateResourceUseCase useCase) { }
+            }
+            """);
+
         Assert.Empty(diagnostics);
+    }
+
+    [Fact]
+    public async Task Allows_query_repository_for_explicit_pure_query_profile()
+    {
+        var diagnostics = await AnalyzerTestHelper.GetDiagnosticsAsync(
+            new ControllerComplianceAnalyzer(),
+            """
+            using System;
+
+            public sealed class ApiControllerAttribute : Attribute { }
+            public interface IQueryRepository { }
+            public interface IProductQueryRepository : IQueryRepository { }
+
+            [ApiController]
+            public sealed class ProductQueryController
+            {
+                public ProductQueryController(IProductQueryRepository repository) { }
+            }
+            """);
+
+        Assert.Empty(diagnostics);
+    }
+
+    [Fact]
+    public async Task Reports_message_bus_injection_in_controller()
+    {
+        var diagnostics = await AnalyzerTestHelper.GetDiagnosticsAsync(
+            new ControllerComplianceAnalyzer(),
+            """
+            using System;
+
+            public sealed class ApiControllerAttribute : Attribute { }
+            public interface IMessageBus { }
+
+            [ApiController]
+            public sealed class ResourceController
+            {
+                public ResourceController(IMessageBus bus) { }
+            }
+            """);
+
+        var diagnostic = Assert.Single(diagnostics);
+        Assert.Equal("DBA1014", diagnostic.Id);
     }
 }

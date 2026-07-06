@@ -116,9 +116,15 @@ public sealed class GetProductQueryTests : IClassFixture<TestProfileFixture>
         var setGoal = _fixture.Services.GetRequiredService<ISetProductGoalUseCase>();
         var defineDod = _fixture.Services.GetRequiredService<IDefineDefinitionOfDoneUseCase>();
 
-        await createProduct.Execute(CreateProductInput.Create("product-123", "AI Scrum Assistant", "user-456"));
-        await setGoal.Execute(SetProductGoalInput.Create("product-123", "goal-123", "Deliver AI-powered Scrum tools"));
-        await defineDod.Execute(DefineDefinitionOfDoneInput.Create("product-123", "Standard DoD"));
+        await createProduct.ExecuteAsync(
+            CreateProductInput.Create("product-123", "AI Scrum Assistant", "user-456"),
+            CancellationToken.None);
+        await setGoal.ExecuteAsync(
+            SetProductGoalInput.Create("product-123", "goal-123", "Deliver AI-powered Scrum tools"),
+            CancellationToken.None);
+        await defineDod.ExecuteAsync(
+            DefineDefinitionOfDoneInput.Create("product-123", "Standard DoD"),
+            CancellationToken.None);
 
         // Wait for events from setup, then clear
         await _fixture.AwaitEvents(count: 3);
@@ -128,7 +134,9 @@ public sealed class GetProductQueryTests : IClassFixture<TestProfileFixture>
     async Task When_I_query_the_product()
     {
         var getProduct = _fixture.Services.GetRequiredService<IGetProductUseCase>();
-        _output = await getProduct.Execute(GetProductInput.Create("product-123"));
+        _output = await getProduct.ExecuteAsync(
+            GetProductInput.Create("product-123"),
+            CancellationToken.None);
     }
 
     void Then_the_response_contains_full_Product_data()
@@ -223,14 +231,14 @@ await _createProductUseCase.Execute(input);
 Wrong:
 ```csharp
 await _createProductUseCase.Execute(input);
-await _setGoalUseCase.Execute(goalInput);
+await _setGoalUseCase.ExecuteAsync(goalInput, CancellationToken.None);
 // missing clear
 ```
 
 Correct:
 ```csharp
 await _createProductUseCase.Execute(input);
-await _setGoalUseCase.Execute(goalInput);
+await _setGoalUseCase.ExecuteAsync(goalInput, CancellationToken.None);
 await _fixture.AwaitEvents(count: 2);
 _fixture.ClearEvents();
 ```

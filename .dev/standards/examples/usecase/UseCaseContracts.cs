@@ -9,10 +9,6 @@ namespace Example.Plans.UseCases;
 // TODO: Replace these placeholders with the .NET ports of ezDDD/ezSpec/uContract.
 public interface IInput { }
 
-public interface ICommand<in TInput, out TOutput> where TInput : IInput { }
-
-public interface IQuery<in TInput, out TOutput> where TInput : IInput { }
-
 public enum ExitCode
 {
     Success,

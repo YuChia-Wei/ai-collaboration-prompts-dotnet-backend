@@ -2,89 +2,120 @@
 
 This document contains C# templates and patterns commonly used in the .NET stack.
 
-## Command Handler Template (Wolverine)
+## Command Use Case Template
 
 ```csharp
 public sealed record CreateTaskInput(string PlanId, string ProjectName, string TaskName);
 
-public sealed class CreateTaskHandler
+public interface ICreateTaskUseCase
+{
+    Task<CreateTaskOutput> ExecuteAsync(
+        CreateTaskInput input,
+        CancellationToken cancellationToken);
+}
+
+public sealed record CreateTaskOutput(string PlanId);
+
+public sealed class CreateTaskUseCase : ICreateTaskUseCase
 {
     private readonly IAggregateRepository<Plan, PlanId> _repository;
 
-    public CreateTaskHandler(IAggregateRepository<Plan, PlanId> repository)
+    public CreateTaskUseCase(IAggregateRepository<Plan, PlanId> repository)
     {
         Contract.RequireNotNull(nameof(repository), repository);
         _repository = repository;
     }
 
-    public async Task<CqrsOutput> Handle(CreateTaskInput input)
+    public async Task<CreateTaskOutput> ExecuteAsync(
+        CreateTaskInput input,
+        CancellationToken cancellationToken)
     {
-        // 1) Contracts validation (outside try-catch)
         Contract.RequireNotNull(nameof(input), input);
         Contract.RequireNotNull(nameof(input.PlanId), input.PlanId);
 
-        try
+        var plan = await _repository.FindByIdAsync(
+            PlanId.ValueOf(input.PlanId),
+            cancellationToken);
+        if (plan == null)
         {
-            var output = CqrsOutput.Create();
-
-            // Step 1: Load aggregate
-            var plan = await _repository.FindByIdAsync(PlanId.ValueOf(input.PlanId));
-            if (plan == null)
-            {
-                return output.Fail("Plan not found");
-            }
-
-            // Step 2: Execute business logic
-            plan.CreateTask(ProjectName.ValueOf(input.ProjectName), TaskName.ValueOf(input.TaskName));
-
-            // Step 3: Save aggregate
-            await _repository.SaveAsync(plan);
-
-            // Step 4: Return success
-            return output.Ok(plan.Id.Value);
+            throw new UseCaseFailureException("Plan not found");
         }
-        catch (Exception ex)
-        {
-            throw new UseCaseFailureException(ex.Message);
-        }
+
+        plan.CreateTask(
+            ProjectName.ValueOf(input.ProjectName),
+            TaskName.ValueOf(input.TaskName));
+
+        await _repository.SaveAsync(plan, cancellationToken);
+        return new CreateTaskOutput(plan.Id.Value);
     }
 }
 ```
 
-## Query Handler Template (Projection)
+## Query Use Case Template (Projection)
 
 ```csharp
 public sealed record GetRecordInput(string RecordId);
 public sealed record GetRecordOutput(RecordDto Record, ExitCode ExitCode, string? Message);
 
-public sealed class GetRecordHandler
+public interface IGetRecordUseCase
+{
+    Task<GetRecordOutput> ExecuteAsync(
+        GetRecordInput input,
+        CancellationToken cancellationToken);
+}
+
+public sealed class GetRecordUseCase : IGetRecordUseCase
 {
     private readonly IRecordProjection _projection;
 
-    public GetRecordHandler(IRecordProjection projection)
+    public GetRecordUseCase(IRecordProjection projection)
     {
         Contract.RequireNotNull(nameof(projection), projection);
         _projection = projection;
     }
 
-    public async Task<GetRecordOutput> Handle(GetRecordInput input)
+    public async Task<GetRecordOutput> ExecuteAsync(
+        GetRecordInput input,
+        CancellationToken cancellationToken)
     {
         Contract.RequireNotNull(nameof(input), input);
 
-        try
+        var dto = await _projection.FindByIdAsync(
+            input.RecordId,
+            cancellationToken);
+        if (dto == null)
         {
-            var dto = await _projection.FindByIdAsync(input.RecordId);
-            if (dto == null)
-            {
-                return new GetRecordOutput(default!, ExitCode.FAILURE, "Record not found");
-            }
+            return new GetRecordOutput(default!, ExitCode.FAILURE, "Record not found");
+        }
 
-            return new GetRecordOutput(dto, ExitCode.SUCCESS, null);
-        }
-        catch (Exception ex)
-        {
-            throw new UseCaseFailureException(ex.Message);
-        }
+        return new GetRecordOutput(dto, ExitCode.SUCCESS, null);
+    }
+}
+```
+
+## Optional Dispatch Handler Template
+
+Create this adapter only when an actual Wolverine/message dispatch entry exists:
+
+```csharp
+public sealed record CreateTaskCommand(
+    string PlanId,
+    string ProjectName,
+    string TaskName);
+
+public sealed class CreateTaskCommandHandler
+{
+    public static Task<CreateTaskOutput> HandleAsync(
+        CreateTaskCommand command,
+        ICreateTaskUseCase useCase,
+        CancellationToken cancellationToken)
+    {
+        var input = new CreateTaskInput(
+            command.PlanId,
+            command.ProjectName,
+            command.TaskName);
+
+        return useCase.ExecuteAsync(input, cancellationToken);
     }
 }
 ```
@@ -105,7 +136,7 @@ Objects.RequireNotNull(name, "name cannot be null");
 
 ### Constructor Validation
 ```csharp
-public CreateRecordHandler(IAggregateRepository<Record, RecordId> repository)
+public CreateRecordUseCase(IAggregateRepository<Record, RecordId> repository)
 {
     Contract.RequireNotNull(nameof(repository), repository);
     _repository = repository;
@@ -151,23 +182,25 @@ public sealed record RecordCreated(
 }
 ```
 
-## Use Case Interface Pattern (Optional)
+## Use Case Interface Pattern (Required)
 
 ```csharp
 public interface ICreateRecordUseCase
 {
-    Task<CqrsOutput> Execute(CreateRecordInput input);
+    Task<CreateRecordOutput> ExecuteAsync(
+        CreateRecordInput input,
+        CancellationToken cancellationToken);
 }
 ```
 
 ## Repository Usage Template
 
 ```csharp
-public sealed class CreateRecordHandler
+public sealed class CreateRecordUseCase : ICreateRecordUseCase
 {
     private readonly IAggregateRepository<Record, RecordId> _repository;
 
-    public CreateRecordHandler(IAggregateRepository<Record, RecordId> repository)
+    public CreateRecordUseCase(IAggregateRepository<Record, RecordId> repository)
     {
         _repository = repository;
     }

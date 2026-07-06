@@ -1,0 +1,72 @@
+{
+  "task_id": "align-usecase-command-handler-validation",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Align Roslyn analyzers and tests with the approved Use Case and Handler dependency model",
+    "files": [
+      "tools/DotnetBackendAnalyzers/ControllerComplianceAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/UseCaseServiceProviderInjectionAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/RuleDescriptors.cs",
+      "tools/DotnetBackendAnalyzers.Tests/",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig"
+    ],
+    "dependency_radius": "Build-time architecture enforcement",
+    "constraints": [
+      "Depends on approved decisions and synchronized standards",
+      "Prefer semantic markers and type relationships over broad naming heuristics",
+      "Support staged migration without hiding invalid target architecture",
+      "Do not encode non-deterministic orchestration quality as syntax rules"
+    ],
+    "non_goals": [
+      "No unrelated analyzer refactor",
+      "No product-specific namespaces"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Executable validation for deterministic inbound-port and adapter boundaries",
+    "review_findings": [
+      "Current tests accept concrete Handler injection in Controllers",
+      "Current analyzer groups Use Cases and Handlers by naming",
+      "No rule detects combined Execute/Handle roles"
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "bounded-analyzer-alignment",
+    "steps": [
+      "Translate approved deterministic rules into diagnostics",
+      "Add positive, negative, migration, and false-positive tests",
+      "Update severity and ownership documentation",
+      "Run analyzer test suite"
+    ],
+    "validation": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj",
+      "Approved Controller-to-UseCase dependency passes",
+      "Forbidden Handler/dispatcher injection fails when covered",
+      "Legitimate message/event handlers avoid false positives"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Added deterministic analyzer enforcement for Controller dependencies, canonical Use Case signatures, forbidden Use Case dependencies, and Command/Query Handler-to-Use-Case boundaries.",
+    "files_changed": [
+      "tools/DotnetBackendAnalyzers/ControllerComplianceAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/UseCaseServiceProviderInjectionAnalyzer.cs",
+      "tools/DotnetBackendAnalyzers/RuleDescriptors.cs",
+      "tools/DotnetBackendAnalyzers.Tests/ControllerComplianceAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers.Tests/UseCaseServiceProviderInjectionAnalyzerTests.cs",
+      "tools/DotnetBackendAnalyzers/README.md",
+      "tools/DotnetBackendAnalyzers/templates/analyzer-severity.editorconfig",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/align-usecase-command-handler-validation.json"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore (47 passed)"
+    ],
+    "follow_up_needed": false
+  }
+}
+

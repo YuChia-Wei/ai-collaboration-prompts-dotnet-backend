@@ -1,0 +1,65 @@
+{
+  "task_id": "final-usecase-command-handler-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Validate and close the Use Case and Command Handler boundary workflow",
+    "files": [
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/"
+    ],
+    "dependency_radius": "All files changed by the workflow",
+    "constraints": [
+      "All implementation tasks must be completed or explicitly deferred",
+      "Do not close with contradictory active invocation guidance",
+      "Record migration and analyzer residual risks"
+    ],
+    "non_goals": [
+      "No new architecture decisions during closure",
+      "No unrelated cleanup"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "One validated Use Case inbound-port and Handler adapter model",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "workflow-final-validation",
+    "steps": [
+      "Parse task JSON",
+      "Run analyzer tests",
+      "Validate Markdown links and whitespace",
+      "Run targeted role/invocation searches",
+      "Record residual risks and close workflow"
+    ],
+    "validation": [
+      "All task JSON parses",
+      "Analyzer tests pass",
+      "Changed Markdown links resolve",
+      "git diff --check passes",
+      "No active context overrides the approved invocation model"
+    ],
+    "deferred_items": [
+      "D10 product-specific migration sequencing remains deferred to each actual refactor",
+      "The marker or configuration proving that a pure-query endpoint explicitly selected direct Query Repository/Service access remains target-repository evidence"
+    ]
+  },
+  "results": {
+    "summary": "Validated and closed the workflow after aligning canonical standards, AI context, examples, guides, analyzers, tests, and workflow artifacts to one Use Case inbound-port and Handler adapter model.",
+    "files_changed": [
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/workflow-plan.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/workflow-plan-zh-tw.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/final-usecase-command-handler-validation.json"
+    ],
+    "tests_run": [
+      "All 6 workflow task JSON files parsed",
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore (47 passed)",
+      "All relative links in 50 changed Markdown files resolved",
+      "Targeted active role and invocation contradiction searches returned only intentional prohibition text",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}

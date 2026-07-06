@@ -18,7 +18,7 @@ project-root/
 │   └── <DomainName>/                    # 特定 Domain (如 Order, Product)
 │       ├── DomainCore/                  # Domain 核心層
 │       │   ├── <DomainName>.Domains/        # Domain Model
-│       │   ├── <DomainName>.Applications/   # Application Services
+│       │   ├── <DomainName>.Applications/   # Application layer
 │       │   └── <DomainName>.Infrastructure/ # 技術基礎設施
 │       └── Presentation/                # 展示層
 │           ├── <DomainName>.WebApi/         # REST API
@@ -42,7 +42,7 @@ project-root/
 | 層級 | 職責 | 命名規則 | 位置 |
 |------|------|---------|------|
 | Domain | Domain Model | `<DomainName>.Domains` | `./src/<DomainName>/DomainCore` |
-| Application | Application Services | `<DomainName>.Applications` | `./src/<DomainName>/DomainCore` |
+| Application | Use Cases and ports | `<DomainName>.Applications` | `./src/<DomainName>/DomainCore` |
 | Infrastructure | 技術基礎設施 | `<DomainName>.Infrastructure` | `./src/<DomainName>/DomainCore` |
 | Presentation | Web API | `<DomainName>.WebApi` | `./src/<DomainName>/Presentation` |
 | Presentation | Queue Consumer | `<DomainName>.Consumer` | `./src/<DomainName>/Presentation` |
@@ -71,18 +71,28 @@ project-root/
 
 ```
 <DomainName>.Applications/
-├── Ports/                       # 介面定義 (依賴反轉)
+├── UseCases/                    # Application inbound ports + implementations
+│   ├── Create<Entity>/
+│   │   ├── ICreate<Entity>UseCase.cs
+│   │   ├── Create<Entity>UseCase.cs
+│   │   ├── Create<Entity>Input.cs
+│   │   └── Create<Entity>Output.cs
+│   └── Get<Entity>/
+│       ├── IGet<Entity>UseCase.cs
+│       ├── Get<Entity>UseCase.cs
+│       └── Get<Entity>Output.cs
+├── Ports/                       # Outbound port 介面定義
 │   ├── Queries/
 │   │   └── I<Feature>QueryRepository.cs
 │   ├── Persistence/             # 只有 domain-specific capability 才放置
 │   │   └── I<Capability>Port.cs
+│   ├── Messaging/
+│   │   └── I<Feature>EventPublisher.cs
 │   └── I<Feature>QueryService.cs # optional composition port
 ├── QueryServices/               # Optional Application query composition
 │   └── <Domain>QueryService.cs
-├── Commands/                    # Command + Handler
+├── Dispatch/                    # Optional package-neutral dispatch contracts/handlers
 │   └── Create<Entity>Command.cs
-├── Queries/                     # Query + Handler
-│   └── Get<Entity>Query.cs
 ├── DomainEventHandlers/         # Domain Event 處理器
 └── Dtos/                        # Application 層 DTO (Input/Output)
 ```
@@ -98,28 +108,41 @@ Portable Aggregate Repository contract 位於 `BuildingBlocks.Application`：
 ### Application 詞彙與責任
 
 - `Use Case`
-  - application boundary 與一次 business operation 的名稱，例如 `CreateProduct`
+  - 明確的 inbound port 與 application orchestration object，例如
+    `ICreateProductUseCase` / `CreateProductUseCase`
 - `Command` / `Query`
-  - 進入 use case 的 request model
+  - 只有 dispatch entry 需要的 delivery contract，不是 Use Case input
 - `Handler`
-  - command / query 的 application-layer executor
+  - 真實 dispatch/message entry 的 inbound adapter，map input 後呼叫一個 Use Case
 - `Application Service`
-  - 只有在 orchestration 明顯變複雜或需要重用時才抽出
+  - 本標準不定義；若 target repository 採用，必須另有明確責任決策
 
 預設規則：
 
-- handler 可直接作為 use case implementation
-- 不要求每個 use case 一定再多包一層 `*UseCaseService`
-- 若 handler 只是單行轉呼叫同名 service，通常代表多包了一層無效抽象
+- Controller 直接注入 Use Case interface。
+- Use Case implementation 使用 `*UseCase` suffix 與 `ExecuteAsync`。
+- Handler 與 Use Case 是不同物件。
+- 沒有真實 dispatch/message entry 就不建立 Handler。
+- Wolverine/MediatR/MQ-specific Handler 放在 inbound adapter 或 composition
+  boundary，不放進 portable Use Case。
+- 只有明確核准的純查詢 endpoint 可例外直連 Query Repository/Service。
 
 推薦關係鏈：
 
 ```text
 Controller
-  -> Command / Query
-  -> Handler
+  -> I<Operation>UseCase
+  -> <Operation>UseCase
   -> Aggregate / Domain Service / Repository / Query Service
-  -> Result DTO
+  -> Use Case Output
+```
+
+實際 dispatch/message entry：
+
+```text
+Command / Message
+  -> Handler
+  -> I<Operation>UseCase
 ```
 
 補充規則見 [`USECASE-COMMAND-HANDLER-RELATIONSHIP.MD`](./USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
@@ -135,12 +158,13 @@ Controller
 ├── Persistence/                 # Target-selected DB/ORM/event-store configuration
 ├── Writers/                     # Outbox/Projection/Import/Purge capability adapters
 └── Messaging/                   # MQ 相關實作
+    └── <Feature>EventPublisher.cs # Application outbound port adapter
 ```
 
 ## Clean Architecture 分層
 
 - **Domain**：Aggregate、Entity、Value Object、Domain Events
-- **Application**：UseCase/Handler、Ports、Policies
+- **Application**：Use Cases、inbound/outbound Ports、Policies
 - **Infrastructure**：target-selected persistence、Outbox、Message Bus、Repository/Query/Writer adapters
 - **Presentation**：Controllers、DTO 轉換、驗證、MQ Consumers
 
@@ -153,10 +177,14 @@ Controller
 
 ### Adapter 與 Bus 的關係
 
-- Controller 應依賴 application boundary，而不是直接依賴 repository 或 aggregate
-- 同 BC / 同 process 內，可使用 in-process dispatcher、mediator、Wolverine handler invocation 或直接呼叫 application port
+- Controller 預設依賴 Use Case interface，不依賴 Handler、bus、dispatcher、
+  write repository 或 aggregate
+- 只有明確核准的純查詢 endpoint 可直接依賴唯讀 Query Repository/Service
+- 同 BC / 同 process 的一般同步 API 直接呼叫 Use Case port
+- dispatch/message Handler 只在真實 delivery entry 存在，並呼叫一個 Use Case
 - 跨 BC communication 才強制使用 MQ / message bus
-- 不要把 message bus 視為 use case 本身
+- Use Case 依賴 project-owned event publisher port；Infrastructure 才依賴
+  Wolverine 或其他 broker/framework
 
 ### Persistence Port Rules
 

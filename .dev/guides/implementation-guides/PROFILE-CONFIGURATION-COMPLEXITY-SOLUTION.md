@@ -25,7 +25,7 @@ Profile isolation
 └── Service isolation
     ├── Repository registrations (profile-specific)
     ├── DbContext registrations (outbox only)
-    └── Use case handlers (profile-independent)
+    └── Use Cases (profile-independent)
 ```
 
 ## Solution 1: Conditional DI Registration
@@ -38,8 +38,8 @@ public static class CommonConfiguration
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddScoped<ICreateProductUseCase, CreateProductHandler>();
-        services.AddScoped<IGetProductsUseCase, GetProductsHandler>();
+        services.AddScoped<ICreateProductUseCase, CreateProductUseCase>();
+        services.AddScoped<IGetProductsUseCase, GetProductsUseCase>();
         return services;
     }
 }

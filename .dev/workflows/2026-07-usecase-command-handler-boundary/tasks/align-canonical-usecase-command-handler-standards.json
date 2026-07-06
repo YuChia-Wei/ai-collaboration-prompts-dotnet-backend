@@ -1,0 +1,71 @@
+{
+  "task_id": "align-canonical-usecase-command-handler-standards",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Align canonical Use Case, Command/Query, Handler, Controller, test, DI, and project-structure rules",
+    "files": [
+      ".dev/ARCHITECTURE.md",
+      ".dev/standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/controller-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".dev/standards/project-structure.md"
+    ],
+    "dependency_radius": "Application and Presentation architecture guidance",
+    "constraints": [
+      "Depends on completed decision task",
+      "Canonical standards change before dependent context",
+      "Do not make a conditional dispatcher mandatory"
+    ],
+    "non_goals": [
+      "No prompt/example synchronization in this task",
+      "No analyzer implementation"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Approved D1-D12 decisions",
+    "review_findings": [
+      "F1-F10 in review-report.md"
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "canonical-standards-alignment",
+    "steps": [
+      "Rewrite role definitions and default invocation chains",
+      "Align input/output, naming, DI, transaction, and placement rules",
+      "Add migration guidance",
+      "Run internal contradiction searches"
+    ],
+    "validation": [
+      "Canonical standards define one default synchronous API chain",
+      "Use Case and Handler responsibilities do not overlap",
+      "Query scope matches the approved decision",
+      "Technology policy remains conditional"
+    ],
+    "deferred_items": [
+      "Product-specific migration mechanics remain deferred by D10"
+    ]
+  },
+  "results": {
+    "summary": "Aligned the canonical architecture, Use Case, Controller, test, and project-structure standards to the approved inbound-port and Handler-adapter model.",
+    "files_changed": [
+      ".dev/ARCHITECTURE.md",
+      ".dev/standards/USECASE-COMMAND-HANDLER-RELATIONSHIP.MD",
+      ".dev/standards/coding-standards/usecase-standards.md",
+      ".dev/standards/coding-standards/controller-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".dev/standards/project-structure.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/align-canonical-usecase-command-handler-standards.json"
+    ],
+    "tests_run": [
+      "Targeted contradiction search across S2 canonical files",
+      "git diff --check"
+    ],
+    "follow_up_needed": false
+  }
+}
+

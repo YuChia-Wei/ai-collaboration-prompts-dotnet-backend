@@ -1,6 +1,6 @@
 # 測試編碼規範 (.NET)
 
-本文件定義各層級測試的編碼標準，包含單元測試、Handler 測試、Controller 測試和整合測試。
+本文件定義各層級測試的編碼標準，包含 Domain、Use Case、Handler adapter、Controller 與整合測試。
 
 ---
 
@@ -9,7 +9,7 @@
 測試必須遵循 xUnit + BDDfy（Gherkin 風格命名），並使用 NSubstitute 作為 mock 工具。
 
 - **xUnit**：主要測試框架
-- **BDDfy**：Handler / 整合測試必須使用 Gherkin 風格
+- **BDDfy**：Use Case / 整合測試必須使用 Gherkin 風格
 - **NSubstitute**：唯一允許的 Mocking 框架
 - **禁止 Moq**：專案不使用 Moq
 
@@ -52,27 +52,27 @@ Pattern (forbidden, ignore-comment): BaseTestClass|BaseUseCaseTest
 
 ```csharp
 // ❌ 錯誤：使用 BaseTestClass
-public class CreateProductHandlerTests : BaseTestClass
+public class CreateProductUseCaseTests : BaseTestClass
 {
     // FORBIDDEN!
 }
 
 // ❌ 錯誤：使用共用基底類別
-public class CreateProductHandlerTests : IntegrationTestBase
+public class CreateProductUseCaseTests : IntegrationTestBase
 {
     // FORBIDDEN!
 }
 
 // ✅ 正確：獨立的測試類別
-public class CreateProductHandlerTests
+public class CreateProductUseCaseTests
 {
     private readonly IAggregateRepository<Product, ProductId> _repository;
-    private readonly CreateProductHandler _handler;
+    private readonly CreateProductUseCase _useCase;
     
-    public CreateProductHandlerTests()
+    public CreateProductUseCaseTests()
     {
         _repository = Substitute.For<IAggregateRepository<Product, ProductId>>();
-        _handler = new CreateProductHandler(_repository, ...);
+        _useCase = new CreateProductUseCase(_repository, ...);
     }
 }
 ```
@@ -81,47 +81,47 @@ public class CreateProductHandlerTests
 
 ### 3. 使用 BDDfy 與 Gherkin-Style 命名
 
-**強制規定**: Handler 和整合測試必須使用 BDDfy 與 Gherkin-style 命名。
+**強制規定**: Use Case 和整合測試必須使用 BDDfy 與 Gherkin-style 命名。
 
 ```csharp
 // ✅ 正確：BDDfy + Gherkin-style
-public class CreateProductHandlerTests
+public class CreateProductUseCaseTests
 {
-    private CreateProductCommand _command = null!;
-    private Result<ProductId> _result = null!;
+    private CreateProductInput _input = null!;
+    private CreateProductOutput _output = null!;
     private readonly IAggregateRepository<Product, ProductId> _repository;
-    private readonly CreateProductHandler _handler;
+    private readonly CreateProductUseCase _useCase;
 
-    public CreateProductHandlerTests()
+    public CreateProductUseCaseTests()
     {
         _repository = Substitute.For<IAggregateRepository<Product, ProductId>>();
         var unitOfWork = Substitute.For<IUnitOfWork>();
-        var logger = Substitute.For<ILogger<CreateProductHandler>>();
-        _handler = new CreateProductHandler(_repository, unitOfWork, logger);
+        var publisher = Substitute.For<IProductEventPublisher>();
+        _useCase = new CreateProductUseCase(_repository, unitOfWork, publisher);
     }
 
     [Fact]
     public void Should_create_product_successfully_when_input_is_valid()
     {
-        this.Given(x => x.GivenAValidProductCreationCommand())
-            .When(x => x.WhenTheHandlerIsExecuted())
+        this.Given(x => x.GivenAValidProductCreationInput())
+            .When(x => x.WhenTheUseCaseIsExecuted())
             .Then(x => x.ThenTheProductShouldBeCreated())
-            .And(x => x.ThenTheResultShouldBeSuccess())
+            .And(x => x.ThenTheOutputShouldContainTheProductId())
             .BDDfy();
     }
 
-    private void GivenAValidProductCreationCommand()
+    private void GivenAValidProductCreationInput()
     {
-        _command = new CreateProductCommand(
+        _input = new CreateProductInput(
             Guid.NewGuid().ToString(),
             "Test Product",
             "user-123"
         );
     }
 
-    private async Task WhenTheHandlerIsExecuted()
+    private async Task WhenTheUseCaseIsExecuted()
     {
-        _result = await _handler.Handle(_command, CancellationToken.None);
+        _output = await _useCase.ExecuteAsync(_input, CancellationToken.None);
     }
 
     private void ThenTheProductShouldBeCreated()
@@ -129,14 +129,13 @@ public class CreateProductHandlerTests
         _repository.Received(1).SaveAsync(Arg.Any<Product>(), Arg.Any<CancellationToken>());
     }
 
-    private void ThenTheResultShouldBeSuccess()
+    private void ThenTheOutputShouldContainTheProductId()
     {
-        _result.IsSuccess.Should().BeTrue();
-        _result.Value.Should().NotBeNull();
+        _output.ProductId.Should().NotBeNull();
     }
 }
 
-// ❌ 錯誤：純 AAA 風格（Handler 測試禁止）
+// ❌ 錯誤：以 delivery Command 和 Handler 取代 Use Case business-flow test
 [Fact]
 public async Task TestCreateProduct()  // 錯誤命名
 {
@@ -146,10 +145,13 @@ public async Task TestCreateProduct()  // 錯誤命名
     // Act
     var result = await _handler.Handle(command, CancellationToken.None);
     
-    // Assert
-    Assert.True(result.IsSuccess);  // 沒有 BDDfy
+    // 只測到 adapter，沒有直接保護 Use Case orchestration。
 }
 ```
+
+Handler adapter 測試應另外保持狹窄：只驗證 Command-to-Input mapping、恰好一次
+Use Case invocation，以及 delivery-specific failure mapping；不得以 mock
+Repository 的 Handler test 重複承載 business-flow 測試。
 
 ---
 
@@ -311,7 +313,7 @@ public class OutboxIntegrationTests
      /----------\
     / Controller \  <- 較多 (25%)
    /--------------\
-  /   Handler     \ <- 多 (25%)
+  /   Use Case    \ <- 多 (25%)
  /------------------\
 /    單元測試        \ <- 最多 (25%)
 ----------------------
@@ -322,8 +324,9 @@ public class OutboxIntegrationTests
 | 層級 | 測試內容 | 測試框架 | Mock 策略 |
 |------|---------|---------|---------
 | Unit Test | Domain logic, Value Objects | xUnit | No mocks |
-| Handler Test | Business flow | xUnit + BDDfy | Mock Repository |
-| Controller Test | HTTP behavior | WebApplicationFactory | Mock Handler |
+| Use Case Test | Business flow | xUnit + BDDfy | Mock outbound ports |
+| Handler Adapter Test | Input/failure mapping | xUnit | Mock one Use Case |
+| Controller Test | HTTP behavior | WebApplicationFactory | Mock Use Case |
 | Integration Test | Database, External API | xUnit | Real dependencies |
 | E2E Test | Complete user journey | Playwright | No mocks |
 
@@ -351,9 +354,9 @@ CreateProductTest()  // 沒有說明預期結果
 
 ```csharp
 // ✅ 好的步驟名稱
-private void GivenAValidProductCreationCommand() { }
+private void GivenAValidProductCreationInput() { }
 private void GivenAnExistingProduct() { }
-private async Task WhenTheHandlerIsExecuted() { }
+private async Task WhenTheUseCaseIsExecuted() { }
 private void ThenTheProductShouldBeCreated() { }
 private void ThenTheResultShouldBeSuccess() { }
 
@@ -416,12 +419,18 @@ var product = ProductBuilder.AProduct()
 
 ## 🔍 檢查清單
 
-### Handler 測試
+### Use Case 測試
 - [ ] 使用 BDDfy + Gherkin-style 命名
 - [ ] 使用 NSubstitute（不是 Moq）
 - [ ] 沒有繼承 BaseTestClass
 - [ ] 聚合根 ID 使用 `Guid.NewGuid().ToString()`
 - [ ] 命名符合 `Should_xxx_when_xxx` 模式
+- [ ] 直接測試 concrete `*UseCase` 並 mock outbound ports
+
+### Handler Adapter 測試
+- [ ] Mock 單一 Use Case interface
+- [ ] 只驗證 input mapping、單次 invocation 與 delivery failure mapping
+- [ ] 不以 Handler test 取代 Use Case business-flow test
 
 ### Contract 測試
 - [ ] 使用純 xUnit（無 BDDfy）
@@ -431,7 +440,7 @@ var product = ProductBuilder.AProduct()
 
 ### Controller 測試
 - [ ] 使用 WebApplicationFactory
-- [ ] Mock Handler 而非 Repository
+- [ ] Mock Use Case interface，而非 Handler 或 Repository
 - [ ] 驗證 HTTP Status Code
 - [ ] 驗證 Response Body
 

@@ -18,7 +18,7 @@ internal static class RuleDescriptors
         title: "Use case or handler should not inject IServiceProvider",
         messageFormat: "Use case or handler '{0}' injects IServiceProvider; inject explicit dependencies instead",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "Use cases should declare explicit dependencies and avoid service locator style access.");
 
@@ -45,18 +45,18 @@ internal static class RuleDescriptors
         title: "Controller should not access persistence directly",
         messageFormat: "Controller '{0}' directly references persistence member or type '{1}'",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "Controllers should delegate application behavior and must not use DbContext or SaveChanges directly.");
 
     public static readonly DiagnosticDescriptor ControllerDirectConstruction = new(
         id: "DBA1006",
         title: "Controller should not construct handlers or use cases",
-        messageFormat: "Controller '{0}' directly constructs '{1}'; inject or dispatch the dependency instead",
+        messageFormat: "Controller '{0}' directly constructs '{1}'; inject a Use Case interface instead",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
-        description: "Controllers should receive application dependencies through dependency injection or a dispatch mechanism.");
+        description: "Controllers should receive explicit Use Case interfaces through dependency injection.");
 
     public static readonly DiagnosticDescriptor MapperMustBeStatic = new(
         id: "DBA1007",
@@ -90,7 +90,7 @@ internal static class RuleDescriptors
         title: "Use case should not use service locator or attribute injection",
         messageFormat: "Use case or handler '{0}' uses forbidden dependency resolution '{1}'",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "Use cases must declare explicit constructor dependencies and must not use service locator or attribute-based injection.");
 
@@ -99,7 +99,7 @@ internal static class RuleDescriptors
         title: "Handler should not mix command and query responsibilities",
         messageFormat: "Handler '{0}' handles both command and query marker types",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "CQRS handlers must keep command and query responsibilities separate.");
 
@@ -108,9 +108,45 @@ internal static class RuleDescriptors
         title: "Use case should not construct repositories",
         messageFormat: "Use case or handler '{0}' directly constructs repository type '{1}'",
         category: DiagnosticCategories.Architecture,
-        defaultSeverity: DiagnosticSeverity.Warning,
+        defaultSeverity: DiagnosticSeverity.Error,
         isEnabledByDefault: true,
         description: "Repository ports must be injected into use cases; concrete repository construction belongs in the composition root.");
+
+    public static readonly DiagnosticDescriptor ControllerForbiddenDependency = new(
+        id: "DBA1014",
+        title: "Controller must depend on a Use Case boundary",
+        messageFormat: "Controller '{0}' injects forbidden dependency '{1}'; inject a Use Case interface instead",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: "Controllers must not inject handlers, buses, dispatchers, write repositories, or Domain services. Query repositories and query services are reserved for explicitly selected pure-query endpoints.");
+
+    public static readonly DiagnosticDescriptor UseCaseContractShape = new(
+        id: "DBA1015",
+        title: "Use Case contract shape is invalid",
+        messageFormat: "Use Case '{0}' violates the canonical contract: {1}",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: "Use Cases use ExecuteAsync, a non-optional CancellationToken, and transport-neutral input/output contracts, and must not expose Handler entry points.");
+
+    public static readonly DiagnosticDescriptor UseCaseForbiddenDependency = new(
+        id: "DBA1016",
+        title: "Use Case dependency is forbidden",
+        messageFormat: "Use Case '{0}' depends on forbidden type '{1}'",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: "Use Cases must not depend directly on IMessageBus, mediators/dispatchers, transport contracts, or another Use Case.");
+
+    public static readonly DiagnosticDescriptor DispatchHandlerBoundary = new(
+        id: "DBA1017",
+        title: "Dispatch Handler must adapt to one Use Case",
+        messageFormat: "Dispatch Handler '{0}' violates the Handler boundary: {1}",
+        category: DiagnosticCategories.Architecture,
+        defaultSeverity: DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: "Command and Query dispatch handlers map delivery input and invoke exactly one Use Case without depending on repositories or Domain services.");
 
     public static readonly DiagnosticDescriptor ProjectionWriteOperation = new(
         id: "DBA1013",

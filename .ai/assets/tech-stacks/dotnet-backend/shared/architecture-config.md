@@ -10,16 +10,22 @@
 - **eventsourcing**: Event store + replay
 
 ## Mapping Rules
-- Command flows use `IAggregateRepository<TAggregate, TId>` for Aggregate Roots
-- Query flows use read-only ports inheriting `IQueryRepository`
+- Command flows use an explicit Use Case and
+  `IAggregateRepository<TAggregate, TId>` for Aggregate Roots
+- Query flows default to an explicit Use Case and read-only ports inheriting
+  `IQueryRepository`
 - Reactor handlers process event data (not domain entities)
+- Dispatch/message Handlers map delivery input and invoke one Use Case; they do
+  not own orchestration
+- Use Cases depend on project-owned outbound event publisher ports; Wolverine
+  belongs to Infrastructure/adapter code
 - Persistence libraries and databases are selected by the target repository
 
 ## DI Registration Rules
 - Register repositories per profile/environment
 - Prefer explicit registration over scanning
 
-## Outbox Pattern (WolverineFx)
+## Outbox Pattern (when WolverineFx is selected)
 - Persist event first
 - Relay to message broker
 - Keep metadata for audit

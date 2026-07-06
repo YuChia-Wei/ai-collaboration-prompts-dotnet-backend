@@ -20,8 +20,11 @@
 
 ## Test Types
 - **Use Case Tests**: BDDfy scenarios with Gherkin-style names; validate command/query behavior
+- **Handler Adapter Tests**: Validate delivery-input mapping, one Use Case
+  invocation, and delivery failure mapping
 - **Contract Tests**: Validate preconditions (DBC) without DI
-- **Controller Tests**: Integration tests using `WebApplicationFactory`
+- **Controller Tests**: Integration tests using `WebApplicationFactory`; mock the
+  Use Case interface, not a Handler or Repository
 - **Reactor Tests**: Event-driven tests with async verification
 
 ## NSubstitute Rules
@@ -87,7 +90,7 @@ public sealed class CreateProductUseCaseTests
     async Task When_I_execute_CreateProduct()
     {
         if (_ctx.Input is not CreateProductInput input) throw new InvalidOperationException("Missing input");
-        _ctx.Output = await _useCase.Execute(input);
+        _ctx.Output = await _useCase.ExecuteAsync(input, CancellationToken.None);
     }
 
     void Then_the_command_succeeds()

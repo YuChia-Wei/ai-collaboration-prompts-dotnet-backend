@@ -8,7 +8,7 @@
 
 Controller 僅負責傳輸層與輸入驗證，不應包含業務邏輯。
 
-- **委派執行**：Controller 必須委派 UseCase/Handler
+- **委派執行**：Controller 預設只委派給明確的 Use Case interface
 - **請求驗證**：使用 ASP.NET Core Model Validation
 - **錯誤回應**：使用統一格式（ProblemDetails）
 
@@ -28,6 +28,7 @@ Pattern (forbidden, ignore-comment): DbContext
 Pattern (forbidden): SaveChanges
 Pattern (forbidden): new .*Handler
 Pattern (forbidden): new .*UseCase
+Pattern (forbidden, i, ignore-comment): IMessageBus|IMediator|IDispatcher
 ```
 
 ---
@@ -68,13 +69,22 @@ Pattern (forbidden): new .*UseCase
 
 ---
 
-### 2. 委派 Handler 執行業務邏輯
+### 2. 委派 Use Case 執行應用流程
 
 ```csharp
-// ✅ Allowed: delegate to handler
+// ✅ Allowed: map HTTP DTO to Use Case input and invoke the inbound port
 [HttpPost("/resources")]
-public async Task<IActionResult> Create(CreateResourceRequest request)
-    => Ok(await _handler.Handle(request));
+public async Task<IActionResult> Create(
+    CreateResourceRequest request,
+    CancellationToken cancellationToken)
+{
+    var input = new CreateResourceInput(request.Name, request.UserId);
+    var output = await this.createResourceUseCase.ExecuteAsync(
+        input,
+        cancellationToken);
+
+    return Ok(output);
+}
 
 // ❌ Forbidden: controller contains business logic
 [HttpPost("/resources")]
@@ -86,6 +96,14 @@ public IActionResult Create(CreateResourceRequest request)
     return Ok();
 }
 ```
+
+Controller 不得注入 concrete Handler、`IMessageBus`、mediator/dispatcher、write
+Repository、Aggregate 或 Domain Service。
+
+只有經明確指定的純查詢 endpoint，才可直接注入唯讀
+`IQueryRepository`-derived port 或 query service。這是允許但不建議的例外；
+未明確指定時仍必須建立並呼叫 query Use Case。直接 query-handler dispatch
+不屬於例外。
 
 ---
 
@@ -131,11 +149,11 @@ public class CreateResourceRequest  // 應該使用 record
 [Route("api/v1/resources")]
 public class ResourcesController : ControllerBase
 {
-    private readonly CreateResourceHandler _handler;
+    private readonly ICreateResourceUseCase createResourceUseCase;
     
-    public ResourcesController(CreateResourceHandler handler)
+    public ResourcesController(ICreateResourceUseCase createResourceUseCase)
     {
-        _handler = handler;
+        this.createResourceUseCase = createResourceUseCase;
     }
 }
 
@@ -143,7 +161,7 @@ public class ResourcesController : ControllerBase
 [HttpPost]
 public async Task<IActionResult> CreateResource(
     [FromBody] CreateResourceRequest request,
-    [FromServices] CreateResourceHandler handler)  // FORBIDDEN!
+    [FromServices] ICreateResourceUseCase useCase)  // FORBIDDEN!
 {
     // ...
 }
@@ -250,6 +268,9 @@ public class CreateResourceRequestValidator : AbstractValidator<CreateResourceRe
 - [ ] 有 `[ApiController]` 屬性
 - [ ] 有 `[Route]` 定義基礎路徑
 - [ ] 使用 Constructor Injection
+- [ ] 預設只注入 Use Case interface
+- [ ] 不注入 concrete Handler、bus、mediator/dispatcher、write Repository 或 Domain Service
+- [ ] 純查詢直連 Query Repository/Service 時有明確的 endpoint 選擇依據
 - [ ] 路徑包含版本號（如 `/api/v1`）
 
 ### HTTP 規範

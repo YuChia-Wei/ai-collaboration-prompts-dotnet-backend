@@ -134,7 +134,9 @@ public sealed class CreateProductFeature : IClassFixture<TestProfileFixture>
 
     async Task When_the_use_case_is_executed()
     {
-        await _useCase.Execute(CreateProductInput.Create("product-123", "AI Scrum Assistant", "user-456"));
+        await _useCase.ExecuteAsync(
+            CreateProductInput.Create("product-123", "AI Scrum Assistant", "user-456"),
+            CancellationToken.None);
     }
 
     void Then_the_command_succeeds()
