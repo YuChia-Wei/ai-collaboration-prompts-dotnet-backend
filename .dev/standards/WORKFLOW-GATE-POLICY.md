@@ -60,3 +60,13 @@ Use `deferred` only when the task is intentionally postponed and the workflow pl
 ## Commit Rule
 
 Workflow stages should follow `.dev/standards/GIT-COMMIT-POLICY.md`. Commit after a stage or coherent task batch completes and validation has passed.
+
+## Workflow Closing Checklist
+
+Before sending a final response in workflow mode, the agent must verify all of the following:
+
+- workflow plan and task artifacts reflect the completed or deferred state;
+- required validation has passed, or skipped validation is explicitly recorded with a reason;
+- `.dev/standards/GIT-COMMIT-POLICY.md` has been checked for commit requirements;
+- when the commit policy requires a commit, the commit has been created before claiming completion;
+- when no commit is created, the final response cites the exact policy exception that applies.

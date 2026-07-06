@@ -20,6 +20,7 @@
 - 設定 validation checkpoint 與 commit checkpoint
 - 整理交棒給 sub-agent 或其他 skill 的 source packet
 - 在 workflow 結束時回報 validation、commit、尚未決策事項與後續建議
+- 在 final response 前執行 workflow closing checklist，確認 commit policy 是否要求 commit；若要求，必須先 commit 才能宣稱完成
 
 ## 這個 Skill 不應該做什麼
 
@@ -165,6 +166,16 @@ Rules:
 - validation checkpoint
 - commit checkpoint
 - 需要使用者決策的事項
+
+## Workflow 收尾 Checklist
+
+在 workflow mode 的 final response 前，AI Agent 必須確認：
+
+- workflow plan 與 task artifacts 已反映 completed 或 deferred 狀態
+- 必要 validation 已通過，或已明確記錄 skipped validation 與原因
+- 已檢查 `.dev/standards/GIT-COMMIT-POLICY.md` 是否要求 commit
+- 若 commit policy 要求 commit，必須先完成 commit 才能宣稱 workflow completed
+- 若沒有 commit，final response 必須引用適用的 policy exception
 
 ## 怎麼下 Prompt
 

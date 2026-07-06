@@ -63,7 +63,7 @@ workflow:
   - step: 5
     description: "Coordinate stage execution, status updates, validation checkpoints, and commit timing."
   - step: 6
-    description: "Close with evidence: changed files, validation, commits, open decisions, and recommended next action."
+    description: "Before the final response, verify the workflow closing checklist, including whether the commit policy requires a commit; then close with evidence: changed files, validation, commits, open decisions, and recommended next action."
 references:
   - ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md"
