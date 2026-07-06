@@ -1,0 +1,74 @@
+{
+  "task_id": "bootstrap-usecase-command-handler-workflow",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "completed",
+  "scope": {
+    "target": "Create the dedicated workflow and evidence-backed pre-analysis for Use Case and Command Handler boundaries",
+    "files": [
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/workflow-plan.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/review-report.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/"
+    ],
+    "dependency_radius": "Canonical standards, prompts, examples, DI, tests, analyzers, and future generated application structure",
+    "constraints": [
+      "Branch from merged main",
+      "Do not rewrite canonical standards before user decisions",
+      "Preserve MQ-only cross-bounded-context communication",
+      "Keep Wolverine and other dispatch packages conditional",
+      "Do not use sub-agents unless explicitly requested"
+    ],
+    "non_goals": [
+      "No production code implementation",
+      "No architecture decision treated as approved during pre-analysis",
+      "No broad translation or unrelated cleanup"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Controller depends on an explicit Use Case interface; Use Case and Handler are separate roles",
+    "review_findings": [
+      "Canonical relationship treats Handler as the default Use Case implementation",
+      "Controller standards inject concrete Handlers while examples inject IUseCase",
+      "Use Case examples combine ICommand, Execute, and forwarding Handle entry points",
+      "Prompts mandate Wolverine handlers despite conditional technology policy",
+      "Analyzer tests currently accept injected Handlers in Controllers"
+    ],
+    "user_constraints": [
+      "Create workflow, Git branch, and pre-analysis first",
+      "Use Case and Handler are separate independent objects",
+      "API Controller injects a Use Case interface",
+      "Normal synchronous API behavior does not publish a Command"
+    ]
+  },
+  "execution": {
+    "operation_type": "workflow-bootstrap-and-pre-analysis",
+    "steps": [
+      "Create branch from merged main",
+      "Read workflow and architecture skill rules",
+      "Inventory canonical standards, prompts, examples, guides, and analyzers",
+      "Record findings, preliminary target direction, decisions, stages, and validation"
+    ],
+    "validation": [
+      "Branch base is main merge commit 343ab29",
+      "Workflow Markdown and task JSON exist",
+      "Task JSON parses",
+      "Changed Markdown links resolve",
+      "git diff --check passes"
+    ],
+    "deferred_items": [
+      "D1-D12 require user review before standards implementation"
+    ]
+  },
+  "results": {
+    "summary": "Opened the dedicated workflow and recorded the initial architecture/context inconsistency baseline without changing canonical standards.",
+    "files_changed": [
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/workflow-plan.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/review-report.md",
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/tasks/bootstrap-usecase-command-handler-workflow.json"
+    ],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+

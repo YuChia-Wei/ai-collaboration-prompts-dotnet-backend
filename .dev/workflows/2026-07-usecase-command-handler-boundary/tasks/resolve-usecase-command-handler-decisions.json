@@ -1,0 +1,55 @@
+{
+  "task_id": "resolve-usecase-command-handler-decisions",
+  "owner_skill": "ddd-ca-hex-architect",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "pending",
+  "scope": {
+    "target": "Resolve D1-D12 before rewriting canonical Use Case and Handler standards",
+    "files": [
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/workflow-plan.md"
+    ],
+    "dependency_radius": "Every later workflow stage",
+    "constraints": [
+      "Record user decisions explicitly",
+      "Do not infer unresolved invocation, naming, query symmetry, or compatibility policy",
+      "Preserve approved repository and consistency decisions"
+    ],
+    "non_goals": [
+      "No standards implementation",
+      "No analyzer implementation"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "One approved inbound-port and handler-adapter model",
+    "review_findings": [
+      "Current repository contains two competing synchronous entry models"
+    ],
+    "user_constraints": [
+      "Controller injects Use Case interface",
+      "Use Case and Handler are separate",
+      "Normal synchronous API behavior does not publish a Command"
+    ]
+  },
+  "execution": {
+    "operation_type": "architecture-decision-resolution",
+    "steps": [
+      "Review each decision with concrete before/after dependency chains",
+      "Clarify command and query scope",
+      "Define compatibility and analyzer enforcement",
+      "Record approved decisions in the workflow plan"
+    ],
+    "validation": [
+      "D1-D12 are approved, rejected, or explicitly deferred",
+      "No later stage depends on an unanswered role definition"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+

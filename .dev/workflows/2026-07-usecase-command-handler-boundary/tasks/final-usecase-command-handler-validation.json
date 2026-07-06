@@ -1,0 +1,52 @@
+{
+  "task_id": "final-usecase-command-handler-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "pending",
+  "scope": {
+    "target": "Validate and close the Use Case and Command Handler boundary workflow",
+    "files": [
+      ".dev/workflows/2026-07-usecase-command-handler-boundary/"
+    ],
+    "dependency_radius": "All files changed by the workflow",
+    "constraints": [
+      "All implementation tasks must be completed or explicitly deferred",
+      "Do not close with contradictory active invocation guidance",
+      "Record migration and analyzer residual risks"
+    ],
+    "non_goals": [
+      "No new architecture decisions during closure",
+      "No unrelated cleanup"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "One validated Use Case inbound-port and Handler adapter model",
+    "review_findings": [],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "workflow-final-validation",
+    "steps": [
+      "Parse task JSON",
+      "Run analyzer tests",
+      "Validate Markdown links and whitespace",
+      "Run targeted role/invocation searches",
+      "Record residual risks and close workflow"
+    ],
+    "validation": [
+      "All task JSON parses",
+      "Analyzer tests pass",
+      "Changed Markdown links resolve",
+      "git diff --check passes",
+      "No active context overrides the approved invocation model"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": false
+  }
+}

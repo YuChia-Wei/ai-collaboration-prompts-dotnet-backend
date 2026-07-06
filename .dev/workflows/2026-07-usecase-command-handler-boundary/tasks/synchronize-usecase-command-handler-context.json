@@ -1,0 +1,62 @@
+{
+  "task_id": "synchronize-usecase-command-handler-context",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-usecase-command-handler-boundary",
+  "related_review_report_id": "usecase-command-handler-boundary-baseline-review",
+  "status": "pending",
+  "scope": {
+    "target": "Synchronize approved role boundaries across AI prompts, guides, examples, DI, and tests",
+    "files": [
+      ".ai/assets/sub-agent-role-prompts/command-sub-agent/",
+      ".ai/assets/sub-agent-role-prompts/query-sub-agent/",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/",
+      ".ai/assets/skills/slice-implementer/references/modes/",
+      ".ai/assets/tech-stacks/dotnet-backend/",
+      ".dev/guides/",
+      ".dev/standards/examples/",
+      ".dev/standards/prompts/"
+    ],
+    "dependency_radius": "Future code generation, review, testing, and target-repository adoption",
+    "constraints": [
+      "Depends on canonical standards alignment",
+      "Keep runtime wrappers thin",
+      "Classify Handler occurrences before changing them",
+      "Do not remove legitimate event/message Handlers"
+    ],
+    "non_goals": [
+      "No broad language migration",
+      "No unrelated Wolverine/outbox cleanup"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Approved canonical role model",
+    "review_findings": [
+      "Generation context and examples currently preserve both invocation models"
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "context-and-example-synchronization",
+    "steps": [
+      "Classify affected assets by audience and handler type",
+      "Update canonical AI prompts before human guides",
+      "Migrate examples and DI/test guidance",
+      "Label intentionally retained compatibility material",
+      "Run role and dependency reference searches"
+    ],
+    "validation": [
+      "No active prompt defaults Controller to Handler injection",
+      "No portable prompt mandates Wolverine",
+      "Legitimate consumer/event/reactor Handlers remain documented",
+      "Examples implement the approved Use Case port"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
+
