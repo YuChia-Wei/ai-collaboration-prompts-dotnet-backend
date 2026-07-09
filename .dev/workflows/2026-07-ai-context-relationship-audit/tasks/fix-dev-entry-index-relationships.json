@@ -4,7 +4,7 @@
   "related_plan_id": "2026-07-ai-context-relationship-audit",
   "related_review_report_id": "review-report.md",
   "status": "pending",
-  "priority": 1,
+  "priority": 2,
   "scope": {
     "target": ".dev entry navigation",
     "files": [
@@ -14,7 +14,8 @@
     "dependency_radius": "Root and .dev entry docs only; do not rewrite guides or standards in this task.",
     "constraints": [
       "Every advertised active path must exist or be clearly labeled future/template/deferred.",
-      "Do not create empty directories only to satisfy stale index text unless the directory has an active contract."
+      "Do not create empty directories only to satisfy stale index text unless the directory has an active contract.",
+      "Apply the README/INDEX responsibility rule: README explains folder purpose; INDEX owns catalogs and per-path descriptions."
     ],
     "non_goals": [
       "Do not normalize .ai language in this task.",

@@ -4,7 +4,7 @@
   "related_plan_id": "2026-07-ai-context-relationship-audit",
   "related_review_report_id": "review-report.md",
   "status": "pending",
-  "priority": 6,
+  "priority": 7,
   "scope": {
     "target": ".ai/SUB-AGENT-SYSTEM.MD active routing boundary",
     "files": [
