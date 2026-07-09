@@ -1,0 +1,54 @@
+{
+  "task_id": "fix-dev-entry-index-relationships",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-ai-context-relationship-audit",
+  "related_review_report_id": "review-report.md",
+  "status": "pending",
+  "priority": 1,
+  "scope": {
+    "target": ".dev entry navigation",
+    "files": [
+      ".dev/README.MD",
+      ".dev/INDEX.md"
+    ],
+    "dependency_radius": "Root and .dev entry docs only; do not rewrite guides or standards in this task.",
+    "constraints": [
+      "Every advertised active path must exist or be clearly labeled future/template/deferred.",
+      "Do not create empty directories only to satisfy stale index text unless the directory has an active contract."
+    ],
+    "non_goals": [
+      "Do not normalize .ai language in this task.",
+      "Do not rewrite specs or operations guide content beyond entry references."
+    ]
+  },
+  "inputs": {
+    "review_findings": [
+      ".dev/README.MD advertises lessons/ but the directory is absent.",
+      ".dev/INDEX.md points to absent requirement, lessons, and legacy paths."
+    ],
+    "user_constraints": [
+      "Arrange remediation tasks before broad fixes."
+    ]
+  },
+  "execution": {
+    "operation_type": "documentation-index-sync",
+    "mode": "direct-remediation",
+    "steps": [
+      "Inventory paths named by .dev/README.MD and .dev/INDEX.md.",
+      "Classify each missing path as remove, relabel as template/future, or replace with current active path.",
+      "Update entry docs with minimal wording changes.",
+      "Run targeted reference search for removed paths."
+    ],
+    "validation": [
+      "git diff --check",
+      "rg -n -uu \"lessons/|legacy/ask|requirement/README-UML.md|requirement/requirement.md\" .dev/README.MD .dev/INDEX.md"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

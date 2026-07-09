@@ -1,0 +1,53 @@
+{
+  "task_id": "split-sub-agent-system-active-routing",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-ai-context-relationship-audit",
+  "related_review_report_id": "review-report.md",
+  "status": "pending",
+  "priority": 6,
+  "scope": {
+    "target": ".ai/SUB-AGENT-SYSTEM.MD active routing boundary",
+    "files": [
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".ai/assets/sub-agent-role-prompts/README.MD"
+    ],
+    "dependency_radius": "Sub-agent overview docs and indexes only; update dependent links if split creates a new doc.",
+    "constraints": [
+      "Active canonical routing should be separated from roadmap, TODO, and retired compatibility notes.",
+      "Do not remove useful historical context without relocating or labeling it."
+    ],
+    "non_goals": [
+      "Do not create the future reconciler sub-agent unless separately requested.",
+      "Do not redesign sub-agent taxonomy."
+    ]
+  },
+  "inputs": {
+    "review_findings": [
+      ".ai/SUB-AGENT-SYSTEM.MD mixes active routing with retired .ai/assets/commands notes and future reconciler-sub-agent TODO."
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "context-boundary-split",
+    "mode": "governance-remediation",
+    "steps": [
+      "Mark active routing sections and roadmap/legacy sections.",
+      "Move roadmap/legacy material to a clearly labeled guide or workflow note if it must be preserved.",
+      "Keep .ai/SUB-AGENT-SYSTEM.MD focused on active routing and artifact rules.",
+      "Update references to any newly split document."
+    ],
+    "validation": [
+      "git diff --check",
+      "rg -n -uu \"reconciler-sub-agent|.ai/assets/commands|deprecated|retired|TODO\" .ai/SUB-AGENT-SYSTEM.MD .ai/assets/sub-agent-role-prompts/README.MD .dev/guides/ai-collaboration-guides"
+    ],
+    "deferred_items": [
+      "Actual creation of reconciler-sub-agent remains out of scope unless a separate workflow approves it."
+    ]
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}

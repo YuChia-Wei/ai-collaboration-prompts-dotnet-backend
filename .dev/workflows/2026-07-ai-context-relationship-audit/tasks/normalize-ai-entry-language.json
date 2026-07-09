@@ -1,0 +1,56 @@
+{
+  "task_id": "normalize-ai-entry-language",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-ai-context-relationship-audit",
+  "related_review_report_id": "review-report.md",
+  "status": "pending",
+  "priority": 4,
+  "scope": {
+    "target": ".ai agent-facing entry language policy",
+    "files": [
+      ".ai/INDEX.MD",
+      ".ai/README.MD",
+      ".ai/DIRECTORY-RULES.MD",
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".ai/assets/README.MD",
+      ".ai/assets/skills/README.MD",
+      ".ai/assets/sub-agent-role-prompts/README.MD"
+    ],
+    "dependency_radius": ".ai entry and index docs; human-facing guide links may be added under .dev/guides if needed.",
+    "constraints": [
+      "Agent-facing canonical instructions should be English.",
+      "Preserve path names, routing rules, and source-of-truth relationships exactly unless another remediation task changes them."
+    ],
+    "non_goals": [
+      "Do not translate every .dev guide.",
+      "Do not change sub-agent manifest fields in this task unless required by wording consistency."
+    ]
+  },
+  "inputs": {
+    "review_findings": [
+      ".ai entry docs are heavily Traditional Chinese mixed with English despite .ai/** defaulting to English."
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "language-policy-remediation",
+    "mode": "governance-remediation",
+    "steps": [
+      "Rewrite canonical .ai entry docs to concise English.",
+      "Move or link zh-TW tutorial explanations to human-facing guides only when needed.",
+      "Run path reference checks after rewrite.",
+      "Run a targeted scan for remaining zh-TW-heavy paragraphs in selected .ai files."
+    ],
+    "validation": [
+      "git diff --check",
+      "rg -n -uu \"[一-龥]\" .ai/INDEX.MD .ai/README.MD .ai/DIRECTORY-RULES.MD .ai/SUB-AGENT-SYSTEM.MD .ai/assets/README.MD .ai/assets/skills/README.MD .ai/assets/sub-agent-role-prompts/README.MD"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "follow_up_needed": true
+  }
+}
