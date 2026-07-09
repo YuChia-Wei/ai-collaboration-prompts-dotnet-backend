@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Inventory document relationship problems across the AI collaboration context and produce an overall AI context governance score.
+Inventory document relationship problems across the AI collaboration context, remediate the approved issues, and produce an updated AI context governance state.
 
 ## Scope
 
@@ -13,7 +13,7 @@ Inventory document relationship problems across the AI collaboration context and
 
 ## Workflow Mode Reason
 
-Workflow mode is required because this audit uses sub-agent handoff, crosses `.ai`, `.dev`, `.agents`, and `.claude`, and may affect future AI context governance decisions.
+Workflow mode is required because this work uses sub-agent handoff, crosses `.ai`, `.dev`, `.agents`, and `.claude`, and affects future AI context governance decisions.
 
 ## Classification Criteria
 
@@ -24,18 +24,13 @@ Use `ai-context-governance` criteria:
 - Language: `en`, `zh-TW`, `bilingual-entry`
 - Action: `keep`, `split`, `move`, `rewrite`, `index-sync`, `defer`
 
-## Tasks
+## Completed Audit Tasks
 
 1. Audit `.ai/**` canonical assets and references.
 2. Audit `.agents/**` and `.claude/**` runtime wrapper sync.
 3. Audit `.dev/**` governance, guides, workflow, requirement, spec, and operations relationships.
 4. Aggregate findings and score overall context health.
 
-## Validation
-
-- Use `rg -uu` to include hidden context directories.
-- Cross-check discovered issues against `.dev/standards/AI-CONTEXT-BOUNDARY.md` and `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md`.
-- Record skipped validation or deferred cleanup explicitly.
 ## README And INDEX Responsibility Rule
 
 Apply this rule during remediation:
@@ -46,12 +41,14 @@ Apply this rule during remediation:
 
 ## Remediation Roadmap
 
-The audit produced a `76/100` overall AI context governance score. Remediation should proceed in small batches so each source-of-truth boundary can be validated independently.
+The audit produced a `76/100` overall AI context governance score. Remediation proceeds in small batches so each source-of-truth boundary can be validated independently.
 
 ### Execution Order
 
-1. nforce-readme-index-responsibility`n   - Establish README purpose-only and INDEX catalog-owner responsibility before link cleanup.
-2. ix-dev-entry-index-relationships`n   - Remove or correct stale .dev entry references before deeper content work.
+1. `enforce-readme-index-responsibility`
+   - Establish README purpose-only and INDEX catalog-owner responsibility before link cleanup.
+2. `fix-dev-entry-index-relationships`
+   - Remove or correct stale `.dev` entry references before deeper content work.
 3. `settle-dev-specs-domains-contract`
    - Decide whether `.dev/specs/domains/` is an active production-spec root or a template-only concept.
 4. `settle-dev-operations-truth-contract`
@@ -67,7 +64,7 @@ The audit produced a `76/100` overall AI context governance score. Remediation s
 
 ### Commit Boundaries
 
-Commit after each completed task or coherent pair of small tasks once validation passes. Do not batch `.ai` language rewrites with `.dev` index fixes.
+Commit after each completed task or coherent pair of small tasks once validation passes. Do not batch `.ai` language rewrites with `.dev` index fixes unless the user asks to complete the full workflow in one coordinated pass.
 
 ### Shared Validation
 

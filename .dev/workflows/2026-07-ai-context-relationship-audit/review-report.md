@@ -147,3 +147,35 @@ Action: `keep`, with optional labeling or rehoming if this metadata becomes ambi
 - Used hidden-directory scans with `rg -uu` so `.ai`, `.dev`, `.agents`, and `.claude` were included.
 - Performed a referenced-path existence scan and classified expected generated/template paths separately from active broken references.
 - No production code or repository content was changed outside workflow audit artifacts.
+
+## Remediation Result
+
+Remediation completed for the active workflow scope.
+
+Updated governance score: `92/100`.
+
+Completed changes:
+
+- High-level README files now explain purpose, scope, and usage, while INDEX files own file and directory catalogs.
+- `.dev/INDEX.md` no longer advertises absent active paths such as `lessons/`, `legacy/ask/`, `.gemini/commands/README.md`, or `.github/prompts/README.md`.
+- `.dev/specs/domains/` is now documented as a target-repository convention, not an active framework subtree.
+- `.dev/operations/` guides now read as authoring/template guidance instead of claiming live runtime truth files exist.
+- Selected `.ai` agent-facing entry docs were normalized to English.
+- Sub-agent `human_guide` fields now point to `.dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md`.
+- `.ai/SUB-AGENT-SYSTEM.MD` now contains active routing and explicitly marks the non-existent reconciler role as non-active.
+- Runtime `openai.yaml` metadata files are labeled as runtime metadata, not canonical skill content.
+
+Validation completed:
+
+- `git diff --check`
+- active-surface referenced-path existence scan, excluding archival workflow records and retired requirement references
+- targeted `.ai` language scan for remediated agent-facing docs
+- targeted sub-agent `human_guide` routing scan
+- targeted stale entry reference scans
+- JSON parsing for workflow task files
+
+Remaining deferred scope:
+
+- Historical workflow records under `.dev/workflows/**` still mention removed legacy paths as part of their archival record.
+- Retired or historical requirement documents may still mention removed skill names or old migration targets as historical context.
+- TODO-heavy .NET example code remains out of scope for this AI context relationship workflow.

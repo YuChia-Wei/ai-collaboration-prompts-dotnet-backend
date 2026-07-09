@@ -26,5 +26,5 @@ workflow:
     description: "Produce delegated configuration guidance or code changes with validation notes"
 references:
   - ".ai/assets/sub-agent-role-prompts/profile-config-sub-agent/references/implementation-playbook.md"
-human_guide: ".ai/SUB-AGENT-SYSTEM.MD"
+human_guide: ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md"
 

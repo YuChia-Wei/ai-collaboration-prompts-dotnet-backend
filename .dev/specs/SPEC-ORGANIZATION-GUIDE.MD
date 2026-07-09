@@ -1,18 +1,14 @@
 # Spec 檔案組織指南
 
-本文件說明如何依 bounded context、aggregate 與測試目標組織 specs，不預設任何產品 domain。
+本文件說明如何依 bounded context、aggregate 與測試目標組織 specs。這個框架倉庫不保留 active production/domain spec subtree；production specs 是 target repo 的輸出，通常由 `repo-structure-sync` 或後續 workflow 在有來源需求時建立。這裡保留的是規則、範本與 `.dev/specs/tests/`。
 
 ## 目錄結構
 
 ```text
-.dev/specs/
-  domains/
-    <bounded-context>/
-      <aggregate>/
-        entity/
-          <aggregate>-spec.md
-        usecase/
-          <action>-<aggregate>.json
+Framework repo (.dev/specs/):
+  README.MD
+  SPEC-GUIDE.MD
+  SPEC-ORGANIZATION-GUIDE.MD
   tests/
     <bounded-context>/
       aggregate/
@@ -20,6 +16,15 @@
       integration/
     cross-domain/
     e2e/
+
+Target repo (.dev/specs/ when production specs exist):
+  domains/
+    <bounded-context>/
+      <aggregate>/
+        entity/
+          <aggregate>-spec.md
+        usecase/
+          <action>-<aggregate>.json
 ```
 
 ## 放置規則
@@ -29,6 +34,7 @@
 3. production spec 與 test spec 使用相同 bounded-context / aggregate 視角。
 4. 關聯關係不代表 ownership；不要因為 A 引用 B，就把 B 的 spec 放進 A 的 aggregate 目錄。
 5. 若 bounded context 或 aggregate ownership 不清楚，先使用 `ddd-ca-hex-architect`，不要猜測路徑。
+6. 這個框架倉庫目前只保留 guides、templates 與 test-spec 材料，不承載 active `domains/` subtree。
 
 ## 命名規則
 
@@ -40,6 +46,7 @@
 ## 中性範例
 
 ```text
+Target repo:
 .dev/specs/
   domains/
     <context-a>/

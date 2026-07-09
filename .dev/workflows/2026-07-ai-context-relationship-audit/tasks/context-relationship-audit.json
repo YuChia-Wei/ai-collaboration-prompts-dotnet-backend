@@ -47,7 +47,7 @@
       "targeted rg -n -uu path and stale-reference scans",
       "PowerShell referenced-path existence scan"
     ],
-    "summary": "Completed AI context relationship audit using three low-cost explorer sub-agents and local reference scans. Overall governance score is 76/100, with main remediation priorities in .dev stale directory promises, .ai language-policy drift, and sub-agent human_guide routing."
+    "summary": "Completed AI context relationship audit using three low-cost explorer sub-agents and local reference scans. Overall governance score is 76/100, with main remediation priorities in .dev stale directory promises, .ai language-policy drift, and sub-agent human_guide routing. Remediation workflow completed in the same workflow; remaining missing path hits are archival workflow records or explicitly deferred retired requirement references."
   },
-  "follow_up_needed": true
+  "follow_up_needed": false
 }

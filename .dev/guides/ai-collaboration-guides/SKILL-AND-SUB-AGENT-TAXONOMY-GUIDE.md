@@ -135,5 +135,6 @@ shared rules 沒有獨立輸入輸出 contract，不應假裝成 worker role。
 - delegated worker 與 implementer skill 的互動：
   - `.ai/SUB-AGENT-SYSTEM.MD`
   - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
+- sub-agent role manifests 的 `human_guide` 應指向本文件，作為 human-facing taxonomy 參考。
 - 模式選擇理由：
   - `../../standards/rationale/skill-sub-agent-boundary-rationale.MD`

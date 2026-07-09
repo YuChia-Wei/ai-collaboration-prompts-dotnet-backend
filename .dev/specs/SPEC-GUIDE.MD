@@ -2,12 +2,16 @@
 
 本文件定義 `.dev/specs/` 內規格文件的格式與撰寫方式，並整合 `SPEC-ORGANIZATION-GUIDE.md` 的組織規範。
 
-`.dev/specs/` 目前分成兩類：
+在這個框架倉庫中，`.dev/specs/` 目前只保留：
 
-- `domains/`
-  - production-facing behavior specs
+- `README.MD`
+  - folder purpose, scope, and usage
+- `SPEC-GUIDE.MD`
+- `SPEC-ORGANIZATION-GUIDE.MD`
 - `tests/`
   - BDD/TDD-oriented test specs and scenario design artifacts
+
+production / domain specs 是 target repo 的輸出，會由 `repo-structure-sync` 或後續 workflow 依來源需求建立；它們不是這個框架倉庫中的 active subtree。
 
 ## 0) Terminology Boundary
 
@@ -40,9 +44,11 @@ spec 應優先描述：
 - `SPEC-ORGANIZATION-GUIDE.MD`
 - Aggregate 為最小邊界
 
-production spec 應放在：
+在 target repo 中，production spec 慣例放在：
 
 - `.dev/specs/domains/<domain>/<entity|usecase|adapter>/...`
+
+但在這個框架倉庫裡，`.dev/specs/domains/` 不作為現成的 source-of-truth 資料夾使用。
 
 test spec 應放在：
 
@@ -176,7 +182,8 @@ test spec 應放在：
 
 ## 7) Boundary with Test Specs
 
-- `.dev/specs/domains/` 回答「系統應該做什麼」
+- production / domain specs（若在 target repo 已建立）回答「系統應該做什麼」
 - `.dev/specs/tests/` 回答「我要如何驗證它真的做到」
 - test spec 不應取代 production spec
 - test spec 應優先按測試目標分類，而不是把所有 scenario 平鋪在 `<domain>/`
+- 這個框架倉庫只保留規則、範本與 test-spec 材料，不保留 active production/domain spec subtree

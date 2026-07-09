@@ -51,9 +51,9 @@
 
 ### Phase 1: Understand the architecture
 1. `CLAUDE.md` - project memory (TODO: replace with .NET memory doc when available)
-2. `.ai/assets/shared/architecture-config.md` - architecture rules
-3. `.ai/assets/shared/common-rules.md` - non-negotiable rules
-4. `.ai/assets/shared/testing-strategy.md` - test rules
+2. `.ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md` - architecture rules
+3. `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md` - non-negotiable rules
+4. `.ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md` - test rules
 5. `.ai/assets/skills/spec-compliance-validator/references/spec-compliance-rules.md` - spec compliance rules
 
 ### Phase 2: Learn by examples
@@ -63,8 +63,8 @@
 4. `.dev/standards/examples/dto/README.md` - DTO layout
 
 ### Phase 3: Avoid common mistakes
-1. `.ai/COMMON-PITFALLS.md` - cross-cutting pitfalls
-2. `.ai/FAILURE-CASES.md` - failure patterns
+1. `.ai/assets/tech-stacks/dotnet-backend/references/COMMON-PITFALLS.MD` - cross-cutting pitfalls
+2. `.ai/assets/tech-stacks/dotnet-backend/references/FAILURE-CASES.MD` - failure patterns
 
 ## Key Principles Quick Reference
 
@@ -173,8 +173,8 @@ I am using DDD + Clean Architecture + CQRS + Event Sourcing in .NET.
 Please follow these references to learn the coding style:
 
 1. Project memory: CLAUDE.md (TODO: replace with .NET memory doc)
-2. Learning path: .dev/guides/LEARNING-PATH.md
-3. Code templates: .ai/CODE-TEMPLATES.md
+2. Learning path: .dev/guides/learning-guides/LEARNING-PATH.md
+3. Code templates: .ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD
 4. Prompts: .ai/assets/
 
 Important rules:
@@ -249,8 +249,3 @@ When the output violates rules:
 2. Provide a correct reference example
 3. Explain the principle behind the rule
 4. Ask for a regenerated solution
-
-
-
-
-

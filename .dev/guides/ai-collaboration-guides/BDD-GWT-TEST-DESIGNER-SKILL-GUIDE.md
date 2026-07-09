@@ -64,7 +64,7 @@
 Use $bdd-gwt-test-designer to design Given-When-Then test scenarios from this spec.
 
 Context:
-- Source: [.dev/specs/domains/...]
+- Source: [target-repository production spec path]
 - Target level: use case test
 - Do not implement test code yet
 
@@ -86,7 +86,7 @@ Return:
 
 - `.dev/specs/tests/<context>/use-cases/<use-case>.test-spec.md`
 - `.dev/specs/tests/<context>/integration/<integration-target>.test-spec.md`
-- `.dev/specs/tests/cross-domain/place-order-and-reserve-stock.test-spec.md`
+- `.dev/specs/tests/cross-domain/<scenario>.test-spec.md`
 
 ## 範本 2：從既有程式行為逆向整理 scenarios
 

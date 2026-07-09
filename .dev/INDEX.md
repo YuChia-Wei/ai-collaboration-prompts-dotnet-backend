@@ -1,66 +1,88 @@
 # .dev Index
 
-## Quick Start
-1. `ARCHITECTURE.md` — 專案架構與 system overview
-2. `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml` — target repo project config canonical template
-3. `standards/README.md` — .NET standards 單一真相
-4. `AGENTS.md` — AI Agent 統一操作手冊
+This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD` file explains the folder purpose and boundary.
 
-## Architecture & Rules
-- `ARCHITECTURE.md`
-- `standards/README.md`
-- `guides/README.MD`
+## Entry Documents
 
-## Requirements
-- `requirement/requirement-guide.md`
-- `requirement/TECH-STACK-REQUIREMENTS.md`
-- `requirement/requirement.md`（需求範例）
-- `requirement/README-UML.md`（UML/PlantUML 說明）
+| Path | Description |
+| --- | --- |
+| `README.MD` | Purpose, scope, and usage of `.dev/`. |
+| `INDEX.md` | File and directory catalog for `.dev/`. |
+| `ARCHITECTURE.md` | Framework repository architecture and context model. |
+| `TEAM-GIT-FLOW-RULES.MD` | Single-mainline git flow and branch naming rules. |
 
-## Domain Language
-- `domain-language/README.MD`
-- `domain-language/templates/bounded-context-language-template.md`
-- `domain-language/templates/aggregate-vocabulary-template.md`
-- `domain-language/templates/domain-event-language-template.md`
+## Standards
 
-## Specs
-- `specs/SPEC-GUIDE.md`
-- `specs/SPEC-ORGANIZATION-GUIDE.md`
+| Path | Description |
+| --- | --- |
+| `standards/README.md` | Standards entry point. |
+| `standards/AI-CONTEXT-BOUNDARY.md` | AI context placement and boundary policy. |
+| `standards/AI-CONTEXT-LANGUAGE-POLICY.md` | Agent-facing and human-facing language policy. |
+| `standards/WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode gate. |
+| `standards/GIT-COMMIT-POLICY.md` | Agent-assisted commit format and timing policy. |
+| `standards/coding-standards/` | .NET backend coding standards by component type. |
+| `standards/examples/` | Reusable .NET backend examples and templates. |
+| `standards/rationale/` | Rationale records for retained standards. |
+| `standards/templates/` | Reusable standards templates. |
 
-## Supporting Knowledge
-- `lessons/`
-- `lessons/dotnet/`
-- `legacy/ask/`
-- `workflows/README.MD`
-- `guides/README.MD`
-- `guides/design-guides/MULTI-STACK-CONTEXT-PLACEMENT-NOTES.md`
+## Guides
 
-## AI Agent & Skills
-- `AGENTS.md`
-- `guides/ai-collaboration-guides/README.MD`
-- `guides/ai-collaboration-guides/AI-ASSET-LOCATION-STRATEGY.md`
-- `guides/ai-collaboration-guides/LOCAL-RUNTIME-WRAPPER-GUIDE.md`
-- `guides/ai-collaboration-guides/AI-SKILL-GUIDE-STANDARDS.md`
-- `guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
-- `guides/ai-collaboration-guides/AI-REFACTORING-SKILL-CONTRACTS.md`
-- `guides/ai-collaboration-guides/AI-COLLABORATION-WORKFLOW-GUIDE.md`
-- `guides/ai-collaboration-guides/OPTIONAL-MINIMAL-WORKFLOW-MODE.md`
-- `guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`
-- `guides/ai-collaboration-guides/PROBLEM-FRAME-AUTHORING-GUIDE.md`
-- `guides/ai-collaboration-guides/REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`
-- `guides/ai-collaboration-guides/REQUIREMENT-DESIGNER-PROMPT-GUIDE.md`
-- `guides/ai-collaboration-guides/SPEC-DESIGNER-PROMPT-GUIDE.md`
-- `guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md`
-- `guides/ai-collaboration-guides/LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md`
-- `.ai/assets/skills/README.MD`
-- `.agents/skills/README.md`
-- `.claude/skills/README.md`
-- `.gemini/commands/README.md`
-- `.github/prompts/README.md`
-- `.github/copilot-instructions.md`
-- `.agents/skills/<skill>/`
-- `.claude/skills/<skill>/`
+| Path | Description |
+| --- | --- |
+| `guides/README.MD` | Purpose and usage of `.dev/guides/`. |`n| `guides/INDEX.MD` | File and directory catalog for guides. |
+| `guides/ai-collaboration-guides/` | AI collaboration, skill, prompt, workflow, and runtime wrapper guides. |
+| `guides/design-guides/` | .NET backend design and context-placement guides. |
+| `guides/implementation-guides/` | .NET backend implementation and setup guides. |
+| `guides/learning-guides/` | Learning path and new-project guidance. |
+
+## Requirements And Specs
+
+| Path | Description |
+| --- | --- |
+| `requirement/` | Requirements and requirement authoring materials. |
+| `requirement/REQUIREMENT-GUIDE.MD` | Requirement authoring guide. |
+| `requirement/TECH-STACK-REQUIREMENTS.MD` | Tech stack requirements for the framework profile. |
+| `specs/` | Spec authoring and test-spec guidance for this framework. |
+| `specs/README.MD` | Purpose and usage of `.dev/specs/`. |`n| `specs/INDEX.MD` | File and directory catalog for specs. |
+| `specs/SPEC-GUIDE.MD` | Spec authoring guide. |
+| `specs/SPEC-ORGANIZATION-GUIDE.MD` | Spec organization guide. |
+| `specs/tests/` | Test-spec storage guidance and examples. |
+
+## Domain Language And Problem Frames
+
+| Path | Description |
+| --- | --- |
+| `domain-language/` | Domain language templates and target-repo vocabulary area. |
+| `domain-language/templates/` | Bounded context, aggregate vocabulary, and domain event language templates. |
+| `problem-frames/` | Problem-frame authoring guidance and templates. |`n| `problem-frames/INDEX.md` | File and directory catalog for problem-frame assets. |
+| `problem-frames/templates/` | Reusable CBF/SWF problem-frame templates. |
+
+## Operations
+
+| Path | Description |
+| --- | --- |
+| `operations/` | Operations authoring guides and target-repo operations documentation area. |
+| `operations/README.MD` | Purpose and usage of `.dev/operations/`. |
+| `operations/CONTEXT-MAP-GUIDE.MD` | Context-map authoring guide. |
+| `operations/EVENT-CATALOG-GUIDE.MD` | Event-catalog authoring guide. |
+| `operations/MQ-TOPOLOGY-GUIDE.MD` | MQ topology authoring guide. |
+| `operations/RUNBOOK-GUIDE.MD` | Runbook authoring guide. |
+| `operations/runbooks/` | Runbook folder and runbook index. |
+
+## Workflow Records
+
+| Path | Description |
+| --- | --- |
+| `workflows/` | Workflow plans, review reports, and task records. |
+| `workflows/README.MD` | Workflow artifact guidance. |
+| `workflows/templates/` | Workflow plan, task, and review report templates. |
+
+## AI Runtime And Canonical Assets
+
+| Path | Description |
+| --- | --- |
+| `../.ai/INDEX.MD` | Agent-facing reusable AI asset catalog. |
+| `../.ai/assets/skills/README.MD` | Canonical skill registry entry. |
+| `../.agents/skills/README.md` | Current runtime wrapper index. |
+| `../.claude/skills/README.md` | Claude-compatible wrapper index. |
+| `../.github/copilot-instructions.md` | GitHub Copilot repository instructions. |

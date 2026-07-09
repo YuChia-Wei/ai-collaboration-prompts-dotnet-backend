@@ -40,7 +40,7 @@ CreateProductUseCase
 3. Multi-layer outbox dependency registration
 
 ### Solution reference
-- `.dev/guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md`
+- `.dev/guides/implementation-guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md`
 
 ## Protection Mechanisms
 
@@ -142,8 +142,6 @@ DON'T
 5. Add Outbox profile (optional)
 
 ## References
-- `.dev/guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md`
-- `.dev/guides/FRAMEWORK-API-INTEGRATION-GUIDE.md`
-- `.ai/COMMON-PITFALLS.md`
-
-
+- `.dev/guides/implementation-guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md`
+- `.dev/guides/design-guides/FRAMEWORK-API-INTEGRATION-GUIDE.md`
+- `.ai/assets/tech-stacks/dotnet-backend/references/COMMON-PITFALLS.MD`

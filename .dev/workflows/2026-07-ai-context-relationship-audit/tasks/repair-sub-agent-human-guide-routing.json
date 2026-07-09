@@ -3,7 +3,7 @@
   "owner_skill": "ai-context-governance",
   "related_plan_id": "2026-07-ai-context-relationship-audit",
   "related_review_report_id": "review-report.md",
-  "status": "pending",
+  "status": "completed",
   "priority": 6,
   "scope": {
     "target": "sub-agent manifest guide relationship",
@@ -44,9 +44,19 @@
     "deferred_items": []
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "follow_up_needed": true
+    "summary": "Repointed all sub-agent manifest human_guide fields to the human-facing taxonomy guide.",
+    "files_changed": [
+      ".ai/assets/sub-agent-role-prompts/**/sub-agent.yaml",
+      ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "active-surface referenced-path existence scan excluding archival workflow records and retired requirements",
+      "rg -n -uu \"[一-龥]\" over remediated .ai entry docs",
+      "rg -n -uu \"human_guide:\" .ai/assets/sub-agent-role-prompts",
+      "targeted stale entry reference scans for removed .dev index paths",
+      "targeted README catalog scans for remediated high-level README files"
+    ],
+    "follow_up_needed": false
   }
 }
