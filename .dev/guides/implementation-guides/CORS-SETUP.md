@@ -25,9 +25,7 @@ var app = builder.Build();
 app.UseCors("Frontend");
 ```
 
-See: `.ai/assets/shared/common-rules.md` for shared rules.
+See: `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md` for shared rules.
 
 ## Status
 ✅ Implemented in this project (verify if port differs).
-
-

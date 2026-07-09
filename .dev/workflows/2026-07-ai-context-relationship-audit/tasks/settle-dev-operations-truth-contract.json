@@ -1,0 +1,66 @@
+{
+  "task_id": "settle-dev-operations-truth-contract",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-ai-context-relationship-audit",
+  "related_review_report_id": "review-report.md",
+  "status": "completed",
+  "priority": 4,
+  "scope": {
+    "target": ".dev/operations canonical truth relationship",
+    "files": [
+      ".dev/operations/README.MD",
+      ".dev/operations/CONTEXT-MAP-GUIDE.MD",
+      ".dev/operations/EVENT-CATALOG-GUIDE.MD",
+      ".dev/operations/MQ-TOPOLOGY-GUIDE.MD",
+      ".dev/operations/RUNBOOK-GUIDE.MD"
+    ],
+    "dependency_radius": ".dev/operations only, plus .dev entry docs if links change.",
+    "constraints": [
+      "Do not invent active operation facts for a target repo.",
+      "Guides must not imply missing files are current source of truth unless templates are created."
+    ],
+    "non_goals": [
+      "Do not fill real context maps, event catalogs, or MQ topology facts."
+    ]
+  },
+  "inputs": {
+    "review_findings": [
+      "Operations guide files name canonical operation truth files that do not exist."
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "documentation-contract-settlement",
+    "mode": "governance-remediation",
+    "steps": [
+      "Inventory current operations guide promises and missing files.",
+      "Choose template creation or wording downgrade for each operation truth type.",
+      "Update operations README and guides consistently.",
+      "Run targeted operation path reference search."
+    ],
+    "validation": [
+      "git diff --check",
+      "rg -n -uu \"context-map.md|event-catalog.md|mq-topology.md|runbooks/\" .dev/operations .dev/README.MD .dev/INDEX.md"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Reworded operations docs as authoring/template guidance instead of claims that runtime truth files already exist.",
+    "files_changed": [
+      ".dev/operations/README.MD",
+      ".dev/operations/CONTEXT-MAP-GUIDE.MD",
+      ".dev/operations/EVENT-CATALOG-GUIDE.MD",
+      ".dev/operations/MQ-TOPOLOGY-GUIDE.MD",
+      ".dev/operations/RUNBOOK-GUIDE.MD"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "active-surface referenced-path existence scan excluding archival workflow records and retired requirements",
+      "rg -n -uu \"[一-龥]\" over remediated .ai entry docs",
+      "rg -n -uu \"human_guide:\" .ai/assets/sub-agent-role-prompts",
+      "targeted stale entry reference scans for removed .dev index paths",
+      "targeted README catalog scans for remediated high-level README files"
+    ],
+    "follow_up_needed": false
+  }
+}

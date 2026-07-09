@@ -48,7 +48,7 @@ mkdir -p .dev/specs/{use-cases,aggregates,domain-events}
 ## Step 2: Set up AI project memory
 
 - Keep `AGENTS.md` (or your chosen memory file) updated with project-specific context.
-- Use `.dev/guides/LEARNING-PATH.md` as the onboarding reference for new agents.
+- Use `.dev/guides/learning-guides/LEARNING-PATH.md` as the onboarding reference for new agents.
 
 ## Step 3: Configure project metadata
 
@@ -138,7 +138,7 @@ dotnet test
 ## Step 5: Create the first feature
 
 ### Option 1: Use spec documents (recommended)
-1. Create use case spec in `.dev/specs/use-cases/...`
+1. Create a use case spec in the target repository spec area defined by repo-structure-sync
 2. Implement with TDD using canonical sub-agent assets:
    - `.ai/assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`
    - `.ai/assets/sub-agent-role-prompts/query-sub-agent/sub-agent.yaml`
@@ -173,8 +173,6 @@ Use Wolverine message registration and ensure events are serializable. TODO: def
 Ensure `ASPNETCORE_ENVIRONMENT` matches `test-inmemory` or `test-outbox` and that the matching appsettings file is present.
 
 ## Next Steps
-1. Read `.dev/guides/LEARNING-PATH.md`.
-2. Use `.ai/CODE-TEMPLATES.md` for scaffolding.
+1. Read `.dev/guides/learning-guides/LEARNING-PATH.md`.
+2. Use `.ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD` for scaffolding.
 3. Keep `.dev/standards/`, `.dev/guides/`, and `.dev/ARCHITECTURE.MD` updated as the primary rule set.
-
-

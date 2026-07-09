@@ -47,4 +47,4 @@ Examples:
 
 - `.dev/specs/tests/<context>/use-cases/<use-case>.test-spec.md`
 - `.dev/specs/tests/<context>/integration/<integration-target>.test-spec.md`
-- `.dev/specs/tests/cross-domain/place-order-and-reserve-stock.test-spec.md`
+- `.dev/specs/tests/cross-domain/<scenario>.test-spec.md`

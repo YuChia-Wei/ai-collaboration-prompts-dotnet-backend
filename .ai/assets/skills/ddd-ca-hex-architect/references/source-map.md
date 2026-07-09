@@ -15,8 +15,8 @@ Use this file to map a user request to the smallest useful subset of the repo's 
 - `.ai/assets/sub-agent-role-prompts/aggregate-sub-agent/sub-agent.yaml`
 - `.ai/assets/sub-agent-role-prompts/aggregate-test-sub-agent/sub-agent.yaml`
 - `.ai/assets/sub-agent-role-prompts/aggregate-code-review-sub-agent/sub-agent.yaml`
-- `.ai/assets/shared/domain-rules.md`
-- `.ai/assets/shared/dto-conventions.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/domain-rules.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/dto-conventions.md`
 
 Use for:
 - aggregate boundary design
@@ -28,8 +28,8 @@ Use for:
 - `.ai/assets/sub-agent-role-prompts/command-sub-agent/sub-agent.yaml`
 - `.ai/assets/sub-agent-role-prompts/query-sub-agent/sub-agent.yaml`
 - `.ai/assets/sub-agent-role-prompts/usecase-test-sub-agent/sub-agent.yaml`
-- `.ai/assets/shared/common-rules.md`
-- `.ai/assets/shared/architecture-config.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md`
 
 Use for:
 - command handler flow
@@ -60,7 +60,7 @@ Use for:
 ### Quality Gates
 - `.ai/assets/sub-agent-role-prompts/code-review-sub-agent/sub-agent.yaml`
 - `.ai/assets/sub-agent-role-prompts/reactor-code-review-sub-agent/sub-agent.yaml`
-- `.ai/assets/shared/code-review-checklist.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/code-review-checklist.md`
 - `.ai/assets/skills/spec-compliance-validator/references/spec-compliance-rules.md`
 - `.ai/assets/skills/spec-compliance-validator/references/test-validation-steps.md`
 - `.ai/assets/skills/spec-compliance-validator/references/validation-command-templates.md`

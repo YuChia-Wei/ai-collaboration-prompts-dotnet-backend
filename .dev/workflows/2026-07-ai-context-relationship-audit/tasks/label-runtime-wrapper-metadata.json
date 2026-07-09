@@ -1,0 +1,64 @@
+{
+  "task_id": "label-runtime-wrapper-metadata",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-ai-context-relationship-audit",
+  "related_review_report_id": "review-report.md",
+  "status": "completed",
+  "priority": 8,
+  "scope": {
+    "target": "runtime wrapper metadata clarity",
+    "files": [
+      ".agents/skills/ddd-ca-hex-architect/agents/openai.yaml",
+      ".claude/skills/ddd-ca-hex-architect/agents/openai.yaml",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md"
+    ],
+    "dependency_radius": "Runtime wrapper metadata only.",
+    "constraints": [
+      "Runtime wrappers must stay thin and point to canonical .ai/assets/skills specs.",
+      "Do not move metadata unless all references are updated."
+    ],
+    "non_goals": [
+      "Do not change canonical ddd-ca-hex-architect skill behavior."
+    ]
+  },
+  "inputs": {
+    "review_findings": [
+      "Runtime wrappers are healthy, but ddd-ca-hex-architect/agents/openai.yaml may be mistaken for canonical skill content."
+    ],
+    "user_constraints": []
+  },
+  "execution": {
+    "operation_type": "runtime-wrapper-clarity",
+    "mode": "low-priority-remediation",
+    "steps": [
+      "Check whether openai.yaml is referenced by runtime tooling or docs.",
+      "Add explicit runtime-metadata labeling or move it only if references are clear.",
+      "Verify wrapper indexes still match canonical registry."
+    ],
+    "validation": [
+      "git diff --check",
+      "Get-ChildItem .ai/assets/skills -Directory; Get-ChildItem .agents/skills -Directory; Get-ChildItem .claude/skills -Directory",
+      "rg -n -uu \"openai.yaml|ddd-ca-hex-architect/agents\" .ai .dev .agents .claude"
+    ],
+    "deferred_items": [
+      "This task can be skipped if no ambiguity remains after higher-priority remediation."
+    ]
+  },
+  "results": {
+    "summary": "Labeled duplicated openai.yaml files as runtime metadata and not canonical skill content.",
+    "files_changed": [
+      ".agents/skills/ddd-ca-hex-architect/agents/openai.yaml",
+      ".claude/skills/ddd-ca-hex-architect/agents/openai.yaml"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "active-surface referenced-path existence scan excluding archival workflow records and retired requirements",
+      "rg -n -uu \"[一-龥]\" over remediated .ai entry docs",
+      "rg -n -uu \"human_guide:\" .ai/assets/sub-agent-role-prompts",
+      "targeted stale entry reference scans for removed .dev index paths",
+      "targeted README catalog scans for remediated high-level README files"
+    ],
+    "follow_up_needed": false
+  }
+}

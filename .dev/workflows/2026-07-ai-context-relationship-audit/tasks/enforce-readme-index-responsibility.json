@@ -1,0 +1,86 @@
+{
+  "task_id": "enforce-readme-index-responsibility",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "2026-07-ai-context-relationship-audit",
+  "related_review_report_id": "review-report.md",
+  "status": "completed",
+  "priority": 1,
+  "scope": {
+    "target": "README and INDEX responsibility boundary",
+    "files": [
+      ".ai/README.MD",
+      ".ai/INDEX.MD",
+      ".dev/README.MD",
+      ".dev/INDEX.md",
+      ".ai/assets/**/README.MD",
+      ".dev/**/README.MD",
+      ".dev/**/INDEX.md"
+    ],
+    "dependency_radius": "Entry and navigation docs only; use this task to define and apply document responsibility boundaries before detailed stale-link cleanup.",
+    "constraints": [
+      "README files explain the purpose, scope, and usage of their containing folder.",
+      "INDEX files own file and directory inventories, including per-file or per-directory descriptions.",
+      "Avoid duplicating the same file catalog in both README and INDEX.",
+      "Do not remove navigation value; move catalog details to INDEX when needed."
+    ],
+    "non_goals": [
+      "Do not perform full .ai language normalization in this task.",
+      "Do not settle specs or operations canonical truth contracts here.",
+      "Do not rewrite unrelated guide content."
+    ]
+  },
+  "inputs": {
+    "review_findings": [
+      "README and INDEX responsibilities are currently mixed in several entry docs.",
+      "User requested README to explain folder resource purpose only, with file/directory catalogs and descriptions centralized in INDEX files."
+    ],
+    "user_constraints": [
+      "README is purpose/scope/usage only.",
+      "INDEX owns file and directory catalog descriptions."
+    ]
+  },
+  "execution": {
+    "operation_type": "documentation-boundary-remediation",
+    "mode": "governance-remediation",
+    "steps": [
+      "Inventory README files that contain detailed file or directory catalogs.",
+      "Inventory nearby INDEX files and identify missing INDEX targets if a catalog must be moved.",
+      "Move or summarize catalog details so README stays purpose-focused and INDEX owns listings.",
+      "Update later remediation tasks if their target docs depend on this boundary."
+    ],
+    "validation": [
+      "git diff --check",
+      "rg -n -uu \"\\| Path \\||File & Directory Index|File and Directory Index|目錄|檔案\" .ai .dev -g \"README.md\" -g \"README.MD\"",
+      "rg -n -uu \"README And INDEX Responsibility Rule|enforce-readme-index-responsibility\" .dev/workflows/2026-07-ai-context-relationship-audit"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Applied README purpose-only and INDEX catalog-owner responsibility to high-level .ai and .dev entry areas.",
+    "files_changed": [
+      ".dev/README.MD",
+      ".dev/INDEX.md",
+      ".dev/guides/README.MD",
+      ".dev/guides/INDEX.MD",
+      ".dev/adr/README.md",
+      ".dev/problem-frames/README.MD",
+      ".dev/problem-frames/INDEX.md",
+      ".dev/specs/README.MD",
+      ".dev/specs/INDEX.MD",
+      ".ai/README.MD",
+      ".ai/INDEX.MD",
+      ".ai/assets/README.MD",
+      ".ai/assets/skills/README.MD",
+      ".ai/assets/sub-agent-role-prompts/README.MD"
+    ],
+    "tests_run": [
+      "git diff --check",
+      "active-surface referenced-path existence scan excluding archival workflow records and retired requirements",
+      "rg -n -uu \"[一-龥]\" over remediated .ai entry docs",
+      "rg -n -uu \"human_guide:\" .ai/assets/sub-agent-role-prompts",
+      "targeted stale entry reference scans for removed .dev index paths",
+      "targeted README catalog scans for remediated high-level README files"
+    ],
+    "follow_up_needed": false
+  }
+}
