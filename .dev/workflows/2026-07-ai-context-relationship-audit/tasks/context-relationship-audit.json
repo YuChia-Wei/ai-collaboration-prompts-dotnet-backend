@@ -1,0 +1,53 @@
+{
+  "task_id": "context-relationship-audit",
+  "status": "completed",
+  "purpose": "Inventory AI context document relationship issues and produce an overall governance score.",
+  "scope": [
+    "README.md",
+    "README.en.md",
+    "agents.md",
+    "agents.zh-tw.md",
+    ".ai/**",
+    ".dev/**",
+    ".agents/**",
+    ".claude/**"
+  ],
+  "skills_used": [
+    "ai-context-governance",
+    "dev-workflow"
+  ],
+  "sub_agents": [
+    {
+      "scope": ".ai/**",
+      "model": "gpt-5.4-mini",
+      "role": "explorer",
+      "score": 76
+    },
+    {
+      "scope": ".agents/** and .claude/**",
+      "model": "gpt-5.4-mini",
+      "role": "explorer",
+      "score": 94
+    },
+    {
+      "scope": ".dev/**",
+      "model": "gpt-5.4-mini",
+      "role": "explorer",
+      "score": 68
+    }
+  ],
+  "results": {
+    "files_changed": [
+      ".dev/workflows/2026-07-ai-context-relationship-audit/workflow-plan.md",
+      ".dev/workflows/2026-07-ai-context-relationship-audit/review-report.md",
+      ".dev/workflows/2026-07-ai-context-relationship-audit/tasks/context-relationship-audit.json"
+    ],
+    "tests_run": [
+      "rg --files -uu .ai .dev .agents .claude -g \"*.md\" -g \"*.MD\" -g \"*.yaml\" -g \"*.yml\" -g \"*.json\"",
+      "targeted rg -n -uu path and stale-reference scans",
+      "PowerShell referenced-path existence scan"
+    ],
+    "summary": "Completed AI context relationship audit using three low-cost explorer sub-agents and local reference scans. Overall governance score is 76/100, with main remediation priorities in .dev stale directory promises, .ai language-policy drift, and sub-agent human_guide routing."
+  },
+  "follow_up_needed": true
+}
