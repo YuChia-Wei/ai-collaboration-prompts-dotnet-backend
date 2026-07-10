@@ -14,24 +14,6 @@ Fallback-mode should produce a minimum viable checklist, handoff prompt, or risk
 
 ## Capability Fallbacks
 
-### `context-governance`
-
-Minimum checklist:
-
-- Identify the source-of-truth being changed.
-- Separate universal, tech-stack-specific, repo-specific, runtime wrapper, and human-facing content.
-- Avoid moving files without reference checks.
-- Preserve language policy and wrapper thinness.
-
-### `repo-initialization`
-
-Minimum checklist:
-
-- Inventory top-level folders, project files, package manifests, tests, and deploy assets.
-- Distinguish empty, existing, and copied-template repo modes.
-- Mark stale source-repo facts explicitly.
-- Rewrite only evidence-backed entry sections.
-
 ### `requirements`
 
 Minimum checklist:

@@ -1,6 +1,6 @@
 # Dev Workflow Output Contract
 
-Use this output shape when reporting workflow decisions, stage status, or final results.
+Use this output shape when reporting software-development workflow decisions, stage status, or final results.
 
 ## Planning Output
 

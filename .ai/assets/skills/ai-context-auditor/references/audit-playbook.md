@@ -4,7 +4,7 @@
 
 Record the repository identity, branch, audit reason, requested focus, included context roots, excluded code/generated surfaces, previous report, and whether bounded sub-agent delegation is useful.
 
-Read deeper `AGENTS.*` files before auditing a governed subtree. Keep the work read-only unless remediation is separately authorized.
+Read deeper `AGENTS.*` files before auditing a governed subtree. Keep the audited context read-only. If remediation is separately authorized, hand the findings to `ai-context-governance`; do not expand the auditor into an implementer.
 
 ## 2. Pass A: Independent Baseline
 
@@ -25,7 +25,7 @@ Capture strengths as well as defects. Do not read product code to validate archi
 
 ## 3. Pass B: Repository-Aware Assessment
 
-After the baseline is recorded, apply repository-specific policies and relevant skills. For this repository, normally use `ai-context-governance` for audience, scope, language, placement, routing, and wrapper rules, and `dev-workflow` for workflow mode, artifact, validation, and handoff rules.
+After the baseline is recorded, apply repository-specific policies and relevant skills. For this repository, use `ai-context-governance` for audience, scope, language, placement, routing, wrapper rules, and AI context audit lifecycle handoff. Read the active workflow's skill-owned template contract for artifact, validation, and handoff rules.
 
 Check whether the repository follows its own declared contracts. Do not allow a policy assertion to erase contradictory file-backed evidence.
 
@@ -54,10 +54,14 @@ Record exact commands and results. A warning-only or skipped gate is not equival
 
 Compare confirmed findings, findings added by repo policies, downgraded or deferred findings, overturned findings, and residual uncertainty.
 
-Create the report from the canonical template. Default path:
+Create the report from the canonical template. Use a full-date workflow id:
 
 ```text
-.dev/workflows/<YYYY-MM-DD>-ai-context-audit/review-report.md
+.dev/workflows/<YYYY-MM-DD-ai-context-audit[-NN]>/
 ```
 
-When an active workflow owns the audit, use that workflow's `review-report.md`. If the default id exists, append a concise topic or sequence suffix instead of overwriting an unrelated report.
+Use `YYYY-MM-DD-topic[-NN]`; if the base id exists, append `-02`, `-03`, and so on. Keep `.dev/workflows/<workflow-id>/workflow.yaml` as the locator even when `artifact_root` points elsewhere.
+
+Write the initial audit to `<artifact-root>/reports/01-audit-report.md`. When `ai-context-governance` requests independent verification after remediation, write `<artifact-root>/reports/03-post-remediation-audit-report.md`. Never replace the baseline report.
+
+Set `created_at` and `updated_at` using ISO 8601 with an explicit offset. Preserve `created_at`; change `updated_at` whenever the generated artifact changes. Record `template_source` and `template_version` in every generated workflow artifact.

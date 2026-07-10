@@ -67,7 +67,7 @@
       ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md",
       ".claude/skills/ai-context-auditor/SKILL.md",
       ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
-      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md",
+      ".dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md",
       ".dev/workflows/2026-07-ai-context-auditor-skill/tasks/create-ai-context-auditor.json",
       ".dev/workflows/2026-07-ai-context-auditor-skill/tasks/post-commit-reconciliation.json",
       ".dev/workflows/2026-07-ai-context-auditor-skill/workflow-plan.md"

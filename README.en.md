@@ -56,7 +56,7 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
 ## Important Skills
 
 - `dev-workflow`
-  - Coordinates multi-stage development, documentation cleanup, refactoring, and AI collaboration workflows; owns workflow-mode decisions, skill routing, validation checkpoints, and commit checkpoints.
+  - Coordinates the software and product development lifecycle across requirements, specifications, architecture, tests, implementation, review, and compliance; owns development workflow-mode decisions, skill routing, validation checkpoints, and commit checkpoints, but not AI context or repo-initialization workflows.
 - `ai-context-governance`
   - Governs context boundaries, language policy, skill routing, wrapper sync, AI documentation cleanup, and context moves.
 - `ai-context-auditor`

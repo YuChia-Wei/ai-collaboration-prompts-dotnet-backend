@@ -191,6 +191,6 @@ implementer 至少要知道：
 - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`
 - `OPTIONAL-MINIMAL-WORKFLOW-MODE.md`
 - `../workflows/README.MD`
-- `../../workflows/templates/workflow-plan-template.md`
-- `../../workflows/templates/review-report-template.md`
-- `../../workflows/templates/workflow-task-template.json`
+- `../../../.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
+- `../../../.ai/assets/skills/dev-workflow/templates/development-review-report-template.md`
+- `../../../.ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json`

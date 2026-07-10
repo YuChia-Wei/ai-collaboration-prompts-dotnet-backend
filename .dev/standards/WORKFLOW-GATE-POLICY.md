@@ -11,7 +11,7 @@ This policy defines when an agent should create workflow artifacts proactively i
 
 ## Must Create a Workflow
 
-Create `.dev/workflows/<workflow-id>/` when any of these are true:
+Create a durable workflow and its discovery locator when any of these are true:
 
 - the task needs two or more stages;
 - the task needs cross-skill or sub-agent handoff;
@@ -36,16 +36,17 @@ Direct mode is acceptable when all of these are true:
 
 ## Workflow Artifacts
 
-When workflow mode is used, create:
+When workflow mode is used:
 
 ```text
 .dev/workflows/<workflow-id>/
-  workflow-plan.md
-  tasks/
-    <task-id>.json
+  workflow.yaml
 ```
 
-Add `review-report.md` when the workflow includes formal review findings or a review gate.
+- Follow `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md` for discovery, full-date IDs, timestamps, artifact roots, and minimum task metadata.
+- Use the workflow-owning skill's templates for its plan, tasks, reports, and domain-specific layout.
+- Default the artifact root to `.dev/workflows/<workflow-id>/`; a skill may declare another repository-relative root while retaining the locator above.
+- Do not assume every workflow has `review-report.md` or the same task/report structure.
 
 ## Task Status Rule
 

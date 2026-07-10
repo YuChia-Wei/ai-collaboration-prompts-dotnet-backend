@@ -1,6 +1,6 @@
 # Dev Workflow Routing Playbook
 
-Use this playbook after the workflow gate confirms the work needs stage planning, skill orchestration, or durable task tracking.
+Use this playbook after the workflow gate confirms that software or product development work needs stage planning, development skill orchestration, or durable task tracking.
 
 ## Routing Model
 
@@ -16,9 +16,6 @@ If the active profile has no matching downstream skill, use `skill-discovery-pla
 | Work intent | Capability slot | Expected specialist output |
 | --- | --- | --- |
 | Workflow planning, stage sequencing, task tracking, validation and commit checkpoints | `workflow-orchestration` | Stage plan, artifact decision, checkpoint plan, final evidence summary. |
-| Read-only AI context health, drift, structure, routing, and validation audit with a durable report | `context-audit` | Independent baseline, repository-aware comparison, findings, validation evidence, and saved report. |
-| AI context cleanup, language policy, prompt boundaries, wrapper sync, skill registry cleanup | `context-governance` | Context classification, source-of-truth decision, migration or wrapper sync plan. |
-| First sync after copying a framework or template into a target repo | `repo-initialization` | Repo inventory, stale template fact classification, entry document refresh plan. |
 | Requirement drafting or normalization | `requirements` | Requirement draft, assumptions, gaps, source-truth notes. |
 | Spec drafting or normalization | `specification` | Behavior or component spec, source references, handoff notes. |
 | First problem-frame extraction | `problem-framing` | Validator-ready problem frame draft and source evidence. |
@@ -37,9 +34,6 @@ The current local profile maps slots to these concrete skills:
 
 | Capability slot | Local skill |
 | --- | --- | --- |
-| `context-audit` | `ai-context-auditor` |
-| `context-governance` | `ai-context-governance` |
-| `repo-initialization` | `repo-structure-sync` |
 | `requirements` | `requirement-author` |
 | `specification` | `spec-author` |
 | `problem-framing` | `problem-frame-author` |
@@ -65,10 +59,8 @@ When no explicit profile exists, or when the profile does not cover a capability
 
 - `dev-workflow` may decide the stage sequence, update workflow task status, and request the next skill.
 - `dev-workflow` must not invent downstream skill findings or claim a domain result without running or applying the downstream workflow.
+- AI context auditing, AI context governance, documentation-only cleanup, and repository initialization are outside this orchestration profile. Route them directly to their owning skill instead of representing them as development capability slots.
 - When two capability slots could apply, route by the source of truth being changed:
-  - read-only AI context assessment and durable audit report: `context-audit`
-  - process, context, language, wrapper, or registry truth: `context-governance`
-  - repo template or initialization truth: `repo-initialization`
   - product or code architecture truth: `architecture`
   - requirement truth: `requirements`
   - behavior specification truth: `specification`

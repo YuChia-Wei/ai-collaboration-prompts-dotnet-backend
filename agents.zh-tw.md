@@ -45,12 +45,15 @@
 2. 當 gate 要求 workflow mode 時，主動建立 workflow artifacts。
 3. 小型、局部、單次可完成的變更可維持 direct mode。
 
-Workflow artifact 位置：
+Workflow artifact 規則：
 
-- 使用 `.dev/workflows/<workflow-id>/workflow-plan.md`
-- 若有 review output，使用 `.dev/workflows/<workflow-id>/review-report.md`
-- 使用 `.dev/workflows/<workflow-id>/tasks/<task-id>.json` 追蹤 task
-- 除非使用者明確要求，不要把 workflow artifacts 分散到 `.ai/`、`.agents/skills/`、`.claude/skills/` 或任意資料夾。
+- 遵循 `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`。
+- 建立 `.dev/workflows/<workflow-id>/workflow.yaml` 作為 discovery locator。
+- 新 workflow 使用完整日期 `YYYY-MM-DD-<topic>` ID。
+- plan、task、report template、task ID 與 artifact root 由 workflow-owning skill 定義。
+- artifact 預設位於 `.dev/workflows/<workflow-id>/`；若 skill 使用其他 repository-relative root，仍須在 `.dev/workflows/` 保留 locator。
+- 新 workflow 與 task artifact 記錄 ISO 8601 `created_at` 與 `updated_at`。
+- 不要把 runtime workflow 紀錄放進 canonical skill 或 runtime wrapper 目錄。
 
 ### Git Commit Policy
 
@@ -79,13 +82,15 @@ Workflow artifact 位置：
 - 預設只檢查 AI context 與治理 surfaces。
 - 排除 `src/`、`tests/` 與其他產品 implementation trees。
 - 若使用者要求掃描產品 source 或 test code，停止擴大 audit，改為轉介 `code-reviewer`。
-- Audit finding 與 remediation 必須分開；只有在使用者授權整改後，才使用 `ai-context-governance` 與 `dev-workflow`。
+- Audit finding 與 remediation 必須分開；只有在使用者授權整改後，才由 `ai-context-governance` 協調 AI context remediation lifecycle。
 
 ### Development Workflow Orchestration
 
-當工作需要多階段規劃、workflow artifacts、skill routing、sub-agent coordination、validation checkpoint 或 commit checkpoint 時，使用 `dev-workflow`。
+當軟體開發工作需要多階段規劃、開發 skill routing、sub-agent coordination、validation checkpoint 或 commit checkpoint 時，使用 `dev-workflow`。
 
 該 skill 可以協調 downstream skills，但不應取代它們各自的專業責任。
+
+一般 AI context audit、文件治理或 repository initialization 不交給 `dev-workflow`；改由對應 owner skill 與其自有 workflow template 處理。
 
 ### Repo Init / Template Adaptation
 

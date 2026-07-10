@@ -71,7 +71,7 @@
 
 - Added the canonical `ai-context-auditor` skill, scope and routing rules, two-pass audit playbook, output contract, and report template.
 - Added thin Codex and Claude wrappers, runtime UI metadata, registry entries, root routing, dev-workflow capability routing, and a human-facing guide.
-- Saved the 2026-07-10 self-audit as this workflow's `review-report.md`.
+- The 2026-07-10 self-audit was initially saved in this workflow, then relocated to `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md` so skill construction and audit remediation have separate lifecycle ownership.
 - Validated the skill structure, structured files, wrapper parity, required paths, scope boundaries, portability, and forward-test behavior.
 - Post-commit reconciliation completed after the user manually created and pushed commit `3a11df7`.
 - Removed the eight EOF whitespace defects missed while the files were untracked.

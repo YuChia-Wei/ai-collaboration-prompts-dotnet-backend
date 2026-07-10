@@ -11,6 +11,8 @@
 - 定義或套用 AI context language policy
 - 同步 canonical skill spec、runtime wrapper、human guide、index
 - 建立 AI 文件整理 workflow
+- 接手自檢 findings，管理 audit → remediation → post-remediation audit → closure 的完整生命週期
+- 建立 remediation tasks、修正報告、續作 checkpoint 與結案證據
 - 避免把純 AI 文件整理誤交給 BDD、code review、或 production implementer skill
 
 ## 不應該做什麼
@@ -22,6 +24,7 @@
 - 做正式 code review
 - 重新設計 domain architecture
 - 大量翻譯所有文件，除非 workflow 明確要求 translation migration
+- 代替 `ai-context-auditor` 撰寫基準或修正後的獨立稽核結論
 
 ## 使用時機
 
@@ -34,6 +37,29 @@
 - wrapper sync
 - universal vs dotnet-backend split
 - documentation governance
+- AI context audit remediation / post-audit / closure
+
+## 自檢與修正生命週期
+
+完整的 AI context 維護流程由本 skill 協調：
+
+1. `ai-context-auditor` 產生唯讀基準報告 `reports/01-audit-report.md`。
+2. 本 skill 逐項分類 findings、建立 tasks 並執行已授權修正。
+3. 本 skill 產生 `reports/02-remediation-report.md`，記錄每個 finding 的處置與證據。
+4. `ai-context-auditor` 獨立複檢並產生 `reports/03-post-remediation-audit-report.md`。
+5. 本 skill 對照三份報告、確認 commit 與 validation，最後結案或明確 defer。
+
+基準報告不得被修正報告或複檢結果覆寫。
+
+## Workflow 與時間欄位
+
+- Workflow id 使用 `YYYY-MM-DD-topic[-NN]`，同日重複時依序使用 `-02`、`-03`。
+- `.dev/workflows/<workflow-id>/workflow.yaml` 永遠保留為 locator；實際 `artifact_root` 可由本 skill 依任務特性指定。
+- `created_at`、`updated_at` 使用帶明確 offset 的 ISO 8601。
+- 所有 generated artifacts 記錄 `template_source` 與 `template_version`。
+- 暫停前更新 locator、plan 與 active task 的 checkpoint，包含最後完成動作、下一步、validation 與 Git state。
+
+本 skill 的 templates 位於 `.ai/assets/skills/ai-context-governance/templates/`。
 
 ## Prompt 範本
 
@@ -49,6 +75,13 @@ Focus on:
 
 Do not use BDD scenario design for this task.
 Return the files updated, boundary decisions, and validation performed.
+```
+
+完整整改可改用：
+
+```text
+Use $ai-context-governance to continue the AI context maintenance workflow from the baseline audit.
+Create finding-level remediation tasks, keep the baseline immutable, request an independent post-remediation audit, and close only with explicit evidence for every finding.
 ```
 
 ## 與其他 Skill 的邊界

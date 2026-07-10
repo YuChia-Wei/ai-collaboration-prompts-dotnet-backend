@@ -7,7 +7,8 @@ This file defines the active agent-facing routing rules for delegated sub-agent 
 - Top-level skill specs: `.ai/assets/skills/<skill-id>/skill.yaml`
 - Delegated sub-agent role prompts: `.ai/assets/sub-agent-role-prompts/<role-id>/sub-agent.yaml`
 - Human-facing taxonomy guide: `.dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md`
-- Workflow artifacts: `.dev/workflows/<workflow-id>/`
+- Workflow discovery: `.dev/workflows/<workflow-id>/workflow.yaml`
+- Workflow artifact contract: `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`
 
 Sub-agent role prompts are not top-level skills. They are bounded worker roles used by a main agent or a top-level skill.
 
@@ -51,11 +52,7 @@ A reconciler role is not active in this repository because `.ai/assets/sub-agent
 
 Use durable workflow artifacts when work crosses skills, stages, or sub-agents:
 
-```text
-.dev/workflows/<workflow-id>/workflow-plan.md
-.dev/workflows/<workflow-id>/review-report.md
-.dev/workflows/<workflow-id>/tasks/<task-id>.json
-```
+Every new workflow keeps `.dev/workflows/<workflow-id>/workflow.yaml` as its locator. Read the locator for the owning skill, artifact root, entrypoint, status, and timestamps, then follow the owning skill's artifact layout.
 
 Shared project context should come from `.dev/` source-of-truth documents, not from temporary prompts or ad hoc notes.
 
@@ -68,7 +65,7 @@ Shared project context should come from `.dev/` source-of-truth documents, not f
 | `slice-implementer` / `local-change-implementer` | May update assigned `tasks/<task-id>.json` when task execution requires it. |
 | General sub-agent | Read-only by default; may update task state only when explicitly assigned. |
 
-Do not scatter workflow artifacts under `.ai/`, runtime wrapper directories, feature folders, or temporary files.
+Do not store runtime workflow records under `.ai/assets/skills/`, runtime wrapper directories, generated folders, or temporary files. A non-default artifact root must remain repository-relative and discoverable through the locator.
 
 ## Reference Inputs
 
@@ -79,4 +76,4 @@ Use these source areas when assigning sub-agent work:
 - Problem frames: `.dev/problem-frames/`
 - Operations guidance: `.dev/operations/`
 - Dotnet backend shared rules: `.ai/assets/tech-stacks/dotnet-backend/`
-- Workflow state: `.dev/workflows/`
+- Workflow state: `.dev/workflows/*/workflow.yaml`, then the declared artifact root

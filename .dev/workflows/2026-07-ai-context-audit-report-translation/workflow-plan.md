@@ -15,7 +15,7 @@
 ## Target Direction
 
 - Keep `review-report.md` as the original English audit record.
-- Create `review-report.zh-tw.md` as an explicit Traditional Chinese translation.
+- Create `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.zh-tw.md` as an explicit Traditional Chinese translation.
 - Preserve IDs, paths, commands, skill names, severity labels, tables, and factual meaning.
 - Do not modify audit conclusions during translation.
 - Evaluate remediation workflow design without implementing a new skill in this task.
@@ -60,7 +60,7 @@
 
 ## Completion Summary
 
-- Created `review-report.zh-tw.md` through a fresh bounded sub-agent and retained the English source unchanged.
+- Created `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.zh-tw.md` through a fresh bounded sub-agent and retained the English source unchanged.
 - Main-agent review preserved 28 headings, 36 table rows, 9 finding IDs, severity values, scores, and the command code block, then normalized terminology to this repository's `AI Context`, `canonical`, `skill`, and `workflow` usage.
 - Existing remediation responsibilities already span `ai-context-auditor` handoff, `dev-workflow` orchestration, and `ai-context-governance` execution; a new top-level remediation skill would currently duplicate those responsibilities.
 - Recommended future direction: add a reusable remediation handoff and post-remediation verification contract while keeping the auditor read-only. Extract a separate remediator skill only after repeated workflows demonstrate missing orchestration behavior.

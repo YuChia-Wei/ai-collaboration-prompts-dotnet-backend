@@ -1,0 +1,18 @@
+{
+  "task_id": "AICWG-004",
+  "workflow_id": "2026-07-10-ai-context-workflow-governance",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T18:25:11+08:00",
+  "template_source": "none; bootstrap task created before skill-owned templates were finalized",
+  "template_version_used": "N/A",
+  "status": "completed",
+  "scope": { "target": "Separate the morning self-audit lifecycle from auditor-skill construction and earlier relationship-audit work." },
+  "dependencies": ["AICWG-001"],
+  "execution": { "validation": ["Git-backed provenance", "Report/translation relationships", "Historical workflow references"] },
+  "results": {
+    "summary": "Created 2026-07-10-ai-context-self-audit with a locator, detailed resume plan, five lifecycle tasks, and relocated English/zh-TW reports with origin metadata.",
+    "artifacts": [".dev/workflows/2026-07-10-ai-context-self-audit/"],
+    "follow_up_needed": false
+  }
+}

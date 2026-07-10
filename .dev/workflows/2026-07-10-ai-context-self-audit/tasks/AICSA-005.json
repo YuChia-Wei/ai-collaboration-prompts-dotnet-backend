@@ -1,0 +1,14 @@
+{
+  "task_id": "AICSA-005",
+  "workflow_id": "2026-07-10-ai-context-self-audit",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T18:25:11+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "template_version_used": "1.0.0",
+  "status": "pending",
+  "scope": { "target": "Close the audit-remediation lifecycle with complete finding, validation, task, and commit evidence." },
+  "dependencies": ["AICSA-004"],
+  "execution": { "validation": ["Workflow closing checklist", "Commit policy", "Locator and timestamp consistency"] },
+  "results": { "summary": "", "follow_up_needed": true }
+}

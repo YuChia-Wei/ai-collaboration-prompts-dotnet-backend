@@ -192,6 +192,10 @@ echo -e "${BLUE}Starting checks at $(date '+%Y-%m-%d %H:%M:%S')${NC}"
 echo ""
 echo -e "${MAGENTA}════ Critical Checks ════${NC}"
 
+run_command_check "python .ai/scripts/validate-workflow-artifacts.py" \
+    "Workflow Artifact Metadata" \
+    "true" "true"
+
 # Coding standards are fundamental for AI context and standards docs
 run_check "check-coding-standards.sh" \
     "Coding Standards Compliance" \

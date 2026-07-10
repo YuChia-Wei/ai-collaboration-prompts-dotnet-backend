@@ -44,8 +44,8 @@ Requirements:
 - then apply repository governance skills and policies;
 - compare both passes;
 - exclude src and tests;
-- save the report under .dev/workflows/<workflow-id>/review-report.md;
-- do not remediate findings unless separately authorized.
+- save a baseline report under <artifact-root>/reports/01-audit-report.md;
+- do not remediate findings; hand authorized remediation to ai-context-governance.
 ```
 
 ## 報告位置
@@ -53,16 +53,23 @@ Requirements:
 預設使用：
 
 ```text
-.dev/workflows/<YYYY-MM-DD>-ai-context-audit/review-report.md
+.dev/workflows/<YYYY-MM-DD-topic[-NN]>/workflow.yaml
+<artifact-root>/reports/01-audit-report.md
 ```
 
-若 audit 已屬於既有 workflow，則直接使用該 workflow 的 `review-report.md`。報告範本以 `.ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md` 為準。
+若 governance workflow 要求修正後複檢，輸出到 `<artifact-root>/reports/03-post-remediation-audit-report.md`，不可覆寫 baseline。`workflow.yaml` 是固定 locator，即使 skill 依任務特性把 `artifact_root` 指向其他位置仍需保留。
+
+Workflow id 使用完整日期 `YYYY-MM-DD-topic[-NN]`；同日碰撞時附加 `-02`、`-03`。所有 generated artifacts 使用帶 offset 的 ISO 8601 `created_at`、`updated_at`，並記錄 `template_source`、`template_version`。
+
+報告與 audit workflow templates 以 `.ai/assets/skills/ai-context-auditor/templates/` 為準。
 
 ## 後續整改
 
-Auditor 預設唯讀，不會直接修正 findings。若使用者決定整改：
+Auditor 永遠對被稽核的 context 保持唯讀，不會直接修正 findings。若使用者決定整改：
 
 - AI context ownership、language、wrapper 或 routing → `ai-context-governance`；
-- 多階段整改 → `dev-workflow`；
+- findings 分流、多階段 AI context 整改、複檢協調與結案 → `ai-context-governance`；
 - 產品 source code → `code-reviewer`；
 - framework 複製後的 target repo truth 重建 → `repo-structure-sync`。
+
+Auditor 對被稽核的 context 始終保持唯讀；它只能更新自己負責的 workflow metadata、audit task 與報告，這不構成修正授權。

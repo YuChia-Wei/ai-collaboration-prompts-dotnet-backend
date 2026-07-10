@@ -1,12 +1,25 @@
 # AI Context Audit Report
 
+## Template Metadata
+
+- `template_id`: `ai-context-auditor-report`
+- `template_version`: `1.0.0`
+- `created_at`: `2026-07-10T18:22:49+08:00`
+- `updated_at`: `2026-07-10T18:22:49+08:00`
+
 ## Metadata
 
-- `report_id`: `review-report-<date>-ai-context-audit`
+- `report_id`: `audit-report-<YYYY-MM-DD-topic[-NN]>`
+- `report_type`: `baseline | post-remediation`
 - `owner_skill`: `ai-context-auditor`
+- `workflow_id`: `<YYYY-MM-DD-topic[-NN]>`
 - `related_plan_id`:
 - `status`: `draft | final`
 - `audit_date`:
+- `created_at`: `<ISO-8601-with-offset>`
+- `updated_at`: `<ISO-8601-with-offset>`
+- `template_source`: `.ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md`
+- `template_version`: `1.0.0`
 - `repository`:
 - `branch`:
 - `previous_report`:
@@ -128,3 +141,11 @@
 ### Notes
 
 -
+
+## Lifecycle Handoff
+
+- Baseline report path: `<artifact-root>/reports/01-audit-report.md`
+- Remediation owner: `ai-context-governance`
+- Remediation report path: `<artifact-root>/reports/02-remediation-report.md`
+- Post-remediation report path: `<artifact-root>/reports/03-post-remediation-audit-report.md`
+- Remediation intentionally not performed by this skill: `yes`

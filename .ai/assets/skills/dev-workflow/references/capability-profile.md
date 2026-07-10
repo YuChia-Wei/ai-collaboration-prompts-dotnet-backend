@@ -17,9 +17,6 @@ The core `dev-workflow` skill should stay publishable. Repository-specific skill
 | Capability slot | Local skill | Use when |
 | --- | --- | --- |
 | `workflow-orchestration` | `dev-workflow` | The task needs stage planning, workflow artifacts, skill routing, validation checkpoints, or commit checkpoints. |
-| `context-audit` | `ai-context-auditor` | The task needs a read-only AI context health or drift audit, an independent-versus-policy comparison, and a durable report without product-code review. |
-| `context-governance` | `ai-context-governance` | Work changes `.ai`, `.dev`, `.agents`, `.claude`, language policy, context boundaries, wrapper sync, or skill routing. |
-| `repo-initialization` | `repo-structure-sync` | This framework has been copied into a target repository and repo-specific entry docs must be refreshed from file-backed facts. |
 | `requirements` | `requirement-author` | Rough notes, stakeholder inputs, or code facts need to become `.dev/requirement/`-aligned requirement docs. |
 | `specification` | `spec-author` | Requirement truth needs to become retained specs under `.dev/specs/`. |
 | `problem-framing` | `problem-frame-author` | Requirement, spec, code, or tests need a first problem-frame draft. |
@@ -34,6 +31,7 @@ The core `dev-workflow` skill should stay publishable. Repository-specific skill
 
 ## Quality Boundary
 
+- This profile covers the software and product development lifecycle only. AI context audit, AI context governance, documentation-only cleanup, and repository initialization use their own skill-owned workflow contracts.
 - Full local workflow quality depends on the mapped downstream skills and repository standards.
 - If a mapped skill is unavailable, `dev-workflow` should switch that stage to fallback-mode instead of pretending the specialist review, design, or implementation was performed.
 - Fallback-mode output is suitable for planning, handoff, and minimum viable checklist coverage. It is not equivalent to a specialist skill result.

@@ -1,8 +1,8 @@
 # Dev Workflow Skill Guide
 
-本文件說明如何使用 `dev-workflow` 作為開發流程協調 skill，讓 AI Agent 先判斷 direct mode / workflow mode，再決定要把各階段交給哪個 skill 或 sub-agent。
+本文件說明如何使用 `dev-workflow` 協調 software/product development lifecycle，讓 AI Agent 先判斷 direct mode / workflow mode，再決定要把 requirement、spec、architecture、test、implementation、review 與 compliance 階段交給哪個 skill 或 sub-agent。
 
-`dev-workflow` 的重點不是自己做架構設計、實作、review 或文件治理，而是把這些工作切成可追蹤的 stage，先對應到通用 capability slot，再透過本 repo 的 capability profile 派給對應 skill。
+`dev-workflow` 的重點不是自己做架構設計、實作或 review，而是把產品與程式開發工作切成可追蹤的 stage，先對應到開發 capability slot，再透過本 repo 的 capability profile 派給對應 skill。AI context 自檢、context 文件治理、純文件整理與 repo init 不屬於此 skill 的 routing profile。
 
 若沒有對應的下游 skill 或 project standard，`dev-workflow` 只能降級為 fallback-mode：產出最低限度 checklist、handoff prompt 與風險說明。這種輸出不能宣稱與專職 skill 的品質相同。
 
@@ -11,7 +11,7 @@
 適合用在下列工作：
 
 - 判斷一個需求是否需要 workflow mode
-- 建立或更新 `.dev/workflows/<workflow-id>/` 下的 workflow plan 與 task JSON
+- 使用 skill 自有 template 建立或更新 development workflow plan、task JSON，以及必要時的 development review report
 - 規劃 multi-skill handoff，例如 requirement -> spec -> architecture -> implementation -> review
 - 判斷每個 stage 屬於哪個 capability slot
 - 依 capability profile 找出本 repo 對應的 skill
@@ -30,6 +30,7 @@
 - 取代 `code-reviewer` 做 code review
 - 取代 `ai-context-governance` 做 AI context 分類、語言政策或 wrapper sync
 - 取代 `repo-structure-sync` 做 repo init
+- 協調 AI context 自檢、AI context 修正或純文件治理 workflow
 - 取代 `bdd-gwt-test-designer` 做 GWT scenario 與 assertion design
 - 直接跳過 requirement / spec / review，只因為已經有 workflow plan
 - 在沒有下游 skill 的情況下宣稱已完成同等品質的架構、review、test design 或 implementation 判斷
@@ -41,9 +42,19 @@
 1. 你想讓 AI Agent 自行規劃工作階段與 commit 時機
 2. 任務會跨越兩個以上 skill
 3. 任務需要 workflow artifacts 保留 decision trail
-4. 任務會修改 `.ai/`、`.dev/`、`.agents/`、`.claude/` 或 skill routing
-5. 任務需要 sub-agent 或不同模型分工
-6. 你想把「開發流程怎麼跑」從單一 skill 中抽出來統一管理
+4. 任務跨越 requirement、spec、architecture、test、implementation 或 review 等開發階段
+5. 開發任務需要 sub-agent 或不同模型分工
+6. 你想把「產品與程式開發流程怎麼跑」從單一 skill 中抽出來統一管理
+
+## Development Workflow Templates
+
+`dev-workflow` 自行管理其 development artifact templates：
+
+- `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
+- `.ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json`
+- `.ai/assets/skills/dev-workflow/templates/development-review-report-template.md`
+
+新 workflow 使用 `YYYY-MM-DD-topic`；同一天同主題的後續 workflow 使用 `-02`、`-03`。每個 workflow 仍保留 `.dev/workflows/<workflow-id>/workflow.yaml` 作為 shared locator。Generated artifacts 必須記錄 `template_source`、`template_version`、`created_at` 與 `updated_at`；`created_at` 建立後不得改寫，內容或狀態更新時必須同步更新 `updated_at`。
 
 ## 三種使用模式
 
@@ -240,13 +251,14 @@ Check:
 
 | 情境 | 由誰負責 |
 | --- | --- |
-| 決定 direct mode / workflow mode | `dev-workflow` |
-| 建立 workflow plan 與 task JSON | `dev-workflow` |
-| 通用 capability slot 判斷 | `dev-workflow` |
+| 決定 development direct mode / workflow mode | `dev-workflow` |
+| 建立 development workflow plan 與 task JSON | `dev-workflow` 自有 templates |
+| development capability slot 判斷 | `dev-workflow` |
 | 本 repo capability profile 維護 | `.ai/assets/skills/dev-workflow/references/capability-profile.md` |
 | 可用 skill 自動辨識與 confidence 規則 | `.ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md` |
 | 缺少下游 skill 時的最低限度 checklist | `.ai/assets/skills/dev-workflow/references/fallback-playbooks.md` |
 | AI context、語言政策、wrapper sync | `ai-context-governance` |
+| AI context 健康度與漂移自檢 | `ai-context-auditor` |
 | repo init / template adaptation | `repo-structure-sync` |
 | requirement 草稿與正規化 | `requirement-author` |
 | spec 草稿與正規化 | `spec-author` |
@@ -258,11 +270,11 @@ Check:
 
 ## 維護原則
 
-- `dev-workflow` 只放流程協調規則。
+- `dev-workflow` 只放 software/product development lifecycle 協調規則。
 - domain skill 的專業規則不要複製進 `dev-workflow`。
 - portable core 應使用 generic capability slot，不直接綁定本 repo 的 skill 名稱。
 - 本 repo 的 skill 對應應放在 capability profile。
 - 下游 skill 若要被穩定自動辨識，應宣告 `capability_slots`；沒有宣告時只能推論並標示 confidence。
 - fallback playbook 必須明確標示品質限制，不能包裝成專職 skill 結果。
 - 若 routing 規則改變，先更新 `.ai/assets/skills/dev-workflow/skill.yaml` 與 references，再同步 wrapper 與 guide。
-- 若 workflow artifact 格式改變，應同步檢查 `.dev/standards/WORKFLOW-GATE-POLICY.md` 與 `.dev/standards/GIT-COMMIT-POLICY.md`。
+- development artifact 格式由 `dev-workflow` 自有 templates 管理；shared locator 與最低互通規則仍以 repository workflow policy 為準。

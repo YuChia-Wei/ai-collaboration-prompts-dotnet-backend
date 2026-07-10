@@ -1,7 +1,7 @@
 asset_id: "ai-context-governance"
 asset_type: "skill-spec"
 title: "AI Context Governance"
-purpose: "Govern AI collaboration context boundaries, documentation language policy, skill routing, runtime wrapper sync, and AI context migration without performing product feature implementation or BDD scenario design."
+purpose: "Govern AI collaboration context boundaries, documentation quality, skill routing, runtime wrapper sync, AI context migration, and the audit-to-remediation lifecycle without performing product feature implementation or BDD scenario design."
 portability: "portable"
 audience: "agent-facing"
 source_of_truth: "canonical"
@@ -13,6 +13,8 @@ triggers:
   - "documentation governance"
   - "language policy"
   - "wrapper sync"
+  - "AI context audit remediation"
+  - "post-remediation AI context audit"
 inputs:
   - "AI context files under .ai, .agents, .claude, and .dev"
   - "workflow plan or task JSON for context cleanup"
@@ -24,29 +26,43 @@ outputs:
   - "language policy updates"
   - "skill routing and wrapper sync updates"
   - "migration plan or completed context move batch"
+  - "AI context maintenance workflow with baseline audit, remediation, post-remediation audit, and closure evidence"
+  - "remediation report under the owning workflow artifact root"
 constraints:
   - "Do not use this skill for BDD scenario design"
   - "Do not use this skill for production code implementation"
   - "Do not redesign domain architecture unless asked to coordinate with an architecture skill"
   - "Keep runtime wrappers thin and point them to canonical specs"
   - "Prefer folder placement over per-file metadata for context classification"
+  - "Keep ai-context-auditor read-only and use it for baseline and post-remediation verification"
+  - "Do not overwrite the baseline audit report during remediation"
+  - "Use workflow ids in YYYY-MM-DD-topic[-NN] form and ISO 8601 timestamps with an explicit offset"
 workflow:
   - step: 1
-    description: "Classify context by audience, scope, language, and action"
+    description: "Classify context by audience, scope, language, and action, or intake an ai-context-auditor baseline report"
   - step: 2
-    description: "Check context placement against boundary and language policies"
+    description: "Check context placement against boundary and language policies, then triage findings into remediation tasks"
   - step: 3
-    description: "Plan or execute the smallest safe policy, routing, wrapper, or move batch"
+    description: "Plan or execute the smallest safe policy, routing, wrapper, or move batch and record finding-level resolution evidence"
   - step: 4
-    description: "Update indexes and task results, then validate references"
+    description: "Update indexes and task results, then validate references and request a read-only post-remediation audit"
+  - step: 5
+    description: "Compare the baseline and post-remediation audit, publish the remediation report, and close or defer each finding explicitly"
 references:
   - ".ai/assets/skills/ai-context-governance/references/context-boundary-playbook.md"
   - ".ai/assets/skills/ai-context-governance/references/language-policy-playbook.md"
   - ".ai/assets/skills/ai-context-governance/references/workflow-and-commit-playbook.md"
   - ".ai/assets/skills/ai-context-governance/references/output-contract.md"
+  - ".ai/assets/skills/ai-context-governance/references/audit-remediation-lifecycle.md"
 examples:
   - ".dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md"
 human_guide: ".dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md"
+workflow_templates:
+  locator: ".ai/assets/skills/ai-context-governance/templates/workflow-locator-template.yaml"
+  plan: ".ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md"
+  task: ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json"
+report_templates:
+  remediation: ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md"
 wrapper_targets:
   - "claude"
   - "codex"

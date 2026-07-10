@@ -73,9 +73,9 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 
 | Path | Description |
 | --- | --- |
-| `workflows/` | Workflow plans, review reports, and task records. |
-| `workflows/README.MD` | Workflow artifact guidance. |
-| `workflows/templates/` | Workflow plan, task, and review report templates. |
+| `workflows/` | Workflow discovery locators and default artifact roots. |
+| `workflows/README.MD` | Workflow discovery, ownership, and artifact-root guidance. |
+| `standards/WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow locator, ID, timestamp, and minimum task contract. |
 
 ## AI Runtime And Canonical Assets
 

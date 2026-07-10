@@ -58,8 +58,6 @@ Use these hints only when structured metadata is unavailable.
 | refactor, staged change, extract, rename, local cleanup | `refactoring` |
 | review, findings, severity, risk, checklist | `review` |
 | compliance, coverage gate, validator, pass/fail | `compliance-validation` |
-| context, prompt, language policy, wrapper, registry, migration | `context-governance` |
-| init, template sync, repo inventory, stale facts | `repo-initialization` |
 
 ## Conflict Rules
 
@@ -68,6 +66,7 @@ Use these hints only when structured metadata is unavailable.
 - If one skill claims many slots and another claims one exact slot, prefer the exact-slot skill for that stage.
 - If the selected skill is a review or validation skill, do not use it as an implementation skill.
 - If the selected skill is a workflow skill, do not use it as a domain specialist.
+- If the requested work is AI context maintenance, documentation-only governance, or repository initialization, stop dev-workflow discovery and route to the owning non-development skill.
 
 ## Discovery Output
 

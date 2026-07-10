@@ -19,36 +19,37 @@
 - 它與 `.dev/specs/`、`.dev/operations/`、`.dev/standards/` 共享同一條 knowledge-system 邊界
 - 只有當 repo 未來出現獨立的 repo-wide operational workflow system，才再評估是否升格到根目錄
 
-## 建議結構
+## Discovery 結構
 
 ```text
 .dev/workflows/
   <workflow-id>/
-    workflow-plan.md
-    review-report.md
-    tasks/
-      <task-id>.json
+    workflow.yaml
 ```
+
+`workflow.yaml` 是固定 locator。真正 artifact 預設放在相同目錄，也可由 workflow-owning skill 宣告其他 repository-relative `artifact_root`。詳細共通契約見 `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`。
 
 ## 命名原則
 
-- `<workflow-id>`: 使用可追蹤的主題名稱，例如 `2026-03-ordering-boundary-cleanup`
-- `workflow-plan.md`: 單一 workflow 的 architect plan
-- `review-report.md`: 單一 workflow 的正式 review artifact，可承載 architecture、implementation、document、或 workflow review
-- `tasks/<task-id>.json`: 單一 stage 或單一 tactical work item
+- `<workflow-id>`：新 workflow 使用 `YYYY-MM-DD-<skill-owned-topic>[-<sequence>]`，例如 `2026-07-10-ordering-boundary-cleanup`
+- `workflow.yaml`：固定 discovery locator，記錄 owner、狀態、時間、artifact root 與 entrypoint
+- plan、task 與 report 結構：由能建立該類 workflow 的 skill 自行管理
+- 舊有 `YYYY-MM-*` workflow 保留歷史名稱，不為形式一致而全面 rename
 
-## Templates
+## Template Ownership
 
-- `templates/workflow-plan-template.md`
-- `templates/review-report-template.md`
-- `templates/workflow-task-template.json`
+- 本目錄不擁有萬用 workflow template。
+- `dev-workflow` 管理 software-development workflow templates。
+- `ai-context-governance` 管理 AI context maintenance workflow 與 remediation templates。
+- `ai-context-auditor` 管理 audit report templates。
+- 其他能建立 workflow 的 skill 應在自己的 canonical skill 目錄宣告 templates、ID 規則與 artifact layout。
 
 ## 使用原則
 
 - 小任務或單一 skill 任務，不強制建立本目錄內容
 - 進入 workflow mode 時，建立對應 workflow 資料夾
 - workflow mode 的判斷以 `.dev/standards/WORKFLOW-GATE-POLICY.md` 為準
-- 若同一 workflow 有多輪 review，可在 `review-report.md` 中追加輪次，或由使用者明確決定是否拆新 workflow
+- 多輪 review、audit 或 remediation report 是否拆檔，由 owning skill 的 artifact contract 決定；final baseline 不得被後續修正靜默覆寫
 
 ## Workflow 觸發條件
 

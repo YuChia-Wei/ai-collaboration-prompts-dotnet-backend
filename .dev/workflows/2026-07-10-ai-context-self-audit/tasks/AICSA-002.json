@@ -1,0 +1,14 @@
+{
+  "task_id": "AICSA-002",
+  "workflow_id": "2026-07-10-ai-context-self-audit",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T18:25:11+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "template_version_used": "1.0.0",
+  "status": "pending",
+  "scope": { "target": "Triage AIC-001 through AIC-009 against current repository evidence and create the remediation matrix." },
+  "dependencies": ["AICSA-001"],
+  "execution": { "validation": ["All nine baseline finding IDs have a current status and evidence-backed owner/action"] },
+  "results": { "summary": "", "follow_up_needed": true }
+}

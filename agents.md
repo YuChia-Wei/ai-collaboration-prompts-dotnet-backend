@@ -45,12 +45,15 @@ Do not treat historical sample backend information as current product truth unle
 2. Create workflow artifacts proactively when the gate requires workflow mode.
 3. Keep small, local, single-pass changes in direct mode.
 
-Workflow artifact location:
+Workflow artifact rules:
 
-- Use `.dev/workflows/<workflow-id>/workflow-plan.md`
-- Use `.dev/workflows/<workflow-id>/review-report.md` when review output is produced.
-- Use `.dev/workflows/<workflow-id>/tasks/<task-id>.json` for task tracking.
-- Do not scatter workflow artifacts under `.ai/`, `.agents/skills/`, `.claude/skills/`, or arbitrary folders unless the user explicitly requests it.
+- Follow `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`.
+- Create `.dev/workflows/<workflow-id>/workflow.yaml` as the discovery locator.
+- Use a full-date `YYYY-MM-DD-<topic>` workflow ID for new work.
+- Let the workflow-owning skill define its plan, task, report templates, task IDs, and declared artifact root.
+- Default artifacts to `.dev/workflows/<workflow-id>/`; when a skill uses another repository-relative root, keep the locator under `.dev/workflows/`.
+- Record ISO 8601 `created_at` and `updated_at` metadata on new workflow and task artifacts.
+- Do not store runtime workflow records under canonical skill or runtime wrapper directories.
 
 ### Git Commit Policy
 
@@ -79,13 +82,15 @@ Use `ai-context-auditor` for recurring, read-only AI context health and drift au
 - Default to AI context and governance surfaces.
 - Exclude `src/`, `tests/`, and other product implementation trees.
 - If the user asks to scan product source or test code, stop and route that work to `code-reviewer` instead of expanding the audit.
-- Keep audit findings separate from remediation; use `ai-context-governance` and `dev-workflow` only after remediation is authorized.
+- Keep audit findings separate from remediation; use `ai-context-governance` to coordinate the AI-context remediation lifecycle after remediation is authorized.
 
 ### Development Workflow Orchestration
 
-Use `dev-workflow` when the work needs multi-stage planning, workflow artifacts, skill routing, sub-agent coordination, validation checkpoints, or commit checkpoints.
+Use `dev-workflow` when software-development work needs multi-stage planning, development skill routing, sub-agent coordination, validation checkpoints, or commit checkpoints.
 
 The skill may coordinate downstream skills, but it must not replace their domain responsibilities.
+
+Do not route general AI-context audit, documentation governance, or repository initialization through `dev-workflow`; use their owning skills and skill-specific workflow templates.
 
 ### Repo Init / Template Adaptation
 
@@ -135,7 +140,7 @@ Use these boundaries:
 
 | Need | Skill |
 | --- | --- |
-| Multi-stage development workflow orchestration, workflow artifacts, skill routing, validation and commit checkpoints | `dev-workflow` |
+| Multi-stage software-development workflow orchestration, development skill routing, validation and commit checkpoints | `dev-workflow` |
 | Recurring read-only AI context health, drift, and structure audit with a saved report | `ai-context-auditor` |
 | AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
 | First sync after copying this framework into a target repo | `repo-structure-sync` |

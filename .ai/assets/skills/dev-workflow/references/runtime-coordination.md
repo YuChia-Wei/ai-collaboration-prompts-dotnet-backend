@@ -6,7 +6,7 @@ Runtime features and `dev-workflow` operate at different layers:
 
 - runtime goal or objective tracking keeps the current task durable;
 - runtime workflow or command features provide an execution surface;
-- `dev-workflow` defines the repository/team orchestration policy;
+- `dev-workflow` defines the repository/team software-development lifecycle orchestration policy;
 - downstream skills perform specialist work.
 
 ## Layer Model
@@ -15,18 +15,18 @@ Runtime features and `dev-workflow` operate at different layers:
 | --- | --- | --- |
 | Runtime tracker | Preserve the durable objective, session state, or continuation rule. | Codex Goal, thread objective, long-running task tracker. |
 | Runtime workflow | Start or automate a repeatable runtime procedure. | Claude workflow, slash command, routine, automation. |
-| `dev-workflow` | Decide entry point, workflow mode, capability routing, artifacts, validation, and commit checkpoints. | `.dev/workflows/<workflow-id>/`, stage routing, handoff packets. |
+| `dev-workflow` | Decide the development entry point, workflow mode, development capability routing, artifacts, validation, and commit checkpoints. | `.dev/workflows/<workflow-id>/`, development stage routing, handoff packets. |
 | Downstream skills | Execute specialist stages. | requirements, specs, architecture, implementation, review, compliance. |
 
 ## Codex Goal Pattern
 
-Use a Codex Goal for the durable objective. Put `dev-workflow` inside that goal as the orchestration policy.
+Use a Codex Goal for the durable software-development objective. Put `dev-workflow` inside that goal as the development orchestration policy.
 
 Prompt shape:
 
 ```text
 Goal:
-- <durable objective>
+- <durable software or product development objective>
 
 Use $dev-workflow as the orchestration policy.
 
@@ -51,7 +51,7 @@ Run the team dev workflow.
 Use $dev-workflow as the orchestration policy for this repository.
 
 Inputs:
-- Objective: <work objective>
+- Objective: <software or product development objective>
 - Existing artifacts: <requirements/specs/workflow/task paths, if any>
 - Constraints: <branch, commit, validation, issue number, model/sub-agent constraints>
 

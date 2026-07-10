@@ -1,6 +1,6 @@
 ---
 name: dev-workflow
-description: Coordinate multi-stage development, documentation, refactoring, and AI collaboration work by deciding direct mode versus workflow mode, creating workflow artifacts, routing stages to other skills, and managing validation and commit checkpoints.
+description: Coordinate multi-stage software and product development lifecycles by deciding direct mode versus workflow mode, creating development artifacts, routing development stages to specialist skills, and managing validation and commit checkpoints.
 ---
 
 # Dev Workflow
@@ -20,6 +20,10 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/dev-workflow/references/runtime-coordination.md`
   - `.ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md`
   - `.ai/assets/skills/dev-workflow/references/output-contract.md`
+- Templates:
+  - `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
+  - `.ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json`
+  - `.ai/assets/skills/dev-workflow/templates/development-review-report-template.md`
 
 ## Wrapper Rules
 

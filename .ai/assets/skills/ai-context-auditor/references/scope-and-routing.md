@@ -52,5 +52,5 @@ Do not silently run both audits. Use another skill only after the user authorize
 | Read-only AI context health, drift, structure, and report | `ai-context-auditor` |
 | AI context cleanup, moves, language changes, wrapper sync, or policy changes | `ai-context-governance` |
 | Product .NET source or test review | `code-reviewer` |
-| Multi-stage remediation after an audit | `dev-workflow` |
+| Audit finding triage, multi-stage AI context remediation, post-audit coordination, and closure | `ai-context-governance` |
 | Target repo initialization after copying the framework | `repo-structure-sync` |

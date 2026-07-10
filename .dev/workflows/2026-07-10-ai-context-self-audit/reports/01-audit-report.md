@@ -4,14 +4,21 @@
 
 - `report_id`: `review-report-2026-07-10-ai-context-self-audit`
 - `owner_skill`: `ai-context-auditor`
-- `related_plan_id`: `workflow-plan-2026-07-ai-context-auditor-skill`
+- `workflow_id`: `2026-07-10-ai-context-self-audit`
+- `related_plan_id`: `2026-07-10-ai-context-self-audit`
+- `report_kind`: `baseline-audit`
 - `status`: `final`
 - `audit_date`: `2026-07-10`
+- `created_at`: `2026-07-10T11:27:39+08:00`
+- `created_at_source`: `git-history; first tracked commit, not asserted audit start time`
+- `updated_at`: `2026-07-10T18:25:11+08:00`
+- `origin_workflow_id`: `2026-07-ai-context-auditor-skill`
+- `origin_commit`: `3a11df7`
 - `repository`: `ai-collaboration-prompts-dotnet-backend`
 - `branch`: `main`
 - `previous_report`: `none`
 
-This report captures the repository state assessed before `ai-context-auditor` was added. The skill-creation changes in the related workflow are not treated as evidence that the original findings were already remediated.
+This report captures the repository state assessed before `ai-context-auditor` was added. The skill-creation changes in the origin workflow are not treated as evidence that the original findings were already remediated.
 
 ## Executive Summary
 

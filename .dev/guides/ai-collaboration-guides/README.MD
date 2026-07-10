@@ -44,9 +44,10 @@
 ## Workflow Templates
 
 - `AI-REFACTORING-SKILL-CONTRACTS.md`
-- `../../workflows/templates/workflow-plan-template.md`
-- `../../workflows/templates/review-report-template.md`
-- `../../workflows/templates/workflow-task-template.json`
+- Workflow templates are owned by the canonical skill that creates that workflow kind.
+- Shared discovery and metadata rules are defined by `../../standards/WORKFLOW-ARTIFACT-POLICY.md`.
+- Development templates are under `.ai/assets/skills/dev-workflow/templates/`.
+- AI context maintenance and audit templates are under their respective canonical skill directories.
 
 ## 維護規則
 

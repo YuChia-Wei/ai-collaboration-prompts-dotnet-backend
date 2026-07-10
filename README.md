@@ -56,7 +56,7 @@
 ## 重要 Skills
 
 - `dev-workflow`
-  - 用於多階段開發、文件整理、重構與 AI 協作流程協調；負責 workflow mode 判斷、skill routing、validation checkpoint 與 commit checkpoint。
+  - 用於 software/product development lifecycle 協調，涵蓋 requirement、spec、architecture、test、implementation、review 與 compliance；負責開發 workflow mode 判斷、skill routing、validation checkpoint 與 commit checkpoint，不負責 AI context 或 repo init workflow。
 - `ai-context-governance`
   - 用於 context 分層、語言政策、skill routing、wrapper sync、AI 文件治理與搬移。
 - `ai-context-auditor`

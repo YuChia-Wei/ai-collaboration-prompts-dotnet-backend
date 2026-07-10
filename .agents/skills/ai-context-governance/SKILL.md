@@ -1,6 +1,6 @@
 ---
 name: ai-context-governance
-description: Govern AI collaboration context boundaries, documentation language policy, skill routing, runtime wrapper sync, and AI context migration. Use when Codex needs to organize `.ai`, `.dev`, `.agents`, or `.claude` context, split universal versus tech-stack-specific prompts, define context governance policies, or avoid routing AI documentation cleanup to unrelated BDD or code implementation skills.
+description: Govern AI collaboration context boundaries, documentation quality, skill routing, runtime wrapper sync, migrations, and the audit-to-remediation lifecycle. Use when Codex needs to organize `.ai`, `.dev`, `.agents`, or `.claude`, remediate AI context audit findings, coordinate a post-remediation audit, close an AI context maintenance workflow, or keep this work out of product-development skills.
 ---
 
 # AI Context Governance
@@ -17,6 +17,12 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/ai-context-governance/references/language-policy-playbook.md`
   - `.ai/assets/skills/ai-context-governance/references/workflow-and-commit-playbook.md`
   - `.ai/assets/skills/ai-context-governance/references/output-contract.md`
+  - `.ai/assets/skills/ai-context-governance/references/audit-remediation-lifecycle.md`
+- Templates:
+  - `.ai/assets/skills/ai-context-governance/templates/workflow-locator-template.yaml`
+  - `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
+  - `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json`
+  - `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 
 ## Wrapper Rules
 

@@ -1,0 +1,14 @@
+{
+  "task_id": "AICWG-005",
+  "workflow_id": "2026-07-10-ai-context-workflow-governance",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T18:25:11+08:00",
+  "template_source": "none; bootstrap task created before skill-owned templates were finalized",
+  "template_version_used": "N/A",
+  "status": "pending",
+  "scope": { "target": "Perform final integration, validation, timestamp/status reconciliation, and commit-policy closeout." },
+  "dependencies": ["AICWG-002", "AICWG-003", "AICWG-004"],
+  "execution": { "validation": ["Workflow validator", "Skill validation", "JSON/YAML parsing", "rg -uu reference checks", "check-all --quick", "git diff --check"] },
+  "results": { "summary": "", "follow_up_needed": true }
+}

@@ -1,0 +1,40 @@
+{
+  "task_id": "AICWG-001",
+  "workflow_id": "2026-07-10-ai-context-workflow-governance",
+  "workflow_schema_version": "1.0",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-10T18:17:55+08:00",
+  "updated_at": "2026-07-10T18:25:11+08:00",
+  "template_source": "none; bootstrap task created before skill-owned templates were finalized",
+  "template_version_used": "N/A",
+  "status": "completed",
+  "scope": {
+    "target": "Inventory workflow governance, skill ownership, templates, IDs, timestamps, report routing, and recent AI-context workflow provenance.",
+    "constraints": [
+      "Do not inspect product source or tests.",
+      "Do not modify historical workflows until provenance is established.",
+      "Use git-backed evidence for chronology and ownership."
+    ]
+  },
+  "dependencies": [],
+  "execution": {
+    "steps": [
+      "Inventory canonical policies, skills, wrappers, guides, templates, and scripts.",
+      "Establish the chronology and current status of recent AI-context workflows.",
+      "Produce an affected-file and migration map."
+    ],
+    "validation": [
+      "All active references are found with rg -uu.",
+      "Workflow chronology includes commit timestamps and paths."
+    ]
+  },
+  "results": {
+    "summary": "Inventoried active policies, canonical skills, wrappers, guides, templates, scripts, 21 workflow directories, and Git-backed chronology for the morning audit reports.",
+    "evidence": [
+      "17 of 21 existing workflow directories use month-only IDs; 4 already use full dates.",
+      "The morning baseline report was first tracked in 3a11df7 and the zh-TW derived report in 648f920.",
+      "The baseline is final but AIC-001 through AIC-009 remediation remains pending."
+    ],
+    "follow_up_needed": false
+  }
+}

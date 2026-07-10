@@ -11,7 +11,7 @@
       ".agents/skills/ai-context-auditor/",
       ".claude/skills/ai-context-auditor/",
       ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
-      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md"
+      ".dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md"
     ],
     "dependency_radius": "Canonical skill registry, runtime wrapper indexes, dev-workflow capability profile, guide index, and root skill routing.",
     "constraints": [
@@ -82,7 +82,7 @@
       "agents.zh-tw.md",
       ".dev/workflows/2026-07-ai-context-auditor-skill/workflow-plan.md",
       ".dev/workflows/2026-07-ai-context-auditor-skill/tasks/create-ai-context-auditor.json",
-      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md"
+      ".dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md"
     ],
     "tests_run": [
       "skill-creator quick_validate.py: passed",

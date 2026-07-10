@@ -7,8 +7,8 @@
   "scope": {
     "target": "Create a Traditional Chinese translation of the final AI context audit report.",
     "files": [
-      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md",
-      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.zh-tw.md"
+      ".dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md",
+      ".dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.zh-tw.md"
     ],
     "dependency_radius": "One source report, one translated report, and translation workflow records.",
     "constraints": [
@@ -54,7 +54,7 @@
   "results": {
     "summary": "Created and reviewed a Traditional Chinese Taiwan translation of the final AI context audit report while preserving the English source and all structural evidence.",
     "files_changed": [
-      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.zh-tw.md",
+      ".dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.zh-tw.md",
       ".dev/workflows/2026-07-ai-context-audit-report-translation/workflow-plan.md",
       ".dev/workflows/2026-07-ai-context-audit-report-translation/tasks/translate-audit-report.json"
     ],

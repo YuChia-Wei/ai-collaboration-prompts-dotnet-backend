@@ -4,14 +4,22 @@
 
 - `report_id`: `review-report-2026-07-10-ai-context-self-audit`
 - `owner_skill`: `ai-context-auditor`
-- `related_plan_id`: `workflow-plan-2026-07-ai-context-auditor-skill`
+- `workflow_id`: `2026-07-10-ai-context-self-audit`
+- `related_plan_id`: `2026-07-10-ai-context-self-audit`
+- `report_kind`: `baseline-audit-translation`
 - `status`: `final`
 - `audit_date`: `2026-07-10`
+- `created_at`: `2026-07-10T17:47:01+08:00`
+- `created_at_source`: `git-history; first tracked commit`
+- `updated_at`: `2026-07-10T18:25:11+08:00`
+- `derived_from`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
+- `origin_workflow_id`: `2026-07-ai-context-audit-report-translation`
+- `origin_commit`: `648f920`
 - `repository`: `ai-collaboration-prompts-dotnet-backend`
 - `branch`: `main`
 - `previous_report`: `none`
 
-本報告記錄加入 `ai-context-auditor` 之前所評估的儲存庫狀態。相關工作流程中的技能建立變更，不會被視為原始發現已完成修正的證據。
+本報告記錄加入 `ai-context-auditor` 之前所評估的儲存庫狀態。原始工作流程中的技能建立變更，不會被視為原始發現已完成修正的證據。
 
 ## 執行摘要
 

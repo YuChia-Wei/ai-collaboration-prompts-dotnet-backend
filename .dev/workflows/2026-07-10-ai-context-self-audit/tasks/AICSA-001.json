@@ -1,0 +1,17 @@
+{
+  "task_id": "AICSA-001",
+  "workflow_id": "2026-07-10-ai-context-self-audit",
+  "owner_skill": "ai-context-auditor",
+  "created_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T18:25:11+08:00",
+  "template_source": ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-task-template.json",
+  "template_version_used": "1.0.0",
+  "status": "completed",
+  "scope": { "target": "Preserve the completed 2026-07-10 baseline audit and its zh-TW derived copy in the correct lifecycle workflow." },
+  "execution": { "validation": ["Git-backed report provenance", "English and zh-TW report relationship"] },
+  "results": {
+    "summary": "Baseline report and translation were separated from the auditor-skill implementation workflow.",
+    "artifacts": ["reports/01-audit-report.md", "reports/01-audit-report.zh-tw.md"],
+    "follow_up_needed": true
+  }
+}
