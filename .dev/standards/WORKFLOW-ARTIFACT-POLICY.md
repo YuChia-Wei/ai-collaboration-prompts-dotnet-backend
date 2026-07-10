@@ -30,6 +30,8 @@ artifact_root: ".dev/workflows/YYYY-MM-DD-topic"
 entrypoint: "workflow-plan.md"
 created_at: "2026-07-10T18:17:55+08:00"
 updated_at: "2026-07-10T18:17:55+08:00"
+template_source: ".ai/assets/skills/<owner-skill>/templates/workflow-locator-template.yaml"
+template_version: "1.0.0"
 ```
 
 The locator may contain additional skill-specific fields. Required field names and meanings must not be changed by a skill template.

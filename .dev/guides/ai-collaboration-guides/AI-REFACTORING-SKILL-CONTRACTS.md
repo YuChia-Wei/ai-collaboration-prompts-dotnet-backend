@@ -25,28 +25,31 @@
 
 當任務跨 skill、跨 stage、或需要保存決策時：
 
+- 建立 `.dev/workflows/<workflow-id>/workflow.yaml` locator。
 - 使用 `workflow-plan.md`。
-- 使用 `review-report.md`。
+- 需要正式 development review 時使用 `review-report.md`。
 - 使用 `tasks/<task-id>.json`。
-- 預設存放於 `.dev/workflows/<workflow-id>/`。
-- artifact 欄位應至少滿足本文件的最小 contract。
+- 新 workflow ID 使用 `YYYY-MM-DD-<topic>[-NN]`。
+- artifact 預設存放於 `.dev/workflows/<workflow-id>/`，也可由 `dev-workflow` template 宣告其他 repository-relative root；locator 始終保留於 `.dev/workflows/`。
+- locator 與 task 的共通欄位遵循 `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`；development artifact body 使用 `dev-workflow` 自有 templates。
 
 ## Artifact 與 Skill 對應
 
 | Artifact | Owner Skill | 主要用途 |
 | :--- | :--- | :--- |
-| `workflow-plan.md` | `dev-workflow` 或 `ddd-ca-hex-architect` | 保存診斷、目標方向、stages、非目標、風險，可用於 code、document、或 AI context workflow |
-| `review-report.md` | `code-reviewer` 或對應 reviewer | 保存正式 review 結果，可承載 architecture、implementation、documentation、workflow findings 與建議下一步 |
-| `tasks/<task-id>.json` | `slice-implementer` / `local-change-implementer` / 對應治理 skill | 保存單一 workflow task 的執行 scope、限制、驗證、結果，可承載 code、document、或 mixed stage |
+| `workflow.yaml` | `dev-workflow` | 固定 locator；保存 workflow ID、owner、status、artifact root、entrypoint 與時間 |
+| `workflow-plan.md` | `dev-workflow` 建立；`ddd-ca-hex-architect` 可更新 architecture sections | 保存 development objective、目標方向、stages、非目標與風險 |
+| `review-report.md` | `code-reviewer` 或對應 development reviewer | 保存 architecture、implementation、test 或 development workflow review findings |
+| `tasks/<task-id>.json` | `slice-implementer` / `local-change-implementer` | 保存單一 development task 的 scope、限制、驗證與結果 |
 
-## 文件與 AI Context Workflow 補充規則
+## AI Context 與純文件治理邊界
 
-當 workflow 目標是文件系統或 AI context：
+本 contract 只適用 software/product development lifecycle。當 workflow 核心是 AI context 或純文件治理：
 
-- stage 應以 source-of-truth 邊界切分，而不是以程式碼模組切分。
-- validation 應優先檢查完整性、一致性、權責清楚度、與維護情境覆蓋。
-- non-goals 應明確防止順手把 production code 也一起改掉。
-- 若文件缺口會影響後續 code work，應先完成文件 stage，再啟動 code stage。
+- AI context 自檢使用 `ai-context-auditor`。
+- AI context 修正與 audit-remediation lifecycle 使用 `ai-context-governance`。
+- 使用 owner skill 自有 template，不套用本文件的 development template。
+- 若治理結果形成後續 development input，再以新的或已宣告關聯的 development workflow 接續。
 
 ## `ddd-ca-hex-architect`
 
@@ -64,9 +67,14 @@
 
 若進入 workflow mode，至少應寫入：
 
+- `workflow_id`
 - `plan_id`
 - `owner_skill`
 - `status`
+- `created_at`
+- `updated_at`
+- `template_source`
+- `template_version`
 - problem statement
 - current scope
 - target architecture summary
@@ -116,8 +124,13 @@
 若進入 workflow mode，對應 task 至少應包含：
 
 - `task_id`
+- `workflow_id`
 - `owner_skill`
 - `status`
+- `created_at`
+- `updated_at`
+- `template_source`
+- `template_version`
 - `scope.target`
 - `scope.constraints`
 - `scope.non_goals`

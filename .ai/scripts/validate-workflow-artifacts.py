@@ -25,6 +25,8 @@ REQUIRED_LOCATOR = {
     "entrypoint",
     "created_at",
     "updated_at",
+    "template_source",
+    "template_version",
 }
 REQUIRED_TASK = {
     "task_id",
@@ -33,6 +35,8 @@ REQUIRED_TASK = {
     "status",
     "created_at",
     "updated_at",
+    "template_source",
+    "template_version",
 }
 
 

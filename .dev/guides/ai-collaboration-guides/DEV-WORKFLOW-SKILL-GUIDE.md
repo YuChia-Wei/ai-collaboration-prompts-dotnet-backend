@@ -50,6 +50,7 @@
 
 `dev-workflow` 自行管理其 development artifact templates：
 
+- `.ai/assets/skills/dev-workflow/templates/workflow-locator-template.yaml`
 - `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `.ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json`
 - `.ai/assets/skills/dev-workflow/templates/development-review-report-template.md`

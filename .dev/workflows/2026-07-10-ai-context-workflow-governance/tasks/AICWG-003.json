@@ -3,12 +3,23 @@
   "workflow_id": "2026-07-10-ai-context-workflow-governance",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-10T18:25:11+08:00",
-  "updated_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T23:39:54+08:00",
   "template_source": "none; bootstrap task created before skill-owned templates were finalized",
-  "template_version_used": "N/A",
-  "status": "in_progress",
+  "template_version": "N/A",
+  "status": "completed",
   "scope": { "target": "Narrow dev-workflow and establish skill-owned development and AI-context workflow templates and lifecycle routing." },
   "dependencies": ["AICWG-001"],
   "execution": { "validation": ["Canonical specs, wrappers, references, templates, and human guides agree"] },
-  "results": { "summary": "Delegated bounded canonical-skill updates are in progress; main-agent integration review is pending.", "follow_up_needed": true }
+  "results": {
+    "summary": "Narrowed dev-workflow to the software/product development lifecycle, gave it a complete skill-owned locator/plan/task/review template set, and assigned AI-context audit/remediation lifecycle ownership to ai-context-auditor and ai-context-governance with separate templates and reports.",
+    "files_changed": [
+      ".ai/assets/skills/dev-workflow/",
+      ".ai/assets/skills/ai-context-auditor/",
+      ".ai/assets/skills/ai-context-governance/",
+      ".agents/skills/",
+      ".claude/skills/",
+      ".dev/guides/ai-collaboration-guides/"
+    ],
+    "follow_up_needed": false
+  }
 }

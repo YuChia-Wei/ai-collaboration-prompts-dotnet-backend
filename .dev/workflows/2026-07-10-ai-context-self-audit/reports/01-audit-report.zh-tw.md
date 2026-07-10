@@ -11,7 +11,11 @@
 - `audit_date`: `2026-07-10`
 - `created_at`: `2026-07-10T17:47:01+08:00`
 - `created_at_source`: `git-history; first tracked commit`
-- `updated_at`: `2026-07-10T18:25:11+08:00`
+- `updated_at`: `2026-07-10T23:39:54+08:00`
+- `template_source`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
+- `template_version`: `derived-translation-v1`
+- `metadata_addendum_at`: `2026-07-10T23:39:54+08:00`
+- `metadata_addendum_reason`: `補上衍生來源版本；未變更翻譯內容、發現、分數、證據或結論。`
 - `derived_from`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
 - `origin_workflow_id`: `2026-07-ai-context-audit-report-translation`
 - `origin_commit`: `648f920`

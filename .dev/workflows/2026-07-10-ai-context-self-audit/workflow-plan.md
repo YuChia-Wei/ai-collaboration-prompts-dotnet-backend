@@ -9,7 +9,7 @@
 - `audit_skill`: `ai-context-auditor`
 - `artifact_root`: `.dev/workflows/2026-07-10-ai-context-self-audit`
 - `created_at`: `2026-07-10T18:25:11+08:00`
-- `updated_at`: `2026-07-10T18:25:11+08:00`
+- `updated_at`: `2026-07-10T23:39:54+08:00`
 - `status`: `active`
 - `current_phase`: `remediation-planning`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`

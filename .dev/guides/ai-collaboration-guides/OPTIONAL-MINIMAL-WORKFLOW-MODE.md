@@ -40,13 +40,14 @@
 
 ## 最小 Artifact 集
 
-只使用三個 artifact：
+固定保留一個 discovery locator，再依 development workflow 需要使用最多三類 artifacts：
 
-1. `workflow-plan.md`
-2. `review-report.md`
+1. `.dev/workflows/<workflow-id>/workflow.yaml`（固定 locator）
+2. `workflow-plan.md`
 3. `tasks/<task-id>.json`
+4. `review-report.md`（只有正式 development review 時需要）
 
-這是最小集合，不額外新增更多流程文件。
+這是 development workflow 的精簡集合，不是所有 workflow kind 的萬用格式。AI context audit 與 remediation 使用其 owner skills 的 templates 和 report layout。
 
 最小欄位定義與 handoff 規則見：
 
@@ -56,11 +57,17 @@
 
 - `.dev/workflows/<workflow-id>/`
 
+新 workflow 使用 `YYYY-MM-DD-<topic>[-NN]`。Locator 和 task 必須記錄帶時區的 ISO 8601 `created_at`、`updated_at`；artifact body 需記錄 `template_source` 與 `template_version`。
+
 ## Artifact 角色
+
+### `workflow.yaml`
+
+由 `dev-workflow` 建立並維護 locator metadata。即使 development artifact root 改到其他 repository-relative 位置，locator 仍留在 `.dev/workflows/<workflow-id>/`。
 
 ### `workflow-plan.md`
 
-由 `ddd-ca-hex-architect` 建立或更新。
+由 `dev-workflow` 使用自有 template 建立；`ddd-ca-hex-architect` 可更新已授權的 architecture sections。
 
 用途：
 
@@ -76,7 +83,7 @@
 用途：
 
 - 記錄正式 review 結果
-- 記錄 architecture-level / implementation-level / document-level / workflow-level findings
+- 記錄 architecture-level / implementation-level / development-document / workflow-level findings
 - 記錄嚴重度
 - 記錄 review decision
 - 建議下一個 skill
@@ -94,16 +101,19 @@
 ## 建議工作流
 
 ```text
-1. ddd-ca-hex-architect
-   需要時建立 workflow-plan.md
+1. dev-workflow
+   建立 workflow.yaml、workflow-plan.md 與初始 task
 
-2. code-reviewer
+2. ddd-ca-hex-architect
+   更新已授權的 architecture sections
+
+3. code-reviewer
    需要時建立 review-report.md
 
-3. slice-implementer / local-change-implementer
+4. slice-implementer / local-change-implementer
    需要時建立對應的 `tasks/<task-id>.json`
 
-4. code-reviewer
+5. code-reviewer
    對本輪結果再次 review
 ```
 
@@ -120,9 +130,9 @@
 
 若任務跨 skill、跨 stage、或需要保存決策：
 
-- 建立最小 artifact
+- 建立 locator 與必要 development artifacts
 - 由 skill 之間透過 artifact handoff
-- artifact 預設放在 `.dev/workflows/<workflow-id>/`
+- artifact 預設放在 `.dev/workflows/<workflow-id>/`，替代 root 必須由 locator 宣告
 
 ## 不要做的事
 

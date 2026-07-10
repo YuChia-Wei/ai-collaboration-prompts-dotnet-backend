@@ -63,6 +63,7 @@ Use `deferred` only when the work is intentionally postponed and the task or pla
 
 ## Skill-Owned Templates
 
+- `../templates/workflow-locator-template.yaml`
 - `../templates/development-workflow-plan-template.md`
 - `../templates/development-workflow-task-template.json`
 - `../templates/development-review-report-template.md`

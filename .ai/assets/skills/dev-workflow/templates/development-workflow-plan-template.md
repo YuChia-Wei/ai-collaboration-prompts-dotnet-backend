@@ -18,7 +18,7 @@
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.0.0`
 - `workflow_locator`: `.dev/workflows/<workflow-id>/workflow.yaml`
-- `artifact_root`: `.dev/workflows/<workflow-id>/`
+- `artifact_root`: `<repository-relative artifact root; default .dev/workflows/<workflow-id>/>`
 
 ## Development Objective
 

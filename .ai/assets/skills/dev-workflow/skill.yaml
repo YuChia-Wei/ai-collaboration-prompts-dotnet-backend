@@ -71,10 +71,14 @@ references:
   - ".ai/assets/skills/dev-workflow/references/runtime-coordination.md"
   - ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/output-contract.md"
-templates:
-  - ".ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md"
-  - ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json"
-  - ".ai/assets/skills/dev-workflow/templates/development-review-report-template.md"
+workflow_artifacts:
+  workflow_kind: "software-development"
+  workflow_id_pattern: "YYYY-MM-DD-topic[-NN]"
+  artifact_root_default: ".dev/workflows/<workflow-id>"
+  locator: ".ai/assets/skills/dev-workflow/templates/workflow-locator-template.yaml"
+  plan: ".ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md"
+  task: ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json"
+  review: ".ai/assets/skills/dev-workflow/templates/development-review-report-template.md"
 examples:
   - ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md"
 human_guide: ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md"

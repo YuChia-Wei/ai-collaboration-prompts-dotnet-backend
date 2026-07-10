@@ -3,12 +3,21 @@
   "workflow_id": "2026-07-10-ai-context-workflow-governance",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-10T18:25:11+08:00",
-  "updated_at": "2026-07-10T18:25:11+08:00",
+  "updated_at": "2026-07-10T23:39:54+08:00",
   "template_source": "none; bootstrap task created before skill-owned templates were finalized",
-  "template_version_used": "N/A",
-  "status": "in_progress",
+  "template_version": "N/A",
+  "status": "completed",
   "scope": { "target": "Define the shared workflow locator/metadata contract, remove central template ownership, and add validation." },
   "dependencies": ["AICWG-001"],
   "execution": { "validation": ["New workflow locators and tasks validate", "No active central template references remain"] },
-  "results": { "summary": "Shared policy, locator contract, full-date IDs, timestamps, and the first validator implementation have been added; final integration remains.", "follow_up_needed": true }
+  "results": {
+    "summary": "Added the shared workflow artifact policy, stable workflow.yaml locator, full-date ID and timestamp rules, skill-selected artifact roots, and automated locator/task validation; removed the central universal templates and updated active references.",
+    "files_changed": [
+      ".dev/standards/WORKFLOW-ARTIFACT-POLICY.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/workflows/README.MD",
+      ".ai/scripts/validate-workflow-artifacts.py"
+    ],
+    "follow_up_needed": false
+  }
 }

@@ -11,7 +11,12 @@
 - `audit_date`: `2026-07-10`
 - `created_at`: `2026-07-10T11:27:39+08:00`
 - `created_at_source`: `git-history; first tracked commit, not asserted audit start time`
-- `updated_at`: `2026-07-10T18:25:11+08:00`
+- `updated_at`: `2026-07-10T23:39:54+08:00`
+- `template_source`: `none; legacy report was created before versioned template provenance was recorded`
+- `template_version`: `legacy-unversioned`
+- `format_reconciled_against`: `.ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md`
+- `metadata_addendum_at`: `2026-07-10T23:39:54+08:00`
+- `metadata_addendum_reason`: `Added template provenance during workflow relocation; audit findings, scores, evidence, and conclusions are unchanged.`
 - `origin_workflow_id`: `2026-07-ai-context-auditor-skill`
 - `origin_commit`: `3a11df7`
 - `repository`: `ai-collaboration-prompts-dotnet-backend`
