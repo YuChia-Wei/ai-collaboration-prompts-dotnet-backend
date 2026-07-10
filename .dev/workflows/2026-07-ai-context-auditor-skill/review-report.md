@@ -208,4 +208,3 @@ path-existence and canonical/wrapper set comparisons with PowerShell
 
 - The report intentionally distinguishes audit truth from the subsequent creation of `ai-context-auditor`.
 - Future audits should compare against this report and record resolved, recurring, and newly introduced findings.
-

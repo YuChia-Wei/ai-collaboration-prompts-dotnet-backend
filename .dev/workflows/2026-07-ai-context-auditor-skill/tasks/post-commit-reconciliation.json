@@ -1,0 +1,84 @@
+{
+  "task_id": "post-commit-reconciliation",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-ai-context-auditor-skill",
+  "related_review_report_id": "review-report-2026-07-10-ai-context-self-audit",
+  "status": "completed",
+  "scope": {
+    "target": "Reconcile the manual commit with workflow state and correct post-commit validation findings.",
+    "files": [
+      ".ai/assets/skills/ai-context-auditor/",
+      ".claude/skills/ai-context-auditor/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/"
+    ],
+    "dependency_radius": "Formatting-only changes to the new skill assets plus workflow status reconciliation.",
+    "constraints": [
+      "Do not amend or force-push the already-published 3a11df7 commit.",
+      "Preserve the fact that the original automated commit attempt was blocked by the approval limit.",
+      "Record the manual commit as completed and close stale follow-up flags.",
+      "Do not remediate findings from the audit report."
+    ],
+    "non_goals": [
+      "Rewrite Git history",
+      "Change skill behavior",
+      "Review product code",
+      "Remediate audit findings"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "A correctly closed workflow with accurate commit and validation evidence.",
+    "review_findings": [
+      "Commit 3a11df7 was manually created and pushed after the approval-limit failure.",
+      "git diff HEAD^ HEAD --check found eight new blank lines at EOF.",
+      "The original commit omitted the workflow body required by policy."
+    ],
+    "user_constraints": [
+      "Complete the follow-up handling and correctly close the previous task.",
+      "Explain where the initial analysis report is stored and how to read it."
+    ]
+  },
+  "execution": {
+    "operation_type": "post-commit-reconciliation",
+    "mode": "workflow",
+    "steps": [
+      "Normalize EOF whitespace in the eight affected files.",
+      "Replace stale commit-pending state with the actual manual commit evidence.",
+      "Record the original commit-body exception without rewriting published history.",
+      "Rerun validation and create a compliant follow-up commit."
+    ],
+    "validation": [
+      "skill-creator quick_validate.py",
+      "JSON parse for both task files",
+      "canonical/Codex/Claude wrapper parity",
+      "required path and routing checks",
+      "git diff --check",
+      "git status --short"
+    ],
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Removed eight EOF whitespace defects, reconciled the manual commit with workflow state, recorded the original commit-body exception, and closed the workflow without rewriting published history.",
+    "files_changed": [
+      ".ai/assets/skills/ai-context-auditor/references/audit-playbook.md",
+      ".ai/assets/skills/ai-context-auditor/references/output-contract.md",
+      ".ai/assets/skills/ai-context-auditor/references/scope-and-routing.md",
+      ".ai/assets/skills/ai-context-auditor/skill.yaml",
+      ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md",
+      ".claude/skills/ai-context-auditor/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/tasks/create-ai-context-auditor.json",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/tasks/post-commit-reconciliation.json",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/workflow-plan.md"
+    ],
+    "tests_run": [
+      "skill-creator quick_validate.py: passed",
+      "workflow task JSON parse: 2 files passed",
+      "canonical/Codex/Claude wrapper parity: 13/13/13 with zero differences",
+      "scope, code-review handoff, two-pass method, and report path reference search: passed",
+      "git diff HEAD^ --check: passed"
+    ],
+    "follow_up_needed": false
+  }
+}

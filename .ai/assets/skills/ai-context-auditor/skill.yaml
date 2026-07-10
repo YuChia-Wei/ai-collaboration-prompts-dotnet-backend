@@ -66,4 +66,3 @@ wrapper_metadata:
   codex:
     wrapper_path: ".agents/skills/ai-context-auditor/"
 status: "active"
-

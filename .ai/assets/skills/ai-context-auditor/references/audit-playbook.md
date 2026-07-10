@@ -61,4 +61,3 @@ Create the report from the canonical template. Default path:
 ```
 
 When an active workflow owns the audit, use that workflow's `review-report.md`. If the default id exists, append a concise topic or sequence suffix instead of overwriting an unrelated report.
-

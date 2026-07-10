@@ -46,6 +46,14 @@
 - Risks: The report could overstate checks that were not run.
 - Recommended implementer: `ai-context-auditor`
 
+### Stage 4: Post-commit reconciliation
+
+- Goal: Reconcile the manually completed commit with workflow state and correct validation gaps discovered after commit.
+- Scope: EOF whitespace normalization, workflow commit status, validation evidence, and a compliant follow-up commit.
+- Non-goals: Rewriting the already-pushed `3a11df7` commit or remediating findings from the audit report.
+- Risks: Rewriting published history or erasing the original approval-limit context.
+- Recommended implementer: `ai-context-governance`
+
 ## Validation Strategy
 
 - Run the skill-creator quick validator against the Codex runtime wrapper.
@@ -65,4 +73,6 @@
 - Added thin Codex and Claude wrappers, runtime UI metadata, registry entries, root routing, dev-workflow capability routing, and a human-facing guide.
 - Saved the 2026-07-10 self-audit as this workflow's `review-report.md`.
 - Validated the skill structure, structured files, wrapper parity, required paths, scope boundaries, portability, and forward-test behavior.
-- Commit pending: sandbox escalation for `.git/index.lock` was rejected because the desktop approval reviewer reached its usage limit. No workaround was attempted.
+- Post-commit reconciliation completed after the user manually created and pushed commit `3a11df7`.
+- Removed the eight EOF whitespace defects missed while the files were untracked.
+- Reconciled stale commit-pending state and recorded the original commit-body omission as a published-history exception without amending or force-pushing `main`.

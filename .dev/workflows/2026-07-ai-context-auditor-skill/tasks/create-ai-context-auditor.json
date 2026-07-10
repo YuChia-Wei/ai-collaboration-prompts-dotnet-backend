@@ -55,8 +55,7 @@
       "git diff --check"
     ],
     "deferred_items": [
-      "Remediation of audit findings is a separate workflow.",
-      "Stage and commit after the desktop approval reviewer usage limit is cleared."
+      "Remediation of audit findings is a separate workflow."
     ]
   },
   "results": {
@@ -94,8 +93,10 @@
       "git diff --check: passed",
       "check-prompt-portability.sh: passed",
       "planning and code-review-handoff forward tests: passed",
-      "git stage and commit: blocked because sandbox escalation was rejected after the approval reviewer reached its usage limit"
+      "initial automated git stage and commit: blocked because sandbox escalation was rejected after the approval reviewer reached its usage limit",
+      "manual commit: 3a11df7 was created and pushed to origin/main by the user",
+      "commit policy exception: 3a11df7 contains the required title but omits the workflow body; published history was not rewritten"
     ],
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }

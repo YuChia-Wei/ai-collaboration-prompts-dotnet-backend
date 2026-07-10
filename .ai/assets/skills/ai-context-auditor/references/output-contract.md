@@ -19,4 +19,3 @@ Do not mark the report final while high-severity claims lack file-backed evidenc
 The final response must return the overall assessment, highest-priority findings, report path, scope exclusions, validation summary, recommended next skill, and whether remediation was intentionally not performed.
 
 If source-code review was requested, return the handoff instead of an AI context finding about unread code.
-

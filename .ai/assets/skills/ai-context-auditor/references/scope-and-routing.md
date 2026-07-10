@@ -54,4 +54,3 @@ Do not silently run both audits. Use another skill only after the user authorize
 | Product .NET source or test review | `code-reviewer` |
 | Multi-stage remediation after an audit | `dev-workflow` |
 | Target repo initialization after copying the framework | `repo-structure-sync` |
-

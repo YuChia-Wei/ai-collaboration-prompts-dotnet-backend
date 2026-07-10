@@ -24,7 +24,6 @@
 ### Included AI Context Surfaces
 
 -
-
 ### Default Exclusions
 
 - `src/**`
@@ -129,4 +128,3 @@
 ### Notes
 
 -
-
