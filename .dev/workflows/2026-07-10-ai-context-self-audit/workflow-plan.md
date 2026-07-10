@@ -9,7 +9,7 @@
 - `audit_skill`: `ai-context-auditor`
 - `artifact_root`: `.dev/workflows/2026-07-10-ai-context-self-audit`
 - `created_at`: `2026-07-10T18:25:11+08:00`
-- `updated_at`: `2026-07-10T23:39:54+08:00`
+- `updated_at`: `2026-07-11T00:11:49+08:00`
 - `status`: `active`
 - `current_phase`: `remediation-planning`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
@@ -91,7 +91,8 @@ tasks/
 ## Resume Instructions
 
 1. Read `workflow.yaml`, this plan, all task JSON, and both existing reports.
-2. Resume `AICSA-002`; do not repeat the baseline audit unless evidence must be refreshed.
-3. Compare each finding with current files and commits, then write the remediation matrix before modifying context.
-4. Keep the English report canonical and the zh-TW file derived.
-5. Update `updated_at` whenever task status, findings, conclusions, or artifact relationships change.
+2. This workflow predates mandatory branch metadata. Before material work, create `codex/2026-07-10-ai-context-self-audit-cont-02` from updated `main`, then add `branch`, `base_branch`, branch segment, and history to the locator/plan.
+3. Resume `AICSA-002`; do not repeat the baseline audit unless evidence must be refreshed.
+4. Compare each finding with current files and commits, then write the remediation matrix before modifying context.
+5. Keep the English report canonical and the zh-TW file derived.
+6. Update `updated_at` whenever task status, findings, conclusions, artifact relationships, or branch state changes.

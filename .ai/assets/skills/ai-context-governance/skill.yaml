@@ -37,9 +37,11 @@ constraints:
   - "Keep ai-context-auditor read-only and use it for baseline and post-remediation verification"
   - "Do not overwrite the baseline audit report during remediation"
   - "Use workflow ids in YYYY-MM-DD-topic[-NN] form and ISO 8601 timestamps with an explicit offset"
+  - "Create or switch to a dedicated workflow branch before workflow artifacts or material AI-context edits; do not use main as the active workflow branch"
+  - "Treat pre-completion merge or push as a checkpoint and preserve active/pending state; use --no-ff for merges unless another strategy is explicitly requested"
 workflow:
   - step: 1
-    description: "Classify context by audience, scope, language, and action, or intake an ai-context-auditor baseline report"
+    description: "Classify context by audience, scope, language, and action, or intake an ai-context-auditor baseline report; when workflow mode applies, create or switch to the dedicated branch before artifacts or material edits"
   - step: 2
     description: "Check context placement against boundary and language policies, then triage findings into remediation tasks"
   - step: 3

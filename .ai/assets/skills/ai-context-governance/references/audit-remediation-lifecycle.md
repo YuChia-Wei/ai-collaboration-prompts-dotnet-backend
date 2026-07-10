@@ -15,7 +15,7 @@ The auditor remains read-only with respect to the context being assessed. Govern
 
 ## Lifecycle
 
-1. Create the workflow locator, plan, and initial tasks from governance-owned templates.
+1. Create or switch to the dedicated governance workflow branch, then create the locator, plan, and initial tasks from governance-owned templates.
 2. Register or request the baseline audit and persist its report without remediation claims.
 3. Triage every finding by severity, owner, dependency, disposition, and validation need.
 4. Remediate only authorized findings in bounded tasks and update each task after durable progress.
@@ -35,3 +35,5 @@ Before stopping because of budget, approval, or tool limits:
 - keep unresolved decisions explicit instead of recomputing them later.
 
 On resume, read `workflow.yaml`, the plan, the active task, and all three report slots before re-auditing the repository.
+
+For a push-only handoff, resume from the pushed workflow branch. If a checkpoint was merged before completion, start from the updated target on the next dedicated continuation branch. Record the handoff in locator/plan history and keep unfinished findings active.

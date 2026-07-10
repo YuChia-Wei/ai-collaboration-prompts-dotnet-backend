@@ -10,6 +10,7 @@ source_of_truth:
   - ".dev/standards/WORKFLOW-GATE-POLICY.md"
   - ".dev/standards/WORKFLOW-ARTIFACT-POLICY.md"
   - ".dev/standards/GIT-COMMIT-POLICY.md"
+  - ".dev/TEAM-GIT-FLOW-RULES.MD"
   - ".ai/assets/skills/README.MD"
 triggers:
   - "dev workflow"
@@ -27,7 +28,7 @@ inputs:
   - "current workflow artifacts, if any"
   - "canonical skill registry and relevant skill specs"
   - "available downstream skill metadata or runtime wrapper descriptions"
-  - "issue number, branch policy, validation expectations, and handoff requirements when provided"
+  - "issue number, required branch policy, validation expectations, and handoff requirements"
 outputs:
   - "direct-mode or workflow-mode decision"
   - "capability-slot routing plan"
@@ -49,6 +50,8 @@ constraints:
   - "When workflow mode applies, follow .dev/standards/WORKFLOW-ARTIFACT-POLICY.md, default artifacts to .dev/workflows/<workflow-id>/, and keep the required locator there when a development workflow declares another repository-relative artifact root."
   - "Do not store runtime workflow artifacts under .ai/assets/skills, .agents/skills, .claude/skills, generated folders, or temporary locations."
   - "Preserve user decisions, explicit constraints, branch rules, commit policy, and validation expectations."
+  - "Create or switch to a dedicated workflow branch before creating development workflow artifacts or making material workflow edits; never use main as the active workflow branch."
+  - "Treat a requested pre-completion push or merge as a checkpoint and keep pending workflow state active; use --no-ff for merges unless the user explicitly selects another strategy."
   - "Ask the user only for direction decisions that cannot be safely inferred from repository evidence or existing policies."
 workflow:
   - step: 1
@@ -56,13 +59,13 @@ workflow:
   - step: 2
     description: "Apply the workflow gate to choose direct mode or workflow mode."
   - step: 3
-    description: "If workflow mode applies, create or update development workflow artifacts from this skill's templates under the repository-approved artifact root."
+    description: "If workflow mode applies, create or switch to the dedicated workflow branch first, then create or update development workflow artifacts from this skill's templates under the repository-approved artifact root."
   - step: 4
     description: "Map each stage to a generic capability slot, then use the active capability profile or skill discovery playbook to route to a local skill or use a fallback playbook."
   - step: 5
     description: "Coordinate stage execution, status updates, validation checkpoints, and commit timing."
   - step: 6
-    description: "Before the final response, verify the workflow closing checklist, including whether the commit policy requires a commit; then close with evidence: changed files, validation, commits, open decisions, and recommended next action."
+    description: "Before the final response, verify branch and checkpoint state plus the workflow closing checklist, including whether the commit policy requires a commit; then close with evidence: branch, changed files, validation, commits, merge/checkpoint state, open decisions, and recommended next action."
 references:
   - ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md"

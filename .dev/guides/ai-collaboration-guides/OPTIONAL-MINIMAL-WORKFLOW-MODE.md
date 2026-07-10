@@ -59,6 +59,8 @@
 
 新 workflow 使用 `YYYY-MM-DD-<topic>[-NN]`。Locator 和 task 必須記錄帶時區的 ISO 8601 `created_at`、`updated_at`；artifact body 需記錄 `template_source` 與 `template_version`。
 
+進入 workflow mode 時，先建立獨立 branch，再建立 locator。Locator/plan 記錄 `branch`、`base_branch` 與 checkpoint history；workflow merge 預設 `--no-ff`。未完成時的 merge/push 只算 checkpoint；push-only 從已推送 branch 接續，checkpoint merge 後才改由新的 continuation branch 接續。
+
 ## Artifact 角色
 
 ### `workflow.yaml`

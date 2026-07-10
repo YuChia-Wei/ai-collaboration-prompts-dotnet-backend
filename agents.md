@@ -48,12 +48,17 @@ Do not treat historical sample backend information as current product truth unle
 Workflow artifact rules:
 
 - Follow `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`.
+- Follow `.dev/TEAM-GIT-FLOW-RULES.MD` for branch naming, checkpoint continuation, push, and merge strategy.
+- Create or switch to a dedicated workflow branch before creating workflow artifacts or making material workflow changes. Default Codex naming is `codex/<workflow-id>`.
 - Create `.dev/workflows/<workflow-id>/workflow.yaml` as the discovery locator.
 - Use a full-date `YYYY-MM-DD-<topic>` workflow ID for new work.
 - Let the workflow-owning skill define its plan, task, report templates, task IDs, and declared artifact root.
 - Default artifacts to `.dev/workflows/<workflow-id>/`; when a skill uses another repository-relative root, keep the locator under `.dev/workflows/`.
 - Record ISO 8601 `created_at` and `updated_at` metadata on new workflow and task artifacts.
+- Record `branch` and `base_branch` on workflows created on or after 2026-07-11.
 - Do not store runtime workflow records under canonical skill or runtime wrapper directories.
+- Treat an explicitly requested merge/push before completion as a checkpoint handoff and keep the workflow active. Resume a push-only handoff from the pushed branch; after a checkpoint merge, start a new dedicated continuation branch from the updated target.
+- Merge workflow branches with `--no-ff` by default unless the user explicitly requests another strategy.
 
 ### Git Commit Policy
 

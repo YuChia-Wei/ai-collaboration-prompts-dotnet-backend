@@ -48,12 +48,17 @@
 Workflow artifact 規則：
 
 - 遵循 `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`。
+- Branch 命名、checkpoint continuation、push 與 merge strategy 遵循 `.dev/TEAM-GIT-FLOW-RULES.MD`。
+- 建立 workflow artifact 或進行實質修改前，先建立或切換到獨立 workflow branch。Codex 預設命名為 `codex/<workflow-id>`。
 - 建立 `.dev/workflows/<workflow-id>/workflow.yaml` 作為 discovery locator。
 - 新 workflow 使用完整日期 `YYYY-MM-DD-<topic>` ID。
 - plan、task、report template、task ID 與 artifact root 由 workflow-owning skill 定義。
 - artifact 預設位於 `.dev/workflows/<workflow-id>/`；若 skill 使用其他 repository-relative root，仍須在 `.dev/workflows/` 保留 locator。
 - 新 workflow 與 task artifact 記錄 ISO 8601 `created_at` 與 `updated_at`。
+- 2026-07-11 起建立的 workflow 必須記錄 `branch` 與 `base_branch`。
 - 不要把 runtime workflow 紀錄放進 canonical skill 或 runtime wrapper 目錄。
+- Workflow 尚未完成時若使用者要求 merge/push，視為 checkpoint handoff 並維持 workflow active。只有 push 時從已推送的 branch 接續；checkpoint merge 後則從更新後的 target 建立新的獨立 continuation branch。
+- Workflow branch 預設使用 `--no-ff` 合併，除非使用者明確指定其他策略。
 
 ### Git Commit Policy
 

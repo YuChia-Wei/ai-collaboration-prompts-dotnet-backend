@@ -38,6 +38,12 @@ Direct mode is acceptable when all of these are true:
 
 When workflow mode is used:
 
+1. Start from the intended base branch, normally `main`.
+2. Create or switch to a dedicated workflow branch before creating workflow artifacts or making material task changes.
+3. Then create the workflow locator and skill-owned artifacts.
+
+Branch naming, checkpoint merge, continuation branch, push, and `--no-ff` details are defined by `.dev/TEAM-GIT-FLOW-RULES.MD`.
+
 ```text
 .dev/workflows/<workflow-id>/
   workflow.yaml
@@ -47,6 +53,7 @@ When workflow mode is used:
 - Use the workflow-owning skill's templates for its plan, tasks, reports, and domain-specific layout.
 - Default the artifact root to `.dev/workflows/<workflow-id>/`; a skill may declare another repository-relative root while retaining the locator above.
 - Do not assume every workflow has `review-report.md` or the same task/report structure.
+- Do not create a workflow directly on `main`. Historical workflows created before this rule are not retroactively rewritten, but must use a dedicated continuation branch before resuming material work.
 
 ## Task Status Rule
 
@@ -62,6 +69,8 @@ Use `deferred` only when the task is intentionally postponed and the workflow pl
 
 Workflow stages should follow `.dev/standards/GIT-COMMIT-POLICY.md`. Commit after a stage or coherent task batch completes and validation has passed.
 
+Merging or pushing an incomplete workflow is a checkpoint handoff, not workflow completion. Keep the workflow and unfinished tasks active. Resume a push-only handoff from the pushed branch; after a checkpoint merge, create the next continuation branch from the updated target as defined by `.dev/TEAM-GIT-FLOW-RULES.MD`.
+
 ## Workflow Closing Checklist
 
 Before sending a final response in workflow mode, the agent must verify all of the following:
@@ -71,3 +80,5 @@ Before sending a final response in workflow mode, the agent must verify all of t
 - `.dev/standards/GIT-COMMIT-POLICY.md` has been checked for commit requirements;
 - when the commit policy requires a commit, the commit has been created before claiming completion;
 - when no commit is created, the final response cites the exact policy exception that applies.
+- the workflow was not marked complete merely because its branch was merged or pushed as a checkpoint;
+- any requested merge used `--no-ff` unless the user explicitly selected another strategy.

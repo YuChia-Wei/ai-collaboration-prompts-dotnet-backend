@@ -4,6 +4,8 @@
 
 Record the repository identity, branch, audit reason, requested focus, included context roots, excluded code/generated surfaces, previous report, and whether bounded sub-agent delegation is useful.
 
+When the audit needs a durable workflow, create or switch to its dedicated branch before writing the locator, task, or report. Record `branch` and `base_branch`. Follow `.dev/TEAM-GIT-FLOW-RULES.MD` for push handoff, checkpoint merge, continuation, and default `--no-ff` behavior; keep pre-completion checkpoints active.
+
 Read deeper `AGENTS.*` files before auditing a governed subtree. Keep the audited context read-only. If remediation is separately authorized, hand the findings to `ai-context-governance`; do not expand the auditor into an implementer.
 
 ## 2. Pass A: Independent Baseline

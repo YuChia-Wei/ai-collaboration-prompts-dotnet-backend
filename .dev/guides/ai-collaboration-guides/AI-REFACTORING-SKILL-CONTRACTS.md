@@ -25,6 +25,7 @@
 
 當任務跨 skill、跨 stage、或需要保存決策時：
 
+- 先建立 `codex/<workflow-id>` 或 runtime 對應的獨立 branch。
 - 建立 `.dev/workflows/<workflow-id>/workflow.yaml` locator。
 - 使用 `workflow-plan.md`。
 - 需要正式 development review 時使用 `review-report.md`。
@@ -32,6 +33,7 @@
 - 新 workflow ID 使用 `YYYY-MM-DD-<topic>[-NN]`。
 - artifact 預設存放於 `.dev/workflows/<workflow-id>/`，也可由 `dev-workflow` template 宣告其他 repository-relative root；locator 始終保留於 `.dev/workflows/`。
 - locator 與 task 的共通欄位遵循 `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`；development artifact body 使用 `dev-workflow` 自有 templates。
+- Workflow branch 預設以 `--no-ff` 合併；未完成時的 merge/push 保留 active/pending，並分別記錄 pushed branch 或 merge 後的 continuation branch。
 
 ## Artifact 與 Skill 對應
 

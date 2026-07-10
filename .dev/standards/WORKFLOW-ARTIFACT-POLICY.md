@@ -32,9 +32,24 @@ created_at: "2026-07-10T18:17:55+08:00"
 updated_at: "2026-07-10T18:17:55+08:00"
 template_source: ".ai/assets/skills/<owner-skill>/templates/workflow-locator-template.yaml"
 template_version: "1.0.0"
+branch: "<runtime-prefix>/YYYY-MM-DD-topic"
+base_branch: "main"
 ```
 
 The locator may contain additional skill-specific fields. Required field names and meanings must not be changed by a skill template.
+
+For workflows created on or after 2026-07-11, `branch` and `base_branch` are also required. The workflow branch must differ from the base branch and must not be `main` or another long-lived trunk.
+
+## Branch Metadata And Continuation
+
+- Create the dedicated workflow branch before the locator or material workflow edits.
+- Default Codex naming to `codex/<workflow-id>`; use the active runtime or repository prefix when another convention applies.
+- Keep `base_branch` as the integration branch from which the current workflow segment started.
+- Treat `branch` as the current or most recent dedicated workflow branch. Update it when an incomplete workflow continues on a new branch after a checkpoint merge.
+- Record push and merge handoff evidence in the plan or a skill-owned history field, including the resume source and action.
+- A push-only handoff normally keeps the same branch; a checkpoint merge starts the next branch segment from the updated target branch.
+- A checkpoint push or merge does not change `status` to `completed`; pending tasks and exact continuation instructions remain durable.
+- A historical active workflow without branch metadata must add branch metadata when it next resumes, after creating its continuation branch.
 
 ## Workflow ID
 
@@ -86,7 +101,9 @@ Every durable task must include:
 - `owner_skill`;
 - `status`;
 - `created_at`;
-- `updated_at`.
+- `updated_at`;
+- `template_source`;
+- `template_version`.
 
 Task IDs are immutable, path-safe, and unique within the workflow. Use `<workflow-id>#<task-id>` for cross-workflow references. A skill may define its own task ID prefix and task body.
 
@@ -111,3 +128,4 @@ Use `deferred` only with a recorded reason and handoff condition. Skills may add
 - Historical workflows may retain month-only IDs and older layouts.
 - When a historical workflow remains active, add a new locator or migration note instead of silently rewriting its identity.
 - Validate new locators, timestamps, artifact roots, entrypoints, task identity, and task timestamps with `.ai/scripts/validate-workflow-artifacts.py`.
+- Validate `branch` and `base_branch` for workflows dated 2026-07-11 or later.

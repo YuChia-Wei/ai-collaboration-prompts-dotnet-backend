@@ -3,22 +3,25 @@
 ## Template Metadata
 
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
-- `template_version`: `1.0.0`
+- `template_version`: `1.1.0`
 - `created_at`: `2026-07-10T18:22:49+08:00`
-- `updated_at`: `2026-07-10T18:22:49+08:00`
+- `updated_at`: `2026-07-11T00:22:30+08:00`
 
 ## Workflow Metadata
 
 - `workflow_id`: `<YYYY-MM-DD-topic[-NN]>`
 - `workflow_kind`: `ai-context-maintenance`
 - `owner_skill`: `ai-context-governance`
+- `branch`: `<runtime-prefix>/<workflow-id>`
+- `base_branch`: `main`
+- `branch_segment`: `1`
 - `status`: `in_progress`
 - `current_phase`: `audit | remediation-planning | remediation | post-audit | closure`
 - `artifact_root`: `<artifact-root>`
 - `created_at`: `<ISO-8601-with-offset>`
 - `updated_at`: `<ISO-8601-with-offset>`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
-- `template_version`: `1.0.0`
+- `template_version`: `1.1.0`
 
 ## Objective And Scope
 
@@ -55,4 +58,11 @@
 - Exact next action:
 - Validation already completed:
 - Git state:
+- Branch history and checkpoint handoffs:
 - Blockers or unresolved decisions:
+
+## Branch Lifecycle
+
+| Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 |  |  |  |  |  |  |  |  |

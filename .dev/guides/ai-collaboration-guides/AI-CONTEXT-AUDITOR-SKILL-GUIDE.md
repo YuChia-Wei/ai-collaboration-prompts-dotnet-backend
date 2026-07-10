@@ -61,6 +61,8 @@ Requirements:
 
 Workflow id 使用完整日期 `YYYY-MM-DD-topic[-NN]`；同日碰撞時附加 `-02`、`-03`。所有 generated artifacts 使用帶 offset 的 ISO 8601 `created_at`、`updated_at`，並記錄 `template_source`、`template_version`。
 
+Audit 需要 durable workflow 時，先建立獨立 branch，再建立 locator/report。Locator 記錄 `branch` 與 `base_branch`。未完成 audit 若被要求 merge/push，維持 workflow active 並視為 checkpoint；workflow merge 預設使用 `--no-ff`。Push-only 從已推送 branch 接續，checkpoint merge 後才建立新的 continuation branch。
+
 報告與 audit workflow templates 以 `.ai/assets/skills/ai-context-auditor/templates/` 為準。
 
 ## 後續整改
