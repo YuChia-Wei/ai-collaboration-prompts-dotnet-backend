@@ -59,6 +59,8 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
   - Coordinates multi-stage development, documentation cleanup, refactoring, and AI collaboration workflows; owns workflow-mode decisions, skill routing, validation checkpoints, and commit checkpoints.
 - `ai-context-governance`
   - Governs context boundaries, language policy, skill routing, wrapper sync, AI documentation cleanup, and context moves.
+- `ai-context-auditor`
+  - Performs recurring read-only AI context health and drift audits, excludes product code by default, compares independent and repository-aware analysis, and saves a durable report.
 - `repo-structure-sync`
   - Performs repo initialization. After this AI context is copied into an existing or empty target repository, use this skill first to inventory the target repo and refresh `agents.md`, `.dev/`, and required `.ai/` entry docs.
 - `ddd-ca-hex-architect`

@@ -72,6 +72,15 @@ Workflow artifact 位置：
 
 不要將純 AI 文件治理工作交給 `bdd-gwt-test-designer`。
 
+### AI Context Audit
+
+定期執行唯讀的 AI context 健康度與漂移自檢，且必須保存正式報告時，使用 `ai-context-auditor`。
+
+- 預設只檢查 AI context 與治理 surfaces。
+- 排除 `src/`、`tests/` 與其他產品 implementation trees。
+- 若使用者要求掃描產品 source 或 test code，停止擴大 audit，改為轉介 `code-reviewer`。
+- Audit finding 與 remediation 必須分開；只有在使用者授權整改後，才使用 `ai-context-governance` 與 `dev-workflow`。
+
 ### Development Workflow Orchestration
 
 當工作需要多階段規劃、workflow artifacts、skill routing、sub-agent coordination、validation checkpoint 或 commit checkpoint 時，使用 `dev-workflow`。
@@ -127,6 +136,7 @@ Workflow artifact 位置：
 | 需求 | Skill |
 | --- | --- |
 | 多階段開發流程協調、workflow artifacts、skill routing、validation 與 commit checkpoint | `dev-workflow` |
+| 定期執行唯讀 AI context 健康度、漂移與結構自檢並保存報告 | `ai-context-auditor` |
 | AI context cleanup、prompt boundary、language policy、wrapper sync | `ai-context-governance` |
 | 將此 framework 複製到目標 repo 後的第一次同步 | `repo-structure-sync` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |

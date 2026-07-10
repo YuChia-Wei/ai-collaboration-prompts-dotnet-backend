@@ -13,6 +13,7 @@ Each skill should keep its canonical entry in `skill.yaml`, with optional `refer
 The canonical skill registry currently includes:
 
 - `ai-context-governance`
+- `ai-context-auditor`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
 - `dev-workflow`

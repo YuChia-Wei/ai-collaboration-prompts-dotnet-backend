@@ -59,6 +59,8 @@
   - 用於多階段開發、文件整理、重構與 AI 協作流程協調；負責 workflow mode 判斷、skill routing、validation checkpoint 與 commit checkpoint。
 - `ai-context-governance`
   - 用於 context 分層、語言政策、skill routing、wrapper sync、AI 文件治理與搬移。
+- `ai-context-auditor`
+  - 用於定期執行唯讀 AI context 健康度與漂移自檢，預設排除產品程式碼，比較獨立分析與 repo-aware 分析，並保存正式報告。
 - `repo-structure-sync`
   - 用於 repo init。當這套 AI context 被複製到既有或全新目標 repo 後，第一個應使用此 skill 盤點目標 repo 並刷新 `agents.md`、`.dev/` 與必要 `.ai/` 入口文件。
 - `ddd-ca-hex-architect`

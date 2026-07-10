@@ -17,6 +17,7 @@ The core `dev-workflow` skill should stay publishable. Repository-specific skill
 | Capability slot | Local skill | Use when |
 | --- | --- | --- |
 | `workflow-orchestration` | `dev-workflow` | The task needs stage planning, workflow artifacts, skill routing, validation checkpoints, or commit checkpoints. |
+| `context-audit` | `ai-context-auditor` | The task needs a read-only AI context health or drift audit, an independent-versus-policy comparison, and a durable report without product-code review. |
 | `context-governance` | `ai-context-governance` | Work changes `.ai`, `.dev`, `.agents`, `.claude`, language policy, context boundaries, wrapper sync, or skill routing. |
 | `repo-initialization` | `repo-structure-sync` | This framework has been copied into a target repository and repo-specific entry docs must be refreshed from file-backed facts. |
 | `requirements` | `requirement-author` | Rough notes, stakeholder inputs, or code facts need to become `.dev/requirement/`-aligned requirement docs. |

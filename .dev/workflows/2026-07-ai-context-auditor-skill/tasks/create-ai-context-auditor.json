@@ -1,0 +1,101 @@
+{
+  "task_id": "create-ai-context-auditor",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-ai-context-auditor-skill",
+  "related_review_report_id": "review-report-2026-07-10-ai-context-self-audit",
+  "status": "completed",
+  "scope": {
+    "target": "Create a repeatable AI context self-audit skill and persist the current audit report.",
+    "files": [
+      ".ai/assets/skills/ai-context-auditor/",
+      ".agents/skills/ai-context-auditor/",
+      ".claude/skills/ai-context-auditor/",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md"
+    ],
+    "dependency_radius": "Canonical skill registry, runtime wrapper indexes, dev-workflow capability profile, guide index, and root skill routing.",
+    "constraints": [
+      "Default audit scope excludes src, tests, and other product-code roots.",
+      "Source-code review requests must be handed off to code-reviewer.",
+      "The auditor is read-only by default and must not remediate findings unless separately authorized.",
+      "Runtime wrappers stay thin and point to canonical instructions."
+    ],
+    "non_goals": [
+      "Review product source code",
+      "Fix findings from the audit",
+      "Create Gemini or Copilot wrappers",
+      "Redesign .NET backend architecture"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "Canonical AI context audit capability with durable report output.",
+    "review_findings": [
+      "The 2026-07-10 baseline and skill-based AI context audit results from this thread."
+    ],
+    "user_constraints": [
+      "Make AI context self-auditing a recurring standard workflow.",
+      "Create a report template and save the current report.",
+      "Skip src and tests by default.",
+      "Route code-project scans to the code review skill."
+    ]
+  },
+  "execution": {
+    "operation_type": "skill-and-document-governance",
+    "mode": "workflow",
+    "steps": [
+      "Initialize and implement the skill.",
+      "Synchronize wrappers, registries, routing, and guide entries.",
+      "Persist the current audit report.",
+      "Validate all artifacts and references."
+    ],
+    "validation": [
+      "skill-creator quick_validate.py",
+      "JSON parse",
+      "reference and routing search",
+      "git diff --check"
+    ],
+    "deferred_items": [
+      "Remediation of audit findings is a separate workflow.",
+      "Stage and commit after the desktop approval reviewer usage limit is cleared."
+    ]
+  },
+  "results": {
+    "summary": "Created a recurring read-only AI context audit skill with explicit product-code exclusions, code-review handoff, two-pass comparison, durable report template, runtime routing, and the initial saved report.",
+    "files_changed": [
+      ".ai/assets/skills/ai-context-auditor/skill.yaml",
+      ".ai/assets/skills/ai-context-auditor/references/scope-and-routing.md",
+      ".ai/assets/skills/ai-context-auditor/references/audit-playbook.md",
+      ".ai/assets/skills/ai-context-auditor/references/output-contract.md",
+      ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md",
+      ".agents/skills/ai-context-auditor/SKILL.md",
+      ".agents/skills/ai-context-auditor/agents/openai.yaml",
+      ".claude/skills/ai-context-auditor/SKILL.md",
+      ".ai/assets/skills/README.MD",
+      ".agents/skills/README.md",
+      ".claude/skills/README.md",
+      ".ai/assets/skills/dev-workflow/references/routing-playbook.md",
+      ".ai/assets/skills/dev-workflow/references/capability-profile.md",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/README.MD",
+      "README.md",
+      "README.en.md",
+      "agents.md",
+      "agents.zh-tw.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/workflow-plan.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/tasks/create-ai-context-auditor.json",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md"
+    ],
+    "tests_run": [
+      "skill-creator quick_validate.py: passed",
+      "canonical skill YAML parse: passed",
+      "workflow task JSON parse: passed",
+      "canonical/Codex/Claude wrapper parity: 13/13/13 with zero differences",
+      "required artifact path check: passed",
+      "git diff --check: passed",
+      "check-prompt-portability.sh: passed",
+      "planning and code-review-handoff forward tests: passed",
+      "git stage and commit: blocked because sandbox escalation was rejected after the approval reviewer reached its usage limit"
+    ],
+    "follow_up_needed": true
+  }
+}

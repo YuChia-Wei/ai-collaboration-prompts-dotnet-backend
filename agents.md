@@ -72,6 +72,15 @@ Use `ai-context-governance` for:
 
 Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
+### AI Context Audit
+
+Use `ai-context-auditor` for recurring, read-only AI context health and drift audits that must produce a durable report.
+
+- Default to AI context and governance surfaces.
+- Exclude `src/`, `tests/`, and other product implementation trees.
+- If the user asks to scan product source or test code, stop and route that work to `code-reviewer` instead of expanding the audit.
+- Keep audit findings separate from remediation; use `ai-context-governance` and `dev-workflow` only after remediation is authorized.
+
 ### Development Workflow Orchestration
 
 Use `dev-workflow` when the work needs multi-stage planning, workflow artifacts, skill routing, sub-agent coordination, validation checkpoints, or commit checkpoints.
@@ -127,6 +136,7 @@ Use these boundaries:
 | Need | Skill |
 | --- | --- |
 | Multi-stage development workflow orchestration, workflow artifacts, skill routing, validation and commit checkpoints | `dev-workflow` |
+| Recurring read-only AI context health, drift, and structure audit with a saved report | `ai-context-auditor` |
 | AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
 | First sync after copying this framework into a target repo | `repo-structure-sync` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |
