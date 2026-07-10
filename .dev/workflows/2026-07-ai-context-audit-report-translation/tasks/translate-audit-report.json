@@ -1,0 +1,73 @@
+{
+  "task_id": "translate-audit-report",
+  "owner_skill": "ai-context-governance",
+  "related_plan_id": "workflow-plan-2026-07-ai-context-audit-report-translation",
+  "related_review_report_id": "review-report-2026-07-10-ai-context-self-audit",
+  "status": "completed",
+  "scope": {
+    "target": "Create a Traditional Chinese translation of the final AI context audit report.",
+    "files": [
+      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.md",
+      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.zh-tw.md"
+    ],
+    "dependency_radius": "One source report, one translated report, and translation workflow records.",
+    "constraints": [
+      "Use Traditional Chinese Taiwan wording.",
+      "Preserve all finding IDs, severity values, paths, commands, skill names, scores, tables, and code fences.",
+      "Do not change audit conclusions or remediate findings.",
+      "Do not read or scan product source or tests."
+    ],
+    "non_goals": [
+      "Re-run the audit",
+      "Modify the English source report",
+      "Implement remediation",
+      "Translate canonical agent-facing skill instructions"
+    ]
+  },
+  "inputs": {
+    "architecture_target": "A faithful human-facing zh-TW translation adjacent to the English audit report.",
+    "review_findings": [],
+    "user_constraints": [
+      "Use a sub-agent with minimal context to control cost.",
+      "Explain which findings were affected by completed work.",
+      "Avoid duplicating remediation functionality already present."
+    ]
+  },
+  "execution": {
+    "operation_type": "translation",
+    "mode": "workflow",
+    "steps": [
+      "Translate the report through a fresh bounded sub-agent.",
+      "Review structural and semantic parity.",
+      "Record validation and close the workflow."
+    ],
+    "validation": [
+      "heading and finding ID parity",
+      "table row and code fence parity",
+      "path and command preservation",
+      "git diff --check"
+    ],
+    "deferred_items": [
+      "Implementing a reusable remediation capability remains a separate user decision."
+    ]
+  },
+  "results": {
+    "summary": "Created and reviewed a Traditional Chinese Taiwan translation of the final AI context audit report while preserving the English source and all structural evidence.",
+    "files_changed": [
+      ".dev/workflows/2026-07-ai-context-auditor-skill/review-report.zh-tw.md",
+      ".dev/workflows/2026-07-ai-context-audit-report-translation/workflow-plan.md",
+      ".dev/workflows/2026-07-ai-context-audit-report-translation/tasks/translate-audit-report.json"
+    ],
+    "tests_run": [
+      "heading parity: 28/28",
+      "table row parity: 36/36",
+      "code fence parity: 2/2",
+      "finding ID parity: 9/9 with zero differences",
+      "command code block parity: zero differences",
+      "English source report working-tree diff: zero lines",
+      "main-agent Traditional Chinese terminology review: passed",
+      "git diff --check: passed before staging"
+    ],
+    "follow_up_needed": false
+  }
+}
