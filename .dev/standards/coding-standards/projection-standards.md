@@ -1,18 +1,18 @@
-# Projection 與 Query Repository 編碼規範 (.NET)
+# Projection and Query Repository Coding Standards (.NET)
 
-本文件定義 CQRS read side 的 port、adapter、optional Query Service 與 provider-specific 注意事項。
+This document defines CQRS read-side ports, adapters, optional Query Services, and provider-specific considerations.
 
-## 核心規則
+## Core Rules
 
-- Query side 不修改 Domain state。
-- Query side 回傳 DTO、read model、ID、scalar 或 page，不回傳可保存的 Aggregate Root。
-- Query Repository 是 Application outbound port，implementation 是 Infrastructure adapter。
-- 簡單 Query 不強制增加 pass-through Query Service。
-- Provider-specific tracking、materialization 與 model registration 規則只套用於使用該 provider 的 adapter。
+- The query side does not modify Domain state.
+- The query side returns a DTO, read model, ID, scalar, or page, not a persistable Aggregate Root.
+- A Query Repository is an Application outbound port; its implementation is an Infrastructure adapter.
+- A simple Query does not require a pass-through Query Service.
+- Provider-specific tracking, materialization, and model registration rules apply only to adapters that use that provider.
 
 ## Query Repository Port
 
-所有 query repository port 必須實作 canonical marker：
+Every query repository port must implement the canonical marker:
 
 ```csharp
 public interface IQueryRepository
@@ -37,27 +37,27 @@ public interface IProductQueryRepository : IQueryRepository
 }
 ```
 
-允許：
+Allowed:
 
-- use-case/read-model-specific criteria；
-- DTO/read model projection；
-- identity list、scalar、count、existence；
-- paging、sorting、filtering；
-- EF Core、Dapper、SQL 或其他 read adapter。
+- use-case/read-model-specific criteria;
+- DTO/read model projection;
+- identity lists, scalars, counts, and existence checks;
+- paging, sorting, and filtering;
+- EF Core, Dapper, SQL, or another read adapter.
 
-禁止：
+Forbidden:
 
-- `Save`、`Add`、`Update`、`Delete`、`Remove`；
-- `SaveChanges` 或等價 persistence write；
-- 回傳 mutable Aggregate Root 或 child Entity；
-- Domain behavior；
-- 把 Query Repository 當成 Aggregate persistence port。
+- `Save`, `Add`, `Update`, `Delete`, or `Remove`;
+- `SaveChanges` or an equivalent persistence write;
+- returning a mutable Aggregate Root or child Entity;
+- Domain behavior;
+- treating a Query Repository as an Aggregate persistence port.
 
 ## Query Application Flow
 
-### Simple query
+### Simple Query
 
-Application boundary 可以直接依賴 Query Repository：
+The Application boundary may depend directly on a Query Repository:
 
 ```text
 Application Query Boundary
@@ -66,14 +66,14 @@ Application Query Boundary
   -> DTO / Read Model
 ```
 
-### Composed query
+### Composed Query
 
-只有在下列情況新增 Application Query Service：
+Add an Application Query Service only in these cases:
 
-- 組合多個 Query Repository；
-- 組合 remote/read cache source；
-- 可重用 query policy；
-- 非單純 mapping 的 calculation/orchestration。
+- composing multiple Query Repositories;
+- composing remote/read-cache sources;
+- reusable query policy;
+- calculation or orchestration beyond simple mapping.
 
 ```text
 Application Query Boundary
@@ -83,13 +83,13 @@ Application Query Boundary
   -> DTO / Read Model
 ```
 
-Query Service implementation 位於 Application，且不得直接依賴 DbContext、connection 或 provider API。
+The Query Service implementation belongs in Application and must not depend directly on a DbContext, connection, or provider API.
 
-Infrastructure 若直接實作 Query Repository port，不應再把該 adapter 命名為 Application Query Service。
+When Infrastructure directly implements a Query Repository port, do not also name that adapter an Application Query Service.
 
 ## Candidate IDs for Aggregate Behavior
 
-Query Repository 可以先取得符合 read criteria 的 Aggregate IDs：
+A Query Repository may first obtain Aggregate IDs that match read criteria:
 
 ```csharp
 var ids = await productQueries.FindIdsByStatusAsync(
@@ -97,13 +97,13 @@ var ids = await productQueries.FindIdsByStatusAsync(
     cancellationToken);
 ```
 
-Application 接著依 identity 重新載入 Aggregate，並由每個 Aggregate 重新驗證當前狀態與 invariant。
+Application then reloads each Aggregate by identity, and each Aggregate revalidates its current state and invariants.
 
-Query 結果是 candidate snapshot，不得直接視為 command-side truth。
+A Query result is a candidate snapshot and must not be treated directly as command-side truth.
 
-## DTO 與 Paging
+## DTOs and Paging
 
-DTO 建議使用 immutable `record`：
+Prefer immutable `record` types for DTOs:
 
 ```csharp
 public sealed record ProductSummaryDto(
@@ -112,7 +112,7 @@ public sealed record ProductSummaryDto(
     string Status);
 ```
 
-Paged result 必須明確包含 items 與 paging metadata：
+A paged result must explicitly include items and paging metadata:
 
 ```csharp
 public sealed record PagedResult<T>(
@@ -122,57 +122,57 @@ public sealed record PagedResult<T>(
     int PageSize);
 ```
 
-不得要求所有 Query Repository 都提供 paging；只有 use case 需要時才加入。
+Do not require every Query Repository to provide paging; add it only when the use case needs it.
 
 ## Conditional EF Core Guidance
 
-只有 EF Core query adapter 適用：
+The following rules apply only to EF Core query adapters:
 
-- Read-only query 優先使用 direct projection。
-- 若 global tracking policy 未關閉 tracking，read model query 應明確使用 `AsNoTracking()`。
-- Aggregate command-side load 不套用本節的 read-model tracking規則。
-- 使用符合 cardinality 的 async terminal operator：
+- Prefer direct projection for read-only queries.
+- If the global tracking policy does not disable tracking, read-model queries should explicitly use `AsNoTracking()`.
+- Aggregate command-side loads are not subject to this section's read-model tracking rules.
+- Use an async terminal operator that matches cardinality:
   - collection: `ToListAsync`
-  - zero-or-one: `SingleOrDefaultAsync` 或 `FirstOrDefaultAsync`
+  - zero-or-one: `SingleOrDefaultAsync` or `FirstOrDefaultAsync`
   - existence: `AnyAsync`
   - count: `CountAsync` / `LongCountAsync`
-- 不得以 `ToList()`、`.Result` 或 `.Wait()` 取代 async execution。
-- 避免 client-side evaluation 與不必要的 entity materialization。
-- Optimistic concurrency 與 command-side persistence 不屬於 Query Repository。
+- Do not replace async execution with `ToList()`, `.Result`, or `.Wait()`.
+- Avoid client-side evaluation and unnecessary entity materialization.
+- Optimistic concurrency and command-side persistence do not belong in a Query Repository.
 
-EF projection read model 若需要 model registration validation，實作 `IProjectionReadModel` 或 target repo 的等價 marker。
+When an EF projection read model needs model registration validation, implement `IProjectionReadModel` or the target repository's equivalent marker.
 
 ## Conditional Dapper / SQL Guidance
 
-- SQL 必須 parameterized。
-- Mapping 必須覆蓋 DTO/read model required fields。
-- 大量結果必須定義 paging、streaming 或 bounded materialization。
-- Query cancellation 應傳遞給 provider API。
-- Transaction 只有在 query consistency requirement 明確需要時使用。
+- SQL must be parameterized.
+- Mapping must cover required DTO/read-model fields.
+- Large result sets must define paging, streaming, or bounded materialization.
+- Query cancellation should be passed to the provider API.
+- Use a transaction only when an explicit query consistency requirement needs it.
 
 ## Automated Validation Ownership
 
-- Roslyn analyzer：
-  - `IQueryRepository` derived ports 不得宣告 persistence write methods；
-  - 不得回傳 Aggregate Root 或 child Entity；
-  - projection services 不得呼叫 provider write APIs。
-- Configuration tests：
-  - EF read models 的 assembled model registration。
-- Tests / profiling / AI review：
-  - query shape、N+1、index usage、tracking policy、mapping completeness、performance。
+- Roslyn analyzer:
+  - `IQueryRepository`-derived ports must not declare persistence write methods;
+  - they must not return an Aggregate Root or child Entity;
+  - projection services must not call provider write APIs.
+- Configuration tests:
+  - assembled model registration for EF read models.
+- Tests / profiling / AI review:
+  - query shape, N+1 behavior, index usage, tracking policy, mapping completeness, and performance.
 
-不得使用檔名或 grep 判斷 Query Repository 語意。
+Do not infer Query Repository semantics from filenames or grep results.
 
 ## Review Checklist
 
-- [ ] Query Repository 實作 `IQueryRepository`。
-- [ ] Port 位於 Application，adapter 位於 Infrastructure。
-- [ ] 回傳 DTO/read model/ID/scalar/page。
-- [ ] 沒有 write methods 或 provider writes。
-- [ ] 簡單 Query 沒有不必要的 pass-through Query Service。
-- [ ] Candidate IDs 在 command flow 中重新載入 Aggregate 並驗證 invariant。
-- [ ] Provider-specific async/materialization 規則正確。
-- [ ] Large result set 有 paging/streaming/bound。
+- [ ] The Query Repository implements `IQueryRepository`.
+- [ ] The port is in Application and the adapter is in Infrastructure.
+- [ ] It returns a DTO/read model/ID/scalar/page.
+- [ ] It has no write methods or provider writes.
+- [ ] A simple Query has no unnecessary pass-through Query Service.
+- [ ] Candidate IDs are used to reload Aggregates and validate invariants in the command flow.
+- [ ] Provider-specific async/materialization rules are correct.
+- [ ] Large result sets have paging, streaming, or a bound.
 
 ## Related Documents
 

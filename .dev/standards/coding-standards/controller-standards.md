@@ -1,29 +1,29 @@
-# Controller 編碼規範 (.NET)
+# Controller Coding Standards (.NET)
 
-本文件定義 ASP.NET Core Controller 層的編碼標準，包含 Controller 結構、Request/Response DTO、錯誤處理等規範。
-
----
-
-## 📌 概述
-
-Controller 僅負責傳輸層與輸入驗證，不應包含業務邏輯。
-
-- **委派執行**：Controller 預設只委派給明確的 Use Case interface
-- **請求驗證**：使用 ASP.NET Core Model Validation
-- **錯誤回應**：使用統一格式（ProblemDetails）
+This document defines coding standards for the ASP.NET Core Controller layer, including Controller structure, Request/Response DTOs, and error handling.
 
 ---
 
-## 🏷️ Pattern 標記（自動化檢查用）
+## 📌 Overview
 
-以下標記供自動化 Code Review 腳本使用：
+Controllers are responsible only for the transport layer and input validation; they must not contain business logic.
+
+- **Execution delegation**: By default, a Controller delegates only to an explicit Use Case interface.
+- **Request validation**: Use ASP.NET Core Model Validation.
+- **Error responses**: Use the unified `ProblemDetails` format.
+
+---
+
+## 🏷️ Pattern Markers (for Automated Checks)
+
+The following markers are used by automated code review scripts:
 
 ```yaml
-# Controller 規則
+# Controller rules
 Pattern (required): \[ApiController\]
 Pattern (required): async Task<IActionResult>|async Task<IResult>
 
-# 禁止規則
+# Forbidden rules
 Pattern (forbidden, ignore-comment): DbContext
 Pattern (forbidden): SaveChanges
 Pattern (forbidden): new .*Handler
@@ -33,43 +33,43 @@ Pattern (forbidden, i, ignore-comment): IMessageBus|IMediator|IDispatcher
 
 ---
 
-## 🔴 必須遵守的規則 (MUST FOLLOW)
+## 🔴 Mandatory Rules (MUST FOLLOW)
 
-### 1. REST API 路徑設計原則
+### 1. REST API Path Design Principles
 
-**用巢狀的建立端點、用扁平的資源位址**
+**Use nested creation endpoints and flat resource addresses.**
 
-當處理 Aggregate Root 之間的關聯時，必須遵循以下設計原則：
+When handling relationships between Aggregate Roots, follow these design principles:
 
-#### 核心規則
-1. **建立（Create）**：使用巢狀路徑表達歸屬關係
-   - 範例：`POST /api/v1/resources/{resourceId}/work-items`
-   - 語意：在特定 Resource 的 Work Item 集合中新增項目
+#### Core Rules
+1. **Create**: Use a nested path to express ownership.
+   - Example: `POST /api/v1/resources/{resourceId}/work-items`
+   - Semantics: Add an item to the Work Item collection of a specific Resource.
 
-2. **資源位址（Canonical URL）**：使用扁平路徑尊重獨立性
-   - 範例：`GET/PATCH/DELETE /api/v1/work-items/{workItemId}`
-   - 語意：Work Item 作為 Aggregate Root 有獨立的資源位址
+2. **Resource address (Canonical URL)**: Use a flat path to preserve independence.
+   - Example: `GET/PATCH/DELETE /api/v1/work-items/{workItemId}`
+   - Semantics: A Work Item, as an Aggregate Root, has an independent resource address.
 
-#### 完整路由範例
+#### Complete Routing Example
 
 ```csharp
-// WorkItems 路由
-[HttpPost("/api/v1/resources/{resourceId}/work-items")]    // 建立 Work Item（檢查 Resource 存在）
-[HttpGet("/api/v1/work-items/{workItemId}")]                  // 查詢單筆 Work Item
-[HttpPatch("/api/v1/work-items/{workItemId}")]                // 更新 Work Item
-[HttpDelete("/api/v1/work-items/{workItemId}")]               // 刪除 Work Item
-[HttpGet("/api/v1/resources/{resourceId}/work-items")]     // 列出某 Resource 的所有 Work Item
+// WorkItems routes
+[HttpPost("/api/v1/resources/{resourceId}/work-items")]    // Create a Work Item (verify that the Resource exists)
+[HttpGet("/api/v1/work-items/{workItemId}")]               // Get one Work Item
+[HttpPatch("/api/v1/work-items/{workItemId}")]             // Update a Work Item
+[HttpDelete("/api/v1/work-items/{workItemId}")]            // Delete a Work Item
+[HttpGet("/api/v1/resources/{resourceId}/work-items")]     // List all Work Items for a Resource
 
-// Task 路由
-[HttpPost("/api/v1/work-items/{workItemId}/tasks")]           // 建立 Task（檢查 Work Item 存在）
-[HttpGet("/api/v1/tasks/{taskId}")]                // 查詢單筆 Task
-[HttpPatch("/api/v1/tasks/{taskId}")]              // 更新 Task
-[HttpDelete("/api/v1/tasks/{taskId}")]             // 刪除 Task
+// Task routes
+[HttpPost("/api/v1/work-items/{workItemId}/tasks")]        // Create a Task (verify that the Work Item exists)
+[HttpGet("/api/v1/tasks/{taskId}")]                        // Get one Task
+[HttpPatch("/api/v1/tasks/{taskId}")]                      // Update a Task
+[HttpDelete("/api/v1/tasks/{taskId}")]                     // Delete a Task
 ```
 
 ---
 
-### 2. 委派 Use Case 執行應用流程
+### 2. Delegate Application Flow Execution to a Use Case
 
 ```csharp
 // ✅ Allowed: map HTTP DTO to Use Case input and invoke the inbound port
@@ -97,22 +97,22 @@ public IActionResult Create(CreateResourceRequest request)
 }
 ```
 
-Controller 不得注入 concrete Handler、`IMessageBus`、mediator/dispatcher、write
-Repository、Aggregate 或 Domain Service。
+Controllers must not inject a concrete Handler, `IMessageBus`, mediator/dispatcher, write
+Repository, Aggregate, or Domain Service.
 
-只有經明確指定的純查詢 endpoint，才可直接注入唯讀
-`IQueryRepository`-derived port 或 query service。這是允許但不建議的例外；
-未明確指定時仍必須建立並呼叫 query Use Case。直接 query-handler dispatch
-不屬於例外。
+Only an explicitly designated pure-query endpoint may directly inject a read-only
+`IQueryRepository`-derived port or query service. This exception is allowed but discouraged;
+unless explicitly designated, create and invoke a query Use Case. Direct query-handler dispatch
+is not covered by this exception.
 
 ---
 
-### 3. Request/Response DTO 設計
+### 3. Request/Response DTO Design
 
-使用 `record` 定義 Request/Response DTO：
+Define Request/Response DTOs with `record`:
 
 ```csharp
-// ✅ 正確：使用 record 定義 Request
+// ✅ Correct: define Request DTOs with record
 public sealed record CreateResourceRequest(
     [Required] string Name,
     [Required] string UserId,
@@ -122,15 +122,15 @@ public sealed record UpdateResourceRequest(
     [Required] string Name,
     string? Description = null);
 
-// ✅ 正確：使用 record 定義 Response
+// ✅ Correct: define Response DTOs with record
 public sealed record ResourceResponse(
     string Id,
     string Name,
     string State,
     DateTime CreatedAt);
 
-// ❌ 錯誤：使用 class 定義 DTO
-public class CreateResourceRequest  // 應該使用 record
+// ❌ Incorrect: define DTOs with class
+public class CreateResourceRequest  // Use record instead
 {
     public string Name { get; set; }
     public string UserId { get; set; }
@@ -139,12 +139,12 @@ public class CreateResourceRequest  // 應該使用 record
 
 ---
 
-### 4. 依賴注入必須透過 Constructor
+### 4. Dependencies Must Be Injected Through the Constructor
 
-禁止使用 `[FromServices]` 或其他注入方式：
+Do not use `[FromServices]` or other injection mechanisms:
 
 ```csharp
-// ✅ 正確：Constructor Injection
+// ✅ Correct: Constructor Injection
 [ApiController]
 [Route("api/v1/resources")]
 public class ResourcesController : ControllerBase
@@ -157,7 +157,7 @@ public class ResourcesController : ControllerBase
     }
 }
 
-// ❌ 錯誤：[FromServices] 注入
+// ❌ Incorrect: [FromServices] injection
 [HttpPost]
 public async Task<IActionResult> CreateResource(
     [FromBody] CreateResourceRequest request,
@@ -169,9 +169,9 @@ public async Task<IActionResult> CreateResource(
 
 ---
 
-## 🎯 HTTP 狀態碼映射
+## 🎯 HTTP Status Code Mapping
 
-### 成功狀態碼
+### Success Status Codes
 
 ```csharp
 // GET - 200 OK
@@ -190,10 +190,10 @@ return NoContent();
 return Accepted(operationId);
 ```
 
-### 錯誤狀態碼
+### Error Status Codes
 
 ```csharp
-// 400 Bad Request - 驗證錯誤
+// 400 Bad Request - validation error
 if (!result.IsSuccess)
     return BadRequest(new ProblemDetails 
     { 
@@ -201,23 +201,23 @@ if (!result.IsSuccess)
         Status = 400 
     });
 
-// 404 Not Found - 資源不存在
+// 404 Not Found - resource does not exist
 if (resource is null)
     return NotFound();
 
-// 409 Conflict - 資源衝突
+// 409 Conflict - resource conflict
 if (result.Error?.Contains("already exists") == true)
     return Conflict(new ProblemDetails { Detail = result.Error });
 ```
 
 ---
 
-## 🎯 錯誤處理
+## 🎯 Error Handling
 
-### 使用 ProblemDetails
+### Use ProblemDetails
 
 ```csharp
-// ✅ 正確：使用標準 ProblemDetails
+// ✅ Correct: use standard ProblemDetails
 return BadRequest(new ProblemDetails
 {
     Title = "Validation Failed",
@@ -230,15 +230,15 @@ return BadRequest(new ProblemDetails
     }
 });
 
-// 或使用 ValidationProblemDetails
+// Or use ValidationProblemDetails
 return ValidationProblem(ModelState);
 ```
 
 ---
 
-## 🎯 請求驗證
+## 🎯 Request Validation
 
-### 使用 FluentValidation（推薦）
+### Use FluentValidation (Recommended)
 
 ```csharp
 public class CreateResourceRequestValidator : AbstractValidator<CreateResourceRequest>
@@ -261,48 +261,48 @@ public class CreateResourceRequestValidator : AbstractValidator<CreateResourceRe
 
 ---
 
-## 🔍 檢查清單
+## 🔍 Checklist
 
-### Controller 結構
-- [ ] 繼承 `ControllerBase` (不是 `Controller`)
-- [ ] 有 `[ApiController]` 屬性
-- [ ] 有 `[Route]` 定義基礎路徑
-- [ ] 使用 Constructor Injection
-- [ ] 預設只注入 Use Case interface
-- [ ] 不注入 concrete Handler、bus、mediator/dispatcher、write Repository 或 Domain Service
-- [ ] 純查詢直連 Query Repository/Service 時有明確的 endpoint 選擇依據
-- [ ] 路徑包含版本號（如 `/api/v1`）
+### Controller Structure
+- [ ] Inherits from `ControllerBase` (not `Controller`).
+- [ ] Has the `[ApiController]` attribute.
+- [ ] Has a `[Route]` that defines the base path.
+- [ ] Uses Constructor Injection.
+- [ ] Injects only Use Case interfaces by default.
+- [ ] Does not inject concrete Handlers, buses, mediators/dispatchers, write Repositories, or Domain Services.
+- [ ] A direct Query Repository/Service dependency for a pure query has an explicit endpoint-level rationale.
+- [ ] The path includes a version number (for example, `/api/v1`).
 
-### HTTP 規範
-- [ ] 使用正確的 HTTP 方法
-- [ ] 返回適當的狀態碼
-- [ ] RESTful URL 設計
-- [ ] 使用複數資源名稱
+### HTTP Rules
+- [ ] Uses the correct HTTP method.
+- [ ] Returns an appropriate status code.
+- [ ] Uses RESTful URL design.
+- [ ] Uses plural resource names.
 
 ### Request/Response
-- [ ] 使用 `record` 定義 DTO
-- [ ] 有適當的驗證屬性
-- [ ] 使用 `ProblemDetails` 回傳錯誤
+- [ ] Defines DTOs with `record`.
+- [ ] Has appropriate validation attributes.
+- [ ] Returns errors with `ProblemDetails`.
 
-### 文檔
-- [ ] 有 `[ProducesResponseType]` 屬性
-- [ ] 有 Swagger 說明（如需要）
+### Documentation
+- [ ] Has `[ProducesResponseType]` attributes.
+- [ ] Has Swagger documentation when needed.
 
 ---
 
-## 📂 程式碼範例
+## 📂 Code Examples
 
-更多完整範例請參考：
+For more complete examples, see:
 
-| 範例 | 路徑 |
+| Example | Path |
 |------|------|
-| Controller 範例 | [../examples/controller/](../examples/controller/) |
-| ASP.NET Core 範例 | [../examples/aspnet-core/](../examples/aspnet-core/) |
-| DTO 範例 | [../examples/dto/](../examples/dto/) |
+| Controller examples | [../examples/controller/](../examples/controller/) |
+| ASP.NET Core examples | [../examples/aspnet-core/](../examples/aspnet-core/) |
+| DTO examples | [../examples/dto/](../examples/dto/) |
 
 ---
 
-## 相關文件
+## Related Documents
 
 - [usecase-standards.md](usecase-standards.md)
 - [test-standards.md](test-standards.md)
