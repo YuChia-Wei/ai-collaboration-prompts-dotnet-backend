@@ -3,7 +3,7 @@
   "workflow_id": "2026-07-10-ai-context-self-audit",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-10T18:25:11+08:00",
-  "updated_at": "2026-07-11T18:55:00+08:00",
+  "updated_at": "2026-07-11T23:14:05+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "template_version": "1.0.0",
   "status": "in_progress",
@@ -11,9 +11,9 @@
   "dependencies": ["AICSA-002"],
   "execution": { "validation": ["Changed references and structured files", "Finding resolution coverage", "Repository context checks"] },
   "results": {
-    "summary": "AIC-001 now has a candidate resolution: normative semantics are owned under .dev/standards, registered per rule, and consumed by explicit .ai projections. AIC-004/AIC-005 machine governance remains.",
-    "files_changed": ["AI context policies and auditor contracts", "canonical and human testing contracts", "legacy onboarding and indexes", "runtime support declarations and Gemini removal", "translation waves 1-5 and root bilingual entries", "policy-aware .ai/scripts/validate-ai-context.py", ".dev/ARCHITECTURE.md", "AI-CONTEXT-OWNERSHIP policy and registry", "testing/common rule projections", "conditional soft-delete standard"],
-    "tests_run": ["validate-ai-context.py", "quick_validate.py", "check-all.sh --quick", "git diff --check"],
+    "summary": "AIC-001, AIC-004, and AIC-005 now have candidate resolutions: registered rule ownership, versioned canonical assets, and deterministic capability routing are enforced by the normal AI-context gate. Independent post-remediation audit remains.",
+    "files_changed": ["AI context policies and auditor contracts", "canonical and human testing contracts", "legacy onboarding and indexes", "runtime support declarations and Gemini removal", "translation waves 1-5 and root bilingual entries", "policy-aware .ai/scripts/validate-ai-context.py", ".dev/ARCHITECTURE.md", "AI-CONTEXT-OWNERSHIP policy and registry", "testing/common rule projections", "conditional soft-delete standard", "CANONICAL-SCHEMA v1.0 and canonical templates", "13 skill and 17 sub-agent manifests", "machine-readable dev-workflow capability profile"],
+    "tests_run": ["validate-ai-context.py", "canonical metadata mutation probe", "capability mapping mutation probe", "validate-workflow-artifacts.py", "check-all.sh --quick", "git diff --check"],
     "follow_up_needed": true
   }
 }

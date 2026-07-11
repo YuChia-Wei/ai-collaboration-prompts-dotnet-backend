@@ -1,7 +1,12 @@
 asset_id: "aggregate-sub-agent"
+schema_version: "1.0"
 asset_type: "sub-agent-role-prompt"
 title: "Aggregate Sub-Agent"
 purpose: "Define the delegated worker-role prompt for implementing DDD aggregates with event sourcing rules in this repository."
+portability: "repo-portable"
+audience: "agent-facing"
+wrapper_targets: []
+source_of_truth: "canonical"
 role_kind: "domain-sub-agent"
 triggers:
   - "aggregate sub-agent"
@@ -34,6 +39,9 @@ references:
   - ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md"
   - ".ai/assets/tech-stacks/dotnet-backend/shared/dto-conventions.md"
   - ".ai/assets/tech-stacks/dotnet-backend/shared/domain-rules.md"
+examples:
+  - ".ai/assets/sub-agent-role-prompts/aggregate-sub-agent/references/implementation-playbook.md"
 human_guide: ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md"
+status: "active"
 
 

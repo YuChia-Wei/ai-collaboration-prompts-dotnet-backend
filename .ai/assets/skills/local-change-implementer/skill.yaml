@@ -1,7 +1,13 @@
 asset_id: "local-change-implementer"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "Local Change Implementer"
 purpose: "Execute one local class, object, method, symbol, SQL/ORM, or direct-call-site technical change without introducing new architecture boundaries or broadening into a slice."
+portability: "repo-portable"
+audience: "agent-facing"
+source_of_truth: "canonical"
+capability_slots:
+  - "local-change"
 triggers:
   - "local change"
   - "local-change-implementer"

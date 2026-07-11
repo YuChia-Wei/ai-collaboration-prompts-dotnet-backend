@@ -7,7 +7,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T18:16:00+08:00`
+- `updated_at`: `2026-07-11T23:14:05+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -17,7 +17,7 @@
 
 - Authorized scope: triage and begin correcting AIC-001 through AIC-009 without scanning product `src/` or `tests/` trees.
 - Completed scope: current-evidence triage; Batch 1 corrections for AIC-003, AIC-006, AIC-008, and the objective portion of AIC-009; user-decided testing contract for AIC-002.
-- Active batch: prepare machine-governance corrections for AIC-001, AIC-004, and AIC-005.
+- Completed machine-governance batch: AIC-001 ownership, AIC-004 canonical schema, and AIC-005 deterministic capability routing now have candidate resolutions.
 - Closure decision: `not-ready`.
 
 ## Finding Resolution Matrix
@@ -27,8 +27,8 @@
 | AIC-001 | HIGH | `candidate-resolved` | `.dev/standards/AI-CONTEXT-OWNERSHIP.md` defines normative ownership, strength, and precedence; its YAML registry assigns one canonical owner to the six initially conflicted rules. `.ai` testing/common surfaces are declared projections, the legacy testing entry is a compatibility pointer, and blanket soft deletion is conditional. | Expand the registry incrementally and require post-remediation audit to check whether unregistered duplicate MUST language remains. | Governance plus architecture/testing owner. |
 | AIC-002 | HIGH | `resolved` | Canonical and human guidance now define BDDfy as the default with explicit opt-out, mandatory GWT without 3A fallback, and conditionally supported `.feature` artifacts. | Request independent verification across testing consumers. | User decision implemented; auditor verifies. |
 | AIC-003 | HIGH | `resolved` | Stale onboarding is now explicitly legacy/profile-conditional, current initialization routes to `repo-structure-sync`, and missing `CLAUDE.md` links were removed. | Request independent verification; retained profile examples must remain conditional. | Governance completed; auditor verifies. |
-| AIC-004 | HIGH | `not-addressed` | Canonical schema requires `id`; 13 skill specs and 17 sub-agent manifests use `asset_id`; duplicate template families and no schema validator remain. | Version schema, adopt one identifier/type contract, migrate metadata/templates, add PyYAML validation. | Governance; record schema choices before migration. |
-| AIC-005 | HIGH | `partially-resolved` | Auditor declares `context-audit`, but other skills lack slots and the capability profile still ambiguously maps `local-change-implementer`. | Define slot vocabulary, add skill metadata and deterministic profile validation. | Dev-workflow contract coordinated by governance. |
+| AIC-004 | HIGH | `candidate-resolved` | Schema v1.0 adopts the existing `asset_id`; all 13 skill and 17 sub-agent manifests now satisfy the versioned metadata contract; four canonical templates replace two incompatible families; PyYAML validation checks types, enums, IDs, paths, and template hygiene. | Independent audit must verify the schema contract and absence of undeclared canonical asset families. | Governance completed; auditor verifies. |
+| AIC-005 | HIGH | `candidate-resolved` | Ten development slots now map deterministically in `capability-profile.yaml`; mapped skills declare matching `capability_slots`; the validator rejects missing skills, unknown/missing slots, inactive skills, and slot mismatches. | Independent audit must compare YAML mapping, explanatory Markdown, routing playbook, and skill declarations. | Governance coordinated the dev-workflow contract; auditor verifies. |
 | AIC-006 | HIGH | `resolved` | Workflow/commit policies and auditor contracts now distinguish transient conversational analysis, durable report-only audit, and governance remediation. | Request independent verification of authorization and persistence boundaries. | Governance completed; auditor verifies. |
 | AIC-007 | HIGH | `deferred` | Required shell checks remain mode `100644`; `check-all.sh` can exit zero after required checks are skipped as warnings. | Create tooling/validation workflow for fail-closed gates and executable-mode enforcement. | Tooling workflow; outside this documentation-governance batch. |
 | AIC-008 | MEDIUM | `resolved` | Current catalogs list Agents/Codex and Claude; Gemini paths, targets, branch prefixes, and descriptions were removed; Copilot alone remains planned/optional. | Request independent runtime-truth verification. | Governance completed; auditor verifies. |
@@ -46,8 +46,8 @@
 ### Batch 2 — Machine Governance
 
 - AIC-001: candidate resolution established per-rule ownership for the conflicted testing, Aggregate/UoW, mapper-event, and deletion families.
-- AIC-004: version and migrate the canonical asset schema.
-- AIC-005: align capability slots and profile-to-skill discovery.
+- AIC-004: schema v1.0 and all 30 active canonical manifests migrated; duplicate template family removed and structural validation added.
+- AIC-005: deterministic machine-readable capability profile and profile-to-skill validation added.
 
 ### Decision / Reroute
 
@@ -182,7 +182,7 @@
 
 ### Next Translation Waves
 
-1. Continue AIC-004/AIC-005 machine-governance remediation.
+1. Request the independent post-remediation audit for candidate-resolved findings.
 2. Preserve the generated archive-check drift under deferred AIC-007 tooling ownership.
 3. Request an independent post-remediation audit after the remaining finding work is complete.
 
@@ -197,6 +197,6 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 ## Closure Evidence
 
 - Required validations: pending remediation and independent post-audit.
-- Commit status: translation waves 1-5 and language-lint hardening are committed; architecture semantic reconciliation awaits its checkpoint commit.
+- Commit status: remediation through AIC-001 is committed; the AIC-004/AIC-005 schema and routing batch awaits its checkpoint commit.
 - Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
-- Final next action: complete the AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.
+- Final next action: commit the validated AIC-004/AIC-005 batch, then request the independent post-remediation audit.

@@ -1,4 +1,5 @@
 asset_id: "repo-structure-sync"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "Repo Structure Sync"
 purpose: "Initialize a target repository after this AI context framework has been copied in by scanning repository facts and refreshing repo-specific architecture sections in `.dev/`, `.ai/`, and `agents.md` while keeping framework-level collaboration rules stable."

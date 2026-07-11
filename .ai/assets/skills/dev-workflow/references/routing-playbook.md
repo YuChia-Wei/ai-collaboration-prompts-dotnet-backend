@@ -28,12 +28,14 @@ If the active profile has no matching downstream skill, use `skill-discovery-pla
 
 ## Local Profile Resolution
 
-For this repository, resolve slots through `capability-profile.md`.
+For this repository, resolve slots through the machine-readable
+`capability-profile.yaml`; use `capability-profile.md` for rationale and human review.
 
 The current local profile maps slots to these concrete skills:
 
 | Capability slot | Local skill |
 | --- | --- | --- |
+| `workflow-orchestration` | `dev-workflow` |
 | `requirements` | `requirement-author` |
 | `specification` | `spec-author` |
 | `problem-framing` | `problem-frame-author` |

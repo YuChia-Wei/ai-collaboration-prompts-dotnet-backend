@@ -1,7 +1,12 @@
 asset_id: "command-sub-agent"
+schema_version: "1.0"
 asset_type: "sub-agent-role-prompt"
 title: "Command Sub-Agent"
 purpose: "Define the delegated worker-role prompt for implementing a command use case in this repository's .NET stack."
+portability: "repo-portable"
+audience: "agent-facing"
+wrapper_targets: []
+source_of_truth: "canonical"
 role_kind: "use-case-sub-agent"
 triggers:
   - "command sub-agent"
@@ -32,5 +37,8 @@ references:
   - ".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md"
   - ".ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md"
   - ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md"
+examples:
+  - ".ai/assets/sub-agent-role-prompts/command-sub-agent/references/implementation-playbook.md"
 human_guide: ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md"
+status: "active"
 

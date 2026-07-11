@@ -47,6 +47,16 @@ LANGUAGE_ALLOWLIST: dict[Path, frozenset[str]] = {
 OWNERSHIP_REGISTRY = Path(".dev/standards/AI-CONTEXT-OWNERSHIP.yaml")
 RULE_STRENGTHS = {"invariant", "profile-default", "conditional", "example", "historical"}
 RULE_STATUSES = {"active", "deprecated", "historical"}
+ASSET_SCHEMA_VERSION = "1.0"
+KEBAB_ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+ASSET_PORTABILITY = {"portable", "repo-portable", "wrapper-specific"}
+ASSET_AUDIENCES = {"agent-facing", "human-facing", "mixed"}
+ASSET_SOURCES = {"canonical", "wrapper", "generated"}
+ASSET_STATUSES = {"draft", "active", "deprecated", "historical"}
+WRAPPER_TARGETS = {"claude", "codex", "copilot"}
+CAPABILITY_PROFILE = Path(
+    ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
+)
 
 
 def tracked_files() -> list[Path]:
@@ -57,7 +67,8 @@ def tracked_files() -> list[Path]:
         capture_output=True,
         text=True,
     )
-    return [Path(line) for line in result.stdout.splitlines() if line]
+    paths = [Path(line) for line in result.stdout.splitlines() if line]
+    return [path for path in paths if (ROOT / path).is_file()]
 
 
 def active_indexes(files: list[Path]) -> list[Path]:
@@ -298,6 +309,190 @@ def validate_rule_ownership(errors: list[str]) -> int:
     return len(rules)
 
 
+def load_yaml_mapping(path: Path, errors: list[str]) -> dict | None:
+    try:
+        value = yaml.safe_load((ROOT / path).read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        errors.append(f"{path}: invalid YAML: {exc}")
+        return None
+    if not isinstance(value, dict):
+        errors.append(f"{path}: root must be a mapping")
+        return None
+    return value
+
+
+def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
+    """Validate versioned skill and sub-agent manifests against the canonical contract."""
+    manifests = sorted(Path(".ai/assets/skills").glob("*/skill.yaml")) + sorted(
+        Path(".ai/assets/sub-agent-role-prompts").glob("*/sub-agent.yaml")
+    )
+    required = {
+        "schema_version", "asset_id", "asset_type", "title", "purpose",
+        "portability", "audience", "wrapper_targets", "source_of_truth",
+        "inputs", "outputs", "constraints", "references", "examples", "status",
+    }
+    expected_types = {
+        "skill.yaml": "skill-spec",
+        "sub-agent.yaml": "sub-agent-role-prompt",
+    }
+    seen: set[str] = set()
+    skill_assets: dict[str, dict] = {}
+    for path in manifests:
+        data = load_yaml_mapping(path, errors)
+        if data is None:
+            continue
+        missing = sorted(required - data.keys())
+        if missing:
+            errors.append(f"{path}: missing canonical fields: {missing}")
+        asset_id = data.get("asset_id")
+        if not isinstance(asset_id, str) or not asset_id:
+            errors.append(f"{path}: asset_id must be a non-empty string")
+            continue
+        if asset_id in seen:
+            errors.append(f"{path}: duplicate asset_id {asset_id}")
+        seen.add(asset_id)
+        if not KEBAB_ID.fullmatch(asset_id):
+            errors.append(f"{path}: asset_id must use kebab-case")
+        if asset_id != path.parent.name:
+            errors.append(f"{path}: asset_id must match parent folder {path.parent.name}")
+        if data.get("schema_version") != ASSET_SCHEMA_VERSION:
+            errors.append(f"{path}: schema_version must be {ASSET_SCHEMA_VERSION}")
+        if data.get("asset_type") != expected_types[path.name]:
+            errors.append(f"{path}: unexpected asset_type {data.get('asset_type')!r}")
+        for key in ("title", "purpose"):
+            if not isinstance(data.get(key), str) or not data.get(key):
+                errors.append(f"{path}: {key} must be a non-empty string")
+        if data.get("portability") not in ASSET_PORTABILITY:
+            errors.append(f"{path}: invalid portability {data.get('portability')!r}")
+        if data.get("audience") not in ASSET_AUDIENCES:
+            errors.append(f"{path}: invalid audience {data.get('audience')!r}")
+        if data.get("source_of_truth") not in ASSET_SOURCES:
+            errors.append(f"{path}: invalid source_of_truth {data.get('source_of_truth')!r}")
+        if data.get("status") not in ASSET_STATUSES:
+            errors.append(f"{path}: invalid status {data.get('status')!r}")
+        for key in ("wrapper_targets", "inputs", "outputs", "constraints", "references", "examples"):
+            values = data.get(key)
+            if not isinstance(values, list) or not all(
+                isinstance(item, str) and item for item in values
+            ):
+                errors.append(f"{path}: {key} must be a list of non-empty strings")
+        targets = data.get("wrapper_targets", [])
+        if isinstance(targets, list) and not set(targets) <= WRAPPER_TARGETS:
+            errors.append(f"{path}: unsupported wrapper_targets {sorted(set(targets) - WRAPPER_TARGETS)}")
+        for key in ("references", "examples"):
+            values = data.get(key, [])
+            if isinstance(values, list):
+                for value in values:
+                    if isinstance(value, str) and value and "<" not in value and not (ROOT / value).exists():
+                        errors.append(f"{path}: missing {key} path {value}")
+        if path.name == "skill.yaml":
+            skill_assets[asset_id] = data
+        for key in ("triggers", "workflow"):
+            if key not in data:
+                errors.append(f"{path}: missing type-specific field {key}")
+        triggers = data.get("triggers")
+        if not isinstance(triggers, list) or not triggers or not all(
+            isinstance(item, str) and item for item in triggers
+        ):
+            errors.append(f"{path}: triggers must be a non-empty list of strings")
+        if path.name == "sub-agent.yaml" and not (
+            isinstance(data.get("role_kind"), str) and data.get("role_kind")
+        ):
+            errors.append(f"{path}: role_kind must be a non-empty string")
+        workflow = data.get("workflow")
+        if not isinstance(workflow, list) or not workflow:
+            errors.append(f"{path}: workflow must be a non-empty list")
+        else:
+            step_ids: list[int] = []
+            for step in workflow:
+                if not isinstance(step, dict):
+                    errors.append(f"{path}: each workflow step must be a mapping")
+                    continue
+                step_id = step.get("step")
+                description = step.get("description")
+                if not isinstance(step_id, int) or step_id < 1:
+                    errors.append(f"{path}: workflow step must be a positive integer")
+                else:
+                    step_ids.append(step_id)
+                if not isinstance(description, str) or not description:
+                    errors.append(f"{path}: workflow step description must be non-empty")
+            if step_ids != list(range(1, len(step_ids) + 1)):
+                errors.append(f"{path}: workflow steps must be unique and sequential from 1")
+
+    templates = ROOT / ".ai/assets/templates"
+    legacy = sorted(path.name for path in templates.glob("*.template.yaml"))
+    if legacy:
+        errors.append(f".ai/assets/templates: legacy duplicate templates remain: {legacy}")
+    for name in (
+        "skill-template.yaml", "sub-agent-role-prompt-template.yaml",
+        "command-template.yaml", "prompt-package-template.yaml",
+    ):
+        if not (templates / name).is_file():
+            errors.append(f".ai/assets/templates: missing canonical template {name}")
+    return len(manifests), skill_assets
+
+
+def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]) -> int:
+    """Validate deterministic development-slot routing against declared skill metadata."""
+    profile = load_yaml_mapping(CAPABILITY_PROFILE, errors)
+    if profile is None:
+        return 0
+    if profile.get("schema_version") != "1.0":
+        errors.append(f"{CAPABILITY_PROFILE}: schema_version must be 1.0")
+    if not isinstance(profile.get("profile_id"), str) or not profile.get("profile_id"):
+        errors.append(f"{CAPABILITY_PROFILE}: profile_id must be a non-empty string")
+    if profile.get("status") != "active":
+        errors.append(f"{CAPABILITY_PROFILE}: status must be active")
+    allowed = profile.get("allowed_slots")
+    required = profile.get("required_slots")
+    mappings = profile.get("mappings")
+    if not isinstance(allowed, list) or not all(isinstance(item, str) for item in allowed):
+        errors.append(f"{CAPABILITY_PROFILE}: allowed_slots must be a list of strings")
+        return 0
+    if len(allowed) != len(set(allowed)):
+        errors.append(f"{CAPABILITY_PROFILE}: allowed_slots contains duplicates")
+    if not isinstance(required, list) or not set(required) <= set(allowed):
+        errors.append(f"{CAPABILITY_PROFILE}: required_slots must be a subset of allowed_slots")
+        required = []
+    if not isinstance(mappings, dict):
+        errors.append(f"{CAPABILITY_PROFILE}: mappings must be a mapping")
+        return 0
+    unknown = sorted(set(mappings) - set(allowed))
+    missing = sorted(set(required) - set(mappings))
+    if unknown:
+        errors.append(f"{CAPABILITY_PROFILE}: unknown mapped slots {unknown}")
+    if missing:
+        errors.append(f"{CAPABILITY_PROFILE}: missing required mappings {missing}")
+    for slot, skill_id in mappings.items():
+        if not isinstance(skill_id, str) or skill_id not in skill_assets:
+            errors.append(f"{CAPABILITY_PROFILE}: {slot} maps missing skill {skill_id!r}")
+            continue
+        skill = skill_assets[skill_id]
+        if skill.get("status") != "active":
+            errors.append(f"{CAPABILITY_PROFILE}: {slot} maps inactive skill {skill_id}")
+        slots = skill.get("capability_slots", [])
+        if not isinstance(slots, list) or slot not in slots:
+            errors.append(f"{CAPABILITY_PROFILE}: {skill_id} does not declare slot {slot}")
+    expected = {str(slot): str(skill) for slot, skill in mappings.items()}
+    for markdown_path, heading in (
+        (Path(".ai/assets/skills/dev-workflow/references/capability-profile.md"), "## Capability Mapping"),
+        (Path(".ai/assets/skills/dev-workflow/references/routing-playbook.md"), "## Local Profile Resolution"),
+    ):
+        text = (ROOT / markdown_path).read_text(encoding="utf-8")
+        section = text.split(heading, 1)[1].split("\n## ", 1)[0] if heading in text else ""
+        pairs = {
+            match.group(1): match.group(2)
+            for line in section.splitlines()
+            if (match := re.match(r"^\| `([^`]+)` \| `([^`]+)` \|", line))
+        }
+        if pairs != expected:
+            errors.append(
+                f"{markdown_path}: capability table differs from {CAPABILITY_PROFILE}; "
+                f"expected={expected}, actual={pairs}"
+            )
+    return len(mappings)
+
+
 def main() -> int:
     errors: list[str] = []
     files = tracked_files()
@@ -313,6 +508,8 @@ def main() -> int:
 
     validate_bilingual_entries(errors)
     ownership_rules = validate_rule_ownership(errors)
+    canonical_assets, skill_assets = validate_canonical_assets(errors)
+    capability_mappings = validate_capability_profile(skill_assets, errors)
 
     for runtime_root in ACTIVE_RUNTIME_ROOTS:
         if not (ROOT / runtime_root).is_dir():
@@ -343,7 +540,8 @@ def main() -> int:
     print(
         f"AI context validation passed: {len(indexes)} active indexes, "
         f"{len(canonical)} canonical skills, {len(ACTIVE_RUNTIME_ROOTS)} current runtime roots, "
-        f"{len(language_files)} language-policy files, and {ownership_rules} owned rules."
+        f"{len(language_files)} language-policy files, {ownership_rules} owned rules, "
+        f"{canonical_assets} canonical manifests, and {capability_mappings} capability mappings."
     )
     print(
         "Root bilingual entry ownership, links, and structural parity passed "

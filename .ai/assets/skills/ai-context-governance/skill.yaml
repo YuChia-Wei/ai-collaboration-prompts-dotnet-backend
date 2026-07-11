@@ -1,4 +1,5 @@
 asset_id: "ai-context-governance"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "AI Context Governance"
 purpose: "Govern AI collaboration context boundaries, documentation quality, skill routing, runtime wrapper sync, AI context migration, and the audit-to-remediation lifecycle without performing product feature implementation or BDD scenario design."

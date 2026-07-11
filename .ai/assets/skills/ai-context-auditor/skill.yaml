@@ -1,4 +1,5 @@
 asset_id: "ai-context-auditor"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "AI Context Auditor"
 purpose: "Perform evidence-backed AI context analysis or recurring self-audits with an independent baseline pass, a repository-aware skill pass, explicit product-code exclusions, and an optional durable report when persistence is requested."
