@@ -51,7 +51,8 @@
 | `.claude/skills/` | Claude-compatible skill wrappers |
 | `.dev/` | Human-facing governance、standards、guides、requirements、specs、workflow artifacts |
 | `.dev/workflows/` | 跨 skill / sub-agent 的 workflow plan、task、review-report |
-| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
+
+目前未提供 Gemini 或 GitHub Copilot 的 repo-level wrapper；相關路徑屬於未來可選整合，不是目前 runtime catalog 的一部分。
 
 ## 重要 Skills
 

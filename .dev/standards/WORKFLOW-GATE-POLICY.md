@@ -9,6 +9,8 @@ This policy defines when an agent should create workflow artifacts proactively i
 | Direct mode | Small, single-pass work that does not need long-lived context. |
 | Workflow mode | Multi-stage work that changes source-of-truth, crosses skill boundaries, or needs task status tracking. |
 
+Mode is determined by persistence and mutation, not by the number of analysis steps alone. A transient read-only analysis may use multiple passes or sub-agents in direct mode when it does not write a repository report, mutate repository files, or perform remediation. A user request for a "report" means a durable repository artifact only when the user asks to save, persist, land, or otherwise retain it in the repository.
+
 ## Must Create a Workflow
 
 Create a durable workflow and its discovery locator when any of these are true:
@@ -33,6 +35,15 @@ Direct mode is acceptable when all of these are true:
 - no canonical rule or source-of-truth boundary changes;
 - no task status needs to be preserved;
 - validation can be completed in the same turn.
+
+Transient read-only analysis is also direct mode even when it is multi-stage or uses sub-agents, provided that all of these are true:
+
+- the result is returned only in the conversation;
+- no durable report or workflow artifact is written to the repository;
+- no repository file is mutated;
+- no finding is remediated.
+
+When a read-only audit must save a durable report, use workflow mode and a dedicated branch. The audited surfaces remain read-only; commits may contain only the audit skill's owned locator, plan, task, and report artifacts. Authorized remediation is a separate governance lifecycle and follows the normal workflow rules.
 
 ## Workflow Artifacts
 

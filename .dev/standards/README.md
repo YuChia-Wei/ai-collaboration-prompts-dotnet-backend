@@ -25,7 +25,7 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, BDDfy, and NSubsti
 - `best-practices.md`
   - 建議採用的 practices
 - `coding-guide.md`
-  - coding 標準入口，串接 standards 與 guides
+  - legacy Todo/Wolverine profile example；不得作為 active product truth 或新專案入口
 - `coding-standards.md`
   - coding style 與 implementation-level rules
 - `project-structure.md`

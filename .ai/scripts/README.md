@@ -36,8 +36,11 @@ Shell or PowerShell scripts should be retired or replaced when they:
 
 - `check-prompt-portability.sh`
 - `check-coding-standards.sh`
+- `validate-ai-context.py`
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
+
+`validate-ai-context.py` is intentionally limited to objective repository facts: active index paths, literal table corruption, declared runtime-root status, and canonical/Agents/Claude skill inventory parity. Broad language-policy character scanning is deferred until an explicit exception model exists.
 
 ### Keep As Orchestrator Only
 

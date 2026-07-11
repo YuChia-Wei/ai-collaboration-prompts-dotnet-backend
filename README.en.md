@@ -51,7 +51,8 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
 | `.claude/skills/` | Claude-compatible skill wrappers |
 | `.dev/` | Human-facing governance, standards, guides, requirements, specs, and workflow artifacts |
 | `.dev/workflows/` | Cross-skill and sub-agent workflow plans, tasks, and review reports |
-| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
+
+Gemini and GitHub Copilot repo-level wrappers are not currently provided. Their runtime paths are planned optional integrations, not entries in the current runtime catalog.
 
 ## Important Skills
 

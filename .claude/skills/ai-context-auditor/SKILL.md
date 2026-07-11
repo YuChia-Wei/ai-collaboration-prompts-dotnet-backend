@@ -1,6 +1,6 @@
 ---
 name: ai-context-auditor
-description: Audit repository AI context structure, governance, routing, wrappers, indexes, prompts, workflow records, and validation surfaces, then save an evidence-backed report. Use for recurring AI context self-checks, context health checks, prompt-repository audits, governance drift checks, or requests to compare an independent baseline with repository skill-based analysis. Exclude product source and test code by default; redirect source-code review requests to the repository code-review skill.
+description: Analyze repository AI context structure, governance, routing, wrappers, indexes, prompts, workflow records, and validation surfaces. Return transient read-only findings in conversation unless the user requests a persisted report; durable audits use owned workflow artifacts. Exclude product source and test code by default; redirect source-code review requests to the repository code-review skill.
 ---
 
 # AI Context Auditor

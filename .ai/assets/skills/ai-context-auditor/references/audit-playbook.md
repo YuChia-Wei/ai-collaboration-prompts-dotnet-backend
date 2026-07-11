@@ -2,7 +2,11 @@
 
 ## 1. Intake And Evidence Boundary
 
-Record the repository identity, branch, audit reason, requested focus, included context roots, excluded code/generated surfaces, previous report, and whether bounded sub-agent delegation is useful.
+Record the repository identity, audit reason, requested focus, included context roots, excluded code/generated surfaces, previous report, and whether bounded sub-agent delegation is useful. First classify the output as transient or durable.
+
+- Transient read-only analysis returns results only in the conversation. It may use multiple passes or sub-agents in direct mode, but writes no repository artifact, mutates no repository file, and performs no remediation.
+- Durable report-only audit applies when the user asks to save, persist, land, or retain the report in the repository. It requires the skill-owned workflow artifacts and dedicated branch, while audited surfaces remain read-only.
+- Authorized remediation is not an auditor mode; hand it to `ai-context-governance` for the normal remediation lifecycle.
 
 When the audit needs a durable workflow, create or switch to its dedicated branch before writing the locator, task, or report. Record `branch` and `base_branch`. Follow `.dev/TEAM-GIT-FLOW-RULES.MD` for push handoff, checkpoint merge, continuation, and default `--no-ff` behavior; keep pre-completion checkpoints active.
 
@@ -56,7 +60,7 @@ Record exact commands and results. A warning-only or skipped gate is not equival
 
 Compare confirmed findings, findings added by repo policies, downgraded or deferred findings, overturned findings, and residual uncertainty.
 
-Create the report from the canonical template. Use a full-date workflow id:
+For durable mode, create the report from the canonical template and use a full-date workflow id. In transient mode, present the same evidence discipline and comparison in the conversation without creating repository artifacts.
 
 ```text
 .dev/workflows/<YYYY-MM-DD-ai-context-audit[-NN]>/

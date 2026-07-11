@@ -49,7 +49,8 @@ Do not silently run both audits. Use another skill only after the user authorize
 
 | Need | Route |
 | --- | --- |
-| Read-only AI context health, drift, structure, and report | `ai-context-auditor` |
+| Conversation-only read-only AI context health, drift, or structure analysis | `ai-context-auditor` in transient direct mode |
+| Read-only AI context audit with a repository-persisted report | `ai-context-auditor` in durable workflow mode |
 | AI context cleanup, moves, language changes, wrapper sync, or policy changes | `ai-context-governance` |
 | Product .NET source or test review | `code-reviewer` |
 | Audit finding triage, multi-stage AI context remediation, post-audit coordination, and closure | `ai-context-governance` |

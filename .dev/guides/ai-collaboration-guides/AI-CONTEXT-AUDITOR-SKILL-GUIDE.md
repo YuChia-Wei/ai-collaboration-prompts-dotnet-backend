@@ -2,7 +2,7 @@
 
 `ai-context-auditor` 用來定期檢查 repository 內的 AI context 健康度，包含目錄分層、canonical ownership、規則衝突、runtime wrapper、skill routing、索引、語言政策、workflow lifecycle 與 validation integrity。
 
-每次執行都必須產出並保存正式報告，而不是只在對話中提供結論。
+輸出分成兩種模式：若使用者只要求分析，結果可留在對話中，不建立 branch、workflow、report file 或 commit；若明確要求保存、落地或持續追蹤，才建立 durable report workflow。多階段分析或使用 sub-agent 本身不會把 transient analysis 變成 durable workflow。
 
 ## 適用情境
 
@@ -36,6 +36,15 @@ Keep the AI context audit report as background only; do not treat context findin
 
 ## 標準執行方式
 
+單次對話分析：
+
+```text
+Use $ai-context-auditor to analyze this repository AI context in transient direct mode.
+Return findings in the conversation only; do not create repository artifacts or remediate findings.
+```
+
+需要落地保存時：
+
 ```text
 Use $ai-context-auditor to perform a recurring AI context self-audit.
 
@@ -61,7 +70,7 @@ Requirements:
 
 Workflow id 使用完整日期 `YYYY-MM-DD-topic[-NN]`；同日碰撞時附加 `-02`、`-03`。所有 generated artifacts 使用帶 offset 的 ISO 8601 `created_at`、`updated_at`，並記錄 `template_source`、`template_version`。
 
-Audit 需要 durable workflow 時，先建立獨立 branch，再建立 locator/report。Locator 記錄 `branch` 與 `base_branch`。未完成 audit 若被要求 merge/push，維持 workflow active 並視為 checkpoint；workflow merge 預設使用 `--no-ff`。Push-only 從已推送 branch 接續，checkpoint merge 後才建立新的 continuation branch。
+Audit 需要 durable workflow 時，先建立獨立 branch，再建立 locator/report。Locator 記錄 `branch` 與 `base_branch`，commit 僅包含 auditor 擁有的 locator、plan、task 與 report artifacts，不得混入 audited context 修正。未完成 audit 若被要求 merge/push，維持 workflow active 並視為 checkpoint；branch 與 merge 細節依 `.dev/TEAM-GIT-FLOW-RULES.MD`。
 
 報告與 audit workflow templates 以 `.ai/assets/skills/ai-context-auditor/templates/` 為準。
 

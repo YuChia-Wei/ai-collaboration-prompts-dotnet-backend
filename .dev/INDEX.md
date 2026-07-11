@@ -29,7 +29,8 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 
 | Path | Description |
 | --- | --- |
-| `guides/README.MD` | Purpose and usage of `.dev/guides/`. |`n| `guides/INDEX.MD` | File and directory catalog for guides. |
+| `guides/README.MD` | Purpose and usage of `.dev/guides/`. |
+| `guides/INDEX.MD` | File and directory catalog for guides. |
 | `guides/ai-collaboration-guides/` | AI collaboration, skill, prompt, workflow, and runtime wrapper guides. |
 | `guides/design-guides/` | .NET backend design and context-placement guides. |
 | `guides/implementation-guides/` | .NET backend implementation and setup guides. |
@@ -43,7 +44,8 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `requirement/REQUIREMENT-GUIDE.MD` | Requirement authoring guide. |
 | `requirement/TECH-STACK-REQUIREMENTS.MD` | Tech stack requirements for the framework profile. |
 | `specs/` | Spec authoring and test-spec guidance for this framework. |
-| `specs/README.MD` | Purpose and usage of `.dev/specs/`. |`n| `specs/INDEX.MD` | File and directory catalog for specs. |
+| `specs/README.MD` | Purpose and usage of `.dev/specs/`. |
+| `specs/INDEX.MD` | File and directory catalog for specs. |
 | `specs/SPEC-GUIDE.MD` | Spec authoring guide. |
 | `specs/SPEC-ORGANIZATION-GUIDE.MD` | Spec organization guide. |
 | `specs/tests/` | Test-spec storage guidance and examples. |
@@ -54,7 +56,8 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | --- | --- |
 | `domain-language/` | Domain language templates and target-repo vocabulary area. |
 | `domain-language/templates/` | Bounded context, aggregate vocabulary, and domain event language templates. |
-| `problem-frames/` | Problem-frame authoring guidance and templates. |`n| `problem-frames/INDEX.md` | File and directory catalog for problem-frame assets. |
+| `problem-frames/` | Problem-frame authoring guidance and templates. |
+| `problem-frames/INDEX.md` | File and directory catalog for problem-frame assets. |
 | `problem-frames/templates/` | Reusable CBF/SWF problem-frame templates. |
 
 ## Operations
@@ -85,4 +88,3 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `../.ai/assets/skills/README.MD` | Canonical skill registry entry. |
 | `../.agents/skills/README.md` | Current runtime wrapper index. |
 | `../.claude/skills/README.md` | Claude-compatible wrapper index. |
-| `../.github/copilot-instructions.md` | GitHub Copilot repository instructions. |

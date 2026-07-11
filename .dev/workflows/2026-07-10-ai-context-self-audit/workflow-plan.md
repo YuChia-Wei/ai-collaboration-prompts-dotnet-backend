@@ -8,8 +8,11 @@
 - `owner_skill`: `ai-context-governance`
 - `audit_skill`: `ai-context-auditor`
 - `artifact_root`: `.dev/workflows/2026-07-10-ai-context-self-audit`
+- `branch`: `codex/2026-07-10-ai-context-self-audit-cont-02`
+- `base_branch`: `main`
+- `branch_segment`: `2`
 - `created_at`: `2026-07-10T18:25:11+08:00`
-- `updated_at`: `2026-07-11T00:11:49+08:00`
+- `updated_at`: `2026-07-11T08:25:12+08:00`
 - `status`: `active`
 - `current_phase`: `remediation-planning`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
@@ -28,8 +31,9 @@
 - Baseline audit: `completed`, final, score `6.5/10`.
 - Traditional Chinese translation: `completed`, derived from the English baseline.
 - Findings: `AIC-001` through `AIC-009`.
-- Remediation triage: `pending`.
-- Authorized remediation: `pending` for a future continuation of this workflow.
+- Remediation triage: `completed`; matrix saved in `reports/02-remediation-report.md`.
+- Authorized remediation: `authorized` by the user's 2026-07-11 instruction to begin correcting the inventoried findings.
+- Authorized remediation progress: Batch 1 implemented AIC-003, AIC-006, AIC-008, and the objective lint portion of AIC-009; Batch 2 and the AIC-002 decision remain.
 - Post-remediation independent audit: `pending`.
 - Workflow closure: `pending`.
 
@@ -96,3 +100,10 @@ tasks/
 4. Compare each finding with current files and commits, then write the remediation matrix before modifying context.
 5. Keep the English report canonical and the zh-TW file derived.
 6. Update `updated_at` whenever task status, findings, conclusions, artifact relationships, or branch state changes.
+
+## Branch Lifecycle
+
+| Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | N/A (legacy work on `main`) | `main` | merge | `905499a` | `main` | `2026-07-11T08:15:27+08:00` | Adopt mandatory workflow branch policy before remediation | Segment 2 on `codex/2026-07-10-ai-context-self-audit-cont-02` |
+| 2 | `codex/2026-07-10-ai-context-self-audit-cont-02` | `main` | N/A | N/A | N/A | `2026-07-11T08:15:27+08:00` | Triage and authorized remediation | Complete AICSA-002 matrix before context edits |

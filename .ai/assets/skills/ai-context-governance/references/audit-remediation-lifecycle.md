@@ -1,6 +1,6 @@
 # AI Context Audit Remediation Lifecycle
 
-Use this lifecycle after an `ai-context-auditor` baseline identifies findings and the user authorizes remediation.
+Use this lifecycle after an `ai-context-auditor` baseline identifies findings and the user authorizes remediation. A transient conversation-only analysis may inform the decision, but remediation starts a durable governance workflow; it does not retroactively turn the transient analysis into an audit artifact.
 
 ## Ownership
 

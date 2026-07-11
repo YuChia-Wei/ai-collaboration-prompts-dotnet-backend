@@ -1,5 +1,13 @@
 # DDD + CA + CQRS Learning Path (Dotnet)
 
+> **Status: profile-specific learning reference, not target-project truth.**
+>
+> This learning path describes the repository's reusable `dotnet-backend`
+> examples. WolverineFx, EF Core, Event Sourcing, BDDfy, package choices, and
+> sample source layouts apply only when the target repository adopts them.
+> Begin target-repository onboarding with root `agents.md`, `README.md`, and
+> `repo-structure-sync`; prefer generated target context over this example.
+
 ## Core Concept Levels
 
 ### Level 1: Fundamentals
@@ -50,7 +58,7 @@
 ## Required Reading Order
 
 ### Phase 1: Understand the architecture
-1. `CLAUDE.md` - project memory (TODO: replace with .NET memory doc when available)
+1. Root `agents.md` and `README.md` - repository rules and identity
 2. `.ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md` - architecture rules
 3. `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md` - non-negotiable rules
 4. `.ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md` - test rules
@@ -169,10 +177,10 @@ When you need to implement a new feature:
 
 Initial conversation template:
 ```markdown
-I am using DDD + Clean Architecture + CQRS + Event Sourcing in .NET.
+My target repository has explicitly adopted DDD + Clean Architecture + CQRS + Event Sourcing in .NET.
 Please follow these references to learn the coding style:
 
-1. Project memory: CLAUDE.md (TODO: replace with .NET memory doc)
+1. Repository context: root agents.md and README.md
 2. Learning path: .dev/guides/learning-guides/LEARNING-PATH.md
 3. Code templates: .ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD
 4. Prompts: .ai/assets/

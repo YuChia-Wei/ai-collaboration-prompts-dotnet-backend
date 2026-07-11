@@ -196,5 +196,5 @@ public interface IDomainRepository<TAggregate, TId>
 
 - [最佳實踐](./best-practices.md)
 - [反模式](./anti-patterns.md)
-- [編碼指南](./coding-guide.md)
+- [Legacy Todo/Wolverine profile example](./coding-guide.md)（非 active product truth）
 - [程式碼審查清單](./CODE-REVIEW-CHECKLIST.md)

@@ -41,6 +41,8 @@
 
 ## 自檢與修正生命週期
 
+只在對話中回覆的 transient read-only analysis 不屬於 remediation workflow，也不需要 branch、artifacts 或 commit。當使用者授權修正時，治理工作才建立 durable workflow；若基準稽核需要成為正式追蹤證據，應先由 auditor 以 durable report mode 落地。
+
 完整的 AI context 維護流程由本 skill 協調：
 
 1. `ai-context-auditor` 產生唯讀基準報告 `reports/01-audit-report.md`。

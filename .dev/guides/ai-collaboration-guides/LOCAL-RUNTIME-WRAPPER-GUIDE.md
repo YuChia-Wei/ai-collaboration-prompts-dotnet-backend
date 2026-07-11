@@ -5,7 +5,7 @@
 ## 原則
 
 - repo 內的 canonical source 以 `.ai/assets/` 為主
-- repo 內的 wrapper roots 以 `.agents/skills/`、`.claude/skills/`、`.gemini/commands/`、`.github/prompts/` 為主
+- repo 內目前的 wrapper roots 是 `.agents/skills/` 與 `.claude/skills/`
 - 本機 runtime 設定只是讓 agent 指到 repo wrapper，不是 canonical source 本身
 - prompt wrappers 與 runtime skill wrappers 是不同層次，不應混為一談
 - 目前不提供 sync/export tooling；wrapper 採 repo-local 管理
@@ -16,11 +16,8 @@
   - `.agents/skills/`
 - Claude:
   - `.claude/skills/`
-- Gemini:
-  - `.gemini/commands/`
-- GitHub Copilot:
-  - `.github/prompts/`
-  - `.github/copilot-instructions.md`
+
+Gemini 與 GitHub Copilot wrapper 尚未建立；`.gemini/commands/`、`.github/prompts/` 與 `.github/copilot-instructions.md` 僅是規劃中的可選整合路徑，不是目前 repo runtime surface。
 
 ## Codex Local Runtime
 
@@ -53,22 +50,21 @@ setx CODEX_HOME ""
 
 ## Gemini Local Runtime
 
-目前 repo 內的 Gemini 入口以：
+目前 repo 不提供 Gemini runtime wrapper。若未來啟用，預計使用：
 
 - `.gemini/settings.json`
 - `.gemini/commands/`
 
-為主。  
-`settings.json` 用來補 default context，`commands/` 用來放 repo-local wrapper commands。
+`settings.json` 可補 default context，`commands/` 可放 repo-local wrapper commands；建立並通過驗證前不得列為 current runtime。
 
 ## GitHub Copilot
 
-目前 repo 內的 Copilot 入口以：
+目前 repo 不提供 GitHub Copilot runtime wrapper。若未來啟用，預計使用：
 
 - `.github/copilot-instructions.md`
 - `.github/prompts/`
 
-為主。
+建立並通過驗證前不得列為 current runtime。
 
 ## 建議使用順序
 

@@ -82,12 +82,14 @@ Workflow artifact 規則：
 
 ### AI Context Audit
 
-定期執行唯讀的 AI context 健康度與漂移自檢，且必須保存正式報告時，使用 `ai-context-auditor`。
+執行唯讀的 AI context 健康度與漂移分析時，使用 `ai-context-auditor`。若結果只回覆於對話，可維持 transient direct mode；只有使用者要求將稽核報告落地保存於 repository 時，才建立專用 workflow 與 branch。
 
 - 預設只檢查 AI context 與治理 surfaces。
 - 排除 `src/`、`tests/` 與其他產品 implementation trees。
 - 若使用者要求掃描產品 source 或 test code，停止擴大 audit，改為轉介 `code-reviewer`。
 - Audit finding 與 remediation 必須分開；只有在使用者授權整改後，才由 `ai-context-governance` 協調 AI context remediation lifecycle。
+- 僅因分析有多階段或使用 sub-agent，不代表必須建立 workflow；前提是沒有 repository mutation、remediation 或 durable report。
+- Durable report-only audit 對被稽核 surfaces 維持唯讀，commit 只包含 auditor 擁有的 workflow 與 report artifacts。
 
 ### Development Workflow Orchestration
 
@@ -146,7 +148,7 @@ Workflow artifact 規則：
 | 需求 | Skill |
 | --- | --- |
 | 多階段開發流程協調、workflow artifacts、skill routing、validation 與 commit checkpoint | `dev-workflow` |
-| 定期執行唯讀 AI context 健康度、漂移與結構自檢並保存報告 | `ai-context-auditor` |
+| 唯讀 AI context 健康度、漂移與結構分析；可選擇對話輸出或保存報告 | `ai-context-auditor` |
 | AI context cleanup、prompt boundary、language policy、wrapper sync | `ai-context-governance` |
 | 將此 framework 複製到目標 repo 後的第一次同步 | `repo-structure-sync` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |
@@ -168,7 +170,6 @@ Workflow artifact 規則：
 | `README.en.md` | English repository identity |
 | `agents.md` | Root agent collaboration guide |
 | `agents.zh-tw.md` | 繁體中文台灣用語版 root agent collaboration guide |
-| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
 
 ### AI Assets (`.ai/`)
 
