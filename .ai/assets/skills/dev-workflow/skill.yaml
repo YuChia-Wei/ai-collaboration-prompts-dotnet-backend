@@ -1,12 +1,14 @@
 asset_id: "dev-workflow"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "Development Workflow"
 purpose: "Coordinate the multi-stage software and product development lifecycle by deciding direct mode versus workflow mode, creating development workflow artifacts, mapping stages to development capability slots, using local profiles when available, and enforcing validation and commit checkpoints."
-portability: "universal"
-audience:
-  - "AI agents coordinating software or product development work"
-  - "Humans asking agents to plan, stage, or execute a multi-skill development lifecycle"
-source_of_truth:
+portability: "repo-portable"
+audience: "agent-facing"
+source_of_truth: "canonical"
+capability_slots:
+  - "workflow-orchestration"
+governance_references:
   - ".dev/standards/WORKFLOW-GATE-POLICY.md"
   - ".dev/standards/WORKFLOW-ARTIFACT-POLICY.md"
   - ".dev/standards/GIT-COMMIT-POLICY.md"
@@ -70,6 +72,7 @@ references:
   - ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/capability-profile.md"
+  - ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
   - ".ai/assets/skills/dev-workflow/references/fallback-playbooks.md"
   - ".ai/assets/skills/dev-workflow/references/runtime-coordination.md"
   - ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md"

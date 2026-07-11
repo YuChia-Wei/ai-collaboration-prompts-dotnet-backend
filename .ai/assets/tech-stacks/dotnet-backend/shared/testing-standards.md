@@ -1,9 +1,8 @@
-# Testing Standards Prompt (Dotnet)
+# Testing Standards Compatibility Entry (Dotnet)
 
-General testing standards for .NET migration.
+This legacy entry is retained for link compatibility. Load
+[testing-strategy.md](testing-strategy.md) for the active agent projection and
+[Test Coding Standards](../../../../../.dev/standards/coding-standards/test-standards.md)
+for normative semantics.
 
-## Rules
-- xUnit + BDDfy (Gherkin-style naming only)
-- NSubstitute only
-- No BaseTestClass
-- Async-safe event verification required
+Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`.

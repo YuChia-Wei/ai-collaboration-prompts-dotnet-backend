@@ -1,8 +1,8 @@
-# Spec 檔案組織指南
+# Spec File Organization Guide
 
-本文件說明如何依 bounded context、aggregate 與測試目標組織 specs。這個框架倉庫不保留 active production/domain spec subtree；production specs 是 target repo 的輸出，通常由 `repo-structure-sync` 或後續 workflow 在有來源需求時建立。這裡保留的是規則、範本與 `.dev/specs/tests/`。
+This document explains how to organize specs by bounded context, aggregate, and test target. This framework repository does not retain an active production/domain spec subtree; production specs are target-repository outputs, usually created by `repo-structure-sync` or a later workflow when source requirements exist. This repository retains rules, templates, and `.dev/specs/tests/`.
 
-## 目錄結構
+## Directory Structure
 
 ```text
 Framework repo (.dev/specs/):
@@ -27,23 +27,23 @@ Target repo (.dev/specs/ when production specs exist):
           <action>-<aggregate>.json
 ```
 
-## 放置規則
+## Placement Rules
 
-1. 先識別 use case 主要操作的 aggregate。
-2. 再確認 aggregate 所屬 bounded context。
-3. production spec 與 test spec 使用相同 bounded-context / aggregate 視角。
-4. 關聯關係不代表 ownership；不要因為 A 引用 B，就把 B 的 spec 放進 A 的 aggregate 目錄。
-5. 若 bounded context 或 aggregate ownership 不清楚，先使用 `ddd-ca-hex-architect`，不要猜測路徑。
-6. 這個框架倉庫目前只保留 guides、templates 與 test-spec 材料，不承載 active `domains/` subtree。
+1. Identify the aggregate primarily operated on by the use case.
+2. Confirm the bounded context that owns the aggregate.
+3. Use the same bounded-context/aggregate perspective for production and test specs.
+4. A relationship does not imply ownership. Do not place B's spec in A's aggregate directory merely because A references B.
+5. If bounded-context or aggregate ownership is unclear, use `ddd-ca-hex-architect` first; do not guess the path.
+6. This framework repository retains only guides, templates, and test-spec materials; it does not host an active `domains/` subtree.
 
-## 命名規則
+## Naming Rules
 
-- Use case spec：`<action>-<aggregate>.json`
-- Entity / aggregate spec：`<aggregate>-spec.md`
-- Test spec：`<target>.test-spec.md`
-- 目錄與檔名使用 kebab-case。
+- Use case spec: `<action>-<aggregate>.json`
+- Entity/aggregate spec: `<aggregate>-spec.md`
+- Test spec: `<target>.test-spec.md`
+- Use kebab-case for directories and filenames.
 
-## 中性範例
+## Neutral Example
 
 ```text
 Target repo:
@@ -70,9 +70,9 @@ Target repo:
         <aggregate-a>-persistence.test-spec.md
 ```
 
-## 常見錯誤
+## Common Mistakes
 
-### 依關聯而不是 ownership 放置
+### Placing by Relationship Instead of Ownership
 
 ```text
 Wrong:
@@ -82,7 +82,7 @@ Correct:
 domains/<context-b>/<aggregate-b>/usecase/create-<aggregate-b>.json
 ```
 
-### 將所有 use cases 集中在同一層
+### Placing All Use Cases at One Level
 
 ```text
 Wrong:
@@ -92,18 +92,18 @@ Correct:
 specs/domains/<bounded-context>/<aggregate>/usecase/<use-case>.json
 ```
 
-## 遷移步驟
+## Migration Steps
 
-1. 確認 bounded context 與 aggregate ownership。
-2. 建立正確目錄。
-3. 移動 spec 與對應 test specs。
-4. 更新 requirement、problem frame、workflow task 與 code reference。
-5. 搜尋舊路徑並驗證 JSON / Markdown。
+1. Confirm bounded-context and aggregate ownership.
+2. Create the correct directories.
+3. Move the spec and corresponding test specs.
+4. Update requirements, problem frames, workflow tasks, and code references.
+5. Search for old paths and validate JSON/Markdown.
 
 ## Review Checklist
 
-- [ ] Spec 路徑反映 bounded context 與 aggregate ownership。
-- [ ] Production spec 與 test spec 使用一致命名。
-- [ ] Cross-domain 與 E2E specs 沒有被錯放到單一 aggregate。
-- [ ] 文件使用目標 repo 的 ubiquitous language。
-- [ ] Template placeholders 沒有被誤當成 product truth。
+- [ ] Spec paths reflect bounded-context and aggregate ownership.
+- [ ] Production and test specs use consistent naming.
+- [ ] Cross-domain and E2E specs are not misplaced under a single aggregate.
+- [ ] Documents use the target repository's ubiquitous language.
+- [ ] Template placeholders are not mistaken for product truth.

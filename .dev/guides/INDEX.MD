@@ -22,5 +22,5 @@ This index owns the file and directory catalog for `.dev/guides/`.
 | `design-guides/FRAMEWORK-API-INTEGRATION-GUIDE.md` | Framework API integration guidance. |
 | `design-guides/PROFILE-BASED-TESTING-GUIDE.md` | Profile-based testing architecture guide. |
 | `implementation-guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md` | Profile configuration complexity guidance. |
-| `learning-guides/LEARNING-PATH.md` | Learning path for this framework profile. |
-| `learning-guides/NEW-PROJECT-GUIDE.md` | New-project onboarding guide. |
+| `learning-guides/LEARNING-PATH.md` | Profile-specific .NET backend learning reference; conditional, not target-project truth. |
+| `learning-guides/NEW-PROJECT-GUIDE.md` | Retired ExampleApp onboarding example; current target initialization uses `repo-structure-sync`. |

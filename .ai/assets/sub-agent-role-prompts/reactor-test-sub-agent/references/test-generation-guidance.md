@@ -6,7 +6,7 @@
 - `.ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md`
 - `.ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md`
 
-Generate reactor tests using xUnit + BDDfy with Gherkin-style naming. No BaseTestClass.
+Generate reactor tests using xUnit with mandatory Given-When-Then structure and naming. BDDfy is the default profile; an explicit team opt-out permits plain xUnit GWT, not 3A. No BaseTestClass.
 
 ## Rules
 - Follow ezSpec -> BDDfy mapping rules in .ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md

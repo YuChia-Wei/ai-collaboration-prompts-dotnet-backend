@@ -32,6 +32,7 @@ This index owns the file and directory catalog for `.ai/`. The `.ai/README.MD` f
 | --- | --- |
 | `scripts/` | Transitional local workflow scripts and orchestration helpers. |
 | `scripts/README.md` | Script transition policy and inventory. |
+| `scripts/validate-ai-context.py` | Active index, runtime-root, table-integrity, and skill-wrapper parity validation. |
 | `scripts/generated/` | Generated regex checks planned for retirement after native replacements exist. |
 
 ## Related Human-Facing Docs

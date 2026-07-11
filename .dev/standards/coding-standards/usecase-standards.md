@@ -1,11 +1,11 @@
-# Use Case 編碼規範 (.NET)
+# Use Case Coding Standards (.NET)
 
-本文件定義同步 Command/Query Use Case、Input/Output、Handler、transaction 與
-event lifecycle 的編碼標準。角色關係以
-[USECASE-COMMAND-HANDLER-RELATIONSHIP.MD](../USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
-為準。
+This document defines coding standards for synchronous Command/Query Use Cases,
+Input/Output, Handlers, transactions, and the event lifecycle. The authoritative
+role relationship is defined in
+[USECASE-COMMAND-HANDLER-RELATIONSHIP.MD](../USECASE-COMMAND-HANDLER-RELATIONSHIP.MD).
 
-## 核心模型
+## Core Model
 
 ```text
 Controller / Handler (inbound adapter)
@@ -14,15 +14,14 @@ Controller / Handler (inbound adapter)
   -> Domain / outbound ports
 ```
 
-- Use Case 與 Handler 是不同物件。
-- 同步 API 預設由 Controller 直接注入 Use Case interface。
-- Handler 只在真實 dispatch/message entry 存在。
-- Wolverine 是 conditional adapter technology，不是 portable Use Case
-  dependency。
+- A Use Case and a Handler are distinct objects.
+- By default, a synchronous API Controller directly injects the Use Case interface.
+- A Handler exists only for a real dispatch or message entry point.
+- Wolverine is a conditional adapter technology, not a portable Use Case dependency.
 
-## MUST 規則
+## MUST Rules
 
-### 1. Interface、implementation 與 operation 命名
+### 1. Interface, Implementation, and Operation Naming
 
 ```csharp
 public interface ICreateProductUseCase
@@ -43,15 +42,15 @@ public sealed class CreateProductUseCase : ICreateProductUseCase
 }
 ```
 
-- interface 使用 `I<Operation>UseCase`。
-- implementation 使用 `<Operation>UseCase`。
-- operation 固定使用 `ExecuteAsync`。
-- 非同步 operation 必須宣告不可省略的 `CancellationToken`。
-- Use Case 不同時暴露 `Handle` entry point。
+- Interfaces use `I<Operation>UseCase`.
+- Implementations use `<Operation>UseCase`.
+- The operation name is always `ExecuteAsync`.
+- An asynchronous operation MUST declare a non-optional `CancellationToken`.
+- A Use Case MUST NOT also expose a `Handle` entry point.
 
-### 2. Input 必須與 delivery contract 分離
+### 2. Input MUST Be Separate from the Delivery Contract
 
-預設為 Use Case 建立專屬、transport-neutral 的 `*Input`：
+By default, create a dedicated, transport-neutral `*Input` for a Use Case:
 
 ```csharp
 public sealed record CreateProductInput(
@@ -60,44 +59,46 @@ public sealed record CreateProductInput(
     string UserId);
 ```
 
-允許兩項例外：
+Two exceptions are allowed:
 
-- 沒有 cancellation 以外的輸入時，不建立 input。
-- 只有一個 scalar built-in/BCL 值時，可直接接受該值。
+- Do not create an input when there is no input other than cancellation.
+- A single scalar built-in/BCL value may be accepted directly.
 
-Scalar 例外限 `string`、數值型別、`bool`、`Guid` 與 date/time 類型。
-collection、tuple、自訂 record/class 或多值必須使用專屬 input。
+The scalar exception is limited to `string`, numeric types, `bool`, `Guid`, and
+date/time types. Collections, tuples, custom records/classes, or multiple values
+MUST use a dedicated input.
 
-Use Case 不接受：
+A Use Case MUST NOT accept:
 
 - ASP.NET Request DTO
-- Wolverine/MediatR Command 或 Query
+- Wolverine/MediatR Command or Query
 - broker contract
 - package marker interface
 
-### 3. Output 必須與 transport 分離
+### 3. Output MUST Be Separate from Transport
 
 ```csharp
 public sealed record CreateProductOutput(ProductId ProductId);
 ```
 
-Use Case 只回傳完成操作後產生的 transport-neutral object。沒有 object 時回傳
-`Task`。不得回傳 `IActionResult`、broker acknowledgement、retry/dead-letter
-instruction 或 framework envelope。
+A Use Case returns only the transport-neutral object produced by the completed
+operation. Return `Task` when there is no object. It MUST NOT return
+`IActionResult`, a broker acknowledgement, retry/dead-letter instructions, or a
+framework envelope.
 
-### 4. Command 與 Query 責任分離
+### 4. Separate Command and Query Responsibilities
 
-- Command Use Case 修改 state 並透過 Aggregate behavior 維護 invariant。
-- Query Use Case 只讀取 read model，不修改 Domain state。
-- Command/message contract 只有在 dispatch entry 存在時才建立。
-- Command/message Handler 將 delivery contract map 成 Use Case input。
-- Query 預設仍使用 query Use Case；只有明確核准的純查詢 endpoint 可直連
-  `IQueryRepository`-derived port 或 query service。
+- A Command Use Case changes state and preserves invariants through Aggregate behavior.
+- A Query Use Case reads only a read model and does not change Domain state.
+- Create a Command/message contract only when a dispatch entry point exists.
+- A Command/message Handler maps the delivery contract to Use Case input.
+- Queries use a query Use Case by default. Only an explicitly approved read-only
+  endpoint may directly use an `IQueryRepository`-derived port or query service.
 
-### 5. Dependency injection
+### 5. Dependency Injection
 
-Use Case 使用 constructor injection，且只依賴 Domain types 與 Application
-outbound ports：
+A Use Case uses constructor injection and depends only on Domain types and
+Application outbound ports:
 
 ```csharp
 public sealed class CreateProductUseCase : ICreateProductUseCase
@@ -115,7 +116,7 @@ public sealed class CreateProductUseCase : ICreateProductUseCase
 }
 ```
 
-禁止：
+Forbidden:
 
 - `IServiceProvider` / Service Locator
 - DI registration attribute
@@ -123,17 +124,17 @@ public sealed class CreateProductUseCase : ICreateProductUseCase
 - direct Wolverine `IMessageBus`
 - another Use Case dependency
 
-在 composition root 使用 `IServiceCollection` 顯式註冊：
+Register explicitly with `IServiceCollection` in the composition root:
 
 ```csharp
 services.AddScoped<ICreateProductUseCase, CreateProductUseCase>();
 ```
 
-不得把 `ICreateProductUseCase` 註冊到 `CreateProductHandler`。
+MUST NOT register `ICreateProductUseCase` to `CreateProductHandler`.
 
-### 6. Handler 必須是薄 inbound adapter
+### 6. A Handler MUST Be a Thin Inbound Adapter
 
-只有真實 dispatch/message entry 才建立 Handler：
+Create a Handler only for a real dispatch/message entry point:
 
 ```csharp
 public sealed class CreateProductCommandHandler
@@ -159,21 +160,35 @@ public sealed class CreateProductCommandHandler
 }
 ```
 
-Handler 不得：
+A Handler MUST NOT:
 
-- 載入或儲存 Aggregate
-- 依賴 Repository / Domain Service
-- commit transaction
-- 發布 business event 或 Command
-- 注入或編排多個 Use Case
+- load or save an Aggregate;
+- depend on a Repository or Domain Service;
+- commit a transaction;
+- publish a business event or Command;
+- inject or orchestrate multiple Use Cases.
 
-Package-neutral convention Handler 可位於 Application；framework/transport
-specific Handler 位於 inbound adapter 或 composition boundary。
+A package-neutral convention Handler may reside in Application. A
+framework/transport-specific Handler belongs at the inbound adapter or composition
+boundary.
 
-### 7. Strong consistency 必須顯式宣告
+### 7. Strong Consistency MUST Be Explicit
 
-Eventual consistency 是跨 Aggregate coordination 的預設。只有 Use Case
-具有明確 all-or-nothing business requirement 時才注入 `IUnitOfWork`：
+One command changes one Aggregate by default. Events and eventual consistency are
+the default for coordination between Aggregates. A Use Case may inject
+`IUnitOfWork` for multiple Aggregates only as an exceptional same-bounded-context
+decision when all of these conditions hold:
+
+1. The business names an all-or-nothing invariant involving the Aggregates.
+2. Any eventually consistent intermediate state would be unacceptable and cannot
+   be safely compensated.
+3. The design rechecks that the Aggregate boundaries are correct instead of using
+   a transaction to hide a misplaced invariant.
+4. The decision documents the invariant, the involved Aggregates, and why eventual
+   consistency or compensation is insufficient.
+
+The following Reservation + Capacity example represents such an exceptional
+business rule; it is not a general Use Case template:
 
 ```csharp
 public sealed class CompleteReservationUseCase
@@ -182,21 +197,30 @@ public sealed class CompleteReservationUseCase
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        // Load Aggregates, invoke Domain behavior, and save through ports.
+        // Exceptional case: Reservation and Capacity are in the same bounded
+        // context and the named invariant requires both changes to succeed or
+        // neither to succeed. An intermediate overbooked state is unacceptable
+        // and cannot be safely compensated. Do not copy this as a general template.
+        // Load Reservation and Capacity, invoke Domain behavior, and save through ports.
         await this.unitOfWork.CommitAsync(cancellationToken);
     }
 }
 ```
 
-- 不得因減少 I/O round trips 宣告 strong consistency。
-- Repository 參與 Unit of Work 時不得自行 commit。
-- Handler 不得新增 transaction 或在 Use Case 後 commit。
-- commit 成功後才能 acknowledge/clear pending Domain Events。
+- MUST NOT select a multi-Aggregate transaction because of shared storage, ORM or
+  framework capabilities, fewer I/O round trips, implementation convenience, or a
+  general future need.
+- MUST NOT make `IUnitOfWork` a default Use Case dependency.
+- MUST NOT span bounded contexts with one transaction; cross-bounded-context
+  coordination uses integration events and eventual consistency.
+- A Repository participating in a Unit of Work MUST NOT commit independently.
+- A Handler MUST NOT introduce a transaction or commit after the Use Case.
+- Pending Domain Events may be acknowledged or cleared only after a successful commit.
 
-### 8. Event publication 使用 outbound port
+### 8. Event Publication Uses an Outbound Port
 
-Domain object 產生 Domain Event；Use Case 協調 persistence、outbox 與
-publication lifecycle。
+A Domain object produces Domain Events; the Use Case coordinates persistence,
+outbox, and the publication lifecycle.
 
 ```csharp
 public interface IApplicationEventPublisher
@@ -207,42 +231,49 @@ public interface IApplicationEventPublisher
 }
 ```
 
-實際 port 應使用 target domain language，而不是建立萬用 bus abstraction。
-Infrastructure 可用 Wolverine/outbox 實作 port。Use Case 不直接注入
-`IMessageBus`，也不得透過 publisher 發布 Command。
+The concrete port SHOULD use the target domain language instead of a generic bus
+abstraction. Infrastructure may implement the port with Wolverine/outbox. A Use
+Case MUST NOT inject `IMessageBus` directly or publish Commands through the publisher.
 
-## 測試規則
+## Test Rules
 
-- Use Case unit test 直接建立 concrete `*UseCase`。
-- Mock Aggregate Repository、Query Repository、gateway、clock、publisher 等
-  outbound ports。
-- 驗證 `ExecuteAsync` output、Domain behavior、persistence 與 event lifecycle。
-- Handler test 只驗證 mapping、一次 Use Case invocation 與 delivery failure
-  mapping。
-- 不以 Handler test 取代 Use Case business-flow test。
+- A Use Case unit test directly creates the concrete `*UseCase`.
+- Mock outbound ports such as Aggregate Repository, Query Repository, gateway,
+  clock, and publisher.
+- Verify `ExecuteAsync` output, Domain behavior, persistence, and event lifecycle.
+- A Handler test verifies only mapping, one Use Case invocation, and delivery
+  failure mapping.
+- A Handler test MUST NOT replace a Use Case business-flow test.
 
-## 檢查清單
+## Checklist
 
 ### Use Case
 
-- [ ] interface 與 concrete class 使用 `*UseCase` 命名。
-- [ ] operation 是 `ExecuteAsync`。
-- [ ] `CancellationToken` 不可省略。
-- [ ] Input/Output 與 HTTP、MQ、Wolverine/MediatR 分離。
-- [ ] 只依賴 Domain types 與 outbound ports。
-- [ ] 不依賴 `IServiceProvider`、`IMessageBus` 或其他 Use Case。
-- [ ] transaction 與 event lifecycle 位於 Use Case。
+- [ ] Interface and concrete class names use `*UseCase`.
+- [ ] The operation is `ExecuteAsync`.
+- [ ] `CancellationToken` is not optional.
+- [ ] Input/Output are separate from HTTP, MQ, and Wolverine/MediatR.
+- [ ] Dependencies are limited to Domain types and outbound ports.
+- [ ] There is no dependency on `IServiceProvider`, `IMessageBus`, or another Use Case.
+- [ ] The transaction and event lifecycle reside in the Use Case.
+- [ ] One command changes one Aggregate by default; other Aggregate effects use events.
+- [ ] `IUnitOfWork` is absent unless a documented, named all-or-nothing invariant
+      satisfies every exceptional strong-consistency criterion above.
+- [ ] An exceptional transaction records the involved Aggregates, boundary recheck,
+      and why eventual consistency or compensation is unacceptable.
+- [ ] No transaction spans bounded contexts.
 
 ### Handler
 
-- [ ] 只因真實 dispatch/message entry 而存在。
-- [ ] 將 delivery input map 成 Use Case input。
-- [ ] 只呼叫一個 Use Case。
-- [ ] 不直接操作 Repository、Aggregate、transaction 或 event publication。
-- [ ] framework/transport coupling 位於 adapter/composition boundary。
+- [ ] Exists only for a real dispatch/message entry point.
+- [ ] Maps delivery input to Use Case input.
+- [ ] Invokes exactly one Use Case.
+- [ ] Does not directly operate a Repository, Aggregate, transaction, or event publication.
+- [ ] Framework/transport coupling stays at the adapter/composition boundary.
 
-## 相關文件
+## Related Documents
 
+- [Aggregate Standards](aggregate-standards.md)
 - [Controller Standards](controller-standards.md)
 - [Repository Standards](repository-standards.md)
 - [Test Standards](test-standards.md)

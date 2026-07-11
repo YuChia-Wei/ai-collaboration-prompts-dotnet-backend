@@ -49,7 +49,7 @@ TODO: confirm final Contract API surface (Require/Ensure/Invariant naming).
 
 ## Aggregate Test Rules
 - [ ] Aggregate tests are pure unit tests (no DI, no WebApplicationFactory)
-- [ ] Use xUnit 3A pattern (Arrange-Act-Assert)
+- [ ] Use Given-When-Then structure and naming; BDDfy is the default profile unless the target team explicitly opted out, and Arrange-Act-Assert (3A) is not accepted as a substitute
 - [ ] DateProvider used for time control (if DateProvider exists)
 - [ ] No BaseTestClass usage
 

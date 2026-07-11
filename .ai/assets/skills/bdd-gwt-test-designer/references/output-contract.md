@@ -2,6 +2,8 @@
 
 Use this structure unless the user asks for another format.
 
+The default artifact is scenario notes. If the user provides or explicitly requests a `.feature` file, or the target profile selects a feature runner, render the same scenario set as valid Gherkin feature/scenario design and record the selected runner only when project evidence names it.
+
 ## 1. Inputs Used
 
 - requirement/spec/doc paths

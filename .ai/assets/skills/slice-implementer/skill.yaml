@@ -1,7 +1,13 @@
 asset_id: "slice-implementer"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "Slice Implementer"
 purpose: "Implement one bounded implementation slice from requirements, specs, architecture decisions, review findings, or workflow tasks without redefining the architecture direction."
+portability: "repo-portable"
+audience: "agent-facing"
+source_of_truth: "canonical"
+capability_slots:
+  - "implementation"
 triggers:
   - "slice implementer"
   - "implement slice"

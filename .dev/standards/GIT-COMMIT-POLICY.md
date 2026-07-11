@@ -82,6 +82,8 @@ Workflow:
 
 Small direct-mode commits may omit the body when the title is sufficient and the user did not ask for detailed traceability.
 
+Transient read-only analysis has no repository artifacts and therefore requires no branch, workflow, or commit. A durable report-only audit commits only auditor-owned workflow and report artifacts; read-only evidence gathering does not authorize changes to the audited context. Remediation commits belong to the governance workflow that owns those changes.
+
 ## Commit Timing
 
 Create a commit when:

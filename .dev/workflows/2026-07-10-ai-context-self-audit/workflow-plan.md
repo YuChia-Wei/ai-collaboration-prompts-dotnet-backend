@@ -8,10 +8,13 @@
 - `owner_skill`: `ai-context-governance`
 - `audit_skill`: `ai-context-auditor`
 - `artifact_root`: `.dev/workflows/2026-07-10-ai-context-self-audit`
+- `branch`: `codex/2026-07-10-ai-context-self-audit-cont-02`
+- `base_branch`: `main`
+- `branch_segment`: `2`
 - `created_at`: `2026-07-10T18:25:11+08:00`
-- `updated_at`: `2026-07-11T00:11:49+08:00`
-- `status`: `active`
-- `current_phase`: `remediation-planning`
+- `updated_at`: `2026-07-11T23:30:00+08:00`
+- `status`: `completed`
+- `current_phase`: `closed-with-deferred-finding`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.0.0`
 
@@ -28,8 +31,9 @@
 - Baseline audit: `completed`, final, score `6.5/10`.
 - Traditional Chinese translation: `completed`, derived from the English baseline.
 - Findings: `AIC-001` through `AIC-009`.
-- Remediation triage: `pending`.
-- Authorized remediation: `pending` for a future continuation of this workflow.
+- Remediation triage: `completed`; matrix saved in `reports/02-remediation-report.md`.
+- Authorized remediation: `authorized` by the user's 2026-07-11 instruction to begin correcting the inventoried findings.
+- Authorized remediation progress: AIC-001 through AIC-006 plus AIC-008 and AIC-009 have candidate resolutions; language/bilingual lint, rule ownership, versioned canonical assets, deterministic capability routing, and the three architecture semantic reconciliations are complete; AIC-007 is deferred to tooling including stale generated archive checks. Independent post-remediation audit remains.
 - Post-remediation independent audit: `pending`.
 - Workflow closure: `pending`.
 
@@ -96,3 +100,10 @@ tasks/
 4. Compare each finding with current files and commits, then write the remediation matrix before modifying context.
 5. Keep the English report canonical and the zh-TW file derived.
 6. Update `updated_at` whenever task status, findings, conclusions, artifact relationships, or branch state changes.
+
+## Branch Lifecycle
+
+| Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | N/A (legacy work on `main`) | `main` | merge | `905499a` | `main` | `2026-07-11T08:15:27+08:00` | Adopt mandatory workflow branch policy before remediation | Segment 2 on `codex/2026-07-10-ai-context-self-audit-cont-02` |
+| 2 | `codex/2026-07-10-ai-context-self-audit-cont-02` | `main` | lifecycle closure | `7f75c77`, `e971d0f`, closure commit | local workflow branch | `2026-07-11T23:30:00+08:00` | Remediation, independent post-audit, and closure with AIC-007 deferred | New dated tooling workflow for AIC-007 when authorized |

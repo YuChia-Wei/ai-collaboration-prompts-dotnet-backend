@@ -1,7 +1,12 @@
 asset_id: "controller-sub-agent"
+schema_version: "1.0"
 asset_type: "sub-agent-role-prompt"
 title: "Controller Sub-Agent"
 purpose: "Define the delegated worker role for implementing thin ASP.NET Core controllers that map DTOs to use cases without embedding business logic."
+portability: "repo-portable"
+audience: "agent-facing"
+wrapper_targets: []
+source_of_truth: "canonical"
 role_kind: "controller-sub-agent"
 triggers:
   - "controller sub-agent"
@@ -33,4 +38,7 @@ references:
   - ".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md"
   - ".ai/assets/tech-stacks/dotnet-backend/shared/dto-conventions.md"
   - ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md"
+examples:
+  - ".ai/assets/sub-agent-role-prompts/controller-sub-agent/references/implementation-guidance.md"
 human_guide: ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md"
+status: "active"

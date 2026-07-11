@@ -1,28 +1,23 @@
-# Use Case、Command、Query 與 Handler 關係
+# Use Case, Command, Query, and Handler Relationships
 
-本文件定義本 repo 在 DDD、Clean Architecture、CQRS 與 Hexagonal
-Architecture 下，`Use Case`、`Input`、`Command`、`Query`、`Handler`、
-`Controller` 與相關 port 的標準責任邊界。
+This document defines the standard responsibility boundaries among `Use Case`,
+`Input`, `Command`, `Query`, `Handler`, `Controller`, and related ports in this
+repository under DDD, Clean Architecture, CQRS, and Hexagonal Architecture.
 
-## 核心結論
+## Core Conclusions
 
-- `Use Case interface` 是 Application 的 inbound port。
-- `*UseCase` concrete class 是應用流程編排的實作。
-- `Controller` 是 HTTP inbound adapter，預設只呼叫 Use Case interface。
-- `Command` / message contract 是 dispatch 或 transport input，不是 Use Case
-  input。
-- `Handler` 只在真的存在 dispatch、message、consumer 或 scheduled entry
-  時存在；它負責轉換 input 並呼叫一個 Use Case。
-- Use Case 與 Handler 是不同物件，Handler 不得成為預設的 Use Case
-  implementation。
-- Use Case 依賴 outbound ports；Wolverine、MediatR、HTTP、MQ 與 persistence
-  package 不得洩漏到可攜式 Use Case contract。
-- 此 workflow 不定義或擴充 `Application Service`；若既有產品使用該名詞，
-  必須由另一個明確決策定義其用途。
+- A `Use Case interface` is an Application inbound port.
+- A concrete `*UseCase` class implements application-flow orchestration.
+- A `Controller` is an HTTP inbound adapter and calls only a Use Case interface by default.
+- A `Command` / message contract is dispatch or transport input, not Use Case input.
+- A `Handler` exists only when there is an actual dispatch, message, consumer, or scheduled entry. It maps input and invokes one Use Case.
+- Use Cases and Handlers are distinct objects. A Handler must not be the default Use Case implementation.
+- A Use Case depends on outbound ports. Wolverine, MediatR, HTTP, MQ, and persistence packages must not leak into portable Use Case contracts.
+- This workflow neither defines nor expands `Application Service`. If an existing product uses that term, a separate explicit decision must define its purpose.
 
-## 標準呼叫鏈
+## Standard Call Chains
 
-### 同步 Command 型 API
+### Synchronous Command API
 
 ```text
 HTTP Request
@@ -34,12 +29,12 @@ HTTP Request
   -> HTTP Response
 ```
 
-Controller 不透過 `IMessageBus`、mediator 或 Command Handler 執行一般同步
-API Use Case。
+A Controller does not execute an ordinary synchronous API Use Case through
+`IMessageBus`, a mediator, or a Command Handler.
 
-### 同步 Query 型 API
+### Synchronous Query API
 
-預設流程：
+Default flow:
 
 ```text
 HTTP Request
@@ -51,12 +46,12 @@ HTTP Request
   -> HTTP Response
 ```
 
-只有經明確指定的純查詢 endpoint，才可以直接注入唯讀
-`IQueryRepository`-derived port 或 query service。這是允許但不建議的例外；
-未明確指定時仍必須使用 query Use Case。直接 query-handler dispatch 不屬於
-此例外。
+Only an explicitly designated pure-query endpoint may directly inject a read-only
+`IQueryRepository`-derived port or query service. This exception is permitted but
+not recommended. A query Use Case remains mandatory unless the exception is
+explicitly designated. Direct query-handler dispatch is not part of this exception.
 
-### Dispatch 或 Message Entry
+### Dispatch or Message Entry
 
 ```text
 Command / Message / Scheduled Trigger
@@ -65,10 +60,10 @@ Command / Message / Scheduled Trigger
   -> <CreateOperation>UseCase
 ```
 
-Handler 只負責 delivery contract validation、input mapping、呼叫一個 Use
-Case，以及將失敗映射為該 delivery mechanism 的 retry/dead-letter 語意。
-它不得載入 Aggregate、操作 Repository、commit transaction 或自行發布業務
-事件。
+A Handler is responsible only for delivery-contract validation, input mapping,
+invoking one Use Case, and mapping failures to the retry/dead-letter semantics of
+that delivery mechanism. It must not load an Aggregate, operate a Repository,
+commit a transaction, or publish business events itself.
 
 ### Cross-BC Flow
 
@@ -81,23 +76,23 @@ BC A Use Case
   -> BC B Use Case
 ```
 
-跨 BC communication 只能使用 MQ。Use Case 不直接依賴 Wolverine
-`IMessageBus`，由 Infrastructure 將專案擁有的 event publisher port 轉接到
-選定的 broker/framework。
+Cross-BC communication must use MQ. A Use Case does not depend directly on
+Wolverine `IMessageBus`; Infrastructure adapts the project-owned event publisher
+port to the selected broker/framework.
 
 ## Use Case Contract
 
-### 命名
+### Naming
 
-- interface：`ICreateProductUseCase`
-- implementation：`CreateProductUseCase`
-- operation：`ExecuteAsync`
-- input：`CreateProductInput`
-- output：`CreateProductOutput`
+- interface: `ICreateProductUseCase`
+- implementation: `CreateProductUseCase`
+- operation: `ExecuteAsync`
+- input: `CreateProductInput`
+- output: `CreateProductOutput`
 
 ### Signature
 
-每個非同步 Use Case 都必須宣告不可省略的 `CancellationToken`。
+Every asynchronous Use Case must declare a non-optional `CancellationToken`.
 
 ```csharp
 public interface ICreateProductUseCase
@@ -108,13 +103,14 @@ public interface ICreateProductUseCase
 }
 ```
 
-專屬且 transport-neutral 的 `*Input` 是預設。允許兩項例外：
+A dedicated, transport-neutral `*Input` is the default. Two exceptions are allowed:
 
-1. 沒有 cancellation 以外的輸入時，可省略 input。
-2. 只有一個 scalar built-in/BCL 值時，可直接接受該值。
+1. Input may be omitted when there is no input other than cancellation.
+2. A single scalar built-in/BCL value may be accepted directly.
 
-標準 scalar 包含 `string`、數值型別、`bool`、`Guid` 與 date/time
-型別。collection、tuple、自訂 record/class 或多個值都必須建立專屬 input。
+Standard scalars include `string`, numeric types, `bool`, `Guid`, and date/time
+types. A collection, tuple, custom record/class, or multiple values require a
+dedicated input.
 
 ```csharp
 Task ExecuteAsync(CancellationToken cancellationToken);
@@ -124,124 +120,120 @@ Task<FindProductOutput> ExecuteAsync(
     CancellationToken cancellationToken);
 ```
 
-HTTP Request、broker message、Wolverine Command 或其他 delivery contract
-不得直接作為 Use Case input。
+An HTTP Request, broker message, Wolverine Command, or another delivery contract
+must not be used directly as Use Case input.
 
 ### Output
 
-Use Case 只回傳完成操作後產生且 transport-neutral 的 output。沒有 output
-物件時回傳 `Task`，不得為了格式一致建立空 output。Use Case 不回傳：
+A Use Case returns only transport-neutral output produced by the completed
+operation. Return `Task` when there is no output object; do not create an empty
+output merely for formatting consistency. A Use Case does not return:
 
 - `IActionResult` / `IResult`
 - broker acknowledgement
 - Wolverine/MediatR envelope
 - retry/dead-letter instruction
 
-## 責任與依賴
+## Responsibilities and Dependencies
 
-### Use Case 負責
+### Use Case Responsibilities
 
-- application-level validation 與 authorization orchestration
-- 載入 Aggregate 或 read-side data
-- 呼叫 Aggregate behavior / Domain Service
-- 使用 Aggregate Repository、Query Repository、gateway 等 outbound ports
-- 明確 strong consistency 情境下的 `IUnitOfWork`
-- outbox 與 pending Domain Event acknowledgement coordination
-- 透過專案擁有的 event publisher port 發布 application/integration events
-- 組裝 transport-neutral output
+- application-level validation and authorization orchestration;
+- loading an Aggregate or read-side data;
+- invoking Aggregate behavior / a Domain Service;
+- using outbound ports such as an Aggregate Repository, Query Repository, or gateway;
+- using `IUnitOfWork` in an explicit strong-consistency scenario;
+- coordinating outbox and pending Domain Event acknowledgement;
+- publishing application/integration events through a project-owned event publisher port;
+- assembling transport-neutral output.
 
-Domain Event 應由 Domain object 產生；Use Case 負責協調 persistence、outbox
-與 dispatch lifecycle。
+A Domain Event should be produced by a Domain object. The Use Case coordinates
+the persistence, outbox, and dispatch lifecycle.
 
-### Controller 負責
+### Controller Responsibilities
 
-- HTTP model binding 與 transport validation
-- HTTP Request 到 Use Case input 的 mapping
-- 呼叫 Use Case interface
-- Use Case outcome 到 HTTP response 的 mapping
+- HTTP model binding and transport validation;
+- mapping an HTTP Request to Use Case input;
+- invoking a Use Case interface;
+- mapping the Use Case outcome to an HTTP response.
 
-Controller 不得注入 concrete Handler、`IMessageBus`、mediator/dispatcher、
-write repository、Aggregate 或 Domain Service。純查詢例外只允許明確核准的
-唯讀 Query Repository / Query Service。
+A Controller must not inject a concrete Handler, `IMessageBus`, mediator/dispatcher,
+write repository, Aggregate, or Domain Service. The pure-query exception permits
+only an explicitly approved read-only Query Repository / Query Service.
 
-### Handler 負責
+### Handler Responsibilities
 
-- 接收實際 dispatch/message input
-- delivery-level validation 與 mapping
-- 呼叫一個 Use Case interface
-- delivery-specific failure mapping
+- receiving actual dispatch/message input;
+- delivery-level validation and mapping;
+- invoking one Use Case interface;
+- delivery-specific failure mapping.
 
-Handler 不得：
+A Handler must not:
 
-- 成為 Use Case implementation
-- 直接操作 Repository、Aggregate 或 Domain Service
-- 自行建立 transaction 或在 Use Case 後 commit
-- 使用 bus 發布另一個 Command
-- 注入或串接多個 Use Case
+- become a Use Case implementation;
+- operate a Repository, Aggregate, or Domain Service directly;
+- create a transaction itself or commit after the Use Case;
+- use a bus to publish another Command;
+- inject or chain multiple Use Cases.
 
-需要多步驟完成同一個 business goal 時，建立一個較高階 Use Case；不要由
-Controller 或 Handler 編排多個 Use Case。
+When multiple steps are needed to complete one business goal, create a higher-level
+Use Case. Do not have a Controller or Handler orchestrate multiple Use Cases.
 
-## Handler 放置位置
+## Handler Placement
 
-- package-neutral convention Handler 可以放在 Application。
-- Wolverine/MediatR-specific Handler 放在 inbound adapter 或 composition
-  boundary。
-- MQ Consumer / Integration Event Handler 放在 Consumer/Presentation adapter。
-- Domain Event Handler / Reactor 依事件與一致性規則放在 Application 的明確
-  reaction boundary，但不得與同步 API Use Case 混為同一角色。
+- A package-neutral convention Handler may reside in Application.
+- A Wolverine/MediatR-specific Handler resides at an inbound adapter or composition boundary.
+- An MQ Consumer / Integration Event Handler resides in a Consumer/Presentation adapter.
+- A Domain Event Handler / Reactor resides at an explicit Application reaction boundary according to event and consistency rules, but must not be combined with a synchronous API Use Case role.
 
-Handler 的位置由 delivery/framework coupling 決定，不由 `Handler` suffix
-單獨決定。
+Handler placement is determined by delivery/framework coupling, not by the
+`Handler` suffix alone.
 
-## DI 規則
+## DI Rules
 
-同步 API：
+Synchronous API:
 
 ```csharp
 services.AddScoped<ICreateProductUseCase, CreateProductUseCase>();
 ```
 
-只有真實 dispatch entry 才註冊 Handler。不得使用
-`ICreateProductUseCase -> CreateProductHandler` 將兩個角色重新合併。
+Register a Handler only for an actual dispatch entry. Do not recombine the roles
+through `ICreateProductUseCase -> CreateProductHandler`.
 
-Use Case、Handler 與 adapter 均使用 constructor injection，並在 composition
-root 透過 `IServiceCollection` 顯式註冊；不得使用 Service Locator、DI
-attribute 或 assembly-scanning magic。
+Use Cases, Handlers, and adapters use constructor injection and are registered
+explicitly through `IServiceCollection` at the composition root. Do not use a
+Service Locator, DI attributes, or assembly-scanning magic.
 
-## Transaction 與 Event 規則
+## Transaction and Event Rules
 
-- Eventual consistency 是跨 Aggregate / 跨 BC 的預設。
-- 只有明確 all-or-nothing business requirement 才由 Use Case 注入
-  `IUnitOfWork`。
-- Handler 不得引入隱藏的 strong consistency。
-- Repository 參與 Unit of Work 時不得自行 commit。
-- commit 成功前不得 acknowledge/clear pending Domain Events。
-- Use Case 使用 project-owned event publisher port；Infrastructure 可用
-  Wolverine outbox 實作該 port。
-- Use Case 不得透過任何 bus 或 publisher 發布 Command。
+- Eventual consistency is the default across Aggregates / BCs.
+- A Use Case injects `IUnitOfWork` only for an explicit all-or-nothing business requirement.
+- A Handler must not introduce hidden strong consistency.
+- A Repository participating in a Unit of Work must not commit independently.
+- Pending Domain Events must not be acknowledged/cleared before a successful commit.
+- A Use Case uses a project-owned event publisher port; Infrastructure may implement that port with the Wolverine outbox.
+- A Use Case must not publish a Command through any bus or publisher.
 
-## 測試與 Analyzer 邊界
+## Testing and Analyzer Boundaries
 
-- Use Case unit test 直接測試 concrete `*UseCase`，mock outbound ports。
-- Handler test 只驗證 mapping、單一 Use Case invocation 與 delivery failure
-  mapping。
-- Controller test mock Use Case interface，不 mock Handler 或 Repository。
-- deterministic boundary violation 應由 analyzer 回報 error。
-- naming-only 或無可靠 target evidence 的 migration advisory 維持 warning。
-- 明確純查詢例外必須有 target-repository 可判定的 evidence，否則 analyzer
-  仍以預設 Use Case boundary 判定。
+- A Use Case unit test tests the concrete `*UseCase` directly and mocks outbound ports.
+- A Handler test verifies only mapping, one Use Case invocation, and delivery-failure mapping.
+- A Controller test mocks the Use Case interface, not a Handler or Repository.
+- An analyzer should report a deterministic boundary violation as an error.
+- A naming-only migration advisory or one without reliable target evidence remains a warning.
+- An explicit pure-query exception must have target-repository evidence that can be evaluated; otherwise, the analyzer still applies the default Use Case boundary.
 
 ## Migration Boundary
 
-本標準不發布通用 migration recipe。既有
-`ICreateProductUseCase -> CreateProductHandler`、Controller-to-Handler 或
-combined `Execute`/`Handle` 實作，必須在實際產品重構時先盤點 callers、DI
-registration、真實 dispatch entry、transaction 與 event ownership，再安排
-遷移。
+This standard does not publish a general migration recipe. Before scheduling a
+migration for an existing `ICreateProductUseCase -> CreateProductHandler`,
+Controller-to-Handler, or combined `Execute`/`Handle` implementation during an
+actual product refactor, first inventory callers, DI registrations, actual dispatch
+entries, transactions, and event ownership.
 
-## 與 Spec 的關係
+## Relationship to Specs
 
-在 `.dev/specs/` 中，Use Case 是 production behavior 的主名稱。Command、
-Query、HTTP Request 與 message contract 是 delivery/input model；Handler 是
-adapter implementation detail，不應成為 spec 的主要 business behavior 名稱。
+In `.dev/specs/`, Use Case is the primary name for production behavior. Command,
+Query, HTTP Request, and message contracts are delivery/input models. A Handler is
+an adapter implementation detail and should not become the primary business-behavior
+name in a spec.

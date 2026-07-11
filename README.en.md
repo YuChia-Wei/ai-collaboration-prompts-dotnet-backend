@@ -2,6 +2,8 @@
 
 [繁體中文](README.md)
 
+This file is the English translation of the canonical Traditional Chinese (Taiwan) human-facing repository identity in `README.md`.
+
 This repository extracts, organizes, and evolves my software development knowledge together with reusable AI Agent context, skills, sub-agent prompts, and collaboration workflows.
 
 It is not a product repository. It is a portable AI collaboration framework. When this context is copied into an existing repository or an empty new repository, run `repo-structure-sync` first as the repo initialization skill so target-repository facts replace template or historical source-project facts.
@@ -51,7 +53,8 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
 | `.claude/skills/` | Claude-compatible skill wrappers |
 | `.dev/` | Human-facing governance, standards, guides, requirements, specs, and workflow artifacts |
 | `.dev/workflows/` | Cross-skill and sub-agent workflow plans, tasks, and review reports |
-| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
+
+GitHub Copilot repo-level wrappers are not currently provided. Their runtime paths are planned optional integrations, not entries in the current runtime catalog.
 
 ## Important Skills
 
@@ -60,7 +63,7 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
 - `ai-context-governance`
   - Governs context boundaries, language policy, skill routing, wrapper sync, AI documentation cleanup, and context moves.
 - `ai-context-auditor`
-  - Performs recurring read-only AI context health and drift audits, excludes product code by default, compares independent and repository-aware analysis, and saves a durable report.
+  - Performs read-only AI context health and drift audits, excludes product code by default, and compares independent and repository-aware analysis. Results may remain transient in the conversation; create an audit workflow and persist a durable report only when repository storage is required.
 - `repo-structure-sync`
   - Performs repo initialization. After this AI context is copied into an existing or empty target repository, use this skill first to inventory the target repo and refresh `agents.md`, `.dev/`, and required `.ai/` entry docs.
 - `ddd-ca-hex-architect`

@@ -196,6 +196,10 @@ run_command_check "python .ai/scripts/validate-workflow-artifacts.py" \
     "Workflow Artifact Metadata" \
     "true" "true"
 
+run_command_check "python .ai/scripts/validate-ai-context.py" \
+    "AI Context Navigation and Runtime Contracts" \
+    "true" "true"
+
 # Coding standards are fundamental for AI context and standards docs
 run_check "check-coding-standards.sh" \
     "Coding Standards Compliance" \

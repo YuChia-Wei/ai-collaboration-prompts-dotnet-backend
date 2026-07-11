@@ -1,7 +1,13 @@
 asset_id: "code-reviewer"
+schema_version: "1.0"
 asset_type: "skill-spec"
 title: "Code Reviewer"
 purpose: "Review .NET code in this repository for DDD, Clean Architecture, CQRS, and Event Sourcing compliance. This skill reviews, scores, and marks issues; it does not plan refactors or define target architecture."
+portability: "repo-portable"
+audience: "agent-facing"
+source_of_truth: "canonical"
+capability_slots:
+  - "review"
 triggers:
   - "code review"
   - "review code"
@@ -41,3 +47,4 @@ wrapper_metadata:
     wrapper_path: ".claude/skills/code-reviewer/"
   codex:
     runtime_wrapper_path: ".agents/skills/code-reviewer/"
+status: "active"

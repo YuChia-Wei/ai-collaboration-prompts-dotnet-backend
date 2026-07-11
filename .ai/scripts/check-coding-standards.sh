@@ -131,8 +131,8 @@ if check_file_exists "$MAIN_FILE" "coding-standards.md"; then
 
     # Check required sections in main file
     echo -e "  ${BLUE}Required sections:${NC}"
-    check_section "$MAIN_FILE" "## 概述" "概述" || ERRORS=$((ERRORS + 1))
-    check_section "$MAIN_FILE" "## 專門領域編碼標準" "專門領域編碼標準" || ERRORS=$((ERRORS + 1))
+    check_section "$MAIN_FILE" "## Overview" "Overview" || ERRORS=$((ERRORS + 1))
+    check_section "$MAIN_FILE" "## Specialized Coding Standards" "Specialized Coding Standards" || ERRORS=$((ERRORS + 1))
     check_section "$MAIN_FILE" "Aggregate Standards" "Aggregate Standards link" || ERRORS=$((ERRORS + 1))
     check_section "$MAIN_FILE" "UseCase Standards" "UseCase Standards link" || ERRORS=$((ERRORS + 1))
     check_section "$MAIN_FILE" "Controller Standards" "Controller Standards link" || ERRORS=$((ERRORS + 1))
@@ -175,14 +175,14 @@ for file in "${SPECIALIZED_FILES[@]}"; do
         fi
 
         # Check for required sections
-        if ! grep -q "## 🔴 必須遵守的規則\|## ✅ 建議\|## 🔍 檢查清單" "$full_path"; then
+        if ! grep -Eq "^## (🔴 )?(Mandatory Rules|MUST Rules|Core Rules|Core Boundaries)|^## (🔍 )?(Checklist|Review Checklist)" "$full_path"; then
             echo -e "  ${YELLOW}⚠${NC} Warning: Missing standard sections"
             WARNINGS=$((WARNINGS + 1))
         fi
 
         # Check for related documents section
-        if ! grep -q "## 相關文件" "$full_path"; then
-            echo -e "  ${YELLOW}⚠${NC} Warning: Missing 相關文件 section"
+        if ! grep -q "## Related Documents" "$full_path"; then
+            echo -e "  ${YELLOW}⚠${NC} Warning: Missing Related Documents section"
             WARNINGS=$((WARNINGS + 1))
         fi
     else

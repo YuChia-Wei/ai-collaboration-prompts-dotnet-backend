@@ -109,6 +109,8 @@ ASPNETCORE_ENVIRONMENT=test-outbox dotnet test --filter Profile=test-outbox
 
 ## Writing Tests
 
+Use Given-When-Then for every test; do not substitute Arrange-Act-Assert (3A). xUnit + BDDfy is the default. If the target team explicitly decides not to install BDDfy, keep the same Given / When / Then step structure in plain xUnit tests. Do not add `.feature` files or a Gherkin runner unless a feature file is supplied, the user explicitly requests its design or generation, or the target profile adopts that runner.
+
 Example BDDfy test skeleton (Gherkin-style naming, no `.feature`):
 
 ```csharp
@@ -173,4 +175,4 @@ Do:
 ## Related Documents
 - `.dev/guides/design-guides/PROFILE-BASED-TESTING-GUIDE.md`
 - `.ai/assets/sub-agent-role-prompts/usecase-test-sub-agent/sub-agent.yaml`
-- `.ai/assets/tech-stacks/dotnet-backend/shared/testing-standards.md`
+- `.ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md`

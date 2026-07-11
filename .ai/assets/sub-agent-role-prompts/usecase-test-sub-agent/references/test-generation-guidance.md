@@ -1,6 +1,6 @@
 # Use Case Test Generation Prompt (Dotnet)
 
-Generate use case tests using xUnit + BDDfy with Gherkin-style naming only (no `.feature` files).
+Generate use case tests with mandatory Given-When-Then structure and naming. Use xUnit + BDDfy by default; if the target team explicitly opted out of BDDfy, retain GWT in plain xUnit and do not use 3A. `.feature` files are optional and supported when supplied/requested or selected by the target profile; do not infer a feature runner/package.
 
 ## Mandatory References
 - `../assets/sub-agent-role-prompts/usecase-test-sub-agent/sub-agent.yaml`

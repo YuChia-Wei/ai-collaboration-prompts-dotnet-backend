@@ -115,10 +115,10 @@ public interface IProductQueryRepository : IQueryRepository
 
 ## Testing Failures
 
-### 10. Plain xUnit without BDDfy for Use Case Tests
-**❌ WRONG**: Only `[Fact]` with imperative steps
+### 10. Tests without Given-When-Then Structure
+**❌ WRONG**: Plain xUnit organized as Arrange-Act-Assert, or `[Fact]` methods with imperative steps but no explicit GWT structure and naming.
 
-**✅ CORRECT**: BDDfy with Gherkin-style naming
+**✅ CORRECT**: GWT structure and naming. BDDfy is the default; plain xUnit GWT is valid only when the target team explicitly opts out of the package.
 ```csharp
 [Fact]
 public void Rule_Create_product_successfully()

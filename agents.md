@@ -2,6 +2,8 @@
 
 [Traditional Chinese](agents.zh-tw.md)
 
+This document is the canonical English agent-facing root collaboration guide. `agents.zh-tw.md` is its Traditional Chinese (Taiwan) translation.
+
 ## Scope & Precedence
 
 - This document is the root collaboration guide for AI agents and humans working in this repository.
@@ -82,12 +84,14 @@ Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
 ### AI Context Audit
 
-Use `ai-context-auditor` for recurring, read-only AI context health and drift audits that must produce a durable report.
+Use `ai-context-auditor` for read-only AI context health and drift analysis. A conversational analysis may remain transient direct mode; create a dedicated workflow and branch only when the user asks to persist the audit as a repository report.
 
 - Default to AI context and governance surfaces.
 - Exclude `src/`, `tests/`, and other product implementation trees.
 - If the user asks to scan product source or test code, stop and route that work to `code-reviewer` instead of expanding the audit.
 - Keep audit findings separate from remediation; use `ai-context-governance` to coordinate the AI-context remediation lifecycle after remediation is authorized.
+- Multi-pass or sub-agent analysis alone does not require workflow artifacts when the result stays in the conversation and no repository mutation or remediation occurs.
+- For a durable report-only audit, keep audited surfaces read-only and commit only auditor-owned workflow and report artifacts.
 
 ### Development Workflow Orchestration
 
@@ -146,7 +150,7 @@ Use these boundaries:
 | Need | Skill |
 | --- | --- |
 | Multi-stage software-development workflow orchestration, development skill routing, validation and commit checkpoints | `dev-workflow` |
-| Recurring read-only AI context health, drift, and structure audit with a saved report | `ai-context-auditor` |
+| Read-only AI context health, drift, and structure analysis with conversational or persisted output | `ai-context-auditor` |
 | AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
 | First sync after copying this framework into a target repo | `repo-structure-sync` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |
@@ -165,9 +169,9 @@ Use these boundaries:
 | Path | Description |
 | :--- | :--- |
 | `README.md` | Human-facing Traditional Chinese repository identity |
-| `README.en.md` | English repository identity |
-| `agents.md` | Root agent collaboration guide |
-| `.github/copilot-instructions.md` | GitHub Copilot repo-level instructions |
+| `README.en.md` | English translation of the repository identity |
+| `agents.md` | Canonical English agent-facing root collaboration guide |
+| `agents.zh-tw.md` | Traditional Chinese (Taiwan) translation of the root collaboration guide |
 
 ### AI Assets (`.ai/`)
 

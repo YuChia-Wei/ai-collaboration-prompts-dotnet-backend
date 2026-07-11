@@ -10,6 +10,13 @@
 - 為 use case、aggregate、reactor、controller 設計測試情境
 - 規劃 assertion points、負向案例、邊界案例
 - 在寫測試前先整理 BDD/Gherkin 形式的測試設計
+- 當輸入直接提供 `.feature`、使用者明確要求設計/產出，或 target profile 採用 runner 時，設計可落成 `.feature` 的內容
+
+## 測試風格底線
+
+- 所有測試都必須採 Given-When-Then，不得以 Arrange-Act-Assert（3A）取代。
+- BDDfy 是預設實作工具；target team 可決議不引入套件，但 downstream C# 測試仍須保留 GWT 結構。
+- `.feature` 是選配。未直接提供、未被明確要求且 target profile 未採用 runner 時，不主動建立 `.feature` 或相關配套。
 
 ## 這個 Skill 不應該做什麼
 
@@ -25,7 +32,7 @@
 - `bdd-gwt-test-designer`:
   - 先做測試情境設計
 - 現有 test generation prompts / subagents:
-  - 把設計轉成 xUnit + BDDfy 測試
+  - 預設把設計轉成 xUnit + BDDfy 測試；若 target team 停用 BDDfy，則轉成維持 GWT 結構的純 xUnit 測試
 - `code-reviewer`:
   - 檢查測試是否符合規範、是否缺 coverage
 - `ddd-ca-hex-architect`:

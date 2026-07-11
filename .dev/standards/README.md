@@ -1,10 +1,12 @@
 # .NET Backend Architecture and Coding Standards
 
-This folder contains reusable .NET backend architecture and development standards.
+This folder owns normative framework and repository standards. Reusable `.ai`
+documents load concise projections of these rules for agents; they do not become
+independent normative owners.
 
 DDD / Clean Architecture / CQRS boundaries are normative. Database, ORM, event store, message broker, test package, and runtime versions are selected by each target repository from file-backed evidence.
 
-EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, BDDfy, and NSubstitute documents are conditional/reference guidance unless target repository configuration explicitly adopts them.
+EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents are conditional/reference guidance unless target repository configuration explicitly adopts them. For tests, Given-When-Then is the framework-wide minimum and Arrange-Act-Assert is not an allowed substitute. xUnit + BDDfy is the default; a target team may explicitly decline BDDfy, but its C# tests must still preserve GWT structure. Gherkin `.feature` files and their runners remain optional.
 
 ## Structure
 
@@ -12,38 +14,40 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, BDDfy, and NSubsti
   - ASP.NET Core configuration checklist
 - `AI-CONTEXT-BOUNDARY.md`
   - AI context ownership and folder placement policy
+- `AI-CONTEXT-OWNERSHIP.md` / `AI-CONTEXT-OWNERSHIP.yaml`
+  - normative rule ownership, strength, precedence, and machine registry
 - `AI-CONTEXT-LANGUAGE-POLICY.md`
   - language policy for agent-facing and human-facing context
 - `CODE-REVIEW-CHECKLIST.md`
-  - code review checklist 與審查準則
+  - code review checklist and review criteria
 - `GIT-COMMIT-POLICY.md`
   - commit title, body, and timing policy for agent-assisted work
 - `WORKFLOW-GATE-POLICY.md`
   - rules for when agents should create workflow artifacts
 - `anti-patterns.md`
-  - 反模式與禁止事項
+  - anti-patterns and prohibited practices
 - `best-practices.md`
-  - 建議採用的 practices
+  - recommended practices
 - `coding-guide.md`
-  - coding 標準入口，串接 standards 與 guides
+  - legacy Todo/Wolverine profile example; not active product truth or a new-project entry point
 - `coding-standards.md`
-  - coding style 與 implementation-level rules
+  - coding style and implementation-level rules
 - `project-structure.md`
-  - 專案目錄與資料夾用途的單一真相
+  - single source of truth for project directories and folder purposes
 - `rationale/`
-  - 可攜式模式選擇理由
+  - rationale for portable pattern choices
 - `README.md`
-  - standards 入口說明
+  - standards entry guidance
 
-Operational guides、setup walkthroughs、FAQ、troubleshooting 文件已移到 `.dev/guides/`。
+Operational guides, setup walkthroughs, FAQs, and troubleshooting documents have moved to `.dev/guides/`.
 
 ## Belongs Here
 
-- 規則性文件
+- normative documents
 - checklist
 - anti-pattern / best-practice
 - project structure single source of truth
-- 需要長期穩定引用的標準入口
+- stable standards entry points intended for long-term reference
 - AI context governance, commit policy, and workflow gate policy
 
 ## Do Not Put Here
@@ -52,10 +56,10 @@ Operational guides、setup walkthroughs、FAQ、troubleshooting 文件已移到 
 - quick start walkthrough
 - FAQ
 - troubleshooting / solution note
-- 單次重構提案或工作紀錄
+- one-off refactoring proposals or work records
 - AI skill/prompt/workflow guide
 
-這些內容應分別放到：
+Place these materials in the appropriate locations:
 
 - `.dev/guides/implementation-guides/`
 - `.dev/guides/design-guides/`

@@ -1,6 +1,15 @@
-# ExampleApp Project Structure and New Project Setup Guide (Dotnet)
+# Legacy ExampleApp Project Setup Guide (Dotnet)
 
-This guide explains how to create a new dotnet project based on the ExampleApp structure.
+> **Status: retired onboarding example — do not execute as the current setup path.**
+>
+> The commands and topology below preserve an earlier ExampleApp profile. For a
+> real target repository, copy the framework context and run `repo-structure-sync`
+> first. That skill inventories file-backed facts and refreshes the target-specific
+> `agents.md`, `.dev/`, and necessary `.ai/` entries. Do not create the legacy
+> directory tree or install the listed packages unless the target repository has
+> explicitly selected this profile.
+
+This guide documents the retired ExampleApp setup for historical comparison.
 
 ## Table of Contents
 1. Prerequisites
@@ -14,6 +23,10 @@ This guide explains how to create a new dotnet project based on the ExampleApp s
 
 ## Prerequisites
 
+All database, framework, test-library, and package requirements in this document
+are conditional on adopting the preserved ExampleApp profile; they are not
+defaults for a new target repository.
+
 ### Environment requirements
 - .NET SDK (version confirmed from `global.json`, project files, or generated `.dev/project-config.yaml`)
 - Git
@@ -26,6 +39,9 @@ This guide explains how to create a new dotnet project based on the ExampleApp s
 - CQRS fundamentals
 
 ## Step 1: Create the project skeleton
+
+> Legacy example only. Current onboarding must use `repo-structure-sync` to
+> discover and adapt the target repository instead of recreating this topology.
 
 ```bash
 # 1) Create project root
@@ -53,6 +69,9 @@ mkdir -p .dev/specs/{use-cases,aggregates,domain-events}
 ## Step 3: Configure project metadata
 
 Run `repo-structure-sync` to generate `.dev/project-config.yaml` from repository evidence:
+
+The YAML below is illustrative. Package versions and feature flags must come
+from target-repository evidence or explicit maintainer decisions.
 
 ```yaml
 projectName: MyScrum
@@ -101,6 +120,9 @@ dotnet sln add src/tests/Tests.csproj
 ```
 
 ### 4.2 Add required packages
+
+These packages are required only for the preserved WolverineFx/EF Core/
+PostgreSQL/xUnit/BDDfy example profile. They are not framework-wide defaults.
 
 In `src/Api` and `src/Infrastructure`:
 ```bash

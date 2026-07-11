@@ -58,8 +58,8 @@ public sealed class NotifyWorkItemWhenIterationStartedService : IWhenIterationSt
 ```csharp
 public interface IProductArchive
 {
-    void Archive(Product product, string reason, string archivedBy);
     ArchivedProduct? FindArchivedById(ProductId productId);
+    void Save(ArchivedProduct archivedProduct);
 }
 ```
 
@@ -84,15 +84,20 @@ public sealed class EfProductArchive : IProductArchive
 {
     private readonly ReadDbContext _db;
 
-    public void Archive(Product product, string reason, string archivedBy)
+    public void Save(ArchivedProduct archivedProduct)
     {
-        // TODO: serialize full aggregate state as JSON
-        var archived = new ArchivedProduct(...);
-        _db.ArchivedProducts.Add(archived);
+        _db.ArchivedProducts.Update(archivedProduct);
         _db.SaveChanges();
     }
 }
 ```
+
+The use case or Reactor maps source facts into `ArchivedProduct`, including who,
+when, and why, before calling `Save`. The Archive adapter persists read-model
+state; it does not own an ambiguous delete operation. If physical read-model
+cleanup is required, expose it through a separate restricted purge port and
+enforce authorization, retention, legal-hold, audit, and dependent-cleanup
+gates before calling it.
 
 ## Checklist
 
@@ -100,3 +105,5 @@ public sealed class EfProductArchive : IProductArchive
 - [ ] Each inquiry handles one query only
 - [ ] Archive stores metadata (who/when/why)
 - [ ] Soft delete or archived tables are indexed
+- [ ] Normal Archive adapters do not physically remove records
+- [ ] Physical read-model purge is isolated behind a restricted capability-specific port

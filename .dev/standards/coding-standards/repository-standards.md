@@ -1,24 +1,24 @@
-# Repository 編碼規範 (.NET)
+# Repository Coding Standards (.NET)
 
-本文件是 Aggregate persistence 與 query-side data access 的 canonical standard。
+This document is the canonical standard for aggregate persistence and query-side data access.
 
-本規範定義 application port 語意，不指定資料庫、ORM、event store 或套件。EF Core、Dapper、Npgsql 與其他 adapter 的內容只作條件式實作指引。
+This standard defines application-port semantics without prescribing a database, ORM, event store, or package. EF Core, Dapper, Npgsql, and other adapter content is conditional implementation guidance only.
 
-## 核心邊界
+## Core Boundaries
 
-Repository 規則分為三種角色：
+Repository rules distinguish three roles:
 
-| 角色 | 用途 | 可否修改資料 | 主要回傳型別 |
+| Role | Purpose | May modify data | Primary return type |
 | --- | --- | --- | --- |
-| Aggregate Repository | 重新載入與持久化 Aggregate Root | 是 | Aggregate Root |
-| Query Repository | 純查詢 read model | 否 | DTO、read model、ID、scalar、page |
-| Capability-specific Writer | Outbox、projection、import、purge 等明確能力 | 是 | 依能力定義，不回傳 Aggregate |
+| Aggregate Repository | Rehydrate and persist an Aggregate Root | Yes | Aggregate Root |
+| Query Repository | Read-only access to read models | No | DTO, read model, ID, scalar, or page |
+| Capability-specific Writer | Explicit capabilities such as outbox, projection, import, or purge | Yes | Capability-defined; never an Aggregate |
 
-Repository interface 是 Application outbound port。EF Core、Dapper、SQL、event store、file 或 remote persistence implementation 是 Infrastructure outbound adapter。
+A repository interface is an Application outbound port. EF Core, Dapper, SQL, event-store, file, or remote-persistence implementations are Infrastructure outbound adapters.
 
 ## Aggregate Repository
 
-### Canonical contract
+### Canonical Contract
 
 ```csharp
 public interface IAggregateRepository<TAggregate, TId>
@@ -34,20 +34,20 @@ public interface IAggregateRepository<TAggregate, TId>
 }
 ```
 
-規則：
+Rules:
 
-- `TAggregate` 必須是 Aggregate Root。
-- Child Entity 不得擁有可由 Application 獨立注入的 Repository。
-- `FindByIdAsync` 只按 Aggregate identity 載入。
-- `SaveAsync` 表達「持久化已完成 domain behavior 的 Aggregate」。
-- Adapter 可依技術採 insert、update、upsert、tracked persistence 或 event append。
-- Repository 不得包含 status、name、filter、paging 或 DTO query methods。
-- Repository 不得自行執行 domain behavior。
-- Repository 不得在 persistence 成功前清除 pending Domain Events。
+- `TAggregate` MUST be an Aggregate Root.
+- A child Entity MUST NOT have a Repository independently injectable by the Application.
+- `FindByIdAsync` loads only by Aggregate identity.
+- `SaveAsync` means "persist an Aggregate whose domain behavior has completed."
+- An adapter may use insert, update, upsert, tracked persistence, or event append as appropriate.
+- A Repository MUST NOT contain status, name, filter, paging, or DTO query methods.
+- A Repository MUST NOT execute domain behavior itself.
+- A Repository MUST NOT clear pending Domain Events before persistence succeeds.
 
-### Compatibility contract
+### Compatibility Contract
 
-既有產品可能已使用 `IDomainRepository` 表示 Aggregate Repository。為降低 context 導入時的無效遷移噪音，保留 compatibility contract：
+Existing products may already use `IDomainRepository` for an Aggregate Repository. This compatibility contract is retained to avoid needless migration noise when adopting this context:
 
 ```csharp
 public interface IDomainRepository<TAggregate, TId>
@@ -57,26 +57,25 @@ public interface IDomainRepository<TAggregate, TId>
 }
 ```
 
-規則：
+Rules:
 
-- 新程式碼優先使用 `IAggregateRepository<TAggregate, TId>`。
-- `IDomainRepository<TAggregate, TId>` 不是第二種 repository model。
-- Compatibility contract 仍必須套用所有 Aggregate Root 限制。
-- `IDomainRepository<ChildEntity, TId>` 是違規，不得因相容性而忽略。
-- Aggregate-specific interface 只用於相容既有程式碼或提供明確型別別名；
-  不得新增 shared contract 以外的方法。
-- 禁止只為重新命名而建立無語意的空殼 interface。
+- New code SHOULD prefer `IAggregateRepository<TAggregate, TId>`.
+- `IDomainRepository<TAggregate, TId>` is not a second repository model.
+- Every Aggregate Root constraint still applies to the compatibility contract.
+- `IDomainRepository<ChildEntity, TId>` is a violation and MUST NOT be excused for compatibility.
+- An aggregate-specific interface is permitted only for compatibility or as an explicit type alias; it MUST NOT add methods beyond the shared contract.
+- A meaningless empty interface created only for renaming is forbidden.
 
-## 禁止的通用寫入介面
+## Forbidden Generic Write Interfaces
 
-Application code 不得依賴可接受任意 Entity 或 table model 的公開 CRUD abstraction，例如：
+Application code MUST NOT depend on a public CRUD abstraction accepting arbitrary Entities or table models, such as:
 
 - `IRepository<TEntity, TId>`
 - `IGenericRepository<TEntity, TId>`
 - `IWritableRepository<TEntity, TId>`
 - `ICrudRepository<TEntity, TId>`
 
-Infrastructure adapter 內部可以使用 private/internal DAO、table gateway 或 persistence helper，但不得把它們直接暴露為 Application port。
+Infrastructure adapters may internally use private/internal DAOs, table gateways, or persistence helpers, but MUST NOT expose them directly as Application ports.
 
 ## Query Repository
 
@@ -88,7 +87,7 @@ public interface IQueryRepository
 }
 ```
 
-Query-specific port 必須實作 marker：
+A query-specific port MUST implement the marker:
 
 ```csharp
 public interface IProductQueryRepository : IQueryRepository
@@ -103,43 +102,43 @@ public interface IProductQueryRepository : IQueryRepository
 }
 ```
 
-規則：
+Rules:
 
-- Query Repository 是純讀取 port。
-- 允許回傳 DTO、read model、ID、scalar 或 page。
-- 禁止回傳可被修改後保存的 Aggregate Root 或 child Entity。
-- 禁止 `Save`、`Add`、`Update`、`Delete`、`Remove` 或等價 persistence write。
-- Query criteria 可以依 use case/read model 設計，不必模擬 Aggregate Repository。
-- Query Repository implementation 位於 Infrastructure。
+- A Query Repository is a read-only port.
+- It may return a DTO, read model, ID, scalar, or page.
+- Returning an Aggregate Root or child Entity that can be modified and saved is forbidden.
+- `Save`, `Add`, `Update`, `Delete`, `Remove`, and equivalent persistence writes are forbidden.
+- Query criteria may follow the use case/read model and need not imitate an Aggregate Repository.
+- Query Repository implementations belong in Infrastructure.
 
 ### Optional Query Service
 
-簡單 Query 可以由 Application boundary 直接依賴 Query Repository。
+A simple Query may depend directly on a Query Repository at the Application boundary.
 
-只有在下列情況才新增 Application Query Service：
+Add an Application Query Service only when it:
 
-- 組合多個 Query Repository 或外部 read source；
-- 有可重用的 query policy；
-- 有非單純 mapping 的 calculation 或 orchestration。
+- combines multiple Query Repositories or external read sources;
+- contains a reusable query policy; or
+- performs calculation or orchestration beyond simple mapping.
 
-禁止為每個 Query 強制建立 pass-through Query Service。
+Do not require a pass-through Query Service for every Query.
 
-## Delete 與 Purge
+## Delete and Purge
 
 ### Soft delete
 
-Soft delete 是 Aggregate behavior：
+Soft delete is Aggregate behavior:
 
 ```csharp
 aggregate.Delete(actorId, reason);
 await repository.SaveAsync(aggregate, cancellationToken);
 ```
 
-Repository 不應以 physical row deletion 取代 Aggregate deletion invariant。
+A Repository SHOULD NOT replace an Aggregate deletion invariant with physical row deletion.
 
 ### Physical purge
 
-Physical deletion 使用獨立且受限的 capability port，不放入 shared Aggregate Repository：
+Physical deletion uses a separate, restricted capability port and does not belong in the shared Aggregate Repository:
 
 ```csharp
 public interface IAggregatePurgePort<TAggregate, TId>
@@ -151,21 +150,21 @@ public interface IAggregatePurgePort<TAggregate, TId>
 }
 ```
 
-Purge Use Case 必須先完成：
+A Purge Use Case MUST first address:
 
-- authorization；
-- retention policy；
-- legal/audit constraints；
-- Aggregate eligibility；
-- related outbox/archive/attachment cleanup policy。
+- authorization;
+- retention policy;
+- legal/audit constraints;
+- Aggregate eligibility; and
+- related outbox/archive/attachment cleanup policy.
 
-## Transaction 與 Unit of Work
+## Transactions and Unit of Work
 
-Eventual consistency 是跨 Aggregate coordination 的預設。
+Eventual consistency is the default for cross-Aggregate coordination.
 
-一般單一 Aggregate Use Case 不因使用 Repository 就自動注入 `IUnitOfWork`。
+A normal single-Aggregate Use Case does not automatically inject `IUnitOfWork` merely because it uses a Repository.
 
-只有 Use Case 明確要求多個 persistence participant 同步 commit/rollback 時，才顯式依賴：
+Depend on it explicitly only when a Use Case requires multiple persistence participants to commit or roll back together:
 
 ```csharp
 public interface IUnitOfWork
@@ -174,27 +173,27 @@ public interface IUnitOfWork
 }
 ```
 
-規則：
+Rules:
 
-- 顯式 dependency 表達 exceptional strong-consistency requirement。
-- Repository 在參與外部 Unit of Work 時不得自行 commit。
-- Repository-owned independent commits 不得破壞 Aggregate + Outbox atomicity。
-- Transaction middleware/decorator 可以實作 mechanics，但不得隱藏 Use Case 宣告的強一致性 dependency。
+- The explicit dependency communicates an exceptional strong-consistency requirement.
+- A Repository participating in an external Unit of Work MUST NOT commit independently.
+- Repository-owned independent commits MUST NOT break Aggregate + Outbox atomicity.
+- Transaction middleware/decorators may implement mechanics but MUST NOT hide the strong-consistency dependency declared by the Use Case.
 
-Domain Event lifecycle：
+Domain Event lifecycle:
 
-1. 執行 Use Case orchestration 與 Aggregate behavior。
-2. 取得 pending Domain Events。
-3. 原子持久化 Aggregate state/events 與必要 Outbox records。
+1. Execute Use Case orchestration and Aggregate behavior.
+2. Obtain pending Domain Events.
+3. Atomically persist Aggregate state/events and required Outbox records.
 4. Commit。
-5. Commit 成功後才 acknowledge/clear pending events。
-6. 失敗時保留 retry 與 optimistic concurrency 語意。
+5. Acknowledge/clear pending events only after a successful commit.
+6. Preserve retry and optimistic-concurrency semantics on failure.
 
 ## Target-specific Aggregate Batch Capability
 
-Portable building blocks 不發布 mandatory `IAggregateBatchRepository`。
+Portable building blocks do not publish a mandatory `IAggregateBatchRepository`.
 
-Target repository 只有在具備量測證據時，才可定義 batch port，例如：
+A target repository may define a batch port only when supported by measured evidence, for example:
 
 ```csharp
 public interface IProductAggregateBatchPort
@@ -209,101 +208,101 @@ public interface IProductAggregateBatchPort
 }
 ```
 
-啟用條件：
+Enabling conditions:
 
-- 預期 cardinality 確實大於一；
-- 已量測 N+1 IO、latency 或 throughput 問題；
-- Adapter 確實能提供有效 batch optimization；
-- 已定義 missing/duplicate IDs、ordering 與 maximum batch size；
-- 已定義 optimistic concurrency、partial failure、retry 與 resume；
-- 已定義每個 Aggregate 的 pending events 與 Outbox 語意；
-- 不把 batch port 放入 default template、default DI 或一般 Use Case。
+- expected cardinality is actually greater than one;
+- N+1 IO, latency, or throughput problems have been measured;
+- the adapter can provide effective batch optimization;
+- missing/duplicate IDs, ordering, and maximum batch size are defined;
+- optimistic concurrency, partial failure, retry, and resume are defined;
+- pending-event and Outbox semantics are defined for each Aggregate; and
+- the batch port is excluded from default templates, default DI, and ordinary Use Cases.
 
-Batch port：
+The batch port:
 
-- 不繼承 `IAggregateRepository<TAggregate, TId>`；
-- 只接受 Aggregate Root；
-- `FindByIdsAsync` 仍是 identity-based load；
-- 不允許 status/filter query；
-- 不得替代逐一執行 Aggregate behavior。
+- does not inherit `IAggregateRepository<TAggregate, TId>`;
+- accepts only Aggregate Roots;
+- keeps `FindByIdsAsync` identity-based;
+- does not allow status/filter queries; and
+- MUST NOT replace executing Aggregate behavior individually.
 
-`IUnitOfWork` 決定 all-or-nothing business transaction；batch methods 只決定 IO shape。
+`IUnitOfWork` determines the all-or-nothing business transaction; batch methods determine only the IO shape.
 
-大量工作預設採 bounded chunks、retry 與 resumable progress。禁止對無上限集合建立單一長交易。
+Bulk work defaults to bounded chunks, retry, and resumable progress. A single long transaction over an unbounded collection is forbidden.
 
-Imports、migrations、projection rebuilds 或 purge 若不執行正常 Aggregate behavior，應使用 capability-specific writer，而不是 Aggregate batch port。
+Imports, migrations, projection rebuilds, or purges that do not execute normal Aggregate behavior SHOULD use a capability-specific writer rather than an Aggregate batch port.
 
 ## Conditional Adapter Guidance
 
 ### EF Core
 
-- Query/read-model flow 應依 tracking policy 使用 `AsNoTracking` 或 direct projection。
-- Aggregate load 是否 tracking，取決於 adapter 採 direct domain mapping、persistence model mapping 或 tracked aggregate strategy。
-- 使用符合 cardinality 的 async terminal operator，例如 `ToListAsync`、`SingleOrDefaultAsync`、`FirstOrDefaultAsync`、`AnyAsync` 或 `CountAsync`。
-- 不得使用 sync-over-async。
-- Optimistic concurrency 必須有明確 token/version mapping 與 conflict handling。
-- `SaveChangesAsync` 成功前不得 clear Domain Events。
+- Query/read-model flows SHOULD use `AsNoTracking` or direct projection according to the tracking policy.
+- Whether Aggregate loads are tracked depends on the adapter's direct domain mapping, persistence-model mapping, or tracked-aggregate strategy.
+- Use a cardinality-appropriate async terminal operator such as `ToListAsync`, `SingleOrDefaultAsync`, `FirstOrDefaultAsync`, `AnyAsync`, or `CountAsync`.
+- Sync-over-async is forbidden.
+- Optimistic concurrency MUST have explicit token/version mapping and conflict handling.
+- Domain Events MUST NOT be cleared before `SaveChangesAsync` succeeds.
 
 ### Dapper / direct SQL
 
-- Connection/transaction lifetime 必須與 Unit of Work 或 adapter atomic operation 對齊。
-- Update/delete SQL 必須檢查 optimistic concurrency version 或等價條件。
-- Multi-statement Aggregate persistence 與 Outbox 必須共用 atomic boundary。
-- Mapping completeness 由 tests 與 review 驗證。
+- Connection/transaction lifetime MUST align with the Unit of Work or adapter atomic operation.
+- Update/delete SQL MUST check an optimistic-concurrency version or equivalent condition.
+- Multi-statement Aggregate persistence and Outbox writes MUST share an atomic boundary.
+- Tests and review verify mapping completeness.
 
 ### Event store
 
-- Append 必須帶 expected version 或等價 concurrency condition。
-- 只 append pending events。
-- Append/commit 成功後才 mark events committed。
-- Snapshot 是 optimization，不得取代 event stream source of truth。
+- Append MUST include an expected version or equivalent concurrency condition.
+- Append only pending events.
+- Mark events committed only after append/commit succeeds.
+- A snapshot is an optimization and MUST NOT replace the event stream as source of truth.
 
 ## Automated Validation Ownership
 
-Repository semantic diagnostics 使用 Roslyn symbol/type analysis，不使用 filename 或 grep 作為 CI authority。
+Repository semantic diagnostics use Roslyn symbol/type analysis; filenames or grep are not CI authority.
 
-必須驗證：
+Validation MUST cover:
 
-- canonical `IAggregateRepository<,>` generic argument 是 Aggregate Root；
-- compatibility `IDomainRepository<,>` 與所有 derived interfaces 套用相同規則；
-- shared Aggregate Repository method surface 只有 `FindByIdAsync` 與 `SaveAsync`；
-- Query Repository marker 的 ports 不包含 writes 或 mutable domain return types；
-- child Entity 不得成為 repository root；
-- violations 的 default severity 是 `error`。
+- the canonical `IAggregateRepository<,>` generic argument is an Aggregate Root;
+- compatibility `IDomainRepository<,>` and every derived interface follow the same rules;
+- the shared Aggregate Repository method surface contains only `FindByIdAsync` and `SaveAsync`;
+- ports marked as Query Repositories contain no writes or mutable domain return types;
+- a child Entity cannot be a repository root; and
+- default severity for violations is `error`.
 
-Target-specific batch ports 的 analyzer/architecture-test 規則由 target repository 依 local marker 啟用。Portable analyzer 不依賴尚未完成的 Use Case/Handler taxonomy。
+The target repository enables analyzer/architecture-test rules for target-specific batch ports through a local marker. The portable analyzer does not depend on an unfinished Use Case/Handler taxonomy.
 
 ## Review Checklist
 
 ### Aggregate Repository
 
-- [ ] 使用 `IAggregateRepository<TAggregate, TId>`，或相容的 `IDomainRepository<TAggregate, TId>`。
-- [ ] `TAggregate` 是 Aggregate Root。
-- [ ] Shared contract 只有 `FindByIdAsync` 與 `SaveAsync`。
-- [ ] 沒有 child Entity repository。
-- [ ] 沒有 DTO/filter/paging query methods。
-- [ ] Repository 不執行 domain behavior。
+- [ ] Uses `IAggregateRepository<TAggregate, TId>` or compatible `IDomainRepository<TAggregate, TId>`.
+- [ ] `TAggregate` is an Aggregate Root.
+- [ ] The shared contract contains only `FindByIdAsync` and `SaveAsync`.
+- [ ] No child Entity repository exists.
+- [ ] No DTO/filter/paging query methods exist.
+- [ ] The Repository does not execute domain behavior.
 
 ### Query Repository
 
-- [ ] 實作 `IQueryRepository` marker。
-- [ ] 只回傳 read-side types、IDs 或 scalar。
-- [ ] 沒有 persistence writes。
-- [ ] 簡單 Query 沒有不必要的 pass-through Query Service。
+- [ ] Implements the `IQueryRepository` marker.
+- [ ] Returns only read-side types, IDs, or scalars.
+- [ ] Contains no persistence writes.
+- [ ] A simple Query has no needless pass-through Query Service.
 
 ### Transaction / Events
 
-- [ ] `IUnitOfWork` 只用於明確 strong-consistency Use Case。
-- [ ] Repository 參與 Unit of Work 時不自行 commit。
-- [ ] Aggregate state/events 與 Outbox 的 atomicity 已定義。
-- [ ] Commit 成功後才 clear/acknowledge pending events。
+- [ ] `IUnitOfWork` is used only for an explicit strong-consistency Use Case.
+- [ ] A Repository does not commit independently while participating in a Unit of Work.
+- [ ] Atomicity of Aggregate state/events and Outbox is defined.
+- [ ] Pending events are cleared/acknowledged only after commit succeeds.
 
 ### Optional Batch
 
-- [ ] Target repo 有量測證據與明確 batch semantics。
-- [ ] Batch port 未進入 portable/default contract。
-- [ ] 大量工作採 bounded chunks。
-- [ ] Partial failure、retry、concurrency 與 event/outbox 已定義。
+- [ ] The target repository has measured evidence and explicit batch semantics.
+- [ ] The batch port is absent from the portable/default contract.
+- [ ] Bulk work uses bounded chunks.
+- [ ] Partial failure, retry, concurrency, and event/outbox behavior are defined.
 
 ## Related Documents
 

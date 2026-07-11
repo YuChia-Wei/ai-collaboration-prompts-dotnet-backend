@@ -1,6 +1,14 @@
 # AI Context Auditor Output Contract
 
-Always create or update a durable Markdown report from:
+This contract has two output modes.
+
+## Transient Direct Mode
+
+When the user does not ask to persist the result, return the assessment in the conversation. Do not create a branch, workflow artifact, report file, or commit. Multiple passes and sub-agent analysis do not change this mode. Do not mutate audited context or remediate findings.
+
+## Durable Report Mode
+
+When the user asks to save, persist, land, or retain the audit in the repository, create or update a durable Markdown report from:
 
 ```text
 .ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md
@@ -26,6 +34,6 @@ The report must include metadata and scope, explicit code exclusions, methodolog
 
 Include ISO 8601 `created_at` and `updated_at` values with an explicit offset plus `template_source` and `template_version`. Do not mark the report final while high-severity claims lack file-backed evidence.
 
-The final response must return the overall assessment, highest-priority findings, report path, scope exclusions, validation summary, recommended next skill, and whether remediation was intentionally not performed.
+The final response must return the overall assessment, highest-priority findings, scope exclusions, validation summary, recommended next skill, and whether remediation was intentionally not performed. Include a report path only in durable mode; in transient mode state that no repository artifact was created.
 
 If source-code review was requested, return the handoff instead of an AI context finding about unread code.

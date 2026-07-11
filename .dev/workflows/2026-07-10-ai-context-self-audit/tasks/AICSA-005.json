@@ -3,12 +3,19 @@
   "workflow_id": "2026-07-10-ai-context-self-audit",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-10T18:25:11+08:00",
-  "updated_at": "2026-07-10T23:39:54+08:00",
+  "updated_at": "2026-07-11T23:30:00+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "template_version": "1.0.0",
-  "status": "pending",
+  "status": "completed",
   "scope": { "target": "Close the audit-remediation lifecycle with complete finding, validation, task, and commit evidence." },
   "dependencies": ["AICSA-004"],
   "execution": { "validation": ["Workflow closing checklist", "Commit policy", "Locator and timestamp consistency"] },
-  "results": { "summary": "", "follow_up_needed": true }
+  "results": {
+    "summary": "Lifecycle reconciled against the final independent post-remediation audit. Eight findings are resolved; AIC-007 is confirmed HIGH and explicitly deferred to a separate tooling workflow. No regression or new finding was reported.",
+    "post_audit_report": ".dev/workflows/2026-07-10-ai-context-self-audit/reports/03-post-remediation-audit-report.md",
+    "closure_decision": "closed-with-deferred-finding",
+    "resolved_findings": ["AIC-001", "AIC-002", "AIC-003", "AIC-004", "AIC-005", "AIC-006", "AIC-008", "AIC-009"],
+    "deferred_findings": ["AIC-007"],
+    "follow_up_needed": false
+  }
 }

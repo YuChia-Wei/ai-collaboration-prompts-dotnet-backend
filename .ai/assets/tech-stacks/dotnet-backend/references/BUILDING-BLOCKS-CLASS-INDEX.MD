@@ -1,28 +1,28 @@
-# Building Blocks 類別索引（概念層）
+# Building Blocks Class Index (Conceptual Layer)
 
-這是 .NET 版 Building Blocks 的**概念設計**類別索引，描述完整架構的目標類別。
-本文件是可重用的 .NET backend building-block reference，不代表 framework repository 已實作這些型別。
+This is a **conceptual design** class index for the .NET Building Blocks and describes target classes for the complete architecture.
+This document is a reusable .NET backend building-block reference; it does not claim that the framework repository implements these types.
 
-目標 repo 若需要 implementation index，應由 `repo-structure-sync` 或文件 workflow 依實際 source code 產生，不應從來源 template 複製。
+If a target repo needs an implementation index, `repo-structure-sync` or a documentation workflow must generate it from actual source code rather than copying it from the source template.
 
 > [!NOTE]
-> 以下 namespace 為設計目標命名，實際套件完成後請更新。
+> The namespaces below are target design names. Update them when the actual packages are complete.
 
-## Domain Layer 核心類別
+## Domain Layer Core Classes
 
 ```
-BuildingBlocks.Domain.DomainEntity<TId>        # 領域實體基底（Id + DomainEvents）
-BuildingBlocks.Domain.AggregateRoot<TId>       # 聚合根基底（Version）
-BuildingBlocks.Domain.EsAggregateRoot<TId>     # ES 聚合根（Apply/When 模式）
-BuildingBlocks.Domain.IDomainEvent             # 領域事件介面（EventId + OccurredOn）
-BuildingBlocks.Domain.IAggregateRoot<TId>      # 聚合根介面
-BuildingBlocks.Domain.IDomainEntity<TId>       # 實體介面
-BuildingBlocks.Domain.ValueObject              # Value Object 基底（設計目標）
-BuildingBlocks.Domain.InternalDomainEvent      # 內部事件（設計目標）
-BuildingBlocks.Domain.DomainEventTypeMapper    # 事件類型映射（設計目標）
+BuildingBlocks.Domain.DomainEntity<TId>        # Domain entity base (Id + DomainEvents)
+BuildingBlocks.Domain.AggregateRoot<TId>       # Aggregate Root base (Version)
+BuildingBlocks.Domain.EsAggregateRoot<TId>     # ES Aggregate Root (Apply/When pattern)
+BuildingBlocks.Domain.IDomainEvent             # Domain event interface (EventId + OccurredOn)
+BuildingBlocks.Domain.IAggregateRoot<TId>      # Aggregate Root interface
+BuildingBlocks.Domain.IDomainEntity<TId>       # Entity interface
+BuildingBlocks.Domain.ValueObject              # Value Object base (design target)
+BuildingBlocks.Domain.InternalDomainEvent      # Internal event (design target)
+BuildingBlocks.Domain.DomainEventTypeMapper    # Event type mapping (design target)
 ```
 
-## Use Case Layer 核心類別
+## Use Case Layer Core Classes
 
 ```
 BuildingBlocks.Application.Cqrs.Input
@@ -32,26 +32,24 @@ BuildingBlocks.Application.Cqrs.Command
 BuildingBlocks.Application.Cqrs.CqrsOutput
 ```
 
-## Repository Pattern 類別
+## Repository Pattern Classes
 
 ```
-BuildingBlocks.Domain.IAggregateRepository<TAggregate, TId> # Aggregate Root Repository（FindByIdAsync/SaveAsync）
-BuildingBlocks.Domain.IDomainRepository<TAggregate, TId>    # 舊產品相容別名；必須繼承 IAggregateRepository
-BuildingBlocks.Application.Queries.IQueryRepository         # 唯讀 Query Port 標記
-BuildingBlocks.Application.Repositories.IAggregatePurgePort<TAggregate, TId> # 受限制的實體刪除能力
-BuildingBlocks.Application.Repositories.IUnitOfWork          # 顯式強一致性交易邊界
-BuildingBlocks.Application.Repositories.OutboxRepository     # 僅在目標技術配置採用時
+BuildingBlocks.Domain.IAggregateRepository<TAggregate, TId> # Aggregate Root Repository (FindByIdAsync/SaveAsync)
+BuildingBlocks.Domain.IDomainRepository<TAggregate, TId>    # Legacy-product compatibility alias; must inherit IAggregateRepository
+BuildingBlocks.Application.Queries.IQueryRepository         # Read-only Query Port marker
+BuildingBlocks.Application.Repositories.IAggregatePurgePort<TAggregate, TId> # Restricted physical deletion capability
+BuildingBlocks.Application.Repositories.IUnitOfWork          # Explicit strongly consistent transaction boundary
+BuildingBlocks.Application.Repositories.OutboxRepository     # Only when selected by the target technology configuration
 BuildingBlocks.Application.Repositories.IOutboxData
 BuildingBlocks.Application.Repositories.IOutboxMapper
 BuildingBlocks.Application.Repositories.IRepositoryPeer
 BuildingBlocks.Application.Repositories.IStoreData
 ```
 
-Portable core 不定義通用 writable CRUD 或標準 batch repository。目標 repo
-若因量測結果建立 batch port，必須同時定義 chunking、concurrency、failure、
-domain-event 與 outbox semantics。
+The portable core does not define general writable CRUD or a standard batch repository. If measured needs lead a target repo to create a batch port, it must also define chunking, concurrency, failure, domain-event, and outbox semantics.
 
-## Query Pattern 類別
+## Query Pattern Classes
 
 ```
 BuildingBlocks.Application.Queries.IQuery
@@ -61,7 +59,7 @@ BuildingBlocks.Application.Queries.IProjectionInput
 BuildingBlocks.Application.Queries.IArchive
 ```
 
-## Domain Event Data 類別
+## Domain Event Data Classes
 
 ```
 BuildingBlocks.Application.Events.DomainEventData
@@ -71,21 +69,21 @@ BuildingBlocks.Application.Events.ExternalDomainEventDto
 BuildingBlocks.Application.Events.InternalDomainEventDto
 ```
 
-## Messaging 類別
+## Messaging Classes
 
 ```
 BuildingBlocks.Messaging.MessageProducer
 BuildingBlocks.Messaging.PostEventFailureException
 ```
 
-## Reactor Pattern 類別
+## Reactor Pattern Classes
 
 ```
 BuildingBlocks.Application.Reactors.IReactor
 BuildingBlocks.Application.Reactors.IGenericReactor
 ```
 
-## Outbox Infrastructure 類別（條件式）
+## Outbox Infrastructure Classes (Conditional)
 
 ```
 BuildingBlocks.Infrastructure.Outbox.OutboxRepositoryPeer
@@ -96,24 +94,23 @@ BuildingBlocks.Infrastructure.Outbox.EfCoreOutboxClient
 BuildingBlocks.Infrastructure.Outbox.IOrmClient
 ```
 
-以上 Outbox/ORM 類別只有在目標 repository 選用對應實作時才適用；本 framework
-不指定資料庫、ORM 或 messaging package。
+These Outbox/ORM classes apply only when the target repository selects the corresponding implementation. This framework does not prescribe a database, ORM, or messaging package.
 
-## InMemory Infrastructure 類別
+## InMemory Infrastructure Classes
 
-### Outbox InMemory 支援
+### Outbox InMemory Support
 ```
 BuildingBlocks.Infrastructure.Outbox.InMemoryOrmDb
 BuildingBlocks.Infrastructure.Outbox.InMemoryOrmClient
 ```
 
-### Event Store InMemory 支援
+### Event Store InMemory Support
 ```
 BuildingBlocks.Infrastructure.EventStore.InMemoryMessageDb
 BuildingBlocks.Infrastructure.EventStore.InMemoryMessageDbClient
 ```
 
-### Message Broker InMemory 支援
+### Message Broker InMemory Support
 ```
 BuildingBlocks.Messaging.InMemoryMessageBroker
 BuildingBlocks.Messaging.InMemoryMessageProducer
@@ -123,7 +120,7 @@ BuildingBlocks.Messaging.InternalInMemoryMessageConsumer
 BuildingBlocks.Messaging.ExternalInMemoryMessageConsumer
 ```
 
-## Event Sourcing Infrastructure 類別
+## Event Sourcing Infrastructure Classes
 
 ```
 BuildingBlocks.Application.Repositories.EsRepository
@@ -138,14 +135,14 @@ BuildingBlocks.Infrastructure.EventStore.VolatileRelay
 BuildingBlocks.Infrastructure.EventStore.MessageDbToDomainEventDataConverter
 ```
 
-## Testing Support 類別（BDDfy）
+## Testing Support Classes (BDDfy)
 
 ```
 TestStack.BDDfy.BDDfyExtensions
 TestStack.BDDfy.Xunit.BddfyFactAttribute
 ```
 
-## Design by Contract 類別（uContract）
+## Design by Contract Classes (uContract)
 
 ```
 UContract.Contract
@@ -153,39 +150,39 @@ UContract.PreconditionViolationException
 UContract.PostconditionViolationException
 ```
 
-## Utility 類別
+## Utility Classes
 
 ```
 BuildingBlocks.Common.Converter
 BuildingBlocks.Infrastructure.OptimisticLockingFailureException
 ```
 
-## 使用說明
+## Usage
 
-1. **查找類別**：使用 Ctrl+F 搜尋類別名稱
-2. **確認 namespace**：複製完整路徑作為 using
-3. **避免猜測**：若不存在，請回到 Building Blocks 專案確認
+1. **Find a class**: Use Ctrl+F to search for the class name.
+2. **Confirm the namespace**: Copy the full path into a using directive.
+3. **Avoid guessing**: If it does not exist, verify it in the Building Blocks project.
 
-## 重要注意事項
+## Important Notes
 
-### 概念 vs 實作
-- 📘 此文件為**概念設計**索引，涵蓋完整架構目標
-- 📗 目標 repo 的已實作類別應依實際 source code 另外建立 implementation index
-- ✅ `BuildingBlocks.*` 為暫定命名，不代表最終套件
+### Concept vs Implementation
+- 📘 This document is a **conceptual design** index covering the complete architecture target.
+- 📗 Implemented classes in a target repo require a separate implementation index based on actual source code.
+- ✅ `BuildingBlocks.*` is provisional naming and does not represent final packages.
 
-### 常見錯誤路徑（請避免）
+### Common Incorrect Paths (Avoid)
 - ❌ `DomainModel.*` → ✅ `BuildingBlocks.Domain.*`
 - ❌ `Infrastructure.Common.*` → ✅ `BuildingBlocks.Infrastructure.*`
 - ❌ `EventSourcingAggregate` → ✅ `EsAggregateRoot`
 
-### Reactor 介面使用
+### Reactor Interface Usage
 ```csharp
 public interface MyReactor : IReactor<DomainEventData>
 {
 }
 ```
 
-### InMemory Repository 配置範例（示意）
+### InMemory Repository Configuration Example (Illustrative)
 ```csharp
 public static IServiceCollection AddInMemoryRepositories(this IServiceCollection services)
 {
