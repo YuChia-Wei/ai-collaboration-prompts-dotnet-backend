@@ -13,7 +13,6 @@ ROOT = Path(__file__).resolve().parents[2]
 TABLE_PATH = re.compile(r"^\|\s*`([^`]+)`\s*\|")
 ACTIVE_RUNTIME_ROOTS = (Path(".agents/skills"), Path(".claude/skills"))
 PLANNED_RUNTIME_ROOTS = (
-    Path(".gemini/commands"),
     Path(".github/prompts"),
     Path(".github/copilot-instructions.md"),
 )

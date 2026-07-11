@@ -19,7 +19,7 @@ constraints:
   - "Implement an explicit I<Operation>UseCase and <Operation>UseCase with ExecuteAsync; add a Handler only when an actual dispatch/message entry exists"
   - "Keep Wolverine conditional and outside the portable Use Case boundary"
   - "Use IAggregateRepository for Aggregate Root writes; do not introduce generic writable CRUD or mix query methods into it"
-  - "Tests follow xUnit + BDDfy naming guidance and no BaseTestClass"
+  - "Tests use mandatory Given-When-Then structure and naming with no BaseTestClass; BDDfy is the default unless the target team explicitly opted out, and 3A is not a substitute"
 workflow:
   - step: 1
     description: "Confirm the command behavior, aggregate boundary, and output location"

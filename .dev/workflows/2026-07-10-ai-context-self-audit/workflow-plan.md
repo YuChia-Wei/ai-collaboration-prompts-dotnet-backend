@@ -12,7 +12,7 @@
 - `base_branch`: `main`
 - `branch_segment`: `2`
 - `created_at`: `2026-07-10T18:25:11+08:00`
-- `updated_at`: `2026-07-11T08:25:12+08:00`
+- `updated_at`: `2026-07-11T08:41:13+08:00`
 - `status`: `active`
 - `current_phase`: `remediation-planning`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
@@ -33,7 +33,7 @@
 - Findings: `AIC-001` through `AIC-009`.
 - Remediation triage: `completed`; matrix saved in `reports/02-remediation-report.md`.
 - Authorized remediation: `authorized` by the user's 2026-07-11 instruction to begin correcting the inventoried findings.
-- Authorized remediation progress: Batch 1 implemented AIC-003, AIC-006, AIC-008, and the objective lint portion of AIC-009; Batch 2 and the AIC-002 decision remain.
+- Authorized remediation progress: AIC-002, AIC-003, AIC-006, and AIC-008 have candidate resolutions; AIC-009 is partial; AIC-001, AIC-004, and AIC-005 remain for Batch 2; AIC-007 is deferred to tooling.
 - Post-remediation independent audit: `pending`.
 - Workflow closure: `pending`.
 

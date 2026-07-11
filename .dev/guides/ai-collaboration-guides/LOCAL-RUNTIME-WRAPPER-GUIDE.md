@@ -17,7 +17,7 @@
 - Claude:
   - `.claude/skills/`
 
-Gemini 與 GitHub Copilot wrapper 尚未建立；`.gemini/commands/`、`.github/prompts/` 與 `.github/copilot-instructions.md` 僅是規劃中的可選整合路徑，不是目前 repo runtime surface。
+GitHub Copilot wrapper 尚未建立；`.github/prompts/` 與 `.github/copilot-instructions.md` 僅是規劃中的可選整合路徑，不是目前 repo runtime surface。
 
 ## Codex Local Runtime
 
@@ -47,15 +47,6 @@ setx CODEX_HOME "<repo-path>\.codex"
 ```powershell
 setx CODEX_HOME ""
 ```
-
-## Gemini Local Runtime
-
-目前 repo 不提供 Gemini runtime wrapper。若未來啟用，預計使用：
-
-- `.gemini/settings.json`
-- `.gemini/commands/`
-
-`settings.json` 可補 default context，`commands/` 可放 repo-local wrapper commands；建立並通過驗證前不得列為 current runtime。
 
 ## GitHub Copilot
 

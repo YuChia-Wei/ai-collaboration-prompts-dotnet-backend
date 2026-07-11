@@ -31,7 +31,7 @@
 - Outbox 與一致性要求
 
 ### 5. [Test Standards](./coding-standards/test-standards.md)
-- xUnit 測試規範（未來將加入 BDDfy）
+- xUnit + BDDfy 預設測試規範；target team 停用 BDDfy 時仍強制 GWT、禁止 3A
 - NSubstitute mock 使用規則
 - Profile-based testing
 

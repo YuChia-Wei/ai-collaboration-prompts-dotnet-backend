@@ -76,5 +76,4 @@
 
 - `claude`
 - `codex`
-- `gemini`
 - `copilot`

@@ -2,14 +2,16 @@
 
 ## Mandatory Decisions
 - **Framework**: xUnit
-- **BDD**: BDDfy fluent API with Gherkin-style naming only (no `.feature` files)
+- **BDD profile**: BDDfy is the default profile, but a target team may explicitly decline the package.
+- **Minimum test style**: All unit, use-case, and integration tests use Given-When-Then structure and naming. Arrange-Act-Assert (3A) is not an alternative.
+- **Feature assets**: `.feature` files are planned/optional, not required by default. Support them when supplied or explicitly requested, or when the target profile selects a feature runner; do not select a runner or package without project evidence.
 - **No BaseTestClass**: Tests must not inherit from shared base classes
 - **Mocking**: NSubstitute only
 
 ## Core Rules
 - Do not hardcode environment/profile inside test classes
 - Use fixtures/collections to switch profiles
-- Use Given/When/Then step methods or fluent chains for behavior scenarios (BDDfy)
+- Use Given/When/Then step methods or fluent chains. Under the default profile, use BDDfy; when the team opts out, preserve the same explicit GWT structure in plain xUnit.
 - Verify domain events with async-safe assertions (e.g., Eventually/Retry helpers)
 
 ## Profile Switching Pattern (xUnit)
@@ -19,7 +21,7 @@
   - Initialize test service container
 
 ## Test Types
-- **Use Case Tests**: BDDfy scenarios with Gherkin-style names; validate command/query behavior
+- **Use Case Tests**: GWT scenarios with Gherkin-style names; use BDDfy by default and plain xUnit GWT only after an explicit opt-out
 - **Handler Adapter Tests**: Validate delivery-input mapping, one Use Case
   invocation, and delivery failure mapping
 - **Contract Tests**: Validate preconditions (DBC) without DI
@@ -32,7 +34,7 @@
 - Avoid strict mocks unless explicitly required
 
 
-## ezSpec -> BDDfy Mapping Rules (Dotnet)
+## ezSpec -> GWT Test Mapping Rules (Dotnet)
 
 ### Coverage Rules (Must Keep)
 - Each Acceptance Criteria (AC) becomes at least one Scenario.
@@ -40,14 +42,14 @@
 - Maintain a checklist mapping: AC -> Scenario -> Then/And assertions (100% required).
 
 ### DSL Mapping Table
-| ezSpec Concept | BDDfy Equivalent | Notes |
+| ezSpec Concept | Default BDDfy / GWT Equivalent | Notes |
 | --- | --- | --- |
 | Feature / EzFeature | Story/test class + `[Story]` (optional) | One class per use case. |
 | Scenario / EzScenario | Test method + Gherkin-style name | One scenario per AC or error case. |
 | Given/When/Then/And blocks | BDDfy step methods or fluent chain | Step text mirrors spec wording. |
 | ScenarioEnvironment `env.put` | Typed test context | TODO: finalize standard context pattern. |
 | `env.gets(key)` / `env.get(key, Type)` | Context get with type | Prefer typed context fields over casting. |
-| `.Execute()` | `this.BDDfy()` | Scenario executed in the test method. |
+| `.Execute()` | `this.BDDfy()` by default, or explicit GWT orchestration after opt-out | Scenario executed in the test method. |
 | Event verification (await) | Async helper in Then/And step | TODO: define `IEventProbe` + `ShouldEventuallyContain<T>()` helper. |
 
 ### Data Context Pattern (Recommended)

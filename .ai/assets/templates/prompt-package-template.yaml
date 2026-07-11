@@ -9,7 +9,6 @@ audience:
 wrapper_targets:
   - claude
   - codex
-  - gemini
   - copilot
 source_of_truth: canonical
 inputs:

@@ -8,7 +8,8 @@
   - 先做 Given-When-Then 測試設計
   - 拆 scenarios、assertion points、coverage gaps
 - 既有 test generation sub-agents
-  - 在 BDD 設計完成後，作為 downstream handoff，把 scenario 設計轉成 xUnit + BDDfy 測試碼
+  - 在 BDD 設計完成後，作為 downstream handoff，預設把 scenario 設計轉成 xUnit + BDDfy 測試碼
+  - target team 明確停用 BDDfy 時，改以純 xUnit 保留 Given / When / Then 結構；不得以 3A 取代
   - 不屬於 `bdd-gwt-test-designer` 自身責任
 - `code-reviewer`
   - 檢查測試是否符合規範、coverage 是否足夠
@@ -48,7 +49,9 @@
 
 - 檢查 Given / When / Then 是否落實
 - 檢查 assertions 是否完整
-- 檢查是否符合 xUnit + BDDfy + no BaseTestClass 規則
+- 檢查是否符合 GWT、禁止 3A、no BaseTestClass 規則；BDDfy 為預設，停用時須有 target decision
+
+`.feature` 不在每次 handoff 中自動產生。只有輸入直接提供、使用者明確要求設計/產出，或 target profile 採用 runner 時，才依 Gherkin storage guide 建立或維護相關資產。
 
 ## 何時要先交給 Architect
 

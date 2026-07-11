@@ -1,10 +1,20 @@
 # Gherkin Feature Storage Guide
 
-本文件定義本 repo 的 Gherkin `.feature` 正式存放規範。
+本文件是條件式啟用指南，定義 target project 決定建立或維護 Gherkin `.feature` 時的正式存放規範；它不要求每個專案一律建立 `.feature`。
+
+## 0. 啟用條件
+
+只有符合下列任一條件時才建立或維護 `.feature`：
+
+- 使用者或需求直接提供 `.feature`；
+- 使用者明確要求設計或產出 `.feature`；
+- target profile / team 已採用 Reqnroll 或其他 Gherkin runner。
+
+未符合上述條件時，不主動建立 `.feature`、step definitions 或 runner 配套。無論是否啟用 `.feature`，所有 C# 測試仍必須使用 Given-When-Then 風格，不得以 Arrange-Act-Assert（3A）取代；BDDfy 是預設工具，但 target team 可明確決議停用。
 
 ## 1. 目的
 
-本 repo 同時有兩種測試相關 artifact：
+啟用 `.feature` 的 target project 會有兩種測試相關 artifact：
 
 - `.dev/specs/tests/`
   - 測試意圖、scenario design、assertion notes、coverage gaps、追溯資訊
@@ -19,7 +29,7 @@
 
 ## 2. 正式規範
 
-正式 `.feature` 檔一律放在：
+啟用後，正式 `.feature` 檔一律放在：
 
 ```text
 tests/Features/
@@ -134,7 +144,7 @@ tests/Features/Support/
 
 ## 7. 與 Skill / Workflow 的關係
 
-`bdd-gwt-test-designer` 預設先產出 scenario 設計與測試規格資訊。若要進一步落成正式 Gherkin：
+`bdd-gwt-test-designer` 預設先產出 scenario 設計與測試規格資訊，不主動假設需要 `.feature`。符合啟用條件並要進一步落成正式 Gherkin 時：
 
 1. 以 `.dev/specs/domains/` 作為 production behavior 真相來源
 2. 在 `.dev/specs/tests/` 沉澱 scenario 設計與 assertion notes
@@ -145,4 +155,4 @@ tests/Features/Support/
 
 `.dev/standards/examples/**/.feature` 僅為示例，不是正式存放位置。
 
-正式新建或維護中的 `.feature` 一律依本文件放在 `tests/Features/`。
+啟用 `.feature` 後，正式新建或維護中的檔案一律依本文件放在 `tests/Features/`。

@@ -168,7 +168,8 @@ public Product(ProductId id, string name)
 ## 🧪 測試檢查
 
 ### BDD 規範
-- [ ] 使用 xUnit + BDDfy（Gherkin 風格命名）
+- [ ] 所有測試使用 GWT（Gherkin 風格命名），未以 3A 取代
+- [ ] 預設使用 xUnit + BDDfy；若 target team 明確停用 BDDfy，純 xUnit 仍保留 Given / When / Then 結構
 - [ ] 禁止 BaseTestClass
 - [ ] Mock 使用 NSubstitute
 

@@ -15,9 +15,14 @@ outputs:
   - "recommended test level for each scenario"
   - "assertion points and setup notes"
   - "recommended test spec storage path under .dev/specs/tests/"
+  - "a .feature artifact design when the user provides or explicitly requests one, or when the target profile selects a feature runner"
 constraints:
   - "Do not implement final test code unless explicitly requested"
   - "Do not change production code"
+  - "Default to scenario notes, not .feature files"
+  - "Treat BDDfy as the default profile, while preserving mandatory GWT structure when a target team explicitly opts out"
+  - "Never replace GWT with Arrange-Act-Assert (3A)"
+  - "Do not choose a feature runner or package without an explicit target decision"
 workflow:
   - step: 1
     description: "Identify the highest-priority source of truth"

@@ -33,7 +33,7 @@
 | `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller 是否足夠薄<br>2. DTO 是否獨立檔案<br>3. HTTP status 正確 | MEDIUM |
 | `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper 是否為 static/sealed？<br>2. 一個 DTO 對一個 Mapper<br>3. Outbox toDomain 是否處理有/無 events 兩種情況 | **HIGH** |
 | `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>＋ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. 是否實作 `IOutboxData<TId>`<br>2. Domain events 欄位是否標記為 NotMapped<br>3. EF Core key/column naming 是否正確 | MEDIUM |
-| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD 規範 / UseCase 測試** | 1. xUnit + BDDfy（Gherkin 風格命名）<br>2. 不使用 BaseTestClass<br>3. NSubstitute 使用 | HIGH |
+| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD 規範 / UseCase 測試** | 1. xUnit GWT 結構與命名（BDDfy 為預設 profile，可由團隊明確停用）<br>2. 不使用 3A 或 BaseTestClass<br>3. NSubstitute 使用 | HIGH |
 
 ---
 

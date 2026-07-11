@@ -21,7 +21,7 @@ Use this delegated sub-agent role when the main agent needs a worker focused on 
 - Keep Wolverine conditional and out of the portable Use Case.
 - Repository dependencies come from DI; use `IAggregateRepository` for Aggregate
   Root writes and do not add generic writable CRUD or query methods to it
-- Tests follow xUnit + BDDfy-style naming guidance and no `BaseTestClass`
+- Tests use mandatory Given-When-Then structure and naming with no `BaseTestClass`; BDDfy is the default unless the target team explicitly opted out, and 3A is not a substitute
 
 ## Output Structure
 

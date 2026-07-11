@@ -26,7 +26,7 @@ Your job is to verify compliance with **.NET prompts and shared rules**.
 - Clean architecture folder placement
 - Contract vs Objects rules respected
 - CQRS separation maintained
-- Tests follow xUnit + BDDfy with Gherkin-style naming
+- Tests use Given-When-Then structure and naming. BDDfy is the default unless the target team explicitly opted out; plain xUnit GWT is allowed after opt-out, while 3A is not.
 
 ## Report Format
 ```

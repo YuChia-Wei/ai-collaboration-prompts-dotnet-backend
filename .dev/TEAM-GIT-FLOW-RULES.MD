@@ -26,7 +26,6 @@ Use short-lived branches for bounded work. A workflow branch is mandatory, not o
 | --- | --- |
 | `codex/` | Codex-owned workflow or task branch. |
 | `claude/` | Claude-owned workflow or task branch. |
-| `gemini/` | Gemini-owned workflow or task branch. |
 | `docs/` | Human-authored documentation branch when no agent prefix is appropriate. |
 | `fix/` | Small human-authored fix branch when no agent prefix is appropriate. |
 
@@ -59,7 +58,6 @@ When work uses `.dev/workflows/<workflow-id>/`, use:
 ```text
 codex/<workflow-id>
 claude/<workflow-id>
-gemini/<workflow-id>
 ```
 
 Examples:
@@ -67,7 +65,6 @@ Examples:
 ```text
 codex/2026-07-11-ai-context-skill-and-doc-cleanup
 claude/2026-07-11-payment-refactor-stage-1
-gemini/2026-07-11-spec-cleanup
 ```
 
 Create the branch before creating `.dev/workflows/<workflow-id>/workflow.yaml`. Record the branch and base branch in the locator.

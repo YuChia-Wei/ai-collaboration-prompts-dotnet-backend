@@ -20,10 +20,8 @@ examples:
 wrapper_targets:
   - "claude"
   - "codex"
-  - "gemini"
   - "copilot"
 wrapper_metadata:
   claude: {}
   codex: {}
-  gemini: {}
   copilot: {}

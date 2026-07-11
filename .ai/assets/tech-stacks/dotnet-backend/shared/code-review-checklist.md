@@ -55,7 +55,8 @@ This checklist enforces DDD, Clean Architecture, CQRS, Event Sourcing, Outbox, a
 - [ ] Validation attributes applied
 
 ## Testing
-- [ ] xUnit + BDDfy with Gherkin-style naming (no `.feature` files)
+- [ ] xUnit tests use Given-When-Then structure and naming; BDDfy is the default unless the target team explicitly opted out, and 3A is not used as a substitute
+- [ ] `.feature` files are treated as optional and are only required when supplied/requested or selected by the target profile
 - [ ] No BaseTestClass
 - [ ] NSubstitute used for mocks
 - [ ] Async-safe event verification

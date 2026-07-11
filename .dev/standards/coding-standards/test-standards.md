@@ -6,10 +6,11 @@
 
 ## 📌 概述
 
-測試必須遵循 xUnit + BDDfy（Gherkin 風格命名），並使用 NSubstitute 作為 mock 工具。
+所有測試都必須以 Given-When-Then（GWT）風格表達測試意圖；Arrange-Act-Assert（3A）不得作為替代格式。xUnit + BDDfy 是預設組合，並使用 NSubstitute 作為 mock 工具。Target team 可以明確決議不引入 BDDfy，但其 C# 測試仍必須維持可辨識的 Given / When / Then 結構與命名。
 
 - **xUnit**：主要測試框架
-- **BDDfy**：Use Case / 整合測試必須使用 Gherkin 風格
+- **BDDfy**：預設的 GWT 編排工具；target team 可明確停用套件，但不可停用 GWT 規則
+- **`.feature`**：規劃支援但不強制；僅在需求直接提供、明確要求設計或產出、或 target profile 採用 Gherkin runner 時建立與維護
 - **NSubstitute**：唯一允許的 Mocking 框架
 - **禁止 Moq**：專案不使用 Moq
 
@@ -39,7 +40,7 @@ Pattern (forbidden, ignore-comment): BaseTestClass|BaseUseCaseTest
 
 | 測試類型 | 框架 | 說明 |
 |---------|------|------|
-| 單元測試 | xUnit + BDDfy | Gherkin-style 命名 |
+| 單元測試 | xUnit + BDDfy（預設） | 必須採 GWT；未引入 BDDfy 時仍不得改用 3A |
 | 整合測試 | xUnit + WebApplicationFactory | ASP.NET Core 整合測試 |
 | Mocking | NSubstitute | **禁止使用 Moq** |
 | 斷言 | FluentAssertions | 推薦使用 |
@@ -79,9 +80,11 @@ public class CreateProductUseCaseTests
 
 ---
 
-### 3. 使用 BDDfy 與 Gherkin-Style 命名
+### 3. 使用 GWT；預設採 BDDfy
 
-**強制規定**: Use Case 和整合測試必須使用 BDDfy 與 Gherkin-style 命名。
+**強制規定**：所有測試必須使用 Given-When-Then 語意與可辨識的步驟命名，禁止以 Arrange-Act-Assert（3A）取代。Use Case 與整合測試預設使用 BDDfy；只有 target team 明確決議不引入該套件時，才可使用純 xUnit 實作相同的 GWT 結構。
+
+`.feature` 與 runner 不屬於最低必要依賴。若需求直接提供 `.feature`、明確要求設計或產出該檔案，或 target profile 已採用 runner，則依 [Gherkin Feature Storage Guide](../../specs/tests/GHERKIN-FEATURE-STORAGE-GUIDE.MD) 建立或維護；否則直接以 GWT 風格 C# 測試表達 scenario。
 
 ```csharp
 // ✅ 正確：BDDfy + Gherkin-style
@@ -420,7 +423,8 @@ var product = ProductBuilder.AProduct()
 ## 🔍 檢查清單
 
 ### Use Case 測試
-- [ ] 使用 BDDfy + Gherkin-style 命名
+- [ ] 使用 GWT 與 Gherkin-style 命名，未以 3A 取代
+- [ ] 預設使用 BDDfy；若 target team 明確停用，純 xUnit 仍保留 Given / When / Then 結構
 - [ ] 使用 NSubstitute（不是 Moq）
 - [ ] 沒有繼承 BaseTestClass
 - [ ] 聚合根 ID 使用 `Guid.NewGuid().ToString()`
@@ -433,7 +437,7 @@ var product = ProductBuilder.AProduct()
 - [ ] 不以 Handler test 取代 Use Case business-flow test
 
 ### Contract 測試
-- [ ] 使用純 xUnit（無 BDDfy）
+- [ ] 使用 GWT 風格；可使用純 xUnit，但不得退回 3A
 - [ ] 使用 `Assert.Throws<TException>()`
 - [ ] 有 `CreateProductWithState()` helper
 - [ ] 每個前置條件都有對應測試

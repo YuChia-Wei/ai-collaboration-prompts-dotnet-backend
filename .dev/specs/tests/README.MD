@@ -2,6 +2,8 @@
 
 本目錄放置 BDD / TDD / acceptance-oriented 的測試規格文件。
 
+所有測試設計與 C# 測試均以 Given-When-Then 為最低底線，禁止以 Arrange-Act-Assert（3A）取代。BDDfy 是預設工具，但 target team 可明確停用套件而保留 GWT 結構。`.feature` 是規劃支援的選配資產，只在需求直接提供、明確要求設計/產出，或 target profile 採用 runner 時啟用。
+
 ## 目的
 
 - 保存「要驗證什麼」而不是「要怎麼實作」
@@ -14,8 +16,8 @@
   - 描述 production behavior、aggregate、use case、adapter contract
 - `.dev/specs/tests/`
   - 描述測試場景、驗證重點、前置條件、邊界條件、red-green-refactor 切分
-- `tests/Features/`
-  - 放正式維護與 IDE / BDD 工具整合的 Gherkin `.feature` 檔
+- `tests/Features/`（條件式）
+  - 啟用 `.feature` 時，放正式維護與 IDE / BDD 工具整合的 Gherkin 檔
 - `tests/**/*.Steps.cs`
   - 放 `.feature` 對應的 step definitions 與測試支援程式
 
@@ -101,4 +103,4 @@ tests/
 - repository 具體實作細節
 - 僅供 agent 臨時使用的 scratch notes
 - 取代 `.dev/specs/` 的 production behavior 規格
-- 把所有正式 `.feature` 檔直接堆在這裡；正式 Gherkin 應放 `tests/Features/`
+- 把啟用後的正式 `.feature` 檔直接堆在這裡；正式 Gherkin 應放 `tests/Features/`

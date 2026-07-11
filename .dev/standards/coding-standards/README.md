@@ -57,7 +57,7 @@
 
 ### 測試規範
 - **[test-standards.md](./test-standards.md)** - 測試編碼規範
-  - xUnit + BDDfy 測試框架
+  - xUnit + BDDfy 預設測試框架；GWT 為最低底線且禁止以 3A 取代
   - NSubstitute Mocking（禁止 Moq）
   - Contract Tests (DBC Precondition 驗證)
   - WebApplicationFactory 整合測試
@@ -95,7 +95,7 @@
 - ✅ 返回 `Result<T>` 處理錯誤
 
 #### 4. 測試要求
-- ✅ 使用 xUnit + BDDfy 框架
+- ✅ 預設使用 xUnit + BDDfy；target team 停用 BDDfy 時仍使用 GWT 風格 C# 測試
 - ✅ 使用 NSubstitute（禁止 Moq）
 - ✅ 禁止繼承 BaseTestClass
 - ✅ 聚合根 ID 使用 `Guid.NewGuid().ToString()`

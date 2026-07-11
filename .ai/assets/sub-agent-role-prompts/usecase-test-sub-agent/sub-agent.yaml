@@ -18,7 +18,7 @@ outputs:
 constraints:
   - "Do not invent behavior beyond the source of truth"
   - "No BaseTestClass"
-  - "Follow xUnit + BDDfy guidance unless the repository standard changes"
+  - "Use mandatory Given-When-Then structure and naming; follow the default xUnit + BDDfy profile unless the target team explicitly opts out, and never fall back to 3A"
 workflow:
   - step: 1
     description: "Load scenario design output or derive Given-When-Then coverage from the source of truth"

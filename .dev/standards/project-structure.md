@@ -32,7 +32,6 @@ project-root/
 ├── sql-script/                          # 資料庫腳本
 ├── .ai/                                 # 給 agent 重用的 prompts, shared rules, scripts
 ├── .dev/                                # 給人看的 specs, ADRs, requirements, guides
-├── .gemini/                             # 可選 Gemini CLI adapter（本 repo 目前未提供）
 ├── .github/                             # GitHub repository 資源；Copilot adapter 為可選
 └── *.slnx                               # .NET Solution
 ```

@@ -4,7 +4,7 @@ This folder contains reusable .NET backend architecture and development standard
 
 DDD / Clean Architecture / CQRS boundaries are normative. Database, ORM, event store, message broker, test package, and runtime versions are selected by each target repository from file-backed evidence.
 
-EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, BDDfy, and NSubstitute documents are conditional/reference guidance unless target repository configuration explicitly adopts them.
+EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents are conditional/reference guidance unless target repository configuration explicitly adopts them. For tests, Given-When-Then is the framework-wide minimum and Arrange-Act-Assert is not an allowed substitute. xUnit + BDDfy is the default; a target team may explicitly decline BDDfy, but its C# tests must still preserve GWT structure. Gherkin `.feature` files and their runners remain optional.
 
 ## Structure
 

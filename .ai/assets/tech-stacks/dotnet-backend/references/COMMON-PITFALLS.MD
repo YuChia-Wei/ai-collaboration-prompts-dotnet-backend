@@ -95,8 +95,8 @@ public CreateProductController(ICreateProductUseCase useCase)
 
 ## 🔴 Testing 問題
 
-### 11. 忘記呼叫 BDDfy()
-**錯誤**：測試執行不觸發 Given/When/Then。
+### 11. 預設 BDDfy profile 忘記呼叫 BDDfy()
+**錯誤**：在已採用 BDDfy 的專案中，測試執行不觸發 Given/When/Then。若團隊明確停用 BDDfy，仍須以 plain xUnit 保留清楚的 GWT 結構與命名，不得改用 3A。
 
 **解決方案**：
 ```csharp

@@ -52,7 +52,7 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
 | `.dev/` | Human-facing governance, standards, guides, requirements, specs, and workflow artifacts |
 | `.dev/workflows/` | Cross-skill and sub-agent workflow plans, tasks, and review reports |
 
-Gemini and GitHub Copilot repo-level wrappers are not currently provided. Their runtime paths are planned optional integrations, not entries in the current runtime catalog.
+GitHub Copilot repo-level wrappers are not currently provided. Their runtime paths are planned optional integrations, not entries in the current runtime catalog.
 
 ## Important Skills
 
