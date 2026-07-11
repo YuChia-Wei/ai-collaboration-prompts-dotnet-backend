@@ -40,7 +40,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
-`validate-ai-context.py` is intentionally limited to objective repository facts: active index paths, literal table corruption, declared runtime-root status, and canonical/Agents/Claude skill inventory parity. Broad language-policy character scanning is deferred until an explicit exception model exists.
+`validate-ai-context.py` checks objective repository facts: active index paths, literal table corruption, declared runtime-root status, canonical/Agents/Claude skill inventory parity, policy-scoped agent-facing language, and root bilingual entry ownership/link markers. Language lint uses path-and-fragment exceptions for deliberate routing triggers; other Han prose fails with a file and line number. `.ai/scripts`, generated/example/archive/migration material, workflows, and human-facing `.dev` documentation are outside that language scan. Root bilingual validation checks ownership and reciprocal links, not full semantic parity.
 
 ### Keep As Orchestrator Only
 
