@@ -1,0 +1,40 @@
+{
+  "task_id": "AIC007-001",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "completed",
+  "created_at": "2026-07-11T23:43:23+08:00",
+  "updated_at": "2026-07-11T23:48:00+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Establish file-backed AIC-007 evidence and the enforcement contract before implementation.",
+    "target": ".ai/scripts gate semantics, Git index modes, and transition guidance",
+    "files": [".ai/scripts/check-all.sh", ".ai/scripts/check-coding-standards.sh", ".ai/scripts/README.md"],
+    "constraints": ["Exclude product source/tests", "Do not edit implementation during analysis"],
+    "non_goals": ["Resolve AIC-007 in this task"]
+  },
+  "inputs": {
+    "requirements": ["AIC-007 backlog acceptance boundary"],
+    "specifications": ["Required, conditional-required, advisory, and deferred enforcement classes"],
+    "architecture_decisions": ["Git index is executable-mode truth", "Retained shell assets default to mode 100755"],
+    "user_constraints": ["Dedicated branch", "Detailed persisted planning", "Use sub-agents"]
+  },
+  "execution": {
+    "capability_slot": "workflow-orchestration",
+    "steps": ["Inspect exact skip/failure paths", "Inventory Git modes and platform masking", "Define mode/enforcement matrix", "Persist negative scenarios and task split"],
+    "validation": ["git ls-files --stage .ai/scripts/**/*.sh", "targeted check-all.sh inspection", "three bounded read-only sub-agent reviews"],
+    "commit_checkpoint": "workflow bootstrap",
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Confirmed 18 shell assets at mode 100644, Windows masking, warning-only required-script skips, and stale archive grep semantics. Defined a seven-stage remediation plan with no blocking decision.",
+    "files_changed": ["workflow plan", "task plan", "durable backlog and workflow discovery artifacts"],
+    "validation_evidence": ["gate semantics inventory", "Git mode inventory", "backlog/index design review"],
+    "commits": [],
+    "follow_up_needed": true
+  }
+}

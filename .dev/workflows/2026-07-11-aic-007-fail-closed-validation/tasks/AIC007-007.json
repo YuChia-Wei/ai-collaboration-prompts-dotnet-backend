@@ -1,0 +1,29 @@
+{
+  "task_id": "AIC007-007",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "pending",
+  "created_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-11T23:48:00+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Review and close AIC-007 with complete evidence and backlog resolution.",
+    "target": "Tooling diff, validators, workflow tasks, backlog/index state",
+    "files": ["all workflow-scoped changes", ".dev/backlog/items/AIC-007.yaml", ".dev/workflows/INDEX.MD"],
+    "constraints": ["Do not close on warning-only proof", "Record skipped platform validation", "Verify commit policy"],
+    "non_goals": ["Merge/push without user request"]
+  },
+  "inputs": {"requirements": ["All prior task acceptance evidence"], "specifications": ["Workflow closing checklist"], "architecture_decisions": ["Backlog resolves only after implementation verification"], "user_constraints": ["Checkpoint commits", "Future no-ff merge"]},
+  "execution": {
+    "capability_slot": "review",
+    "steps": ["Run independent tooling review", "Re-run all validators and mutation probes", "Update task and workflow states", "Resolve backlog with resolution_ref", "Record commits and residual risk"],
+    "validation": ["required checks demonstrably fail closed", "Git modes verified from index", "quick/full gate", "workflow/backlog index parity", "git diff --check"],
+    "commit_checkpoint": "final validation and closure commit",
+    "deferred_items": []
+  },
+  "results": {"summary": "", "files_changed": [], "validation_evidence": [], "commits": [], "follow_up_needed": false}
+}

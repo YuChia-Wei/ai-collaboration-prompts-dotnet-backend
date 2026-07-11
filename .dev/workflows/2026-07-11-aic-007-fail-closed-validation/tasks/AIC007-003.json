@@ -1,0 +1,29 @@
+{
+  "task_id": "AIC007-003",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "pending",
+  "created_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-11T23:48:00+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Enforce executable shell assets from Git index metadata.",
+    "target": "All retained .ai/scripts/**/*.sh assets and required runner declarations",
+    "files": [".ai/scripts/**/*.sh", ".ai/scripts executable-mode validator", ".ai/scripts/README.md"],
+    "constraints": ["Use git update-index --chmod=+x on Windows", "Keep LF attributes", "Do not trust os.access/test -x as repository truth"],
+    "non_goals": ["Change non-shell modes", "Keep retired generated scripts merely to satisfy mode policy"]
+  },
+  "inputs": {"requirements": ["All retained shell assets are mode 100755"], "specifications": ["Index-based pass/fail validator"], "architecture_decisions": ["Git index is cross-platform truth"], "user_constraints": []},
+  "execution": {
+    "capability_slot": "implementation",
+    "steps": ["Classify retained versus retired shell assets", "Set retained index modes to 100755", "Implement Git-stage validator", "Wire validator as required quick/critical check", "Document portable invocation"],
+    "validation": ["100755 fixture passes", "100644 fixture fails", "missing required runner fails", "non-shell file ignored", "bash -n retained scripts"],
+    "commit_checkpoint": "executable-integrity commit",
+    "deferred_items": []
+  },
+  "results": {"summary": "", "files_changed": [], "validation_evidence": [], "commits": [], "follow_up_needed": false}
+}

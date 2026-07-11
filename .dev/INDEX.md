@@ -78,7 +78,16 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | --- | --- |
 | `workflows/` | Workflow discovery locators and default artifact roots. |
 | `workflows/README.MD` | Workflow discovery, ownership, and artifact-root guidance. |
+| `workflows/INDEX.MD` | Active, completed post-adoption, and legacy workflow discovery view. |
 | `standards/WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow locator, ID, timestamp, and minimum task contract. |
+
+## Durable Backlog
+
+| Path | Description |
+| --- | --- |
+| `backlog/` | Cross-workflow durable work items that must remain discoverable outside execution records. |
+| `backlog/README.MD` | Backlog ownership, state, and workflow-handoff contract. |
+| `backlog/INDEX.MD` | Current durable backlog catalog. |
 
 ## AI Runtime And Canonical Assets
 
