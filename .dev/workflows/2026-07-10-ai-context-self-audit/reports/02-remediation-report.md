@@ -7,7 +7,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T13:42:19+08:00`
+- `updated_at`: `2026-07-11T18:08:41+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -32,7 +32,7 @@
 | AIC-006 | HIGH | `resolved` | Workflow/commit policies and auditor contracts now distinguish transient conversational analysis, durable report-only audit, and governance remediation. | Request independent verification of authorization and persistence boundaries. | Governance completed; auditor verifies. |
 | AIC-007 | HIGH | `deferred` | Required shell checks remain mode `100644`; `check-all.sh` can exit zero after required checks are skipped as warnings. | Create tooling/validation workflow for fail-closed gates and executable-mode enforcement. | Tooling workflow; outside this documentation-governance batch. |
 | AIC-008 | MEDIUM | `resolved` | Current catalogs list Agents/Codex and Claude; Gemini paths, targets, branch prefixes, and descriptions were removed; Copilot alone remains planned/optional. | Request independent runtime-truth verification. | Governance completed; auditor verifies. |
-| AIC-009 | MEDIUM | `partially-resolved` | Index/runtime/workflow lint is active; root bilingual parity and translation waves 1-5 corrected 45 agent-facing execution documents. The active document backlog is complete; policy-aware language/parity lint remains. | Add language/parity lint with explicit exceptions for triggers and script semantics, then request independent verification. | Governance translation migration documents complete; lint pending. |
+| AIC-009 | MEDIUM | `resolved` | Translation waves 1-5 corrected 46 agent-facing documents including `.dev/ARCHITECTURE.md`; policy-aware lint now checks tracked and untracked context, exact language exceptions, active paths/runtime/wrapper parity, and root bilingual structural parity. | Request independent verification; do not interpret structural parity as semantic translation equivalence. | Governance completed; auditor verifies. |
 
 ## Remediation Batches
 
@@ -144,11 +144,22 @@
 - Translated application-properties and profile-isolated configuration templates without changing configuration values, placeholders, or code semantics.
 - The remaining Han matches in active scoped surfaces are intentional user trigger phrases or script output/pattern semantics, not untranslated documentation prose.
 
+### Language And Bilingual Structural Lint — Completed
+
+- `validate-ai-context.py` scans both cached and untracked non-ignored agent-facing context so new files cannot bypass the gate before staging.
+- Product `src/`, `test/`, and `tests/` roots are explicitly excluded, including their indexes; active context indexes remain checked.
+- Han exceptions are exact path-and-line contracts for the auditor's two Traditional Chinese routing triggers and the workflow gate's user-trigger line. Additional Han on those paths still fails.
+- Markdown documentation under `.ai/scripts` is checked; script source lexical scanning remains deferred because comments, output, and rule patterns may carry execution semantics.
+- Root bilingual entries are checked for reciprocal links, ownership markers, heading-level shape, ordered backtick table paths, and the required root catalog rows.
+- The validator reports structural parity only and explicitly does not claim semantic translation equivalence.
+- `.dev/ARCHITECTURE.md` was translated to English and added as an explicit language-policy surface.
+- Negative probes confirmed that an untracked Han Markdown file fails before staging and that exact allowlist lines do not permit unrelated Han prose.
+
 ### Next Translation Waves
 
 1. Resolve or explicitly defer the three semantic-governance issues exposed during translation.
-2. Add policy-aware language/parity lint with explicit exceptions for trigger phrases, identifiers, script output/patterns, and human-facing documents.
-3. Continue AIC-001/AIC-004/AIC-005 machine-governance remediation.
+2. Continue AIC-001/AIC-004/AIC-005 machine-governance remediation.
+3. Request an independent post-remediation audit after the remaining finding work is complete.
 
 Each wave must preserve identifiers, paths, code blocks, normative strength, and explicit language exceptions. Do not create bilingual copies for non-entry execution contracts.
 
@@ -161,6 +172,6 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 ## Closure Evidence
 
 - Required validations: pending remediation and independent post-audit.
-- Commit status: waves 1-4 and prior remediation stages are committed; wave 5 is ready for a checkpoint commit.
+- Commit status: translation waves 1-5 and the initial language-lint checkpoint are committed; reviewer hardening and `.dev/ARCHITECTURE.md` translation await a follow-up commit.
 - Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
 - Final next action: complete the AIC-001/AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.

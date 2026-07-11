@@ -6,6 +6,7 @@ from __future__ import annotations
 import re
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 
 
@@ -18,6 +19,7 @@ PLANNED_RUNTIME_ROOTS = (
 )
 SKIP_PARTS = {"workflows", "archive", "archived", "migrations"}
 LANGUAGE_SKIP_PARTS = SKIP_PARTS | {"examples", "example", "generated"}
+PRODUCT_ROOTS = {"src", "test", "tests"}
 LANGUAGE_EXTENSIONS = {".md", ".yaml", ".yml", ".json"}
 HAN = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
 LANGUAGE_ROOTS = (
@@ -28,25 +30,27 @@ LANGUAGE_ROOTS = (
     Path(".dev/specs"),
     Path(".dev/problem-frames"),
 )
-LANGUAGE_ALLOWLIST: dict[Path, tuple[str, ...]] = {
-    Path(".ai/assets/skills/ai-context-auditor/skill.yaml"): (
-        "自檢 AI context",
-        "檢查 AI context 品質",
+EXPLICIT_LANGUAGE_FILES = {Path(".dev/ARCHITECTURE.md")}
+LANGUAGE_ALLOWLIST: dict[Path, frozenset[str]] = {
+    Path(".ai/assets/skills/ai-context-auditor/skill.yaml"): frozenset(
+        {'  - "自檢 AI context"', '  - "檢查 AI context 品質"'}
     ),
-    Path(".dev/standards/WORKFLOW-GATE-POLICY.md"): (
-        "規劃",
-        "整理",
-        "重構",
-        "標準化",
-        "治理",
-        "拆分",
+    Path(".dev/standards/WORKFLOW-GATE-POLICY.md"): frozenset(
+        {
+            '- the user uses wording such as "workflow", "規劃", "整理", "重構", '
+            '"標準化", "治理", or "拆分" for repo-wide documentation or context work.'
+        }
     ),
 }
 
 
 def tracked_files() -> list[Path]:
     result = subprocess.run(
-        ["git", "ls-files"], cwd=ROOT, check=True, capture_output=True, text=True
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
     )
     return [Path(line) for line in result.stdout.splitlines() if line]
 
@@ -57,6 +61,7 @@ def active_indexes(files: list[Path]) -> list[Path]:
         for path in files
         if path.name.lower() == "index.md"
         and not any(part.lower() in SKIP_PARTS for part in path.parts)
+        and (not path.parts or path.parts[0].lower() not in PRODUCT_ROOTS)
     ]
 
 
@@ -92,25 +97,45 @@ def is_language_surface(path: Path, indexes: set[Path]) -> bool:
     """Return whether a tracked file is active agent-facing execution context."""
     if path in indexes:
         return True
+    if path.parts and path.parts[0].lower() in PRODUCT_ROOTS:
+        return False
     if path.suffix.lower() not in LANGUAGE_EXTENSIONS:
         return False
     if any(part.lower() in LANGUAGE_SKIP_PARTS for part in path.parts):
         return False
-    if path.parts[:2] == (".ai", "scripts"):
-        return False
-    return any(path == root or root in path.parents for root in LANGUAGE_ROOTS)
+    return path in EXPLICIT_LANGUAGE_FILES or any(
+        path == root or root in path.parents for root in LANGUAGE_ROOTS
+    )
 
 
 def validate_language(path: Path, errors: list[str]) -> None:
     """Reject Han prose except exact, path-scoped routing trigger fragments."""
-    allowed = LANGUAGE_ALLOWLIST.get(path, ())
+    allowed_lines = LANGUAGE_ALLOWLIST.get(path, frozenset())
     text = (ROOT / path).read_text(encoding="utf-8")
     for line_number, line in enumerate(text.splitlines(), 1):
-        remainder = line
-        for fragment in allowed:
-            remainder = remainder.replace(fragment, "")
-        if HAN.search(remainder):
+        if HAN.search(line) and line not in allowed_lines:
             errors.append(f"{path}:{line_number}: unexpected Han text in agent-facing context")
+
+
+def markdown_structure(path: Path) -> tuple[list[int], list[str]]:
+    """Return heading levels and ordered path-like backtick values in table rows."""
+    headings: list[int] = []
+    table_paths: list[str] = []
+    fenced = False
+    for line in (ROOT / path).read_text(encoding="utf-8").splitlines():
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        heading = re.match(r"^(#{1,6})\s+", line)
+        if heading:
+            headings.append(len(heading.group(1)))
+        if line.lstrip().startswith("|"):
+            for value in re.findall(r"`([^`]+)`", line):
+                if "/" in value or value.lower().endswith(".md"):
+                    table_paths.append(value)
+    return headings, table_paths
 
 
 def validate_bilingual_entries(errors: list[str]) -> None:
@@ -133,7 +158,14 @@ def validate_bilingual_entries(errors: list[str]) -> None:
             "翻譯",
         ),
     )
-    for canonical, canonical_link, canonical_marker, translation, translation_link, translation_marker in contracts:
+    for (
+        canonical,
+        canonical_link,
+        canonical_marker,
+        translation,
+        translation_link,
+        translation_marker,
+    ) in contracts:
         for path in (canonical, translation):
             if not (ROOT / path).is_file():
                 errors.append(f"missing bilingual entry file: {path}")
@@ -149,6 +181,29 @@ def validate_bilingual_entries(errors: list[str]) -> None:
             errors.append(f"{canonical}: missing canonical ownership marker")
         if translation_marker not in translation_text:
             errors.append(f"{translation}: missing translation ownership marker")
+        canonical_headings, canonical_paths = markdown_structure(canonical)
+        translation_headings, translation_paths = markdown_structure(translation)
+        if canonical_headings != translation_headings:
+            errors.append(
+                f"{canonical} <-> {translation}: heading-level structural parity mismatch"
+            )
+        if Counter(canonical_paths) != Counter(translation_paths):
+            errors.append(
+                f"{canonical} <-> {translation}: backtick table-path multiset parity mismatch"
+            )
+        elif canonical_paths != translation_paths:
+            errors.append(
+                f"{canonical} <-> {translation}: backtick table-path order parity mismatch"
+            )
+
+    required_agent_rows = {"README.md", "README.en.md", "agents.md", "agents.zh-tw.md"}
+    for path in (Path("agents.md"), Path("agents.zh-tw.md")):
+        if not (ROOT / path).is_file():
+            continue
+        _, table_paths = markdown_structure(path)
+        missing = sorted(required_agent_rows - set(table_paths))
+        if missing:
+            errors.append(f"{path}: missing required root entry table rows: {missing}")
 
 
 def skill_names(root: Path, entry: str) -> set[str]:
@@ -206,7 +261,10 @@ def main() -> int:
         f"{len(canonical)} canonical skills, {len(ACTIVE_RUNTIME_ROOTS)} current runtime roots, "
         f"and {len(language_files)} language-policy files."
     )
-    print("Root bilingual entry links and ownership markers passed (semantic parity is not asserted).")
+    print(
+        "Root bilingual entry ownership, links, and structural parity passed "
+        "(semantic parity is not asserted)."
+    )
     return 0
 
 

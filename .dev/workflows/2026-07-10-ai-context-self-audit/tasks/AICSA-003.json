@@ -3,7 +3,7 @@
   "workflow_id": "2026-07-10-ai-context-self-audit",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-10T18:25:11+08:00",
-  "updated_at": "2026-07-11T13:42:19+08:00",
+  "updated_at": "2026-07-11T18:08:41+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "template_version": "1.0.0",
   "status": "in_progress",
@@ -11,8 +11,8 @@
   "dependencies": ["AICSA-002"],
   "execution": { "validation": ["Changed references and structured files", "Finding resolution coverage", "Repository context checks"] },
   "results": {
-    "summary": "Candidate resolutions exist for AIC-002, AIC-003, AIC-006, and AIC-008. AIC-009 translation waves 1-5 corrected 45 agent-facing execution documents plus root bilingual ownership/parity; document translation is complete while language lint, three exposed semantic issues, and machine governance remain.",
-    "files_changed": ["AI context policies and auditor contracts", "canonical and human testing contracts", "legacy onboarding and indexes", "runtime support declarations and Gemini removal", "translation wave 1 agent-facing documents and root bilingual entries", ".ai/scripts/validate-ai-context.py"],
+    "summary": "Candidate resolutions exist for AIC-002, AIC-003, AIC-006, AIC-008, and AIC-009. Translation waves 1-5 corrected 46 agent-facing documents and language lint now covers untracked context, exact exceptions, and bilingual structural parity; three semantic issues and machine governance remain.",
+    "files_changed": ["AI context policies and auditor contracts", "canonical and human testing contracts", "legacy onboarding and indexes", "runtime support declarations and Gemini removal", "translation waves 1-5 and root bilingual entries", "policy-aware .ai/scripts/validate-ai-context.py", ".dev/ARCHITECTURE.md"],
     "tests_run": ["validate-ai-context.py", "quick_validate.py", "check-all.sh --quick", "git diff --check"],
     "follow_up_needed": true
   }
