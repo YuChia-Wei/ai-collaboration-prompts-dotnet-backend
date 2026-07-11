@@ -88,6 +88,8 @@ public static Plan ToDomain(PlanData data)
 }
 ```
 
+The review invariant is that every aggregate returned by `ToDomain()` has no pending domain events. A rehydration constructor SHOULD replay history through `When(...)` (or an equivalent state-transition path) without enqueueing new events. `ClearDomainEvents()` is required when reconstruction emits/enqueues events or when the constructor does not explicitly guarantee an empty pending-event collection; it is not an unconditional method-call requirement when that cleanliness guarantee is explicit.
+
 #### ❌ Incorrect ToDomain() Pattern
 ```csharp
 public static Plan ToDomain(PlanData data)

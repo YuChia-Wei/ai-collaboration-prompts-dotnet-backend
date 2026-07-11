@@ -11,7 +11,11 @@ An Aggregate is a core DDD model and MUST follow the Event Sourcing and invarian
 - The **Aggregate Root** is the only public modification entry point.
 - **State changes** are recorded through Domain Events.
 - **Immutability**: Value Objects MUST be immutable.
-- **Transaction boundary**: one Command may modify only one Aggregate.
+- **Transaction boundary**: one Command modifies one Aggregate by default. Coordinate
+  other Aggregates through events and eventual consistency. A same-boundary
+  multi-Aggregate transaction is an exceptional, documented decision governed by
+  [Use Case Standards](usecase-standards.md#7-strong-consistency-must-be-explicit),
+  not a general implementation template.
 
 ---
 
@@ -449,6 +453,12 @@ protected override void When(IDomainEvent @event)
 - [ ] Command methods check postconditions.
 - [ ] Applies Domain Events correctly (`Apply`).
 - [ ] Collection fields are initialized at declaration.
+- [ ] The command changes one Aggregate by default.
+- [ ] Cross-Aggregate effects use events and eventual consistency by default.
+- [ ] Any exceptional same-boundary multi-Aggregate transaction satisfies and
+      documents the strong-consistency criteria in
+      [Use Case Standards](usecase-standards.md#7-strong-consistency-must-be-explicit).
+- [ ] No transaction spans bounded contexts.
 
 ### Value Object
 - [ ] Uses `record` or `record struct`.

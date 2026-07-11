@@ -21,10 +21,12 @@ The following markers are used by automated code review scripts:
 ```yaml
 # Archive rules (soft-delete support)
 Pattern (required, any): IsDeleted|IsArchived|ArchivedAt
-
-# Forbidden rules (no hard deletion)
-Pattern (forbidden): HardDelete
 ```
+
+The marker verifies that the read model represents archive state. It is not a
+method-naming rule. Physical deletion is governed through the restricted purge
+capability described below, so a generic `HardDelete` text check would be both
+too broad and too easy to evade.
 
 ---
 
@@ -73,7 +75,6 @@ public interface IUserArchive
 {
     Task<UserData?> FindByIdAsync(string userId, CancellationToken ct = default);
     Task SaveAsync(UserData userData, CancellationToken ct = default);
-    Task DeleteAsync(UserData userData, CancellationToken ct = default);
 }
 
 // ❌ Incorrect: do not return a domain object
@@ -88,6 +89,33 @@ public interface IUserArchive
     Task<UserDto?> FindByIdAsync(string userId);  // Incorrect! Return UserData instead
 }
 ```
+
+The general Archive port owns lookup and persistence only. Archive state belongs
+to the read-side data model (`IsArchived`, `ArchivedAt`, and related audit
+metadata) and is persisted through `SaveAsync`. Do not put `DeleteAsync` on this
+port: that name hides whether the operation changes archive state or physically
+deletes data.
+
+When the application needs an explicit state transition, define a narrowly
+named operation such as `ArchiveAsync` or `MarkArchivedAsync` on a use-case- or
+capability-specific port. The operation must update archive metadata and retain
+the record.
+
+Physical read-model cleanup is a separate restricted capability. It must not be
+added to `IUserArchive` or reused as an aggregate purge mechanism:
+
+```csharp
+// Application capability for controlled read-model cleanup only.
+public interface IUserReadModelPurgePort
+{
+    Task PurgeAsync(string userId, CancellationToken ct = default);
+}
+```
+
+Calling this port requires explicit authorization plus satisfied retention,
+legal-hold, audit-evidence, and dependent-read-model cleanup gates. The adapter
+must make those decisions observable; normal Reactor and CRUD flows must not
+receive this capability.
 
 ---
 
@@ -140,21 +168,12 @@ public class EfCoreUserArchive : IUserArchive
             _context.Entry(existing).CurrentValues.SetValues(userData);
         }
     }
-
-    public async Task DeleteAsync(UserData userData, CancellationToken ct = default)
-    {
-        ArgumentNullException.ThrowIfNull(userData);
-        
-        var existing = await _context.Users
-            .FirstOrDefaultAsync(x => x.Id == userData.Id, ct);
-        
-        if (existing is not null)
-        {
-            _context.Users.Remove(existing);
-        }
-    }
 }
 ```
+
+To archive a record, construct or update `UserData` with its archive state and
+metadata, then call `SaveAsync`. An EF Archive adapter must not call `Remove` as
+part of normal archive behavior.
 
 ---
 
@@ -183,7 +202,9 @@ public static class ArchiveServiceExtensions
 - ✅ Query Model CRUD operations
 - ✅ Reference-data synchronization across Bounded Contexts
 - ✅ Event-driven Read Model writes
+- ✅ Persisting soft-delete/archive state and audit metadata
 - ❌ Write Model CRUD operations (use a Repository)
+- ❌ Physical deletion through the general Archive port
 
 ### Difference from a Repository
 
@@ -239,13 +260,17 @@ public class UserCreatedReactor
 - [ ] Defined in the `Application` layer.
 - [ ] Uses the `I[Entity]Archive` naming pattern.
 - [ ] Returns Data (a Persistence Object), not a domain object or DTO.
-- [ ] Has `FindByIdAsync`, `SaveAsync`, and `DeleteAsync` methods.
+- [ ] The general port has lookup and save operations; archive state is represented by Data.
+- [ ] Explicit archive operations use names such as `ArchiveAsync` or `MarkArchivedAsync`, never ambiguous `DeleteAsync`.
+- [ ] Physical read-model purge, when required, uses a separate restricted capability-specific port.
 - [ ] Supports `CancellationToken`.
 
 ### Archive Implementation
 - [ ] Implemented in `Infrastructure.Persistence.Archives`.
 - [ ] If the adapter uses EF Core, it follows EF Core tracking/materialization guidance.
 - [ ] Uses `ArgumentNullException.ThrowIfNull`.
+- [ ] Does not use EF `Remove` for normal archive behavior.
+- [ ] Purge access is gated by authorization, retention, legal, audit, and dependent-cleanup policy.
 - [ ] Registered through DI.
 
 ---

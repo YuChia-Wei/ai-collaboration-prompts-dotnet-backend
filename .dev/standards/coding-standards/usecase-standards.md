@@ -174,9 +174,21 @@ boundary.
 
 ### 7. Strong Consistency MUST Be Explicit
 
-Eventual consistency is the default for cross-Aggregate coordination. Inject
-`IUnitOfWork` only when the Use Case has an explicit all-or-nothing business
-requirement:
+One command changes one Aggregate by default. Events and eventual consistency are
+the default for coordination between Aggregates. A Use Case may inject
+`IUnitOfWork` for multiple Aggregates only as an exceptional same-bounded-context
+decision when all of these conditions hold:
+
+1. The business names an all-or-nothing invariant involving the Aggregates.
+2. Any eventually consistent intermediate state would be unacceptable and cannot
+   be safely compensated.
+3. The design rechecks that the Aggregate boundaries are correct instead of using
+   a transaction to hide a misplaced invariant.
+4. The decision documents the invariant, the involved Aggregates, and why eventual
+   consistency or compensation is insufficient.
+
+The following Reservation + Capacity example represents such an exceptional
+business rule; it is not a general Use Case template:
 
 ```csharp
 public sealed class CompleteReservationUseCase
@@ -185,13 +197,22 @@ public sealed class CompleteReservationUseCase
 
     public async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        // Load Aggregates, invoke Domain behavior, and save through ports.
+        // Exceptional case: Reservation and Capacity are in the same bounded
+        // context and the named invariant requires both changes to succeed or
+        // neither to succeed. An intermediate overbooked state is unacceptable
+        // and cannot be safely compensated. Do not copy this as a general template.
+        // Load Reservation and Capacity, invoke Domain behavior, and save through ports.
         await this.unitOfWork.CommitAsync(cancellationToken);
     }
 }
 ```
 
-- MUST NOT declare strong consistency merely to reduce I/O round trips.
+- MUST NOT select a multi-Aggregate transaction because of shared storage, ORM or
+  framework capabilities, fewer I/O round trips, implementation convenience, or a
+  general future need.
+- MUST NOT make `IUnitOfWork` a default Use Case dependency.
+- MUST NOT span bounded contexts with one transaction; cross-bounded-context
+  coordination uses integration events and eventual consistency.
 - A Repository participating in a Unit of Work MUST NOT commit independently.
 - A Handler MUST NOT introduce a transaction or commit after the Use Case.
 - Pending Domain Events may be acknowledged or cleared only after a successful commit.
@@ -235,6 +256,12 @@ Case MUST NOT inject `IMessageBus` directly or publish Commands through the publ
 - [ ] Dependencies are limited to Domain types and outbound ports.
 - [ ] There is no dependency on `IServiceProvider`, `IMessageBus`, or another Use Case.
 - [ ] The transaction and event lifecycle reside in the Use Case.
+- [ ] One command changes one Aggregate by default; other Aggregate effects use events.
+- [ ] `IUnitOfWork` is absent unless a documented, named all-or-nothing invariant
+      satisfies every exceptional strong-consistency criterion above.
+- [ ] An exceptional transaction records the involved Aggregates, boundary recheck,
+      and why eventual consistency or compensation is unacceptable.
+- [ ] No transaction spans bounded contexts.
 
 ### Handler
 
@@ -246,6 +273,7 @@ Case MUST NOT inject `IMessageBus` directly or publish Commands through the publ
 
 ## Related Documents
 
+- [Aggregate Standards](aggregate-standards.md)
 - [Controller Standards](controller-standards.md)
 - [Repository Standards](repository-standards.md)
 - [Test Standards](test-standards.md)

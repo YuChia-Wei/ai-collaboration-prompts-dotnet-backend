@@ -7,7 +7,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T18:08:41+08:00`
+- `updated_at`: `2026-07-11T18:16:00+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -155,10 +155,35 @@
 - `.dev/ARCHITECTURE.md` was translated to English and added as an explicit language-policy surface.
 - Negative probes confirmed that an untracked Han Markdown file fails before staging and that exact allowlist lines do not permit unrelated Han prose.
 
+## Architecture Semantic Reconciliation
+
+### Aggregate And Unit Of Work
+
+- Established one Command/one Aggregate as the default transaction model; cross-Aggregate effects use events and eventual consistency by default.
+- Restricted multi-Aggregate `IUnitOfWork` to a documented same-bounded-context exception with a named all-or-nothing invariant, unacceptable/non-compensable intermediate state, Aggregate-boundary recheck, and explicit involved-Aggregate evidence.
+- Prohibited adopting the exception for shared storage, I/O reduction, ORM/framework capability, convenience, general future need, default dependency injection, or cross-bounded-context transactions.
+- Ownership: Aggregate standards own the default transaction boundary; Use Case standards own exceptional orchestration criteria; the architect playbook summarizes and links them.
+
+### Mapper Rehydration Events
+
+- Replaced the unconditional method-call rule with the canonical invariant that `ToDomain()` returns an Aggregate with no pending `DomainEvents`.
+- Rehydration constructors should replay through `When(...)` or an equivalent non-enqueuing path. When constructor cleanliness is unknown or reconstruction enqueues events, the mapper explicitly calls `ClearDomainEvents()` before return.
+- Updated the unknown `Product` examples conservatively and synchronized code-review/example summaries without changing already-correct `PlanMapper` examples.
+- Ownership: mapper standards own the invariant; code-review indexes and examples are derived consumers.
+
+### Archive State And Physical Purge
+
+- General Archive ports now expose lookup and save only; archived/soft-delete state belongs to read-side data and is persisted rather than physically deleted.
+- Explicit state transitions use `ArchiveAsync`/`MarkArchivedAsync` semantics, not ambiguous `DeleteAsync`.
+- Physical read-model purge is isolated behind a restricted capability-specific port with authorization, retention, legal-hold, audit-evidence, and dependent-cleanup gates. It is not an Aggregate purge port or normal Reactor dependency.
+- Removed EF `Remove()` from positive Archive examples and synchronized the inquiry-archive contract and usage guidance.
+- Ownership: Archive standards own read-model state/retention behavior; Repository standards continue to own Aggregate deletion and restricted Aggregate purge principles.
+- Residual tooling debt: generated archive shell checks still carry the retired lexical `HardDelete` rule and remain part of deferred AIC-007 tooling remediation.
+
 ### Next Translation Waves
 
-1. Resolve or explicitly defer the three semantic-governance issues exposed during translation.
-2. Continue AIC-001/AIC-004/AIC-005 machine-governance remediation.
+1. Continue AIC-001/AIC-004/AIC-005 machine-governance remediation.
+2. Preserve the generated archive-check drift under deferred AIC-007 tooling ownership.
 3. Request an independent post-remediation audit after the remaining finding work is complete.
 
 Each wave must preserve identifiers, paths, code blocks, normative strength, and explicit language exceptions. Do not create bilingual copies for non-entry execution contracts.
@@ -172,6 +197,6 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 ## Closure Evidence
 
 - Required validations: pending remediation and independent post-audit.
-- Commit status: translation waves 1-5 and the initial language-lint checkpoint are committed; reviewer hardening and `.dev/ARCHITECTURE.md` translation await a follow-up commit.
+- Commit status: translation waves 1-5 and language-lint hardening are committed; architecture semantic reconciliation awaits its checkpoint commit.
 - Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
 - Final next action: complete the AIC-001/AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.

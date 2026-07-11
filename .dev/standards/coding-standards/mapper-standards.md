@@ -70,12 +70,15 @@ public static class ProductMapper
             return product;
         }
         
-        // Rebuild from current state
-        return new Product(
+        // Rebuild from current state. Constructor behavior is unknown here,
+        // so explicitly remove any events emitted during reconstruction.
+        var product = new Product(
             ProductId.From(data.Id),
             data.Name,
             data.CreatorId
         );
+        product.ClearDomainEvents();
+        return product;
     }
 }
 
@@ -233,12 +236,23 @@ public static Product ToDomain(ProductData data)
             .Cast<IDomainEvent>()
             .ToList();
 
-        return new Product(events);
+        var product = new Product(events);
+        product.ClearDomainEvents();
+        return product;
     }
 
     // Fallback: rebuild from current state
 }
 ```
+
+### Pending Domain Events After Reconstruction
+
+An aggregate returned by `ToDomain()` MUST have no pending `DomainEvents`. Rehydration restores historical or persisted state; it does not represent a new business decision and MUST NOT cause those events to be published or persisted again.
+
+- A rehydration constructor SHOULD replay historical events through `When(...)` or an equivalent state-transition path that does not enqueue them as new events.
+- `ClearDomainEvents()` is not unconditionally required when the aggregate API explicitly guarantees that reconstruction leaves the pending-event collection empty.
+- If the selected constructor or replay path emits or enqueues events, or its cleanliness contract is not explicit, the mapper MUST call `ClearDomainEvents()` before returning the aggregate.
+- State-based fallback reconstruction follows the same rule; constructor side effects must not escape as pending events.
 
 ---
 
@@ -397,7 +411,7 @@ if (!string.IsNullOrEmpty(data.CommittedSprintsJson))
 - [ ] Supports rebuilding from state
 - [ ] Deserializes every complex object
 - [ ] Restores `IsDeleted` state
-- [ ] Calls `ClearDomainEvents()`
+- [ ] Returns the reconstructed aggregate with no pending `DomainEvents`; calls `ClearDomainEvents()` when the constructor/replay path can enqueue events or does not explicitly guarantee cleanliness
 - [ ] Degrades gracefully on deserialization failure without terminating the entire flow
 
 ### ToDto Method
