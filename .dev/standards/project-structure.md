@@ -1,72 +1,72 @@
-# .NET CA + WolverineFx 專案結構指南
+# .NET CA + WolverineFx Project Structure Guide
 
-本專案採用 **多 Bounded Context (BC)** 架構，每個 Domain 有獨立的 DomainCore 與 Presentation 層。
+This project uses a **multi-Bounded Context (BC)** architecture. Each Domain has independent DomainCore and Presentation layers.
 
-## 專案目錄結構
+## Project Directory Structure
 
 ```
 project-root/
 ├── src/
-│   ├── BC-Contracts/                    # 跨 BC 通訊合約 (Published Language)
-│   │   └── Lab.BoundedContextContracts.<Domain>/ # 各 Domain 的 Integration Events / Interactions / DTOs
-│   ├── BuildingBlocks/                  # 共用建構模組（架構基礎設施）
-│   │   ├── Lab.BuildingBlocks.Domain/   # Domain 層共用
+│   ├── BC-Contracts/                    # Cross-BC communication contracts (Published Language)
+│   │   └── Lab.BoundedContextContracts.<Domain>/ # Integration Events / Interactions / DTOs for each Domain
+│   ├── BuildingBlocks/                  # Shared building blocks (architectural infrastructure)
+│   │   ├── Lab.BuildingBlocks.Domain/   # Shared Domain-layer components
 │   │   ├── Lab.BuildingBlocks.Application/
 │   │   └── Lab.BuildingBlocks.Infrastructure/
-│   ├── Shared/                          # 通用領域核心 (Shared Kernel)
-│   │   └── Lab.SharedKernel/            # 跨 BC 共享的 Value Objects、Enums 等領域概念
-│   └── <DomainName>/                    # 特定 Domain (如 Order, Product)
-│       ├── DomainCore/                  # Domain 核心層
+│   ├── Shared/                          # Shared domain core (Shared Kernel)
+│   │   └── Lab.SharedKernel/            # Domain concepts shared across BCs, such as Value Objects and Enums
+│   └── <DomainName>/                    # Specific Domain (for example, Order or Product)
+│       ├── DomainCore/                  # Domain core layer
 │       │   ├── <DomainName>.Domains/        # Domain Model
 │       │   ├── <DomainName>.Applications/   # Application layer
-│       │   └── <DomainName>.Infrastructure/ # 技術基礎設施
-│       └── Presentation/                # 展示層
+│       │   └── <DomainName>.Infrastructure/ # Technical infrastructure
+│       └── Presentation/                # Presentation layer
 │           ├── <DomainName>.WebApi/         # REST API
 │           └── <DomainName>.Consumer/       # MQ Consumer (Console App)
 ├── tests/
-│   └── <TargetProject>.Tests/           # 對應專案的測試
-├── docker-compose/                      # Docker Compose 配置
-├── docs/                                # 文件與設計筆記
-├── https/                               # HTTP 測試檔案
-│   └── <Context>/                       # 特定 BC 的 HTTP 測試
-├── sql-script/                          # 資料庫腳本
-├── .ai/                                 # 給 agent 重用的 prompts, shared rules, scripts
-├── .dev/                                # 給人看的 specs, ADRs, requirements, guides
-├── .github/                             # GitHub repository 資源；Copilot adapter 為可選
+│   └── <TargetProject>.Tests/           # Tests for the corresponding project
+├── docker-compose/                      # Docker Compose configuration
+├── docs/                                # Documentation and design notes
+├── https/                               # HTTP test files
+│   └── <Context>/                       # HTTP tests for a specific BC
+├── sql-script/                          # Database scripts
+├── .ai/                                 # Reusable prompts, shared rules, and scripts for agents
+├── .dev/                                # Human-facing specs, ADRs, requirements, and guides
+├── .github/                             # GitHub repository resources; the Copilot adapter is optional
 └── *.slnx                               # .NET Solution
 ```
 
-## 專案層級規則
+## Project Layer Rules
 
-| 層級 | 職責 | 命名規則 | 位置 |
+| Layer | Responsibility | Naming Convention | Location |
 |------|------|---------|------|
 | Domain | Domain Model | `<DomainName>.Domains` | `./src/<DomainName>/DomainCore` |
 | Application | Use Cases and ports | `<DomainName>.Applications` | `./src/<DomainName>/DomainCore` |
-| Infrastructure | 技術基礎設施 | `<DomainName>.Infrastructure` | `./src/<DomainName>/DomainCore` |
+| Infrastructure | Technical infrastructure | `<DomainName>.Infrastructure` | `./src/<DomainName>/DomainCore` |
 | Presentation | Web API | `<DomainName>.WebApi` | `./src/<DomainName>/Presentation` |
 | Presentation | Queue Consumer | `<DomainName>.Consumer` | `./src/<DomainName>/Presentation` |
-| Cross-BC | 跨 BC 通訊合約 | `Lab.BoundedContextContracts.<Domain>` | `./src/BC-Contracts` |
-| BuildingBlocks | 架構基礎設施 | `Lab.BuildingBlocks.<Layer>` | `./src/BuildingBlocks` |
-| SharedKernel | 通用領域核心 | `Lab.SharedKernel` | `./src/Shared` |
-| Tests | 測試專案 | `<TargetProject>.Tests` | `./tests` |
+| Cross-BC | Cross-BC communication contracts | `Lab.BoundedContextContracts.<Domain>` | `./src/BC-Contracts` |
+| BuildingBlocks | Architectural infrastructure | `Lab.BuildingBlocks.<Layer>` | `./src/BuildingBlocks` |
+| SharedKernel | Shared domain core | `Lab.SharedKernel` | `./src/Shared` |
+| Tests | Test project | `<TargetProject>.Tests` | `./tests` |
 
-## 文件與 AI 資產分工
+## Documentation and AI Asset Responsibilities
 
-| 路徑 | 主要讀者 | 用途 |
+| Path | Primary Audience | Purpose |
 |------|---------|------|
-| `./.dev/guides/ai-collaboration-guides` | Human | AI collaboration guides、workflow、prompt 範本 |
-| `./.dev/guides` | Human | 一般開發與設計指南（ai collaboration / design / implementation / learning） |
-| `./ai` | Agent | prompt 元件、shared rules、scripts |
-| `./.claude/skills` | Agent | skill 定義本體與 skill-local references |
+| `./.dev/guides/ai-collaboration-guides` | Human | AI collaboration guides, workflows, and prompt templates |
+| `./.dev/guides` | Human | General development and design guides (AI collaboration / design / implementation / learning) |
+| `./ai` | Agent | Prompt components, shared rules, and scripts |
+| `./.claude/skills` | Agent | Skill definitions and skill-local references |
 
-## 方案檔 (.slnx) 規則
+## Solution File (.slnx) Rules
 
-- `.slnx` 的方案資料夾（Solution Folder）採「邏輯分組」，可不對應實體資料夾結構。
-- 方案資料夾命名固定使用前後斜線格式：`/{Group}/`、`/{Group}/{SubGroup}/`（例如：`/Order/DomainCore/`）。
-- 邏輯分組建議以 Bounded Context 與層級語意為主（如 `<ContextA>/DomainCore`、`<ContextB>/Presentation`）。
-- `tests` 可維持單一頂層群組：`/tests/`。
+- Solution Folders in `.slnx` use logical grouping and do not need to match the physical directory structure.
+- Solution Folder names must use leading and trailing slashes: `/{Group}/`, `/{Group}/{SubGroup}/` (for example, `/Order/DomainCore/`).
+- Logical grouping should primarily reflect Bounded Context and layer semantics (such as `<ContextA>/DomainCore` and `<ContextB>/Presentation`).
+- `tests` may remain a single top-level group: `/tests/`.
 
-## Application 層資料夾結構
+## Application-Layer Directory Structure
 
 ```
 <DomainName>.Applications/
@@ -80,10 +80,10 @@ project-root/
 │       ├── IGet<Entity>UseCase.cs
 │       ├── Get<Entity>UseCase.cs
 │       └── Get<Entity>Output.cs
-├── Ports/                       # Outbound port 介面定義
+├── Ports/                       # Outbound port interface definitions
 │   ├── Queries/
 │   │   └── I<Feature>QueryRepository.cs
-│   ├── Persistence/             # 只有 domain-specific capability 才放置
+│   ├── Persistence/             # Include only domain-specific capabilities
 │   │   └── I<Capability>Port.cs
 │   ├── Messaging/
 │   │   └── I<Feature>EventPublisher.cs
@@ -92,41 +92,41 @@ project-root/
 │   └── <Domain>QueryService.cs
 ├── Dispatch/                    # Optional package-neutral dispatch contracts/handlers
 │   └── Create<Entity>Command.cs
-├── DomainEventHandlers/         # Domain Event 處理器
-└── Dtos/                        # Application 層 DTO (Input/Output)
+├── DomainEventHandlers/         # Domain Event handlers
+└── Dtos/                        # Application-layer DTOs (Input/Output)
 ```
 
-Portable Aggregate Repository contract 位於 `BuildingBlocks.Application`：
+The portable Aggregate Repository contract resides in `BuildingBlocks.Application`:
 
 - `IAggregateRepository<TAggregate, TId>`
 - compatibility `IDomainRepository<TAggregate, TId>`
 - `IQueryRepository` marker
 
-不要為每個 Aggregate 預設建立空殼 `I<Aggregate>Repository`。只有相容既有程式碼或增加已核准的 Aggregate lifecycle/capability 語意時才建立 domain-specific port。
+Do not create an empty `I<Aggregate>Repository` for every Aggregate by default. Create a domain-specific port only to maintain compatibility with existing code or to add approved Aggregate lifecycle/capability semantics.
 
-### Application 詞彙與責任
+### Application Terminology and Responsibilities
 
 - `Use Case`
-  - 明確的 inbound port 與 application orchestration object，例如
+  - An explicit inbound port and application orchestration object, such as
     `ICreateProductUseCase` / `CreateProductUseCase`
 - `Command` / `Query`
-  - 只有 dispatch entry 需要的 delivery contract，不是 Use Case input
+  - A delivery contract needed only for a dispatch entry, not a Use Case input
 - `Handler`
-  - 真實 dispatch/message entry 的 inbound adapter，map input 後呼叫一個 Use Case
+  - An inbound adapter for a real dispatch/message entry that maps input and then invokes one Use Case
 - `Application Service`
-  - 本標準不定義；若 target repository 採用，必須另有明確責任決策
+  - Not defined by this standard; if a target repository uses one, its responsibility must be decided explicitly elsewhere
 
-預設規則：
+Default rules:
 
-- Controller 直接注入 Use Case interface。
-- Use Case implementation 使用 `*UseCase` suffix 與 `ExecuteAsync`。
-- Handler 與 Use Case 是不同物件。
-- 沒有真實 dispatch/message entry 就不建立 Handler。
-- Wolverine/MediatR/MQ-specific Handler 放在 inbound adapter 或 composition
-  boundary，不放進 portable Use Case。
-- 只有明確核准的純查詢 endpoint 可例外直連 Query Repository/Service。
+- Controllers directly inject Use Case interfaces.
+- Use Case implementations use the `*UseCase` suffix and `ExecuteAsync`.
+- A Handler and a Use Case are distinct objects.
+- Do not create a Handler without a real dispatch/message entry.
+- Place Wolverine/MediatR/MQ-specific Handlers in an inbound adapter or composition
+  boundary, not in a portable Use Case.
+- Only explicitly approved pure-query endpoints may directly access a Query Repository/Service as an exception.
 
-推薦關係鏈：
+Recommended relationship chain:
 
 ```text
 Controller
@@ -136,7 +136,7 @@ Controller
   -> Use Case Output
 ```
 
-實際 dispatch/message entry：
+Actual dispatch/message entry:
 
 ```text
 Command / Message
@@ -144,91 +144,91 @@ Command / Message
   -> I<Operation>UseCase
 ```
 
-補充規則見 [`USECASE-COMMAND-HANDLER-RELATIONSHIP.MD`](./USECASE-COMMAND-HANDLER-RELATIONSHIP.MD)
+For additional rules, see [`USECASE-COMMAND-HANDLER-RELATIONSHIP.MD`](./USECASE-COMMAND-HANDLER-RELATIONSHIP.MD).
 
-## Infrastructure 層資料夾結構
+## Infrastructure-Layer Directory Structure
 
 ```
 <DomainName>.Infrastructure/
 ├── Repositories/                # Aggregate Repository adapters
 │   └── <Aggregate>Repository.cs
-├── QueryRepositories/           # Query Repository 實作
+├── QueryRepositories/           # Query Repository implementations
 │   └── <Feature>QueryRepository.cs
 ├── Persistence/                 # Target-selected DB/ORM/event-store configuration
 ├── Writers/                     # Outbox/Projection/Import/Purge capability adapters
-└── Messaging/                   # MQ 相關實作
+└── Messaging/                   # MQ-related implementations
     └── <Feature>EventPublisher.cs # Application outbound port adapter
 ```
 
-## Clean Architecture 分層
+## Clean Architecture Layers
 
-- **Domain**：Aggregate、Entity、Value Object、Domain Events
-- **Application**：Use Cases、inbound/outbound Ports、Policies
-- **Infrastructure**：target-selected persistence、Outbox、Message Bus、Repository/Query/Writer adapters
-- **Presentation**：Controllers、DTO 轉換、驗證、MQ Consumers
+- **Domain**: Aggregates, Entities, Value Objects, Domain Events
+- **Application**: Use Cases, inbound/outbound Ports, Policies
+- **Infrastructure**: target-selected persistence, Outbox, Message Bus, Repository/Query/Writer adapters
+- **Presentation**: Controllers, DTO mapping, validation, MQ Consumers
 
-## 命名與依賴方向
+## Naming and Dependency Direction
 
-- Domain 不依賴其他層
-- Application 依賴 Domain
-- Infrastructure 依賴 Application/Domain
-- Presentation 依賴 Application（不直接依賴 Infrastructure，透過 DI）
+- Domain does not depend on any other layer.
+- Application depends on Domain.
+- Infrastructure depends on Application/Domain.
+- Presentation depends on Application (not directly on Infrastructure; connect it through DI).
 
-### Adapter 與 Bus 的關係
+### Relationship Between Adapters and the Bus
 
-- Controller 預設依賴 Use Case interface，不依賴 Handler、bus、dispatcher、
-  write repository 或 aggregate
-- 只有明確核准的純查詢 endpoint 可直接依賴唯讀 Query Repository/Service
-- 同 BC / 同 process 的一般同步 API 直接呼叫 Use Case port
-- dispatch/message Handler 只在真實 delivery entry 存在，並呼叫一個 Use Case
-- 跨 BC communication 才強制使用 MQ / message bus
-- Use Case 依賴 project-owned event publisher port；Infrastructure 才依賴
-  Wolverine 或其他 broker/framework
+- By default, a Controller depends on a Use Case interface, not on a Handler, bus, dispatcher,
+  write repository, or aggregate.
+- Only explicitly approved pure-query endpoints may directly depend on a read-only Query Repository/Service.
+- A normal synchronous API within the same BC and process directly invokes a Use Case port.
+- A dispatch/message Handler exists only when there is a real delivery entry and invokes one Use Case.
+- Only cross-BC communication mandates an MQ/message bus.
+- A Use Case depends on a project-owned event publisher port; only Infrastructure depends on
+  Wolverine or another broker/framework.
 
 ### Persistence Port Rules
 
-- Aggregate Repository 只接受 Aggregate Root。
-- Child Entity 透過 owning Aggregate Root 持久化。
-- Query Repository 實作 `IQueryRepository` 且只讀。
-- Physical purge、Outbox、Projection、Import 等使用 capability-specific ports。
-- Target-specific batch persistence 不進入 portable/default project template。
+- An Aggregate Repository accepts only an Aggregate Root.
+- Persist a child Entity through its owning Aggregate Root.
+- A Query Repository implements `IQueryRepository` and is read-only.
+- Use capability-specific ports for physical purge, Outbox, Projection, Import, and similar capabilities.
+- Target-specific batch persistence does not belong in the portable/default project template.
 
-## 跨 BC 通訊規則
+## Cross-BC Communication Rules
 
-> ⚠️ **重要限制**：跨 Domain 服務 **禁止** 透過 Web API 通訊，只能使用 Message Queue (RabbitMQ/Kafka)。
-> 💡 **一致性模型**：跨 Domain 的資料同步採用「**最終一致性（Eventual Consistency）**」，不要求強一致。
+> ⚠️ **Important restriction**: Cross-Domain services **must not** communicate through Web APIs; they must use a Message Queue (RabbitMQ/Kafka).
+> 💡 **Consistency model**: Cross-Domain data synchronization uses **Eventual Consistency** and does not require strong consistency.
 
-| 通訊類型 | 使用機制 | 定義位置 |
+| Communication Type | Mechanism | Definition Location |
 |---------|---------|---------|
-| 同一 BC 內 | Domain Events | `<Domain>.Domains/DomainEvents` |
-| 跨 BC | Integration Events | `./src/BC-Contracts/Lab.BoundedContextContracts.<Domain>` |
+| Within the same BC | Domain Events | `<Domain>.Domains/DomainEvents` |
+| Cross-BC | Integration Events | `./src/BC-Contracts/Lab.BoundedContextContracts.<Domain>` |
 
-## 共用專案分類（Shared Projects Classification）
+## Shared Projects Classification
 
-> 詳細設計理由與 DDD 概念說明，應以本文件與相對應的 rationale / guide 文件為準。
+> For detailed design rationale and DDD explanations, treat this document and the corresponding rationale/guide documents as authoritative.
 
-本專案有三個跨領域共用區域，各自對應不同的 DDD 概念：
+This project has three cross-domain shared areas, each corresponding to a different DDD concept:
 
-| 專案 | DDD 概念 | 職責 | 依賴權限 |
+| Project | DDD Concept | Responsibility | Dependency Permission |
 |------|---------|------|----------|
-| `BuildingBlocks` | 架構基礎設施 | 無業務語義的抽象基底與介面 | 所有層均可引用 |
-| `SharedKernel` | Shared Kernel | 跨 BC 共享的通用領域概念（VO、Enum） | Domain 層可引用 |
-| `BC-Contracts` | Published Language | BC 間通訊合約（Integration Events、Request/Reply） | **Domain 層禁止引用** |
+| `BuildingBlocks` | Architectural infrastructure | Abstract bases and interfaces without business semantics | May be referenced by all layers |
+| `SharedKernel` | Shared Kernel | Shared domain concepts across BCs (VOs, Enums) | May be referenced by the Domain layer |
+| `BC-Contracts` | Published Language | Communication contracts between BCs (Integration Events, Request/Reply) | **Must not be referenced by the Domain layer** |
 
-### 依賴方向約束
+### Dependency Direction Constraints
 
 ```
-BuildingBlocks ← 所有層均可引用
+BuildingBlocks ← may be referenced by all layers
 SharedKernel   ← Domain / Application / Infrastructure / Presentation
-BC-Contracts   ← Application / Infrastructure / Presentation（Domain 禁止）
+BC-Contracts   ← Application / Infrastructure / Presentation (Domain prohibited)
 ```
 
-### BC-Contracts 內部子分類
+### BC-Contracts Internal Categories
 
-| 子目錄 | 用途 | 範例 |
+| Subdirectory | Purpose | Example |
 |--------|------|------|
-| `IntegrationEvents/` | 非同步事件合約（MQ Payload） | `OrderPlaced`, `ProductStockDecreased` |
-| `Interactions/` | Request/Reply 合約 | `ReserveInventoryRequestContract` |
-| `DataTransferObjects/` | 跨 BC 查詢回傳合約 | `OrderDetailsResponse` |
+| `IntegrationEvents/` | Asynchronous event contracts (MQ Payload) | `OrderPlaced`, `ProductStockDecreased` |
+| `Interactions/` | Request/Reply contracts | `ReserveInventoryRequestContract` |
+| `DataTransferObjects/` | Cross-BC query response contracts | `OrderDetailsResponse` |
 
-使用時應確保不會破壞 Bounded Context 的邊界隔離。
+When using these areas, ensure that Bounded Context boundary isolation is not compromised.
