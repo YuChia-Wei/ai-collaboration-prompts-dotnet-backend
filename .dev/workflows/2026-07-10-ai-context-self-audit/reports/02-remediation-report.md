@@ -24,7 +24,7 @@
 
 | Finding | Before Severity | Current Status | Evidence Summary | Planned Action | Owner / Decision |
 | --- | --- | --- | --- | --- | --- |
-| AIC-001 | HIGH | `partially-resolved` | Boundary policy exists, but `.ai` tech-stack rules and `.dev/standards` still overlap as normative testing/architecture surfaces. | Add a per-rule ownership matrix; convert secondary copies to references or target-adoption guidance. | Governance plus architecture/testing owner. |
+| AIC-001 | HIGH | `candidate-resolved` | `.dev/standards/AI-CONTEXT-OWNERSHIP.md` defines normative ownership, strength, and precedence; its YAML registry assigns one canonical owner to the six initially conflicted rules. `.ai` testing/common surfaces are declared projections, the legacy testing entry is a compatibility pointer, and blanket soft deletion is conditional. | Expand the registry incrementally and require post-remediation audit to check whether unregistered duplicate MUST language remains. | Governance plus architecture/testing owner. |
 | AIC-002 | HIGH | `resolved` | Canonical and human guidance now define BDDfy as the default with explicit opt-out, mandatory GWT without 3A fallback, and conditionally supported `.feature` artifacts. | Request independent verification across testing consumers. | User decision implemented; auditor verifies. |
 | AIC-003 | HIGH | `resolved` | Stale onboarding is now explicitly legacy/profile-conditional, current initialization routes to `repo-structure-sync`, and missing `CLAUDE.md` links were removed. | Request independent verification; retained profile examples must remain conditional. | Governance completed; auditor verifies. |
 | AIC-004 | HIGH | `not-addressed` | Canonical schema requires `id`; 13 skill specs and 17 sub-agent manifests use `asset_id`; duplicate template families and no schema validator remain. | Version schema, adopt one identifier/type contract, migrate metadata/templates, add PyYAML validation. | Governance; record schema choices before migration. |
@@ -45,7 +45,7 @@
 
 ### Batch 2 — Machine Governance
 
-- AIC-001: establish per-rule ownership.
+- AIC-001: candidate resolution established per-rule ownership for the conflicted testing, Aggregate/UoW, mapper-event, and deletion families.
 - AIC-004: version and migrate the canonical asset schema.
 - AIC-005: align capability slots and profile-to-skill discovery.
 
@@ -182,7 +182,7 @@
 
 ### Next Translation Waves
 
-1. Continue AIC-001/AIC-004/AIC-005 machine-governance remediation.
+1. Continue AIC-004/AIC-005 machine-governance remediation.
 2. Preserve the generated archive-check drift under deferred AIC-007 tooling ownership.
 3. Request an independent post-remediation audit after the remaining finding work is complete.
 
@@ -199,4 +199,4 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 - Required validations: pending remediation and independent post-audit.
 - Commit status: translation waves 1-5 and language-lint hardening are committed; architecture semantic reconciliation awaits its checkpoint commit.
 - Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
-- Final next action: complete the AIC-001/AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.
+- Final next action: complete the AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.

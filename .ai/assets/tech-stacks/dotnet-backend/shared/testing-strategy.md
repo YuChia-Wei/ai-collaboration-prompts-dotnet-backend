@@ -1,6 +1,10 @@
 # Testing Strategy (Dotnet)
 
-## Mandatory Decisions
+Agent-loading projection of the canonical [Test Coding Standards](../../../../../.dev/standards/coding-standards/test-standards.md).
+
+Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`.
+
+## Execution Summary
 - **Framework**: xUnit
 - **BDD profile**: BDDfy is the default profile, but a target team may explicitly decline the package.
 - **Minimum test style**: All unit, use-case, and integration tests use Given-When-Then structure and naming. Arrange-Act-Assert (3A) is not an alternative.

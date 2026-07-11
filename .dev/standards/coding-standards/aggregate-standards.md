@@ -28,7 +28,7 @@ The following markers are consumed by automated code-review scripts:
 Pattern (required): Apply\(
 Pattern (required): protected override void When
 Pattern (required): Ensure\.|Contract\.|Guard\.
-Pattern (required): IsDeleted
+Pattern (optional): IsDeleted
 
 # Forbidden rules
 Pattern (forbidden, ignore-comment): DbContext
@@ -67,16 +67,21 @@ public class ScrumTeam : AggregateRoot<ScrumTeamId>
 
 ---
 
-## 🔴 Mandatory Rules (MUST FOLLOW)
+## 🔴 Active Rules
 
 ### 0. Soft-Delete Field Requirement
 
-**Mandatory**: Every Aggregate MUST support soft deletion:
+Rule ID: `DELETE-SOFT-001` (`conditional`).
 
-#### Aggregate Root MUST Have an `IsDeleted` Field and Handling Logic
+When target-repository requirements or an architecture decision explicitly adopt
+aggregate soft deletion, each affected Aggregate must support the following
+field and event-application behavior. Aggregates are not required to add an
+`IsDeleted` field when the capability is not selected.
+
+#### Adopted Aggregate Root Must Have an `IsDeleted` Field and Handling Logic
 
 ```csharp
-// ✅ Correct: Aggregate Root MUST implement IsDeleted
+// ✅ Correct when soft deletion is adopted
 public class WorkItem : AggregateRoot<WorkItemId>
 {
     public bool IsDeleted { get; private set; }  // Required soft-delete marker

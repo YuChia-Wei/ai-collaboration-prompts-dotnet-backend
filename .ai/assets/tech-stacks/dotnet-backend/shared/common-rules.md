@@ -1,6 +1,12 @@
 # Shared Common Rules (Dotnet)
 
-## Single Source of Truth (Mandatory Decisions)
+This file is an agent-loading projection. Normative ownership and precedence are
+defined by [AI Context Rule Ownership](../../../../../.dev/standards/AI-CONTEXT-OWNERSHIP.md).
+
+Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`, `ARCH-UOW-001`,
+`MAP-EVENTS-001`, `DELETE-SOFT-001`, `DELETE-PURGE-001`.
+
+## Execution Summary
 1. **DTO rule**: Request/Response DTOs are **separate files** (NOT inner classes).
 2. **Testing strategy**: **xUnit + BDDfy is the default profile**; a target team may explicitly decline BDDfy, but all unit, use-case, and integration tests must still use **Given-When-Then structure and naming**, never Arrange-Act-Assert (3A). `.feature` files are optional/planned and supported when supplied, explicitly requested, or enabled by an explicit target profile; **NO BaseTestClass**.
 3. **Mocking**: Use **NSubstitute**.

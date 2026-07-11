@@ -1,6 +1,8 @@
 # .NET Backend Architecture and Coding Standards
 
-This folder contains reusable .NET backend architecture and development standards.
+This folder owns normative framework and repository standards. Reusable `.ai`
+documents load concise projections of these rules for agents; they do not become
+independent normative owners.
 
 DDD / Clean Architecture / CQRS boundaries are normative. Database, ORM, event store, message broker, test package, and runtime versions are selected by each target repository from file-backed evidence.
 
@@ -12,6 +14,8 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents
   - ASP.NET Core configuration checklist
 - `AI-CONTEXT-BOUNDARY.md`
   - AI context ownership and folder placement policy
+- `AI-CONTEXT-OWNERSHIP.md` / `AI-CONTEXT-OWNERSHIP.yaml`
+  - normative rule ownership, strength, precedence, and machine registry
 - `AI-CONTEXT-LANGUAGE-POLICY.md`
   - language policy for agent-facing and human-facing context
 - `CODE-REVIEW-CHECKLIST.md`

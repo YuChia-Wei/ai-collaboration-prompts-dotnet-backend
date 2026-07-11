@@ -9,6 +9,8 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parents[2]
 TABLE_PATH = re.compile(r"^\|\s*`([^`]+)`\s*\|")
@@ -42,6 +44,9 @@ LANGUAGE_ALLOWLIST: dict[Path, frozenset[str]] = {
         }
     ),
 }
+OWNERSHIP_REGISTRY = Path(".dev/standards/AI-CONTEXT-OWNERSHIP.yaml")
+RULE_STRENGTHS = {"invariant", "profile-default", "conditional", "example", "historical"}
+RULE_STATUSES = {"active", "deprecated", "historical"}
 
 
 def tracked_files() -> list[Path]:
@@ -215,6 +220,84 @@ def skill_names(root: Path, entry: str) -> set[str]:
     }
 
 
+def validate_rule_ownership(errors: list[str]) -> int:
+    """Validate structural ownership contracts without claiming semantic parity."""
+    registry_path = ROOT / OWNERSHIP_REGISTRY
+    if not registry_path.is_file():
+        errors.append(f"missing rule ownership registry: {OWNERSHIP_REGISTRY}")
+        return 0
+    try:
+        data = yaml.safe_load(registry_path.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        errors.append(f"{OWNERSHIP_REGISTRY}: invalid YAML: {exc}")
+        return 0
+    rules = data.get("rules", []) if isinstance(data, dict) else []
+    if not isinstance(rules, list):
+        errors.append(f"{OWNERSHIP_REGISTRY}: rules must be a list")
+        return 0
+
+    seen: set[str] = set()
+    for index, rule in enumerate(rules, 1):
+        label = f"{OWNERSHIP_REGISTRY}:rules[{index}]"
+        if not isinstance(rule, dict):
+            errors.append(f"{label}: rule must be a mapping")
+            continue
+        rule_id = rule.get("rule_id")
+        if not isinstance(rule_id, str) or not rule_id:
+            errors.append(f"{label}: missing rule_id")
+            continue
+        if rule_id in seen:
+            errors.append(f"{label}: duplicate rule_id {rule_id}")
+        seen.add(rule_id)
+        strength = rule.get("strength")
+        status = rule.get("status")
+        override = rule.get("override_policy")
+        if strength not in RULE_STRENGTHS:
+            errors.append(f"{label}: invalid strength {strength!r}")
+        if status not in RULE_STATUSES:
+            errors.append(f"{label}: invalid status {status!r}")
+        expected_override = {
+            "invariant": "forbidden",
+            "profile-default": "explicit-target-decision",
+            "conditional": "not-applicable",
+        }.get(strength)
+        if expected_override and override != expected_override:
+            errors.append(
+                f"{label}: {strength} requires override_policy {expected_override}"
+            )
+        if strength == "conditional" and not rule.get("applicability"):
+            errors.append(f"{label}: conditional rule requires applicability")
+
+        canonical_value = rule.get("canonical_path")
+        if not isinstance(canonical_value, str):
+            errors.append(f"{label}: missing canonical_path")
+            continue
+        canonical = Path(canonical_value)
+        if Path(".dev/standards") not in canonical.parents:
+            errors.append(f"{label}: canonical_path must be under .dev/standards")
+        canonical_file = ROOT / canonical
+        if not canonical_file.is_file():
+            errors.append(f"{label}: missing canonical_path {canonical}")
+            continue
+        anchor = rule.get("canonical_anchor")
+        canonical_text = canonical_file.read_text(encoding="utf-8")
+        if not isinstance(anchor, str) or anchor not in canonical_text:
+            errors.append(f"{label}: canonical_anchor not found in {canonical}")
+
+        consumers = rule.get("derived_consumers", [])
+        if not isinstance(consumers, list):
+            errors.append(f"{label}: derived_consumers must be a list")
+            continue
+        for consumer_value in consumers:
+            consumer = Path(consumer_value)
+            consumer_file = ROOT / consumer
+            if not consumer_file.is_file():
+                errors.append(f"{label}: missing derived consumer {consumer}")
+            elif rule_id not in consumer_file.read_text(encoding="utf-8"):
+                errors.append(f"{label}: derived consumer {consumer} does not cite {rule_id}")
+    return len(rules)
+
+
 def main() -> int:
     errors: list[str] = []
     files = tracked_files()
@@ -229,6 +312,7 @@ def main() -> int:
         validate_language(path, errors)
 
     validate_bilingual_entries(errors)
+    ownership_rules = validate_rule_ownership(errors)
 
     for runtime_root in ACTIVE_RUNTIME_ROOTS:
         if not (ROOT / runtime_root).is_dir():
@@ -259,7 +343,7 @@ def main() -> int:
     print(
         f"AI context validation passed: {len(indexes)} active indexes, "
         f"{len(canonical)} canonical skills, {len(ACTIVE_RUNTIME_ROOTS)} current runtime roots, "
-        f"and {len(language_files)} language-policy files."
+        f"{len(language_files)} language-policy files, and {ownership_rules} owned rules."
     )
     print(
         "Root bilingual entry ownership, links, and structural parity passed "

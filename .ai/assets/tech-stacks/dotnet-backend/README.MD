@@ -44,7 +44,7 @@ Excluded:
 - `shared/common-rules.md`
 - `shared/domain-rules.md`
 - `shared/dto-conventions.md`
-- `shared/testing-standards.md`
+- `shared/testing-strategy.md` (active projection; `shared/testing-standards.md` is a compatibility entry)
 - `shared/testing-strategy.md`
 
 ## Boundary Rule
