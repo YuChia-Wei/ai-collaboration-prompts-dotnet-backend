@@ -5,9 +5,9 @@
 - `report_id`: `remediation-report-2026-07-10-ai-context-self-audit`
 - `workflow_id`: `2026-07-10-ai-context-self-audit`
 - `owner_skill`: `ai-context-governance`
-- `status`: `draft`
+- `status`: `final`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T23:14:05+08:00`
+- `updated_at`: `2026-07-11T23:30:00+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -18,17 +18,17 @@
 - Authorized scope: triage and begin correcting AIC-001 through AIC-009 without scanning product `src/` or `tests/` trees.
 - Completed scope: current-evidence triage; Batch 1 corrections for AIC-003, AIC-006, AIC-008, and the objective portion of AIC-009; user-decided testing contract for AIC-002.
 - Completed machine-governance batch: AIC-001 ownership, AIC-004 canonical schema, and AIC-005 deterministic capability routing now have candidate resolutions.
-- Closure decision: `not-ready`.
+- Closure decision: `closed-with-deferred-finding`; AIC-007 remains owned by a separate tooling workflow.
 
 ## Finding Resolution Matrix
 
 | Finding | Before Severity | Current Status | Evidence Summary | Planned Action | Owner / Decision |
 | --- | --- | --- | --- | --- | --- |
-| AIC-001 | HIGH | `candidate-resolved` | `.dev/standards/AI-CONTEXT-OWNERSHIP.md` defines normative ownership, strength, and precedence; its YAML registry assigns one canonical owner to the six initially conflicted rules. `.ai` testing/common surfaces are declared projections, the legacy testing entry is a compatibility pointer, and blanket soft deletion is conditional. | Expand the registry incrementally and require post-remediation audit to check whether unregistered duplicate MUST language remains. | Governance plus architecture/testing owner. |
+| AIC-001 | HIGH | `resolved` | Independent post-audit confirmed the ownership policy, six registered conflicted rule families, declared projections, and conditional soft deletion close the baseline ambiguity. | Expand the registry incrementally when another cross-surface conflict is found. | Governance maintenance. |
 | AIC-002 | HIGH | `resolved` | Canonical and human guidance now define BDDfy as the default with explicit opt-out, mandatory GWT without 3A fallback, and conditionally supported `.feature` artifacts. | Request independent verification across testing consumers. | User decision implemented; auditor verifies. |
 | AIC-003 | HIGH | `resolved` | Stale onboarding is now explicitly legacy/profile-conditional, current initialization routes to `repo-structure-sync`, and missing `CLAUDE.md` links were removed. | Request independent verification; retained profile examples must remain conditional. | Governance completed; auditor verifies. |
-| AIC-004 | HIGH | `candidate-resolved` | Schema v1.0 adopts the existing `asset_id`; all 13 skill and 17 sub-agent manifests now satisfy the versioned metadata contract; four canonical templates replace two incompatible families; PyYAML validation checks types, enums, IDs, paths, and template hygiene. | Independent audit must verify the schema contract and absence of undeclared canonical asset families. | Governance completed; auditor verifies. |
-| AIC-005 | HIGH | `candidate-resolved` | Ten development slots now map deterministically in `capability-profile.yaml`; mapped skills declare matching `capability_slots`; the validator rejects missing skills, unknown/missing slots, inactive skills, and slot mismatches. | Independent audit must compare YAML mapping, explanatory Markdown, routing playbook, and skill declarations. | Governance coordinated the dev-workflow contract; auditor verifies. |
+| AIC-004 | HIGH | `resolved` | Independent post-audit confirmed schema v1.0, `asset_id`, 30 conforming active manifests, four canonical templates, and structural/path validation. | Register discovery roots and validator coverage before activating another manifest family. | Governance maintenance. |
+| AIC-005 | HIGH | `resolved` | Independent post-audit confirmed ten deterministic mappings, matching skill `capability_slots`, and YAML/Markdown parity validation. | Validate the profile whenever a skill or mapping changes. | Dev-workflow contract maintained by governance. |
 | AIC-006 | HIGH | `resolved` | Workflow/commit policies and auditor contracts now distinguish transient conversational analysis, durable report-only audit, and governance remediation. | Request independent verification of authorization and persistence boundaries. | Governance completed; auditor verifies. |
 | AIC-007 | HIGH | `deferred` | Required shell checks remain mode `100644`; `check-all.sh` can exit zero after required checks are skipped as warnings. | Create tooling/validation workflow for fail-closed gates and executable-mode enforcement. | Tooling workflow; outside this documentation-governance batch. |
 | AIC-008 | MEDIUM | `resolved` | Current catalogs list Agents/Codex and Claude; Gemini paths, targets, branch prefixes, and descriptions were removed; Copilot alone remains planned/optional. | Request independent runtime-truth verification. | Governance completed; auditor verifies. |
@@ -194,9 +194,18 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 | --- | --- | --- | --- |
 | AIC-007 | Requires executable-mode and gate-semantics tooling changes, not only context documentation. | Tooling workflow | Create a dated tooling workflow and make required gates fail closed. |
 
+## Independent Post-Remediation Audit
+
+- Report: `reports/03-post-remediation-audit-report.md`
+- Decision: `remediation-recommended`, score `8.8/10`.
+- Independently resolved: AIC-001, AIC-002, AIC-003, AIC-004, AIC-005, AIC-006, AIC-008, and AIC-009.
+- Confirmed deferred: AIC-007 remains `HIGH` because tracked shell scripts use mode `100644` and required skipped checks can still yield exit `0`.
+- Regressions or new findings: none.
+- Closure interpretation: this documentation-governance lifecycle may close with AIC-007 explicitly deferred; overall repository health remains `remediation-recommended` until the tooling workflow resolves it.
+
 ## Closure Evidence
 
-- Required validations: pending remediation and independent post-audit.
-- Commit status: remediation through AIC-001 is committed; the AIC-004/AIC-005 schema and routing batch awaits its checkpoint commit.
-- Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
-- Final next action: commit the validated AIC-004/AIC-005 batch, then request the independent post-remediation audit.
+- Required validations: context and workflow validators passed; mutation probes failed as expected and were restored; quick gate passed 5/5 with 49/49 tooling tests; independent post-audit completed.
+- Commit status: remediation checkpoints include `7f75c77` (AIC-001) and `e971d0f` (AIC-004/AIC-005); final report and closure metadata are included in the lifecycle closure commit.
+- Workflow/task status: AICSA-001 through AICSA-005 completed; AIC-007 explicitly deferred.
+- Final next action: create a new dated tooling/validation workflow and branch for AIC-007 when authorized.
