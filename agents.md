@@ -2,6 +2,8 @@
 
 [Traditional Chinese](agents.zh-tw.md)
 
+This document is the canonical English agent-facing root collaboration guide. `agents.zh-tw.md` is its Traditional Chinese (Taiwan) translation.
+
 ## Scope & Precedence
 
 - This document is the root collaboration guide for AI agents and humans working in this repository.
@@ -167,8 +169,9 @@ Use these boundaries:
 | Path | Description |
 | :--- | :--- |
 | `README.md` | Human-facing Traditional Chinese repository identity |
-| `README.en.md` | English repository identity |
-| `agents.md` | Root agent collaboration guide |
+| `README.en.md` | English translation of the repository identity |
+| `agents.md` | Canonical English agent-facing root collaboration guide |
+| `agents.zh-tw.md` | Traditional Chinese (Taiwan) translation of the root collaboration guide |
 
 ### AI Assets (`.ai/`)
 

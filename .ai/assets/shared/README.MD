@@ -1,10 +1,10 @@
 # Universal Shared Canonical Assets
 
-本目錄放置 skill 與 sub-agent role 共同依賴、且不綁定特定技術棧的中立資產。
+This directory contains technology-neutral assets shared by skills and sub-agent roles.
 
-技術棧專用但仍可重用的 agent-facing context 應放在 `.ai/assets/tech-stacks/<profile>/`，例如 `.ai/assets/tech-stacks/dotnet-backend/`。
+Reusable, technology-specific agent-facing context belongs under `.ai/assets/tech-stacks/<profile>/`, such as `.ai/assets/tech-stacks/dotnet-backend/`.
 
-## 可包含的內容
+## Allowed Content
 
 - rules
 - contracts
@@ -12,8 +12,8 @@
 - reusable templates
 - examples
 
-## 目的
+## Purpose
 
-- 減少 skill spec 與 sub-agent canonical asset 的重複內容
-- 讓 wrapper 與 human-facing guides 能共同引用同一份 canonical source
-- 避免把 .NET backend-only rules 混入 universal shared context
+- Reduce duplication between skill specs and canonical sub-agent assets.
+- Allow wrappers and human-facing guides to reference the same canonical source.
+- Keep .NET backend-only rules out of universal shared context.

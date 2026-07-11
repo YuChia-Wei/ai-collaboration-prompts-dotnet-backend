@@ -1,72 +1,70 @@
-# Code Review Checklist 快速索引（.NET）
+# Code Review Checklist Quick Index (.NET)
 
-## 🚨 當你收到 Code Review 請求時
+## 🚨 When You Receive a Code Review Request
 
-**格式**: `code review [FileName]`
+**Format**: `code review [FileName]`
 
-### ⚠️ 強制執行步驟（不可跳過）
+### ⚠️ Mandatory Steps (Do Not Skip)
 
-1. **讀取此檔案** - 你正在讀它 ✓
-2. **識別檔案類型** - 根據下表找到對應章節
-3. **讀取對應章節** - 從 .NET `.dev/standards/CODE-REVIEW-CHECKLIST.md` 讀取完整內容
-4. **執行檢查** - 逐項對照，建立檢查結果表格
-5. **標記問題等級** - CRITICAL / MUST FIX / SHOULD FIX
+1. **Read this file** - You are reading it now ✓
+2. **Identify the file type** - Find the matching section in the table below.
+3. **Read the matching section** - Read the full content in the .NET `.dev/standards/CODE-REVIEW-CHECKLIST.md`.
+4. **Perform the review** - Check every item and create a results table.
+5. **Assign issue severity** - CRITICAL / MUST FIX / SHOULD FIX.
 
 ### Rule Resolution Order
 
-1. Aggregate 規則先做 type-first 判定：
-   - `EsAggregateRoot<TId>` 套 ES 規則
-   - `AggregateRoot<TId>`（非 ES）不套 `Apply/When` 規則
-2. Repository 規則以 `IAggregateRepository<TAggregate, TId>` 為 write side
-   基準；`IDomainRepository<TAggregate, TId>` 僅是必須繼承前者的相容入口。
-3. Query 能力放在繼承 `IQueryRepository` 的唯讀 query port。只有組合、政策
-   或計算需求才需要額外 QueryService。
-4. `.dev/project-config.yaml` 只做輔助判定，與型別衝突時以型別為準並標記 MUST FIX。
+1. Apply type-first detection for Aggregate rules:
+   - `EsAggregateRoot<TId>` uses ES rules.
+   - `AggregateRoot<TId>` (non-ES) does not use `Apply/When` rules.
+2. Repository rules use `IAggregateRepository<TAggregate, TId>` as the write-side baseline; `IDomainRepository<TAggregate, TId>` is only a compatibility entry point that must inherit it.
+3. Query capabilities belong in a read-only query port inheriting `IQueryRepository`. An additional QueryService is needed only for composition, policy, or calculation requirements.
+4. `.dev/project-config.yaml` is only a supporting signal. When it conflicts with the type, use the type and mark the mismatch MUST FIX.
 
-### 📋 檔案類型快速對應表
+### 📋 File Type Quick Reference
 
-| 檔案模式 | 檢查清單位置 | 檢查重點 | 優先級 |
+| File Pattern | Checklist Location | Review Focus | Priority |
 |---------|------------|---------|--------|
-| `src/Domain/**/Aggregates/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Aggregate（先做 type-first 判定）** | 1. 先判定 `EsAggregateRoot` 或 `AggregateRoot`<br>2. ES 才檢查 Apply/When<br>3. non-ES 檢查 invariant 與事件一致性 | **CRITICAL** |
-| `src/Application/**/UseCases/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Use Case / Handler** | 1. 明確 `I*UseCase` inbound port<br>2. `ExecuteAsync` 與 transport-neutral contract<br>3. Handler 未承擔 orchestration | HIGH |
-| `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. write side 是否符合 `IAggregateRepository<TAggregate, TId>`<br>2. generic type 是否為 Aggregate Root<br>3. query/write 能力是否分離 | HIGH |
-| `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller 是否足夠薄<br>2. DTO 是否獨立檔案<br>3. HTTP status 正確 | MEDIUM |
-| `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper 是否為 static/sealed？<br>2. 一個 DTO 對一個 Mapper<br>3. Outbox toDomain 是否處理有/無 events 兩種情況 | **HIGH** |
-| `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>＋ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. 是否實作 `IOutboxData<TId>`<br>2. Domain events 欄位是否標記為 NotMapped<br>3. EF Core key/column naming 是否正確 | MEDIUM |
-| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD 規範 / UseCase 測試** | 1. xUnit GWT 結構與命名（BDDfy 為預設 profile，可由團隊明確停用）<br>2. 不使用 3A 或 BaseTestClass<br>3. NSubstitute 使用 | HIGH |
+| `src/Domain/**/Aggregates/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Aggregate (type-first detection)** | 1. Detect `EsAggregateRoot` or `AggregateRoot` first.<br>2. Check Apply/When only for ES.<br>3. Check invariants and event consistency for non-ES. | **CRITICAL** |
+| `src/Application/**/UseCases/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Use Case / Handler** | 1. Explicit `I*UseCase` inbound port.<br>2. `ExecuteAsync` and transport-neutral contract.<br>3. Handler does not own orchestration. | HIGH |
+| `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. Write side conforms to `IAggregateRepository<TAggregate, TId>`.<br>2. Generic type is an Aggregate Root.<br>3. Query and write capabilities are separated. | HIGH |
+| `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller is sufficiently thin.<br>2. DTO is in a separate file.<br>3. HTTP status is correct. | MEDIUM |
+| `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper is static/sealed.<br>2. One Mapper per DTO.<br>3. Outbox ToDomain handles both with-events and without-events cases. | **HIGH** |
+| `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>+ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. Implements `IOutboxData<TId>`.<br>2. Domain events field is marked NotMapped.<br>3. EF Core key/column naming is correct. | MEDIUM |
+| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD Rules / UseCase Tests** | 1. xUnit GWT structure and naming (BDDfy is the default profile and may be explicitly disabled by the team).<br>2. Do not use 3A or BaseTestClass.<br>3. Use NSubstitute. | HIGH |
 
 ---
 
-### 🔴 Aggregate 具體檢查步驟（範例）
+### 🔴 Detailed Aggregate Review Steps (Example)
 
-當收到 `code review Iteration.cs` 時：
+When receiving `code review Iteration.cs`:
 
-#### Step 1: 讀取檢查清單
+#### Step 1: Read the Checklist
 ```
-我現在要 code review Iteration.cs
-這是一個 Aggregate Root，根據 DOTNET-CODE-REVIEW-INDEX.md，
-我必須先讀取 CODE-REVIEW-CHECKLIST.md 的 Aggregate Root 檢查章節。
+I need to code review Iteration.cs.
+This is an Aggregate Root. According to DOTNET-CODE-REVIEW-INDEX.md,
+I must first read the Aggregate Root review section in CODE-REVIEW-CHECKLIST.md.
 ```
 
-#### Step 2: 執行 CRITICAL 檢查項目
+#### Step 2: Perform CRITICAL Checks
 
-| 檢查項目 | 結果 | 位置 | 問題描述 |
+| Check | Result | Location | Issue Description |
 |---------|------|------|---------|
-| Constructor 是否直接設定狀態欄位？ | ❌ FAIL | 60-72 行 | 直接賦值 `this.id = sprintId` |
-| 是否透過 Apply(event) 觸發 When()？ | ✅ PASS | 101 行 | 有呼叫 Apply(event) |
-| 狀態欄位賦值是否只在 When() 中？ | ❌ FAIL | 60-72 行 & When() | 狀態被設定兩次 |
+| Does the constructor set state fields directly? | ❌ FAIL | Lines 60-72 | Direct assignment: `this.id = sprintId` |
+| Is When() triggered through Apply(event)? | ✅ PASS | Line 101 | Apply(event) is called. |
+| Are state fields assigned only in When()? | ❌ FAIL | Lines 60-72 and When() | State is assigned twice. |
 
-#### Step 3: 總結與評分
-**Critical 問題數量**: 2
-**評分**: ⭐⭐ (2/5) - MUST FIX
+#### Step 3: Summarize and Score
+**Critical issue count**: 2
+**Score**: ⭐⭐ (2/5) - MUST FIX
 
 ---
 
-### 🟡 Outbox Mapper 具體檢查步驟（範例）
+### 🟡 Detailed Outbox Mapper Review Steps (Example)
 
-重點：`ToDomain()` 必須處理「有 events」與「無 events」兩種重建情境。
+Focus: `ToDomain()` must handle reconstruction both with and without events.
 
-#### ✅ 正確的 ToDomain() 模式
+#### ✅ Correct ToDomain() Pattern
 ```csharp
 public static Plan ToDomain(PlanData data)
 {
@@ -80,7 +78,7 @@ public static Plan ToDomain(PlanData data)
         return plan;
     }
 
-    // 無 events 時必須從 stored state 重建
+    // Without events, reconstruct from stored state.
     var reconstructed = new Plan(PlanId.ValueOf(data.PlanId), data.Name, data.UserId)
     {
         Version = (int)data.Version
@@ -90,46 +88,46 @@ public static Plan ToDomain(PlanData data)
 }
 ```
 
-#### ❌ 錯誤的 ToDomain() 模式
+#### ❌ Incorrect ToDomain() Pattern
 ```csharp
 public static Plan ToDomain(PlanData data)
 {
     var events = data.DomainEventDatas.Select(DomainEventMapper.ToDomain).ToList();
-    return new Plan(events); // 無 events 時會建立空 aggregate
+    return new Plan(events); // Without events, this creates an empty aggregate.
 }
 ```
 
 ---
 
-### 📚 相關文件
+### 📚 Related Documents
 
-- **完整檢查清單**: [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)
-- **Aggregate 規範**: [aggregate-standards.md](../../../../../.dev/standards/coding-standards/aggregate-standards.md)
-- **Mapper 規範**: [mapper-standards.md](../../../../../.dev/standards/coding-standards/mapper-standards.md)
-- **Outbox 範例**: [examples/outbox/README.md](../../../../../.dev/standards/examples/outbox/README.md)
-
----
-
-### ⚠️ 違反檢查流程的後果
-
-如果你（AI）在 Code Review 時：
-- ❌ 沒有先讀取 DOTNET-CODE-REVIEW-INDEX.md
-- ❌ 沒有讀取對應的 CODE-REVIEW-CHECKLIST.md 章節
-- ❌ 沒有建立檢查項目對照表
-- ❌ 直接給出評價和建議
-
-**後果**：
-- Code Review 結果無效（需要重做）
-- 可能遺漏關鍵錯誤（如 Aggregate Event Sourcing 違規）
-- 不符合專案規範要求
+- **Complete checklist**: [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)
+- **Aggregate rules**: [aggregate-standards.md](../../../../../.dev/standards/coding-standards/aggregate-standards.md)
+- **Mapper rules**: [mapper-standards.md](../../../../../.dev/standards/coding-standards/mapper-standards.md)
+- **Outbox example**: [examples/outbox/README.md](../../../../../.dev/standards/examples/outbox/README.md)
 
 ---
 
-## 💡 提醒
+### ⚠️ Consequences of Violating the Review Process
 
-每次執行 Code Review 前，請先在腦海中默念：
+If you (the AI) perform a Code Review and:
+- ❌ Do not read DOTNET-CODE-REVIEW-INDEX.md first.
+- ❌ Do not read the matching CODE-REVIEW-CHECKLIST.md section.
+- ❌ Do not create a checklist comparison table.
+- ❌ Give evaluation and recommendations directly.
 
-> "我必須先讀取 DOTNET-CODE-REVIEW-INDEX.md，識別檔案類型，讀取對應的檢查清單章節，然後逐項檢查。絕對不能跳過這個流程。"
+**Consequences**:
+- The Code Review result is invalid and must be redone.
+- Critical errors may be missed, such as Aggregate Event Sourcing violations.
+- The review does not satisfy project rules.
+
+---
+
+## 💡 Reminder
+
+Before every Code Review, repeat mentally:
+
+> "I must first read DOTNET-CODE-REVIEW-INDEX.md, identify the file type, read the matching checklist section, and check every item. I must never skip this process."
 
 ## Aggregate Pattern Rules
 

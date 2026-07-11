@@ -2,6 +2,8 @@
 
 [English](README.en.md)
 
+本文件是 human-facing repository identity 的繁體中文（台灣）canonical 版本；`README.en.md` 是其英文翻譯。
+
 這個 repository 用來萃取、整理並演化我的軟體開發知識，以及可被 AI Agents 重複使用的 context、skills、sub-agent prompts 與協作 workflow。
 
 它不是產品專案本身，而是一個可攜式的 AI 協作框架。當這套 context 被帶到既有專案或全新空專案時，應先使用 `repo-structure-sync` 進行 repo init，讓目標專案的真實結構取代本 repo 中的 template 或歷史專案資訊。
@@ -61,7 +63,7 @@
 - `ai-context-governance`
   - 用於 context 分層、語言政策、skill routing、wrapper sync、AI 文件治理與搬移。
 - `ai-context-auditor`
-  - 用於定期執行唯讀 AI context 健康度與漂移自檢，預設排除產品程式碼，比較獨立分析與 repo-aware 分析，並保存正式報告。
+  - 用於唯讀 AI context 健康度與漂移自檢，預設排除產品程式碼，並比較獨立分析與 repo-aware 分析。結果可僅保留在對話中；只有需要保存正式報告時才建立 audit workflow 並將報告落地。
 - `repo-structure-sync`
   - 用於 repo init。當這套 AI context 被複製到既有或全新目標 repo 後，第一個應使用此 skill 盤點目標 repo 並刷新 `agents.md`、`.dev/` 與必要 `.ai/` 入口文件。
 - `ddd-ca-hex-architect`

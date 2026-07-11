@@ -1,10 +1,10 @@
 # Canonical Asset Schema
 
-本文件定義 portable AI assets 的最小 canonical schema。
+This document defines the minimum canonical schema for portable AI assets.
 
 ## Common Fields
 
-所有 asset spec 至少應包含：
+Every asset spec must include at least:
 
 - `id`
 - `asset_type`
@@ -23,7 +23,7 @@
 
 ## `skill` Spec
 
-額外建議欄位：
+Recommended additional fields:
 
 - `triggers`
 - `handoff_rules`
@@ -31,7 +31,7 @@
 
 ## `command` Spec
 
-額外建議欄位：
+Recommended additional fields:
 
 - `invocation_style`
 - `prompt_packages`
@@ -39,7 +39,7 @@
 
 ## `prompt-package` Spec
 
-額外建議欄位：
+Recommended additional fields:
 
 - `base_prompt`
 - `shared_fragments`
@@ -47,7 +47,7 @@
 
 ## `shared-rule` Spec
 
-額外建議欄位：
+Recommended additional fields:
 
 - `consumers`
 - `rule_scope`
@@ -72,7 +72,7 @@
 
 ## Wrapper Targets
 
-目前預設支援：
+Supported by default:
 
 - `claude`
 - `codex`

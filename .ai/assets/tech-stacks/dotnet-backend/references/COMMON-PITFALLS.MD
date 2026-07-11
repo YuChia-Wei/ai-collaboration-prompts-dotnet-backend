@@ -1,28 +1,28 @@
 # Common Pitfalls and Solutions (.NET)
 
-本文件記錄在使用 Sub-agent Workflow 實作時常見的錯誤和解決方案（.NET 版）。
+This document records common errors and solutions when implementing with the Sub-agent Workflow for .NET.
 
-## 🔴 DI / Configuration 問題（高頻）
+## 🔴 DI / Configuration Issues (Frequent)
 
-### 1. 重複的 EF Core 註冊
-**錯誤**：`InvalidOperationException: The service collection already contains ... DbContext`
+### 1. Duplicate EF Core Registration
+**Error**: `InvalidOperationException: The service collection already contains ... DbContext`
 
-**原因**：多處重複呼叫 `AddDbContext` 或 profile 未隔離。
+**Cause**: `AddDbContext` is called in multiple places, or profiles are not isolated.
 
-**解決方案**：
-1. 只在 profile-specific configuration 中註冊一次。
-2. 使用 `ASPNETCORE_ENVIRONMENT` 控制 InMemory / Outbox。
-3. 依 target repository 的實際 profile configuration 切換；generated `.dev/project-config.yaml` 僅作輔助摘要。
+**Solution**:
+1. Register it once in profile-specific configuration.
+2. Use `ASPNETCORE_ENVIRONMENT` to select InMemory or Outbox.
+3. Follow the target repository's actual profile configuration; generated `.dev/project-config.yaml` is only a supporting summary.
 
-**預防措施**：
+**Prevention**:
 ```bash
 rg -n "AddDbContext" src
 ```
 
-### 2. Use Case Input 欄位名稱不一致
-**錯誤**：Controller/Handler 讀取欄位名稱不一致導致 null。
+### 2. Inconsistent Use Case Input Field Names
+**Error**: Controller and Handler read different field names, producing null values.
 
-**解決方案**：DTO → Input 映射時明確對應欄位。
+**Solution**: Map fields explicitly when converting DTO → Input.
 ```csharp
 // Wrong
 input.ProductId = request.Id;
@@ -31,12 +31,12 @@ input.ProductId = request.Id;
 input.Id = request.ProductId;
 ```
 
-## 🔴 Outbox / Event Sourcing 問題
+## 🔴 Outbox / Event Sourcing Issues
 
-### 3. Wolverine Outbox 未啟用
-**錯誤**：事件未持久化或不出現於 message store。
+### 3. Wolverine Outbox Is Not Enabled
+**Error**: Events are not persisted or do not appear in the message store.
 
-**解決方案**：
+**Solution**:
 ```csharp
 services.AddWolverine(opts =>
 {
@@ -45,41 +45,41 @@ services.AddWolverine(opts =>
 });
 ```
 
-### 4. OutboxMapper 未處理無 events 的重建
-**錯誤**：從 DB 讀取時 Aggregate 無狀態。
+### 4. OutboxMapper Does Not Reconstruct Without Events
+**Error**: The Aggregate has no state when loaded from the database.
 
-**解決方案**：
-- 有 events → 從 events 重建
-- 無 events → 從 stored state 重建並補事件
+**Solution**:
+- With events → reconstruct from events.
+- Without events → reconstruct from stored state and restore events.
 
-### 5. 混用 InMemory / Outbox 註冊
-**錯誤**：同一個 profile 同時註冊 InMemory 與 Outbox repositories。
+### 5. Mixed InMemory / Outbox Registration
+**Error**: The same profile registers both InMemory and Outbox repositories.
 
-**解決方案**：保持 profile 隔離（InMemory / Outbox），只在對應 profile 註冊。
+**Solution**: Keep profiles isolated (InMemory / Outbox) and register only the matching implementation.
 
-## 🔴 Domain Model / Mapping 問題
+## 🔴 Domain Model / Mapping Issues
 
-### 6. Value Object 缺少 ValueOf/From 方法
-**錯誤**：Mapper 或 UseCase 無法一致地建立 VO。
+### 6. Value Object Lacks a ValueOf/From Method
+**Error**: Mapper or UseCase cannot create the VO consistently.
 
-**解決方案**：提供明確的建立方法，例如 `ValueOf(string)` 或 `From(string)`，並保留驗證。
+**Solution**: Provide an explicit factory such as `ValueOf(string)` or `From(string)` and retain validation.
 
-### 7. Projection 直接回傳 EF Entity
-**錯誤**：Projection 回傳 EF Core entity 而非 DTO。
+### 7. Projection Returns an EF Entity Directly
+**Error**: Projection returns an EF Core entity instead of a DTO.
 
-**解決方案**：透過 Mapper 投影為 DTO，避免直接暴露資料層。
+**Solution**: Project through a Mapper into a DTO to avoid exposing the data layer.
 
-### 8. Projection 混入 DbContext 邏輯
-**錯誤**：Projection 直接繼承 DbContext 或使用 Repository 介面覆寫 EF Core API。
+### 8. Projection Mixes in DbContext Logic
+**Error**: Projection directly inherits DbContext or uses a Repository interface to override the EF Core API.
 
-**解決方案**：使用 Adapter / Service 封裝查詢邏輯，Projection 只提供 query 方法。
+**Solution**: Encapsulate query logic in an Adapter / Service; Projection exposes query methods only.
 
-## 🔴 Controller 問題
+## 🔴 Controller Issues
 
-### 9. 忘記做 Null Guard
-**錯誤**：Controller/Handler 建構子未檢查 null。
+### 9. Missing Null Guard
+**Error**: The Controller/Handler constructor does not check for null.
 
-**解決方案**：
+**Solution**:
 ```csharp
 public CreateProductController(ICreateProductUseCase useCase)
 {
@@ -88,17 +88,17 @@ public CreateProductController(ICreateProductUseCase useCase)
 }
 ```
 
-### 10. 非同步 Command 檢查 ExitCode
-**錯誤**：Command 已排程仍檢查 ExitCode。
+### 10. Checking ExitCode for an Asynchronous Command
+**Error**: ExitCode is checked even though the Command has already been scheduled.
 
-**解決方案**：直接回傳 `202 Accepted` 或結果物件，不需同步等待。
+**Solution**: Return `202 Accepted` or a result object directly without waiting synchronously.
 
-## 🔴 Testing 問題
+## 🔴 Testing Issues
 
-### 11. 預設 BDDfy profile 忘記呼叫 BDDfy()
-**錯誤**：在已採用 BDDfy 的專案中，測試執行不觸發 Given/When/Then。若團隊明確停用 BDDfy，仍須以 plain xUnit 保留清楚的 GWT 結構與命名，不得改用 3A。
+### 11. Default BDDfy Profile Does Not Call BDDfy()
+**Error**: In a project using BDDfy, test execution does not trigger Given/When/Then. If the team explicitly disables BDDfy, plain xUnit must still retain clear GWT structure and naming; 3A must not be used instead.
 
-**解決方案**：
+**Solution**:
 ```csharp
 [Fact]
 public void Rule_Success_case()
@@ -107,21 +107,21 @@ public void Rule_Success_case()
 }
 ```
 
-### 12. 使用 BaseTestClass
-**錯誤**：繼承 BaseTestClass/BaseUseCaseTest。
+### 12. Using BaseTestClass
+**Error**: The test inherits BaseTestClass/BaseUseCaseTest.
 
-**解決方案**：改用 xUnit fixture + DI composition。
+**Solution**: Use an xUnit fixture plus DI composition.
 
-### 13. Profile 硬編碼在測試
-**錯誤**：在 test code 內設定 `ASPNETCORE_ENVIRONMENT`。
+### 13. Profile Is Hard-Coded in Tests
+**Error**: `ASPNETCORE_ENVIRONMENT` is set in test code.
 
-**解決方案**：由 test runner / fixture 控制環境。
+**Solution**: Let the test runner / fixture control the environment.
 
-## 預防措施
+## Prevention
 
-1. 使用 Sub-agent Workflow
-2. 參考 `.dev/standards/examples/`
-3. 執行 `.ai/scripts/check-all.sh` 作為過渡期本機 orchestrator
-4. 查看 `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`
+1. Use the Sub-agent Workflow.
+2. Refer to `.dev/standards/examples/`.
+3. Run `.ai/scripts/check-all.sh` as the transitional local orchestrator.
+4. Read `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD`.
 
-最後更新：2026-02-01
+Last updated: 2026-02-01

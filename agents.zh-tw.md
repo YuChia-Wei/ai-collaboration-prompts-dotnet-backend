@@ -2,6 +2,8 @@
 
 [English](agents.md)
 
+本文件是 canonical English agent-facing root collaboration guide `agents.md` 的繁體中文（台灣）翻譯。
+
 ## 適用範圍與優先順序
 
 - 本文件是 AI agents 與人類在此 repository 中協作時的根目錄指南。
@@ -167,9 +169,9 @@ Workflow artifact 規則：
 | Path | 說明 |
 | :--- | :--- |
 | `README.md` | Human-facing 繁體中文 repository identity |
-| `README.en.md` | English repository identity |
-| `agents.md` | Root agent collaboration guide |
-| `agents.zh-tw.md` | 繁體中文台灣用語版 root agent collaboration guide |
+| `README.en.md` | Repository identity 的英文翻譯 |
+| `agents.md` | Canonical English agent-facing root collaboration guide |
+| `agents.zh-tw.md` | Root collaboration guide 的繁體中文（台灣）翻譯 |
 
 ### AI Assets (`.ai/`)
 

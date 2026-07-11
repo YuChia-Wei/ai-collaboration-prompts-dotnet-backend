@@ -1,6 +1,6 @@
 # Canonical Asset Templates
 
-本目錄放 canonical asset spec templates。
+This directory contains canonical asset spec templates.
 
 ## Templates
 

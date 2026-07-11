@@ -7,7 +7,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T08:41:13+08:00`
+- `updated_at`: `2026-07-11T09:07:24+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -32,7 +32,7 @@
 | AIC-006 | HIGH | `resolved` | Workflow/commit policies and auditor contracts now distinguish transient conversational analysis, durable report-only audit, and governance remediation. | Request independent verification of authorization and persistence boundaries. | Governance completed; auditor verifies. |
 | AIC-007 | HIGH | `deferred` | Required shell checks remain mode `100644`; `check-all.sh` can exit zero after required checks are skipped as warnings. | Create tooling/validation workflow for fail-closed gates and executable-mode enforcement. | Tooling workflow; outside this documentation-governance batch. |
 | AIC-008 | MEDIUM | `resolved` | Current catalogs list Agents/Codex and Claude; Gemini paths, targets, branch prefixes, and descriptions were removed; Copilot alone remains planned/optional. | Request independent runtime-truth verification. | Governance completed; auditor verifies. |
-| AIC-009 | MEDIUM | `partially-resolved` | Index corruption is repaired and `validate-ai-context.py` checks active paths, runtime status, and wrapper parity; language and bilingual parity lint remain deferred. | Retain narrow lint in quick checks and define a safe language/parity policy later. | Governance partial; auditor verifies implemented scope. |
+| AIC-009 | MEDIUM | `partially-resolved` | Index/runtime/workflow lint is active; root bilingual ownership/parity and the first 12 agent-facing translation targets are corrected. A larger standards translation backlog remains. | Continue reviewable translation batches, then add policy-aware language/parity lint with explicit exceptions. | Governance translation migration in progress. |
 
 ## Remediation Batches
 
@@ -95,10 +95,27 @@
 
 ### AIC-009
 
-- Changes: repaired three literal table corruptions in `.dev/INDEX.md`; added `.ai/scripts/validate-ai-context.py`; wired it into `check-all.sh --quick`.
-- Evidence: validator covers seven active indexes, current/planned runtime status, and 13-skill canonical/Agents/Claude parity.
-- Validation: context lint and Python compile passed; repository quick check passed 5/5 including 49 .NET tests.
-- Remaining risk: language-policy and bilingual-parity lint are intentionally deferred to avoid unsafe broad character matching.
+- Changes: repaired three literal table corruptions; added `.ai/scripts/validate-ai-context.py`; translated six active `.ai` documents, five test-spec documents, and problem-frame semantics; declared canonical/translated ownership for root bilingual entries and synchronized auditor mode descriptions.
+- Evidence: translated `.ai` files include the code-review index, pitfalls, building-block index, shared/template READMEs, and canonical schema. Translated `.dev` files include test-spec guidance and `.dev/problem-frames/SEMANTICS.md`.
+- Validation: translated execution contracts have no residual Han prose; relative Markdown links resolve; root README/agents pairs pass semantic parity review; context lint and repository quick checks pass.
+- Remaining risk: 21 high-priority and several medium-priority `.dev/standards`/`.dev/specs` translation candidates remain. Language lint stays deferred until that backlog is reduced and explicit trigger/domain exceptions are encoded.
+
+## Translation Migration Progress
+
+### Wave 1 — Completed
+
+- Six active `.ai` agent-facing documents translated to English.
+- Five `.dev/specs/tests` execution documents translated to English while preserving BDDfy-default, mandatory-GWT, no-3A, and conditional-`.feature` semantics.
+- `.dev/problem-frames/SEMANTICS.md` translated to English.
+- `README.md` / `README.en.md` and `agents.md` / `agents.zh-tw.md` now declare canonical versus translated ownership; auditor descriptions and root-entry catalogs are synchronized.
+
+### Next Translation Waves
+
+1. Core testing and spec execution contracts: remaining active `.dev/specs` guides plus review/checklist surfaces.
+2. Core architecture standards: aggregate, repository, use-case, mapper, controller, projection, reactor, and archive standards.
+3. Remaining standards registries, configuration checklists, rationale/index surfaces, and policy-aware language lint.
+
+Each wave must preserve identifiers, paths, code blocks, normative strength, and explicit language exceptions. Do not create bilingual copies for non-entry execution contracts.
 
 ## Deferred Work
 
