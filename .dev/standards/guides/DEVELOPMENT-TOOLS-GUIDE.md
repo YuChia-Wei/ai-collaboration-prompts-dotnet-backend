@@ -37,10 +37,17 @@ dotnet restore
 
 ```bash
 git status
+git switch main
+git switch -c codex/<workflow-id>
 git add -A
 git commit -m "feat: Add new feature"
+git push -u origin codex/<workflow-id>
+git switch main
+git merge --no-ff codex/<workflow-id>
 git push origin main
 ```
+
+Workflow 未完成但需要跨主機交接時，優先 push workflow branch。若使用者明確要求先合併，仍使用 `--no-ff`，並把它記為 checkpoint；後續從更新後的 `main` 建立新的 continuation branch。
 
 ### 提交規範
 ```

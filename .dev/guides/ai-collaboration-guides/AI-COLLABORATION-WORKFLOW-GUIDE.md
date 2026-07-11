@@ -252,6 +252,8 @@
 
 - `.dev/workflows/<YYYY-MM-DD-topic[-NN]>/workflow.yaml`
 
+建立 locator 前，先從預定 base branch 建立獨立 workflow branch；Codex 預設為 `codex/<workflow-id>`。Locator 必須記錄 `branch`、`base_branch`。Workflow merge 預設使用 `--no-ff`。
+
 Locator 固定記錄 owner skill、status、artifact root、entrypoint、`created_at` 與 `updated_at`。真正 artifact layout 與 template 由建立該類 workflow 的 skill 管理：
 
 - software/product development lifecycle → `dev-workflow`
@@ -271,6 +273,8 @@ artifact 預設放在 locator 同目錄；owner skill 也可宣告其他 reposit
 - 這一輪補的是哪個知識缺口
 - 完成後可以支撐哪一種維護情境
 - 哪些內容刻意延到下一 stage
+
+若使用者在 workflow 未完成時要求 merge/push，將它記為 checkpoint handoff，不得直接標記 completed。Push-only 時從已推送的 workflow branch 接續；checkpoint merge 後才從更新後的 target 建立新的 continuation branch，再更新 locator 後繼續。
 
 ### Practical Trigger Rule
 

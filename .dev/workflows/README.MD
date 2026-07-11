@@ -29,6 +29,8 @@
 
 `workflow.yaml` 是固定 locator。真正 artifact 預設放在相同目錄，也可由 workflow-owning skill 宣告其他 repository-relative `artifact_root`。詳細共通契約見 `.dev/standards/WORKFLOW-ARTIFACT-POLICY.md`。
 
+建立新 workflow 時，必須先從預定 base branch 建立獨立 workflow branch，再建立 locator。Codex 預設使用 `codex/<workflow-id>`。Workflow 尚未完成時的 merge/push 只算 checkpoint，不得把 status 改成 completed；push-only 從遠端 workflow branch 接續，checkpoint merge 後才從更新後的 target 建立新的 continuation branch。Workflow branch 預設以 `--no-ff` 合併。
+
 ## 命名原則
 
 - `<workflow-id>`：新 workflow 使用 `YYYY-MM-DD-<skill-owned-topic>[-<sequence>]`，例如 `2026-07-10-ordering-boundary-cleanup`

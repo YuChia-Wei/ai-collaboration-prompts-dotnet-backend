@@ -6,7 +6,7 @@ This document defines the current repository git flow.
 
 `main` is the only long-lived trunk.
 
-All feature, workflow, documentation, and agent work branches start from `main` and merge back to `main` when complete.
+All feature, workflow, documentation, and agent work branches start from `main`. Completed workflows merge back to `main`; an explicitly requested earlier merge is a checkpoint and does not close the workflow.
 
 ## Branch Model
 
@@ -20,7 +20,7 @@ Do not create persistent `develop`, `baseline`, `release`, or agent-specific lon
 
 ### Short-Lived Branches
 
-Use short-lived branches for bounded work:
+Use short-lived branches for bounded work. A workflow branch is mandatory, not optional.
 
 | Prefix | Use |
 | --- | --- |
@@ -35,7 +35,7 @@ Use the agent prefix when an agent performs the work.
 ## Normal Flow
 
 1. Start from a clean `main`.
-2. Create a short-lived branch:
+2. Create or switch to a short-lived branch before workflow artifacts or material edits:
 
    ```text
    <prefix>/<topic>
@@ -54,7 +54,7 @@ Use the agent prefix when an agent performs the work.
 
 ## Workflow Branches
 
-When work uses `.dev/workflows/<workflow-id>/`, prefer:
+When work uses `.dev/workflows/<workflow-id>/`, use:
 
 ```text
 codex/<workflow-id>
@@ -65,16 +65,32 @@ gemini/<workflow-id>
 Examples:
 
 ```text
-codex/2026-05-ai-context-skill-and-doc-cleanup
-claude/payment-refactor-stage-1
-gemini/spec-cleanup
+codex/2026-07-11-ai-context-skill-and-doc-cleanup
+claude/2026-07-11-payment-refactor-stage-1
+gemini/2026-07-11-spec-cleanup
 ```
+
+Create the branch before creating `.dev/workflows/<workflow-id>/workflow.yaml`. Record the branch and base branch in the locator.
 
 ## Merge Rule
 
 Use `--no-ff` for workflow and multi-commit branches so the branch work remains visible as a grouped unit.
 
 Fast-forward merge is acceptable only for tiny direct-mode branches when the user or maintainer explicitly chooses it.
+
+## Checkpoint Handoff And Cross-Machine Continuation
+
+When work must move to another machine or session before all workflow tasks are complete:
+
+1. Commit a coherent validated checkpoint and keep the workflow `active`.
+2. Prefer pushing the workflow branch when integration into `main` is not required.
+3. For a push-only handoff, fetch the remote branch on the next machine and resume that branch, or create a continuation branch from that remote branch. Do not restart from `main`, because it does not contain the unmerged checkpoint.
+4. If merge is explicitly requested, merge with `--no-ff` and push the requested target.
+5. After a checkpoint merge, start from the updated target branch and create a new continuation branch such as `<prefix>/<workflow-id>-cont-02`; do not continue material work on the target branch.
+6. Record the checkpoint type (`push` or `merge`), commit, remote or target, timestamp, reason, last completed task, and exact resume branch/action in the workflow plan.
+7. Update locator `branch`, `base_branch`, `updated_at`, and branch history only when the active branch segment changes.
+
+A checkpoint push or merge is a transport and handoff boundary. Neither is a workflow completion signal.
 
 ## Commit Rule
 

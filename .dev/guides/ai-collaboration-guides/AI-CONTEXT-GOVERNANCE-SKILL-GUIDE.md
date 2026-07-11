@@ -53,11 +53,14 @@
 
 ## Workflow 與時間欄位
 
+- 建立 workflow artifacts 前，先建立 `codex/<workflow-id>` 或 runtime 對應的獨立 branch。
 - Workflow id 使用 `YYYY-MM-DD-topic[-NN]`，同日重複時依序使用 `-02`、`-03`。
 - `.dev/workflows/<workflow-id>/workflow.yaml` 永遠保留為 locator；實際 `artifact_root` 可由本 skill 依任務特性指定。
+- Locator 與 plan 記錄 `branch`、`base_branch`；workflow 不得直接在 `main` 上執行。
 - `created_at`、`updated_at` 使用帶明確 offset 的 ISO 8601。
 - 所有 generated artifacts 記錄 `template_source` 與 `template_version`。
 - 暫停前更新 locator、plan 與 active task 的 checkpoint，包含最後完成動作、下一步、validation 與 Git state。
+- 未完成時若使用者要求 merge/push，視為 checkpoint handoff：維持 active/pending 並記錄 checkpoint evidence；merge 預設 `--no-ff`。Push-only 從已推送 branch 接續，checkpoint merge 後才建立新的 continuation branch。
 
 本 skill 的 templates 位於 `.ai/assets/skills/ai-context-governance/templates/`。
 

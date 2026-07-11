@@ -113,6 +113,17 @@ For workflow mode, commit at these boundaries:
 
 If several small policy tasks are completed together and validated together, they may share one commit.
 
+## Workflow Branch And Merge Rule
+
+Branch naming, branch-first creation, push, checkpoint merge, continuation, and default `--no-ff` behavior are owned by `.dev/TEAM-GIT-FLOW-RULES.MD`.
+
+For commit-policy purposes:
+
+- create workflow commits only on the dedicated workflow or continuation branch;
+- include checkpoint state in the commit body when the workflow will be handed off or merged before completion;
+- do not treat a commit, push, or merge as evidence that the workflow is complete;
+- verify the workflow closing checklist separately from Git transport state.
+
 ## Validation Notes
 
 Before commit, run the narrowest meaningful validation:

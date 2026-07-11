@@ -12,6 +12,7 @@ from pathlib import Path
 
 
 ADOPTION_DATE = date(2026, 7, 10)
+BRANCH_POLICY_DATE = date(2026, 7, 11)
 ID_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-[a-z0-9][a-z0-9-]*$")
 TASK_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 REQUIRED_LOCATOR = {
@@ -89,6 +90,17 @@ def main() -> int:
             continue
         if locator["workflow_id"] != directory.name:
             errors.append(f"{locator_path.relative_to(repo)}: workflow_id must match directory name")
+        if workflow_date >= BRANCH_POLICY_DATE:
+            missing_branch = sorted({"branch", "base_branch"} - locator.keys())
+            if missing_branch:
+                errors.append(f"{locator_path.relative_to(repo)}: missing branch fields {', '.join(missing_branch)}")
+            else:
+                branch = locator["branch"]
+                base_branch = locator["base_branch"]
+                if branch in {"main", "master"} or branch == base_branch:
+                    errors.append(f"{locator_path.relative_to(repo)}: workflow branch must differ from the long-lived base branch")
+                if "/" not in branch:
+                    errors.append(f"{locator_path.relative_to(repo)}: workflow branch must use a short-lived branch prefix")
         created = timestamp(locator["created_at"], f"{locator_path.relative_to(repo)} created_at", errors)
         updated = timestamp(locator["updated_at"], f"{locator_path.relative_to(repo)} updated_at", errors)
         if created and updated and updated < created:

@@ -39,9 +39,11 @@ constraints:
   - "Remain read-only with respect to audited context; writing owned workflow metadata and audit reports does not authorize remediation."
   - "Never overwrite a baseline report with post-remediation results."
   - "Use workflow ids in YYYY-MM-DD-topic[-NN] form and ISO 8601 timestamps with an explicit offset."
+  - "For an audit-only workflow, create or switch to its dedicated branch before writing artifacts; when participating in a governance-owned lifecycle, use that workflow branch instead of creating a second workflow branch."
+  - "Treat pre-completion merge or push as a checkpoint; use --no-ff for merges unless another strategy is explicitly requested."
 workflow:
   - step: 1
-    description: "Read the active repository instructions, confirm the audit objective, establish an AI-context allowlist, record exclusions, and apply the code-review handoff gate."
+    description: "Read the active repository instructions, confirm the audit objective, establish an AI-context allowlist, record exclusions, apply the code-review handoff gate, and establish the correct dedicated branch before durable workflow artifacts."
   - step: 2
     description: "Perform an independent baseline pass using general AI context, knowledge-base, documentation, and runtime-governance engineering principles without using repository governance claims as the scoring rubric."
   - step: 3

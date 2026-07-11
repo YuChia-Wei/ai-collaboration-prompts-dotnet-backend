@@ -57,6 +57,8 @@
 
 新 workflow 使用 `YYYY-MM-DD-topic`；同一天同主題的後續 workflow 使用 `-02`、`-03`。每個 workflow 仍保留 `.dev/workflows/<workflow-id>/workflow.yaml` 作為 shared locator。Generated artifacts 必須記錄 `template_source`、`template_version`、`created_at` 與 `updated_at`；`created_at` 建立後不得改寫，內容或狀態更新時必須同步更新 `updated_at`。
 
+進入 workflow mode 後，先建立 `codex/<workflow-id>` 或 runtime 對應的獨立 branch，再建立 locator 與 artifacts。Locator/plan 必須記錄 `branch` 與 `base_branch`。若 workflow 未完成就依使用者要求 merge/push，該動作只算 checkpoint；保留 active/pending 狀態並記錄 handoff，合併預設使用 `--no-ff`。Push-only 從已推送 branch 接續；checkpoint merge 後不得直接在 target branch 繼續，應從更新後的 target 建立新的 continuation branch。
+
 ## 三種使用模式
 
 | 模式 | 說明 | 品質邊界 |
@@ -241,6 +243,7 @@ Use $dev-workflow to inspect the current workflow state.
 
 Check:
 - current branch
+- whether the current branch matches the workflow locator and is not `main`
 - git status
 - .dev/workflows/<workflow-id>/workflow-plan.md
 - task JSON status
@@ -279,3 +282,4 @@ Check:
 - fallback playbook 必須明確標示品質限制，不能包裝成專職 skill 結果。
 - 若 routing 規則改變，先更新 `.ai/assets/skills/dev-workflow/skill.yaml` 與 references，再同步 wrapper 與 guide。
 - development artifact 格式由 `dev-workflow` 自有 templates 管理；shared locator 與最低互通規則仍以 repository workflow policy 為準。
+- 每次 development workflow 都使用獨立 branch；checkpoint merge 與 workflow completion 必須分開判斷，workflow merge 預設 `--no-ff`。

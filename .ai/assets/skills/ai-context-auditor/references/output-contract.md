@@ -20,6 +20,8 @@ Post-remediation destination:
 
 Use `.dev/workflows/<YYYY-MM-DD-topic[-NN]>/workflow.yaml` as the stable locator. For audit-only workflows, initialize the locator, plan, and task from the templates owned by this skill. For a governance-owned lifecycle, update only the auditor-owned report and audit task fields authorized by that workflow.
 
+An audit-only workflow uses its own dedicated branch. An audit stage inside a governance-owned lifecycle uses the governance workflow branch and must not open a competing workflow branch. Report push/merge handoffs separately from final audit completion.
+
 The report must include metadata and scope, explicit code exclusions, methodology and evidence, both audit passes, their comparison, strengths, severity-ranked findings, validation and skipped checks, deferred items and code-review handoffs, and prioritized actions.
 
 Include ISO 8601 `created_at` and `updated_at` values with an explicit offset plus `template_source` and `template_version`. Do not mark the report final while high-severity claims lack file-backed evidence.

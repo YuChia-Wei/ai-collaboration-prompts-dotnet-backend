@@ -1,0 +1,20 @@
+{
+  "task_id": "WBLP-002",
+  "workflow_id": "2026-07-11-workflow-branch-lifecycle-policy",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-11T00:02:10+08:00",
+  "updated_at": "2026-07-11T00:15:02+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "template_version": "1.0.0",
+  "scope": { "target": "Define and implement branch-first, checkpoint-merge, and no-fast-forward workflow policy." },
+  "dependencies": ["WBLP-001"],
+  "execution": {
+    "steps": ["Update canonical policies", "Update templates and skill playbooks", "Update human and agent entry guidance", "Extend validation"],
+    "validation": ["Branch metadata contract", "Stale guidance search", "Structured file parse"]
+  },
+  "results": {
+    "summary": "Made dedicated workflow branches mandatory before artifact creation, defined checkpoint continuation and default no-fast-forward merges, added branch metadata to templates and validation, and synchronized canonical policies, skill contracts, wrappers, and human guidance.",
+    "follow_up_needed": false
+  }
+}
