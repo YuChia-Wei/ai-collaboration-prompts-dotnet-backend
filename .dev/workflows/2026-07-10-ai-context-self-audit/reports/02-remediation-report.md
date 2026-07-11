@@ -7,7 +7,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T13:36:00+08:00`
+- `updated_at`: `2026-07-11T13:42:19+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -32,7 +32,7 @@
 | AIC-006 | HIGH | `resolved` | Workflow/commit policies and auditor contracts now distinguish transient conversational analysis, durable report-only audit, and governance remediation. | Request independent verification of authorization and persistence boundaries. | Governance completed; auditor verifies. |
 | AIC-007 | HIGH | `deferred` | Required shell checks remain mode `100644`; `check-all.sh` can exit zero after required checks are skipped as warnings. | Create tooling/validation workflow for fail-closed gates and executable-mode enforcement. | Tooling workflow; outside this documentation-governance batch. |
 | AIC-008 | MEDIUM | `resolved` | Current catalogs list Agents/Codex and Claude; Gemini paths, targets, branch prefixes, and descriptions were removed; Copilot alone remains planned/optional. | Request independent runtime-truth verification. | Governance completed; auditor verifies. |
-| AIC-009 | MEDIUM | `partially-resolved` | Index/runtime/workflow lint is active; root bilingual parity and translation waves 1-4 corrected 39 agent-facing execution documents, including core architecture and standards entry surfaces. Remaining configuration/template guides and policy-aware lint remain. | Finish the bounded active standards backlog, then add language/parity lint with explicit exceptions. | Governance translation migration in progress. |
+| AIC-009 | MEDIUM | `partially-resolved` | Index/runtime/workflow lint is active; root bilingual parity and translation waves 1-5 corrected 45 agent-facing execution documents. The active document backlog is complete; policy-aware language/parity lint remains. | Add language/parity lint with explicit exceptions for triggers and script semantics, then request independent verification. | Governance translation migration documents complete; lint pending. |
 
 ## Remediation Batches
 
@@ -137,11 +137,18 @@
 - No new rule conflicts were identified during this wave.
 - Updated `check-coding-standards.sh` section matching from retired Chinese headings to the translated English canonical headings; this is a narrow validator-compatibility correction, not the deferred fail-closed tooling redesign.
 
+### Wave 5 — Completed
+
+- Translated the ADR creation guide and development-tools guide.
+- Translated database migration and EF Core configuration guides while preserving their conditional technology scope.
+- Translated application-properties and profile-isolated configuration templates without changing configuration values, placeholders, or code semantics.
+- The remaining Han matches in active scoped surfaces are intentional user trigger phrases or script output/pattern semantics, not untranslated documentation prose.
+
 ### Next Translation Waves
 
-1. Remaining configuration/template/standards-guide surfaces identified by the language inventory.
-2. Resolve or explicitly defer the three semantic-governance issues exposed during translation.
-3. Add policy-aware language/parity lint with explicit exceptions for trigger phrases, identifiers, and human-facing documents.
+1. Resolve or explicitly defer the three semantic-governance issues exposed during translation.
+2. Add policy-aware language/parity lint with explicit exceptions for trigger phrases, identifiers, script output/patterns, and human-facing documents.
+3. Continue AIC-001/AIC-004/AIC-005 machine-governance remediation.
 
 Each wave must preserve identifiers, paths, code blocks, normative strength, and explicit language exceptions. Do not create bilingual copies for non-entry execution contracts.
 
@@ -154,6 +161,6 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 ## Closure Evidence
 
 - Required validations: pending remediation and independent post-audit.
-- Commit status: waves 1-3 and prior remediation stages are committed; wave 4 plus its validator-compatibility correction are ready for a checkpoint commit.
+- Commit status: waves 1-4 and prior remediation stages are committed; wave 5 is ready for a checkpoint commit.
 - Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
 - Final next action: complete the AIC-001/AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.
