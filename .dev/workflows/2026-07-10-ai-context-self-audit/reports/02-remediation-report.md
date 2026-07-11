@@ -7,7 +7,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-11T08:18:07+08:00`
-- `updated_at`: `2026-07-11T09:07:24+08:00`
+- `updated_at`: `2026-07-11T13:20:25+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `1.0.0`
 - `baseline_report`: `.dev/workflows/2026-07-10-ai-context-self-audit/reports/01-audit-report.md`
@@ -32,7 +32,7 @@
 | AIC-006 | HIGH | `resolved` | Workflow/commit policies and auditor contracts now distinguish transient conversational analysis, durable report-only audit, and governance remediation. | Request independent verification of authorization and persistence boundaries. | Governance completed; auditor verifies. |
 | AIC-007 | HIGH | `deferred` | Required shell checks remain mode `100644`; `check-all.sh` can exit zero after required checks are skipped as warnings. | Create tooling/validation workflow for fail-closed gates and executable-mode enforcement. | Tooling workflow; outside this documentation-governance batch. |
 | AIC-008 | MEDIUM | `resolved` | Current catalogs list Agents/Codex and Claude; Gemini paths, targets, branch prefixes, and descriptions were removed; Copilot alone remains planned/optional. | Request independent runtime-truth verification. | Governance completed; auditor verifies. |
-| AIC-009 | MEDIUM | `partially-resolved` | Index/runtime/workflow lint is active; root bilingual ownership/parity and the first 12 agent-facing translation targets are corrected. A larger standards translation backlog remains. | Continue reviewable translation batches, then add policy-aware language/parity lint with explicit exceptions. | Governance translation migration in progress. |
+| AIC-009 | MEDIUM | `partially-resolved` | Index/runtime/workflow lint is active; root bilingual parity and translation waves 1-2 corrected 20 agent-facing execution documents. Core architecture standards remain. | Continue reviewable architecture-standard translation batches, then add policy-aware language/parity lint with explicit exceptions. | Governance translation migration in progress. |
 
 ## Remediation Batches
 
@@ -109,11 +109,19 @@
 - `.dev/problem-frames/SEMANTICS.md` translated to English.
 - `README.md` / `README.en.md` and `agents.md` / `agents.zh-tw.md` now declare canonical versus translated ownership; auditor descriptions and root-entry catalogs are synchronized.
 
+### Wave 2 — Completed
+
+- Translated `.dev/standards/coding-standards/test-standards.md` while preserving BDDfy-default, mandatory-GWT, no-3A, optional-`.feature`, and no-`BaseTestClass` rules.
+- Translated the repository code-review checklist and ASP.NET Core configuration checklist.
+- Translated the primary spec authoring and organization guides.
+- Translated the ADR catalog and remaining short standards entry surfaces selected for this wave.
+- Corrected one positive Contract Test example that still used Arrange/Act terminology; negative examples retain it only as explicitly incorrect behavior.
+
 ### Next Translation Waves
 
-1. Core testing and spec execution contracts: remaining active `.dev/specs` guides plus review/checklist surfaces.
-2. Core architecture standards: aggregate, repository, use-case, mapper, controller, projection, reactor, and archive standards.
-3. Remaining standards registries, configuration checklists, rationale/index surfaces, and policy-aware language lint.
+1. Core architecture standards: aggregate, repository, use-case, mapper, controller, projection, reactor, and archive standards.
+2. Remaining standards registries, project structure, anti-patterns/best-practices, rationale/index surfaces, and configuration guides.
+3. Policy-aware language/parity lint with explicit exceptions for trigger phrases, identifiers, and human-facing documents.
 
 Each wave must preserve identifiers, paths, code blocks, normative strength, and explicit language exceptions. Do not create bilingual copies for non-entry execution contracts.
 
@@ -126,6 +134,6 @@ Each wave must preserve identifiers, paths, code blocks, normative strength, and
 ## Closure Evidence
 
 - Required validations: pending remediation and independent post-audit.
-- Commit status: continuation branch is dirty; no remediation commit yet.
+- Commit status: waves 1 and prior remediation stages are committed; wave 2 is ready for its checkpoint commit.
 - Workflow/task status: AICSA-002 completed; AICSA-003 in progress.
 - Final next action: complete the AIC-001/AIC-004/AIC-005 machine-governance batch, then request independent post-remediation audit.

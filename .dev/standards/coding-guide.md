@@ -13,11 +13,11 @@
 ## Quick Start
 
 ### 1. Essential Reading Order
-1. `coding-standards.md` - 編碼規範（優先閱讀）
+1. `coding-standards.md` - Coding standards (read first)
 2. This file - Overview and quick reference
-3. `../guides/implementation-guides/TEMPLATE-USAGE-GUIDE.md` - 範本選擇與使用決策指南
+3. `../guides/implementation-guides/TEMPLATE-USAGE-GUIDE.md` - Template selection and usage decision guide
 4. Root `agents.md` and `README.md` - repository rules and identity
-5. `project-structure.md` - .NET 專案結構
+5. `project-structure.md` - .NET project structure
 6. Relevant aggregate spec in `.dev/specs/[aggregate]/`
 
 ### 2. Preserved Example Profile
