@@ -13,6 +13,12 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 | [CAP-001](items/CAP-001.yaml) | LOW | Decide the ownership of technical glossary and terminology work. | Choose a skill, extend context guidance, or defer. | 2026-07-12 |
 | [VAL-001](items/VAL-001.yaml) | LOW | Reassess deferred repository and dependency/version validation gaps. | Fresh development-tooling inventory required before planning. | 2026-07-12 |
 
+## In Progress
+
+| Item | Priority | Summary | Workflow | Updated |
+| --- | --- | --- | --- | --- |
+| [CTX-003](items/CTX-003.yaml) | HIGH | Remediate the five CTX-001 findings and obtain an independent post-remediation audit. | [`2026-07-12-ai-context-truth-contract-remediation`](../workflows/2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | 2026-07-12 |
+
 ## Resolved
 
 | Item | Priority | Resolution | Workflow | Updated |

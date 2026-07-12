@@ -4,6 +4,12 @@ This index is the discovery view for workflow records. Each workflow's
 `workflow.yaml` remains the lifecycle source of truth; this file must not repeat
 task-level progress.
 
+## Active Workflows
+
+| Workflow | Title | Owner | Status | Updated | Entry Point |
+| --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `in_progress` | `2026-07-12T18:26:13+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |
+
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |

@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AICR-002",
+  "workflow_id": "2026-07-12-ai-context-truth-contract-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-12T18:26:13+08:00",
+  "updated_at": "2026-07-12T18:26:13+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["CTX-H-002"],
+  "scope": {
+    "target": "Parameterize active guides and remove historical source-project facts and unsafe credential defaults.",
+    "files": [".dev/guides/implementation-guides/CORS-SETUP.md", ".dev/guides/design-guides/PROFILE-BASED-TESTING-GUIDE.md", ".dev/guides/implementation-guides/VERSION-PLACEHOLDER-GUIDE.md", ".dev/guides/INDEX.MD", ".dev/guides/design-guides/README.MD", ".dev/guides/implementation-guides/README.MD"],
+    "constraints": ["Preserve GWT, BDDfy default/opt-out, and optional .feature policy.", "Use target evidence and secret-source references instead of invented values.", "Do not scan product source/tests."],
+    "non_goals": ["Define canonical fixed test profiles.", "Add a frontend profile.", "Modernize unrelated guides."]
+  },
+  "execution": {
+    "steps": ["Remove current-project assertions and source-project names.", "Replace fixed paths, profiles, providers, versions, ports, and schemas with conditional examples or evidence placeholders.", "Remove literal credential recommendations and require secrets/configuration sources.", "Synchronize index descriptions only where necessary and validate targeted searches."],
+    "validation": ["targeted stale-truth, name, frontend, and credential searches", "python .ai/scripts/validate-ai-context.py", "git diff --check"],
+    "last_completed_step": "Finding triaged with guide-level preservation and removal rules.",
+    "next_action": "Inspect the three primary guide files and classify each fixed assertion before editing."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}

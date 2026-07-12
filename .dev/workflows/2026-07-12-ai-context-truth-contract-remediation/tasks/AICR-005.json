@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AICR-005",
+  "workflow_id": "2026-07-12-ai-context-truth-contract-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-12T18:26:13+08:00",
+  "updated_at": "2026-07-12T18:26:13+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["CTX-H-001", "CTX-H-002", "CTX-M-001", "CTX-M-002", "CTX-L-001"],
+  "scope": {
+    "target": "Publish remediation evidence, obtain independent post-audit, reconcile findings, and close lifecycle.",
+    "files": ["reports/02-remediation-report.md", "reports/03-post-remediation-audit-report.md", "workflow.yaml", "workflow-plan.md", "tasks/*.json", ".dev/workflows/INDEX.MD", ".dev/backlog/items/CTX-003.yaml", ".dev/backlog/INDEX.MD"],
+    "constraints": ["Governance authors 02; ai-context-auditor independently authors 03.", "Do not rewrite the immutable baseline report.", "Do not close without explicit status for every finding and commit evidence."],
+    "non_goals": ["Self-certify remediation without auditor pass.", "Absorb unrelated backlog work."]
+  },
+  "execution": {
+    "steps": ["Create and update the remediation evidence ledger.", "Run aggregate quick and context gates.", "Invoke ai-context-auditor read-only on this workflow branch for report 03.", "Reconcile every finding and residual risk.", "Complete task/workflow/backlog state, commit, and merge only after closure checks."],
+    "validation": ["all three context validators", "check-all.sh --quick", "independent post-remediation audit", "git diff --check", "clean committed branch before merge"],
+    "last_completed_step": "Closure contract and independent ownership boundary recorded.",
+    "next_action": "Wait until AICR-001 through AICR-004 are completed and committed."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
