@@ -4,15 +4,11 @@ This index is the discovery view for workflow records. Each workflow's
 `workflow.yaml` remains the lifecycle source of truth; this file must not repeat
 task-level progress.
 
-## Active Workflows
-
-| Workflow | Title | Owner | Status | Updated | Entry Point |
-| --- | --- | --- | --- | --- | --- |
-
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-post-aic-007-ai-context-audit`](2026-07-12-post-aic-007-ai-context-audit/workflow.yaml) | Post-AIC-007 AI Context Health Audit | `ai-context-auditor` | `completed` | `2026-07-12T18:22:53+08:00` | [plan](2026-07-12-post-aic-007-ai-context-audit/workflow-plan.md) |
 | [`2026-07-12-ctx-002-ai-index-repair`](2026-07-12-ctx-002-ai-index-repair/workflow.yaml) | CTX-002 AI Index Repair | `ai-context-governance` | `completed` | `2026-07-12T14:29:43+08:00` | [plan](2026-07-12-ctx-002-ai-index-repair/workflow-plan.md) |
 | [`2026-07-11-aic-007-fail-closed-validation`](2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | AIC-007 Fail-Closed Validation And Executable Modes | `dev-workflow` | `completed` | `2026-07-12T14:03:59+08:00` | [plan](2026-07-11-aic-007-fail-closed-validation/workflow-plan.md) |
 | [`2026-07-11-workflow-branch-lifecycle-policy`](2026-07-11-workflow-branch-lifecycle-policy/workflow.yaml) | Workflow Branch Lifecycle Policy | `ai-context-governance` | `completed` | `2026-07-11T00:23:58+08:00` | [plan](2026-07-11-workflow-branch-lifecycle-policy/workflow-plan.md) |
