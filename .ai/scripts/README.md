@@ -58,6 +58,22 @@ Git Bash and `core.filemode=false`.
 
 These may remain as local workflow entry points, but their future role is to invoke dotnet-native validation and summarize outputs. They should not remain regex-based C# validators.
 
+`check-all.sh` uses four enforcement classes:
+
+- `required`: when selected by the active mode, the check must execute; missing,
+  non-executable/unlaunchable, or non-zero outcomes fail the aggregate gate;
+- `conditional-required`: absence of all applicability inputs is reported as not
+  applicable, partial configuration fails, and an applicable check is required;
+- `advisory`: execution problems and non-zero outcomes remain visible warnings
+  but do not fail otherwise successful required checks;
+- `deferred`: known future work is counted separately and is never described as
+  a selected required check.
+
+Mode-based omission is distinct from a selected required check being skipped.
+Invalid modes or extra arguments return exit code `2`. A successful aggregate
+result may contain explicit advisory warnings, deferred work, or not-applicable
+conditional checks, but it cannot contain an unexecuted selected required check.
+
 Future `check-all.sh` shape:
 
 ```bash

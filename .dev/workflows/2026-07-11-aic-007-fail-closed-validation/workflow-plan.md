@@ -17,7 +17,7 @@
 - `branch_segment`: `1`
 - `status`: `active`
 - `created_at`: `2026-07-11T23:43:23+08:00`
-- `updated_at`: `2026-07-12T08:24:26+08:00`
+- `updated_at`: `2026-07-12T08:46:00+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -137,11 +137,11 @@
 
 ## Progress And Handoff
 
-- Current stage: Stage 4 enforcement-aware orchestrator (`AIC007-004`) pending checkpoint commit.
-- Completed stages: AIC007-001 evidence/contract, AIC007-002 durable discovery integrity, and AIC007-003 executable-mode contract.
-- Deferred stages and reasons: gate-semantics implementation begins after the executable-integrity checkpoint.
+- Current stage: Stage 5 transitional script disposition (`AIC007-005`) pending checkpoint commit.
+- Completed stages: AIC007-001 evidence/contract, AIC007-002 durable discovery integrity, AIC007-003 executable-mode contract, and AIC007-004 enforcement-aware orchestrator.
+- Deferred stages and reasons: generated/HardDelete retirement begins after the gate-semantics checkpoint.
 - Open decisions: none blocking. Optional future decision: add Linux CI after local cross-platform semantics are proven.
-- Continuation instructions: commit AIC007-003, then implement AIC007-004 enforcement classes and truthful required/advisory accounting.
+- Continuation instructions: commit AIC007-004, then execute AIC007-005 without reintroducing grep-based semantic gates.
 - Branch history and checkpoint handoffs: branch created from `main` at merge commit `52d8f4b`.
 
 ## Branch Lifecycle

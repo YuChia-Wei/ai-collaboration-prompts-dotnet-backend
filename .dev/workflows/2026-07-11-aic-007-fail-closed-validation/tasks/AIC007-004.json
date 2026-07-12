@@ -3,9 +3,9 @@
   "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
   "owner_skill": "slice-implementer",
   "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-11T23:48:00+08:00",
-  "updated_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T08:46:00+08:00",
   "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
   "template_version": "1.0.0",
   "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
@@ -25,5 +25,11 @@
     "commit_checkpoint": "fail-closed orchestration commit",
     "deferred_items": []
   },
-  "results": {"summary": "", "files_changed": [], "validation_evidence": [], "commits": [], "follow_up_needed": false}
+  "results": {
+    "summary": "Refactored check-all.sh into explicit required, conditional-required, advisory, and deferred outcomes. Selected required checks now fail on missing, non-executable, unlaunchable, or non-zero outcomes; mode omissions, N/A conditions, advisories, and deferred checks are reported separately.",
+    "files_changed": [".ai/scripts/check-all.sh", ".ai/scripts/README.md", "workflow progress artifacts"],
+    "validation_evidence": ["bash -n passed", "unknown argument exits 2", "extra argument exits 2", "quick gate passed with 6 required selected/executed and 49/49 tooling tests", "missing TASK_NAME with SPEC_FILE set exits 1 as conditional-required configuration failure", "normal absent spec inputs report not applicable", "legacy test/archive grep checks are advisory, not required"],
+    "commits": [],
+    "follow_up_needed": false
+  }
 }
