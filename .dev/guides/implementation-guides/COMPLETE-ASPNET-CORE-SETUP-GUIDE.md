@@ -13,7 +13,9 @@ Provide a **complete, working** .NET setup that mirrors the source stack behavio
 ## 🔥 Quick Start
 
 ### 1. Solution layout
-Use the structure in `project-structure.md`.
+Use the conditional profile in `project-structure.md` only when target repository
+evidence or an explicit team decision adopts it. Otherwise preserve the target's
+observed layout and record unresolved structure through `repo-structure-sync`.
 
 ### 2. Core packages
 - WolverineFx (CQRS / Messaging)

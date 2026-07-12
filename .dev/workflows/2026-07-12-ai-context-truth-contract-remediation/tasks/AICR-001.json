@@ -6,9 +6,9 @@
   "task_id": "AICR-001",
   "workflow_id": "2026-07-12-ai-context-truth-contract-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-12T18:26:13+08:00",
-  "updated_at": "2026-07-12T18:26:13+08:00",
+  "updated_at": "2026-07-12T18:32:40+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CTX-H-001"],
   "scope": {
@@ -20,8 +20,15 @@
   "execution": {
     "steps": ["Classify each topology statement as invariant, profile default, conditional, or example.", "Rewrite the owner document to separate framework repo truth from target-profile guidance.", "Synchronize active consumers and correct .ai/.agents/.claude responsibilities.", "Run targeted truth/reference searches and context validation."],
     "validation": ["targeted active-truth and fixed-name searches", "python .ai/scripts/validate-ai-context.py", "git diff --check"],
-    "last_completed_step": "Finding triaged with bounded file set and architecture coordination requirement.",
-    "next_action": "Read ddd-ca-hex-architect canonical instructions and classify the project-structure statements before editing."
+    "last_completed_step": "Reclassified topology, synchronized active consumers, and validated active-truth searches.",
+    "next_action": "Proceed to AICR-002 after committing this HIGH-finding checkpoint."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "Preserved architecture invariants while reclassifying fixed physical topology and naming as a conditional target profile backed by repository evidence or explicit adoption.",
+    "files_changed": [".dev/standards/project-structure.md", ".dev/standards/README.md", ".dev/ARCHITECTURE.md", ".ai/assets/skills/ddd-ca-hex-architect/references/source-map.md", ".dev/guides/implementation-guides/COMPLETE-ASPNET-CORE-SETUP-GUIDE.md", ".dev/standards/coding-guide.md", ".dev/standards/coding-standards/usecase-standards.md", ".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"],
+    "tests_run": ["targeted active-truth and fixed-name search: no matches", "python .ai/scripts/validate-ai-context.py: passed", "python .ai/scripts/validate-workflow-artifacts.py: passed", "git diff --check: passed"],
+    "finding_status": "resolved",
+    "residual_risk": "Independent post-remediation audit remains required; target repositories must still record explicit profile adoption.",
+    "follow_up_needed": false
+  }
 }
