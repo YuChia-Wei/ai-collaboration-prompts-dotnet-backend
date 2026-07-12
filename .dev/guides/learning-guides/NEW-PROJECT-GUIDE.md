@@ -5,7 +5,7 @@
 > The commands and topology below preserve an earlier ExampleApp profile. For a
 > real target repository, copy the framework context and run `repo-structure-sync`
 > first. That skill inventories file-backed facts and refreshes the target-specific
-> `agents.md`, `.dev/`, and necessary `.ai/` entries. Do not create the legacy
+> `AGENTS.md`, `.dev/`, and necessary `.ai/` entries. Do not create the legacy
 > directory tree or install the listed packages unless the target repository has
 > explicitly selected this profile.
 

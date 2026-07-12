@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-12-repository-runtime-entry-policy`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `closure`
 - `artifact_root`: `.dev/workflows/2026-07-12-repository-runtime-entry-policy`
 - `created_at`: `2026-07-12T19:23:53+08:00`
-- `updated_at`: `2026-07-12T19:26:17+08:00`
+- `updated_at`: `2026-07-12T19:34:28+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -42,7 +42,7 @@
 | Task | Scope | Status | Validation |
 | --- | --- | --- | --- |
 | `GITP-001` | Clarify Git policy identity and workflow-mode branch boundary without changing semantics or path. | `completed` | active-reference inventory, policy comparison, context validation |
-| `RTENT-001` | Normalize `agents.md` to `AGENTS.md`, add thin `CLAUDE.md`, and synchronize active consumers/validators. | `pending` | Git case inventory, link/reference checks, root parity and context validation |
+| `RTENT-001` | Normalize `agents.md` to `AGENTS.md`, add thin `CLAUDE.md`, and synchronize active consumers/validators. | `completed` | Git case inventory, link/reference checks, root parity and context validation |
 
 ## Execution Order
 
@@ -54,17 +54,18 @@
 
 ## Resume Checkpoint
 
-- Last completed action: `GITP-001` clarified the current repository branch model without changing its canonical path or behavior.
-- Current task: `GITP-001` awaits its policy checkpoint commit; `RTENT-001` is next.
-- Exact next action: commit the Git-policy clarification, then normalize the root runtime entries.
-- Validation already completed: active references still resolve; AI context/workflow validators and `git diff --check` pass.
-- Git state: bootstrap commit `4a3e323`; GITP-001 changes uncommitted; no push.
+- Last completed action: `RTENT-001` normalized root runtime entry casing, added the exact Claude adapter contract, synchronized active consumers, and passed independent bounded re-review.
+- Current task: all tasks and the workflow are completed.
+- Exact next action: commit final RTENT-001/closure state; merge with `--no-ff` when requested.
+- Validation already completed: 6/6 root-entry GWT fixtures, Python compilation, AI context/workflow validators, quick gate 6/6 required checks, independent re-review, and `git diff --check` pass.
+- Git state: bootstrap `4a3e323`; GITP-001 `a81951a`; RTENT-001 and closure changes pending this commit; no push.
 - Branch history and checkpoint handoffs: segment 1, local only.
-- Blockers or unresolved decisions: none. Preserve the Git-policy path and one canonical collaboration body.
+- Blockers or unresolved decisions: none. The canonical body remains `AGENTS.md`; `CLAUDE.md` is enforced as an exact thin import adapter.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | workflow bootstrap | `4a3e323` | local branch | `2026-07-12T19:23:53+08:00` | Clarify canonical branch policy and runtime entry portability together | Execute `GITP-001` |
-| 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | branch policy checkpoint | pending | local branch | `2026-07-12T19:26:17+08:00` | GITP-001 resolved and validated | Commit, then execute `RTENT-001` |
+| 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | branch policy checkpoint | `a81951a` | local branch | `2026-07-12T19:26:17+08:00` | GITP-001 resolved and validated | Execute `RTENT-001` |
+| 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | runtime entry and closure checkpoint | this closure commit | local branch | `2026-07-12T19:34:28+08:00` | RTENT-001 resolved, independently reviewed, and workflow closed | Merge with `--no-ff` when requested |

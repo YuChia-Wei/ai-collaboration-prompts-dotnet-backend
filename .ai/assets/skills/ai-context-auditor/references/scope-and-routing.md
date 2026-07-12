@@ -4,7 +4,7 @@
 
 Start from an allowlist instead of a whole-repository recursive scan:
 
-- root collaboration entries such as `AGENTS.md`, `agents.md`, `CLAUDE.md`, and repository README files;
+- root collaboration entries such as `AGENTS.md`, `CLAUDE.md`, translated entry companions, and repository README files;
 - `.ai/**`;
 - `.dev/**` governance, standards, guides, requirements, specs, operations, and workflows;
 - `.agents/**` and `.claude/**` runtime wrappers;

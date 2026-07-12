@@ -211,7 +211,7 @@ Deferred candidate:
 
 ## Constraints & Assumptions
 
-- This requirement assumes the current repository purpose is clear enough and does not require a root `agents.md` rewrite.
+- This requirement assumes the current repository purpose is clear enough and does not require a root `AGENTS.md` rewrite.
 - The migration will affect `.ai/assets/skills/`, `.agents/skills/`, `.claude/skills/`, `.dev/guides/ai-collaboration-guides/`, skill registries, and `dev-workflow` profile references.
 - Historical workflow artifacts should not be rewritten solely to replace old skill names.
 - The future implementation should be driven by `dev-workflow` and likely executed with `ai-context-governance` for skill registry and wrapper migration.

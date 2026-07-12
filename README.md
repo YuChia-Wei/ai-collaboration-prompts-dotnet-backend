@@ -51,6 +51,8 @@
 | `.ai/assets/sub-agent-role-prompts/` | sub-agent role prompt 的 canonical source |
 | `.agents/skills/` | Codex/current runtime skill wrappers |
 | `.claude/skills/` | Claude-compatible skill wrappers |
+| `AGENTS.md` | Codex 與通用 agent 使用的 canonical root collaboration guide |
+| `CLAUDE.md` | 匯入 `AGENTS.md` 的 Claude Code project-memory 薄入口 |
 | `.dev/` | Human-facing governance、standards、guides、requirements、specs、workflow artifacts |
 | `.dev/workflows/` | 跨 skill / sub-agent 的 workflow plan、task、review-report |
 
@@ -65,7 +67,7 @@
 - `ai-context-auditor`
   - 用於唯讀 AI context 健康度與漂移自檢，預設排除產品程式碼，並比較獨立分析與 repo-aware 分析。結果可僅保留在對話中；只有需要保存正式報告時才建立 audit workflow 並將報告落地。
 - `repo-structure-sync`
-  - 用於 repo init。當這套 AI context 被複製到既有或全新目標 repo 後，第一個應使用此 skill 盤點目標 repo 並刷新 `agents.md`、`.dev/` 與必要 `.ai/` 入口文件。
+  - 用於 repo init。當這套 AI context 被複製到既有或全新目標 repo 後，第一個應使用此 skill 盤點目標 repo 並刷新 `AGENTS.md`、`.dev/` 與必要 `.ai/` 入口文件。
 - `ddd-ca-hex-architect`
   - 用於 .NET backend 的 DDD / Clean Architecture / Hexagonal / CQRS 架構設計。
 - `code-reviewer`

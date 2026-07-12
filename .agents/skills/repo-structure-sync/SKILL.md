@@ -1,6 +1,6 @@
 ---
 name: repo-structure-sync
-description: Initialize a target repository after this AI context framework is copied in by scanning repo facts and refreshing repo-specific README, `.dev/`, `.ai/`, and `agents.md` sections without rewriting framework-level collaboration rules.
+description: Initialize a target repository after this AI context framework is copied in by scanning repo facts and refreshing repo-specific README, `.dev/`, `.ai/`, and `AGENTS.md` sections without rewriting framework-level collaboration rules.
 ---
 
 # Repo Structure Sync

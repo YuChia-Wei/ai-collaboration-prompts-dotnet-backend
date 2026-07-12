@@ -51,6 +51,8 @@ These assets belong under `.ai/assets/tech-stacks/dotnet-backend/` or must be cl
 | `.ai/assets/sub-agent-role-prompts/` | Canonical source for sub-agent role prompts |
 | `.agents/skills/` | Codex/current runtime skill wrappers |
 | `.claude/skills/` | Claude-compatible skill wrappers |
+| `AGENTS.md` | Canonical root collaboration guide for Codex and general agents |
+| `CLAUDE.md` | Thin Claude Code project-memory entry that imports `AGENTS.md` |
 | `.dev/` | Human-facing governance, standards, guides, requirements, specs, and workflow artifacts |
 | `.dev/workflows/` | Cross-skill and sub-agent workflow plans, tasks, and review reports |
 
@@ -65,7 +67,7 @@ GitHub Copilot repo-level wrappers are not currently provided. Their runtime pat
 - `ai-context-auditor`
   - Performs read-only AI context health and drift audits, excludes product code by default, and compares independent and repository-aware analysis. Results may remain transient in the conversation; create an audit workflow and persist a durable report only when repository storage is required.
 - `repo-structure-sync`
-  - Performs repo initialization. After this AI context is copied into an existing or empty target repository, use this skill first to inventory the target repo and refresh `agents.md`, `.dev/`, and required `.ai/` entry docs.
+  - Performs repo initialization. After this AI context is copied into an existing or empty target repository, use this skill first to inventory the target repo and refresh `AGENTS.md`, `.dev/`, and required `.ai/` entry docs.
 - `ddd-ca-hex-architect`
   - Designs .NET backend DDD / Clean Architecture / Hexagonal / CQRS architecture.
 - `code-reviewer`

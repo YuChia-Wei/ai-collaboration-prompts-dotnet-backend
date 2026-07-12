@@ -109,7 +109,7 @@ The skill must:
 
 1. inventory the target repository from file-backed facts;
 2. identify copied template or historical source-project truth;
-3. refresh target-specific `agents.md`, `.dev/`, and necessary `.ai/` entry docs;
+3. refresh target-specific `AGENTS.md`, `.dev/`, and necessary `.ai/` entry docs;
 4. preserve framework-level collaboration rules unless the target repo clearly invalidates them;
 5. remove or rewrite source-repo-specific requirements, specs, operations docs, workflow artifacts, and ADRs.
 
@@ -170,7 +170,8 @@ Use these boundaries:
 | :--- | :--- |
 | `README.md` | Human-facing Traditional Chinese repository identity |
 | `README.en.md` | English translation of the repository identity |
-| `agents.md` | Canonical English agent-facing root collaboration guide |
+| `AGENTS.md` | Canonical English agent-facing root collaboration guide |
+| `CLAUDE.md` | Thin Claude Code project-memory entry that imports `AGENTS.md` |
 | `agents.zh-tw.md` | Traditional Chinese (Taiwan) translation of the root collaboration guide |
 
 ### AI Assets (`.ai/`)

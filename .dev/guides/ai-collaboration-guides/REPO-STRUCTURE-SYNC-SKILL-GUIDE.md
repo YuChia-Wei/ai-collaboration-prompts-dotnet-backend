@@ -11,7 +11,7 @@
 - 掃描新 repo 的 git 結構與 .NET project structure
 - 判斷目標 repo 是空 repo、既有 repo，還是已混入 template 舊資訊的 repo
 - 盤點 solution、`*.csproj`、shared libraries、test projects、deploy folders
-- 把複製過去後已過時的 root README、`.dev/`、`.ai/`、`agents.md` 架構區塊改成新 repo 版本
+- 把複製過去後已過時的 root README、`.dev/`、`.ai/`、`AGENTS.md` 架構區塊改成新 repo 版本
 - 依 repo evidence 產生或更新 `.dev/project-config.yaml`
 - 區分哪些內容應保留為 reusable collaboration rules，哪些必須改寫成新專案真相
 
@@ -75,7 +75,7 @@
 - 多 solution 或 mixed-stack repo
 - README 與實際專案檔互相衝突
 - bounded context 邊界不明
-- `agents.md` 或 `.dev/ARCHITECTURE.MD` 的高品質重寫
+- `AGENTS.md` 或 `.dev/ARCHITECTURE.MD` 的高品質重寫
 
 ## 升級判斷規則
 
@@ -92,7 +92,7 @@
 - repo 是 mixed stack，不是單純 .NET 主體
 - README / 文件與 `*.csproj`、套件參考、startup project 明顯衝突
 - 任務本身要求架構判讀，不只是同步文件
-- `.dev/ARCHITECTURE.MD` 或 `agents.md` 需要重寫成新的架構敘事
+- `.dev/ARCHITECTURE.MD` 或 `AGENTS.md` 需要重寫成新的架構敘事
 
 ### `P1` 代表中度複雜度
 
@@ -153,7 +153,7 @@
 通常應交給強模型或 sub-agent：
 
 - `.dev/ARCHITECTURE.MD` 的整段重寫
-- `agents.md` 涉及規則重釋的區塊
+- `AGENTS.md` 涉及規則重釋的區塊
 - 多份文件之間互相牽動的衝突修正
 - 多 solution / mixed stack 的架構敘事整理
 
@@ -221,7 +221,7 @@ First classify the target repository mode:
 Update only the repo-specific entry and architecture sections in:
 - README.md
 - README.en.md
-- agents.md
+- AGENTS.md
 - .dev/ARCHITECTURE.MD
 - .dev/project-config.yaml
 - .dev/requirement/TECH-STACK-REQUIREMENTS.MD
@@ -253,7 +253,7 @@ Return a proposed update plan with confirmed vs inferred facts.
 
 ```text
 Use $repo-structure-sync, but limit changes to migration boundary guidance and entry docs only:
-- agents.md
+- AGENTS.md
 - .ai/assets/skills/repo-structure-sync/references/migration-boundaries.md
 - .dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md
 
