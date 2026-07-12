@@ -10,6 +10,8 @@ import sys
 from datetime import date, datetime
 from pathlib import Path
 
+import yaml
+
 
 ADOPTION_DATE = date(2026, 7, 10)
 BRANCH_POLICY_DATE = date(2026, 7, 11)
@@ -39,6 +41,17 @@ REQUIRED_TASK = {
     "template_source",
     "template_version",
 }
+BACKLOG_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
+BACKLOG_STATUSES = {"open", "planned", "in_progress", "resolved", "declined"}
+WORKFLOW_INDEX_ROW = re.compile(
+    r"^\| \[`([^`]+)`\]\(([^)]+/workflow\.yaml)\) \| (.*?) \| `([^`]+)` \| `([^`]+)` \| `([^`]+)` \| \[plan\]\(([^)]+)\) \|$"
+)
+LEGACY_INDEX_ROW = re.compile(
+    r"^\| \[`([^`]+)`\]\(([^)]+/)\) \| legacy / no locator \|$"
+)
+BACKLOG_INDEX_ROW = re.compile(
+    r"^\| \[([^]]+)\]\((items/[^)]+\.yaml)\) \|"
+)
 
 
 def parse_flat_yaml(path: Path) -> dict[str, str]:
@@ -50,6 +63,160 @@ def parse_flat_yaml(path: Path) -> dict[str, str]:
         key, value = line.split(":", 1)
         values[key.strip()] = value.strip().strip('"').strip("'")
     return values
+
+
+def parse_yaml_mapping(path: Path, label: str, errors: list[str]) -> dict | None:
+    try:
+        value = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, yaml.YAMLError) as exc:
+        errors.append(f"{label}: invalid YAML: {exc}")
+        return None
+    if not isinstance(value, dict):
+        errors.append(f"{label}: YAML root must be a mapping")
+        return None
+    return value
+
+
+def reference_path(repo: Path, value: str) -> Path:
+    return repo / value.split("#", 1)[0]
+
+
+def validate_backlog(repo: Path, errors: list[str]) -> int:
+    backlog_root = repo / ".dev" / "backlog"
+    item_root = backlog_root / "items"
+    index_path = backlog_root / "INDEX.MD"
+    if not item_root.is_dir() or not index_path.is_file():
+        errors.append(".dev/backlog: README, INDEX, and items directory are required")
+        return 0
+
+    index_rows: dict[str, str] = {}
+    for line in index_path.read_text(encoding="utf-8").splitlines():
+        match = BACKLOG_INDEX_ROW.match(line)
+        if match:
+            index_rows[match.group(1)] = match.group(2)
+
+    item_paths = sorted(item_root.glob("*.yaml"))
+    item_ids: set[str] = set()
+    required = {
+        "schema_version", "backlog_id", "title", "category", "status", "summary",
+        "created_at", "updated_at", "origin_refs", "recommended_owner_skill",
+        "handoff_condition", "workflow_refs", "task_refs", "resolution_ref",
+    }
+    for path in item_paths:
+        label = str(path.relative_to(repo))
+        item = parse_yaml_mapping(path, label, errors)
+        if item is None:
+            continue
+        missing = sorted(required - item.keys())
+        if missing:
+            errors.append(f"{label}: missing fields {', '.join(missing)}")
+            continue
+        backlog_id = item["backlog_id"]
+        if not isinstance(backlog_id, str) or not BACKLOG_ID_RE.fullmatch(backlog_id):
+            errors.append(f"{label}: backlog_id is not path-safe")
+            continue
+        if backlog_id != path.stem:
+            errors.append(f"{label}: backlog_id must match file name")
+        if backlog_id in item_ids:
+            errors.append(f"{label}: duplicate backlog_id {backlog_id}")
+        item_ids.add(backlog_id)
+        if item["schema_version"] != "1.0":
+            errors.append(f"{label}: schema_version must be 1.0")
+        if item["status"] not in BACKLOG_STATUSES:
+            errors.append(f"{label}: unsupported status {item['status']!r}")
+        created = timestamp(str(item["created_at"]), f"{label} created_at", errors)
+        updated = timestamp(str(item["updated_at"]), f"{label} updated_at", errors)
+        if created and updated and updated < created:
+            errors.append(f"{label}: updated_at is earlier than created_at")
+        for key in ("title", "category", "summary", "recommended_owner_skill", "handoff_condition"):
+            if not isinstance(item[key], str) or not item[key]:
+                errors.append(f"{label}: {key} must be a non-empty string")
+        for key in ("origin_refs", "workflow_refs", "task_refs"):
+            values = item[key]
+            if not isinstance(values, list) or not all(isinstance(value, str) and value for value in values):
+                errors.append(f"{label}: {key} must be a list of non-empty strings")
+                continue
+            for value in values:
+                if not reference_path(repo, value).exists():
+                    errors.append(f"{label}: missing {key} path {value}")
+        resolution = item["resolution_ref"]
+        if resolution is not None and (
+            not isinstance(resolution, str) or not resolution or not reference_path(repo, resolution).exists()
+        ):
+            errors.append(f"{label}: invalid resolution_ref {resolution!r}")
+        if item["status"] == "resolved" and resolution is None:
+            errors.append(f"{label}: resolved item requires resolution_ref")
+        expected_link = f"items/{path.name}"
+        if index_rows.get(backlog_id) != expected_link:
+            errors.append(f"{label}: backlog INDEX row is missing or points to the wrong file")
+
+    extra_rows = sorted(set(index_rows) - item_ids)
+    if extra_rows:
+        errors.append(f".dev/backlog/INDEX.MD: rows without item files {extra_rows}")
+    return len(item_paths)
+
+
+def validate_workflow_index(repo: Path, discovery_root: Path, errors: list[str]) -> int:
+    index_path = discovery_root / "INDEX.MD"
+    if not index_path.is_file():
+        errors.append(".dev/workflows/INDEX.MD: missing workflow discovery index")
+        return 0
+    locator_rows: dict[str, tuple[str, str, str, str, str, str]] = {}
+    legacy_rows: dict[str, str] = {}
+    for line in index_path.read_text(encoding="utf-8").splitlines():
+        locator_match = WORKFLOW_INDEX_ROW.match(line)
+        if locator_match:
+            workflow_id = locator_match.group(1)
+            locator_rows[workflow_id] = locator_match.groups()[1:]
+            continue
+        legacy_match = LEGACY_INDEX_ROW.match(line)
+        if legacy_match:
+            legacy_rows[legacy_match.group(1)] = legacy_match.group(2)
+
+    directories = {
+        path.name: path
+        for path in discovery_root.iterdir()
+        if path.is_dir() and path.name != "templates"
+    }
+    expected_ids = set(directories)
+    indexed_ids = set(locator_rows) | set(legacy_rows)
+    if expected_ids != indexed_ids:
+        errors.append(
+            ".dev/workflows/INDEX.MD: directory coverage mismatch; "
+            f"missing={sorted(expected_ids - indexed_ids)}, extra={sorted(indexed_ids - expected_ids)}"
+        )
+
+    for workflow_id, directory in directories.items():
+        locator_path = directory / "workflow.yaml"
+        if not locator_path.is_file():
+            if legacy_rows.get(workflow_id) != f"{workflow_id}/":
+                errors.append(f".dev/workflows/INDEX.MD: legacy row mismatch for {workflow_id}")
+            continue
+        locator = parse_yaml_mapping(
+            locator_path, str(locator_path.relative_to(repo)), errors
+        )
+        if locator is None:
+            continue
+        row = locator_rows.get(workflow_id)
+        if row is None:
+            errors.append(f".dev/workflows/INDEX.MD: missing locator-backed row for {workflow_id}")
+            continue
+        locator_link, title, owner, status, updated_at, entrypoint_link = row
+        expected = (
+            f"{workflow_id}/workflow.yaml",
+            str(locator.get("title", "")),
+            str(locator.get("owner_skill", "")),
+            str(locator.get("status", "")),
+            str(locator.get("updated_at", "")),
+            f"{workflow_id}/{locator.get('entrypoint', '')}",
+        )
+        actual = (locator_link, title, owner, status, updated_at, entrypoint_link)
+        if actual != expected:
+            errors.append(
+                f".dev/workflows/INDEX.MD: row differs from {workflow_id}/workflow.yaml; "
+                f"expected={expected}, actual={actual}"
+            )
+    return len(directories)
 
 
 def timestamp(value: str, label: str, errors: list[str]) -> datetime | None:
@@ -158,12 +325,18 @@ def main() -> int:
                 if task_created and task_updated and task_updated < task_created:
                     errors.append(f"{task_path.relative_to(repo)}: updated_at is earlier than created_at")
 
+    indexed_workflows = validate_workflow_index(repo, discovery_root, errors)
+    backlog_items = validate_backlog(repo, errors)
+
     if errors:
         print("Workflow artifact validation failed:")
         for error in errors:
             print(f"- {error}")
         return 1
-    print(f"Workflow artifact validation passed for {checked} post-adoption workflow(s).")
+    print(
+        f"Workflow artifact validation passed for {checked} post-adoption workflow(s), "
+        f"{indexed_workflows} indexed workflow directories, and {backlog_items} backlog item(s)."
+    )
     return 0
 
 

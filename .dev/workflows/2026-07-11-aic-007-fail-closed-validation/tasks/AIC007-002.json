@@ -3,9 +3,9 @@
   "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
   "owner_skill": "local-change-implementer",
   "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-11T23:48:00+08:00",
-  "updated_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T08:19:41+08:00",
   "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
   "template_version": "1.0.0",
   "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
@@ -25,5 +25,11 @@
     "commit_checkpoint": "discovery-governance commit",
     "deferred_items": []
   },
-  "results": {"summary": "", "files_changed": [], "validation_evidence": [], "commits": [], "follow_up_needed": false}
+  "results": {
+    "summary": "Extended workflow artifact validation to cover every workflow directory, locator-backed INDEX parity, legacy/no-locator rows, durable backlog schema, index coverage, timestamps, and referenced workflow/task/report paths.",
+    "files_changed": [".ai/scripts/validate-workflow-artifacts.py", ".dev/workflows/INDEX.MD", ".dev/backlog/INDEX.MD", "workflow progress artifacts"],
+    "validation_evidence": ["positive validation: 4 post-adoption workflows, 24 indexed directories, 1 backlog item", "missing workflow row mutation failed", "wrong locator status/timestamp mutation failed", "wrong backlog item link mutation failed", "all probes restored"],
+    "commits": [],
+    "follow_up_needed": false
+  }
 }

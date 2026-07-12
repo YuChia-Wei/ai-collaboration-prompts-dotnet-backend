@@ -17,7 +17,7 @@
 - `branch_segment`: `1`
 - `status`: `active`
 - `created_at`: `2026-07-11T23:43:23+08:00`
-- `updated_at`: `2026-07-11T23:48:00+08:00`
+- `updated_at`: `2026-07-12T08:19:41+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -137,23 +137,23 @@
 
 ## Progress And Handoff
 
-- Current stage: Stage 1 bootstrap and evidence persistence.
-- Completed stages: merge of originating self-audit workflow; dedicated branch; parallel gate/mode/discovery analysis.
-- Deferred stages and reasons: implementation stages await bootstrap commit.
+- Current stage: Stage 3 Git executable-mode contract (`AIC007-003`) pending checkpoint commit.
+- Completed stages: AIC007-001 evidence/contract and AIC007-002 durable discovery integrity.
+- Deferred stages and reasons: gate-semantics implementation follows executable-mode truth and required-runner validation.
 - Open decisions: none blocking. Optional future decision: add Linux CI after local cross-platform semantics are proven.
-- Continuation instructions: validate and commit bootstrap; begin AIC007-002 before changing gate semantics so the new discovery sources cannot drift.
+- Continuation instructions: commit AIC007-002, then start AIC007-003 by classifying retained/retired shell assets before changing Git modes.
 - Branch history and checkpoint handoffs: branch created from `main` at merge commit `52d8f4b`.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-11-aic-007-fail-closed-validation` | `main` | workflow bootstrap | pending | local branch | `2026-07-11T23:43:23+08:00` | Execute durable AIC-007 tooling remediation | Commit bootstrap, then start AIC007-002 |
+| 1 | `codex/2026-07-11-aic-007-fail-closed-validation` | `main` | workflow bootstrap | `2d4d50f` | local branch | `2026-07-11T23:43:23+08:00` | Execute durable AIC-007 tooling remediation | Complete AIC007-002 discovery-integrity validator |
 
 ## Completion Summary
 
 - Outcome: pending.
 - Changed artifacts: backlog and workflow discovery bootstrap; detailed workflow/task plan.
 - Validation evidence: pending bootstrap validation.
-- Commits: originating self-audit merged to main as `52d8f4b`; workflow commit pending.
+- Commits: originating self-audit merged to main as `52d8f4b`; workflow bootstrap committed as `2d4d50f`.
 - Residual risks: until implementation completes, selected required shell checks may still be skipped with aggregate exit `0`.
