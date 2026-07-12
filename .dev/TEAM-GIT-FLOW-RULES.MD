@@ -132,8 +132,6 @@ Before merging a short-lived branch back to `main`:
 
 The following branch models are not used for current work:
 
-- persistent `baseline/*` integration branches;
-- persistent `release/*` cleanup branches;
 - `develop` as a second long-lived integration line;
 - agent-specific long-lived branches.
 
