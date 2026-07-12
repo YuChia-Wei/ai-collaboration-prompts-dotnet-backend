@@ -12,6 +12,7 @@ No active post-adoption workflow is currently registered.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-repository-runtime-entry-policy`](2026-07-12-repository-runtime-entry-policy/workflow.yaml) | Repository Branch And Runtime Entry Policy | `ai-context-governance` | `completed` | `2026-07-12T19:42:59+08:00` | [plan](2026-07-12-repository-runtime-entry-policy/workflow-plan.md) |
 | [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `completed` | `2026-07-12T18:55:41+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |
 | [`2026-07-12-post-aic-007-ai-context-audit`](2026-07-12-post-aic-007-ai-context-audit/workflow.yaml) | Post-AIC-007 AI Context Health Audit | `ai-context-auditor` | `completed` | `2026-07-12T18:22:53+08:00` | [plan](2026-07-12-post-aic-007-ai-context-audit/workflow-plan.md) |
 | [`2026-07-12-ctx-002-ai-index-repair`](2026-07-12-ctx-002-ai-index-repair/workflow.yaml) | CTX-002 AI Index Repair | `ai-context-governance` | `completed` | `2026-07-12T14:29:43+08:00` | [plan](2026-07-12-ctx-002-ai-index-repair/workflow-plan.md) |

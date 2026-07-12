@@ -32,9 +32,13 @@ Bilingual variants are allowed for stable entry points only:
 - `README.md`
 - `README.en.md`
 - `README.zh-tw.md`
-- `agents.md`
+- `AGENTS.md`
 - `agents.en.md`
 - `agents.zh-tw.md`
+
+`CLAUDE.md` is an English runtime-specific entry, not a bilingual content
+owner. Keep it thin and import the canonical `AGENTS.md` instead of translating
+or duplicating the collaboration rules.
 
 Do not create bilingual variants for every guide or standard by default. Add a translation only when the file is a stable entry point or a user explicitly needs the translated document.
 

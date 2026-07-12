@@ -14,7 +14,8 @@ Usually keep these areas as reusable collaboration structure:
 - `.dev/standards/` structure rules, code review checklist, examples, and organization principles
 - `.dev/adr/` governance files: `README.md`, `INDEX.md`, `ADR-TEMPLATE.md`, and `WHEN-TO-CREATE-ADR.MD`
 - `.dev/workflows/README.MD` workflow artifact contract
-- `agents.md` collaboration baseline
+- `AGENTS.md` collaboration baseline
+- `CLAUDE.md` thin Claude Code adapter that imports `@AGENTS.md`
 - root README template shape, while rewriting repository identity and product-specific sections
 
 ## Rewrite From Target Repo Evidence
@@ -49,7 +50,8 @@ Remove copied artifacts that describe old work rather than reusable process:
 When the target repo is empty or near-empty:
 
 - keep framework-level AI collaboration rules;
-- keep `agents.md` as a minimal collaboration entry;
+- keep `AGENTS.md` as a minimal collaboration entry;
+- keep `CLAUDE.md` as a thin `@AGENTS.md` adapter without duplicated rules;
 - do not create fake architecture, bounded-context, package, broker, database, or endpoint facts;
 - mark `.dev/ARCHITECTURE.MD` and tech-stack requirements as awaiting project initialization if those files are present;
 - ask for product and stack direction before invoking requirement or architecture design skills.
@@ -91,7 +93,8 @@ Keep the governance layer, not old decisions. Delete or rewrite `ADR-*.md` files
 Before finishing a sync:
 
 - confirm root README files describe the target repo rather than the source template repo
-- confirm `agents.md` stack and directory rules match the target repo
+- confirm `AGENTS.md` stack and directory rules match the target repo
+- confirm `CLAUDE.md` still imports `@AGENTS.md` and contains no copied rule body
 - confirm `.dev/ARCHITECTURE.MD` and `.dev/requirement/TECH-STACK-REQUIREMENTS.MD` are rebuilt from target facts
 - confirm `.dev/domain-language/` contains templates only or target-validated domain terms
 - confirm `.ai/scripts/README.md` lists only scripts that still apply

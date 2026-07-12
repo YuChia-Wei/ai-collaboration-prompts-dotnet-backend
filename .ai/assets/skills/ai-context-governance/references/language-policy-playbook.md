@@ -17,7 +17,7 @@ Allow bilingual variants for stable entry files:
 - `README.md`
 - `README.en.md`
 - `README.zh-tw.md`
-- `agents.md`
+- `AGENTS.md`
 - `agents.en.md`
 - `agents.zh-tw.md`
 

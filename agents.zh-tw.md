@@ -1,8 +1,8 @@
 # AGENTS.md
 
-[English](agents.md)
+[English](AGENTS.md)
 
-本文件是 canonical English agent-facing root collaboration guide `agents.md` 的繁體中文（台灣）翻譯。
+本文件是 canonical English agent-facing root collaboration guide `AGENTS.md` 的繁體中文（台灣）翻譯。
 
 ## 適用範圍與優先順序
 
@@ -109,7 +109,7 @@ Workflow artifact 規則：
 
 1. 依據檔案證據盤點目標 repository；
 2. 辨識 copied template 或歷史來源專案真相；
-3. 更新目標 repo 專屬的 `agents.md`、`.dev/` 與必要 `.ai/` entry docs；
+3. 更新目標 repo 專屬的 `AGENTS.md`、`.dev/` 與必要 `.ai/` entry docs；
 4. 除非目標 repo 明確推翻，否則保留 framework-level collaboration rules；
 5. 移除或重寫來源 repo 專屬的 requirements、specs、operations docs、workflow artifacts 與 ADRs。
 
@@ -170,7 +170,8 @@ Workflow artifact 規則：
 | :--- | :--- |
 | `README.md` | Human-facing 繁體中文 repository identity |
 | `README.en.md` | Repository identity 的英文翻譯 |
-| `agents.md` | Canonical English agent-facing root collaboration guide |
+| `AGENTS.md` | Canonical English agent-facing root collaboration guide |
+| `CLAUDE.md` | 匯入 `AGENTS.md` 的薄 Claude Code project-memory 入口 |
 | `agents.zh-tw.md` | Root collaboration guide 的繁體中文（台灣）翻譯 |
 
 ### AI Assets (`.ai/`)

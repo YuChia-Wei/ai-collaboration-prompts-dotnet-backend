@@ -197,19 +197,19 @@ Evidence:
 
 - `README.md` states that the repository extracts and evolves software development knowledge, AI Agent context, skills, sub-agent prompts, and collaboration workflows.
 - `README.md` states that the repository is not a product repository, but a portable AI collaboration framework.
-- `agents.md` states that the repository is an AI collaboration knowledge base and reusable context framework.
-- `agents.md` already separates universal AI context, tech-stack-specific context, and historical source-project facts.
+- `AGENTS.md` states that the repository is an AI collaboration knowledge base and reusable context framework.
+- `AGENTS.md` already separates universal AI context, tech-stack-specific context, and historical source-project facts.
 
 Conclusion:
 
-- Do not update `agents.md`, `agents.zh-tw.md`, `README.md`, or `README.en.md` in this requirement-only pass.
+- Do not update `AGENTS.md`, `agents.zh-tw.md`, `README.md`, or `README.en.md` in this requirement-only pass.
 - Reconsider root entry updates after the domain language structure and skill rename migration are implemented.
 
 ## References
 
 - `README.md`
 - `README.en.md`
-- `agents.md`
+- `AGENTS.md`
 - `agents.zh-tw.md`
 - `.dev/standards/AI-CONTEXT-BOUNDARY.md`
 - `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`

@@ -22,7 +22,7 @@ Rules:
 - never copy source-template credentials, connection strings, ports, domains, queues, or product names
 - treat repository files as stronger evidence than copied `.dev/project-config.yaml`
 
-### `agents.md`
+### `AGENTS.md`
 
 Update:
 
@@ -36,6 +36,13 @@ Preserve:
 - collaboration precedence
 - mandatory workflow rules unless the user explicitly changes them
 - skill routing rules that are framework-level rather than target-project-specific
+
+### `CLAUDE.md`
+
+Preserve the thin Claude Code project-memory adapter. It must import
+`@AGENTS.md` and must not duplicate or override the canonical collaboration
+rules. If the target repository keeps this framework's runtime entries, verify
+the adapter after updating `AGENTS.md`.
 
 ### Root `README.md` and `README.en.md`
 

@@ -1,0 +1,35 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "GITP-002",
+  "workflow_id": "2026-07-12-repository-runtime-entry-policy",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-12T19:42:59+08:00",
+  "updated_at": "2026-07-12T19:42:59+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "template_version": "1.0.0",
+  "finding_ids": ["GITP-002"],
+  "scope": {
+    "target": "Apply the user-requested branch-policy cleanup and require AI identity trailers on future AI-assisted commits.",
+    "files": [".dev/TEAM-GIT-FLOW-RULES.MD", ".dev/standards/GIT-COMMIT-POLICY.md"],
+    "constraints": ["Do not rewrite existing Git history.", "Use standard Git Co-Authored-By trailers.", "Require accurate runtime/model identity without invented versions."],
+    "non_goals": ["Remove develop or agent-specific long-lived-branch exclusions.", "Add trailers to human-only commits.", "Change commit title conventions."]
+  },
+  "execution": {
+    "steps": ["Remove obsolete baseline and release entries from Outdated Branch Models.", "Add a prospective AI model signature trailer contract and examples.", "Apply the new trailer to this correction commit and its merge commit.", "Validate policy wording, workflow artifacts, and context gates."],
+    "validation": ["targeted branch-policy search", "targeted Co-Authored-By policy search", "python .ai/scripts/validate-ai-context.py", "python .ai/scripts/validate-workflow-artifacts.py", "git diff --check"],
+    "last_completed_step": "Removed obsolete branch examples and added the required AI model signature trailer contract.",
+    "next_action": "Commit the correction with the new AI signature, then merge with --no-ff and the same signature contract."
+  },
+  "results": {
+    "summary": "Removed two obsolete branch-model exclusions and established prospective AI identity trailers for AI-assisted commits and merges.",
+    "files_changed": [".dev/TEAM-GIT-FLOW-RULES.MD", ".dev/standards/GIT-COMMIT-POLICY.md"],
+    "tests_run": ["targeted branch-model and Co-Authored-By searches", "python .ai/scripts/validate-ai-context.py", "python .ai/scripts/validate-workflow-artifacts.py", "git diff --check"],
+    "finding_status": "resolved",
+    "residual_risk": "Git trailers identify declared AI contribution but do not cryptographically attest the runtime or model.",
+    "follow_up_needed": false
+  }
+}

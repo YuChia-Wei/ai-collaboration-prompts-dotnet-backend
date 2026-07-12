@@ -57,6 +57,13 @@ WRAPPER_TARGETS = {"claude", "codex", "copilot"}
 CAPABILITY_PROFILE = Path(
     ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
 )
+CLAUDE_ENTRY_TEMPLATE = """# Claude Code Project Instructions
+
+@AGENTS.md
+
+This file is a thin Claude Code project-memory entry. `AGENTS.md` is the
+canonical repository collaboration guide; do not duplicate its rules here.
+"""
 
 
 def tracked_files() -> list[Path]:
@@ -166,11 +173,11 @@ def validate_bilingual_entries(errors: list[str]) -> None:
             "translation",
         ),
         (
-            Path("agents.md"),
+            Path("AGENTS.md"),
             "[Traditional Chinese](agents.zh-tw.md)",
             "canonical English",
             Path("agents.zh-tw.md"),
-            "[English](agents.md)",
+            "[English](AGENTS.md)",
             "翻譯",
         ),
     )
@@ -212,14 +219,37 @@ def validate_bilingual_entries(errors: list[str]) -> None:
                 f"{canonical} <-> {translation}: backtick table-path order parity mismatch"
             )
 
-    required_agent_rows = {"README.md", "README.en.md", "agents.md", "agents.zh-tw.md"}
-    for path in (Path("agents.md"), Path("agents.zh-tw.md")):
+    required_agent_rows = {
+        "README.md", "README.en.md", "AGENTS.md", "agents.zh-tw.md", "CLAUDE.md"
+    }
+    for path in (Path("AGENTS.md"), Path("agents.zh-tw.md")):
         if not (ROOT / path).is_file():
             continue
         _, table_paths = markdown_structure(path)
         missing = sorted(required_agent_rows - set(table_paths))
         if missing:
             errors.append(f"{path}: missing required root entry table rows: {missing}")
+
+
+def validate_runtime_entries(
+    files: list[Path], errors: list[str], *, root: Path = ROOT
+) -> None:
+    """Validate case-safe canonical and runtime-specific root entry files."""
+    root_files = {path.as_posix() for path in files if len(path.parts) == 1}
+    for required in ("AGENTS.md", "CLAUDE.md"):
+        if required not in root_files:
+            errors.append(f"missing case-sensitive root runtime entry: {required}")
+    if "agents.md" in root_files:
+        errors.append("lowercase agents.md is not a portable Codex root entry; use AGENTS.md")
+
+    claude_path = root / "CLAUDE.md"
+    if not claude_path.is_file():
+        return
+    claude_text = claude_path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    if claude_text != CLAUDE_ENTRY_TEMPLATE:
+        errors.append(
+            "CLAUDE.md: must exactly match the thin @AGENTS.md adapter template"
+        )
 
 
 def skill_names(root: Path, entry: str) -> set[str]:
@@ -572,6 +602,7 @@ def main() -> int:
         validate_language(path, errors)
 
     validate_bilingual_entries(errors)
+    validate_runtime_entries(files, errors)
     ownership_rules = validate_rule_ownership(errors)
     canonical_assets, skill_assets = validate_canonical_assets(errors)
     capability_mappings = validate_capability_profile(skill_assets, errors)

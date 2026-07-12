@@ -78,11 +78,39 @@ Workflow:
 - <workflow-id>
 - Stage: <stage-id>
 - Task: <task-id>
+
+Co-Authored-By: <AI runtime/model> <noreply@provider-domain>
 ```
 
 Small direct-mode commits may omit the body when the title is sufficient and the user did not ask for detailed traceability.
 
 Transient read-only analysis has no repository artifacts and therefore requires no branch, workflow, or commit. A durable report-only audit commits only auditor-owned workflow and report artifacts; read-only evidence gathering does not authorize changes to the audited context. Remediation commits belong to the governance workflow that owns those changes.
+
+## AI Model Signature Trailer
+
+Every commit authored with material AI assistance, including workflow commits
+and AI-created merge commits, must end with a Git `Co-Authored-By` trailer that
+identifies the AI runtime or model:
+
+```text
+Co-Authored-By: <AI runtime/model> <noreply@provider-domain>
+```
+
+Examples:
+
+```text
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Co-Authored-By: OpenAI Codex (GPT-5) <noreply@openai.com>
+```
+
+Rules:
+
+- place the trailer after all body sections, separated from the body by one blank line;
+- keep the trailer as the final non-empty line, or use one final trailer per materially contributing AI runtime/model;
+- use the runtime/model identity actually reported by the active environment; when the exact model is unavailable, use the known runtime name without inventing a model version;
+- do not add an AI trailer to a human-only commit;
+- apply this rule prospectively; do not rewrite existing history solely to add missing trailers.
 
 ## Commit Timing
 
@@ -135,3 +163,4 @@ Before commit, run the narrowest meaningful validation:
 - Code changes: run the relevant test command or state why tests were not run.
 
 The commit body must mention skipped validation when the skipped check would normally apply.
+AI-assisted commits must also satisfy the AI model signature trailer contract above.
