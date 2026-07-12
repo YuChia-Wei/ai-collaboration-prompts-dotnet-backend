@@ -6,9 +6,9 @@
   "task_id": "AICR-005",
   "workflow_id": "2026-07-12-ai-context-truth-contract-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-12T18:26:13+08:00",
-  "updated_at": "2026-07-12T18:26:13+08:00",
+  "updated_at": "2026-07-12T18:55:41+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CTX-H-001", "CTX-H-002", "CTX-M-001", "CTX-M-002", "CTX-L-001"],
   "scope": {
@@ -20,8 +20,32 @@
   "execution": {
     "steps": ["Create and update the remediation evidence ledger.", "Run aggregate quick and context gates.", "Invoke ai-context-auditor read-only on this workflow branch for report 03.", "Reconcile every finding and residual risk.", "Complete task/workflow/backlog state, commit, and merge only after closure checks."],
     "validation": ["all three context validators", "check-all.sh --quick", "independent post-remediation audit", "git diff --check", "clean committed branch before merge"],
-    "last_completed_step": "Closure contract and independent ownership boundary recorded.",
-    "next_action": "Wait until AICR-001 through AICR-004 are completed and committed."
+    "last_completed_step": "Published the remediation ledger, obtained independent auditor confirmation for all five findings, reconciled residual risks, and closed the lifecycle.",
+    "next_action": "Commit final closure artifacts; merge the clean workflow branch with --no-ff when requested."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "All five baseline findings are resolved and independently verified with no regression; the bounded post-audit decision is healthy-with-followups at 9.3/10.",
+    "files_changed": [
+      ".dev/workflows/2026-07-12-ai-context-truth-contract-remediation/reports/02-remediation-report.md",
+      ".dev/workflows/2026-07-12-ai-context-truth-contract-remediation/reports/03-post-remediation-audit-report.md",
+      ".dev/workflows/2026-07-12-ai-context-truth-contract-remediation/tasks/AICR-005.json",
+      ".dev/workflows/2026-07-12-ai-context-truth-contract-remediation/workflow.yaml",
+      ".dev/workflows/2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md",
+      ".dev/workflows/INDEX.MD",
+      ".dev/backlog/items/CTX-003.yaml",
+      ".dev/backlog/INDEX.MD"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v (9 passed)",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-shell-assets.py",
+      "C:/Program Files/Git/bin/bash.exe ./.ai/scripts/check-all.sh --quick (6/6 required passed)",
+      "independent ai-context-auditor post-remediation audit",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Pre-existing coding-standard warnings, deferred dependency/version validation, hosted Linux coverage, and semantic parity remain separately owned follow-ups outside this five-finding scope.",
+    "follow_up_needed": false
+  }
 }

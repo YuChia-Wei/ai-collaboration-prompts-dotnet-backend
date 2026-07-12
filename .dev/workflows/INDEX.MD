@@ -6,14 +6,13 @@ task-level progress.
 
 ## Active Workflows
 
-| Workflow | Title | Owner | Status | Updated | Entry Point |
-| --- | --- | --- | --- | --- | --- |
-| [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `in_progress` | `2026-07-12T18:48:37+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |
+No active post-adoption workflow is currently registered.
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `completed` | `2026-07-12T18:55:41+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |
 | [`2026-07-12-post-aic-007-ai-context-audit`](2026-07-12-post-aic-007-ai-context-audit/workflow.yaml) | Post-AIC-007 AI Context Health Audit | `ai-context-auditor` | `completed` | `2026-07-12T18:22:53+08:00` | [plan](2026-07-12-post-aic-007-ai-context-audit/workflow-plan.md) |
 | [`2026-07-12-ctx-002-ai-index-repair`](2026-07-12-ctx-002-ai-index-repair/workflow.yaml) | CTX-002 AI Index Repair | `ai-context-governance` | `completed` | `2026-07-12T14:29:43+08:00` | [plan](2026-07-12-ctx-002-ai-index-repair/workflow-plan.md) |
 | [`2026-07-11-aic-007-fail-closed-validation`](2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | AIC-007 Fail-Closed Validation And Executable Modes | `dev-workflow` | `completed` | `2026-07-12T14:03:59+08:00` | [plan](2026-07-11-aic-007-fail-closed-validation/workflow-plan.md) |
