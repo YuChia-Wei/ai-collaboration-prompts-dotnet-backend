@@ -1,7 +1,6 @@
 schema_version: "1.0"
 retained:
   - .ai/scripts/check-all.sh
-  - .ai/scripts/check-archive-compliance.sh
   - .ai/scripts/check-coding-standards.sh
   - .ai/scripts/check-data-class-annotations.sh
   - .ai/scripts/check-domain-events-compliance.sh
@@ -15,10 +14,7 @@ retained:
   - .ai/scripts/code-review.sh
   - .ai/scripts/test-profile-startup.sh
   - .ai/scripts/validate-dual-profile-config.sh
-retirement_candidates:
-  - .ai/scripts/generate-check-scripts-from-md.sh
-  - .ai/scripts/generated/check-archive.sh
-  - .ai/scripts/generated/check-test.sh
+retirement_candidates: []
 required_entrypoints:
   - .ai/scripts/check-all.sh
   - .ai/scripts/code-review.sh

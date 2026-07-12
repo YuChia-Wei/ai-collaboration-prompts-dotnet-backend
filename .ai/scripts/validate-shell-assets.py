@@ -31,7 +31,11 @@ def git_shell_modes(errors: list[str]) -> dict[str, str]:
     for line in result.stdout.splitlines():
         metadata, path = line.split("\t", 1)
         mode = metadata.split(" ", 1)[0]
-        if path.startswith(".ai/scripts/") and path.endswith(".sh"):
+        if (
+            path.startswith(".ai/scripts/")
+            and path.endswith(".sh")
+            and (ROOT / path).is_file()
+        ):
             modes[path] = mode
     return modes
 

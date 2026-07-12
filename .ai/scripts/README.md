@@ -91,7 +91,6 @@ Current behavior:
 
 ### Replace With Roslyn Analyzer Or Architecture Tests
 
-- `check-archive-compliance.sh`
 - `check-test-compliance.sh`
 - `check-test-di-compliance.sh`
 - `check-data-class-annotations.sh`
@@ -126,14 +125,16 @@ Analyzer source template:
 
 These are not necessarily Roslyn analyzer rules. They belong in dotnet tools, integration tests, config tests, Stryker.NET configuration, or CI orchestration.
 
-### Retire Generated Regex Checks
+### Retired Generated Regex Checks
 
-- `generate-check-scripts-from-md.sh`
-- `parse-md-rules.py`
-- `MD-SCRIPT-GENERATION-GUIDE.md`
-- `generated/`
+The markdown-to-shell generator, its parser and guide, and the `generated/`
+outputs were removed under AIC-007. The root archive grep check was also removed
+because its stale `HardDelete` text rule contradicted the active archive/purge
+standard. Historical workflow evidence retains the original transition record.
 
-These assets generate or document grep-based C# checks from markdown. They should be retired once analyzer/test replacements exist.
+`check-test-compliance.sh` remains temporarily as an explicitly advisory helper
+until its rules are split across `.editorconfig`, analyzers, and test architecture
+checks. It is manually maintained and cannot be regenerated from Markdown.
 
 ## AI Reasoning Context
 

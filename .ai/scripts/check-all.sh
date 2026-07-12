@@ -288,11 +288,6 @@ if [ "$MODE" == "full" ]; then
         "Test DI Compliance" \
         "true" "false" "replace with analyzer or test architecture rules"
     
-    # Archive compliance
-    run_check "check-archive-compliance.sh" \
-        "Archive Pattern Compliance" \
-        "advisory" "false" "false"
-    
     # Template sync check (dotnet-native replacement not yet available)
     run_deferred_check "check-template-sync.sh" \
         "Template Synchronization" \
