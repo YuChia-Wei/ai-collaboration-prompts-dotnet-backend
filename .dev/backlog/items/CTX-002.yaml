@@ -2,11 +2,11 @@ schema_version: "1.0"
 backlog_id: "CTX-002"
 title: "Remove Retired Generated-Script Catalog Entry"
 category: "ai-context-navigation"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH"
 summary: "Repair the active .ai index after AIC-007 removed .ai/scripts/generated; the stale catalog entry currently makes AI context validation fail."
 created_at: "2026-07-12T14:17:52+08:00"
-updated_at: "2026-07-12T14:25:35+08:00"
+updated_at: "2026-07-12T14:29:43+08:00"
 origin_refs:
   - ".ai/INDEX.MD"
   - ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/review-report.md"
@@ -16,7 +16,7 @@ workflow_refs:
   - ".dev/workflows/2026-07-12-ctx-002-ai-index-repair/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-12-ctx-002-ai-index-repair/tasks/CTX002-001.json"
-resolution_ref: null
+resolution_ref: ".dev/workflows/2026-07-12-ctx-002-ai-index-repair/reports/02-remediation-report.md"
 decision_needed: "No policy decision is expected unless generated script assets are intentionally being restored."
 inventory_notes:
   - "Observed command: python .ai/scripts/validate-ai-context.py."

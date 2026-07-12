@@ -5,9 +5,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 ## In Progress
 
-| Item | Priority | Summary | Workflow | Updated |
-| --- | --- | --- | --- | --- |
-| [CTX-002](items/CTX-002.yaml) | HIGH | Remove the retired generated-script catalog entry that breaks AI context validation. | [`2026-07-12-ctx-002-ai-index-repair`](../workflows/2026-07-12-ctx-002-ai-index-repair/workflow.yaml) | 2026-07-12 |
+No items.
 
 ## Planned / Open
 
@@ -24,4 +22,5 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Item | Priority | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- |
+| [CTX-002](items/CTX-002.yaml) | HIGH | Removed the retired generated-script catalog entry and restored AI context validation. | [`2026-07-12-ctx-002-ai-index-repair`](../workflows/2026-07-12-ctx-002-ai-index-repair/workflow.yaml) | 2026-07-12 |
 | [AIC-007](items/AIC-007.yaml) | HIGH | Required gates fail closed; Git-index executable modes and runner/manifest parity are validated with GWT fixtures. | [`2026-07-11-aic-007-fail-closed-validation`](../workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | 2026-07-12 |

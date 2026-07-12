@@ -6,9 +6,9 @@
   "task_id": "CTX002-001",
   "workflow_id": "2026-07-12-ctx-002-ai-index-repair",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-12T14:25:35+08:00",
-  "updated_at": "2026-07-12T14:25:35+08:00",
+  "updated_at": "2026-07-12T14:29:43+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CTX-002"],
   "scope": {
@@ -45,16 +45,30 @@
       "python .ai/scripts/validate-shell-assets.py",
       "git diff --check"
     ],
-    "last_completed_step": "Baseline failure confirmed and dedicated workflow branch created.",
-    "next_action": "Validate the workflow bootstrap, then remove the stale catalog entry."
+    "last_completed_step": "Independent read-only verification confirmed the catalog repair with no blocking finding.",
+    "next_action": "Merge the completed workflow with --no-ff, then start CTX-001 from updated main."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "The active AI context validator remains red until the stale catalog entry is removed.",
-    "follow_up_needed": true
+    "summary": "Removed the stale generated-script catalog row, restored AI context validation, and passed independent scope verification.",
+    "files_changed": [
+      ".ai/INDEX.MD",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/items/CTX-002.yaml",
+      ".dev/workflows/INDEX.MD",
+      ".dev/workflows/2026-07-12-ctx-002-ai-index-repair/workflow.yaml",
+      ".dev/workflows/2026-07-12-ctx-002-ai-index-repair/workflow-plan.md",
+      ".dev/workflows/2026-07-12-ctx-002-ai-index-repair/reports/02-remediation-report.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-ai-context.py (pass)",
+      "python .ai/scripts/validate-workflow-artifacts.py (pass)",
+      "python .ai/scripts/validate-shell-assets.py (pass)",
+      "active scripts/generated reference search (pass; historical evidence only)",
+      "git diff --check (pass)",
+      "independent read-only verification (pass; no blocker)"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "None in CTX-002 scope; broader health re-audit remains CTX-001.",
+    "follow_up_needed": false
   }
 }
-

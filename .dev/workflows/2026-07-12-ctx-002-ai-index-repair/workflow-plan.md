@@ -16,11 +16,11 @@
 - `branch`: `codex/2026-07-12-ctx-002-ai-index-repair`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `closure`
 - `artifact_root`: `.dev/workflows/2026-07-12-ctx-002-ai-index-repair`
 - `created_at`: `2026-07-12T14:25:35+08:00`
-- `updated_at`: `2026-07-12T14:25:35+08:00`
+- `updated_at`: `2026-07-12T14:29:43+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -54,17 +54,22 @@
 
 ## Resume Checkpoint
 
-- Last completed action: dedicated branch created and CTX-002 evidence confirmed.
-- Current task: `CTX002-001`.
-- Exact next action: validate workflow bootstrap, then remove the stale `.ai/INDEX.MD` row.
-- Validation already completed: baseline `validate-ai-context.py` failed on missing `scripts/generated/`; prior backlog validator passed.
-- Git state: branch created from local `main` at `9c0e9c6`; workflow bootstrap edits are uncommitted.
+- Last completed action: CTX-002 remediation and independent read-only verification completed.
+- Current task: none; `CTX002-001` completed.
+- Exact next action: merge this branch to `main` with `--no-ff`, then start the independent CTX-001 audit workflow.
+- Validation already completed: AI context, workflow/backlog, shell asset, active reference, whitespace, and independent verification gates pass.
+- Git state: bootstrap commit `5458123`; remediation and closure changes pending final commit.
 - Branch history and checkpoint handoffs: segment 1 started locally; no push or merge handoff.
-- Blockers or unresolved decisions: none.
+- Blockers or unresolved decisions: none; merge has not yet been performed.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-12-ctx-002-ai-index-repair` | `main` | workflow bootstrap | pending | local branch | `2026-07-12T14:25:35+08:00` | Repair CTX-002 and restore context validation | Complete `CTX002-001` |
+| 1 | `codex/2026-07-12-ctx-002-ai-index-repair` | `main` | workflow completion | `5458123` plus closure commit | local branch | `2026-07-12T14:29:43+08:00` | CTX-002 resolved and independently verified | Merge with `--no-ff`; start CTX-001 from updated `main` |
 
+## Completion Summary
+
+- Outcome: CTX-002 resolved; the active `.ai` catalog no longer advertises retired generated scripts.
+- Validation: all required validators and independent read-only verification pass.
+- Residual scope: CTX-001 remains a separate independent health audit; TOOL-001 retains optional portability and runner-design work.
