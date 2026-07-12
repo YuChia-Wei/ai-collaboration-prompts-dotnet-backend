@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `in_progress` | `2026-07-12T18:32:40+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |
+| [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `in_progress` | `2026-07-12T18:36:58+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

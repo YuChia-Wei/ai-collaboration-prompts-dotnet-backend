@@ -20,7 +20,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-12-ai-context-truth-contract-remediation`
 - `created_at`: `2026-07-12T18:26:13+08:00`
-- `updated_at`: `2026-07-12T18:32:40+08:00`
+- `updated_at`: `2026-07-12T18:36:58+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -71,11 +71,11 @@ Tasks 1 and 2 may be analyzed in parallel but are committed separately because e
 
 ## Resume Checkpoint
 
-- Last completed action: `AICR-001` reclassified historical physical topology as a conditional profile and synchronized active consumers.
-- Current task: `AICR-002` is next; `AICR-001` awaits its task checkpoint commit.
-- Exact next action: commit the validated `AICR-001` change set, then parameterize the three primary guides in `AICR-002`.
-- Validation already completed: targeted AICR-001 active-truth search has no matches; AI context and workflow validators plus `git diff --check` pass.
-- Git state: bootstrap commit `63d9b71`; AICR-001 documentation/task changes are uncommitted.
+- Last completed action: `AICR-002` parameterized three active guides and removed historical project facts, fixed environment values, frontend assumptions, and literal credential defaults.
+- Current task: `AICR-002` is resolved and awaits its task checkpoint commit.
+- Exact next action: commit the validated `AICR-002` change set, then begin the atomic `AICR-003` wrapper metadata contract remediation.
+- Validation already completed: targeted AICR-002 stale-truth and credential search has no matches; AI context and workflow validators plus `git diff --check` pass.
+- Git state: bootstrap commit `63d9b71`; AICR-001 commit `3c6479b`; AICR-002 guide/task changes are uncommitted.
 - Branch history and checkpoint handoffs: segment 1, local only; no push or merge.
 - Blockers or unresolved decisions: none. `AICR-001` explicitly invokes `ddd-ca-hex-architect` for semantic classification while governance retains truth-placement and lifecycle ownership.
 
@@ -84,4 +84,5 @@ Tasks 1 and 2 may be analyzed in parallel but are committed separately because e
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | workflow bootstrap | `63d9b71` | local branch | `2026-07-12T18:26:13+08:00` | Start authorized CTX-001 remediation on a dedicated branch | Execute bounded remediation tasks |
-| 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | HIGH finding checkpoint | pending | local branch | `2026-07-12T18:32:40+08:00` | AICR-001 resolved and validated | Commit, then begin AICR-002 |
+| 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | HIGH finding checkpoint | `3c6479b` | local branch | `2026-07-12T18:32:40+08:00` | AICR-001 resolved and validated | Execute AICR-002 |
+| 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | HIGH finding checkpoint | pending | local branch | `2026-07-12T18:36:58+08:00` | AICR-002 resolved and validated | Commit, then begin AICR-003 |
