@@ -34,7 +34,7 @@
     "summary": "Confirmed 18 shell assets at mode 100644, Windows masking, warning-only required-script skips, and stale archive grep semantics. Defined a seven-stage remediation plan with no blocking decision.",
     "files_changed": ["workflow plan", "task plan", "durable backlog and workflow discovery artifacts"],
     "validation_evidence": ["gate semantics inventory", "Git mode inventory", "backlog/index design review"],
-    "commits": [],
-    "follow_up_needed": true
+    "commits": ["2d4d50f"],
+    "follow_up_needed": false
   }
 }

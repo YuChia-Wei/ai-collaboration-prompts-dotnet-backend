@@ -13,9 +13,9 @@
 - `report_id`: `development-review-2026-07-11-aic-007-fail-closed-validation`
 - `owner_skill`: `dev-workflow` (`review` fallback-mode)
 - `related_plan_id`: `development-plan-2026-07-11-aic-007-fail-closed-validation`
-- `status`: `draft`
+- `status`: `final`
 - `created_at`: `2026-07-12T14:01:21+08:00`
-- `updated_at`: `2026-07-12T14:01:21+08:00`
+- `updated_at`: `2026-07-12T14:03:59+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-review-report-template.md`
 - `template_version`: `1.0.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -45,22 +45,23 @@
 - Required action: declare the spec child, derive literal required `run_check`
   children from the runner, require set parity, and add a negative fixture.
 - Resolution: implemented; 16 fixture tests and the real shell asset validator
-  pass. Final independent re-validation is pending.
+  pass. Independent re-review found no remaining blocker.
 
 ## Validation
 
 - Checks performed: initial independent tooling review; independent closure
   audit; 16 GWT fixtures; real shell asset validator.
-- Results: remediation checks pass.
+- Results: remediation and independent re-review pass with no blocking finding.
 - Skipped checks and reasons: hosted Linux requires separate authorization;
   real full mode may inspect product test code and is outside this workflow's
   boundary. Synthetic full plus real critical/quick evidence is retained.
 
 ## Decision
 
-- Result: `changes-requested`
+- Result: `approved-with-followups`
 - Residual risks: hosted Linux execution is unverified; bootstrap commit
   `2d4d50f` lacks the workflow-stage body required by current commit policy and
   will be recorded as a historical exception rather than rewriting all hashes.
-- Recommended next development stage: re-review remediation, run final gates,
-  then resolve AIC-007 and close the workflow if no blocking findings remain.
+- Recommended next development stage: none. Optionally add authorized hosted
+  Linux execution or replace formatting-sensitive runner parsing with
+  manifest-driven execution in a future workflow.

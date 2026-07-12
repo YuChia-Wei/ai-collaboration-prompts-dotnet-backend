@@ -29,7 +29,7 @@
     "summary": "Classified all 18 tracked shell assets, set 15 retained assets to Git mode 100755, kept 3 generated/retirement candidates out of the retained contract, added an index-based validator, and wired it into the quick/critical gate.",
     "files_changed": [".ai/scripts/shell-assets.yaml", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/check-all.sh", ".ai/scripts/README.md", "Git index modes for 15 retained shell assets"],
     "validation_evidence": ["15 retained + 3 retirement candidates cover all 18 tracked shell assets", "all retained scripts use Git mode 100755", "100644 retained-mode mutation failed", "retirement-candidate required-runner mutation failed", "all shell scripts passed bash -n", "check-all.sh --quick passed 6/6 with 49/49 tooling tests"],
-    "commits": [],
+    "commits": ["48b696a"],
     "follow_up_needed": false
   }
 }

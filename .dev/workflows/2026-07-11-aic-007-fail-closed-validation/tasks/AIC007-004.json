@@ -29,7 +29,7 @@
     "summary": "Refactored check-all.sh into explicit required, conditional-required, advisory, and deferred outcomes. Selected required checks now fail on missing, non-executable, unlaunchable, or non-zero outcomes; mode omissions, N/A conditions, advisories, and deferred checks are reported separately.",
     "files_changed": [".ai/scripts/check-all.sh", ".ai/scripts/README.md", "workflow progress artifacts"],
     "validation_evidence": ["bash -n passed", "unknown argument exits 2", "extra argument exits 2", "quick gate passed with 6 required selected/executed and 49/49 tooling tests", "missing TASK_NAME with SPEC_FILE set exits 1 as conditional-required configuration failure", "normal absent spec inputs report not applicable", "legacy test/archive grep checks are advisory, not required"],
-    "commits": [],
+    "commits": ["817f0f4"],
     "follow_up_needed": false
   }
 }

@@ -29,7 +29,7 @@
     "summary": "Extended workflow artifact validation to cover every workflow directory, locator-backed INDEX parity, legacy/no-locator rows, durable backlog schema, index coverage, timestamps, and referenced workflow/task/report paths.",
     "files_changed": [".ai/scripts/validate-workflow-artifacts.py", ".dev/workflows/INDEX.MD", ".dev/backlog/INDEX.MD", "workflow progress artifacts"],
     "validation_evidence": ["positive validation: 4 post-adoption workflows, 24 indexed directories, 1 backlog item", "missing workflow row mutation failed", "wrong locator status/timestamp mutation failed", "wrong backlog item link mutation failed", "all probes restored"],
-    "commits": [],
+    "commits": ["7d846f1"],
     "follow_up_needed": false
   }
 }

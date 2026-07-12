@@ -62,6 +62,12 @@ mode `100755`; required entrypoints and child scripts must be retained.
 instead of host filesystem executability, which is unreliable under Windows
 Git Bash and `core.filemode=false`.
 
+Required child-script calls in `check-all.sh` use the literal multiline form
+`run_check "<script>"`, description, then `"required"` on the third line. The
+shell asset validator compares those literal calls with
+`check_all_required_scripts`; changing that call shape requires updating the
+validator and its negative parity fixture in the same change.
+
 ### Keep As Orchestrator Only
 
 - `check-all.sh`

@@ -15,9 +15,9 @@
 - `branch`: `codex/2026-07-11-aic-007-fail-closed-validation`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `active`
+- `status`: `completed`
 - `created_at`: `2026-07-11T23:43:23+08:00`
-- `updated_at`: `2026-07-12T14:01:21+08:00`
+- `updated_at`: `2026-07-12T14:03:59+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -137,11 +137,11 @@
 
 ## Progress And Handoff
 
-- Current stage: Stage 7 review, audit handoff, and closure (`AIC007-007`) is in progress; the independent review's manifest-to-runner parity finding is remediated and awaiting final re-validation.
-- Completed stages: AIC007-001 through AIC007-006, including 15 synthetic GWT fixture tests and permitted real critical/quick smoke.
+- Current stage: all stages completed; AIC007-007 independent re-review found no remaining blocker and backlog AIC-007 is resolved.
+- Completed stages: AIC007-001 through AIC007-007, including 16 synthetic GWT fixture tests, runner/manifest parity remediation, and permitted real critical/quick smoke.
 - Deferred stages and reasons: hosted Linux CI requires separate authorization and remains an explicit residual gap; real full mode is excluded because its advisory helper can inspect product test code.
 - Open decisions: none blocking. Optional future decision: add Linux CI after local cross-platform semantics are proven.
-- Continuation instructions: begin AIC007-007 review from the Stage 6 execution evidence, verify backlog acceptance and changed tooling, then close the workflow only after final validation and commit-policy checks.
+- Continuation instructions: none. Optional future work requires a new workflow for hosted Linux CI or manifest-driven runner execution.
 - Branch history and checkpoint handoffs: branch created from `main` at merge commit `52d8f4b`.
 
 ## Branch Lifecycle
@@ -152,8 +152,8 @@
 
 ## Completion Summary
 
-- Outcome: pending.
-- Changed artifacts: backlog and workflow discovery bootstrap; detailed workflow/task plan.
-- Validation evidence: pending bootstrap validation.
-- Commits: originating self-audit merged to main as `52d8f4b`; workflow bootstrap committed as `2d4d50f`.
-- Residual risks: until implementation completes, selected required shell checks may still be skipped with aggregate exit `0`.
+- Outcome: AIC-007 resolved. Selected required checks fail closed, retained shell modes use Git index truth, runner child declarations are parity-checked, and regression fixtures protect enforcement semantics.
+- Changed artifacts: validation runner and manifest, shell/workflow validators, GWT fixtures, retired generated regex tooling, backlog/index discovery, review report, and seven task records.
+- Validation evidence: 16/16 GWT fixtures; 14 retained shell assets at Git mode 100755; real critical and quick gates; 47/47 analyzer and 2/2 configuration tests; workflow, backlog, AI context, shell, syntax, and diff validation.
+- Commits: `2d4d50f`, `7d846f1`, `48b696a`, `817f0f4`, `d15ee29`, `26b13b3`, `4fef08f`, `f3d8f36`, and review remediation `244fc54` before the closure commit.
+- Residual risks: hosted Linux execution remains unauthorized and unverified; real full mode remains excluded because its advisory helper may inspect product tests; runner parity parsing intentionally depends on a documented literal call format. Bootstrap commit `2d4d50f` lacks the current workflow-stage body and is retained as a historical exception rather than rewriting all subsequent hashes.

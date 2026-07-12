@@ -8,12 +8,12 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-11-aic-007-fail-closed-validation`](2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | AIC-007 Fail-Closed Validation And Executable Modes | `dev-workflow` | `active` | `2026-07-12T14:01:21+08:00` | [plan](2026-07-11-aic-007-fail-closed-validation/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-11-aic-007-fail-closed-validation`](2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | AIC-007 Fail-Closed Validation And Executable Modes | `dev-workflow` | `completed` | `2026-07-12T14:03:59+08:00` | [plan](2026-07-11-aic-007-fail-closed-validation/workflow-plan.md) |
 | [`2026-07-11-workflow-branch-lifecycle-policy`](2026-07-11-workflow-branch-lifecycle-policy/workflow.yaml) | Workflow Branch Lifecycle Policy | `ai-context-governance` | `completed` | `2026-07-11T00:23:58+08:00` | [plan](2026-07-11-workflow-branch-lifecycle-policy/workflow-plan.md) |
 | [`2026-07-10-ai-context-self-audit`](2026-07-10-ai-context-self-audit/workflow.yaml) | 2026-07-10 AI Context Self-Audit And Remediation | `ai-context-governance` | `completed` | `2026-07-11T23:30:00+08:00` | [plan](2026-07-10-ai-context-self-audit/workflow-plan.md) |
 | [`2026-07-10-ai-context-workflow-governance`](2026-07-10-ai-context-workflow-governance/workflow.yaml) | AI Context Workflow Governance | `ai-context-governance` | `completed` | `2026-07-10T23:41:46+08:00` | [plan](2026-07-10-ai-context-workflow-governance/workflow-plan.md) |

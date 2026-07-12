@@ -29,7 +29,7 @@
     "summary": "Completed the 17-scenario GWT design and implementation evidence. Fifteen executable fixture tests cover GWT-001 through GWT-015 in synthetic repositories; Windows Git Bash syntax, shell validation, critical, and quick smoke cover GWT-016; the Unix recipe and unauthorized hosted-Linux gap satisfy the explicit GWT-017 handoff without claiming hosted execution.",
     "files_changed": [".dev/workflows/2026-07-11-aic-007-fail-closed-validation/test-design/AIC007-006-gwt-scenario-matrix.md", ".ai/scripts/tests/test_fail_closed_validation.py", ".ai/scripts/README.md"],
     "validation_evidence": ["15 fixture tests pass for GWT-001 through GWT-015", "temporary Git repositories cover required, advisory, conditional, deferred, CLI, mode, Git-mode, and manifest behavior", "real HEAD, porcelain status, and shell index snapshots remain unchanged", "Windows Git Bash syntax passed", "real critical mode passed 6/6 required checks", "real quick mode passed 6/6 with deferred=1 and not-applicable=1", "analyzer template tests passed 47/47 and configuration tests passed 2/2", "shell asset, AI context, and workflow artifact validators pass", "real full mode intentionally excluded because its advisory helper can inspect product test code", "Linux hosted CI remains an explicit unverified gap with a portable command recipe"],
-    "commits": ["26b13b3", "4fef08f"],
+    "commits": ["26b13b3", "4fef08f", "f3d8f36"],
     "follow_up_needed": false
   }
 }
