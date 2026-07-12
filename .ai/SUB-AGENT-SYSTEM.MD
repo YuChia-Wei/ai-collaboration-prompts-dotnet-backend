@@ -50,7 +50,16 @@ A reconciler role is not active in this repository because `.ai/assets/sub-agent
 
 ## Artifact Routing
 
-Use durable workflow artifacts when work crosses skills, stages, or sub-agents:
+Use durable workflow artifacts when delegated work persists repository state,
+mutates repository files, performs remediation, or otherwise meets
+`.dev/standards/WORKFLOW-GATE-POLICY.md`. That policy owns the workflow-mode
+decision; crossing skills, stages, or sub-agents is not sufficient by itself
+when the work remains transient and read-only.
+
+Conversation-only read-only analysis may cross skills, stages, or sub-agents in
+direct mode when it creates no repository artifact, mutates no repository file,
+and remediates no finding. Return that result through the main agent and do not
+create a workflow solely to record delegation.
 
 Every new workflow keeps `.dev/workflows/<workflow-id>/workflow.yaml` as its locator. Read the locator for the owning skill, artifact root, entrypoint, status, and timestamps, then follow the owning skill's artifact layout.
 

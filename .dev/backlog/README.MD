@@ -6,7 +6,7 @@ any single workflow. It is not a second workflow engine.
 ## Ownership Boundary
 
 - `INDEX.MD` owns the backlog catalog and current item state.
-- `items/<item-id>.md` owns the problem, priority, origin, acceptance boundary,
+- `items/<item-id>.yaml` owns the problem, priority, origin, acceptance boundary,
   and workflow handoff for one durable item.
 - `.dev/workflows/<workflow-id>/` owns execution plans, tasks, evidence, and
   commits after work is scheduled.
