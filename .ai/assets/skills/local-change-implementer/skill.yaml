@@ -49,5 +49,5 @@ wrapper_metadata:
   claude:
     wrapper_path: ".claude/skills/local-change-implementer/"
   codex:
-    runtime_wrapper_path: ".agents/skills/local-change-implementer/"
+    wrapper_path: ".agents/skills/local-change-implementer/"
 status: "active"

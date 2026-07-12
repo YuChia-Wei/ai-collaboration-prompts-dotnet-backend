@@ -20,7 +20,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-12-ai-context-truth-contract-remediation`
 - `created_at`: `2026-07-12T18:26:13+08:00`
-- `updated_at`: `2026-07-12T18:36:58+08:00`
+- `updated_at`: `2026-07-12T18:45:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -71,11 +71,11 @@ Tasks 1 and 2 may be analyzed in parallel but are committed separately because e
 
 ## Resume Checkpoint
 
-- Last completed action: `AICR-002` parameterized three active guides and removed historical project facts, fixed environment values, frontend assumptions, and literal credential defaults.
-- Current task: `AICR-002` is resolved and awaits its task checkpoint commit.
-- Exact next action: commit the validated `AICR-002` change set, then begin the atomic `AICR-003` wrapper metadata contract remediation.
-- Validation already completed: targeted AICR-002 stale-truth and credential search has no matches; AI context and workflow validators plus `git diff --check` pass.
-- Git state: bootstrap commit `63d9b71`; AICR-001 commit `3c6479b`; AICR-002 guide/task changes are uncommitted.
+- Last completed action: `AICR-003` standardized `wrapper_metadata` on `wrapper_path` across schema, template, all canonical skills, validator, and GWT fixtures.
+- Current task: `AICR-003` is resolved and awaits its atomic task checkpoint commit.
+- Exact next action: commit the validated `AICR-003` change set, then begin `AICR-004` routing and backlog documentation alignment.
+- Validation already completed: nine wrapper-metadata GWT fixtures pass; legacy keys are absent from manifests/template; AI context and workflow validators plus `git diff --check` pass.
+- Git state: bootstrap commit `63d9b71`; AICR-001 commit `3c6479b`; AICR-002 commit `af68027`; AICR-003 contract/validator/task changes are uncommitted.
 - Branch history and checkpoint handoffs: segment 1, local only; no push or merge.
 - Blockers or unresolved decisions: none. `AICR-001` explicitly invokes `ddd-ca-hex-architect` for semantic classification while governance retains truth-placement and lifecycle ownership.
 
@@ -85,4 +85,5 @@ Tasks 1 and 2 may be analyzed in parallel but are committed separately because e
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | workflow bootstrap | `63d9b71` | local branch | `2026-07-12T18:26:13+08:00` | Start authorized CTX-001 remediation on a dedicated branch | Execute bounded remediation tasks |
 | 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | HIGH finding checkpoint | `3c6479b` | local branch | `2026-07-12T18:32:40+08:00` | AICR-001 resolved and validated | Execute AICR-002 |
-| 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | HIGH finding checkpoint | pending | local branch | `2026-07-12T18:36:58+08:00` | AICR-002 resolved and validated | Commit, then begin AICR-003 |
+| 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | HIGH finding checkpoint | `af68027` | local branch | `2026-07-12T18:36:58+08:00` | AICR-002 resolved and validated | Execute AICR-003 |
+| 1 | `codex/2026-07-12-ai-context-truth-contract-remediation` | `main` | wrapper contract checkpoint | pending | local branch | `2026-07-12T18:45:21+08:00` | AICR-003 resolved and validated | Commit, then begin AICR-004 |

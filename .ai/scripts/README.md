@@ -40,7 +40,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
-`validate-ai-context.py` checks objective repository facts: active index paths, literal table corruption, declared runtime-root status, canonical/Agents/Claude skill inventory parity, policy-scoped agent-facing language, root bilingual entry ownership/link/structural markers, rule ownership registry structure, canonical skill/sub-agent schema compliance, canonical template-family hygiene, and deterministic development capability routing. It scans both tracked and untracked non-ignored files so a new context file cannot bypass the gate before staging, while filtering tracked paths that are deleted in the working tree. Language lint uses exact path-and-line exceptions for deliberate routing triggers; other Han prose fails with a file and line number. Script source, generated/example/archive/migration material, workflows, product `src`/`test` trees, and human-facing `.dev` documentation are outside that language scan; Markdown documentation under `.ai/scripts` remains in scope. Root bilingual validation checks reciprocal ownership links, heading-level shape, and ordered backtick table paths, not full semantic parity. Canonical schema validation is structural and path-based; it does not claim semantic equivalence between projections.
+`validate-ai-context.py` checks objective repository facts: active index paths, literal table corruption, declared runtime-root status, canonical/Agents/Claude skill inventory parity, canonical wrapper-metadata target/path integrity, policy-scoped agent-facing language, root bilingual entry ownership/link/structural markers, rule ownership registry structure, canonical skill/sub-agent schema compliance, canonical template-family hygiene, and deterministic development capability routing. It scans both tracked and untracked non-ignored files so a new context file cannot bypass the gate before staging, while filtering tracked paths that are deleted in the working tree. Language lint uses exact path-and-line exceptions for deliberate routing triggers; other Han prose fails with a file and line number. Script source, generated/example/archive/migration material, workflows, product `src`/`test` trees, and human-facing `.dev` documentation are outside that language scan; Markdown documentation under `.ai/scripts` remains in scope. Root bilingual validation checks reciprocal ownership links, heading-level shape, and ordered backtick table paths, not full semantic parity. Canonical schema validation is structural and path-based; it does not claim semantic equivalence between projections.
 
 `validate-workflow-artifacts.py` validates post-adoption workflow locator/task metadata, complete `.dev/workflows/INDEX.MD` directory coverage, locator-backed title/owner/status/timestamp/entrypoint parity, explicit legacy/no-locator rows, and durable `.dev/backlog/items/*.yaml` identity, lifecycle, timestamp, index, and reference integrity.
 
@@ -49,11 +49,13 @@ comments and run entirely in disposable Git repositories:
 
 ```powershell
 python .ai/scripts/tests/test_fail_closed_validation.py -v
+python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v
 ```
 
-The fixture suite snapshots the real checkout before and after execution. It
-must not source `check-all.sh` or change files, modes, or index entries outside
-its temporary repository.
+The shell fixture suite snapshots the real checkout before and after execution.
+The wrapper-metadata fixture invokes only the bounded validator function against
+temporary wrapper directories. Neither suite may source `check-all.sh` or
+change files, modes, or index entries outside its temporary repository.
 
 `shell-assets.yaml` classifies every tracked `.ai/scripts/**/*.sh` file as
 `retained` or `retirement_candidates`. Retained shell assets must use Git index

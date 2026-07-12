@@ -48,5 +48,5 @@ wrapper_metadata:
   claude:
     wrapper_path: ".claude/skills/problem-frame-author/"
   codex:
-    runtime_wrapper_path: ".agents/skills/problem-frame-author/"
+    wrapper_path: ".agents/skills/problem-frame-author/"
 status: "active"
