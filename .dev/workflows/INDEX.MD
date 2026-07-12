@@ -8,6 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-post-aic-007-ai-context-audit`](2026-07-12-post-aic-007-ai-context-audit/workflow.yaml) | Post-AIC-007 AI Context Health Audit | `ai-context-auditor` | `in_progress` | `2026-07-12T14:32:21+08:00` | [plan](2026-07-12-post-aic-007-ai-context-audit/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

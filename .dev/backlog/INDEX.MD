@@ -5,13 +5,14 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 ## In Progress
 
-No items.
+| Item | Priority | Summary | Workflow | Updated |
+| --- | --- | --- | --- | --- |
+| [CTX-001](items/CTX-001.yaml) | HIGH | Re-run the independent AI context health audit after AIC-007 closure. | [`2026-07-12-post-aic-007-ai-context-audit`](../workflows/2026-07-12-post-aic-007-ai-context-audit/workflow.yaml) | 2026-07-12 |
 
 ## Planned / Open
 
 | Item | Priority | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- |
-| [CTX-001](items/CTX-001.yaml) | HIGH | Re-run the independent AI context health audit after AIC-007 closure. | Ready for a durable auditor workflow; standard code exclusions apply. | 2026-07-12 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | Verify hosted Linux behavior and consider manifest-driven runner execution. | Decide Linux verification, runner redesign, both, or defer. | 2026-07-12 |
 | [LANG-001](items/LANG-001.yaml) | MEDIUM | Refresh and reduce translation debt before strengthening semantic parity gates. | Decide priority after a refreshed candidate inventory. | 2026-07-12 |
 | [GOV-001](items/GOV-001.yaml) | MEDIUM | Reconcile legacy workflow follow-ups against later completed work. | Read-only reconciliation first; promote only current work. | 2026-07-12 |
