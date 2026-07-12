@@ -44,6 +44,13 @@ These scripts inspect AI context, markdown, prompt portability, or repository hy
 
 `validate-workflow-artifacts.py` validates post-adoption workflow locator/task metadata, complete `.dev/workflows/INDEX.MD` directory coverage, locator-backed title/owner/status/timestamp/entrypoint parity, explicit legacy/no-locator rows, and durable `.dev/backlog/items/*.yaml` identity, lifecycle, timestamp, index, and reference integrity.
 
+`shell-assets.yaml` classifies every tracked `.ai/scripts/**/*.sh` file as
+`retained` or `retirement_candidates`. Retained shell assets must use Git index
+mode `100755`; required entrypoints and child scripts must be retained.
+`validate-shell-assets.py` enforces this contract with `git ls-files --stage`
+instead of host filesystem executability, which is unreliable under Windows
+Git Bash and `core.filemode=false`.
+
 ### Keep As Orchestrator Only
 
 - `check-all.sh`
