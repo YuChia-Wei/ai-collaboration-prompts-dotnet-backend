@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
+import re
 from pathlib import Path
 
 import yaml
@@ -14,6 +15,25 @@ ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = Path(".ai/scripts/shell-assets.yaml")
 GROUPS = ("retained", "retirement_candidates")
 REQUIRED_GROUPS = ("required_entrypoints", "check_all_required_scripts")
+RUN_CHECK_START = re.compile(r'^\s*run_check\s+"([^"]+)"\s*\\\s*$')
+
+
+def runner_required_scripts(errors: list[str], modes: dict[str, str]) -> set[str] | None:
+    runner = ".ai/scripts/check-all.sh"
+    if runner not in modes:
+        return None
+    try:
+        lines = (ROOT / runner).read_text(encoding="utf-8").splitlines()
+    except (OSError, UnicodeDecodeError) as exc:
+        errors.append(f"{runner}: cannot inspect required child declarations: {exc}")
+        return set()
+
+    required: set[str] = set()
+    for index, line in enumerate(lines):
+        match = RUN_CHECK_START.match(line)
+        if match and index + 2 < len(lines) and lines[index + 2].strip().startswith('"required"'):
+            required.add(f".ai/scripts/{match.group(1)}")
+    return required
 
 
 def git_shell_modes(errors: list[str]) -> dict[str, str]:
@@ -84,6 +104,16 @@ def main() -> int:
         outside = sorted(set(values.get(group, [])) - retained)
         if outside:
             errors.append(f"{MANIFEST}: {group} must be a subset of retained: {outside}")
+
+    runner_required = runner_required_scripts(errors, modes)
+    if runner_required is not None:
+        declared_required = set(values.get("check_all_required_scripts", []))
+        if runner_required != declared_required:
+            errors.append(
+                f"{MANIFEST}: check_all required-script coverage mismatch; "
+                f"missing={sorted(runner_required - declared_required)}, "
+                f"extra={sorted(declared_required - runner_required)}"
+            )
 
     if errors:
         print("Shell asset validation failed:")

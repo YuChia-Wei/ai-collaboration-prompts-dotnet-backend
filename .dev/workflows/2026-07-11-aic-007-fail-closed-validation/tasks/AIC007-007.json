@@ -3,9 +3,9 @@
   "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
   "owner_skill": "dev-workflow",
   "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-11T23:48:00+08:00",
-  "updated_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T14:01:21+08:00",
   "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
   "template_version": "1.0.0",
   "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
@@ -25,5 +25,11 @@
     "commit_checkpoint": "final validation and closure commit",
     "deferred_items": []
   },
-  "results": {"summary": "", "files_changed": [], "validation_evidence": [], "commits": [], "follow_up_needed": false}
+  "results": {
+    "summary": "Independent fallback-mode tooling review found one MUST FIX manifest-to-runner parity gap. The bounded remediation is implemented and its 16 fixture tests pass; final re-review and closure validation remain in progress.",
+    "files_changed": [".ai/scripts/shell-assets.yaml", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/tests/test_fail_closed_validation.py", ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/review-report.md"],
+    "validation_evidence": ["independent tooling review identified omitted conditional-required child declaration", "manifest now declares check-spec-compliance.sh", "validator compares required run_check children with manifest declaration", "negative parity fixture passes", "16 total GWT fixtures pass", "shell asset validator passes"],
+    "commits": [],
+    "follow_up_needed": true
+  }
 }

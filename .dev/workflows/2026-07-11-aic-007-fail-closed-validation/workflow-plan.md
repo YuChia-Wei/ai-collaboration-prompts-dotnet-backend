@@ -17,7 +17,7 @@
 - `branch_segment`: `1`
 - `status`: `active`
 - `created_at`: `2026-07-11T23:43:23+08:00`
-- `updated_at`: `2026-07-12T13:26:59+08:00`
+- `updated_at`: `2026-07-12T14:01:21+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -137,7 +137,7 @@
 
 ## Progress And Handoff
 
-- Current stage: Stage 7 review, audit handoff, and closure (`AIC007-007`) is pending.
+- Current stage: Stage 7 review, audit handoff, and closure (`AIC007-007`) is in progress; the independent review's manifest-to-runner parity finding is remediated and awaiting final re-validation.
 - Completed stages: AIC007-001 through AIC007-006, including 15 synthetic GWT fixture tests and permitted real critical/quick smoke.
 - Deferred stages and reasons: hosted Linux CI requires separate authorization and remains an explicit residual gap; real full mode is excluded because its advisory helper can inspect product test code.
 - Open decisions: none blocking. Optional future decision: add Linux CI after local cross-platform semantics are proven.

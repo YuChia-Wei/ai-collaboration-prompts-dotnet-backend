@@ -74,6 +74,24 @@ class SyntheticShellAssetRepo:
         self._require_success(updated)
         return relative
 
+    def add_runner(self, required_children: list[str]) -> str:
+        runner = ".ai/scripts/check-all.sh"
+        body = ["#!/bin/bash"]
+        for child in required_children:
+            body.extend(
+                (
+                    f'run_check "{child}" \\',
+                    f'    "Fixture {child}" \\',
+                    '    "required" "true" "true"',
+                )
+            )
+        (self.root / runner).write_text("\n".join(body) + "\n", encoding="utf-8", newline="\n")
+        added = run(["git", "add", "--", runner], self.root)
+        self._require_success(added)
+        updated = run(["git", "update-index", "--chmod=+x", "--", runner], self.root)
+        self._require_success(updated)
+        return runner
+
     def write_manifest(
         self,
         *,
@@ -470,6 +488,29 @@ class ShellAssetValidationGwtTests(unittest.TestCase):
                 "and 2 tracked shell asset(s)",
                 result.stdout,
             )
+        finally:
+            fixture.close()
+
+    def test_given_required_runner_child_omitted_when_validated_then_parity_fails(self) -> None:
+        fixture = SyntheticShellAssetRepo()
+        try:
+            # Given the runner has two required children but the manifest declares one.
+            coding = fixture.add_shell("check-coding-standards.sh")
+            spec = fixture.add_shell("check-spec-compliance.sh")
+            runner = fixture.add_runner(["check-coding-standards.sh", "check-spec-compliance.sh"])
+            fixture.write_manifest(
+                retained=[runner, coding, spec],
+                required_entrypoints=[runner],
+                check_all_required_scripts=[coding],
+            )
+
+            # When runner declarations and manifest ownership are compared.
+            result = fixture.validate()
+
+            # Then the undeclared conditional-required child blocks validation.
+            self.assertEqual(1, result.returncode)
+            self.assertIn("check_all required-script coverage mismatch", result.stdout)
+            self.assertIn(f"missing=['{spec}']", result.stdout)
         finally:
             fixture.close()
 

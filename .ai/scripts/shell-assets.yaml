@@ -20,3 +20,4 @@ required_entrypoints:
   - .ai/scripts/code-review.sh
 check_all_required_scripts:
   - .ai/scripts/check-coding-standards.sh
+  - .ai/scripts/check-spec-compliance.sh
