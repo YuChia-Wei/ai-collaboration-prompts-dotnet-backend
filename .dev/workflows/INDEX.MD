@@ -8,6 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-ctx-002-ai-index-repair`](2026-07-12-ctx-002-ai-index-repair/workflow.yaml) | CTX-002 AI Index Repair | `ai-context-governance` | `in_progress` | `2026-07-12T14:25:35+08:00` | [plan](2026-07-12-ctx-002-ai-index-repair/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
