@@ -44,6 +44,17 @@ These scripts inspect AI context, markdown, prompt portability, or repository hy
 
 `validate-workflow-artifacts.py` validates post-adoption workflow locator/task metadata, complete `.dev/workflows/INDEX.MD` directory coverage, locator-backed title/owner/status/timestamp/entrypoint parity, explicit legacy/no-locator rows, and durable `.dev/backlog/items/*.yaml` identity, lifecycle, timestamp, index, and reference integrity.
 
+Fail-closed shell validation regression tests use Given-When-Then naming and
+comments and run entirely in disposable Git repositories:
+
+```powershell
+python .ai/scripts/tests/test_fail_closed_validation.py -v
+```
+
+The fixture suite snapshots the real checkout before and after execution. It
+must not source `check-all.sh` or change files, modes, or index entries outside
+its temporary repository.
+
 `shell-assets.yaml` classifies every tracked `.ai/scripts/**/*.sh` file as
 `retained` or `retirement_candidates`. Retained shell assets must use Git index
 mode `100755`; required entrypoints and child scripts must be retained.

@@ -5,7 +5,7 @@
   "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
   "status": "in_progress",
   "created_at": "2026-07-11T23:48:00+08:00",
-  "updated_at": "2026-07-12T11:59:26+08:00",
+  "updated_at": "2026-07-12T13:23:18+08:00",
   "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
   "template_version": "1.0.0",
   "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
@@ -26,9 +26,9 @@
     "deferred_items": ["Linux hosted CI remains optional until explicitly authorized"]
   },
   "results": {
-    "summary": "AIC007-006A design slice completed with 17 implementation-ready GWT scenarios and a temporary-repository fixture safety contract. AIC007-006 remains in progress because fixture implementation and cross-platform execution are intentionally unstarted due to the current budget constraint.",
-    "files_changed": [".dev/workflows/2026-07-11-aic-007-fail-closed-validation/test-design/AIC007-006-gwt-scenario-matrix.md"],
-    "validation_evidence": ["scenario coverage maps required/advisory/conditional/deferred semantics", "Git 100644 Windows masking regression is specified", "real-repository mutation is explicitly prohibited", "Linux hosted CI remains an explicit unverified gap"],
+    "summary": "AIC007-006A completed the 17-scenario design. AIC007-006B-1 now implements and passes synthetic-repository GWT coverage for Git 100644 rejection, manifest coverage and lifecycle invariants, valid manifests, fixture cleanup, and real-repository immutability. The task remains in progress pending runner behavior fixtures and smoke evidence.",
+    "files_changed": [".dev/workflows/2026-07-11-aic-007-fail-closed-validation/test-design/AIC007-006-gwt-scenario-matrix.md", ".ai/scripts/tests/test_fail_closed_validation.py", ".ai/scripts/README.md"],
+    "validation_evidence": ["5 fixture tests pass for GWT-002 and GWT-012 through GWT-015", "temporary Git index mode 100644 is rejected deterministically", "manifest mismatch, lifecycle failure, and valid-manifest paths are covered", "real HEAD, porcelain status, and shell index snapshots remain unchanged", "shell asset, AI context, and workflow artifact validators pass", "runner GWT-001 and GWT-003 through GWT-011 remain pending", "Linux hosted CI remains an explicit unverified gap"],
     "commits": [],
     "follow_up_needed": true
   }

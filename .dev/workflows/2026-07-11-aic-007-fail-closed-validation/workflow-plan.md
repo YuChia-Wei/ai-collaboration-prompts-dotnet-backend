@@ -17,7 +17,7 @@
 - `branch_segment`: `1`
 - `status`: `active`
 - `created_at`: `2026-07-11T23:43:23+08:00`
-- `updated_at`: `2026-07-12T11:59:26+08:00`
+- `updated_at`: `2026-07-12T13:23:18+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -137,11 +137,11 @@
 
 ## Progress And Handoff
 
-- Current stage: Stage 6B fixture test implementation (`AIC007-006`) pending the next budget slice; Stage 6A design is complete.
+- Current stage: Stage 6B fixture test implementation (`AIC007-006`) is active; validator fixtures 006B-1 are complete and runner fixtures 006B-2 remain.
 - Completed stages: AIC007-001 through AIC007-005, including generated-regex retirement and removal of stale archive semantics.
-- Deferred stages and reasons: fixture implementation and cross-platform execution are intentionally deferred until budget resumes; hosted Linux CI additionally requires separate authorization.
+- Deferred stages and reasons: runner behavior fixtures and cross-platform smoke follow the 006B-1 checkpoint; hosted Linux CI additionally requires separate authorization.
 - Open decisions: none blocking. Optional future decision: add Linux CI after local cross-platform semantics are proven.
-- Continuation instructions: resume AIC007-006B from `test-design/AIC007-006-gwt-scenario-matrix.md`; implement only synthetic-repository fixtures and keep the real repository immutable.
+- Continuation instructions: resume AIC007-006B-2 from GWT-001 and GWT-003 through GWT-011 in `test-design/AIC007-006-gwt-scenario-matrix.md`; extend the existing Python harness with copied runner and PATH stubs, keeping the real repository immutable.
 - Branch history and checkpoint handoffs: branch created from `main` at merge commit `52d8f4b`.
 
 ## Branch Lifecycle

@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-11-aic-007-fail-closed-validation`](2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | AIC-007 Fail-Closed Validation And Executable Modes | `dev-workflow` | `active` | `2026-07-12T11:59:26+08:00` | [plan](2026-07-11-aic-007-fail-closed-validation/workflow-plan.md) |
+| [`2026-07-11-aic-007-fail-closed-validation`](2026-07-11-aic-007-fail-closed-validation/workflow.yaml) | AIC-007 Fail-Closed Validation And Executable Modes | `dev-workflow` | `active` | `2026-07-12T13:23:18+08:00` | [plan](2026-07-11-aic-007-fail-closed-validation/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
