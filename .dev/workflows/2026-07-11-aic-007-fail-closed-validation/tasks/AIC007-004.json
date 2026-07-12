@@ -1,0 +1,35 @@
+{
+  "task_id": "AIC007-004",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "slice-implementer",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "completed",
+  "created_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T08:46:00+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Make selected required checks fail closed with truthful accounting.",
+    "target": ".ai/scripts/check-all.sh enforcement model",
+    "files": [".ai/scripts/check-all.sh", "runner contract documentation"],
+    "constraints": ["Advisory warnings remain non-blocking", "Required selected checks must execute", "Invalid arguments exit 2"],
+    "non_goals": ["Make every warning fatal", "Promote legacy grep semantics"]
+  },
+  "inputs": {"requirements": ["required/conditional-required/advisory/deferred"], "specifications": ["quick/critical/full selection matrix"], "architecture_decisions": ["Selected required skip is failure"], "user_constraints": []},
+  "execution": {
+    "capability_slot": "implementation",
+    "steps": ["Replace boolean critical ambiguity with enforcement class", "Track selected/run/failed required counts", "Implement conditional spec configuration rules", "Reject invalid mode/extra args", "Report advisories separately"],
+    "validation": ["required absent/nonexec/nonzero exits 1", "advisory warning with required pass exits 0", "partial conditional config fails", "not-applicable conditional is explicit", "invalid CLI exits 2"],
+    "commit_checkpoint": "fail-closed orchestration commit",
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Refactored check-all.sh into explicit required, conditional-required, advisory, and deferred outcomes. Selected required checks now fail on missing, non-executable, unlaunchable, or non-zero outcomes; mode omissions, N/A conditions, advisories, and deferred checks are reported separately.",
+    "files_changed": [".ai/scripts/check-all.sh", ".ai/scripts/README.md", "workflow progress artifacts"],
+    "validation_evidence": ["bash -n passed", "unknown argument exits 2", "extra argument exits 2", "quick gate passed with 6 required selected/executed and 49/49 tooling tests", "missing TASK_NAME with SPEC_FILE set exits 1 as conditional-required configuration failure", "normal absent spec inputs report not applicable", "legacy test/archive grep checks are advisory, not required"],
+    "commits": ["817f0f4"],
+    "follow_up_needed": false
+  }
+}

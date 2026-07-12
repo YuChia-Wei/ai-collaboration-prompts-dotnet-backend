@@ -1,0 +1,23 @@
+template_metadata:
+  template_id: "dev-workflow-workflow-locator"
+  template_version: "1.1.0"
+  created_at: "2026-07-10T18:25:11+08:00"
+  updated_at: "2026-07-11T00:22:30+08:00"
+
+schema_version: "1.0"
+workflow_id: "2026-07-11-aic-007-fail-closed-validation"
+workflow_kind: "software-development"
+title: "AIC-007 Fail-Closed Validation And Executable Modes"
+owner_skill: "dev-workflow"
+status: "completed"
+branch: "codex/2026-07-11-aic-007-fail-closed-validation"
+base_branch: "main"
+artifact_root: ".dev/workflows/2026-07-11-aic-007-fail-closed-validation"
+entrypoint: "workflow-plan.md"
+created_at: "2026-07-11T23:43:23+08:00"
+updated_at: "2026-07-12T14:03:59+08:00"
+template_source: ".ai/assets/skills/dev-workflow/templates/workflow-locator-template.yaml"
+template_version: "1.1.0"
+source_backlog_items:
+  - ".dev/backlog/items/AIC-007.yaml"
+origin_workflow: ".dev/workflows/2026-07-10-ai-context-self-audit"

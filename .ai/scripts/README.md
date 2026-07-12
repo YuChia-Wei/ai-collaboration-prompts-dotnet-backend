@@ -42,12 +42,54 @@ These scripts inspect AI context, markdown, prompt portability, or repository hy
 
 `validate-ai-context.py` checks objective repository facts: active index paths, literal table corruption, declared runtime-root status, canonical/Agents/Claude skill inventory parity, policy-scoped agent-facing language, root bilingual entry ownership/link/structural markers, rule ownership registry structure, canonical skill/sub-agent schema compliance, canonical template-family hygiene, and deterministic development capability routing. It scans both tracked and untracked non-ignored files so a new context file cannot bypass the gate before staging, while filtering tracked paths that are deleted in the working tree. Language lint uses exact path-and-line exceptions for deliberate routing triggers; other Han prose fails with a file and line number. Script source, generated/example/archive/migration material, workflows, product `src`/`test` trees, and human-facing `.dev` documentation are outside that language scan; Markdown documentation under `.ai/scripts` remains in scope. Root bilingual validation checks reciprocal ownership links, heading-level shape, and ordered backtick table paths, not full semantic parity. Canonical schema validation is structural and path-based; it does not claim semantic equivalence between projections.
 
+`validate-workflow-artifacts.py` validates post-adoption workflow locator/task metadata, complete `.dev/workflows/INDEX.MD` directory coverage, locator-backed title/owner/status/timestamp/entrypoint parity, explicit legacy/no-locator rows, and durable `.dev/backlog/items/*.yaml` identity, lifecycle, timestamp, index, and reference integrity.
+
+Fail-closed shell validation regression tests use Given-When-Then naming and
+comments and run entirely in disposable Git repositories:
+
+```powershell
+python .ai/scripts/tests/test_fail_closed_validation.py -v
+```
+
+The fixture suite snapshots the real checkout before and after execution. It
+must not source `check-all.sh` or change files, modes, or index entries outside
+its temporary repository.
+
+`shell-assets.yaml` classifies every tracked `.ai/scripts/**/*.sh` file as
+`retained` or `retirement_candidates`. Retained shell assets must use Git index
+mode `100755`; required entrypoints and child scripts must be retained.
+`validate-shell-assets.py` enforces this contract with `git ls-files --stage`
+instead of host filesystem executability, which is unreliable under Windows
+Git Bash and `core.filemode=false`.
+
+Required child-script calls in `check-all.sh` use the literal multiline form
+`run_check "<script>"`, description, then `"required"` on the third line. The
+shell asset validator compares those literal calls with
+`check_all_required_scripts`; changing that call shape requires updating the
+validator and its negative parity fixture in the same change.
+
 ### Keep As Orchestrator Only
 
 - `check-all.sh`
 - `code-review.sh`
 
 These may remain as local workflow entry points, but their future role is to invoke dotnet-native validation and summarize outputs. They should not remain regex-based C# validators.
+
+`check-all.sh` uses four enforcement classes:
+
+- `required`: when selected by the active mode, the check must execute; missing,
+  non-executable/unlaunchable, or non-zero outcomes fail the aggregate gate;
+- `conditional-required`: absence of all applicability inputs is reported as not
+  applicable, partial configuration fails, and an applicable check is required;
+- `advisory`: execution problems and non-zero outcomes remain visible warnings
+  but do not fail otherwise successful required checks;
+- `deferred`: known future work is counted separately and is never described as
+  a selected required check.
+
+Mode-based omission is distinct from a selected required check being skipped.
+Invalid modes or extra arguments return exit code `2`. A successful aggregate
+result may contain explicit advisory warnings, deferred work, or not-applicable
+conditional checks, but it cannot contain an unexecuted selected required check.
 
 Future `check-all.sh` shape:
 
@@ -66,7 +108,6 @@ Current behavior:
 
 ### Replace With Roslyn Analyzer Or Architecture Tests
 
-- `check-archive-compliance.sh`
 - `check-test-compliance.sh`
 - `check-test-di-compliance.sh`
 - `check-data-class-annotations.sh`
@@ -101,14 +142,16 @@ Analyzer source template:
 
 These are not necessarily Roslyn analyzer rules. They belong in dotnet tools, integration tests, config tests, Stryker.NET configuration, or CI orchestration.
 
-### Retire Generated Regex Checks
+### Retired Generated Regex Checks
 
-- `generate-check-scripts-from-md.sh`
-- `parse-md-rules.py`
-- `MD-SCRIPT-GENERATION-GUIDE.md`
-- `generated/`
+The markdown-to-shell generator, its parser and guide, and the `generated/`
+outputs were removed under AIC-007. The root archive grep check was also removed
+because its stale `HardDelete` text rule contradicted the active archive/purge
+standard. Historical workflow evidence retains the original transition record.
 
-These assets generate or document grep-based C# checks from markdown. They should be retired once analyzer/test replacements exist.
+`check-test-compliance.sh` remains temporarily as an explicitly advisory helper
+until its rules are split across `.editorconfig`, analyzers, and test architecture
+checks. It is manually maintained and cannot be regenerated from Markdown.
 
 ## AI Reasoning Context
 

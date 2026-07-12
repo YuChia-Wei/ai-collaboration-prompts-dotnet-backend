@@ -1,0 +1,35 @@
+{
+  "task_id": "AIC007-007",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "dev-workflow",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "completed",
+  "created_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T14:03:59+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Review and close AIC-007 with complete evidence and backlog resolution.",
+    "target": "Tooling diff, validators, workflow tasks, backlog/index state",
+    "files": ["all workflow-scoped changes", ".dev/backlog/items/AIC-007.yaml", ".dev/workflows/INDEX.MD"],
+    "constraints": ["Do not close on warning-only proof", "Record skipped platform validation", "Verify commit policy"],
+    "non_goals": ["Merge/push without user request"]
+  },
+  "inputs": {"requirements": ["All prior task acceptance evidence"], "specifications": ["Workflow closing checklist"], "architecture_decisions": ["Backlog resolves only after implementation verification"], "user_constraints": ["Checkpoint commits", "Future no-ff merge"]},
+  "execution": {
+    "capability_slot": "review",
+    "steps": ["Run independent tooling review", "Re-run all validators and mutation probes", "Update task and workflow states", "Resolve backlog with resolution_ref", "Record commits and residual risk"],
+    "validation": ["required checks demonstrably fail closed", "Git modes verified from index", "quick/full gate", "workflow/backlog index parity", "git diff --check"],
+    "commit_checkpoint": "final validation and closure commit",
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Completed fallback-mode tooling review, remediated the single MUST FIX manifest-to-runner parity finding, passed independent re-review with no blockers, resolved backlog AIC-007, and closed the workflow with explicit platform and commit-history exceptions.",
+    "files_changed": [".ai/scripts/README.md", ".ai/scripts/shell-assets.yaml", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/tests/test_fail_closed_validation.py", ".dev/backlog/items/AIC-007.yaml", ".dev/backlog/INDEX.MD", ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/review-report.md", "workflow closure metadata"],
+    "validation_evidence": ["independent tooling review and closure audit completed", "MUST FIX runner/manifest parity finding resolved", "independent re-review found no remaining blocker", "16 GWT fixtures pass", "real shell asset validator passes for 14 retained 100755 assets", "real critical and quick gates pass", "workflow, backlog, and AI context validators pass", "real full mode excluded by product-test scan boundary; synthetic full passes", "hosted Linux remains explicitly unverified", "bootstrap commit 2d4d50f lacks the current mandatory body and is recorded as a historical exception without rewriting branch history"],
+    "commits": ["244fc54"],
+    "follow_up_needed": false
+  }
+}

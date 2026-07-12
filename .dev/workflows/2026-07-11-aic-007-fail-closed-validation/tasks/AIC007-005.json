@@ -1,0 +1,35 @@
+{
+  "task_id": "AIC007-005",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "local-change-implementer",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "completed",
+  "created_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T09:31:04+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Remove known-invalid legacy grep semantics from formal gate claims.",
+    "target": "Archive/generated checks and analyzer-transition inventory",
+    "files": [".ai/scripts/check-archive-compliance.sh", ".ai/scripts/generated/check-archive.sh", ".ai/scripts/README.md", "transition workflow references"],
+    "constraints": ["Do not replace semantic analysis with regex", "Preserve explicit advisory/deferred classification"],
+    "non_goals": ["Build the archive Roslyn replacement in this task unless already scoped"]
+  },
+  "inputs": {"requirements": ["Stale HardDelete rule is not a required gate"], "specifications": ["Retire, remove, or explicitly advisory classification"], "architecture_decisions": ["Dotnet-native semantic validation remains target"], "user_constraints": []},
+  "execution": {
+    "capability_slot": "local-change",
+    "steps": ["Trace active references", "Remove required mapping", "Retire generated duplicate where safe", "Update transition inventory and docs"],
+    "validation": ["No required runner references stale HardDelete grep", "reference search", "bash -n retained scripts"],
+    "commit_checkpoint": "transitional-tooling cleanup commit",
+    "deferred_items": []
+  },
+  "results": {
+    "summary": "Retired the markdown-to-shell generator, parser, guide, generated outputs, and the root archive grep check containing the stale HardDelete rule. The root test grep helper remains explicitly advisory and can no longer be regenerated from Markdown.",
+    "files_changed": ["removed generator/parser/guide/generated outputs", "removed check-archive-compliance.sh", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/check-test-compliance.sh", ".ai/scripts/README.md", "workflow progress artifacts"],
+    "validation_evidence": ["active reference search finds no executable HardDelete rule", "14 retained shell assets cover all remaining tracked shell assets", "0 retirement candidates remain", "bash -n passed for retained orchestrator/test helper", "workflow, AI context, and shell asset validators passed", "check-all.sh --quick passed 6/6 with 49/49 tooling tests", "full mode intentionally not run because the remaining advisory test grep helper may inspect product code"],
+    "commits": ["d15ee29"],
+    "follow_up_needed": false
+  }
+}

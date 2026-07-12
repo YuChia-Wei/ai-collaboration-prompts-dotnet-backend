@@ -1,0 +1,35 @@
+{
+  "task_id": "AIC007-006",
+  "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
+  "owner_skill": "bdd-gwt-test-designer",
+  "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
+  "status": "completed",
+  "created_at": "2026-07-11T23:48:00+08:00",
+  "updated_at": "2026-07-12T13:26:59+08:00",
+  "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
+  "template_version": "1.0.0",
+  "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
+  "backlog_refs": [".dev/backlog/items/AIC-007.yaml"],
+  "scope": {
+    "goal": "Design and implement GWT regression coverage for gate and executable-mode behavior.",
+    "target": "Portable fixture-based tooling tests and real smoke evidence",
+    "files": ["tooling test fixtures", "runner/mode validation tests", "workflow validation evidence"],
+    "constraints": ["Given-When-Then style", "No 3A", ".feature optional", "No product tests scan"],
+    "non_goals": ["Introduce BDDfy into non-.NET shell fixtures", "Create CI without authorization"]
+  },
+  "inputs": {"requirements": ["AIC-007 acceptance boundary"], "specifications": ["negative scenario matrix from AIC007-001"], "architecture_decisions": ["Fixture tests must not mutate real index permanently"], "user_constraints": ["GWT minimum"]},
+  "execution": {
+    "capability_slot": "test-design",
+    "steps": ["Design slice: map acceptance conditions to GWT scenarios and fixture safety", "Implementation slice: implement safe temporary-repo fixtures", "Run Windows Git Bash evidence", "Document Linux/Unix command and residual CI gap", "Run real quick/full smoke"],
+    "validation": ["required/advisory/conditional/deferred scenarios", "100644 masking regression", "quick/critical/full matrix", "bash syntax", "restored clean Git state"],
+    "commit_checkpoint": "test and portability evidence commit",
+    "deferred_items": ["Linux hosted CI remains optional until explicitly authorized"]
+  },
+  "results": {
+    "summary": "Completed the 17-scenario GWT design and implementation evidence. Fifteen executable fixture tests cover GWT-001 through GWT-015 in synthetic repositories; Windows Git Bash syntax, shell validation, critical, and quick smoke cover GWT-016; the Unix recipe and unauthorized hosted-Linux gap satisfy the explicit GWT-017 handoff without claiming hosted execution.",
+    "files_changed": [".dev/workflows/2026-07-11-aic-007-fail-closed-validation/test-design/AIC007-006-gwt-scenario-matrix.md", ".ai/scripts/tests/test_fail_closed_validation.py", ".ai/scripts/README.md"],
+    "validation_evidence": ["15 fixture tests pass for GWT-001 through GWT-015", "temporary Git repositories cover required, advisory, conditional, deferred, CLI, mode, Git-mode, and manifest behavior", "real HEAD, porcelain status, and shell index snapshots remain unchanged", "Windows Git Bash syntax passed", "real critical mode passed 6/6 required checks", "real quick mode passed 6/6 with deferred=1 and not-applicable=1", "analyzer template tests passed 47/47 and configuration tests passed 2/2", "shell asset, AI context, and workflow artifact validators pass", "real full mode intentionally excluded because its advisory helper can inspect product test code", "Linux hosted CI remains an explicit unverified gap with a portable command recipe"],
+    "commits": ["26b13b3", "4fef08f", "f3d8f36"],
+    "follow_up_needed": false
+  }
+}
