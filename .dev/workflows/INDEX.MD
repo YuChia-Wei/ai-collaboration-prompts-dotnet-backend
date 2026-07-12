@@ -6,7 +6,9 @@ task-level progress.
 
 ## Active Workflows
 
-No active post-adoption workflow is currently registered.
+| Workflow | Title | Owner | Status | Updated | Entry Point |
+| --- | --- | --- | --- | --- | --- |
+| [`2026-07-12-repository-runtime-entry-policy`](2026-07-12-repository-runtime-entry-policy/workflow.yaml) | Repository Branch And Runtime Entry Policy | `ai-context-governance` | `in_progress` | `2026-07-12T19:23:53+08:00` | [plan](2026-07-12-repository-runtime-entry-policy/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
