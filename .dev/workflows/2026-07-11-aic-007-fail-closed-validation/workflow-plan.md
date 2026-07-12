@@ -17,7 +17,7 @@
 - `branch_segment`: `1`
 - `status`: `active`
 - `created_at`: `2026-07-11T23:43:23+08:00`
-- `updated_at`: `2026-07-12T13:23:18+08:00`
+- `updated_at`: `2026-07-12T13:26:59+08:00`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 - `workflow_locator`: `.dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml`
@@ -113,7 +113,7 @@
 - Scope: fixture-based Bash/Python tests, Windows Git Bash evidence, Linux/Unix-compatible commands.
 - Non-goals: mandatory `.feature` files; 3A-style tests; new CI platform setup.
 - Dependencies: Stages 3 through 5.
-- Validation: scenario matrix for required/advisory/conditional/deferred outcomes, Git mode masking regression, mode selection, syntax, and real quick/full smoke.
+- Validation: scenario matrix for required/advisory/conditional/deferred outcomes, Git mode masking regression, mode selection, syntax, synthetic full mode, and permitted real critical/quick smoke.
 - Commit checkpoint: test and portability evidence commit.
 
 ### Stage 7 — Review, Audit Handoff, And Closure
@@ -137,11 +137,11 @@
 
 ## Progress And Handoff
 
-- Current stage: Stage 6B fixture test implementation (`AIC007-006`) is active; validator fixtures 006B-1 are complete and runner fixtures 006B-2 remain.
-- Completed stages: AIC007-001 through AIC007-005, including generated-regex retirement and removal of stale archive semantics.
-- Deferred stages and reasons: runner behavior fixtures and cross-platform smoke follow the 006B-1 checkpoint; hosted Linux CI additionally requires separate authorization.
+- Current stage: Stage 7 review, audit handoff, and closure (`AIC007-007`) is pending.
+- Completed stages: AIC007-001 through AIC007-006, including 15 synthetic GWT fixture tests and permitted real critical/quick smoke.
+- Deferred stages and reasons: hosted Linux CI requires separate authorization and remains an explicit residual gap; real full mode is excluded because its advisory helper can inspect product test code.
 - Open decisions: none blocking. Optional future decision: add Linux CI after local cross-platform semantics are proven.
-- Continuation instructions: resume AIC007-006B-2 from GWT-001 and GWT-003 through GWT-011 in `test-design/AIC007-006-gwt-scenario-matrix.md`; extend the existing Python harness with copied runner and PATH stubs, keeping the real repository immutable.
+- Continuation instructions: begin AIC007-007 review from the Stage 6 execution evidence, verify backlog acceptance and changed tooling, then close the workflow only after final validation and commit-policy checks.
 - Branch history and checkpoint handoffs: branch created from `main` at merge commit `52d8f4b`.
 
 ## Branch Lifecycle

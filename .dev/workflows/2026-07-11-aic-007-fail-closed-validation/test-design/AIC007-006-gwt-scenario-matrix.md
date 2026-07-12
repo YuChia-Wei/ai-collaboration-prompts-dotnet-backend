@@ -60,8 +60,6 @@ tests without BDDfy, while preserving mandatory Given-When-Then structure.
 
 ## Coverage Gaps And Deferred Evidence
 
-- Test implementation, fixture harness selection, and execution remain in
-  AIC007-006B.
 - The current runner contains fixed command text and derives `PROJECT_ROOT` from
   its location. The harness should copy it into a synthetic repository and stub
   `python`/`dotnet`, not source or patch the real runner.
@@ -70,6 +68,37 @@ tests without BDDfy, while preserving mandatory Given-When-Then structure.
   gate, and explicitly authorized full/advisory execution.
 - Full mode against the real repository remains excluded while it can invoke a
   legacy advisory grep helper that scans product code.
+
+## Execution Evidence
+
+Recorded on `2026-07-12` using Windows Git Bash:
+
+- `python .ai/scripts/tests/test_fail_closed_validation.py -v`: 15 test methods
+  passed, covering GWT-001 through GWT-015; full mode is exercised safely in a
+  synthetic repository.
+- `bash -n ./.ai/scripts/check-all.sh`: passed.
+- `python .ai/scripts/validate-shell-assets.py`: passed for 14 retained Git-mode
+  `100755` shell assets and zero retirement candidates.
+- `bash ./.ai/scripts/check-all.sh --critical`: passed 6/6 required checks;
+  analyzer template tests passed 47/47 and configuration tests passed 2/2.
+- `bash ./.ai/scripts/check-all.sh --quick`: passed 6/6 required checks and
+  truthfully reported one deferred and one not-applicable check.
+- Real full mode was not run because its advisory test helper can inspect product
+  test code, which is outside this workflow's audit boundary.
+
+Portable Unix-like follow-up recipe:
+
+```bash
+git ls-files --stage '*.sh'
+python .ai/scripts/validate-shell-assets.py
+bash -n .ai/scripts/check-all.sh
+python .ai/scripts/tests/test_fail_closed_validation.py -v
+bash .ai/scripts/check-all.sh --critical
+bash .ai/scripts/check-all.sh --quick
+```
+
+Hosted Linux execution remains an explicit residual gap requiring separate CI
+authorization; it is not claimed as a pass.
 
 ## Recommended Test Spec Path
 

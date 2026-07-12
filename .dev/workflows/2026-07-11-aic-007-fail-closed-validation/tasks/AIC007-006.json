@@ -3,9 +3,9 @@
   "workflow_id": "2026-07-11-aic-007-fail-closed-validation",
   "owner_skill": "bdd-gwt-test-designer",
   "related_plan_id": "development-plan-2026-07-11-aic-007-fail-closed-validation",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-11T23:48:00+08:00",
-  "updated_at": "2026-07-12T13:23:18+08:00",
+  "updated_at": "2026-07-12T13:26:59+08:00",
   "template_source": ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json",
   "template_version": "1.0.0",
   "workflow_locator": ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow.yaml",
@@ -26,10 +26,10 @@
     "deferred_items": ["Linux hosted CI remains optional until explicitly authorized"]
   },
   "results": {
-    "summary": "AIC007-006A completed the 17-scenario design. AIC007-006B-1 now implements and passes synthetic-repository GWT coverage for Git 100644 rejection, manifest coverage and lifecycle invariants, valid manifests, fixture cleanup, and real-repository immutability. The task remains in progress pending runner behavior fixtures and smoke evidence.",
+    "summary": "Completed the 17-scenario GWT design and implementation evidence. Fifteen executable fixture tests cover GWT-001 through GWT-015 in synthetic repositories; Windows Git Bash syntax, shell validation, critical, and quick smoke cover GWT-016; the Unix recipe and unauthorized hosted-Linux gap satisfy the explicit GWT-017 handoff without claiming hosted execution.",
     "files_changed": [".dev/workflows/2026-07-11-aic-007-fail-closed-validation/test-design/AIC007-006-gwt-scenario-matrix.md", ".ai/scripts/tests/test_fail_closed_validation.py", ".ai/scripts/README.md"],
-    "validation_evidence": ["5 fixture tests pass for GWT-002 and GWT-012 through GWT-015", "temporary Git index mode 100644 is rejected deterministically", "manifest mismatch, lifecycle failure, and valid-manifest paths are covered", "real HEAD, porcelain status, and shell index snapshots remain unchanged", "shell asset, AI context, and workflow artifact validators pass", "runner GWT-001 and GWT-003 through GWT-011 remain pending", "Linux hosted CI remains an explicit unverified gap"],
-    "commits": [],
-    "follow_up_needed": true
+    "validation_evidence": ["15 fixture tests pass for GWT-001 through GWT-015", "temporary Git repositories cover required, advisory, conditional, deferred, CLI, mode, Git-mode, and manifest behavior", "real HEAD, porcelain status, and shell index snapshots remain unchanged", "Windows Git Bash syntax passed", "real critical mode passed 6/6 required checks", "real quick mode passed 6/6 with deferred=1 and not-applicable=1", "analyzer template tests passed 47/47 and configuration tests passed 2/2", "shell asset, AI context, and workflow artifact validators pass", "real full mode intentionally excluded because its advisory helper can inspect product test code", "Linux hosted CI remains an explicit unverified gap with a portable command recipe"],
+    "commits": ["26b13b3", "4fef08f"],
+    "follow_up_needed": false
   }
 }

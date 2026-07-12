@@ -7,6 +7,7 @@ must never change executable modes, index entries, or files in the real repo.
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
@@ -19,6 +20,7 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_SOURCE = REPO_ROOT / ".ai/scripts/validate-shell-assets.py"
+RUNNER_SOURCE = REPO_ROOT / ".ai/scripts/check-all.sh"
 
 
 def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
@@ -100,6 +102,260 @@ class SyntheticShellAssetRepo:
     def _require_success(result: subprocess.CompletedProcess[str]) -> None:
         if result.returncode != 0:
             raise RuntimeError(result.stderr.strip())
+
+
+class SyntheticRunnerRepo:
+    """Run an unmodified copied check-all.sh against deterministic stubs."""
+
+    def __init__(self) -> None:
+        self._temporary = tempfile.TemporaryDirectory(prefix="aic007-check-all-")
+        self.root = Path(self._temporary.name)
+        self.scripts = self.root / ".ai/scripts"
+        self.bin = self.root / "bin"
+        self.scripts.mkdir(parents=True)
+        self.bin.mkdir()
+        shutil.copy2(RUNNER_SOURCE, self.scripts / RUNNER_SOURCE.name)
+        self._write_stub(self.bin / "python", 'printf "python %s\\n" "$*" >> .aic-sentinel\nexit "${PYTHON_STUB_EXIT:-0}"')
+        self._write_stub(self.bin / "dotnet", 'printf "dotnet %s\\n" "$*" >> .aic-sentinel\nexit "${DOTNET_STUB_EXIT:-0}"')
+        self._write_child("check-coding-standards.sh", "CODING_STUB_EXIT")
+        self._write_child("check-spec-compliance.sh", "SPEC_STUB_EXIT")
+        self._write_child("check-test-compliance.sh", "ADVISORY_STUB_EXIT")
+
+    def close(self) -> None:
+        self._temporary.cleanup()
+
+    def remove_child(self, name: str) -> None:
+        (self.scripts / name).unlink()
+
+    def execute(
+        self,
+        *arguments: str,
+        environment: dict[str, str] | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        bash = None
+        if os.name == "nt":
+            candidates = (
+                Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "Git/bin/bash.exe",
+                Path(os.environ.get("LOCALAPPDATA", "")) / "Programs/Git/bin/bash.exe",
+            )
+            bash = next((str(candidate) for candidate in candidates if candidate.is_file()), None)
+        else:
+            bash = shutil.which("bash")
+        if not bash:
+            raise unittest.SkipTest("Bash is required for check-all.sh fixture tests")
+        merged_environment = dict(os.environ)
+        merged_environment["PATH"] = str(self.bin) + os.pathsep + merged_environment["PATH"]
+        merged_environment.pop("SPEC_FILE", None)
+        merged_environment.pop("TASK_NAME", None)
+        if environment:
+            merged_environment.update(environment)
+        return subprocess.run(
+            [bash, str(self.scripts / RUNNER_SOURCE.name), *arguments],
+            cwd=self.root,
+            env=merged_environment,
+            check=False,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+
+    def sentinel(self) -> list[str]:
+        path = self.root / ".aic-sentinel"
+        return path.read_text(encoding="utf-8").splitlines() if path.exists() else []
+
+    def _write_child(self, name: str, exit_variable: str) -> None:
+        self._write_stub(
+            self.scripts / name,
+            f'printf "{name} %s\\n" "$*" >> .aic-sentinel\nexit "${{{exit_variable}:-0}}"',
+        )
+
+    @staticmethod
+    def _write_stub(path: Path, body: str) -> None:
+        path.write_text(f"#!/bin/bash\n{body}\n", encoding="utf-8", newline="\n")
+        path.chmod(0o755)
+
+
+class CheckAllRunnerGwtTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.real_before = real_repo_snapshot()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        if cls.real_before != real_repo_snapshot():
+            raise AssertionError("check-all fixture tests mutated the real repository")
+
+    def test_gwt_001_given_required_script_missing_when_critical_runs_then_gate_fails(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the selected required child script is absent.
+            fixture.remove_child("check-coding-standards.sh")
+
+            # When critical mode executes the copied runner.
+            result = fixture.execute("--critical")
+
+            # Then the aggregate fails and records an unexecuted required check.
+            self.assertEqual(1, result.returncode)
+            self.assertIn("FAILED", result.stdout)
+            self.assertIn("check-coding-standards.sh not found", result.stdout)
+            self.assertIn("Required Selected:", result.stdout)
+            self.assertIn("Required Executed:", result.stdout)
+            self.assertIn("Required Failed:", result.stdout)
+        finally:
+            fixture.close()
+
+    def test_gwt_003_given_required_script_nonzero_when_selected_then_counted_once(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the required coding check returns 17.
+            # When critical mode executes.
+            result = fixture.execute("--critical", environment={"CODING_STUB_EXIT": "17"})
+
+            # Then the aggregate fails exactly one required check.
+            self.assertEqual(1, result.returncode)
+            self.assertIn("Coding Standards Compliance returned non-zero", result.stdout)
+            self.assertRegex(result.stdout, r"Required Failed: .*1")
+        finally:
+            fixture.close()
+
+    def test_gwt_004_given_required_command_unavailable_when_selected_then_gate_fails(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given deterministic dotnet command stubs return command-not-found semantics.
+            # When critical mode executes both required dotnet checks.
+            result = fixture.execute("--critical", environment={"DOTNET_STUB_EXIT": "127"})
+
+            # Then both selected command checks fail without workstation dependency.
+            self.assertEqual(1, result.returncode)
+            self.assertRegex(result.stdout, r"Required Failed: .*2")
+            self.assertEqual(2, sum(line.startswith("dotnet ") for line in fixture.sentinel()))
+        finally:
+            fixture.close()
+
+    def test_gwt_005_given_advisory_failure_when_full_runs_then_visible_but_nonblocking(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given all required stubs pass and the advisory child returns nonzero.
+            # When full mode executes.
+            result = fixture.execute("--full", environment={"ADVISORY_STUB_EXIT": "9"})
+
+            # Then the gate passes with a visible advisory warning.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("ADVISORY", result.stdout)
+            self.assertRegex(result.stdout, r"Advisory Warnings: .*1")
+            self.assertRegex(result.stdout, r"Required Failed: .*0")
+            self.assertIn("Passed with 1 Advisory Warning", result.stdout)
+        finally:
+            fixture.close()
+
+    def test_gwt_006_given_no_spec_inputs_when_quick_runs_then_spec_is_not_applicable(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given both conditional spec inputs are absent.
+            # When quick mode reaches spec compliance.
+            result = fixture.execute("--quick")
+
+            # Then it records N/A without selecting or failing another required check.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("NOT APPLICABLE", result.stdout)
+            self.assertRegex(result.stdout, r"Not Applicable: .*1")
+            self.assertRegex(result.stdout, r"Required Failed: .*0")
+        finally:
+            fixture.close()
+
+    def test_gwt_007_given_partial_spec_inputs_when_quick_runs_then_configuration_fails(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            for environment in ({"SPEC_FILE": "spec.json"}, {"TASK_NAME": "task"}):
+                with self.subTest(environment=environment):
+                    # Given exactly one conditional-required input is present.
+                    # When quick mode reaches spec compliance.
+                    result = fixture.execute("--quick", environment=environment)
+
+                    # Then configuration fails before the spec child launches.
+                    self.assertEqual(1, result.returncode)
+                    self.assertIn("requires both SPEC_FILE and TASK_NAME", result.stdout)
+                    self.assertFalse(
+                        any(line.startswith("check-spec-compliance.sh") for line in fixture.sentinel())
+                    )
+        finally:
+            fixture.close()
+
+    def test_gwt_008_given_complete_spec_inputs_when_quick_runs_then_child_result_is_required(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            base = {"SPEC_FILE": "spec.json", "TASK_NAME": "task"}
+            # Given both inputs exist, when the spec child passes, then the gate passes.
+            passing = fixture.execute("--quick", environment=base)
+            self.assertEqual(0, passing.returncode, passing.stdout + passing.stderr)
+
+            # Given both inputs exist, when the spec child fails, then the gate fails.
+            failing = fixture.execute("--quick", environment={**base, "SPEC_STUB_EXIT": "4"})
+            self.assertEqual(1, failing.returncode)
+            self.assertIn("Spec Implementation Compliance (.NET) returned non-zero", failing.stdout)
+        finally:
+            fixture.close()
+
+    def test_gwt_009_given_deferred_check_when_quick_runs_then_only_deferred_count_increments(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the dependency check has no implementation script.
+            # When quick mode reaches the declared deferred entry.
+            result = fixture.execute("--quick")
+
+            # Then it is explicitly deferred and cannot fail the gate.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("DEFERRED: Dependencies and Versions", result.stdout)
+            self.assertRegex(result.stdout, r"Deferred: .*1")
+            self.assertRegex(result.stdout, r"Required Failed: .*0")
+        finally:
+            fixture.close()
+
+    def test_gwt_010_given_modes_when_each_runs_then_selection_and_default_are_truthful(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given identical passing stubs, when each supported mode executes.
+            critical = fixture.execute("--critical")
+            quick = fixture.execute("--quick")
+            full = fixture.execute("--full")
+            default = fixture.execute()
+
+            # Then all pass, mode labels are truthful, and default selects full behavior.
+            for result in (critical, quick, full, default):
+                self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("Mode: ", critical.stdout)
+            self.assertIn("critical", critical.stdout)
+            self.assertIn("quick", quick.stdout)
+            self.assertIn("full", full.stdout)
+            self.assertEqual(
+                [line for line in full.stdout.splitlines() if "Running:" in line],
+                [line for line in default.stdout.splitlines() if "Running:" in line],
+            )
+            self.assertNotIn("Test Standards Compliance", critical.stdout)
+            self.assertNotIn("Test Standards Compliance", quick.stdout)
+            self.assertIn("Test Standards Compliance", full.stdout)
+        finally:
+            fixture.close()
+
+    def test_gwt_011_given_invalid_cli_when_runner_starts_then_no_check_launches(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given invalid arguments, when the runner parses them.
+            unknown = fixture.execute("--unknown")
+            extra = fixture.execute("--quick", "--full")
+            help_result = fixture.execute("--help")
+
+            # Then invalid forms exit 2, help exits 0, and no checks launch.
+            self.assertEqual(2, unknown.returncode)
+            self.assertEqual(2, extra.returncode)
+            self.assertEqual(0, help_result.returncode)
+            self.assertIn("Usage:", unknown.stderr)
+            self.assertIn("Usage:", extra.stderr)
+            self.assertIn("Usage:", help_result.stdout)
+            self.assertEqual([], fixture.sentinel())
+        finally:
+            fixture.close()
 
 
 class ShellAssetValidationGwtTests(unittest.TestCase):
