@@ -321,6 +321,70 @@ def load_yaml_mapping(path: Path, errors: list[str]) -> dict | None:
     return value
 
 
+def validate_wrapper_metadata(
+    path: Path,
+    data: dict,
+    errors: list[str],
+    *,
+    root: Path = ROOT,
+) -> None:
+    """Validate one skill's canonical-to-runtime wrapper path contract."""
+    targets = data.get("wrapper_targets")
+    metadata = data.get("wrapper_metadata")
+    if not isinstance(targets, list) or not all(isinstance(item, str) for item in targets):
+        return
+    if len(targets) != len(set(targets)):
+        errors.append(f"{path}: wrapper_targets must not contain duplicates")
+    if not isinstance(metadata, dict):
+        errors.append(f"{path}: wrapper_metadata must be a mapping")
+        return
+
+    target_set = set(targets)
+    metadata_keys = list(metadata)
+    non_string_keys = [key for key in metadata_keys if not isinstance(key, str)]
+    if non_string_keys:
+        errors.append(f"{path}: wrapper_metadata keys must be strings: {non_string_keys!r}")
+    metadata_set = {key for key in metadata_keys if isinstance(key, str)}
+    if metadata_set != target_set:
+        errors.append(
+            f"{path}: wrapper_metadata target parity mismatch; "
+            f"missing={sorted(target_set - metadata_set)}, "
+            f"extra={sorted(metadata_set - target_set)}"
+        )
+
+    root_resolved = root.resolve()
+    for target in sorted(target_set & metadata_set):
+        target_metadata = metadata[target]
+        label = f"{path}: wrapper_metadata.{target}"
+        if not isinstance(target_metadata, dict):
+            errors.append(f"{label} must be a mapping")
+            continue
+        if "runtime_wrapper_path" in target_metadata:
+            errors.append(f"{label}: runtime_wrapper_path is legacy; use wrapper_path")
+        wrapper_value = target_metadata.get("wrapper_path")
+        if not isinstance(wrapper_value, str) or not wrapper_value:
+            errors.append(f"{label}.wrapper_path must be a non-empty string")
+            continue
+        if (
+            Path(wrapper_value).is_absolute()
+            or "\\" in wrapper_value
+            or any(character in wrapper_value for character in "<>*?[]{}")
+        ):
+            errors.append(
+                f"{label}.wrapper_path must be a repository-relative path "
+                "without placeholders or globs"
+            )
+            continue
+        wrapper_path = (root / wrapper_value).resolve()
+        try:
+            wrapper_path.relative_to(root_resolved)
+        except ValueError:
+            errors.append(f"{label}.wrapper_path escapes the repository: {wrapper_value}")
+            continue
+        if not wrapper_path.exists():
+            errors.append(f"{label}.wrapper_path does not exist: {wrapper_value}")
+
+
 def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
     """Validate versioned skill and sub-agent manifests against the canonical contract."""
     manifests = sorted(Path(".ai/assets/skills").glob("*/skill.yaml")) + sorted(
@@ -387,6 +451,7 @@ def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
                         errors.append(f"{path}: missing {key} path {value}")
         if path.name == "skill.yaml":
             skill_assets[asset_id] = data
+            validate_wrapper_metadata(path, data, errors)
         for key in ("triggers", "workflow"):
             if key not in data:
                 errors.append(f"{path}: missing type-specific field {key}")

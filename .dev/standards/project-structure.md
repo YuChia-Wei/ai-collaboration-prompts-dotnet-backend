@@ -1,6 +1,16 @@
-# .NET CA + WolverineFx Project Structure Guide
+# Conditional .NET Backend Project Structure Profile
 
-This project uses a **multi-Bounded Context (BC)** architecture. Each Domain has independent DomainCore and Presentation layers.
+This document is a reusable target-repository profile, not the observed directory
+structure of this AI context framework. Apply its physical layout and naming only
+when repository evidence or an explicit team decision adopts them. Run
+`repo-structure-sync` first when this framework is copied into a target repository;
+unconfirmed paths and project names must remain unresolved.
+
+The normative invariants are DDD and Clean Architecture dependency direction,
+port-and-adapter boundaries, and MQ-based cross-bounded-context integration. The
+multi-BC tree, `DomainCore` / `Presentation` grouping, shared-project taxonomy,
+project-name examples, and `.slnx` organization below are conditional profile
+defaults or examples rather than universal requirements.
 
 ## Project Directory Structure
 
@@ -8,13 +18,13 @@ This project uses a **multi-Bounded Context (BC)** architecture. Each Domain has
 project-root/
 ├── src/
 │   ├── BC-Contracts/                    # Cross-BC communication contracts (Published Language)
-│   │   └── Lab.BoundedContextContracts.<Domain>/ # Integration Events / Interactions / DTOs for each Domain
+│   │   └── <Company>.BoundedContextContracts.<Domain>/ # Example contract project
 │   ├── BuildingBlocks/                  # Shared building blocks (architectural infrastructure)
-│   │   ├── Lab.BuildingBlocks.Domain/   # Shared Domain-layer components
-│   │   ├── Lab.BuildingBlocks.Application/
-│   │   └── Lab.BuildingBlocks.Infrastructure/
+│   │   ├── <Company>.BuildingBlocks.Domain/   # Example shared components
+│   │   ├── <Company>.BuildingBlocks.Application/
+│   │   └── <Company>.BuildingBlocks.Infrastructure/
 │   ├── Shared/                          # Shared domain core (Shared Kernel)
-│   │   └── Lab.SharedKernel/            # Domain concepts shared across BCs, such as Value Objects and Enums
+│   │   └── <Company>.SharedKernel/       # Example shared domain concepts
 │   └── <DomainName>/                    # Specific Domain (for example, Order or Product)
 │       ├── DomainCore/                  # Domain core layer
 │       │   ├── <DomainName>.Domains/        # Domain Model
@@ -30,13 +40,19 @@ project-root/
 ├── https/                               # HTTP test files
 │   └── <Context>/                       # HTTP tests for a specific BC
 ├── sql-script/                          # Database scripts
-├── .ai/                                 # Reusable prompts, shared rules, and scripts for agents
-├── .dev/                                # Human-facing specs, ADRs, requirements, and guides
+├── .ai/                                 # Canonical reusable AI assets
+├── .agents/skills/                      # Current-runtime thin skill wrappers
+├── .claude/skills/                      # Claude-compatible thin skill wrappers
+├── .dev/                                # Project truth, standards, guides, and workflows
 ├── .github/                             # GitHub repository resources; the Copilot adapter is optional
 └── *.slnx                               # .NET Solution
 ```
 
-## Project Layer Rules
+## Conditional Physical Layout
+
+The following names and locations apply only when the target adopts this profile.
+Other physical layouts are valid when they preserve the normative dependency and
+port/adapter rules and are recorded in target repository evidence.
 
 | Layer | Responsibility | Naming Convention | Location |
 |------|------|---------|------|
@@ -45,9 +61,9 @@ project-root/
 | Infrastructure | Technical infrastructure | `<DomainName>.Infrastructure` | `./src/<DomainName>/DomainCore` |
 | Presentation | Web API | `<DomainName>.WebApi` | `./src/<DomainName>/Presentation` |
 | Presentation | Queue Consumer | `<DomainName>.Consumer` | `./src/<DomainName>/Presentation` |
-| Cross-BC | Cross-BC communication contracts | `Lab.BoundedContextContracts.<Domain>` | `./src/BC-Contracts` |
-| BuildingBlocks | Architectural infrastructure | `Lab.BuildingBlocks.<Layer>` | `./src/BuildingBlocks` |
-| SharedKernel | Shared domain core | `Lab.SharedKernel` | `./src/Shared` |
+| Cross-BC | Cross-BC communication contracts | `<Company>.BoundedContextContracts.<Domain>` | example: `./src/BC-Contracts` |
+| BuildingBlocks | Architectural infrastructure | `<Company>.BuildingBlocks.<Layer>` | example: `./src/BuildingBlocks` |
+| SharedKernel | Shared domain core | `<Company>.SharedKernel` | example: `./src/Shared` |
 | Tests | Test project | `<TargetProject>.Tests` | `./tests` |
 
 ## Documentation and AI Asset Responsibilities
@@ -56,10 +72,14 @@ project-root/
 |------|---------|------|
 | `./.dev/guides/ai-collaboration-guides` | Human | AI collaboration guides, workflows, and prompt templates |
 | `./.dev/guides` | Human | General development and design guides (AI collaboration / design / implementation / learning) |
-| `./ai` | Agent | Prompt components, shared rules, and scripts |
-| `./.claude/skills` | Agent | Skill definitions and skill-local references |
+| `./.ai` | Agent | Canonical reusable AI assets, skill specs, shared rules, and context scripts |
+| `./.agents/skills` | Agent | Current-runtime thin wrappers pointing to canonical skill specs |
+| `./.claude/skills` | Agent | Claude-compatible thin wrappers pointing to canonical skill specs |
 
-## Solution File (.slnx) Rules
+## Conditional Solution File (`.slnx`) Profile
+
+Apply these grouping conventions only when the target repository uses `.slnx` and
+explicitly adopts this profile.
 
 - Solution Folders in `.slnx` use logical grouping and do not need to match the physical directory structure.
 - Solution Folder names must use leading and trailing slashes: `/{Group}/`, `/{Group}/{SubGroup}/` (for example, `/Order/DomainCore/`).
@@ -201,13 +221,15 @@ For additional rules, see [`USECASE-COMMAND-HANDLER-RELATIONSHIP.MD`](./USECASE-
 | Communication Type | Mechanism | Definition Location |
 |---------|---------|---------|
 | Within the same BC | Domain Events | `<Domain>.Domains/DomainEvents` |
-| Cross-BC | Integration Events | `./src/BC-Contracts/Lab.BoundedContextContracts.<Domain>` |
+| Cross-BC | Integration Events | target-selected Published Language contract location; example: `./src/BC-Contracts/<Company>.BoundedContextContracts.<Domain>` |
 
 ## Shared Projects Classification
 
-> For detailed design rationale and DDD explanations, treat this document and the corresponding rationale/guide documents as authoritative.
+> The DDD concepts and dependency constraints are authoritative. The three-project
+> physical split is a conditional profile example and must not be inferred as
+> current target-repository truth.
 
-This project has three cross-domain shared areas, each corresponding to a different DDD concept:
+When a target adopts this profile, it may use these three distinct shared areas:
 
 | Project | DDD Concept | Responsibility | Dependency Permission |
 |------|---------|------|----------|

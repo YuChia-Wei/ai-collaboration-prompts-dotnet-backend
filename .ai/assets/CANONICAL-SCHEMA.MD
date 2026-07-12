@@ -59,10 +59,23 @@ A `skill-spec` requires all common fields plus:
 | `triggers` | `string[]` | At least one user intent or trigger phrase |
 | `workflow` | `workflow-step[]` | Ordered execution contract |
 Optional skill fields include `handoff_rules`, `runtime_notes`,
-`capability_slots`, `human_guide`, `wrapper_metadata`, `workflow_artifacts`,
+`capability_slots`, `human_guide`, `workflow_artifacts`,
 `workflow_templates`, and `report_template`. When present, `handoff_rules` and
 `runtime_notes` are `string[]`. Paths and wrapper metadata must not make a
 wrapper the canonical owner of the skill.
+
+Every `skill-spec` also requires `wrapper_metadata`, an object whose keys
+exactly match the unique values in `wrapper_targets`. Each target value is an
+object with a required `wrapper_path` string. A wrapper path must:
+
+- be repository-relative and use `/` separators;
+- contain no placeholder or glob syntax;
+- remain inside the repository when resolved;
+- identify an existing file or directory.
+
+`runtime_wrapper_path` is a legacy, invalid key. Runtime-specific details may
+be added beside `wrapper_path`, but they do not replace it or weaken target
+parity.
 
 ## `sub-agent-role-prompt`
 

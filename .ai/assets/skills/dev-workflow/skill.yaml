@@ -95,5 +95,5 @@ wrapper_metadata:
   claude:
     wrapper_path: ".claude/skills/dev-workflow/"
   codex:
-    runtime_wrapper_path: ".agents/skills/dev-workflow/"
+    wrapper_path: ".agents/skills/dev-workflow/"
 status: "active"

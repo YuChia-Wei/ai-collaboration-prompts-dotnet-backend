@@ -17,7 +17,7 @@
 2. This file - Overview and quick reference
 3. `../guides/implementation-guides/TEMPLATE-USAGE-GUIDE.md` - Template selection and usage decision guide
 4. Root `agents.md` and `README.md` - repository rules and identity
-5. `project-structure.md` - .NET project structure
+5. `project-structure.md` - conditional .NET backend target structure profile; physical names and paths require target adoption
 6. Relevant aggregate spec in `.dev/specs/[aggregate]/`
 
 ### 2. Preserved Example Profile

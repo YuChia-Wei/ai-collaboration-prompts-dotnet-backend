@@ -78,7 +78,7 @@ Read the canonical rules/docs for these recurring areas:
 - DI and configuration: `.dev/standards/coding-standards/usecase-standards.md`, `.dev/standards/coding-standards/profile-configuration-standards.md`, `.dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md`
 - Outbox and transaction flow: `.dev/standards/coding-standards.md`, `.dev/guides/design-guides/FRAMEWORK-API-INTEGRATION-GUIDE.md`
 - Query-side layering: `.dev/standards/coding-standards.md`, `.dev/standards/rationale/query-side-layering-rationale.MD`
-- Shared project boundaries: `.dev/standards/project-structure.md`
+- Conditional physical project layout and shared-project profile: `.dev/standards/project-structure.md`; confirm target adoption and use canonical architecture standards for invariants
 - Docker/container packaging: `.dev/guides/implementation-guides/DOCKER-RESTORE-CACHE-GUIDE.md`
 
 ## Selection Rules

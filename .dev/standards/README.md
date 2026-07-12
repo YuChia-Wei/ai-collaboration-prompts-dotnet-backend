@@ -33,7 +33,7 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents
 - `coding-standards.md`
   - coding style and implementation-level rules
 - `project-structure.md`
-  - single source of truth for project directories and folder purposes
+  - conditional .NET backend target structure profile; architecture invariants are normative, while physical paths and names require target evidence or explicit adoption
 - `rationale/`
   - rationale for portable pattern choices
 - `README.md`
@@ -46,7 +46,7 @@ Operational guides, setup walkthroughs, FAQs, and troubleshooting documents have
 - normative documents
 - checklist
 - anti-pattern / best-practice
-- project structure single source of truth
+- conditional target project structure profiles with clearly separated invariants and examples
 - stable standards entry points intended for long-term reference
 - AI context governance, commit policy, and workflow gate policy
 

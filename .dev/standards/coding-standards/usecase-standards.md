@@ -277,4 +277,4 @@ Case MUST NOT inject `IMessageBus` directly or publish Commands through the publ
 - [Controller Standards](controller-standards.md)
 - [Repository Standards](repository-standards.md)
 - [Test Standards](test-standards.md)
-- [Project Structure](../project-structure.md)
+- [Conditional target project structure profile](../project-structure.md) (apply physical layout only with target evidence or explicit adoption)

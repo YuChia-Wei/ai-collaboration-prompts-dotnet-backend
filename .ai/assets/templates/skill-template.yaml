@@ -16,6 +16,9 @@ references: []
 examples: []
 wrapper_targets:
   - "codex"
+wrapper_metadata:
+  codex:
+    wrapper_path: ".agents/skills/example-skill-id/"
 triggers:
   - "example skill request"
 workflow:

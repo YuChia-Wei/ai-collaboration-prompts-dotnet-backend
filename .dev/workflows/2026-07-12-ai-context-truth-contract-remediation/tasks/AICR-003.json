@@ -1,0 +1,56 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AICR-003",
+  "workflow_id": "2026-07-12-ai-context-truth-contract-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-12T18:26:13+08:00",
+  "updated_at": "2026-07-12T18:45:21+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["CTX-M-001"],
+  "scope": {
+    "target": "Standardize wrapper_metadata on wrapper_path and make schema validation fail closed.",
+    "files": [".ai/assets/CANONICAL-SCHEMA.MD", ".ai/assets/templates/skill-template.yaml", ".ai/assets/skills/*/skill.yaml", ".ai/scripts/validate-ai-context.py", "applicable validator fixtures"],
+    "constraints": ["Keep schema, template, 13 manifests, validator, and tests atomic.", "Do not edit runtime wrapper prose when paths are unchanged."],
+    "non_goals": ["Generate wrappers.", "Change wrapper targets.", "Redesign all canonical asset schemas."]
+  },
+  "execution": {
+    "steps": ["Define wrapper_metadata target parity and required wrapper_path contract.", "Migrate ten codex runtime_wrapper_path keys to wrapper_path.", "Add path/placeholder/target parity validation and positive/negative GWT evidence.", "Run targeted and aggregate validators."],
+    "validation": ["no runtime_wrapper_path matches in canonical skill/template/schema roots", "targeted validator GWT fixtures", "python .ai/scripts/validate-ai-context.py", "python .ai/scripts/validate-workflow-artifacts.py", "git diff --check"],
+    "last_completed_step": "Standardized all canonical skills on wrapper_path, documented the contract, and added fail-closed validator coverage with nine GWT fixtures.",
+    "next_action": "Commit the validated AICR-003 checkpoint, then begin AICR-004 routing and backlog documentation alignment."
+  },
+  "results": {
+    "summary": "Resolved CTX-M-001 with one documented wrapper_path contract, complete manifest migration, and fail-closed validation.",
+    "files_changed": [
+      ".ai/assets/CANONICAL-SCHEMA.MD",
+      ".ai/assets/templates/skill-template.yaml",
+      ".ai/assets/skills/bdd-gwt-test-designer/skill.yaml",
+      ".ai/assets/skills/code-reviewer/skill.yaml",
+      ".ai/assets/skills/ddd-ca-hex-architect/skill.yaml",
+      ".ai/assets/skills/dev-workflow/skill.yaml",
+      ".ai/assets/skills/local-change-implementer/skill.yaml",
+      ".ai/assets/skills/problem-frame-author/skill.yaml",
+      ".ai/assets/skills/requirement-author/skill.yaml",
+      ".ai/assets/skills/slice-implementer/skill.yaml",
+      ".ai/assets/skills/spec-author/skill.yaml",
+      ".ai/assets/skills/spec-compliance-validator/skill.yaml",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/test_ai_context_wrapper_metadata.py",
+      ".ai/scripts/README.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v (9 passed)",
+      "legacy runtime_wrapper_path search in canonical manifests and template (no matches)",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Validation proves structural path integrity and inventory parity, not semantic equivalence between canonical specs and wrapper prose.",
+    "follow_up_needed": false
+  }
+}
