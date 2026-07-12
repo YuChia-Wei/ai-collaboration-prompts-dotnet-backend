@@ -9,7 +9,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `README.MD` | Purpose, scope, and usage of `.dev/`. |
 | `INDEX.md` | File and directory catalog for `.dev/`. |
 | `ARCHITECTURE.md` | Framework repository architecture and context model. |
-| `TEAM-GIT-FLOW-RULES.MD` | Single-mainline git flow, mandatory workflow branches, checkpoint continuation, and default no-ff merge rules. |
+| `TEAM-GIT-FLOW-RULES.MD` | Canonical single-trunk branch and merge policy: workflow-mode branches, checkpoint continuation, and default no-ff merges. |
 
 ## Standards
 

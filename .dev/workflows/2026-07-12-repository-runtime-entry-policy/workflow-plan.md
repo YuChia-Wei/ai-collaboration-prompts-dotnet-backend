@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-12-repository-runtime-entry-policy`
 - `created_at`: `2026-07-12T19:23:53+08:00`
-- `updated_at`: `2026-07-12T19:23:53+08:00`
+- `updated_at`: `2026-07-12T19:26:17+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -41,7 +41,7 @@
 
 | Task | Scope | Status | Validation |
 | --- | --- | --- | --- |
-| `GITP-001` | Clarify Git policy identity and workflow-mode branch boundary without changing semantics or path. | `pending` | active-reference inventory, policy comparison, context validation |
+| `GITP-001` | Clarify Git policy identity and workflow-mode branch boundary without changing semantics or path. | `completed` | active-reference inventory, policy comparison, context validation |
 | `RTENT-001` | Normalize `agents.md` to `AGENTS.md`, add thin `CLAUDE.md`, and synchronize active consumers/validators. | `pending` | Git case inventory, link/reference checks, root parity and context validation |
 
 ## Execution Order
@@ -54,11 +54,11 @@
 
 ## Resume Checkpoint
 
-- Last completed action: read-only inventories established the canonical Git-policy ownership and official Claude/Codex root-entry conventions.
-- Current task: workflow bootstrap.
-- Exact next action: commit bootstrap, then execute `GITP-001`.
-- Validation already completed: main merge validators passed; active Git-policy reference inventory and Git-tracked root-entry case were inspected.
-- Git state: clean dedicated branch created from local `main` merge commit `1bdf508`; no push.
+- Last completed action: `GITP-001` clarified the current repository branch model without changing its canonical path or behavior.
+- Current task: `GITP-001` awaits its policy checkpoint commit; `RTENT-001` is next.
+- Exact next action: commit the Git-policy clarification, then normalize the root runtime entries.
+- Validation already completed: active references still resolve; AI context/workflow validators and `git diff --check` pass.
+- Git state: bootstrap commit `4a3e323`; GITP-001 changes uncommitted; no push.
 - Branch history and checkpoint handoffs: segment 1, local only.
 - Blockers or unresolved decisions: none. Preserve the Git-policy path and one canonical collaboration body.
 
@@ -66,4 +66,5 @@
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | workflow bootstrap | pending | local branch | `2026-07-12T19:23:53+08:00` | Clarify canonical branch policy and runtime entry portability together | Commit bootstrap, then execute `GITP-001` |
+| 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | workflow bootstrap | `4a3e323` | local branch | `2026-07-12T19:23:53+08:00` | Clarify canonical branch policy and runtime entry portability together | Execute `GITP-001` |
+| 1 | `codex/2026-07-12-repository-runtime-entry-policy` | `main` | branch policy checkpoint | pending | local branch | `2026-07-12T19:26:17+08:00` | GITP-001 resolved and validated | Commit, then execute `RTENT-001` |

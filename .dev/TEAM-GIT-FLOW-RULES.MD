@@ -1,6 +1,15 @@
-# Team Git Flow Rules
+# Repository Branch And Merge Policy
 
-This document defines the current repository git flow.
+This document is the canonical owner of repository branch naming, workflow
+branch lifecycle, checkpoint handoff, push continuation, and merge strategy.
+
+The repository uses a single-trunk, short-lived-branch model. It is
+GitHub-Flow-like because work branches start from and return to `main`, but it
+adds repository-specific workflow artifacts, checkpoint continuation, and a
+default `--no-ff` merge rule. It is not classic Git Flow: there is no persistent
+`develop`, release, or hotfix integration hierarchy. It is also not strict
+trunk-based development because workflow-mode changes do not occur directly on
+`main`.
 
 ## Core Rule
 
@@ -20,7 +29,9 @@ Do not create persistent `develop`, `baseline`, `release`, or agent-specific lon
 
 ### Short-Lived Branches
 
-Use short-lived branches for bounded work. A workflow branch is mandatory, not optional.
+Use short-lived branches for bounded work. When workflow mode applies, a
+dedicated workflow branch is mandatory. Direct mode remains governed by
+`.dev/standards/WORKFLOW-GATE-POLICY.md` and does not create workflow artifacts.
 
 | Prefix | Use |
 | --- | --- |
