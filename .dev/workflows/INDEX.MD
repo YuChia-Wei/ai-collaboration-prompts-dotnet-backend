@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-13-standalone-assessment-governance`](2026-07-13-standalone-assessment-governance/workflow.yaml) | Standalone Assessment Storage And Search Identity | `ai-context-governance` | `in_progress` | `2026-07-13T23:04:10+08:00` | [plan](2026-07-13-standalone-assessment-governance/workflow-plan.md) |
+| [`2026-07-13-standalone-assessment-governance`](2026-07-13-standalone-assessment-governance/workflow.yaml) | Standalone Assessment Storage And Search Identity | `ai-context-governance` | `in_progress` | `2026-07-13T23:11:56+08:00` | [plan](2026-07-13-standalone-assessment-governance/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

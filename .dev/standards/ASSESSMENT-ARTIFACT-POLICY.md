@@ -75,8 +75,12 @@ Every `assessment.yaml` must contain:
 - `assessment_id` and matching `commit_search_id`;
 - `assessment_type`, `title`, `owner_skill`, and `status`;
 - `report`, which resolves to `report.md` inside the assessment directory;
+- `artifact_branch` and `base_branch`, distinguishing the artifact branch from
+  the assessed subject branch;
 - `created_at` and `updated_at` with seconds and an explicit UTC offset;
 - `template_source` and `template_version`;
+- `report_template_source` and `report_template_version`, owned by the
+  assessment-producing skill;
 - `subject_ref.repository`, `subject_ref.branch`, and
   `subject_ref.commit` identifying the revision assessed;
 - `scope.included` and `scope.excluded` lists;

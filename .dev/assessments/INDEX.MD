@@ -5,13 +5,22 @@ owns its identity, current lifecycle state, subject revision, and relationships.
 
 ## Draft Assessments
 
+| Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
 No draft assessments are currently registered.
 
 ## Final Assessments
 
+| Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+
 No final assessments are currently registered.
 
 ## Superseded Or Withdrawn Assessments
+
+| Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 
 No superseded or withdrawn assessments are currently registered.
 
