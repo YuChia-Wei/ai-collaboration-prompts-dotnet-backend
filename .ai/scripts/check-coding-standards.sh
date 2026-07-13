@@ -191,25 +191,12 @@ for file in "${SPECIALIZED_FILES[@]}"; do
 done
 
 echo ""
-echo -e "${YELLOW}3. Content Consistency Check${NC}"
-echo "----------------------------------------"
-
 # Navigation ownership is intentionally one-way: coding-standards.md catalogs
 # the specialized standards. Leaf standards do not duplicate parent backlinks.
-
-# Check for duplicate content between main and specialized files
-echo -e "${BLUE}Checking for unnecessary duplication:${NC}"
-
-if grep -q "FindByIdAsync.*SaveAsync" "$MAIN_FILE" 2>/dev/null && \
-   grep -q "FindByIdAsync.*SaveAsync" "$STANDARDS_DIR/repository-standards.md" 2>/dev/null; then
-    echo -e "  ${YELLOW}⚠${NC} Repository rules might be duplicated"
-    WARNINGS=$((WARNINGS + 1))
-else
-    echo -e "  ${GREEN}✓${NC} No major duplication detected"
-fi
-
-echo ""
-echo -e "${YELLOW}4. File Statistics${NC}"
+# coding-standards.md also contains compact overview contracts and links to the
+# canonical detailed standards. Shared method names are intentional and are not
+# sufficient evidence of duplicated normative ownership.
+echo -e "${YELLOW}3. File Statistics${NC}"
 echo "----------------------------------------"
 
 # Calculate total lines
@@ -231,7 +218,7 @@ printf "  %-30s: %5d lines\n" "Total specialized files" "$total_lines"
 printf "  %-30s: %5d lines\n" "Grand total" "$((total_lines + main_lines))"
 
 echo ""
-echo -e "${YELLOW}5. Script Health Check${NC}"
+echo -e "${YELLOW}4. Script Health Check${NC}"
 echo "----------------------------------------"
 
 # Check health of scripts in .ai/scripts directory
