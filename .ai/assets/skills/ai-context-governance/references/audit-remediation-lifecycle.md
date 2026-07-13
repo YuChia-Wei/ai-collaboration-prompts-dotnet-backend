@@ -1,5 +1,7 @@
 # AI Context Audit Remediation Lifecycle
 
+Canonical ownership rule: `ASSESSMENT-ARTIFACT-001`.
+
 Use this lifecycle after an `ai-context-auditor` assessment identifies findings and the user authorizes remediation. A transient conversation-only analysis may inform the decision, but remediation starts a durable governance workflow; it does not retroactively turn transient analysis into an assessment artifact.
 
 ## Ownership

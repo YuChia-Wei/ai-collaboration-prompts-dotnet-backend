@@ -1,5 +1,7 @@
 # AI Context Auditor Output Contract
 
+Canonical ownership rule: `ASSESSMENT-ARTIFACT-001`.
+
 This contract has three routing cases and two report surfaces.
 
 ## Transient Direct Mode

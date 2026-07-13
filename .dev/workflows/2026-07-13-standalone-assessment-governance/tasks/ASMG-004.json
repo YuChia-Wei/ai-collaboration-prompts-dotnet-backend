@@ -6,9 +6,9 @@
   "task_id": "ASMG-004",
   "workflow_id": "2026-07-13-standalone-assessment-governance",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-13T22:57:44+08:00",
-  "updated_at": "2026-07-13T23:18:49+08:00",
+  "updated_at": "2026-07-13T23:25:09+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CODE-REVIEW-ASSESSMENT-001"],
   "scope": {
@@ -20,7 +20,14 @@
   "execution": {
     "steps": ["Add transient versus durable modes", "Create code-review assessment report template", "Define finding IDs and downstream handoff", "Validate runtime wrappers"],
     "validation": ["Quick-validate Codex and Claude wrappers", "Validate canonical skill and assessment references"],
-    "last_completed_step": "Assessment policy, validator, and AI-context audit lifecycle migration completed.", "next_action": "Implement code-reviewer assessment output contracts."
+    "last_completed_step": "Added transient and durable code-review modes, a pinned-revision assessment report contract, stable CR finding references, and downstream remediation routing.", "next_action": "Run full closeout validation under ASMG-005."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "Code-reviewer now persists explicitly requested large reviews as standalone assessments without assuming remediation authority.",
+    "files_changed": [".ai/assets/skills/code-reviewer/**", ".agents/skills/code-reviewer/SKILL.md", ".claude/skills/code-reviewer/SKILL.md", ".dev/guides/ai-collaboration-guides/AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md", ".dev/standards/AI-CONTEXT-OWNERSHIP.yaml"],
+    "tests_run": ["Codex and Claude code-reviewer wrapper quick validation", "assessment artifact validation", "AI context validation", "workflow artifact validation", "git diff --check"],
+    "finding_status": "addressed",
+    "residual_risk": "The report template cannot guarantee semantic review quality; code-reviewer reasoning and evidence remain required.",
+    "follow_up_needed": false
+  }
 }
