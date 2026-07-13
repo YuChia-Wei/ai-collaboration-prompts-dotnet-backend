@@ -6,9 +6,9 @@
   "task_id": "ASMG-001",
   "workflow_id": "2026-07-13-standalone-assessment-governance",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-13T22:57:44+08:00",
-  "updated_at": "2026-07-13T22:57:44+08:00",
+  "updated_at": "2026-07-13T23:04:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASSESSMENT-STORAGE-001", "ASSESSMENT-ID-001"],
   "scope": {
@@ -35,8 +35,28 @@
       "Define backlog and downstream reference behavior."
     ],
     "validation": ["Cross-check policy boundaries", "Verify commit trailer ordering", "Verify no workflow semantics are duplicated"],
-    "last_completed_step": "Existing workflow, backlog, commit, auditor, and code-reviewer contracts inventoried.",
-    "next_action": "Create and link the canonical assessment policy."
+    "last_completed_step": "Created and linked the canonical assessment policy across workflow gate, branch, commit, backlog, indexes, and bilingual root guidance.",
+    "next_action": "None."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "Defined standalone assessment mode, ASM identity and Git lookup, immutable report lifecycle, draft resume checkpoints, and workflow/backlog handoffs.",
+    "files_changed": [
+      ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".dev/TEAM-GIT-FLOW-RULES.MD",
+      ".dev/backlog/README.MD",
+      ".dev/assessments/README.MD",
+      ".dev/assessments/INDEX.MD",
+      ".dev/INDEX.md",
+      ".dev/README.MD",
+      ".dev/standards/README.md",
+      "AGENTS.md",
+      "agents.zh-tw.md"
+    ],
+    "tests_run": ["python .ai/scripts/validate-ai-context.py", "python .ai/scripts/validate-workflow-artifacts.py", "git diff --check"],
+    "finding_status": "resolved",
+    "residual_risk": "Concurrent unpublished branches can still allocate the same sequence; policy requires pre-publication reallocation and validation.",
+    "follow_up_needed": false
+  }
 }

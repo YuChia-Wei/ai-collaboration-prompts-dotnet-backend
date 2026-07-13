@@ -6,9 +6,9 @@
   "task_id": "ASMG-002",
   "workflow_id": "2026-07-13-standalone-assessment-governance",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-13T22:57:44+08:00",
-  "updated_at": "2026-07-13T22:57:44+08:00",
+  "updated_at": "2026-07-13T23:04:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASSESSMENT-VALIDATION-001"],
   "scope": {
@@ -20,7 +20,7 @@
   "execution": {
     "steps": ["Create assessment entry documents and locator template", "Implement validator", "Add GWT positive and negative tests", "Wire validator into quick gate"],
     "validation": ["Run assessment validator", "Run GWT validator tests", "Run shell/context checks"],
-    "last_completed_step": "", "next_action": "Wait for ASMG-001 policy completion."
+    "last_completed_step": "ASMG-001 policy contract completed.", "next_action": "Create the locator template and fail-closed validator."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }

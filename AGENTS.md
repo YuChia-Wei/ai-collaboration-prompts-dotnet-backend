@@ -62,6 +62,17 @@ Workflow artifact rules:
 - Treat an explicitly requested merge/push before completion as a checkpoint handoff and keep the workflow active. Resume a push-only handoff from the pushed branch; after a checkpoint merge, start a new dedicated continuation branch from the updated target.
 - Merge workflow branches with `--no-ff` by default unless the user explicitly requests another strategy.
 
+### Assessment Gate
+
+- Follow `.dev/standards/ASSESSMENT-ARTIFACT-POLICY.md` when a read-only audit,
+  large code review, architecture assessment, or similar report must be retained.
+- Store durable observations under `.dev/assessments/<assessment-id>/`; do not
+  create a workflow solely because a report is persisted.
+- Use stable `ASM-YYYYMMDD-NNN` IDs in the locator, report, commit subject, and
+  `Assessment-Id` trailer.
+- Keep assessed surfaces read-only. If remediation is authorized, create or use
+  the owning workflow and reference the assessment and selected finding IDs.
+
 ### Git Commit Policy
 
 1. Follow `.dev/standards/GIT-COMMIT-POLICY.md`.
@@ -84,14 +95,14 @@ Do not route pure AI documentation governance work to `bdd-gwt-test-designer`.
 
 ### AI Context Audit
 
-Use `ai-context-auditor` for read-only AI context health and drift analysis. A conversational analysis may remain transient direct mode; create a dedicated workflow and branch only when the user asks to persist the audit as a repository report.
+Use `ai-context-auditor` for read-only AI context health and drift analysis. A conversational analysis may remain transient direct mode; when persistence is requested without remediation, create a standalone assessment and assessment branch rather than a workflow.
 
 - Default to AI context and governance surfaces.
 - Exclude `src/`, `tests/`, and other product implementation trees.
 - If the user asks to scan product source or test code, stop and route that work to `code-reviewer` instead of expanding the audit.
 - Keep audit findings separate from remediation; use `ai-context-governance` to coordinate the AI-context remediation lifecycle after remediation is authorized.
 - Multi-pass or sub-agent analysis alone does not require workflow artifacts when the result stays in the conversation and no repository mutation or remediation occurs.
-- For a durable report-only audit, keep audited surfaces read-only and commit only auditor-owned workflow and report artifacts.
+- For a durable report-only audit, keep audited surfaces read-only and commit only assessment-owned artifacts and assessment index updates.
 
 ### Development Workflow Orchestration
 
@@ -201,6 +212,7 @@ Use these boundaries:
 | `.dev/domain-language/` | Domain ubiquitous language templates and target-repo vocabulary area |
 | `.dev/specs/` | Specification organization and retained specs |
 | `.dev/operations/` | Operations docs and operations document guides |
+| `.dev/assessments/` | Durable audits, large code reviews, and other read-only assessment artifacts |
 | `.dev/workflows/` | Workflow artifacts |
 
 ### Runtime Skill Wrappers
