@@ -6,7 +6,9 @@ task-level progress.
 
 ## Active Workflows
 
-No active post-adoption workflow is currently registered.
+| Workflow | Title | Owner | Status | Updated | Entry Point |
+| --- | --- | --- | --- | --- | --- |
+| [`2026-07-13-ai-context-tool-evidence-boundary`](2026-07-13-ai-context-tool-evidence-boundary/workflow.yaml) | AI Context Tool Evidence Boundary | `ai-context-governance` | `in_progress` | `2026-07-13T22:29:17+08:00` | [plan](2026-07-13-ai-context-tool-evidence-boundary/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
