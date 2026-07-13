@@ -191,26 +191,11 @@ for file in "${SPECIALIZED_FILES[@]}"; do
 done
 
 echo ""
-echo -e "${YELLOW}3. Checking Cross-References${NC}"
+echo -e "${YELLOW}3. Content Consistency Check${NC}"
 echo "----------------------------------------"
 
-# Check if specialized files reference back to main file
-echo -e "${BLUE}Back references to main file:${NC}"
-for file in "${SPECIALIZED_FILES[@]}"; do
-    full_path="$STANDARDS_DIR/$file"
-    if [ -f "$full_path" ]; then
-        if grep -q "../coding-standards.md" "$full_path" 2>/dev/null; then
-            echo -e "  ${GREEN}✓${NC} $file → coding-standards.md"
-        else
-            echo -e "  ${YELLOW}⚠${NC} $file missing back reference"
-            WARNINGS=$((WARNINGS + 1))
-        fi
-    fi
-done
-
-echo ""
-echo -e "${YELLOW}4. Content Consistency Check${NC}"
-echo "----------------------------------------"
+# Navigation ownership is intentionally one-way: coding-standards.md catalogs
+# the specialized standards. Leaf standards do not duplicate parent backlinks.
 
 # Check for duplicate content between main and specialized files
 echo -e "${BLUE}Checking for unnecessary duplication:${NC}"
@@ -224,7 +209,7 @@ else
 fi
 
 echo ""
-echo -e "${YELLOW}5. File Statistics${NC}"
+echo -e "${YELLOW}4. File Statistics${NC}"
 echo "----------------------------------------"
 
 # Calculate total lines
@@ -246,7 +231,7 @@ printf "  %-30s: %5d lines\n" "Total specialized files" "$total_lines"
 printf "  %-30s: %5d lines\n" "Grand total" "$((total_lines + main_lines))"
 
 echo ""
-echo -e "${YELLOW}6. Script Health Check${NC}"
+echo -e "${YELLOW}5. Script Health Check${NC}"
 echo "----------------------------------------"
 
 # Check health of scripts in .ai/scripts directory
