@@ -8,12 +8,12 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-13-standalone-assessment-governance`](2026-07-13-standalone-assessment-governance/workflow.yaml) | Standalone Assessment Storage And Search Identity | `ai-context-governance` | `in_progress` | `2026-07-13T23:25:09+08:00` | [plan](2026-07-13-standalone-assessment-governance/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-13-standalone-assessment-governance`](2026-07-13-standalone-assessment-governance/workflow.yaml) | Standalone Assessment Storage And Search Identity | `ai-context-governance` | `completed` | `2026-07-13T23:27:16+08:00` | [plan](2026-07-13-standalone-assessment-governance/workflow-plan.md) |
 | [`2026-07-13-ai-context-tool-evidence-boundary`](2026-07-13-ai-context-tool-evidence-boundary/workflow.yaml) | AI Context Tool Evidence Boundary | `ai-context-governance` | `completed` | `2026-07-13T22:43:35+08:00` | [plan](2026-07-13-ai-context-tool-evidence-boundary/workflow-plan.md) |
 | [`2026-07-12-repository-runtime-entry-policy`](2026-07-12-repository-runtime-entry-policy/workflow.yaml) | Repository Branch And Runtime Entry Policy | `ai-context-governance` | `completed` | `2026-07-12T19:42:59+08:00` | [plan](2026-07-12-repository-runtime-entry-policy/workflow-plan.md) |
 | [`2026-07-12-ai-context-truth-contract-remediation`](2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | AI Context Truth And Contract Remediation | `ai-context-governance` | `completed` | `2026-07-12T18:55:41+08:00` | [plan](2026-07-12-ai-context-truth-contract-remediation/workflow-plan.md) |

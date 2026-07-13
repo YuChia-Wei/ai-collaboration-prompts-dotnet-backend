@@ -12,7 +12,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-13-standalone-assessment-governance`
 - `created_at`: `2026-07-13T22:57:44+08:00`
-- `updated_at`: `2026-07-13T23:25:09+08:00`
+- `updated_at`: `2026-07-13T23:27:16+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -112,7 +112,7 @@ git log --all --grep='ASM-20260713-001'
 | `ASMG-002` | Create assessment locator template, indexes, validator, and fail-closed GWT tests. | `completed` | Nine positive and fail-closed GWT scenarios passed; quick gate selected both checks. |
 | `ASMG-003` | Move AI-context auditor and governance lifecycle contracts to standalone assessments. | `completed` | Canonical specs, references, templates, guides, and four wrappers validated. |
 | `ASMG-004` | Add transient and durable assessment output modes to code-reviewer. | `completed` | Canonical spec/reference/template, ownership traceability, and both wrappers validated. |
-| `ASMG-005` | Run full validation, reconcile indexes, close tasks, and commit. | `in_progress` | `check-all.sh --quick`, assessment/context/workflow validators, and Git checks. |
+| `ASMG-005` | Run full validation, reconcile indexes, close tasks, and commit. | `completed` | 8/8 required quick checks, 9/9 GWT tests, six wrappers, and structural/Git checks passed. |
 
 ## Validation Strategy
 
@@ -134,13 +134,13 @@ git log --all --grep='ASM-20260713-001'
 
 ## Resume Checkpoint
 
-- Last completed action: Added code-reviewer transient and standalone durable modes, a pinned-revision report template, `ASM-ID#CR-NNN` references, and downstream remediation handoff rules.
-- Current task: `ASMG-005`
-- Exact next action: Run the full closeout gate, reconcile workflow artifacts, and commit the completed workflow.
-- Validation already completed: Six affected runtime wrappers passed skill validation; assessment, AI-context, workflow, and whitespace validators passed.
-- Git state: ASMG-003 is committed; ASMG-004 is ready for a stage commit.
+- Last completed action: Completed all workflow tasks and passed the full repository closeout gate.
+- Current task: none; workflow completed.
+- Exact next action: Await explicit merge or push authorization.
+- Validation already completed: 8/8 required quick checks, 9/9 assessment GWT tests, 47 analyzer tests, 2 configuration tests, six wrapper validations, and all assessment, AI-context, workflow, shell, and whitespace validators passed.
+- Git state: ASMG-001 through ASMG-004 are committed; final workflow closure is ready to commit.
 - Branch history and checkpoint handoffs: segment 1 started from `main` merge commit `69c2850`.
-- Blockers or unresolved decisions: none; historical report migration is explicitly excluded.
+- Blockers or unresolved decisions: none. Existing nine coding-standard warnings and dependency validation deferral remain outside this workflow; historical report migration is explicitly excluded.
 
 ## Branch Lifecycle
 
