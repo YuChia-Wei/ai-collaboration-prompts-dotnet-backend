@@ -1,5 +1,7 @@
 # Repo Init and Scan Playbook
 
+Rule IDs: `AICTX-EVIDENCE-001`
+
 Use this reference as the first pass after this AI context framework is copied into a target repository.
 
 The goal is repo initialization, not product feature planning. Establish what the target repository actually is, then refresh only the copied context files that depend on repo-specific facts.
@@ -36,6 +38,13 @@ Prefer sources in this order:
 3. deployment and infra config
 4. existing repo README / docs
 5. copied template docs that may now be stale
+
+An optional index, code graph, IDE index, MCP server, or semantic search may
+accelerate this inventory but must not become a prerequisite or a new evidence
+tier. Before concluding that a root, file type, or documentation relationship is
+absent, use the tool-neutral fallback checks in
+`.dev/standards/AI-CONTEXT-BOUNDARY.md#tool-neutral-evidence-boundary`. Reopen
+the direct files supporting every generated project fact.
 
 ## Minimum Scan Checklist
 

@@ -50,6 +50,44 @@ Folder placement is the primary classification mechanism. Metadata is useful onl
 
 Do not add frontmatter or scope metadata to every Markdown file just to classify it. Prefer moving the file to the correct folder or linking it from a clear index.
 
+## Tool-Neutral Evidence Boundary
+
+Rule ID: `AICTX-EVIDENCE-001`
+
+Optional repository indexes, code graphs, IDE indexes, MCP servers, semantic
+search, and similar tools are discovery accelerators. They may identify candidate
+files, sections, or relationships, but their output is not authoritative project
+truth and must not be the sole evidence for an AI-context finding, absence claim,
+inventory, or relationship conclusion.
+
+- Keep AI-context skills usable when no optional discovery tool is installed.
+- Do not require one vendor, graph schema, hook, cache, or persisted index.
+- Verify material findings against direct repository files, Git-tracked paths,
+  structured manifests, or repository-owned deterministic validators.
+- Treat an empty search result as unknown until the declared scope is checked by
+  a tool-independent fallback.
+- Record tool name, index freshness, scope, exclusions, and skipped checks when
+  tool output materially accelerated an assessment.
+- Prefer the narrowest direct verification needed for a candidate finding; an
+  accelerator may choose where to look, but it may not decide what is true.
+
+### Quick Fallback Verification
+
+Use these repository-native checks before accepting a discovery-tool conclusion:
+
+| Risk | Fast verification |
+| --- | --- |
+| Hidden or skipped AI-context roots | Run `git ls-files -- .ai .dev .agents .claude AGENTS.md CLAUDE.md agents.zh-tw.md README.md README.en.md`, then inspect `git status --short --untracked-files=all` for untracked context. |
+| Incomplete Markdown inventory | Run `git ls-files -- '*.md'` and compare the relevant paths with the tool result. |
+| Missing Markdown relationship | Search the literal target or link text with `git grep -n -F -- '<target-or-link-text>' -- '*.md'`, open the source file, and resolve the target relative to that file. |
+| Stale index or snapshot | Compare the tool's recorded revision, when available, with `git rev-parse HEAD`; directly reopen every file used by a material finding. |
+| Tool-specific omissions | Run `python .ai/scripts/validate-ai-context.py` for registered context contracts and record any relationship class the validator does not cover. |
+
+The 2026-07-13 Codebase Memory MCP probe is an example, not a permanent
+product contract: its full index omitted `.claude/` and exposed Markdown files
+and headings without Markdown link edges. Re-test current tool behavior when it
+matters, and use the fallback checks above regardless of tool brand.
+
 ## Decision Checklist
 
 Before creating or moving an AI context file, answer these questions:
@@ -73,6 +111,7 @@ Before creating or moving an AI context file, answer these questions:
 - Do not use a frontend or full-stack folder for the current .NET backend-only profile unless a separate profile is explicitly created.
 - Do not rely on metadata when folder placement can express the boundary.
 - Do not let a projection, wrapper, checklist, or example become a second normative owner through repeated `MUST` language.
+- Do not infer that a file, directory, or Markdown relationship is absent solely because an optional index or graph omitted it.
 
 ## Rule Ownership
 

@@ -1,6 +1,20 @@
 schema_version: "1.0"
-updated_at: "2026-07-11T19:30:00+08:00"
+updated_at: "2026-07-13T22:29:17+08:00"
 rules:
+  - rule_id: AICTX-EVIDENCE-001
+    domain: ai-context-evidence
+    strength: invariant
+    canonical_path: .dev/standards/AI-CONTEXT-BOUNDARY.md
+    canonical_anchor: "## Tool-Neutral Evidence Boundary"
+    scope: universal
+    applicability: AI context or repository facts are discovered with optional external tooling
+    override_policy: forbidden
+    decision_evidence: null
+    derived_consumers:
+      - .ai/assets/skills/ai-context-auditor/references/audit-playbook.md
+      - .ai/assets/skills/ai-context-governance/references/context-boundary-playbook.md
+      - .ai/assets/skills/repo-structure-sync/references/scan-playbook.md
+    status: active
   - rule_id: TEST-GWT-001
     domain: testing
     strength: invariant
