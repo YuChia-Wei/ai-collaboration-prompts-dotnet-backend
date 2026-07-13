@@ -13,7 +13,7 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents
 - `ASPNET-CORE-CONFIGURATION-CHECKLIST.md`
   - ASP.NET Core configuration checklist
 - `AI-CONTEXT-BOUNDARY.md`
-  - AI context ownership and folder placement policy
+  - AI context ownership, folder placement, and tool-neutral evidence policy
 - `AI-CONTEXT-OWNERSHIP.md` / `AI-CONTEXT-OWNERSHIP.yaml`
   - normative rule ownership, strength, precedence, and machine registry
 - `AI-CONTEXT-LANGUAGE-POLICY.md`

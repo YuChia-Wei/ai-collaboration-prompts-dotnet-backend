@@ -6,9 +6,9 @@
   "task_id": "TOOLB-001",
   "workflow_id": "2026-07-13-ai-context-tool-evidence-boundary",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-13T22:29:17+08:00",
-  "updated_at": "2026-07-13T22:29:17+08:00",
+  "updated_at": "2026-07-13T22:43:35+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["TOOL-EVIDENCE-001", "TOOL-PORTABILITY-001"],
   "scope": {
@@ -40,15 +40,23 @@
       "Verify the contract does not name one optional tool as mandatory.",
       "Verify every known omission has a direct fallback check."
     ],
-    "last_completed_step": "Workflow initialized from live MCP capability evidence.",
-    "next_action": "Inspect canonical AI-context skill specs and references."
+    "last_completed_step": "Registered AICTX-EVIDENCE-001 with tool-neutral evidence rules and quick repository-native fallback checks.",
+    "next_action": "None."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Optional indexes, code graphs, MCP servers, IDE indexes, and semantic search are now explicitly candidate generators rather than authoritative evidence sources.",
+    "files_changed": [
+      ".dev/standards/AI-CONTEXT-BOUNDARY.md",
+      ".dev/standards/AI-CONTEXT-OWNERSHIP.yaml",
+      ".dev/standards/README.md",
+      ".dev/INDEX.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-ai-context.py",
+      "git ls-files fallback inventory"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Optional tools can change behavior between versions, so their scope and limitations must still be recorded per run.",
+    "follow_up_needed": false
   }
 }

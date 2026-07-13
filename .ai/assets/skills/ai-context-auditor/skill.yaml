@@ -46,6 +46,7 @@ constraints:
   - "Use transient direct mode when the result stays in the conversation and there is no repository mutation, remediation, or durable report, even if the analysis has multiple passes or sub-agents."
   - "Treat report wording as durable only when the user asks to save, persist, land, or retain the report in the repository."
   - "For durable report-only audits, commit only auditor-owned workflow and report artifacts; do not include changes to audited context."
+  - "Treat optional indexes, code graphs, MCP servers, IDE indexes, and semantic search only as discovery accelerators; verify material findings with repository-native evidence under AICTX-EVIDENCE-001."
 workflow:
   - step: 1
     description: "Read the active repository instructions, confirm whether the requested output is transient or durable, establish an AI-context allowlist, record exclusions, apply the code-review handoff gate, and establish the correct dedicated branch only before durable workflow artifacts."

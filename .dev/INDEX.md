@@ -16,7 +16,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | Path | Description |
 | --- | --- |
 | `standards/README.md` | Standards entry point. |
-| `standards/AI-CONTEXT-BOUNDARY.md` | AI context placement and boundary policy. |
+| `standards/AI-CONTEXT-BOUNDARY.md` | AI context placement, boundary, and tool-neutral evidence policy. |
 | `standards/AI-CONTEXT-LANGUAGE-POLICY.md` | Agent-facing and human-facing language policy. |
 | `standards/WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode gate. |
 | `standards/GIT-COMMIT-POLICY.md` | Agent-assisted commit format and timing policy. |

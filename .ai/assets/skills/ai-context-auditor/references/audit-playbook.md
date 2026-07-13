@@ -1,5 +1,7 @@
 # AI Context Audit Playbook
 
+Rule IDs: `AICTX-EVIDENCE-001`
+
 ## 1. Intake And Evidence Boundary
 
 Record the repository identity, audit reason, requested focus, included context roots, excluded code/generated surfaces, previous report, and whether bounded sub-agent delegation is useful. First classify the output as transient or durable.
@@ -11,6 +13,14 @@ Record the repository identity, audit reason, requested focus, included context 
 When the audit needs a durable workflow, create or switch to its dedicated branch before writing the locator, task, or report. Record `branch` and `base_branch`. Follow `.dev/TEAM-GIT-FLOW-RULES.MD` for push handoff, checkpoint merge, continuation, and default `--no-ff` behavior; keep pre-completion checkpoints active.
 
 Read deeper `AGENTS.*` files before auditing a governed subtree. Keep the audited context read-only. If remediation is separately authorized, hand the findings to `ai-context-governance`; do not expand the auditor into an implementer.
+
+Optional indexes, code graphs, IDE indexes, MCP servers, and semantic search may
+accelerate discovery, but they are candidate generators only. Do not make this
+skill depend on one tool or accept an absence, inventory, or relationship claim
+from tool output alone. Follow the canonical quick fallback checks in
+`.dev/standards/AI-CONTEXT-BOUNDARY.md#tool-neutral-evidence-boundary` and record
+the accelerator's freshness, scope, exclusions, and unsupported relationship
+classes when they affect the audit.
 
 ## 2. Pass A: Independent Baseline
 
@@ -55,6 +65,12 @@ Each finding must contain evidence, impact, recommendation, and an appropriate o
 Prefer deterministic read-only checks: explicit `rg --files --hidden` include/exclude globs, path existence, registry comparison, structured-file parsing, Markdown/reference checks, wrapper-to-canonical checks, targeted context validation scripts, and Git state checks.
 
 Record exact commands and results. A warning-only or skipped gate is not equivalent to a passing semantic validation.
+
+When an accelerator omits a relevant root such as `.claude/`, enumerate that
+root through Git and inspect it directly. When a graph does not model Markdown
+links, search the literal link or target in tracked Markdown and resolve the
+target relative to its source file. Treat missing broad link validation as an
+explicit coverage gap, not as a passing relationship check.
 
 ## 7. Comparison And Persistence
 

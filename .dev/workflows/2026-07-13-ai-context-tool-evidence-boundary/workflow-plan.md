@@ -8,11 +8,11 @@
 - `branch`: `codex/2026-07-13-ai-context-tool-evidence-boundary`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation-planning`
+- `status`: `completed`
+- `current_phase`: `closure`
 - `artifact_root`: `.dev/workflows/2026-07-13-ai-context-tool-evidence-boundary`
 - `created_at`: `2026-07-13T22:29:17+08:00`
-- `updated_at`: `2026-07-13T22:29:17+08:00`
+- `updated_at`: `2026-07-13T22:43:35+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.1.0`
 
@@ -30,19 +30,19 @@
 
 ## Evidence Freeze
 
-- The Codex-side MCP instruction was active in this session and the Codebase Memory MCP tools were callable.
-- The repository was not indexed automatically; a manual `full` index created 10,002 nodes and 13,461 edges.
+- The Codex-side hook was active: it injected Codebase Memory tool-preference instructions into this session and the MCP tools were callable.
+- The Codex-side hook did not automatically index this repository; a manual `full` index created 10,002 nodes and 13,461 edges.
 - The index exposed 309 Markdown file nodes and 3,090 Markdown section nodes across 306 Markdown files.
 - The indexer explicitly excluded `.claude/`.
 - Markdown headings were queryable, while Markdown document-link relationships were not represented as graph edges in the observed schema.
-- No repository `.codebase-memory/` artifact or active Git hook was created by the test.
+- No repository `.codebase-memory/` artifact was created by the test.
 
 ## Task Plan
 
 | Task | Purpose | Status | Validation |
 | --- | --- | --- | --- |
-| `TOOLB-001` | Define the canonical tool-neutral evidence and fallback-verification contract. | `in_progress` | Direct policy inspection and targeted searches. |
-| `TOOLB-002` | Apply the contract to AI-context skills, wrappers, guides, and validation surfaces. | `pending` | Skill/context/workflow validators and quick repository checks. |
+| `TOOLB-001` | Define the canonical tool-neutral evidence and fallback-verification contract. | `completed` | Registered rule `AICTX-EVIDENCE-001` and direct policy inspection. |
+| `TOOLB-002` | Apply the contract to AI-context skills, wrappers, guides, and validation surfaces. | `completed` | Skill/context/workflow validators and quick repository checks passed. |
 
 ## Artifact Contract
 
@@ -52,13 +52,13 @@
 
 ## Resume Checkpoint
 
-- Last completed action: Created the dedicated branch and durable workflow locator.
-- Current task: `TOOLB-001`
-- Exact next action: Inventory current AI-context skill evidence rules and select the smallest canonical policy surface.
-- Validation already completed: Git state was clean on `main`; Codebase Memory MCP Markdown capability was probed without repository mutation.
-- Git state: workflow files are newly created and uncommitted on the dedicated branch.
+- Last completed action: Applied and validated the tool-neutral evidence boundary across the canonical standard and three AI-context skills.
+- Current task: none; both tasks are completed.
+- Exact next action: Commit the completed policy and workflow state, then merge only when requested.
+- Validation already completed: six Codex/Claude runtime wrappers passed `quick_validate.py`; `validate-ai-context.py`, `validate-workflow-artifacts.py`, `validate-shell-assets.py`, and `check-all.sh --quick` passed; Git-based fallback inventory found 677 context files, 324 Markdown files, and 15 `.claude/` files.
+- Git state: policy and workflow closure changes are ready for the final workflow commit.
 - Branch history and checkpoint handoffs: segment 1 started from `main` at `5991365`.
-- Blockers or unresolved decisions: none.
+- Blockers or unresolved decisions: standalone assessment storage and Assessment ID policy remain outside this workflow's authorized scope.
 
 ## Branch Lifecycle
 
