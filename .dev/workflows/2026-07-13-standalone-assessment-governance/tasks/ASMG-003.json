@@ -1,0 +1,26 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ASMG-003",
+  "workflow_id": "2026-07-13-standalone-assessment-governance",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-13T22:57:44+08:00",
+  "updated_at": "2026-07-13T22:57:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AUDIT-ASSESSMENT-001"],
+  "scope": {
+    "target": "AI-context auditor and governance lifecycle assessment adoption",
+    "files": [".ai/assets/skills/ai-context-auditor/**", ".ai/assets/skills/ai-context-governance/**", ".agents/skills/**", ".claude/skills/**", ".dev/guides/ai-collaboration-guides/**"],
+    "constraints": ["Auditor remains read-only", "Baseline and verification assessments are immutable", "Governance workflows reference rather than copy assessments"],
+    "non_goals": ["Run a new audit", "Rewrite historical audit workflows"]
+  },
+  "execution": {
+    "steps": ["Update auditor modes and output contract", "Update report template metadata", "Update governance remediation lifecycle", "Synchronize thin wrappers and human guidance"],
+    "validation": ["Validate canonical skill registry and wrappers", "Verify legacy paths are explicitly historical"],
+    "last_completed_step": "", "next_action": "Wait for artifact policy and validator."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}

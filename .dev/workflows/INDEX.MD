@@ -6,7 +6,9 @@ task-level progress.
 
 ## Active Workflows
 
-No active post-adoption workflow is currently registered.
+| Workflow | Title | Owner | Status | Updated | Entry Point |
+| --- | --- | --- | --- | --- | --- |
+| [`2026-07-13-standalone-assessment-governance`](2026-07-13-standalone-assessment-governance/workflow.yaml) | Standalone Assessment Storage And Search Identity | `ai-context-governance` | `in_progress` | `2026-07-13T22:57:44+08:00` | [plan](2026-07-13-standalone-assessment-governance/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

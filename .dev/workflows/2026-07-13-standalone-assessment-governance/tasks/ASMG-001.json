@@ -1,0 +1,42 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ASMG-001",
+  "workflow_id": "2026-07-13-standalone-assessment-governance",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-13T22:57:44+08:00",
+  "updated_at": "2026-07-13T22:57:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASSESSMENT-STORAGE-001", "ASSESSMENT-ID-001"],
+  "scope": {
+    "target": "Repository-wide standalone assessment policy and Git identity contract",
+    "files": [
+      ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".dev/TEAM-GIT-FLOW-RULES.MD",
+      ".dev/backlog/README.MD"
+    ],
+    "constraints": [
+      "Keep assessments distinct from workflows and backlog items.",
+      "Preserve assessed Git revision separately from stable assessment identity.",
+      "Apply prospectively without relocating historical workflow reports."
+    ],
+    "non_goals": ["Migrate historical reports", "Perform an assessment", "Remediate assessment findings"]
+  },
+  "execution": {
+    "steps": [
+      "Define assessment ownership, paths, ID format, lifecycle, and immutability.",
+      "Define direct, assessment, and workflow routing.",
+      "Define branch and Git commit lookup behavior.",
+      "Define backlog and downstream reference behavior."
+    ],
+    "validation": ["Cross-check policy boundaries", "Verify commit trailer ordering", "Verify no workflow semantics are duplicated"],
+    "last_completed_step": "Existing workflow, backlog, commit, auditor, and code-reviewer contracts inventoried.",
+    "next_action": "Create and link the canonical assessment policy."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}

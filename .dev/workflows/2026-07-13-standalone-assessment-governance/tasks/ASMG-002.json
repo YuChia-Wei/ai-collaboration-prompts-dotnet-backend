@@ -1,0 +1,26 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ASMG-002",
+  "workflow_id": "2026-07-13-standalone-assessment-governance",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-13T22:57:44+08:00",
+  "updated_at": "2026-07-13T22:57:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASSESSMENT-VALIDATION-001"],
+  "scope": {
+    "target": "Assessment directory, locator template, index, validator, and tests",
+    "files": [".dev/assessments/**", ".ai/scripts/validate-assessment-artifacts.py", ".ai/scripts/tests/test_assessment_artifacts.py", ".ai/scripts/check-all.sh"],
+    "constraints": ["Fail closed on invalid durable assessment metadata", "Use repository-native evidence only", "Use GWT test naming and structure"],
+    "non_goals": ["Validate arbitrary report prose", "Inspect product source or product tests"]
+  },
+  "execution": {
+    "steps": ["Create assessment entry documents and locator template", "Implement validator", "Add GWT positive and negative tests", "Wire validator into quick gate"],
+    "validation": ["Run assessment validator", "Run GWT validator tests", "Run shell/context checks"],
+    "last_completed_step": "", "next_action": "Wait for ASMG-001 policy completion."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
