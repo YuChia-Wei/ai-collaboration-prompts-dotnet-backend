@@ -219,6 +219,14 @@ echo -e "${BLUE}Starting checks at $(date '+%Y-%m-%d %H:%M:%S')${NC}"
 echo ""
 echo -e "${MAGENTA}════ Critical Checks ════${NC}"
 
+run_command_check "python .ai/scripts/validate-assessment-artifacts.py" \
+    "Assessment Artifact Metadata" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_assessment_artifacts.py -v" \
+    "Assessment Artifact Fail-Closed Tests" \
+    "required" "true" "true"
+
 run_command_check "python .ai/scripts/validate-workflow-artifacts.py" \
     "Workflow Artifact Metadata" \
     "required" "true" "true"

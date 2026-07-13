@@ -19,6 +19,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `standards/AI-CONTEXT-BOUNDARY.md` | AI context placement, boundary, and tool-neutral evidence policy. |
 | `standards/AI-CONTEXT-LANGUAGE-POLICY.md` | Agent-facing and human-facing language policy. |
 | `standards/WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode gate. |
+| `standards/ASSESSMENT-ARTIFACT-POLICY.md` | Standalone assessment identity, storage, lifecycle, Git lookup, and workflow handoff contract. |
 | `standards/GIT-COMMIT-POLICY.md` | Agent-assisted commit format and timing policy. |
 | `standards/coding-standards/` | .NET backend coding standards by component type. |
 | `standards/examples/` | Reusable .NET backend examples and templates. |
@@ -80,6 +81,15 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `workflows/README.MD` | Workflow discovery, ownership, and artifact-root guidance. |
 | `workflows/INDEX.MD` | Active, completed post-adoption, and legacy workflow discovery view. |
 | `standards/WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow locator, ID, timestamp, and minimum task contract. |
+
+## Durable Assessments
+
+| Path | Description |
+| --- | --- |
+| `assessments/` | Durable audits, large code reviews, and other observations that do not by themselves authorize remediation. |
+| `assessments/README.MD` | Assessment purpose and boundary guide. |
+| `assessments/INDEX.MD` | Draft, final, superseded, and withdrawn assessment catalog. |
+| `standards/ASSESSMENT-ARTIFACT-POLICY.md` | Assessment ID, locator, lifecycle, branch, commit, and handoff contract. |
 
 ## Durable Backlog
 

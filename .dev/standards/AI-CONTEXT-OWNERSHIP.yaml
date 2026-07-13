@@ -1,6 +1,20 @@
 schema_version: "1.0"
-updated_at: "2026-07-13T22:29:17+08:00"
+updated_at: "2026-07-13T23:22:03+08:00"
 rules:
+  - rule_id: ASSESSMENT-ARTIFACT-001
+    domain: durable-assessment
+    strength: invariant
+    canonical_path: .dev/standards/ASSESSMENT-ARTIFACT-POLICY.md
+    canonical_anchor: "## Assessment Versus Workflow"
+    scope: universal
+    applicability: an audit, large code review, architecture assessment, or technical-debt inventory is persisted
+    override_policy: forbidden
+    decision_evidence: null
+    derived_consumers:
+      - .ai/assets/skills/ai-context-auditor/references/output-contract.md
+      - .ai/assets/skills/ai-context-governance/references/audit-remediation-lifecycle.md
+      - .ai/assets/skills/code-reviewer/references/output-contract.md
+    status: active
   - rule_id: AICTX-EVIDENCE-001
     domain: ai-context-evidence
     strength: invariant

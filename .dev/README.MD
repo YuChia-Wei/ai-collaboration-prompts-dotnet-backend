@@ -1,6 +1,6 @@
 # Project Knowledge And Governance
 
-This directory contains the repository's human-facing governance, standards, guides, requirements, specs, operations guidance, durable backlog, and workflow records.
+This directory contains the repository's human-facing governance, standards, guides, requirements, specs, operations guidance, durable assessments, durable backlog, and workflow records.
 
 ## Purpose
 
@@ -17,6 +17,6 @@ When this framework is copied into a target repository, run `repo-structure-sync
 - Keep human-facing guides and project governance under `.dev/`.
 - Keep reusable agent-facing canonical assets under `.ai/`.
 - Keep runtime-specific skill wrappers under `.agents/skills/` and `.claude/skills/`.
-- Keep cross-workflow durable work items under `.dev/backlog/` and execution artifacts under `.dev/workflows/`.
+- Keep durable observations under `.dev/assessments/`, cross-workflow work items under `.dev/backlog/`, and execution artifacts under `.dev/workflows/`.
 
 Detailed file and directory descriptions belong in `.dev/INDEX.md`.

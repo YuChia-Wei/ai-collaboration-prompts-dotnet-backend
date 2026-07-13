@@ -62,6 +62,13 @@ Workflow artifact 規則：
 - Workflow 尚未完成時若使用者要求 merge/push，視為 checkpoint handoff 並維持 workflow active。只有 push 時從已推送的 branch 接續；checkpoint merge 後則從更新後的 target 建立新的獨立 continuation branch。
 - Workflow branch 預設使用 `--no-ff` 合併，除非使用者明確指定其他策略。
 
+### Assessment Gate
+
+- 唯讀 audit、大型 code review、architecture assessment 或類似報告需要保存時，遵循 `.dev/standards/ASSESSMENT-ARTIFACT-POLICY.md`。
+- Durable observations 存放於 `.dev/assessments/<assessment-id>/`；不要只因報告需要落地就建立 workflow。
+- Locator、report、commit subject 與 `Assessment-Id` trailer 使用穩定的 `ASM-YYYYMMDD-NNN` ID。
+- 被評估的 surfaces 必須維持唯讀。若 remediation 已獲授權，建立或使用對應 workflow，並引用 assessment 與選定的 finding IDs。
+
 ### Git Commit Policy
 
 1. 遵循 `.dev/standards/GIT-COMMIT-POLICY.md`。
@@ -84,14 +91,14 @@ Workflow artifact 規則：
 
 ### AI Context Audit
 
-執行唯讀的 AI context 健康度與漂移分析時，使用 `ai-context-auditor`。若結果只回覆於對話，可維持 transient direct mode；只有使用者要求將稽核報告落地保存於 repository 時，才建立專用 workflow 與 branch。
+執行唯讀的 AI context 健康度與漂移分析時，使用 `ai-context-auditor`。若結果只回覆於對話，可維持 transient direct mode；若只要求保存而未授權 remediation，則建立 standalone assessment 與 assessment branch，而不是 workflow。
 
 - 預設只檢查 AI context 與治理 surfaces。
 - 排除 `src/`、`tests/` 與其他產品 implementation trees。
 - 若使用者要求掃描產品 source 或 test code，停止擴大 audit，改為轉介 `code-reviewer`。
 - Audit finding 與 remediation 必須分開；只有在使用者授權整改後，才由 `ai-context-governance` 協調 AI context remediation lifecycle。
 - 僅因分析有多階段或使用 sub-agent，不代表必須建立 workflow；前提是沒有 repository mutation、remediation 或 durable report。
-- Durable report-only audit 對被稽核 surfaces 維持唯讀，commit 只包含 auditor 擁有的 workflow 與 report artifacts。
+- Durable report-only audit 對被稽核 surfaces 維持唯讀，commit 只包含 assessment-owned artifacts 與 assessment index updates。
 
 ### Development Workflow Orchestration
 
@@ -201,6 +208,7 @@ Workflow artifact 規則：
 | `.dev/domain-language/` | 領域統一詞彙範本與目標 repo 詞彙收納區 |
 | `.dev/specs/` | Specification organization and retained specs |
 | `.dev/operations/` | Operations docs and operations document guides |
+| `.dev/assessments/` | Durable audits、大型 code reviews 與其他唯讀 assessment artifacts |
 | `.dev/workflows/` | Workflow artifacts |
 
 ### Runtime Skill Wrappers
