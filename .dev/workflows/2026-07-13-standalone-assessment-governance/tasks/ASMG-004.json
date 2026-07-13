@@ -6,9 +6,9 @@
   "task_id": "ASMG-004",
   "workflow_id": "2026-07-13-standalone-assessment-governance",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-13T22:57:44+08:00",
-  "updated_at": "2026-07-13T22:57:44+08:00",
+  "updated_at": "2026-07-13T23:18:49+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CODE-REVIEW-ASSESSMENT-001"],
   "scope": {
@@ -20,7 +20,7 @@
   "execution": {
     "steps": ["Add transient versus durable modes", "Create code-review assessment report template", "Define finding IDs and downstream handoff", "Validate runtime wrappers"],
     "validation": ["Quick-validate Codex and Claude wrappers", "Validate canonical skill and assessment references"],
-    "last_completed_step": "", "next_action": "Wait for artifact policy and validator."
+    "last_completed_step": "Assessment policy, validator, and AI-context audit lifecycle migration completed.", "next_action": "Implement code-reviewer assessment output contracts."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }

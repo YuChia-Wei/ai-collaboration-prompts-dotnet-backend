@@ -1,6 +1,6 @@
 ---
 name: ai-context-governance
-description: Govern AI collaboration context boundaries, documentation quality, skill routing, runtime wrapper sync, migrations, and the audit-to-remediation lifecycle. Use when Claude needs to organize `.ai`, `.dev`, `.agents`, or `.claude`, remediate AI context audit findings, coordinate a post-remediation audit, close an AI context maintenance workflow, or keep this work out of product-development skills.
+description: Govern AI collaboration context boundaries, documentation quality, skill routing, runtime wrapper sync, migrations, and assessment-to-remediation lifecycles. Use when Claude needs to organize `.ai`, `.dev`, `.agents`, or `.claude`, intake assessment findings, coordinate remediation and verification assessments, close an AI context maintenance workflow, or keep this work out of product-development skills.
 ---
 
 # AI Context Governance
@@ -10,6 +10,7 @@ This is a thin Claude-compatible wrapper.
 ## Canonical Source
 
 - Registry: `.ai/assets/skills/README.MD`
+- Assessment Policy: `.dev/standards/ASSESSMENT-ARTIFACT-POLICY.md`
 - Spec: `.ai/assets/skills/ai-context-governance/skill.yaml`
 - Human Guide: `.dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
 - References:

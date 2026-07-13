@@ -6,9 +6,9 @@
   "task_id": "ASMG-003",
   "workflow_id": "2026-07-13-standalone-assessment-governance",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-13T22:57:44+08:00",
-  "updated_at": "2026-07-13T23:11:56+08:00",
+  "updated_at": "2026-07-13T23:18:49+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AUDIT-ASSESSMENT-001"],
   "scope": {
@@ -20,7 +20,31 @@
   "execution": {
     "steps": ["Update auditor modes and output contract", "Update report template metadata", "Update governance remediation lifecycle", "Synchronize thin wrappers and human guidance"],
     "validation": ["Validate canonical skill registry and wrappers", "Verify legacy paths are explicitly historical"],
-    "last_completed_step": "Assessment artifact policy and validator completed.", "next_action": "Update auditor and governance lifecycle contracts."
+    "last_completed_step": "Migrated auditor and governance specs, output contracts, lifecycle references, report/workflow templates, guides, and runtime wrappers to standalone assessment relationships.", "next_action": "None."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "New durable AI-context audits and post-remediation verification are assessments; governance workflows link them and keep only remediation execution evidence.",
+    "files_changed": [
+      ".ai/assets/skills/ai-context-auditor/skill.yaml",
+      ".ai/assets/skills/ai-context-auditor/references/scope-and-routing.md",
+      ".ai/assets/skills/ai-context-auditor/references/audit-playbook.md",
+      ".ai/assets/skills/ai-context-auditor/references/output-contract.md",
+      ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md",
+      ".ai/assets/skills/ai-context-governance/skill.yaml",
+      ".ai/assets/skills/ai-context-governance/references/output-contract.md",
+      ".ai/assets/skills/ai-context-governance/references/audit-remediation-lifecycle.md",
+      ".ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md",
+      ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md",
+      ".agents/skills/ai-context-auditor/SKILL.md",
+      ".claude/skills/ai-context-auditor/SKILL.md",
+      ".agents/skills/ai-context-governance/SKILL.md",
+      ".claude/skills/ai-context-governance/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md"
+    ],
+    "tests_run": ["quick_validate.py for four runtime wrappers", "python .ai/scripts/validate-assessment-artifacts.py", "python .ai/scripts/validate-ai-context.py", "python .ai/scripts/validate-workflow-artifacts.py", "git diff --check"],
+    "finding_status": "resolved",
+    "residual_risk": "Legacy auditor workflow templates remain on disk because historical artifacts reference them; current specs and wrappers no longer route new work to them.",
+    "follow_up_needed": false
+  }
 }
