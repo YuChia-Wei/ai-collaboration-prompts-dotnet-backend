@@ -6,7 +6,7 @@ record_origin: "governed"
 tag: null
 commit: null
 created_at: "2026-07-14T21:51:28+08:00"
-updated_at: "2026-07-14T21:51:28+08:00"
+updated_at: "2026-07-14T22:07:36+08:00"
 compatibility:
   breaking_changes: true
   minimum_source_version: "v0.1.0"
@@ -18,5 +18,5 @@ artifacts:
   release_notes: "release-notes.md"
   migration_guide: "migration-guide.md"
 validation:
-  evidence: "Pending workflow closeout and post-merge tag authorization."
+  evidence: "Workflow closeout passed 11/11 required quick checks, 10 version-governance GWT tests, 47 analyzer tests, 2 configuration tests, wrapper validation, and independent forward-test. Post-merge validation and tag authorization remain pending."
   workflow_id: "2026-07-14-ai-context-version-governance"
