@@ -49,6 +49,8 @@
 
 `repo-structure-sync` 是 `.dev/project-config.yaml` 的產生與同步入口。
 
+它也是目標 repo 第一次建立 `.dev/AI-CONTEXT-SOURCE.yaml` 的入口，但只有在匯入來源的 published tag 與 full commit 有可信證據時才可建立。若來源不明，必須記錄 unresolved provenance，不能猜測版本；後續已初始化 repo 的版本升級交給 `ai-context-upgrader`。
+
 - canonical shape：`.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
 - 先完成 inventory，再填入有檔案證據或使用者確認的欄位。
 - 未知值保持 `null` 或空集合。

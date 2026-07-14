@@ -122,6 +122,16 @@ Workflow artifact 規則：
 
 以 `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` 作為 authoritative migration boundary。
 
+### AI Context 版本升級
+
+已初始化的目標 repository 要在已發布的 framework 版本之間升級時，使用 `ai-context-upgrader`。
+
+- 必須有 `.dev/AI-CONTEXT-SOURCE.yaml`，否則先進行明確的 unresolved-provenance reconciliation。
+- 寫入前比對已記錄的 framework 版本、欲升級版本與目標 repo 現況。
+- 保留目標 repo 自有的協作規則、requirements、specs、ADRs、architecture、operations 與 project configuration truth。
+- `automatic-candidate` 只是可安全提出的候選，不代表已取得寫入授權；只有驗證成功後才能更新 provenance。
+- 證據以 Git 與 repository files 為準；外部 graph 或 index 只能加速探索，不能證明完整性。
+
 ### Code Review
 
 只有在 review .NET backend code 或 dotnet-backend implementation guidance 時才使用 `code-reviewer`。
@@ -160,6 +170,7 @@ Workflow artifact 規則：
 | 唯讀 AI context 健康度、漂移與結構分析；可選擇對話輸出或保存報告 | `ai-context-auditor` |
 | AI context cleanup、prompt boundary、language policy、wrapper sync | `ai-context-governance` |
 | 將此 framework 複製到目標 repo 後的第一次同步 | `repo-structure-sync` |
+| 將已初始化的目標 repo 升級到另一個已發布 framework 版本 | `ai-context-upgrader` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |
 | GWT scenario 與 assertion design | `bdd-gwt-test-designer` |
 | .NET backend code review | `code-reviewer` |

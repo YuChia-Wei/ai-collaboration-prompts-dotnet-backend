@@ -20,6 +20,7 @@ This is a thin Claude-compatible wrapper.
   - `.ai/assets/skills/repo-structure-sync/references/document-targets.md`
   - `.ai/assets/skills/repo-structure-sync/references/output-contract.md`
   - `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
+  - `.ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml`
 
 ## Wrapper Rules
 

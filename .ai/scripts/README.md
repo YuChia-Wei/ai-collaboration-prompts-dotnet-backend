@@ -38,6 +38,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `check-coding-standards.sh`
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
+- `validate-ai-context-versions.py`
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
@@ -51,6 +52,16 @@ Git revision metadata, branch and timestamp contracts, lifecycle sections,
 resume safety, and assessment relationship integrity. It does not evaluate
 report prose or replace the producing skill's evidence review.
 
+`validate-ai-context-versions.py` validates governed release identity, SemVer,
+immutable published tag-to-commit mappings, compatibility declarations, and an
+optional target `.dev/AI-CONTEXT-SOURCE.yaml`. It automatically uses source mode
+when release records exist and target mode when only the installed provenance
+manifest exists. `compare-ai-context-versions.py`
+is a read-only Git-tree comparison helper; it proposes an automatic candidate
+only when a supplied target file is byte-identical to the recorded base. Target
+truth, deletions, absent evidence, and source history remain reconciliation or
+exclusion items.
+
 Fail-closed shell validation regression tests use Given-When-Then naming and
 comments and run entirely in disposable Git repositories:
 
@@ -60,6 +71,7 @@ python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v
 python .ai/scripts/tests/test_ai_context_root_entries.py -v
 python .ai/scripts/tests/test_workflow_implementation_contract.py -v
 python .ai/scripts/tests/test_assessment_artifacts.py -v
+python .ai/scripts/tests/test_ai_context_version_governance.py -v
 ```
 
 The shell fixture suite snapshots the real checkout before and after execution.

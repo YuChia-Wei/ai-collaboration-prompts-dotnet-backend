@@ -27,6 +27,7 @@
 - `AI-ASSET-LOCATION-STRATEGY.md`: 多 agent 情境下 skill / prompt / guide / workflow artifact 的收納策略
 - `AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`: `ai-context-governance` 的使用說明與 AI context 文件治理 prompt 範本
 - `AI-CONTEXT-AUDITOR-SKILL-GUIDE.md`: `ai-context-auditor` 的定期自檢、預設排除範圍、code review 轉介與報告保存指南
+- `AI-CONTEXT-UPGRADER-SKILL-GUIDE.md`: framework 版本比較、target provenance、三方 reconciliation 與安全升級指南
 - `LOCAL-RUNTIME-WRAPPER-GUIDE.md`: repo wrapper 與本機 runtime 的使用方式
 - `OPTIONAL-MINIMAL-WORKFLOW-MODE.md`: 可選的最小 workflow 模式與 artifact 說明
 - `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md`: `ddd-ca-hex-architect` 的使用說明與 prompt 範本

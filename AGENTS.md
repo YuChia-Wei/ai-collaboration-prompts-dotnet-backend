@@ -126,6 +126,16 @@ The skill must:
 
 Treat `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` as the authoritative migration boundary.
 
+### AI Context Version Upgrade
+
+Use `ai-context-upgrader` after an initialized target repository needs to move between published framework versions.
+
+- Require `.dev/AI-CONTEXT-SOURCE.yaml` or an explicit unresolved-provenance reconciliation.
+- Compare the recorded framework version, requested framework version, and current target state before writing.
+- Preserve target-owned collaboration, requirement, spec, ADR, architecture, operations, and project configuration truth.
+- Treat automatic candidates as proposals, not write authorization; update provenance only after successful validation.
+- Use Git and repository files as evidence. Optional graphs and indexes may accelerate discovery but cannot establish completeness.
+
 ### Code Review
 
 Use `code-reviewer` only when reviewing .NET backend code or dotnet-backend implementation guidance.
@@ -164,6 +174,7 @@ Use these boundaries:
 | Read-only AI context health, drift, and structure analysis with conversational or persisted output | `ai-context-auditor` |
 | AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
 | First sync after copying this framework into a target repo | `repo-structure-sync` |
+| Upgrade an initialized target between published framework versions | `ai-context-upgrader` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |
 | GWT scenario and assertion design | `bdd-gwt-test-designer` |
 | .NET backend code review | `code-reviewer` |

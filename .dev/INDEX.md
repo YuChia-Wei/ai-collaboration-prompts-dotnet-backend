@@ -18,6 +18,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `standards/README.md` | Standards entry point. |
 | `standards/AI-CONTEXT-BOUNDARY.md` | AI context placement, boundary, and tool-neutral evidence policy. |
 | `standards/AI-CONTEXT-LANGUAGE-POLICY.md` | Agent-facing and human-facing language policy. |
+| `standards/AI-CONTEXT-VERSION-POLICY.md` | Framework SemVer, immutable release, target provenance, and upgrade safety policy. |
 | `standards/WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode gate. |
 | `standards/ASSESSMENT-ARTIFACT-POLICY.md` | Standalone assessment identity, storage, lifecycle, Git lookup, and workflow handoff contract. |
 | `standards/GIT-COMMIT-POLICY.md` | Agent-assisted commit format and timing policy. |
@@ -81,6 +82,15 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `workflows/README.MD` | Workflow discovery, ownership, and artifact-root guidance. |
 | `workflows/INDEX.MD` | Active, completed post-adoption, and legacy workflow discovery view. |
 | `standards/WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow locator, ID, timestamp, and minimum task contract. |
+
+## AI Context Releases
+
+| Path | Description |
+| --- | --- |
+| `releases/` | Durable framework release identity, compatibility declarations, and migration guidance. |
+| `releases/README.MD` | Release directory purpose and boundary. |
+| `releases/INDEX.MD` | Published and planned release discovery view. |
+| `standards/AI-CONTEXT-VERSION-POLICY.md` | Version selection, tag immutability, provenance, upgrade, and publication gates. |
 
 ## Durable Assessments
 

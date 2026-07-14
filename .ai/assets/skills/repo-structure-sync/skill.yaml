@@ -21,6 +21,7 @@ outputs:
   - "repo init verdict"
   - "repo inventory"
   - "evidence-based `.dev/project-config.yaml` or an explicit not-initialized decision"
+  - "validated `.dev/AI-CONTEXT-SOURCE.yaml` when credible source release identity is available, or an explicit unresolved-provenance record"
   - "complexity verdict"
   - "safe direct update targets"
   - "source packet for escalation"
@@ -30,6 +31,7 @@ constraints:
   - "Do not bulk rewrite specs or operations docs unless explicitly requested"
   - "Prefer low-cost inventory first and escalate only when the checklist requires it"
   - "Treat optional indexes, code graphs, MCP servers, IDE indexes, and semantic search only as discovery accelerators; build target-repository facts from repository-native evidence under AICTX-EVIDENCE-001."
+  - "Do not guess the copied framework version or commit; create target provenance only from credible release or import evidence."
 workflow:
   - step: 1
     description: "Identify target repository mode: empty repo, existing repo, or copied-template repo"
@@ -38,7 +40,7 @@ workflow:
   - step: 3
     description: "Evaluate P0 and P1 triggers to decide whether escalation is needed"
   - step: 4
-    description: "Generate or update `.dev/project-config.yaml` and architecture-facing docs only from confirmed facts"
+    description: "Generate or update `.dev/project-config.yaml`, initial AI context provenance, and architecture-facing docs only from confirmed facts"
   - step: 5
     description: "If needed, pass a compact source packet to a stronger model or sub-agent"
 references:
@@ -49,6 +51,7 @@ references:
   - ".ai/assets/skills/repo-structure-sync/references/document-targets.md"
   - ".ai/assets/skills/repo-structure-sync/references/output-contract.md"
   - ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
+  - ".ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml"
 examples:
   - ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
 human_guide: ".dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md"
