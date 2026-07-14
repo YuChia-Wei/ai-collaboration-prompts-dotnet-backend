@@ -6,9 +6,9 @@
   "task_id": "AIPKG-004",
   "workflow_id": "2026-07-14-ai-context-release-packaging",
   "owner_skill": "ai-context-upgrader",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-14T23:39:38+08:00",
-  "updated_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-15T00:05:22+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIPKG-MIGRATION-001"],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Load package and prior provenance", "Classify operations", "Emit dry-run plan", "Apply only explicit accepted safe operations", "Hand off to repo sync/upgrader"],
     "validation": ["Modified-file preservation", "Remove/rename hash gates", "Rollback commit evidence", "Provenance ordering"],
-    "last_completed_step": "Not started.",
-    "next_action": "Begin after AIPKG-003 exposes stable file manifests."
+    "last_completed_step": "AIPKG-003 exposed validated package, file, migration, and checksum metadata.",
+    "next_action": "Implement dry-run classification and explicit safe apply with target Git and hash gates."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
 }
