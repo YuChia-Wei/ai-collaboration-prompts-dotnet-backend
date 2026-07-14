@@ -6,22 +6,29 @@
   "task_id": "SRO-002",
   "workflow_id": "2026-07-14-slice-remediation-overlay",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-14T20:56:16+08:00",
-  "updated_at": "2026-07-14T20:56:16+08:00",
+  "updated_at": "2026-07-14T21:04:02+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["SRO-OVERLAY-001"],
   "scope": {
     "target": "Remediation overlay and layered source contract",
-    "files": [".ai/assets/skills/slice-implementer/references/overlays/remediation.md", ".ai/assets/skills/slice-implementer/references/execution-playbook.md", ".ai/assets/skills/slice-implementer/references/handoff-rules.md"],
+    "files": [".ai/assets/skills/slice-implementer/references/overlays/remediation.md", ".ai/assets/skills/slice-implementer/references/execution-playbook.md", ".ai/assets/skills/slice-implementer/references/handoff-rules.md", ".ai/assets/skills/slice-implementer/references/modes/generic-slice.md"],
     "constraints": ["Preserve architecture-specific execution modes", "Use stable finding references", "Separate authorized scope, finding evidence, and normative truth"],
     "non_goals": ["Make remediation an execution mode", "Perform a remediation slice"]
   },
   "execution": {
     "steps": ["Create remediation overlay", "Define finding disposition and evidence rules", "Define verification handoff"],
     "validation": ["Canonical reference discovery", "Content review against assessment and workflow boundaries"],
-    "last_completed_step": "",
-    "next_action": "Wait for SRO-001."
+    "last_completed_step": "Added the remediation overlay, finding dispositions, layered source rules, workflow-gate qualification, and verification handoff.",
+    "next_action": "None; continue SRO-003."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "Remediation now composes with every execution mode and preserves finding traceability without rewriting source assessments or reviews.",
+    "files_changed": [".ai/assets/skills/slice-implementer/references/overlays/remediation.md", ".ai/assets/skills/slice-implementer/references/execution-playbook.md", ".ai/assets/skills/slice-implementer/references/handoff-rules.md", ".ai/assets/skills/slice-implementer/references/modes/generic-slice.md"],
+    "tests_run": ["Independent two-scenario forward-test", "Reference discovery scan", "AI-context validation"],
+    "finding_status": "addressed",
+    "residual_risk": "Independent verification remains a separate reviewer, compliance, or workflow-owner responsibility.",
+    "follow_up_needed": false
+  }
 }

@@ -227,9 +227,13 @@ run_command_check "python .ai/scripts/tests/test_assessment_artifacts.py -v" \
     "Assessment Artifact Fail-Closed Tests" \
     "required" "true" "true"
 
-run_command_check "python .ai/scripts/validate-workflow-artifacts.py" \
-    "Workflow Artifact Metadata" \
-    "required" "true" "true"
+  run_command_check "python .ai/scripts/validate-workflow-artifacts.py" \
+      "Workflow Artifact Metadata" \
+      "required" "true" "true"
+
+  run_command_check "python .ai/scripts/tests/test_workflow_implementation_contract.py -v" \
+      "Workflow Implementation Contract Fail-Closed Tests" \
+      "required" "true" "true"
 
 run_command_check "python .ai/scripts/validate-ai-context.py" \
     "AI Context Navigation and Runtime Contracts" \

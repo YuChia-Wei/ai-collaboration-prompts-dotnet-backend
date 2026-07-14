@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-14-slice-remediation-overlay`](2026-07-14-slice-remediation-overlay/workflow.yaml) | Slice Remediation Intent And Overlay Contract | `ai-context-governance` | `in_progress` | `2026-07-14T20:56:16+08:00` | [plan](2026-07-14-slice-remediation-overlay/workflow-plan.md) |
+| [`2026-07-14-slice-remediation-overlay`](2026-07-14-slice-remediation-overlay/workflow.yaml) | Slice Remediation Intent And Overlay Contract | `ai-context-governance` | `in_progress` | `2026-07-14T21:17:00+08:00` | [plan](2026-07-14-slice-remediation-overlay/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

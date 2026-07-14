@@ -77,7 +77,7 @@ Implementer routing should be scope-first:
 
 1. `dev-workflow` decides whether implementation is needed.
 2. `slice-implementer` handles a bounded implementation slice.
-3. `slice-implementer` selects a mode/reference such as command, query, reactor, generic, remediation, or refactor.
+3. `slice-implementer` selects exactly one execution mode/reference: command, query, reactor, or generic; task intent is recorded separately and remediation-specific rules are applied as an overlay.
 4. `local-change-implementer` may handle small local technical changes inside or outside a slice.
 
 The future implementation should treat command/query/reactor as `slice-implementer` modes/references, not independent top-level implementer skills, unless a later spec identifies a non-mergeable specialist contract.
@@ -102,16 +102,21 @@ Scope examples:
 - `slice`
 - `architecture-level`
 
-Mode examples:
+Execution mode examples:
 
 - `command`
 - `query`
 - `reactor`
 - `generic`
-- `refactor`
+
+Overlay examples:
+
 - `remediation`
 
-Routing should choose the skill primarily by safe scope, then record intent and mode in the task or prompt.
+Routing should choose the skill primarily by safe scope, then record intent,
+exactly one execution mode, and applicable overlays in the task or prompt.
+`refactor` remains an intent. `remediation` augments the execution mode rather
+than replacing command, query, reactor, or generic rules.
 
 ### FR-4: Convert Architecture-Role Implementers Into Slice Modes/References
 

@@ -6,22 +6,29 @@
   "task_id": "SRO-001",
   "workflow_id": "2026-07-14-slice-remediation-overlay",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-14T20:56:16+08:00",
-  "updated_at": "2026-07-14T20:56:16+08:00",
+  "updated_at": "2026-07-14T21:04:02+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["SRO-MODE-001"],
   "scope": {
     "target": "Canonical slice intent and execution-mode contract",
-    "files": [".ai/assets/skills/slice-implementer/skill.yaml", ".ai/assets/skills/slice-implementer/references/input-contract.md"],
+    "files": [".ai/assets/skills/slice-implementer/skill.yaml", ".ai/assets/skills/slice-implementer/references/input-contract.md", ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD"],
     "constraints": ["Keep command, query, reactor, and generic as execution modes", "Keep remediation and refactor as intents rather than modes"],
     "non_goals": ["Create a new top-level skill", "Change product architecture rules"]
   },
   "execution": {
     "steps": ["Normalize canonical terminology", "Define composable intent and execution mode", "Remove claims of nonexistent mode references"],
     "validation": ["Parse skill YAML", "Search active canonical surfaces for obsolete mode wording"],
-    "last_completed_step": "Workflow and design decision created.",
-    "next_action": "Update canonical skill and input contract."
+    "last_completed_step": "Separated intent, execution mode, overlays, authorization, normative truth, and finding evidence in the canonical contract and its owning requirement.",
+    "next_action": "None; continue SRO-002."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "Canonical slice input now selects exactly one command, query, reactor, or generic execution mode; remediation and refactor are no longer modes.",
+    "files_changed": [".ai/assets/skills/slice-implementer/skill.yaml", ".ai/assets/skills/slice-implementer/references/input-contract.md", ".dev/requirement/SKILL-IMPLEMENTER-NAMING-REQUIREMENTS.MD"],
+    "tests_run": ["Canonical YAML parse", "Active wording scan", "AI-context validation"],
+    "finding_status": "addressed",
+    "residual_risk": "Task producers must populate the new layered source concepts in future prompts and workflow tasks.",
+    "follow_up_needed": false
+  }
 }

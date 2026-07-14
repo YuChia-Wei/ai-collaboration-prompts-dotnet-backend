@@ -1,8 +1,8 @@
 {
   "template_id": "dev-workflow/development-workflow-task",
-  "template_version": "1.0.0",
+  "template_version": "1.1.0",
   "template_created_at": "2026-07-10T18:25:11+08:00",
-  "template_updated_at": "2026-07-10T18:25:11+08:00",
+  "template_updated_at": "2026-07-14T21:14:55+08:00",
   "workflow_id": "<YYYY-MM-DD-topic[-NN]>",
   "task_id": "<development-task-id>",
   "owner_skill": "<development-skill>",
@@ -27,6 +27,7 @@
   },
   "execution": {
     "capability_slot": "",
+    "implementation_contract": null,
     "steps": [],
     "validation": [],
     "commit_checkpoint": "",
