@@ -39,6 +39,8 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `build-ai-context-package.py`
+- `validate-ai-context-package.py`
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
@@ -61,6 +63,15 @@ is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
+
+`build-ai-context-package.py` reads an immutable Git commit tree and the
+canonical distribution profile to produce normalized ZIP and tar.gz release
+archives. `validate-ai-context-package.py` verifies the envelope, inventory,
+member checksums, external archive checksum sidecars, and ZIP/tar member parity.
+Their shared `ai_context_package.py` module rejects checkout-dependent bytes,
+unsafe paths, output collisions, unsupported Git entry types, and existing
+output files. These source-side packaging tools are excluded from the installed
+target payload.
 
 Fail-closed shell validation regression tests use Given-When-Then naming and
 comments and run entirely in disposable Git repositories:

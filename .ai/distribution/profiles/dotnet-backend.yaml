@@ -5,6 +5,7 @@ profile:
   description: Complete portable AI collaboration context with the retained .NET backend capability.
 
 package:
+  source_repository: https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend
   name_template: ai-context-dotnet-backend-v{version}
   formats:
     - zip
@@ -14,10 +15,14 @@ package:
     metadata_root: metadata
     payload_root: payload
   deterministic:
-    source: clean-git-tree
+    source: immutable-git-commit-tree
+    content_bytes: git-blob-bytes
+    executable_source: git-tree-mode-100755
+    unsupported_git_entries: reject-symlink-submodule-and-non-regular
     path_order: utf8-bytewise-ascending
     path_separator: /
     timestamp: source-date-epoch
+    zip_timestamp: source-date-epoch-clamped-to-1980-01-01T00:00:00Z
     file_mode: "0644"
     executable_mode: "0755"
     uid: 0
@@ -25,8 +30,8 @@ package:
     owner_name: root
     group_name: root
     compression:
-      zip: deflate
-      tar: gzip-no-original-filename
+      zip: deflate-level-9
+      tar: gzip-level-9-no-original-filename
 
 ownership_classes:
   framework-managed:
@@ -97,13 +102,18 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: domain-language-templates
-    source: .dev/domain-language/**
-    target: .dev/domain-language/
+    source:
+      - .dev/domain-language/README.MD
+      - .dev/domain-language/templates/**
+    target: preserve-relative-path
     ownership: framework-managed
     install_behavior: managed
   - id: problem-frame-assets
-    source: .dev/problem-frames/**
-    target: .dev/problem-frames/
+    source:
+      - .dev/problem-frames/README.MD
+      - .dev/problem-frames/SEMANTICS.md
+      - .dev/problem-frames/templates/**
+    target: preserve-relative-path
     ownership: framework-managed
     install_behavior: managed
   - id: specification-authoring-guides
@@ -111,7 +121,11 @@ entries:
       - .dev/specs/README.MD
       - .dev/specs/SPEC-GUIDE.MD
       - .dev/specs/SPEC-ORGANIZATION-GUIDE.MD
-      - .dev/specs/tests/**
+      - .dev/specs/tests/README.MD
+      - .dev/specs/tests/TEST-SPEC-GUIDE.MD
+      - .dev/specs/tests/GHERKIN-FEATURE-STORAGE-GUIDE.MD
+      - .dev/specs/tests/cross-domain/README.MD
+      - .dev/specs/tests/e2e/README.MD
     target: preserve-relative-path
     ownership: framework-managed
     install_behavior: managed
@@ -164,6 +178,7 @@ entries:
       - .ai/assets/skills/repo-structure-sync/templates/public-catalogs/**
     target: mapping-declared-by-template-manifest
     template_manifest: .ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml
+    template_source_resolution: manifest-directory-relative
     ownership: target-template
     install_behavior: seed
   - id: repository-integration-seeds
@@ -193,6 +208,10 @@ exclusions:
       - .dev/README.MD
       - .dev/requirement/*
       - .dev/specs/INDEX.MD
+      - .dev/specs/domains/**
+      - .dev/problem-frames/INDEX.md
+      - .dev/problem-frames/instances/**
+      - .dev/domain-language/contexts/**
       - .dev/adr/INDEX.md
       - .dev/assessments/INDEX.MD
       - .dev/backlog/INDEX.MD
@@ -220,6 +239,9 @@ exclusions:
       - .git/**
       - .gitignore
       - .codex/config.toml
+      - .ai/scripts/ai_context_package.py
+      - .ai/scripts/build-ai-context-package.py
+      - .ai/scripts/validate-ai-context-package.py
       - '**/bin/**'
       - '**/obj/**'
       - '**/__pycache__/**'
@@ -235,3 +257,6 @@ generated_metadata:
   files: metadata/files.yaml
   migration: metadata/migration.yaml
   checksums: metadata/SHA256SUMS.txt
+  checksum_scope: all-envelope-members-except-metadata/SHA256SUMS.txt
+  payload_digest: sha256-of-utf8-lines-sha256-two-spaces-target-path-newline
+  archive_checksums: external-sidecars-not-archive-members

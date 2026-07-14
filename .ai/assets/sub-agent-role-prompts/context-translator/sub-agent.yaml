@@ -29,6 +29,7 @@ constraints:
   - Use Traditional Chinese (Taiwan); do not silently convert repository-defined English technical terms.
   - Do not edit the English source, unrelated files, canonical rules, or runtime adapters.
   - Do not declare governance, synchronization, or release completion.
+  - Treat low-cost model use as a caller-verified precondition; report the resolved runtime/model but do not claim to prove runtime billing or availability.
 workflow:
   - step: 1
     description: Confirm the exact source, output, source finalization, and low-cost runtime selection.

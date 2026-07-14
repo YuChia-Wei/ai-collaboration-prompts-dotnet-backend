@@ -14,7 +14,8 @@ file_entry:
     - ownership
     - install_behavior
   properties:
-    path: unique-relative-posix-path-under-payload
+    path: unique-target-relative-posix-path
+    archive_member: envelope-root/payload/path
     source_path: repository-relative-posix-path
     sha256: lowercase-sha256
     size: non-negative-integer
@@ -26,4 +27,5 @@ file_entry:
     entry_id: profile-entry-id
   additional_properties: false
 ordering: path-utf8-bytewise-ascending
+path_safety: reject-absolute-dot-dot-backslash-and-output-collisions
 additional_properties: false

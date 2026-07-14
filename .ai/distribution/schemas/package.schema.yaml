@@ -8,6 +8,7 @@ required:
   - release_id
   - source
   - created_at
+  - source_date_epoch
   - payload
 properties:
   schema_version: semver
@@ -29,8 +30,7 @@ properties:
       root: relative-posix-path
       file_count: non-negative-integer
       sha256: lowercase-sha256
-  archives:
-    item_required: [path, format, sha256, size]
+    sha256_definition: sha256-of-utf8-lines-sha256-two-spaces-target-path-newline
   compatibility:
     required: [minimum_governed_source, breaking_changes]
 additional_properties: false

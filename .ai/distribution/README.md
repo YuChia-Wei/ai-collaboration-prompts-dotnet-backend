@@ -14,10 +14,13 @@ This directory owns source-side, machine-readable contracts for building portabl
 - A builder must start from the profile allowlist. It must not archive the repository and then rely on exclusions for safety.
 - Exclusions are a deny boundary over the allowlist. An `except` entry restores only the named reusable path and must also be covered by an allowlist entry.
 - Source paths are resolved from a clean Git tree at the requested immutable commit or tag.
+- Builders read Git blob bytes and Git tree modes, not checkout bytes; this prevents `autocrlf` or local mode settings from changing package output. Symlinks, submodules, and non-regular Git entries are rejected.
 - Generated metadata belongs under the package envelope's `metadata/` directory and is not installed as target project truth.
 - Root entries and empty target catalogs come from public templates owned by `repo-structure-sync`; active source-repository root documents and catalogs are not templates.
 - External indexes or knowledge graphs may accelerate discovery but cannot prove package completeness.
 - A profile entry marked `allow_empty_until` is a workflow bootstrap exception. A release candidate validator must reject every remaining empty entry.
+- Template-manifest `source` paths are resolved relative to the manifest directory. Targets are repository-relative payload paths; reject absolute paths, `..`, backslashes, duplicates, and collisions. A template may exist once at its canonical managed path and once at its mapped target seed path.
+- `metadata/SHA256SUMS.txt` covers every other envelope member and excludes itself. Archive digests are external `.sha256` sidecars because an archive cannot contain its own final digest.
 
 ## Ownership Classes
 

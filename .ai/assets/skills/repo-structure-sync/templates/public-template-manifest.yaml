@@ -1,5 +1,6 @@
 schema_version: 1.0.0
 template_set: repo-structure-sync-public-seeds
+source_root: .
 ownership: target-template
 install_behavior: seed
 mappings:
@@ -21,5 +22,7 @@ mappings:
     target: .dev/backlog/INDEX.MD
   - source: public-catalogs/dev/specs/INDEX.MD
     target: .dev/specs/INDEX.MD
+  - source: public-catalogs/dev/problem-frames/INDEX.md
+    target: .dev/problem-frames/INDEX.md
   - source: public-catalogs/dev/workflows/INDEX.MD
     target: .dev/workflows/INDEX.MD
