@@ -6,9 +6,9 @@
   "task_id": "AIPKG-008",
   "workflow_id": "2026-07-14-ai-context-release-packaging",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-14T23:39:38+08:00",
-  "updated_at": "2026-07-15T07:37:10+08:00",
+  "updated_at": "2026-07-15T07:53:30+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIPKG-CLOSE-001"],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Build candidate twice", "Install/upgrade disposable targets", "Run independent forward-test", "Run quick gate", "Reconcile and close"],
     "validation": ["Archive digests and parity", "Target safety", "check-all.sh --quick", "workflow and Git-policy verification"],
-    "last_completed_step": "AIPKG-001 through AIPKG-007 are implemented and locally validated.",
-    "next_action": "Build the final candidate twice, forward-test disposable targets, run required gates, and close the workflow."
+    "last_completed_step": "Built the candidate twice, validated archive parity, forward-tested extracted install and synthetic upgrade paths, remediated packaged bytecode drift, and passed the required quick gate.",
+    "next_action": "None; merge, post-merge validation, user tag, and hosted publication remain external follow-up actions."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+  "results": {"summary": "Validated the deterministic v0.3.0 package candidate, actual extracted dry-run/apply behavior, pinned target-tool dependency, synthetic upgrade safety, release automation contracts, and all repository required gates.", "files_changed": [".ai/distribution/templates/requirements.txt", ".ai/scripts/plan-ai-context-package-apply.py", ".ai/scripts/tests/test_ai_context_packaging.py", ".ai/scripts/tests/test_ai_context_package_apply.py", ".dev/releases/v0.3.0/release.yaml", ".dev/releases/v0.3.0/release-notes.md", ".dev/workflows/2026-07-14-ai-context-release-packaging/reports/01-release-packaging-closeout.md"], "tests_run": ["Two builds from 1a25eb023e69d85c32a7459e7a9dc749e30e5d26: four output digests matched", "ZIP/tar.gz package validation and parity passed", "Pinned dependency diagnostic and extracted clean-target dry-run/apply passed", "Packaging and safe-apply GWT: 23 passed, 1 Windows symlink privilege skip", "check-all.sh --quick: 12/12 required checks passed, 1 unrelated dependency check deferred, 1 spec check not applicable"], "finding_status": "resolved", "residual_risk": "Hosted GitHub Actions execution, post-merge validation, and user-created tag publication are intentionally outside this local workflow closeout. Historical v0.0.1 remains unresolved.", "follow_up_needed": false}
 }

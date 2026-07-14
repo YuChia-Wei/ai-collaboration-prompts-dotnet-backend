@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-14-ai-context-release-packaging`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `candidate-forward-test-and-closeout`
+- `status`: `completed`
+- `current_phase`: `closed`
 - `artifact_root`: `.dev/workflows/2026-07-14-ai-context-release-packaging`
 - `created_at`: `2026-07-14T23:39:38+08:00`
-- `updated_at`: `2026-07-15T07:37:10+08:00`
+- `updated_at`: `2026-07-15T07:53:30+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -46,6 +46,7 @@ Produce both `ai-context-dotnet-backend-v<version>.zip` and `.tar.gz` from one n
 ```text
 ai-context-dotnet-backend-v<version>/
   INSTALL.md
+  requirements.txt
   metadata/
     package.yaml
     files.yaml
@@ -125,7 +126,7 @@ Official format evidence:
 | `AIPKG-005` | Add candidate and user-tag-triggered GitHub Actions with draft-to-published release behavior. | `completed` | Workflow lint/schema checks and local command parity pass. |
 | `AIPKG-006` | Add GWT fixtures for clean install, legacy baseline, normal upgrade, local modification, removal, rename, and failures. | `completed` | All scenario matrices pass in disposable Git repositories. |
 | `AIPKG-007` | Prepare `REL-v0.3.0` packaging notes and future retrospective-baseline extension without creating tags. | `completed` | Release data remains planned/validated and makes no false publication claim. |
-| `AIPKG-008` | Build and inspect a candidate package, run full gates, reconcile artifacts, and close. | `in_progress` | Candidate install/upgrade, quick gate, workflow, commit, and archive checks pass. |
+| `AIPKG-008` | Build and inspect a candidate package, run full gates, reconcile artifacts, and close. | `completed` | Candidate install/upgrade, quick gate, workflow, commit, and archive checks pass. |
 
 ## Validation Strategy
 
@@ -140,13 +141,13 @@ Official format evidence:
 
 ## Resume Checkpoint
 
-- Last completed action: built `ai-context-dotnet-backend-v0.3.0` twice from Git commit `2ac316cec5fd4257125572699352f73edee9112d`; ZIP and tar.gz bytes were repeatable by format, their payload bytes/modes matched, and both archive sidecars validated.
-- Current task: `AIPKG-008`.
-- Exact next action: implement dry-run planning and explicit apply with clean-worktree, previous-hash, ownership, reconciliation, and provenance-ordering gates.
-- Validation already completed: package scripts compiled; contract YAML parsed; two independent output directories produced identical per-format SHA-256; both ZIP/tar pairs passed envelope, member checksum, inventory, mode, payload digest, sidecar, and cross-format parity validation.
-- Git state: `codex/2026-07-14-ai-context-release-packaging`; AIPKG-001 `e308b8d`; AIPKG-002 `0a7ac64`; AIPKG-003 implementation `2ac316c`.
+- Last completed action: built `ai-context-dotnet-backend-v0.3.0` twice from Git commit `1a25eb023e69d85c32a7459e7a9dc749e30e5d26`, validated ZIP/tar parity and pinned runtime requirements, executed the packaged planner against a disposable clean target, and passed the complete required quick gate.
+- Current task: none; workflow completed.
+- Exact next action: merge with `--no-ff` only when authorized, rerun post-merge validation, then let the user create the version tag when ready.
+- Validation already completed: two independent output directories produced identical per-format SHA-256; archive envelopes and sidecars passed; clean install and synthetic upgrade/preservation scenarios passed; required quick gate passed 12/12 with 47 analyzer and 2 configuration tests.
+- Git state: `codex/2026-07-14-ai-context-release-packaging`; final workflow closeout commit pending.
 - Branch history and checkpoint handoffs: segment 1 began locally on 2026-07-14.
-- Blockers or unresolved decisions: the exact early installed commit and future tag name remain user-confirmed external input, but do not block the packaging framework.
+- Blockers or unresolved decisions: none for workflow closure. Historical `v0.0.1` selection, merge, push, user-created `v0.3.0` tag, and hosted GitHub Release publication remain explicit external follow-up actions.
 
 ## Branch Lifecycle
 

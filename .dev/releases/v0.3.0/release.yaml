@@ -1,12 +1,12 @@
 schema_version: "1.0"
 release_id: "REL-v0.3.0"
 version: "v0.3.0"
-status: "planned"
+status: "validated"
 record_origin: "governed"
 tag: null
 commit: null
 created_at: "2026-07-14T21:51:28+08:00"
-updated_at: "2026-07-15T07:25:12+08:00"
+updated_at: "2026-07-15T07:53:30+08:00"
 compatibility:
   breaking_changes: true
   minimum_source_version: "v0.1.0"
@@ -47,9 +47,9 @@ distribution:
     automation: "github-actions"
     creates_or_moves_tag: false
 validation:
-  evidence: "Version-governance gates passed in the related workflow. Package installation, upgrade, publication, candidate, and post-merge validation remain pending in the release-packaging workflow."
+  evidence: "The release-packaging workflow passed repeatable ZIP/tar.gz builds, archive parity, extracted clean-install forward-test, synthetic upgrade and preservation scenarios, 12/12 required quick checks, 47 analyzer tests, and 2 configuration tests. Post-merge and hosted tag-triggered publication validation remain pending."
   workflow_id: "2026-07-14-ai-context-release-packaging"
   related_workflows:
     - "2026-07-14-ai-context-version-governance"
-  package_status: "pending"
+  package_status: "validated"
   post_merge_status: "pending"

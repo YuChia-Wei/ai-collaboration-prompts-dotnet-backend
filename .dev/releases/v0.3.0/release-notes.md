@@ -2,7 +2,7 @@
 
 ## Status
 
-Planned release candidate. No tag or published commit exists yet. Publication requires workflow closeout, `--no-ff` merge to `main`, post-merge validation, and explicit tag authorization.
+Validated release candidate. No tag or published commit exists yet. Publication requires a `--no-ff` merge to `main`, post-merge validation, an explicitly user-created `v0.3.0` tag, and successful tag-triggered automation. The automation must never create or move that tag.
 
 ## Highlights
 
@@ -29,7 +29,7 @@ The governed candidate produces these release attachments:
 - `ai-context-dotnet-backend-v0.3.0.tar.gz`
 - `ai-context-dotnet-backend-v0.3.0.tar.gz.sha256`
 
-Each archive contains `metadata/package.yaml`, `metadata/files.yaml`, `metadata/migration.yaml`, `metadata/SHA256SUMS.txt`, `INSTALL.md`, and the installable `payload/`. Artifact availability remains a candidate claim until AIPKG-008 validates the final merge candidate.
+Each archive contains `metadata/package.yaml`, `metadata/files.yaml`, `metadata/migration.yaml`, `metadata/SHA256SUMS.txt`, `INSTALL.md`, pinned target-tool `requirements.txt`, and the installable `payload/`. The packaged planner requires Python 3.11 or newer and `PyYAML==6.0.3`.
 
 ## Compatibility
 

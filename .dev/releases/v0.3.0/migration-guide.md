@@ -8,23 +8,24 @@ Use the release archive as a versioned proposal, not as a whole-repository overw
 
 1. Preserve a rollback commit and require a clean target worktree.
 2. Download either governed archive and its matching `.sha256` sidecar.
-3. Validate the archive, member checksums, inventory, modes, and sidecar before inspecting a migration plan:
+3. Use Python 3.11 or newer and install the pinned target-tool dependency from the extracted envelope with `python -m pip install -r requirements.txt`.
+4. Validate the archive, member checksums, inventory, modes, and sidecar before inspecting a migration plan:
 
    ```text
    python .ai/scripts/validate-ai-context-package.py <archive>
    ```
 
-4. Use `plan-ai-context-package-apply.py` in its default dry-run mode. Supply the previous governed `files.yaml` when upgrading so replacement, removal, and rename decisions can use previous released hashes.
-5. Review every reconciliation item. Never acknowledge a conflict without determining whether the target or framework owns the truth.
-6. Apply only from a clean worktree after the dry-run output is accepted. Pass every accepted reconciliation operation ID separately with `--acknowledge`, then add `--apply`:
+5. Use `plan-ai-context-package-apply.py` in its default dry-run mode. Supply the previous governed `files.yaml` when upgrading so replacement, removal, and rename decisions can use previous released hashes. Keep any `--plan-output` outside both the extracted envelope and target repository.
+6. Review every reconciliation item. Never acknowledge a conflict without determining whether the target or framework owns the truth.
+7. Apply only from a clean worktree after the dry-run output is accepted. Pass every accepted reconciliation operation ID separately with `--acknowledge`, then add `--apply`:
 
    ```text
    python payload/.ai/scripts/plan-ai-context-package-apply.py --package-root . --target-root <target-repository> --previous-files <previous-files.yaml> --acknowledge <operation-id> --apply
    ```
 
    Acknowledgement preserves and skips the reconciled target path; it never grants overwrite or deletion permission.
-7. Run `repo-structure-sync` after a clean installation, or `ai-context-upgrader` after a versioned upgrade.
-8. Run target validation and write `.dev/AI-CONTEXT-SOURCE.yaml` only after the accepted payload and target-specific rewrites pass.
+8. Run `repo-structure-sync` after a clean installation, or `ai-context-upgrader` after a versioned upgrade.
+9. Run target validation and write `.dev/AI-CONTEXT-SOURCE.yaml` only after the accepted payload and target-specific rewrites pass.
 
 Framework-managed files may be replaced, removed, or renamed automatically only when their target bytes match the previous released hash. Target templates may be created only when absent. Target-owned truth and locally modified files always require reconciliation.
 
