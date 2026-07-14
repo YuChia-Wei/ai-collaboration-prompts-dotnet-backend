@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIVG-001",
+  "workflow_id": "2026-07-14-ai-context-version-governance",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-14T21:46:14+08:00",
+  "updated_at": "2026-07-14T21:46:14+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIVG-POLICY-001"],
+  "scope": {
+    "target": "AI context version and release governance",
+    "files": [".dev/standards/AI-CONTEXT-VERSION-POLICY.md", ".dev/releases/**"],
+    "constraints": ["Preserve existing tag targets", "Use SemVer", "Declare compatibility and migration impact", "Require explicit tag authorization"],
+    "non_goals": ["Create or move a tag", "Publish a release"]
+  },
+  "execution": {
+    "steps": ["Define version semantics", "Define immutable tag and release lifecycle", "Define release record schema", "Bootstrap historical release records"],
+    "validation": ["Verify tag targets", "Parse release YAML", "Check policy and records agree"],
+    "last_completed_step": "Confirmed the two historical tag anchors and recorded the release design.",
+    "next_action": "Create the policy and release discovery structure."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+}
