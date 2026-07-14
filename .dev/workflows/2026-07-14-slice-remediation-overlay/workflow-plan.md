@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-14-slice-remediation-overlay`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `validation`
+- `status`: `completed`
+- `current_phase`: `closed`
 - `artifact_root`: `.dev/workflows/2026-07-14-slice-remediation-overlay`
 - `created_at`: `2026-07-14T20:56:16+08:00`
-- `updated_at`: `2026-07-14T21:17:00+08:00`
+- `updated_at`: `2026-07-14T21:19:12+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -72,7 +72,7 @@ overlays:
 | `SRO-001` | Normalize the canonical input model to intent plus execution mode. | `completed` | No canonical mode list claims remediation/refactor references exist. |
 | `SRO-002` | Add remediation overlay rules and layered source contracts. | `completed` | Overlay is directly discoverable and preserves architecture-specific mode rules. |
 | `SRO-003` | Synchronize wrappers, capability profile, task generation, validation, and human guidance. | `completed` | Codex/Claude wrappers, new development tasks, and repository routing agree with canonical spec. |
-| `SRO-004` | Run full validation, reconcile artifacts, and close the workflow. | `in_progress` | Targeted skill validation, `check-all.sh --quick`, workflow/context validators, and Git policy checks. |
+| `SRO-004` | Run full validation, reconcile artifacts, and close the workflow. | `completed` | 9/9 required quick checks, 7 implementation-contract GWT tests, 9 assessment GWT tests, 49 .NET tests, wrappers, and structural/Git checks passed. |
 
 ## Validation Strategy
 
@@ -85,13 +85,13 @@ overlays:
 
 ## Resume Checkpoint
 
-- Last completed action: Implemented the canonical mode/intent split, remediation overlay, layered sources, synchronized runtime/task-producer guidance, and fail-closed development implementation contract with seven GWT scenarios.
-- Current task: `SRO-004`.
-- Exact next action: commit the coherent contract change, run the full quick gate, reconcile workflow state, and commit closure.
-- Validation already completed: both wrappers, skill/profile YAML, seven implementation-contract GWT scenarios, workflow/AI-context validators, active wording scan, whitespace check, and independent forward-test passed.
-- Git state: bootstrap is committed; SRO-001 through SRO-003 are ready for a stage commit.
+- Last completed action: Completed all tasks, committed the contract change, and passed the full repository closeout gate.
+- Current task: none; workflow completed.
+- Exact next action: await explicit merge or push authorization.
+- Validation already completed: 9/9 required quick checks, 7/7 implementation-contract GWT tests, 9/9 assessment GWT tests, 47 analyzer tests, 2 configuration tests, both wrapper validations, workflow/AI-context/shell/YAML/JSON/whitespace checks, and independent forward-test passed.
+- Git state: bootstrap and SRO-001 through SRO-003 are committed; final workflow closure is ready to commit.
 - Branch history and checkpoint handoffs: segment 1 started from `main` commit `8af858e`.
-- Blockers or unresolved decisions: none.
+- Blockers or unresolved decisions: none. Dependency/version validation remains deferred; historical workflow tasks are intentionally not migrated.
 
 ## Branch Lifecycle
 

@@ -8,12 +8,12 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-14-slice-remediation-overlay`](2026-07-14-slice-remediation-overlay/workflow.yaml) | Slice Remediation Intent And Overlay Contract | `ai-context-governance` | `in_progress` | `2026-07-14T21:17:00+08:00` | [plan](2026-07-14-slice-remediation-overlay/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-14-slice-remediation-overlay`](2026-07-14-slice-remediation-overlay/workflow.yaml) | Slice Remediation Intent And Overlay Contract | `ai-context-governance` | `completed` | `2026-07-14T21:19:12+08:00` | [plan](2026-07-14-slice-remediation-overlay/workflow-plan.md) |
 | [`2026-07-13-standalone-assessment-governance`](2026-07-13-standalone-assessment-governance/workflow.yaml) | Standalone Assessment Storage And Search Identity | `ai-context-governance` | `completed` | `2026-07-13T23:27:16+08:00` | [plan](2026-07-13-standalone-assessment-governance/workflow-plan.md) |
 | [`2026-07-13-ai-context-tool-evidence-boundary`](2026-07-13-ai-context-tool-evidence-boundary/workflow.yaml) | AI Context Tool Evidence Boundary | `ai-context-governance` | `completed` | `2026-07-13T22:43:35+08:00` | [plan](2026-07-13-ai-context-tool-evidence-boundary/workflow-plan.md) |
 | [`2026-07-12-repository-runtime-entry-policy`](2026-07-12-repository-runtime-entry-policy/workflow.yaml) | Repository Branch And Runtime Entry Policy | `ai-context-governance` | `completed` | `2026-07-12T19:42:59+08:00` | [plan](2026-07-12-repository-runtime-entry-policy/workflow-plan.md) |
