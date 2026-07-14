@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "SRO-003",
+  "workflow_id": "2026-07-14-slice-remediation-overlay",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-14T20:56:16+08:00",
+  "updated_at": "2026-07-14T21:17:00+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["SRO-SYNC-001"],
+  "scope": {
+    "target": "Runtime, task-producer, validator, and human-facing slice remediation routing",
+    "files": [".agents/skills/slice-implementer/SKILL.md", ".claude/skills/slice-implementer/SKILL.md", ".ai/assets/skills/dev-workflow/references/capability-profile.md", ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md", ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json", ".ai/scripts/validate-workflow-artifacts.py", ".ai/scripts/tests/test_workflow_implementation_contract.py", ".ai/scripts/check-all.sh", ".dev/guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md", ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md"],
+    "constraints": ["Keep wrappers thin", "Keep repository-specific routing in the capability profile", "Use the canonical overlay path", "Fail closed only for new development implementation tasks", "Preserve historical task compatibility"],
+    "non_goals": ["Change unrelated skill mappings", "Migrate historical workflow tasks"]
+  },
+  "execution": {
+    "steps": ["Synchronize both wrappers", "Update capability profile wording", "Update skill and dev-workflow guides", "Version the development task template", "Add fail-closed implementation contract validation and GWT tests"],
+    "validation": ["Quick-validate both wrappers", "Validate profile and skill YAML", "Run seven implementation contract GWT tests", "Run workflow and AI-context validators"],
+    "last_completed_step": "Synchronized runtime and task producers, versioned the development task template, and added fail-closed implementation-contract validation with historical compatibility.",
+    "next_action": "None; continue SRO-004."
+  },
+  "results": {
+    "summary": "Codex, Claude, dev-workflow routing, development task generation, and human guidance now expose the same mode-plus-overlay contract, enforced for new implementation tasks.",
+    "files_changed": [".agents/skills/slice-implementer/SKILL.md", ".claude/skills/slice-implementer/SKILL.md", ".ai/assets/skills/dev-workflow/references/capability-profile.md", ".ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md", ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json", ".ai/scripts/validate-workflow-artifacts.py", ".ai/scripts/tests/test_workflow_implementation_contract.py", ".ai/scripts/check-all.sh", ".ai/scripts/README.md", ".dev/guides/ai-collaboration-guides/SLICE-IMPLEMENTER-SKILL-GUIDE.md", ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md"],
+    "tests_run": ["Codex and Claude wrapper quick validation", "Seven implementation contract GWT tests", "Workflow artifact validation", "AI-context validation", "YAML parsing"],
+    "finding_status": "addressed",
+    "residual_risk": "Historical tasks retain their original schema by design; semantic quality still depends on truthful source references and acceptance criteria.",
+    "follow_up_needed": false
+  }
+}
