@@ -9,6 +9,11 @@ from pathlib import Path
 
 import yaml
 
+# The planner is executed from inside the checksum-governed extracted envelope.
+# Prevent the local module import from creating an ungoverned __pycache__ member
+# before the envelope checksum set is verified.
+sys.dont_write_bytecode = True
+
 from ai_context_package_apply import ApplyError, apply_plan, build_plan
 
 

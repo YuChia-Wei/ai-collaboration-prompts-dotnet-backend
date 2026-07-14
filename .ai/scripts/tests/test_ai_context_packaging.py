@@ -35,11 +35,14 @@ class SyntheticPackageRepo:
         git(self.root, "config", "user.email", "fixture@example.invalid")
         (self.root / ".ai/distribution/templates").mkdir(parents=True)
         (self.root / ".ai/distribution/profiles").mkdir(parents=True)
+        (self.root / ".ai/scripts").mkdir(parents=True)
         (self.root / "docs").mkdir()
         (self.root / ".ai/distribution/templates/INSTALL.md").write_text(
             "# Install fixture\n", encoding="utf-8", newline="\n"
         )
         (self.root / "docs/rule.md").write_text("committed rule\n", encoding="utf-8", newline="\n")
+        for script in ("ai_context_package_apply.py", "plan-ai-context-package-apply.py"):
+            (self.root / ".ai/scripts" / script).write_bytes((SCRIPTS / script).read_bytes())
         profile = {
             "schema_version": "1.0.0",
             "profile": {"id": "fixture"},
@@ -51,6 +54,13 @@ class SyntheticPackageRepo:
                 {
                     "id": "fixture-docs",
                     "source": "docs/**",
+                    "target": "preserve-relative-path",
+                    "ownership": "framework-managed",
+                    "install_behavior": "managed",
+                },
+                {
+                    "id": "fixture-apply-scripts",
+                    "source": ".ai/scripts/**",
                     "target": "preserve-relative-path",
                     "ownership": "framework-managed",
                     "install_behavior": "managed",
@@ -161,6 +171,39 @@ class DeterministicPackageGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
+    def test_gwt_006_given_extracted_envelope_when_packaged_planner_runs_then_bytecode_does_not_break_checksums(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given a validated archive extracted beside a clean committed target.
+            result = fixture.build("packaged-cli")
+            extracted = fixture.output("extracted")
+            target = fixture.output("target")
+            with zipfile.ZipFile(Path(result["zip"])) as archive:
+                archive.extractall(extracted)
+            target.mkdir()
+            git(target, "init", "-q")
+            git(target, "config", "user.name", "Fixture")
+            git(target, "config", "user.email", "fixture@example.invalid")
+            (target / "baseline.txt").write_text("baseline\n", encoding="utf-8", newline="\n")
+            git(target, "add", "baseline.txt")
+            git(target, "commit", "-qm", "target baseline")
+            package_root = extracted / "fixture-v1.0.0"
+            planner = package_root / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            # When the planner imports its packaged helper before checksum validation.
+            completed = subprocess.run(
+                [sys.executable, str(planner), "--package-root", str(package_root), "--target-root", str(target)],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            # Then dry-run succeeds and does not add ungoverned bytecode to the envelope.
+            self.assertEqual(0, completed.returncode, completed.stderr)
+            self.assertIn("Dry run only", completed.stdout)
+            self.assertFalse(any(package_root.rglob("*.pyc")))
+            self.assertFalse(any(package_root.rglob("__pycache__")))
+        finally:
+            fixture.close()
+
 
 class ReleaseWorkflowContractGwtTests(unittest.TestCase):
     @staticmethod
@@ -172,7 +215,7 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
             raise AssertionError(f"workflow root must be a mapping: {name}")
         return document, text
 
-    def test_gwt_006_given_candidate_workflow_when_inspected_then_it_only_builds_read_only_artifacts(self) -> None:
+    def test_gwt_007_given_candidate_workflow_when_inspected_then_it_only_builds_read_only_artifacts(self) -> None:
         # Given the candidate packaging workflow.
         workflow, text = self.load("package-candidate.yml")
         # When its triggers, permissions, and commands are inspected.
@@ -186,7 +229,7 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertNotIn("gh release", text)
         self.assertNotRegex(text, r"(?m)^\s*(?:git\s+(?:tag|push|update-ref)|gh\s+api\s+.*git/refs)\b")
 
-    def test_gwt_007_given_publish_workflow_when_inspected_then_only_user_tags_authorize_release_writes(self) -> None:
+    def test_gwt_008_given_publish_workflow_when_inspected_then_only_user_tags_authorize_release_writes(self) -> None:
         # Given the release publication workflow.
         workflow, text = self.load("publish-release.yml")
         # When its tag trigger and job permissions are inspected.
@@ -200,7 +243,7 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn(r"^v[0-9]+\.[0-9]+\.[0-9]+$", text)
         self.assertIn('--ref "refs/tags/${GITHUB_REF_NAME}"', text)
 
-    def test_gwt_008_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
+    def test_gwt_009_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
         # Given the commands used to create, verify, and publish a release.
         _, text = self.load("publish-release.yml")
         # When mutation boundaries and ordering are inspected.
