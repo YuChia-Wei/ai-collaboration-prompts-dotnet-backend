@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-14-ai-context-version-governance`](2026-07-14-ai-context-version-governance/workflow.yaml) | AI Context Version Governance And Upgrade Capability | `ai-context-governance` | `in_progress` | `2026-07-14T21:46:14+08:00` | [plan](2026-07-14-ai-context-version-governance/workflow-plan.md) |
+| [`2026-07-14-ai-context-version-governance`](2026-07-14-ai-context-version-governance/workflow.yaml) | AI Context Version Governance And Upgrade Capability | `ai-context-governance` | `in_progress` | `2026-07-14T21:51:28+08:00` | [plan](2026-07-14-ai-context-version-governance/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation-planning`
+- `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-14-ai-context-version-governance`
 - `created_at`: `2026-07-14T21:46:14+08:00`
-- `updated_at`: `2026-07-14T21:46:14+08:00`
+- `updated_at`: `2026-07-14T21:51:28+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -45,7 +45,7 @@
 - Release discovery: `.dev/releases/INDEX.MD`
 - Per-release record: `.dev/releases/<version>/release.yaml`, `release-notes.md`, and `migration-guide.md`
 - Target provenance template: `.ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml`
-- Installed target provenance: `.dev/AI-CONTEXT-SOURCE.yaml`
+- Installed target provenance: `.dev/AI-CONTEXT-SOURCE.yaml` in an initialized target repository; this framework source stores only the canonical template.
 - Upgrade skill: `.ai/assets/skills/ai-context-upgrader/`
 - Runtime wrappers: `.agents/skills/ai-context-upgrader/` and `.claude/skills/ai-context-upgrader/`
 - Comparison tool: `.ai/scripts/compare-ai-context-versions.py`
@@ -65,8 +65,8 @@
 
 | Task | Purpose | Status | Primary validation |
 | --- | --- | --- | --- |
-| `AIVG-001` | Establish SemVer, tag immutability, release records, and compatibility policy. | `in_progress` | Historical anchors and next-release lifecycle are unambiguous. |
-| `AIVG-002` | Establish target provenance and local-override contracts. | `pending` | Schema rejects missing or ambiguous source identity. |
+| `AIVG-001` | Establish SemVer, tag immutability, release records, and compatibility policy. | `completed` | Historical anchors and next-release lifecycle are unambiguous. |
+| `AIVG-002` | Establish target provenance and local-override contracts. | `in_progress` | Schema rejects missing or ambiguous source identity. |
 | `AIVG-003` | Create and route the `ai-context-upgrader` skill. | `pending` | Both wrappers validate and a fresh agent produces a safe plan. |
 | `AIVG-004` | Implement and test deterministic version comparison and governance validation. | `pending` | GWT suites and real `v0.1.0..v0.2.0` comparison pass. |
 | `AIVG-005` | Complete release bootstrap, documentation/index synchronization, and closeout. | `pending` | Full quick gate, workflow validator, diff and commit checks pass. |
@@ -89,11 +89,11 @@
 
 ## Resume Checkpoint
 
-- Last completed action: confirmed clean `main`, immutable historical tag anchors, and created the dedicated workflow branch.
-- Current task: `AIVG-001`.
-- Exact next action: implement the version policy and release-record schema, then checkpoint commit the workflow bootstrap and policy slice.
-- Validation already completed: current branch and workflow ID collision checks; tag target verification; canonical repo-structure-sync boundary inspection.
-- Git state: branch `codex/2026-07-14-ai-context-version-governance` created from `main` commit `9abc75b`.
+- Last completed action: established the canonical SemVer/release policy, retrospective `v0.1.0` and `v0.2.0` release records, compatibility notes, and migration guidance.
+- Current task: `AIVG-002`.
+- Exact next action: define the target provenance template and its fail-closed invariants.
+- Validation already completed: historical release YAML parses; both tag targets match recorded full commits; release paths are explicitly unignored; workflow bootstrap validation passed.
+- Git state: workflow bootstrap committed as `8656cf5`; AIVG-001 policy slice is ready for its checkpoint commit.
 - Branch history and checkpoint handoffs: segment 1 began locally on 2026-07-14.
 - Blockers or unresolved decisions: none. Future `v0.3.0` tag creation requires a later explicit authorization after merge.
 

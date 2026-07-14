@@ -18,6 +18,8 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents
   - normative rule ownership, strength, precedence, and machine registry
 - `AI-CONTEXT-LANGUAGE-POLICY.md`
   - language policy for agent-facing and human-facing context
+- `AI-CONTEXT-VERSION-POLICY.md`
+  - framework SemVer, immutable releases, target provenance, and upgrade safety
 - `ASSESSMENT-ARTIFACT-POLICY.md`
   - durable assessment identity, storage, lifecycle, Git lookup, and handoff policy
 - `CODE-REVIEW-CHECKLIST.md`

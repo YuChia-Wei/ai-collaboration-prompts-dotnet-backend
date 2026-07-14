@@ -6,22 +6,22 @@
   "task_id": "AIVG-002",
   "workflow_id": "2026-07-14-ai-context-version-governance",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-14T21:46:14+08:00",
-  "updated_at": "2026-07-14T21:46:14+08:00",
+  "updated_at": "2026-07-14T21:51:28+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIVG-PROVENANCE-001"],
   "scope": {
     "target": "Target repository source provenance and local overrides",
-    "files": [".ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml", ".dev/AI-CONTEXT-SOURCE.yaml"],
+    "files": [".ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml"],
     "constraints": ["Record tag and full commit", "Use ISO 8601 timestamps", "Make overrides explicit", "Do not infer target truth"],
     "non_goals": ["Track every target file", "Replace target version control"]
   },
   "execution": {
     "steps": ["Define manifest fields", "Create repository instance", "Define validation invariants"],
     "validation": ["Valid manifest scenario", "Missing source scenario", "Invalid override scenario"],
-    "last_completed_step": "Not started.",
-    "next_action": "Begin after AIVG-001 establishes release identity."
+    "last_completed_step": "AIVG-001 established stable release identity and clarified that the source repo must not carry a self-referential target manifest.",
+    "next_action": "Create the canonical target manifest template and validation invariants."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
 }
