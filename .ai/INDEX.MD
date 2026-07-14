@@ -10,6 +10,7 @@ This index owns the file and directory catalog for `.ai/`. The `.ai/README.MD` f
 | `INDEX.MD` | File and directory catalog for `.ai/`. |
 | `DIRECTORY-RULES.MD` | Operational placement rules that point to canonical boundary and language policies. |
 | `SUB-AGENT-SYSTEM.MD` | Active sub-agent routing and artifact handoff rules. |
+| `distribution/` | Source-side package profiles, ownership rules, and generated metadata schemas. |
 
 ## Canonical Assets
 

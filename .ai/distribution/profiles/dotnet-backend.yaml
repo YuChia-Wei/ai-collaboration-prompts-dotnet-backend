@@ -1,0 +1,240 @@
+schema_version: 1.0.0
+profile:
+  id: dotnet-backend
+  version: 1.0.0
+  description: Complete portable AI collaboration context with the retained .NET backend capability.
+
+package:
+  name_template: ai-context-dotnet-backend-v{version}
+  formats:
+    - zip
+    - tar.gz
+  envelope:
+    install_guide: INSTALL.md
+    metadata_root: metadata
+    payload_root: payload
+  deterministic:
+    source: clean-git-tree
+    path_order: utf8-bytewise-ascending
+    path_separator: /
+    timestamp: source-date-epoch
+    file_mode: "0644"
+    executable_mode: "0755"
+    uid: 0
+    gid: 0
+    owner_name: root
+    group_name: root
+    compression:
+      zip: deflate
+      tar: gzip-no-original-filename
+
+ownership_classes:
+  framework-managed:
+    install_behavior: managed
+    description: Released reusable bytes controlled by the framework.
+  target-template:
+    install_behavior: seed
+    description: Public seed content that becomes target-owned after initialization.
+  target-owned:
+    install_behavior: exclude
+    description: Target project truth that must never be supplied from this source repository.
+
+entries:
+  - id: canonical-ai-assets
+    source: .ai/assets/**
+    target: .ai/assets/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: ai-entry-documents
+    source:
+      - .ai/README.MD
+      - .ai/INDEX.MD
+      - .ai/DIRECTORY-RULES.MD
+      - .ai/SUB-AGENT-SYSTEM.MD
+    target: preserve-relative-path
+    ownership: framework-managed
+    install_behavior: managed
+  - id: ai-runtime-scripts
+    source: .ai/scripts/**
+    target: .ai/scripts/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: codex-skill-wrappers
+    source: .agents/skills/**
+    target: .agents/skills/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: claude-skill-wrappers
+    source: .claude/skills/**
+    target: .claude/skills/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: codex-agent-adapters
+    source: .codex/agents/**
+    target: .codex/agents/
+    ownership: framework-managed
+    install_behavior: managed
+    allow_empty_until: AIPKG-002
+  - id: claude-agent-adapters
+    source: .claude/agents/**
+    target: .claude/agents/
+    ownership: framework-managed
+    install_behavior: managed
+    allow_empty_until: AIPKG-002
+  - id: copilot-agent-adapters
+    source: .github/agents/**
+    target: .github/agents/
+    ownership: framework-managed
+    install_behavior: managed
+    allow_empty_until: AIPKG-002
+  - id: governance-standards
+    source:
+      - .dev/standards/**
+      - .dev/TEAM-GIT-FLOW-RULES.MD
+    target: preserve-relative-path
+    ownership: framework-managed
+    install_behavior: managed
+  - id: reusable-guides
+    source: .dev/guides/**
+    target: .dev/guides/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: domain-language-templates
+    source: .dev/domain-language/**
+    target: .dev/domain-language/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: problem-frame-assets
+    source: .dev/problem-frames/**
+    target: .dev/problem-frames/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: specification-authoring-guides
+    source:
+      - .dev/specs/README.MD
+      - .dev/specs/SPEC-GUIDE.MD
+      - .dev/specs/SPEC-ORGANIZATION-GUIDE.MD
+      - .dev/specs/tests/**
+    target: preserve-relative-path
+    ownership: framework-managed
+    install_behavior: managed
+  - id: requirement-authoring-guide
+    source: .dev/requirement/REQUIREMENT-GUIDE.MD
+    target: .dev/requirement/REQUIREMENT-GUIDE.MD
+    ownership: framework-managed
+    install_behavior: managed
+  - id: operations-authoring-guides
+    source:
+      - .dev/operations/README.MD
+      - .dev/operations/*-GUIDE.MD
+      - .dev/operations/runbooks/README.MD
+    target: preserve-relative-path
+    ownership: framework-managed
+    install_behavior: managed
+  - id: adr-governance
+    source:
+      - .dev/adr/README.md
+      - .dev/adr/ADR-TEMPLATE.md
+      - .dev/adr/WHEN-TO-CREATE-ADR.MD
+    target: preserve-relative-path
+    ownership: framework-managed
+    install_behavior: managed
+  - id: assessment-governance
+    source:
+      - .dev/assessments/README.MD
+      - .dev/assessments/templates/**
+    target: preserve-relative-path
+    ownership: framework-managed
+    install_behavior: managed
+  - id: backlog-governance
+    source: .dev/backlog/README.MD
+    target: .dev/backlog/README.MD
+    ownership: framework-managed
+    install_behavior: managed
+  - id: workflow-governance
+    source: .dev/workflows/README.MD
+    target: .dev/workflows/README.MD
+    ownership: framework-managed
+    install_behavior: managed
+  - id: dotnet-validation-tools
+    source: tools/**
+    target: tools/
+    ownership: framework-managed
+    install_behavior: managed
+  - id: public-root-and-catalog-seeds
+    source:
+      - .ai/assets/skills/repo-structure-sync/templates/public-root/**
+      - .ai/assets/skills/repo-structure-sync/templates/public-catalogs/**
+    target: mapping-declared-by-template-manifest
+    ownership: target-template
+    install_behavior: seed
+    allow_empty_until: AIPKG-002
+  - id: repository-integration-seeds
+    source:
+      - .editorconfig
+      - .gitattributes
+      - global.json
+      - .github/pull_request_template.md
+    target: preserve-relative-path
+    ownership: target-template
+    install_behavior: seed
+
+exclusions:
+  - id: source-root-truth
+    patterns:
+      - AGENTS.md
+      - AGENTS.zh-TW.md
+      - agents.zh-tw.md
+      - CLAUDE.md
+      - README.md
+      - README.en.md
+    reason: Active source-repository identity is not a public target template.
+  - id: source-project-truth
+    patterns:
+      - .dev/ARCHITECTURE.md
+      - .dev/INDEX.md
+      - .dev/README.MD
+      - .dev/requirement/*
+      - .dev/specs/INDEX.MD
+      - .dev/adr/INDEX.md
+      - .dev/assessments/INDEX.MD
+      - .dev/backlog/INDEX.MD
+      - .dev/backlog/items/**
+      - .dev/workflows/INDEX.MD
+      - .dev/releases/**
+    except:
+      - .dev/requirement/REQUIREMENT-GUIDE.MD
+    reason: These paths contain source-repository facts or mutable catalogs.
+  - id: execution-history
+    patterns:
+      - .dev/workflows/*/**
+      - .dev/assessments/*/**
+    except:
+      - .dev/assessments/templates/**
+    reason: Dated workflow and assessment instances are source runtime history.
+  - id: product-placeholders
+    patterns:
+      - src/**
+      - tests/**
+      - docker-compose/**
+    reason: Product implementation trees and source placeholders are outside AI context distribution.
+  - id: repository-and-local-runtime-state
+    patterns:
+      - .git/**
+      - .gitignore
+      - .codex/config.toml
+      - '**/bin/**'
+      - '**/obj/**'
+      - '**/__pycache__/**'
+      - '**/.pytest_cache/**'
+    reason: Git state, local runtime policy, and caches are never portable framework truth.
+  - id: source-distribution-control
+    patterns:
+      - .ai/distribution/**
+    reason: Build contracts generate envelope metadata but are not target payload.
+
+generated_metadata:
+  package: metadata/package.yaml
+  files: metadata/files.yaml
+  migration: metadata/migration.yaml
+  checksums: metadata/SHA256SUMS.txt

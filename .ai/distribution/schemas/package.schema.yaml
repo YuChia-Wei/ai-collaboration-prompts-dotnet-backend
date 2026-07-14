@@ -1,0 +1,36 @@
+schema_version: 1.0.0
+document: package.yaml
+required:
+  - schema_version
+  - package_id
+  - profile_id
+  - version
+  - release_id
+  - source
+  - created_at
+  - payload
+properties:
+  schema_version: semver
+  package_id: non-empty-string
+  profile_id: non-empty-string
+  version: semver-without-v-prefix
+  release_id: REL-vMAJOR.MINOR.PATCH
+  source:
+    required: [repository, ref, commit]
+    properties:
+      repository: non-empty-string
+      ref: immutable-tag-or-full-commit
+      commit: full-40-character-sha
+  created_at: iso-8601
+  source_date_epoch: non-negative-integer
+  payload:
+    required: [root, file_count, sha256]
+    properties:
+      root: relative-posix-path
+      file_count: non-negative-integer
+      sha256: lowercase-sha256
+  archives:
+    item_required: [path, format, sha256, size]
+  compatibility:
+    required: [minimum_governed_source, breaking_changes]
+additional_properties: false

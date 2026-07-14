@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-14-ai-context-release-packaging`](2026-07-14-ai-context-release-packaging/workflow.yaml) | AI Context Deterministic Packaging And Automated Release | `ai-context-governance` | `in_progress` | `2026-07-14T23:39:38+08:00` | [plan](2026-07-14-ai-context-release-packaging/workflow-plan.md) |
+| [`2026-07-14-ai-context-release-packaging`](2026-07-14-ai-context-release-packaging/workflow.yaml) | AI Context Deterministic Packaging And Automated Release | `ai-context-governance` | `in_progress` | `2026-07-14T23:46:44+08:00` | [plan](2026-07-14-ai-context-release-packaging/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
