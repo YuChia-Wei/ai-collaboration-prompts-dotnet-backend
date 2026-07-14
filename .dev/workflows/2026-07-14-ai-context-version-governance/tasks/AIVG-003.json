@@ -6,9 +6,9 @@
   "task_id": "AIVG-003",
   "workflow_id": "2026-07-14-ai-context-version-governance",
   "owner_skill": "skill-creator",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-14T21:46:14+08:00",
-  "updated_at": "2026-07-14T21:46:14+08:00",
+  "updated_at": "2026-07-14T22:05:34+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIVG-UPGRADE-001"],
   "scope": {
@@ -20,8 +20,15 @@
   "execution": {
     "steps": ["Create canonical skill package", "Define upgrade playbook and boundaries", "Create wrappers and routing", "Forward-test with local overrides"],
     "validation": ["Canonical YAML parse", "Both wrapper quick validations", "Independent target-upgrade scenario"],
-    "last_completed_step": "Not started.",
-    "next_action": "Begin after provenance contract stabilizes."
+    "last_completed_step": "Created the canonical skill, three-way boundaries, playbook, output contract, both thin wrappers, root routing, and human guide; corrected five forward-test contract gaps.",
+    "next_action": "None; continue AIVG-004."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "The new upgrader separates first initialization from version upgrade, remains read-only during planning, protects target truth, and records provenance only after validation.",
+    "files_changed": [".ai/assets/skills/ai-context-upgrader/**", ".agents/skills/ai-context-upgrader/**", ".claude/skills/ai-context-upgrader/**", "AGENTS.md", "agents.zh-tw.md", ".dev/guides/ai-collaboration-guides/AI-CONTEXT-UPGRADER-SKILL-GUIDE.md", "**/skills/README*"],
+    "tests_run": ["Codex wrapper quick validation", "Claude wrapper quick validation", "Independent v0.1.0 to v0.2.0 local-override forward-test and corrected rerun"],
+    "finding_status": "addressed",
+    "residual_risk": "Semantic reconciliation remains a human or agent decision; the skill intentionally does not auto-resolve it.",
+    "follow_up_needed": false
+  }
 }

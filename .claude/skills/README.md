@@ -21,6 +21,7 @@ This directory contains Claude-compatible skill wrappers.
 
 - `ai-context-governance`
 - `ai-context-auditor`
+- `ai-context-upgrader`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
 - `dev-workflow`

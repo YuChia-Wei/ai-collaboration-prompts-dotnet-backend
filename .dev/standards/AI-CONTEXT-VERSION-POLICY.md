@@ -45,6 +45,8 @@ Each governed version uses `.dev/releases/<version>/`:
 
 `.dev/releases/INDEX.MD` is the release catalog. `release.yaml` is the lifecycle source of truth for one version. Historical records created after the tag must declare `record_origin: retrospective` and must not imply that their metadata existed at publication time.
 
+The annotated tag object and its resolved commit are the publication identity. A retrospective record is read from the current trusted framework release registry and is supplemental governance evidence; it is not required to exist inside the older tagged tree. For a governed release, the tagged tree contains the validated candidate notes and migrations, while the trusted registry may finalize the published commit afterward without moving the tag.
+
 ## Target Provenance
 
 An initialized target repository records its installed framework source in `.dev/AI-CONTEXT-SOURCE.yaml`, created from the canonical upgrader template. The manifest records:
@@ -71,7 +73,7 @@ Classify changes before writing:
 - `reconcile`: target-owned, locally changed, missing provenance, or semantically ambiguous content;
 - `exclude`: source-repository runtime history or artifacts that do not belong in a target.
 
-Completed `.dev/workflows/`, `.dev/assessments/`, source-repository backlog, Git metadata, and tool caches are excluded by default. Product `src/` and `tests/` are outside AI context upgrade scope. External knowledge graphs may accelerate discovery but are never evidence of completeness or file truth.
+Completed `.dev/workflows/`, assessment instance directories, source-repository backlog and release history, Git metadata, and tool caches are excluded by default. Reusable assessment README, index, policy, and templates remain normal framework candidates. Product `src/` and `tests/` are outside AI context upgrade scope. External knowledge graphs may accelerate discovery but are never evidence of completeness or file truth.
 
 No automatic application may proceed while required inputs are absent, Git refs are unresolved, or reconciliation items remain unacknowledged.
 

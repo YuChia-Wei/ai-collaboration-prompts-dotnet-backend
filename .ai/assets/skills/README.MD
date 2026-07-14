@@ -14,6 +14,7 @@ The canonical skill registry currently includes:
 
 - `ai-context-governance`
 - `ai-context-auditor`
+- `ai-context-upgrader`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
 - `dev-workflow`

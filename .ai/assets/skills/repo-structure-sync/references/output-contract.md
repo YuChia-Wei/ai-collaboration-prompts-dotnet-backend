@@ -1,5 +1,7 @@
 # Output Contract
 
+When credible import evidence identifies a published framework tag and full commit, create `.dev/AI-CONTEXT-SOURCE.yaml` from `.ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml` after initialization validation succeeds. If the copied framework source cannot be proven, report unresolved provenance and do not invent a version or commit.
+
 ## Phase 1 Output
 
 The low-cost inventory pass should return these sections in order:

@@ -16,4 +16,4 @@
 
 ## Validation
 
-Run repository AI-context and workflow validators, then inspect every target-owned conflict manually. Because `v0.2.0` predates the provenance contract, record the resulting version and unresolved overrides when the target later adopts `v0.3.0` or newer.
+Run repository AI-context and workflow validators, then inspect every target-owned conflict manually. Because `v0.2.0` predates the provenance contract, its own tagged tree cannot create the manifest. When a `v0.3.0` or newer upgrader performs this migration retrospectively, it may record `v0.2.0` as the validated resulting source version immediately after these checks pass; it need not falsely defer provenance until a later target version.

@@ -239,6 +239,14 @@ run_command_check "python .ai/scripts/validate-ai-context.py" \
     "AI Context Navigation and Runtime Contracts" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/validate-ai-context-versions.py" \
+    "AI Context Release And Version Contracts" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_ai_context_version_governance.py -v" \
+    "AI Context Version Governance Fail-Closed Tests" \
+    "required" "true" "true"
+
 run_command_check "python .ai/scripts/validate-shell-assets.py" \
     "Shell Asset Classification And Git Modes" \
     "required" "true" "true"

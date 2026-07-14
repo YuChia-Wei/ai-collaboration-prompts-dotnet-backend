@@ -6,9 +6,9 @@
   "task_id": "AIVG-002",
   "workflow_id": "2026-07-14-ai-context-version-governance",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-14T21:46:14+08:00",
-  "updated_at": "2026-07-14T21:51:28+08:00",
+  "updated_at": "2026-07-14T22:05:34+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIVG-PROVENANCE-001"],
   "scope": {
@@ -20,8 +20,15 @@
   "execution": {
     "steps": ["Define manifest fields", "Create repository instance", "Define validation invariants"],
     "validation": ["Valid manifest scenario", "Missing source scenario", "Invalid override scenario"],
-    "last_completed_step": "AIVG-001 established stable release identity and clarified that the source repo must not carry a self-referential target manifest.",
-    "next_action": "Create the canonical target manifest template and validation invariants."
+    "last_completed_step": "Created the canonical target manifest template, provenance invariants, source-versus-target validation modes, and repo-structure-sync initialization handoff.",
+    "next_action": "None; continue AIVG-003."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "Targets can record exact source release and commit, framework deviations, and unresolved reconciliation without placing a false self-reference in the framework source repo.",
+    "files_changed": [".ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml", ".ai/assets/skills/ai-context-upgrader/references/provenance-contract.md", ".ai/assets/skills/repo-structure-sync/**", ".ai/scripts/validate-ai-context-versions.py"],
+    "tests_run": ["Valid target manifest GWT", "Invalid identity fail-closed GWT", "Target without source release history GWT"],
+    "finding_status": "addressed",
+    "residual_risk": "Unversioned copies still require an explicit manual baseline decision.",
+    "follow_up_needed": false
+  }
 }
