@@ -12,6 +12,7 @@ package:
     - tar.gz
   envelope:
     install_guide: INSTALL.md
+    runtime_requirements: requirements.txt
     metadata_root: metadata
     payload_root: payload
   deterministic:

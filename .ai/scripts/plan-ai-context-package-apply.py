@@ -7,7 +7,17 @@ import argparse
 import sys
 from pathlib import Path
 
-import yaml
+try:
+    import yaml
+except ModuleNotFoundError as exc:
+    if exc.name != "yaml":
+        raise
+    print(
+        "AI context package apply requires PyYAML==6.0.3; from the extracted envelope run: "
+        "python -m pip install -r requirements.txt",
+        file=sys.stderr,
+    )
+    raise SystemExit(2) from exc
 
 # The planner is executed from inside the checksum-governed extracted envelope.
 # Prevent the local module import from creating an ungoverned __pycache__ member
@@ -27,6 +37,14 @@ def main() -> int:
     parser.add_argument("--plan-output", type=Path)
     args = parser.parse_args()
     try:
+        if args.plan_output:
+            output = args.plan_output.resolve()
+            for forbidden_root, label in (
+                (args.package_root.resolve(), "extracted package"),
+                (args.target_root.resolve(), "target repository"),
+            ):
+                if output == forbidden_root or output.is_relative_to(forbidden_root):
+                    raise ApplyError(f"--plan-output must be outside the {label}")
         plan = build_plan(args.package_root, args.target_root, args.previous_files)
         content = yaml.safe_dump(plan, sort_keys=False, allow_unicode=True)
         if args.plan_output:

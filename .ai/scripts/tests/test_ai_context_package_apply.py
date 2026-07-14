@@ -459,6 +459,38 @@ class AiContextPackageApplyGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
+    def test_gwt_014_given_plan_output_inside_package_or_target_when_cli_runs_then_it_fails_before_writing(self) -> None:
+        fixture = PackageApplyFixture()
+        try:
+            # Given a valid package and output paths that would invalidate the envelope or clean target.
+            fixture.make_package(
+                {".ai/rule.md": (b"incoming\n", "framework-managed", "0644")},
+                [operation("001-add", "add", ".ai/rule.md")],
+            )
+            for output in (fixture.package / "plan.yaml", fixture.target / "plan.yaml"):
+                # When the CLI is asked to write a plan inside either protected root.
+                result = subprocess.run(
+                    [
+                        "python",
+                        str(ROOT / ".ai/scripts/plan-ai-context-package-apply.py"),
+                        "--package-root",
+                        str(fixture.package),
+                        "--target-root",
+                        str(fixture.target),
+                        "--plan-output",
+                        str(output),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                # Then it fails closed before creating the ungoverned file.
+                self.assertEqual(1, result.returncode, result.stdout + result.stderr)
+                self.assertIn("--plan-output must be outside", result.stderr)
+                self.assertFalse(output.exists())
+        finally:
+            fixture.close()
+
 
 if __name__ == "__main__":
     unittest.main()

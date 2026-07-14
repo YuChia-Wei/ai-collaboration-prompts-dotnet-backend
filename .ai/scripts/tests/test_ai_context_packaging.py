@@ -40,6 +40,9 @@ class SyntheticPackageRepo:
         (self.root / ".ai/distribution/templates/INSTALL.md").write_text(
             "# Install fixture\n", encoding="utf-8", newline="\n"
         )
+        (self.root / ".ai/distribution/templates/requirements.txt").write_text(
+            "PyYAML==6.0.3\n", encoding="utf-8", newline="\n"
+        )
         (self.root / "docs/rule.md").write_text("committed rule\n", encoding="utf-8", newline="\n")
         for script in ("ai_context_package_apply.py", "plan-ai-context-package-apply.py"):
             (self.root / ".ai/scripts" / script).write_bytes((SCRIPTS / script).read_bytes())
@@ -189,6 +192,16 @@ class DeterministicPackageGwtTests(unittest.TestCase):
             git(target, "commit", "-qm", "target baseline")
             package_root = extracted / "fixture-v1.0.0"
             planner = package_root / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            # And the envelope declares the exact target-side dependency.
+            self.assertEqual("PyYAML==6.0.3\n", (package_root / "requirements.txt").read_text(encoding="utf-8"))
+            missing_dependency = subprocess.run(
+                [sys.executable, "-S", str(planner), "--help"],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(2, missing_dependency.returncode)
+            self.assertIn("pip install -r requirements.txt", missing_dependency.stderr)
             # When the planner imports its packaged helper before checksum validation.
             completed = subprocess.run(
                 [sys.executable, str(planner), "--package-root", str(package_root), "--target-root", str(target)],

@@ -431,9 +431,13 @@ def build_package(
     install_entry = tree.get(".ai/distribution/templates/INSTALL.md")
     if install_entry is None:
         raise PackageError("missing package INSTALL.md template")
+    requirements_entry = tree.get(".ai/distribution/templates/requirements.txt")
+    if requirements_entry is None:
+        raise PackageError("missing package requirements.txt template")
 
     relative_members: dict[str, tuple[bytes, int]] = {
         "INSTALL.md": (git_blob(repo, install_entry), 0o644),
+        "requirements.txt": (git_blob(repo, requirements_entry), 0o644),
         "metadata/package.yaml": (yaml_bytes(package_document), 0o644),
         "metadata/files.yaml": (files_content, 0o644),
         "metadata/migration.yaml": (yaml_bytes(migration_document), 0o644),
@@ -503,6 +507,7 @@ def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
     prefix = f"{root}/"
     required = {
         f"{prefix}INSTALL.md",
+        f"{prefix}requirements.txt",
         f"{prefix}metadata/package.yaml",
         f"{prefix}metadata/files.yaml",
         f"{prefix}metadata/migration.yaml",

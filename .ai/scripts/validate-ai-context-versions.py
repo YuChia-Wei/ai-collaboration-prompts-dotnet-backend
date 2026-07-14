@@ -128,6 +128,7 @@ def validate_distribution(
                 )
 
     reconciliation_sources = compatibility.get("reconciliation_sources")
+    automatic_sources = compatibility.get("automatic_upgrade_sources")
     minimum_source = compatibility.get("minimum_source_version")
     if not isinstance(reconciliation_sources, list) or not reconciliation_sources:
         errors.append(
@@ -146,6 +147,26 @@ def validate_distribution(
         if minimum_source not in reconciliation_sources:
             errors.append(
                 f"{path}: compatibility.minimum_source_version must be a reconciliation source"
+            )
+    if not isinstance(automatic_sources, list):
+        errors.append(
+            f"{path}: compatibility.automatic_upgrade_sources must be a list"
+        )
+    else:
+        invalid_automatic = [
+            item
+            for item in automatic_sources
+            if not isinstance(item, str) or not VERSION_RE.fullmatch(item)
+        ]
+        if invalid_automatic:
+            errors.append(
+                f"{path}: compatibility.automatic_upgrade_sources contains invalid versions"
+            )
+        if isinstance(reconciliation_sources, list) and any(
+            item not in reconciliation_sources for item in automatic_sources
+        ):
+            errors.append(
+                f"{path}: compatibility.automatic_upgrade_sources must be reconciliation sources"
             )
 
 

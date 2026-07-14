@@ -175,6 +175,7 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
                     "breaking_changes": True,
                     "minimum_source_version": "v0.1.0",
                     "reconciliation_sources": ["v0.1.0", "v0.2.0"],
+                    "automatic_upgrade_sources": [],
                 },
                 "distribution": {
                     "profile_id": "dotnet-backend",
@@ -230,6 +231,7 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
                     "breaking_changes": True,
                     "minimum_source_version": "v0.1.0",
                     "reconciliation_sources": ["v0.2.0"],
+                    "automatic_upgrade_sources": ["v0.0.1"],
                 },
                 "distribution": {
                     "profile_id": "dotnet-backend",
