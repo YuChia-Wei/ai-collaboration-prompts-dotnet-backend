@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIPKG-001",
+  "workflow_id": "2026-07-14-ai-context-release-packaging",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-14T23:39:38+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIPKG-BOUNDARY-001"],
+  "scope": {
+    "target": "One canonical dotnet-backend distribution profile and package envelope",
+    "files": [".ai/distribution/**", ".dev/standards/AI-CONTEXT-VERSION-POLICY.md"],
+    "constraints": ["Use an allowlist", "Classify ownership and installation behavior", "Exclude source history and target truth", "Keep one profile for v0.3.0"],
+    "non_goals": ["Split universal and dotnet packages", "Build archives before the contract stabilizes"]
+  },
+  "execution": {
+    "steps": ["Inventory distributable categories", "Define envelope and ownership schema", "Define deterministic archive rules", "Define exclusions"],
+    "validation": ["Every tracked candidate path has a disposition", "Schema parses", "No ignored local config enters the profile"],
+    "last_completed_step": "User decisions and high-level distribution boundaries recorded in the workflow plan.",
+    "next_action": "Create canonical distribution and package schema files."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+}

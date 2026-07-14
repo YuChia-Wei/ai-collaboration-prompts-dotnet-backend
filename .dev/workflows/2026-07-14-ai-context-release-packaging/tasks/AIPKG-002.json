@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIPKG-002",
+  "workflow_id": "2026-07-14-ai-context-release-packaging",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-14T23:39:38+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIPKG-ROOT-001", "AIPKG-TRANSLATION-001"],
+  "scope": {
+    "target": "Public root templates and portable low-cost translation delegation",
+    "files": [".ai/assets/skills/repo-structure-sync/templates/root/**", ".ai/assets/sub-agent-role-prompts/**", ".codex/agents/**", ".claude/agents/**", ".github/agents/**", "AGENTS.zh-TW.md", "AGENTS.md"],
+    "constraints": ["English AGENTS is canonical", "Translation is derived after target rewrite", "Use low-cost model policy", "Keep runtime adapters thin", "Preserve exact-case links"],
+    "non_goals": ["Package the source repo AGENTS as a public template", "Duplicate canonical translator instructions"]
+  },
+  "execution": {
+    "steps": ["Create minimal public templates", "Rename the source translation", "Create canonical translator role", "Create three runtime adapters", "Update repo-structure-sync handoff"],
+    "validation": ["Root structural parity", "TOML and YAML-frontmatter parse", "Low-cost routing contract", "Translation forward-test"],
+    "last_completed_step": "Official runtime locations and format differences documented.",
+    "next_action": "Begin after AIPKG-001 fixes the package ownership model."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+}

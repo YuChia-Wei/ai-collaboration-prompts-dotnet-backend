@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIPKG-003",
+  "workflow_id": "2026-07-14-ai-context-release-packaging",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-14T23:39:38+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIPKG-BUILD-001"],
+  "scope": {
+    "target": "Deterministic archive builder and package metadata",
+    "files": [".ai/scripts/build-ai-context-package.py", ".ai/scripts/validate-ai-context-package.py", ".ai/distribution/**"],
+    "constraints": ["Use Git-tracked input", "Normalize archive metadata", "Generate ZIP and tar.gz from one staging tree", "Record per-file SHA-256"],
+    "non_goals": ["Publish a release", "Read ignored local files"]
+  },
+  "execution": {
+    "steps": ["Build staging tree", "Generate package and file manifests", "Create normalized archives", "Compare extracted payloads"],
+    "validation": ["Repeated build digest", "ZIP/tar payload parity", "Manifest checksum validation"],
+    "last_completed_step": "Not started.",
+    "next_action": "Begin after distribution and template contracts stabilize."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+}
