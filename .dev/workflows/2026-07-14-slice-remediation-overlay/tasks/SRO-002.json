@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "SRO-002",
+  "workflow_id": "2026-07-14-slice-remediation-overlay",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-14T20:56:16+08:00",
+  "updated_at": "2026-07-14T20:56:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["SRO-OVERLAY-001"],
+  "scope": {
+    "target": "Remediation overlay and layered source contract",
+    "files": [".ai/assets/skills/slice-implementer/references/overlays/remediation.md", ".ai/assets/skills/slice-implementer/references/execution-playbook.md", ".ai/assets/skills/slice-implementer/references/handoff-rules.md"],
+    "constraints": ["Preserve architecture-specific execution modes", "Use stable finding references", "Separate authorized scope, finding evidence, and normative truth"],
+    "non_goals": ["Make remediation an execution mode", "Perform a remediation slice"]
+  },
+  "execution": {
+    "steps": ["Create remediation overlay", "Define finding disposition and evidence rules", "Define verification handoff"],
+    "validation": ["Canonical reference discovery", "Content review against assessment and workflow boundaries"],
+    "last_completed_step": "",
+    "next_action": "Wait for SRO-001."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
