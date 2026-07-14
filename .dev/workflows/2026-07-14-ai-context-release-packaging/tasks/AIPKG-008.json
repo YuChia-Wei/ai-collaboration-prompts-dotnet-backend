@@ -6,9 +6,9 @@
   "task_id": "AIPKG-008",
   "workflow_id": "2026-07-14-ai-context-release-packaging",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-14T23:39:38+08:00",
-  "updated_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-15T07:37:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIPKG-CLOSE-001"],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Build candidate twice", "Install/upgrade disposable targets", "Run independent forward-test", "Run quick gate", "Reconcile and close"],
     "validation": ["Archive digests and parity", "Target safety", "check-all.sh --quick", "workflow and Git-policy verification"],
-    "last_completed_step": "Not started.",
-    "next_action": "Begin after AIPKG-001 through AIPKG-007 complete."
+    "last_completed_step": "AIPKG-001 through AIPKG-007 are implemented and locally validated.",
+    "next_action": "Build the final candidate twice, forward-test disposable targets, run required gates, and close the workflow."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
 }

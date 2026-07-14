@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `safe-package-application`
+- `current_phase`: `candidate-forward-test-and-closeout`
 - `artifact_root`: `.dev/workflows/2026-07-14-ai-context-release-packaging`
 - `created_at`: `2026-07-14T23:39:38+08:00`
-- `updated_at`: `2026-07-15T00:05:22+08:00`
+- `updated_at`: `2026-07-15T07:37:10+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -121,11 +121,11 @@ Official format evidence:
 | `AIPKG-001` | Define distributable profile, ownership classes, envelope, deterministic rules, and source-history exclusions. | `completed` | Every included/excluded category has one canonical disposition. |
 | `AIPKG-002` | Add public root templates, rename the source translation, and add canonical/runtime translator agents. | `completed` | Exact-case links pass; translation adapters load and preserve one source of truth. |
 | `AIPKG-003` | Implement deterministic package builder and package/file/checksum manifests. | `completed` | Repeated builds have identical digests and ZIP/tar payload parity. |
-| `AIPKG-004` | Implement dry-run-first installation/upgrade planning for add, replace, remove, rename, and reconcile. | `in_progress` | Modified target files are never silently overwritten or deleted. |
-| `AIPKG-005` | Add candidate and user-tag-triggered GitHub Actions with draft-to-published release behavior. | `pending` | Workflow lint/schema checks and local command parity pass. |
-| `AIPKG-006` | Add GWT fixtures for clean install, legacy baseline, normal upgrade, local modification, removal, rename, and failures. | `pending` | All scenario matrices pass in disposable Git repositories. |
-| `AIPKG-007` | Prepare `REL-v0.3.0` packaging notes and future retrospective-baseline extension without creating tags. | `pending` | Release data remains planned/validated and makes no false publication claim. |
-| `AIPKG-008` | Build and inspect a candidate package, run full gates, reconcile artifacts, and close. | `pending` | Candidate install/upgrade, quick gate, workflow, commit, and archive checks pass. |
+| `AIPKG-004` | Implement dry-run-first installation/upgrade planning for add, replace, remove, rename, and reconcile. | `completed` | Modified target files are never silently overwritten or deleted. |
+| `AIPKG-005` | Add candidate and user-tag-triggered GitHub Actions with draft-to-published release behavior. | `completed` | Workflow lint/schema checks and local command parity pass. |
+| `AIPKG-006` | Add GWT fixtures for clean install, legacy baseline, normal upgrade, local modification, removal, rename, and failures. | `completed` | All scenario matrices pass in disposable Git repositories. |
+| `AIPKG-007` | Prepare `REL-v0.3.0` packaging notes and future retrospective-baseline extension without creating tags. | `completed` | Release data remains planned/validated and makes no false publication claim. |
+| `AIPKG-008` | Build and inspect a candidate package, run full gates, reconcile artifacts, and close. | `in_progress` | Candidate install/upgrade, quick gate, workflow, commit, and archive checks pass. |
 
 ## Validation Strategy
 
@@ -141,7 +141,7 @@ Official format evidence:
 ## Resume Checkpoint
 
 - Last completed action: built `ai-context-dotnet-backend-v0.3.0` twice from Git commit `2ac316cec5fd4257125572699352f73edee9112d`; ZIP and tar.gz bytes were repeatable by format, their payload bytes/modes matched, and both archive sidecars validated.
-- Current task: `AIPKG-004`.
+- Current task: `AIPKG-008`.
 - Exact next action: implement dry-run planning and explicit apply with clean-worktree, previous-hash, ownership, reconciliation, and provenance-ordering gates.
 - Validation already completed: package scripts compiled; contract YAML parsed; two independent output directories produced identical per-format SHA-256; both ZIP/tar pairs passed envelope, member checksum, inventory, mode, payload digest, sidecar, and cross-format parity validation.
 - Git state: `codex/2026-07-14-ai-context-release-packaging`; AIPKG-001 `e308b8d`; AIPKG-002 `0a7ac64`; AIPKG-003 implementation `2ac316c`.

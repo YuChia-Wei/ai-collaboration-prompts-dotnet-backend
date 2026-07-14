@@ -6,9 +6,9 @@
   "task_id": "AIPKG-007",
   "workflow_id": "2026-07-14-ai-context-release-packaging",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-14T23:39:38+08:00",
-  "updated_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-15T07:37:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIPKG-LEGACY-001", "AIPKG-RELEASE-001"],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Extend release artifact metadata", "Document package/migration compatibility", "Provide baseline generation path", "Reconcile v0.3.0 notes"],
     "validation": ["Release validator", "No false tag/commit", "Baseline input is immutable when supplied"],
-    "last_completed_step": "Verified ac2e293 as a credible but unconfirmed early baseline candidate.",
-    "next_action": "Implement schema support without creating the historical record."
+    "last_completed_step": "Extended v0.3.0 release data and added a fail-closed retrospective baseline admission policy without creating historical tags or manifests.",
+    "next_action": "None."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+  "results": {"summary": "Recorded v0.3.0 package/publication contracts and a future immutable-tag baseline policy while explicitly withholding unconfirmed v0.0.1 compatibility.", "files_changed": [".dev/releases/v0.3.0/release.yaml", ".dev/releases/v0.3.0/release-notes.md", ".dev/releases/v0.3.0/migration-guide.md", ".ai/distribution/baselines/README.md", ".ai/scripts/validate-ai-context-versions.py"], "tests_run": ["Version governance GWT: 12 passed", "python .ai/scripts/validate-ai-context-versions.py --no-git"], "finding_status": "resolved", "residual_risk": "The historical v0.0.1 candidate remains unresolved until the user confirms and tags an immutable commit and file selection.", "follow_up_needed": false}
 }

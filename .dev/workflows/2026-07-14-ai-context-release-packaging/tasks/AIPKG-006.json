@@ -6,9 +6,9 @@
   "task_id": "AIPKG-006",
   "workflow_id": "2026-07-14-ai-context-release-packaging",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-14T23:39:38+08:00",
-  "updated_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-15T07:37:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["AIPKG-TEST-001"],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Create install and upgrade fixtures", "Cover ownership and migration operations", "Cover Actions contracts", "Integrate required quick gate"],
     "validation": ["Scenario matrix passes", "Fixtures remain isolated", "check-all required parity"],
-    "last_completed_step": "Not started.",
-    "next_action": "Develop alongside AIPKG-003 through AIPKG-005."
+    "last_completed_step": "Added packaging, safe-apply, and release-workflow GWT integration coverage to the required quick gate.",
+    "next_action": "None."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "open", "residual_risk": "", "follow_up_needed": true}
+  "results": {"summary": "Added eight deterministic package and workflow contract scenarios and integrated both packaging and safe-apply suites into check-all.sh --quick.", "files_changed": [".ai/scripts/tests/test_ai_context_packaging.py", ".ai/scripts/check-all.sh", ".ai/scripts/README.md"], "tests_run": ["Packaging integration: 8 passed", "Combined packaging and safe apply: 21 passed, 1 Windows symlink privilege skip", "Fail-closed runner regression: 16 passed"], "finding_status": "resolved", "residual_risk": "The Windows host cannot create the symlink used by one negative-path test without additional privilege; the test remains active on capable hosts.", "follow_up_needed": false}
 }
