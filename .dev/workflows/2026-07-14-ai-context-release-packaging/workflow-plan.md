@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `root-template-and-translation-adapters`
+- `current_phase`: `deterministic-package-builder`
 - `artifact_root`: `.dev/workflows/2026-07-14-ai-context-release-packaging`
 - `created_at`: `2026-07-14T23:39:38+08:00`
-- `updated_at`: `2026-07-14T23:46:44+08:00`
+- `updated_at`: `2026-07-14T23:55:11+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -119,8 +119,8 @@ Official format evidence:
 | Task | Purpose | Status | Primary validation |
 | --- | --- | --- | --- |
 | `AIPKG-001` | Define distributable profile, ownership classes, envelope, deterministic rules, and source-history exclusions. | `completed` | Every included/excluded category has one canonical disposition. |
-| `AIPKG-002` | Add public root templates, rename the source translation, and add canonical/runtime translator agents. | `in_progress` | Exact-case links pass; translation adapters load and preserve one source of truth. |
-| `AIPKG-003` | Implement deterministic package builder and package/file/checksum manifests. | `pending` | Repeated builds have identical digests and ZIP/tar payload parity. |
+| `AIPKG-002` | Add public root templates, rename the source translation, and add canonical/runtime translator agents. | `completed` | Exact-case links pass; translation adapters load and preserve one source of truth. |
+| `AIPKG-003` | Implement deterministic package builder and package/file/checksum manifests. | `in_progress` | Repeated builds have identical digests and ZIP/tar payload parity. |
 | `AIPKG-004` | Implement dry-run-first installation/upgrade planning for add, replace, remove, rename, and reconcile. | `pending` | Modified target files are never silently overwritten or deleted. |
 | `AIPKG-005` | Add candidate and user-tag-triggered GitHub Actions with draft-to-published release behavior. | `pending` | Workflow lint/schema checks and local command parity pass. |
 | `AIPKG-006` | Add GWT fixtures for clean install, legacy baseline, normal upgrade, local modification, removal, rename, and failures. | `pending` | All scenario matrices pass in disposable Git repositories. |
@@ -140,11 +140,11 @@ Official format evidence:
 
 ## Resume Checkpoint
 
-- Last completed action: defined the 22-entry `dotnet-backend` allowlist, six exclusion boundaries, ownership/install behaviors, deterministic envelope, and package/file/migration schemas.
-- Current task: `AIPKG-002`.
-- Exact next action: create public root and catalog seed templates, rename the source translation, and add the canonical translator role plus thin runtime adapters.
-- Validation already completed: all distribution YAML parsed with PyYAML; profile identity/ownership assertions passed; `check-all.sh --quick` passed 11 required checks with one pre-existing dependency-version deferral.
-- Git state: `codex/2026-07-14-ai-context-release-packaging`; AIPKG-001 checkpoint changes are ready to commit.
+- Last completed action: added ten target-owned public seed mappings, renamed the source translation to `AGENTS.zh-TW.md`, and added one canonical translator role with Codex, Claude Code, and GitHub Copilot adapters.
+- Current task: `AIPKG-003`.
+- Exact next action: implement the Git-tree-backed staging builder, generated manifests, deterministic ZIP/tar.gz writers, and package validator.
+- Validation already completed: TOML and YAML-frontmatter parsing; public-template source and target uniqueness; AI context validation including bilingual structural parity; workflow validation; `git diff --check`.
+- Git state: `codex/2026-07-14-ai-context-release-packaging`; AIPKG-001 committed as `e308b8d`; AIPKG-002 checkpoint changes are ready to commit.
 - Branch history and checkpoint handoffs: segment 1 began locally on 2026-07-14.
 - Blockers or unresolved decisions: the exact early installed commit and future tag name remain user-confirmed external input, but do not block the packaging framework.
 

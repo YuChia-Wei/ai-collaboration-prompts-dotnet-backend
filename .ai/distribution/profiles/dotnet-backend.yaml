@@ -74,19 +74,16 @@ entries:
     target: .codex/agents/
     ownership: framework-managed
     install_behavior: managed
-    allow_empty_until: AIPKG-002
   - id: claude-agent-adapters
     source: .claude/agents/**
     target: .claude/agents/
     ownership: framework-managed
     install_behavior: managed
-    allow_empty_until: AIPKG-002
   - id: copilot-agent-adapters
     source: .github/agents/**
     target: .github/agents/
     ownership: framework-managed
     install_behavior: managed
-    allow_empty_until: AIPKG-002
   - id: governance-standards
     source:
       - .dev/standards/**
@@ -166,9 +163,9 @@ entries:
       - .ai/assets/skills/repo-structure-sync/templates/public-root/**
       - .ai/assets/skills/repo-structure-sync/templates/public-catalogs/**
     target: mapping-declared-by-template-manifest
+    template_manifest: .ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml
     ownership: target-template
     install_behavior: seed
-    allow_empty_until: AIPKG-002
   - id: repository-integration-seeds
     source:
       - .editorconfig

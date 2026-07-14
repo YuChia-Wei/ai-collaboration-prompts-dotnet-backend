@@ -27,3 +27,5 @@ After edits are made, return:
 3. `Inferred or Missing Truth`
 4. `Template Facts Removed or Preserved`
 5. `Recommended Next Step`
+
+When translation is requested, append `Translation Parity` using the `context-translator` return. If a low-cost runtime/model is unavailable, record translation as deferred instead of performing it in the main pass.

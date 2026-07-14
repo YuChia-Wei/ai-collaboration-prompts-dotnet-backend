@@ -77,7 +77,7 @@ Use these repository-native checks before accepting a discovery-tool conclusion:
 
 | Risk | Fast verification |
 | --- | --- |
-| Hidden or skipped AI-context roots | Run `git ls-files -- .ai .dev .agents .claude AGENTS.md CLAUDE.md agents.zh-tw.md README.md README.en.md`, then inspect `git status --short --untracked-files=all` for untracked context. |
+| Hidden or skipped AI-context roots | Run `git ls-files -- .ai .dev .agents .claude .codex .github AGENTS.md CLAUDE.md AGENTS.zh-TW.md README.md README.en.md`, then inspect `git status --short --untracked-files=all` for untracked context. |
 | Incomplete Markdown inventory | Run `git ls-files -- '*.md'` and compare the relevant paths with the tool result. |
 | Missing Markdown relationship | Search the literal target or link text with `git grep -n -F -- '<target-or-link-text>' -- '*.md'`, open the source file, and resolve the target relative to that file. |
 | Stale index or snapshot | Compare the tool's recorded revision, when available, with `git rev-parse HEAD`; directly reopen every file used by a material finding. |
