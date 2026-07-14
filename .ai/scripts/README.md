@@ -41,6 +41,8 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context-versions.py`
 - `build-ai-context-package.py`
 - `validate-ai-context-package.py`
+- `plan-ai-context-package-apply.py`
+- `render-ai-context-release-notes.py`
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
@@ -73,8 +75,27 @@ unsafe paths, output collisions, unsupported Git entry types, and existing
 output files. These source-side packaging tools are excluded from the installed
 target payload.
 
-Fail-closed shell validation regression tests use Given-When-Then naming and
-comments and run entirely in disposable Git repositories:
+`plan-ai-context-package-apply.py` is the dry-run-first target-side package
+entrypoint. It runs from the extracted envelope's `payload/.ai/scripts/`
+directory, requires a clean committed target, and binds the package manifest,
+target HEAD, and observed path hashes and modes into the plan. Existing target
+templates and locally changed managed files become reconciliation items.
+Acknowledging such an item skips it; acknowledgement never grants overwrite or
+delete permission. `--apply` rechecks the complete binding, applies only safe
+operations transactionally, and writes
+`.dev/AI-CONTEXT-APPLY-PENDING.yaml`. It never updates validated source
+provenance; `repo-structure-sync` or `ai-context-upgrader` owns validation and
+provenance finalization.
+
+`render-ai-context-release-notes.py` validates a governed release candidate and
+renders the GitHub Release body from its canonical release notes, migration
+guide, tag, and exact commit. Candidate mode can discover exactly one active
+governed candidate; publish mode fails unless the tagged-tree record is
+`validated`. The tag-triggered Action owns tag selection and Release mutation;
+the renderer never creates or changes Git refs or remote releases.
+
+Fail-closed validation and packaging regression tests use Given-When-Then
+naming and comments and run entirely in disposable Git repositories:
 
 ```powershell
 python .ai/scripts/tests/test_fail_closed_validation.py -v
@@ -83,6 +104,8 @@ python .ai/scripts/tests/test_ai_context_root_entries.py -v
 python .ai/scripts/tests/test_workflow_implementation_contract.py -v
 python .ai/scripts/tests/test_assessment_artifacts.py -v
 python .ai/scripts/tests/test_ai_context_version_governance.py -v
+python .ai/scripts/tests/test_ai_context_package_apply.py -v
+python .ai/scripts/tests/test_ai_context_packaging.py -v
 ```
 
 The shell fixture suite snapshots the real checkout before and after execution.

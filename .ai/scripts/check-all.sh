@@ -247,6 +247,10 @@ run_command_check "python .ai/scripts/tests/test_ai_context_version_governance.p
     "AI Context Version Governance Fail-Closed Tests" \
     "required" "true" "true"
 
+run_command_check "python -m unittest discover -s .ai/scripts/tests -p 'test_ai_context_packag*.py' -v" \
+    "AI Context Packaging And Safe Apply GWT Tests" \
+    "required" "true" "true"
+
 run_command_check "python .ai/scripts/validate-shell-assets.py" \
     "Shell Asset Classification And Git Modes" \
     "required" "true" "true"
