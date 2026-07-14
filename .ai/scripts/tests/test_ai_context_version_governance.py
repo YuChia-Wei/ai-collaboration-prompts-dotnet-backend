@@ -154,6 +154,98 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
         self.assertTrue(report["changes"])
         self.assertEqual(before, after)
 
+    def test_gwt_011_given_governed_package_candidate_when_validated_then_distribution_identity_matches_version(
+        self,
+    ):
+        # Given a planned governed release with coherent package and publication metadata
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            release = root / ".dev" / "releases" / "v0.3.0" / "release.yaml"
+            release.parent.mkdir(parents=True)
+            for artifact in ("release-notes.md", "migration-guide.md"):
+                (release.parent / artifact).write_text("candidate\n", encoding="utf-8")
+            release.write_text(yaml.safe_dump({
+                "release_id": "REL-v0.3.0",
+                "version": "v0.3.0",
+                "status": "planned",
+                "record_origin": "governed",
+                "tag": None,
+                "commit": None,
+                "compatibility": {
+                    "breaking_changes": True,
+                    "minimum_source_version": "v0.1.0",
+                    "reconciliation_sources": ["v0.1.0", "v0.2.0"],
+                },
+                "distribution": {
+                    "profile_id": "dotnet-backend",
+                    "package_id": "ai-context-dotnet-backend-v0.3.0",
+                    "schema_versions": {
+                        "package": "1.0.0",
+                        "files": "1.0.0",
+                        "migration": "1.0.0",
+                    },
+                    "artifacts": {
+                        "zip": "ai-context-dotnet-backend-v0.3.0.zip",
+                        "zip_checksum": "ai-context-dotnet-backend-v0.3.0.zip.sha256",
+                        "tar_gz": "ai-context-dotnet-backend-v0.3.0.tar.gz",
+                        "tar_gz_checksum": "ai-context-dotnet-backend-v0.3.0.tar.gz.sha256",
+                    },
+                    "migration": {
+                        "default_mode": "dry-run",
+                        "apply_requires_clean_worktree": True,
+                        "apply_requires_acknowledged_reconciliation": True,
+                    },
+                    "publication": {
+                        "tag_owner": "user",
+                        "trigger": "user-created-tag",
+                        "automation": "github-actions",
+                        "creates_or_moves_tag": False,
+                    },
+                },
+            }, sort_keys=False), encoding="utf-8")
+            # When the candidate release record is validated
+            errors: list[str] = []
+            VALIDATE.validate_release(release, root, errors, verify_git=False)
+            # Then its package, upgrade, and manual-tag identities are coherent
+            self.assertEqual([], errors)
+
+    def test_gwt_012_given_governed_candidate_with_drift_when_validated_then_it_fails_closed(
+        self,
+    ):
+        # Given a governed candidate whose package version drifts and automation may move tags
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            release = root / ".dev" / "releases" / "v0.3.0" / "release.yaml"
+            release.parent.mkdir(parents=True)
+            for artifact in ("release-notes.md", "migration-guide.md"):
+                (release.parent / artifact).write_text("candidate\n", encoding="utf-8")
+            release.write_text(yaml.safe_dump({
+                "release_id": "REL-v0.3.0",
+                "version": "v0.3.0",
+                "status": "planned",
+                "record_origin": "governed",
+                "tag": "v0.3.0",
+                "commit": None,
+                "compatibility": {
+                    "breaking_changes": True,
+                    "minimum_source_version": "v0.1.0",
+                    "reconciliation_sources": ["v0.2.0"],
+                },
+                "distribution": {
+                    "profile_id": "dotnet-backend",
+                    "package_id": "ai-context-dotnet-backend-v9.0.0",
+                    "schema_versions": {},
+                    "artifacts": {},
+                    "migration": {},
+                    "publication": {"creates_or_moves_tag": True},
+                },
+            }, sort_keys=False), encoding="utf-8")
+            # When the candidate release record is validated
+            errors: list[str] = []
+            VALIDATE.validate_release(release, root, errors, verify_git=False)
+            # Then identity, safety, compatibility, and pre-publication invariants fail
+            self.assertGreaterEqual(len(errors), 10)
+
 
 if __name__ == "__main__":
     unittest.main()

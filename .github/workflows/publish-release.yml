@@ -1,0 +1,231 @@
+name: Publish AI Context Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions: {}
+
+concurrency:
+  group: ai-context-release-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Validate tag and build release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    outputs:
+      commit: ${{ steps.tag.outputs.commit }}
+      package_id: ${{ steps.release.outputs.package_id }}
+      release_id: ${{ steps.release.outputs.release_id }}
+      title: ${{ steps.release.outputs.title }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - name: Check out tagged tree
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install packaging dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Verify user-created annotated tag
+        id: tag
+        run: |
+          if [[ ! "${GITHUB_REF_NAME}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Only stable vMAJOR.MINOR.PATCH tags may publish." >&2
+            exit 1
+          fi
+          if [[ "$(git cat-file -t "refs/tags/${GITHUB_REF_NAME}")" != "tag" ]]; then
+            echo "Release tag must be annotated." >&2
+            exit 1
+          fi
+          commit="$(git rev-parse "refs/tags/${GITHUB_REF_NAME}^{commit}")"
+          echo "commit=${commit}" >> "${GITHUB_OUTPUT}"
+
+      - name: Validate release registry
+        run: python .ai/scripts/validate-ai-context-versions.py
+
+      - name: Validate candidate and render release body
+        id: release
+        run: |
+          python .ai/scripts/render-ai-context-release-notes.py \
+            --version "${GITHUB_REF_NAME}" \
+            --commit "${{ steps.tag.outputs.commit }}" \
+            --mode publish \
+            --output dist/release-body.md \
+            --github-output "${GITHUB_OUTPUT}"
+
+      - name: Build deterministic archives from tag
+        run: |
+          python .ai/scripts/build-ai-context-package.py \
+            --ref "refs/tags/${GITHUB_REF_NAME}" \
+            --version "${GITHUB_REF_NAME}" \
+            --output dist
+
+      - name: Validate archives and parity
+        run: |
+          python .ai/scripts/validate-ai-context-package.py \
+            "dist/${{ steps.release.outputs.package_id }}.zip" \
+            "dist/${{ steps.release.outputs.package_id }}.tar.gz"
+
+      - name: Stage validated release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ steps.release.outputs.package_id }}-${{ steps.tag.outputs.commit }}
+          retention-days: 7
+          compression-level: 0
+          if-no-files-found: error
+          path: |
+            dist/${{ steps.release.outputs.package_id }}.zip
+            dist/${{ steps.release.outputs.package_id }}.zip.sha256
+            dist/${{ steps.release.outputs.package_id }}.tar.gz
+            dist/${{ steps.release.outputs.package_id }}.tar.gz.sha256
+            dist/release-body.md
+
+  publish:
+    name: Publish verified draft
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: ai-context-release
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      PACKAGE_ID: ${{ needs.build.outputs.package_id }}
+      RELEASE_ID: ${{ needs.build.outputs.release_id }}
+      RELEASE_TITLE: ${{ needs.build.outputs.title }}
+      TAG: ${{ needs.build.outputs.version }}
+      TAG_COMMIT: ${{ needs.build.outputs.commit }}
+    steps:
+      - name: Check out tagged tree again
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install packaging dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Download validated release artifact
+        uses: actions/download-artifact@v5
+        with:
+          name: release-${{ needs.build.outputs.package_id }}-${{ needs.build.outputs.commit }}
+          path: dist
+
+      - name: Reverify tag and downloaded archives
+        run: |
+          if [[ "$(git cat-file -t "refs/tags/${TAG}")" != "tag" ]]; then
+            echo "Release tag is no longer annotated." >&2
+            exit 1
+          fi
+          current_commit="$(git rev-parse "refs/tags/${TAG}^{commit}")"
+          if [[ "${current_commit}" != "${TAG_COMMIT}" ]]; then
+            echo "Release tag target changed between build and publish." >&2
+            exit 1
+          fi
+          python .ai/scripts/validate-ai-context-package.py \
+            "dist/${PACKAGE_ID}.zip" \
+            "dist/${PACKAGE_ID}.tar.gz"
+
+      - name: Create or resume owned draft
+        id: draft
+        run: |
+          marker="<!-- ai-context-release-automation: ${RELEASE_ID} -->"
+          if release_json="$(gh release view "${TAG}" --json isDraft,body,url 2>/dev/null)"; then
+            is_draft="$(jq -r '.isDraft' <<<"${release_json}")"
+            body="$(jq -r '.body' <<<"${release_json}")"
+            if [[ "${is_draft}" == "false" ]]; then
+              echo "published=true" >> "${GITHUB_OUTPUT}"
+              exit 0
+            fi
+            if ! grep -Fq "${marker}" <<<"${body}"; then
+              echo "Refusing to modify an unowned draft release." >&2
+              exit 1
+            fi
+            gh release edit "${TAG}" \
+              --verify-tag \
+              --draft \
+              --title "${RELEASE_TITLE}" \
+              --notes-file dist/release-body.md
+          else
+            gh release create "${TAG}" \
+              --verify-tag \
+              --draft \
+              --title "${RELEASE_TITLE}" \
+              --notes-file dist/release-body.md
+          fi
+          echo "published=false" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload or verify release assets
+        run: |
+          assets=(
+            "dist/${PACKAGE_ID}.zip"
+            "dist/${PACKAGE_ID}.zip.sha256"
+            "dist/${PACKAGE_ID}.tar.gz"
+            "dist/${PACKAGE_ID}.tar.gz.sha256"
+          )
+          if [[ "${{ steps.draft.outputs.published }}" == "false" ]]; then
+            gh release upload "${TAG}" "${assets[@]}" --clobber
+          fi
+
+          mapfile -t expected < <(printf '%s\n' \
+            "${PACKAGE_ID}.zip" \
+            "${PACKAGE_ID}.zip.sha256" \
+            "${PACKAGE_ID}.tar.gz" \
+            "${PACKAGE_ID}.tar.gz.sha256" | sort)
+          mapfile -t actual < <(gh release view "${TAG}" --json assets --jq '.assets[].name' | sort)
+          if ! diff -u <(printf '%s\n' "${expected[@]}") <(printf '%s\n' "${actual[@]}"); then
+            echo "Release asset set differs from the governed package." >&2
+            exit 1
+          fi
+          actual_title="$(gh release view "${TAG}" --json name --jq '.name')"
+          if [[ "${actual_title}" != "${RELEASE_TITLE}" ]]; then
+            echo "GitHub Release title differs from the governed release title." >&2
+            exit 1
+          fi
+
+          verify_dir="${RUNNER_TEMP}/release-assets"
+          rm -rf "${verify_dir}"
+          mkdir -p "${verify_dir}"
+          gh release download "${TAG}" --dir "${verify_dir}" --pattern "${PACKAGE_ID}*"
+          cmp "dist/${PACKAGE_ID}.zip" "${verify_dir}/${PACKAGE_ID}.zip"
+          cmp "dist/${PACKAGE_ID}.zip.sha256" "${verify_dir}/${PACKAGE_ID}.zip.sha256"
+          cmp "dist/${PACKAGE_ID}.tar.gz" "${verify_dir}/${PACKAGE_ID}.tar.gz"
+          cmp "dist/${PACKAGE_ID}.tar.gz.sha256" "${verify_dir}/${PACKAGE_ID}.tar.gz.sha256"
+          python .ai/scripts/validate-ai-context-package.py \
+            "${verify_dir}/${PACKAGE_ID}.zip" \
+            "${verify_dir}/${PACKAGE_ID}.tar.gz"
+
+          gh release view "${TAG}" --json body --jq '.body' > "${verify_dir}/release-body.md"
+          python - "dist/release-body.md" "${verify_dir}/release-body.md" <<'PY'
+          import sys
+          from pathlib import Path
+
+          expected = Path(sys.argv[1]).read_text(encoding="utf-8").rstrip("\r\n")
+          actual = Path(sys.argv[2]).read_text(encoding="utf-8").rstrip("\r\n")
+          if expected != actual:
+              raise SystemExit("GitHub Release body differs from the governed release body")
+          PY
+
+      - name: Publish verified draft
+        if: steps.draft.outputs.published == 'false'
+        run: gh release edit "${TAG}" --verify-tag --draft=false --latest

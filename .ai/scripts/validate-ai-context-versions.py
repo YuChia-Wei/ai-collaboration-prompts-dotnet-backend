@@ -14,6 +14,7 @@ import yaml
 
 
 VERSION_RE = re.compile(r"^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
+SEMVER_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -50,6 +51,104 @@ def resolve_tag(root: Path, tag: str) -> str | None:
     return result.stdout.strip() if result.returncode == 0 else None
 
 
+def validate_distribution(
+    path: Path,
+    version: str,
+    compatibility: dict,
+    distribution: object,
+    errors: list[str],
+) -> None:
+    if not isinstance(distribution, dict):
+        errors.append(f"{path}: governed release distribution must be a mapping")
+        return
+
+    bare_version = version.removeprefix("v")
+    expected_package_id = f"ai-context-dotnet-backend-v{bare_version}"
+    if distribution.get("profile_id") != "dotnet-backend":
+        errors.append(f"{path}: distribution.profile_id must be dotnet-backend")
+    if distribution.get("package_id") != expected_package_id:
+        errors.append(
+            f"{path}: distribution.package_id must be {expected_package_id}"
+        )
+
+    schemas = distribution.get("schema_versions")
+    if not isinstance(schemas, dict):
+        errors.append(f"{path}: distribution.schema_versions must be a mapping")
+    else:
+        for name in ("package", "files", "migration"):
+            value = schemas.get(name)
+            if not isinstance(value, str) or not SEMVER_RE.fullmatch(value):
+                errors.append(
+                    f"{path}: distribution.schema_versions.{name} must be MAJOR.MINOR.PATCH"
+                )
+
+    expected_artifacts = {
+        "zip": f"{expected_package_id}.zip",
+        "zip_checksum": f"{expected_package_id}.zip.sha256",
+        "tar_gz": f"{expected_package_id}.tar.gz",
+        "tar_gz_checksum": f"{expected_package_id}.tar.gz.sha256",
+    }
+    artifacts = distribution.get("artifacts")
+    if not isinstance(artifacts, dict):
+        errors.append(f"{path}: distribution.artifacts must be a mapping")
+    else:
+        for name, expected in expected_artifacts.items():
+            if artifacts.get(name) != expected:
+                errors.append(
+                    f"{path}: distribution.artifacts.{name} must be {expected}"
+                )
+
+    migration = distribution.get("migration")
+    if not isinstance(migration, dict):
+        errors.append(f"{path}: distribution.migration must be a mapping")
+    else:
+        if migration.get("default_mode") != "dry-run":
+            errors.append(f"{path}: distribution.migration.default_mode must be dry-run")
+        for field in (
+            "apply_requires_clean_worktree",
+            "apply_requires_acknowledged_reconciliation",
+        ):
+            if migration.get(field) is not True:
+                errors.append(f"{path}: distribution.migration.{field} must be true")
+
+    publication = distribution.get("publication")
+    if not isinstance(publication, dict):
+        errors.append(f"{path}: distribution.publication must be a mapping")
+    else:
+        expected_publication = {
+            "tag_owner": "user",
+            "trigger": "user-created-tag",
+            "automation": "github-actions",
+            "creates_or_moves_tag": False,
+        }
+        for field, expected in expected_publication.items():
+            if publication.get(field) != expected:
+                errors.append(
+                    f"{path}: distribution.publication.{field} must be {expected!r}"
+                )
+
+    reconciliation_sources = compatibility.get("reconciliation_sources")
+    minimum_source = compatibility.get("minimum_source_version")
+    if not isinstance(reconciliation_sources, list) or not reconciliation_sources:
+        errors.append(
+            f"{path}: compatibility.reconciliation_sources must be a non-empty list"
+        )
+    else:
+        invalid = [
+            item
+            for item in reconciliation_sources
+            if not isinstance(item, str) or not VERSION_RE.fullmatch(item)
+        ]
+        if invalid:
+            errors.append(
+                f"{path}: compatibility.reconciliation_sources contains invalid versions"
+            )
+        if minimum_source not in reconciliation_sources:
+            errors.append(
+                f"{path}: compatibility.minimum_source_version must be a reconciliation source"
+            )
+
+
 def validate_release(path: Path, root: Path, errors: list[str], verify_git: bool) -> None:
     data = load_mapping(path, errors)
     if data is None:
@@ -71,6 +170,11 @@ def validate_release(path: Path, root: Path, errors: list[str], verify_git: bool
     compatibility = data.get("compatibility")
     if not isinstance(compatibility, dict) or not isinstance(compatibility.get("breaking_changes"), bool):
         errors.append(f"{path}: compatibility.breaking_changes must be boolean")
+    elif data.get("record_origin") == "governed":
+        validate_distribution(path, version, compatibility, data.get("distribution"), errors)
+    if status in {"planned", "validated"}:
+        if data.get("tag") is not None or data.get("commit") is not None:
+            errors.append(f"{path}: {status} release tag and commit must remain null")
     if status == "published":
         tag, commit = data.get("tag"), data.get("commit")
         if tag != version:
