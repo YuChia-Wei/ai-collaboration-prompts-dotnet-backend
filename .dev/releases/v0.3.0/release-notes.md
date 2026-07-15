@@ -35,14 +35,14 @@ Each archive contains `metadata/package.yaml`, `metadata/files.yaml`, `metadata/
 
 ## Compatibility
 
-This pre-1.0 minor release intentionally adds a required provenance/version gate and a new package envelope. `v0.1.0` and `v0.2.0` are supported reconciliation sources, not claims of unattended migration. Hash-gated automatic replace/remove/rename requires a matching previous governed `files.yaml`; when that version-specific baseline is unavailable, the upgrader must use unresolved-provenance reconciliation. Existing targets must create a validated provenance manifest while adopting the upgrader. Root collaboration entries and target-owned project knowledge remain manual reconciliation surfaces.
+This pre-1.0 minor release intentionally adds a required provenance/version gate and a new package envelope. `v0.0.1`, `v0.1.0`, and `v0.2.0` are supported reconciliation sources, not claims of unattended migration. Hash-gated automatic replace/remove/rename requires a matching previous governed `files.yaml`; when that version-specific baseline is unavailable, the upgrader must use unresolved-provenance reconciliation. Existing targets must create a validated provenance manifest while adopting the upgrader. Root collaboration entries and target-owned project knowledge remain manual reconciliation surfaces.
 
-No `v0.0.1` compatibility is claimed. Commit `ac2e2937b5209ece93e104c4a389a15e164c0d1b` is only an unconfirmed historical candidate until the user creates a version tag, confirms the installed file selection, and a version-specific baseline manifest passes validation.
+`v0.0.1` compatibility is limited to manual provenance reconciliation. Its tag confirms source identity, but it has no governed package inventory and does not prove which files a historical target installed.
 
 ## Known Limitations
 
 - The comparison tool classifies paths and byte identity; semantic conflict resolution remains a human/agent decision.
 - Unversioned or locally forked framework copies require manual baseline reconciliation.
 - Version-specific `v0.1.0` and `v0.2.0` baseline manifests and generated migration operations are not bundled yet; those sources require reconciliation unless a separately validated baseline is supplied.
-- Retrospective `v0.0.1` and prerelease compatibility are not part of this candidate.
+- Retrospective `v0.0.1` is a manual reconciliation source only; prerelease compatibility is not part of this candidate.
 - Dependency/version validation unrelated to this AI context release contract remains deferred.

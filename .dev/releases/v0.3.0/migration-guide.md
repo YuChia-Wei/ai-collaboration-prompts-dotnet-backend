@@ -46,11 +46,26 @@ Archive validation alone does not authorize application. This candidate remains 
 
 First account for the `v0.1.0 → v0.2.0` reconciliation in the `REL-v0.2.0` migration guide, including root entries, assessment governance, workflow/commit policy, and slice remediation contracts. Then validate the `v0.3.0` package. Supply a governed `v0.1.0` `files.yaml` only when that version-specific baseline exists and matches the recorded release; otherwise use the upgrader's unresolved-provenance reconciliation path. Every intermediate breaking contract must remain visible in the plan.
 
+## From v0.0.1
+
+Treat `v0.0.1` as a confirmed source-snapshot identity, not a governed package
+baseline. Verify that the target actually derives from
+`ac2e2937b5209ece93e104c4a389a15e164c0d1b` and inventory the historical file
+selection. When that selection or local history cannot be proven, enter the
+upgrader's unresolved-provenance path rather than claiming byte-safe automatic
+replacement.
+
+Reconcile every intermediate change through `v0.1.0` and `v0.2.0`, including
+root collaboration entries, skill/wrapper ownership, workflow and assessment
+governance, language policy, testing conventions, version provenance, and
+removed or renamed files. No v0.0.1 package inventory exists, so do not use
+automatic remove, rename, or replace operations from path identity alone.
+
 ## From An Unversioned Or Forked Copy
 
 Do not guess the base. Produce an unresolved-provenance inventory, identify a credible source tag/commit or manually reconcile the current target against the requested release, and preserve the decision as migration evidence. Only then create the provenance manifest.
 
-Commit `ac2e2937b5209ece93e104c4a389a15e164c0d1b` does not establish `v0.0.1` compatibility. Until a tag, installed file selection, and retrospective baseline manifest are confirmed, treat copies associated with that commit as unresolved provenance.
+The `v0.0.1` tag establishes source identity but not a target's installed file selection. Treat copies associated with that tag as unresolved provenance until the target selection and local changes are inventoried.
 
 ## Mandatory Reconciliation
 
