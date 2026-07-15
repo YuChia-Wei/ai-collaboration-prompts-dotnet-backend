@@ -1,0 +1,57 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:06:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-004",
+  "status": "pending",
+  "finding_ids": [
+    "DSFB-P1-002"
+  ],
+  "scope": {
+    "target": "Git-exact-case active AI-context reference validation and source remediation",
+    "files": [
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/**",
+      ".ai/assets/**",
+      ".dev/standards/**"
+    ],
+    "constraints": [
+      "Use git ls-files canonical case",
+      "Exclude history, archive, URL, glob, and placeholders",
+      "Do not inspect product source or tests"
+    ],
+    "non_goals": [
+      "General Markdown link checker",
+      "Rename target project files"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Add casefold-to-canonical path map",
+      "Add Windows-safe negative fixtures",
+      "Repair active casing mismatches",
+      "Run context validation"
+    ],
+    "validation": [
+      "Exact-case GWT",
+      "validate-ai-context.py",
+      "Active rg fallback scan"
+    ],
+    "last_completed_step": "Targeted scan found active .dev/ARCHITECTURE.MD references while Git truth is .dev/ARCHITECTURE.md.",
+    "next_action": "Begin after package integrity contract."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}

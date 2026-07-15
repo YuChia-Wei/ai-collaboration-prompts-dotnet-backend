@@ -1,0 +1,60 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:06:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-001",
+  "status": "completed",
+  "finding_ids": [
+    "DSFB-EVIDENCE-001"
+  ],
+  "scope": {
+    "target": "Verbatim downstream feedback intake and current-state reconciliation",
+    "files": [
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/evidence/**",
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md"
+    ],
+    "constraints": [
+      "Preserve source Git blob identity",
+      "Treat feedback as evidence rather than canonical truth"
+    ],
+    "non_goals": [
+      "Modify dotnet-mq-arch-lab",
+      "Create a standalone assessment"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Identify the latest completed downstream workflow",
+      "Copy the feedback Git blob",
+      "Record provenance and SHA",
+      "Map recommendations to current source evidence"
+    ],
+    "validation": [
+      "Source and copied blob IDs match",
+      "Workflow artifacts validate"
+    ],
+    "last_completed_step": "Imported blob e16ae94c79cc22c109e41e1d740b7c3fe84a56e1 and reconciled nine DSFB findings.",
+    "next_action": "None."
+  },
+  "results": {
+    "summary": "Retained the v0.1.0 downstream feedback with repository, commit, workflow, path, blob, and SHA-256 provenance, then separated resolved, partial, and open recommendations.",
+    "files_changed": [
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/evidence/ai-context-v0.1.0-downstream-feedback.md",
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/evidence/README.md",
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md"
+    ],
+    "tests_run": [
+      "git blob identity comparison",
+      "current-source targeted reference scan"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Feedback conclusions may become stale as later tasks remediate the source; the copied artifact remains immutable historical evidence.",
+    "follow_up_needed": false
+  }
+}

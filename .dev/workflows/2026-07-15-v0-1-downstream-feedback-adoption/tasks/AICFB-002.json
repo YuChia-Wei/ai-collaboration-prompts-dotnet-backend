@@ -1,0 +1,57 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:06:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-002",
+  "status": "in_progress",
+  "finding_ids": [
+    "DSFB-P0-001"
+  ],
+  "scope": {
+    "target": "Historical v0.1.0 and v0.2.0 source-snapshot and installability semantics",
+    "files": [
+      ".dev/releases/v0.1.0/**",
+      ".dev/releases/v0.2.0/**",
+      ".ai/scripts/validate-ai-context-versions.py",
+      ".ai/scripts/tests/test_ai_context_version_governance.py"
+    ],
+    "constraints": [
+      "Do not move or recreate tags",
+      "Do not call source snapshots installable packages",
+      "Direct new installations to the governed package"
+    ],
+    "non_goals": [
+      "Publish v0.3.0",
+      "Create v0.0.1"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Add distribution_kind and installable semantics",
+      "Repair v0.1/v0.2 migration guidance",
+      "Validate retrospective record invariants",
+      "Add negative GWT fixtures"
+    ],
+    "validation": [
+      "Release validator",
+      "Version-governance GWT",
+      "Migration wording scan"
+    ],
+    "last_completed_step": "Confirmed both retrospective records lack distribution kind and v0.1 still recommends copying the framework.",
+    "next_action": "Implement fail-closed historical release semantics."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}

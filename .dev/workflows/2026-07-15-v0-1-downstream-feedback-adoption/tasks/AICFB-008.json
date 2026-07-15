@@ -1,0 +1,57 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:06:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-008",
+  "status": "pending",
+  "finding_ids": [
+    "DSFB-CLOSE-001"
+  ],
+  "scope": {
+    "target": "Independent verification, remediation ledger, and workflow closure",
+    "files": [
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Map every DSFB finding",
+      "Record deferred owner/reason/action",
+      "Verify commits and clean worktree",
+      "Do not merge or push without authorization"
+    ],
+    "non_goals": [
+      "Publish v0.3.0",
+      "Modify downstream repository"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Run independent read-only verification",
+      "Write remediation report",
+      "Run required quick gate",
+      "Verify commit policy and close tasks"
+    ],
+    "validation": [
+      "Independent findings reconciliation",
+      "check-all.sh --quick",
+      "Workflow/version/package/context validators",
+      "Git status and commit trailers"
+    ],
+    "last_completed_step": "Not started.",
+    "next_action": "Begin after AICFB-002 through AICFB-007."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}

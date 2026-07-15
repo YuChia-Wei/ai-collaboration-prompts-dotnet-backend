@@ -1,0 +1,56 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:06:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-005",
+  "status": "pending",
+  "finding_ids": [
+    "DSFB-P0-004"
+  ],
+  "scope": {
+    "target": "Executable commit-message and workflow closeout commit verification",
+    "files": [
+      ".ai/scripts/**",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".ai/scripts/check-all.sh"
+    ],
+    "constraints": [
+      "Validate subject, required body sections, Workflow identity, and final AI trailer",
+      "Support merge commits and assessment trailers",
+      "Do not install local hooks automatically"
+    ],
+    "non_goals": [
+      "Rewrite Git history",
+      "Commit on behalf of external teams"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define machine-readable commit contract",
+      "Implement commit validator",
+      "Add GWT positive and negative fixtures",
+      "Integrate a bounded closeout/CI invocation"
+    ],
+    "validation": [
+      "Commit-policy GWT",
+      "Current workflow commits",
+      "Quick gate"
+    ],
+    "last_completed_step": "Not started.",
+    "next_action": "Begin after exact-case remediation."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}
