@@ -33,6 +33,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `validate-git-commits.py`
 - `build-ai-context-package.py`
 - `validate-ai-context-package.py`
 - `plan-ai-context-package-apply.py`
@@ -59,6 +60,13 @@ is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
+
+`validate-git-commits.py` validates an explicitly selected commit or revision
+range against `.dev/standards/GIT-COMMIT-POLICY.yaml`. It enforces the subject,
+final AI signature, assessment ID trailer, and—when `--workflow-id` is
+provided—ordered workflow body sections and matching workflow identity. The
+aggregate gate invokes it only when `COMMIT_RANGE` is set, so ordinary working
+tree checks do not guess whether a human-only commit used AI assistance.
 
 `build-ai-context-package.py` reads an immutable Git commit tree and the
 canonical distribution profile to produce normalized ZIP and tar.gz release
@@ -97,6 +105,7 @@ python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v
 python .ai/scripts/tests/test_ai_context_root_entries.py -v
 python .ai/scripts/tests/test_workflow_implementation_contract.py -v
 python .ai/scripts/tests/test_assessment_artifacts.py -v
+python .ai/scripts/tests/test_git_commit_policy.py -v
 python .ai/scripts/tests/test_ai_context_version_governance.py -v
 python .ai/scripts/tests/test_ai_context_package_apply.py -v
 python .ai/scripts/tests/test_ai_context_packaging.py -v

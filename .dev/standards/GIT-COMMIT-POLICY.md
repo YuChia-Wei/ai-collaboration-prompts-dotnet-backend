@@ -44,6 +44,12 @@ Use these commit types:
 | `refactor` | Structure changes without intended behavior change. |
 | `test` | Test additions or corrections. |
 | `chore` | Tooling, housekeeping, generated metadata, or repository maintenance. |
+| `merge` | Intentional non-fast-forward integration commits. |
+
+The executable subset of this policy is declared in
+`GIT-COMMIT-POLICY.yaml` and enforced by
+`.ai/scripts/validate-git-commits.py`. The Markdown document remains the
+human-facing source for intent and exceptions; keep both files synchronized.
 
 ## Scope
 
@@ -190,3 +196,14 @@ Before commit, run the narrowest meaningful validation:
 
 The commit body must mention skipped validation when the skipped check would normally apply.
 AI-assisted commits must also satisfy the AI model signature trailer contract above.
+
+For workflow closeout, validate the workflow branch range explicitly:
+
+```bash
+python .ai/scripts/validate-git-commits.py --range main..HEAD --workflow-id <workflow-id>
+```
+
+`check-all.sh` runs this check when `COMMIT_RANGE` is set. Set
+`WORKFLOW_ID` with it for workflow-stage section and identity validation.
+Human-only commits are outside the AI-signature contract and should not be
+included in a range whose purpose is AI-assisted workflow closeout.

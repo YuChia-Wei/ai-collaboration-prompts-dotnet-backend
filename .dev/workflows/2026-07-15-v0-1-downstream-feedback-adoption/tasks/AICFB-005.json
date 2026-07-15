@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:25:22+08:00",
+  "updated_at": "2026-07-15T08:30:25+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-005",
-  "status": "in_progress",
+  "status": "completed",
   "finding_ids": [
     "DSFB-P0-004"
   ],
@@ -42,15 +42,27 @@
       "Current workflow commits",
       "Quick gate"
     ],
-    "last_completed_step": "AICFB-004 completed Git-exact-case active-reference enforcement and source remediation.",
-    "next_action": "Define the executable commit contract and positive/negative GWT fixtures."
+    "last_completed_step": "Defined the machine-readable commit contract, executable range validator, conditional quick-gate integration, and eight GWT cases.",
+    "next_action": "Proceed to AICFB-006 validator registry and workflow lifecycle semantics."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Explicitly selected AI-assisted commits now fail closed on subject, final signature, assessment identity, and optional workflow section/identity violations.",
+    "files_changed": [
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.yaml",
+      ".ai/scripts/validate-git-commits.py",
+      ".ai/scripts/tests/test_git_commit_policy.py",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/README.md",
+      ".dev/INDEX.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_git_commit_policy.py -v (8 passed)",
+      "python .ai/scripts/validate-git-commits.py --range main..HEAD --workflow-id 2026-07-15-v0-1-downstream-feedback-adoption (5 passed)",
+      "COMMIT_RANGE=main..HEAD WORKFLOW_ID=2026-07-15-v0-1-downstream-feedback-adoption check-all.sh --quick (passed)"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Human-only versus AI-assisted authorship cannot be inferred safely, so range validation remains explicit and conditional.",
+    "follow_up_needed": false
   }
 }

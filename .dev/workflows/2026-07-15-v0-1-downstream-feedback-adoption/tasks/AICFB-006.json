@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:30:25+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-006",
-  "status": "pending",
+  "status": "in_progress",
   "finding_ids": [
     "DSFB-P0-003",
     "DSFB-P1-003"
@@ -44,8 +44,8 @@
       "Workflow artifact GWT",
       "Existing workflow corpus"
     ],
-    "last_completed_step": "Not started.",
-    "next_action": "Begin after commit policy gate."
+    "last_completed_step": "AICFB-005 completed executable commit-policy enforcement and conditional closeout integration.",
+    "next_action": "Audit validator registry ownership, fixed-count assumptions, and prospective workflow lifecycle invariants."
   },
   "results": {
     "summary": "",
