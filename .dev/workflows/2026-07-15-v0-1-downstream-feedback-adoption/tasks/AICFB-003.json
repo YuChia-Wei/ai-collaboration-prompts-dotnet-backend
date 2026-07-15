@@ -1,0 +1,67 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:18:40+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-003",
+  "status": "completed",
+  "finding_ids": [
+    "DSFB-P0-002",
+    "DSFB-P1-001"
+  ],
+  "scope": {
+    "target": "Package excluded-path and backlink integrity with v0.1-style regression fixtures",
+    "files": [
+      ".ai/distribution/**",
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py"
+    ],
+    "constraints": [
+      "Use Git-tree bytes",
+      "Exclude source lifecycle instances",
+      "Reject references to excluded active paths"
+    ],
+    "non_goals": [
+      "Copy the downstream repository fixture wholesale",
+      "Scan product source or tests"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define excluded reference contract",
+      "Create synthetic legacy overlay fixture",
+      "Validate package members and Markdown references",
+      "Integrate required package gate"
+    ],
+    "validation": [
+      "No excluded members",
+      "No excluded-path backlinks",
+      "ZIP/tar parity"
+    ],
+    "last_completed_step": "Added profile-owned forbidden source lifecycle patterns, builder enforcement, placeholder preservation, and removed the known script README backlinks.",
+    "next_action": "None."
+  },
+  "results": {
+    "summary": "The deterministic builder now rejects allowlisted payload text that links to concrete excluded source workflows, assessments, releases, or backlog items while retaining generic portable placeholders.",
+    "files_changed": [
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/distribution/README.md",
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/README.md",
+      ".ai/scripts/tests/test_ai_context_packaging.py"
+    ],
+    "tests_run": [
+      "Packaging GWT: 11 passed",
+      "Actual v0.3.0 ZIP/tar.gz build from 66f3173",
+      "Two-archive package validation and parity passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Reference extraction intentionally targets repository-style path tokens; semantic prose references without a path remain a human review concern.",
+    "follow_up_needed": false
+  }
+}

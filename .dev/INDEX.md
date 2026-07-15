@@ -22,6 +22,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `standards/WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode gate. |
 | `standards/ASSESSMENT-ARTIFACT-POLICY.md` | Standalone assessment identity, storage, lifecycle, Git lookup, and workflow handoff contract. |
 | `standards/GIT-COMMIT-POLICY.md` | Agent-assisted commit format and timing policy. |
+| `standards/GIT-COMMIT-POLICY.yaml` | Machine-readable commit subject, workflow-section, assessment-ID, and AI-signature contract. |
 | `standards/coding-standards/` | .NET backend coding standards by component type. |
 | `standards/examples/` | Reusable .NET backend examples and templates. |
 | `standards/rationale/` | Rationale records for retained standards. |

@@ -4,6 +4,8 @@
 
 Validated release candidate. No tag or published commit exists yet. Publication requires a `--no-ff` merge to `main`, post-merge validation, an explicitly user-created `v0.3.0` tag, and successful tag-triggered automation. The automation must never create or move that tag.
 
+Unlike retrospective `v0.1.0` and `v0.2.0` source snapshots, this record describes a governed installable package. It does not become published until the user-created tag and Action publication complete.
+
 ## Highlights
 
 - Defines SemVer meaning, immutable annotated tags, stable `REL-*` identities, and release lifecycle governance.

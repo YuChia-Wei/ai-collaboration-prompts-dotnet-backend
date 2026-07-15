@@ -4,15 +4,9 @@ This directory contains transitional AI workflow scripts, context governance che
 
 It is no longer the long-term home for authoritative C# semantic validation. Rules that inspect C# syntax, symbols, type dependencies, attributes, or framework API usage should move to dotnet-native validation mechanisms such as Roslyn analyzers, `.editorconfig`, `dotnet format`, architecture tests, integration tests, or dotnet tools.
 
-## Current Transition
+## Current Boundary
 
-Workflow: `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/`
-
-Key files:
-
-- `script-inventory.md`
-- `dotnet-validation-strategy.md`
-- `script-to-validator-mapping.md`
+`shell-assets.yaml` is the machine-readable lifecycle registry for retained shell assets and the aggregate runner's literal required script/command sets. `validate-shell-assets.py` enforces registry, Git mode, and set-based aggregate-runner parity without fixed expected counts. Current standards and validators own the active contract; packaged documentation must not depend on excluded source workflow history.
 
 ## Retention Policy
 
@@ -39,6 +33,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `validate-git-commits.py`
 - `build-ai-context-package.py`
 - `validate-ai-context-package.py`
 - `plan-ai-context-package-apply.py`
@@ -48,7 +43,7 @@ These scripts inspect AI context, markdown, prompt portability, or repository hy
 
 `validate-ai-context.py` checks objective repository facts: active index paths, literal table corruption, declared runtime-root status, canonical/Agents/Claude skill inventory parity, case-safe `AGENTS.md` and thin `CLAUDE.md` root entries, canonical wrapper-metadata target/path integrity, policy-scoped agent-facing language, root bilingual entry ownership/link/structural markers, rule ownership registry structure, canonical skill/sub-agent schema compliance, canonical template-family hygiene, and deterministic development capability routing. It scans both tracked and untracked non-ignored files so a new context file cannot bypass the gate before staging, while filtering tracked paths that are deleted in the working tree. Language lint uses exact path-and-line exceptions for deliberate routing triggers; other Han prose fails with a file and line number. Script source, generated/example/archive/migration material, workflows, product `src`/`test` trees, and human-facing `.dev` documentation are outside that language scan; Markdown documentation under `.ai/scripts` remains in scope. Root bilingual validation checks reciprocal ownership links, heading-level shape, and ordered backtick table paths, not full semantic parity. Canonical schema validation is structural and path-based; it does not claim semantic equivalence between projections.
 
-`validate-workflow-artifacts.py` validates post-adoption workflow locator/task metadata, complete `.dev/workflows/INDEX.MD` directory coverage, locator-backed title/owner/status/timestamp/entrypoint parity, explicit legacy/no-locator rows, durable `.dev/backlog/items/*.yaml` identity/lifecycle/reference integrity, and fail-closed development implementation contracts for intent, execution mode, overlays, layered sources, subject revision, and acceptance criteria. Historical tasks before contract adoption remain compatible.
+`validate-workflow-artifacts.py` validates post-adoption workflow locator/task metadata, complete `.dev/workflows/INDEX.MD` directory coverage, locator-backed title/owner/status/timestamp/entrypoint parity, explicit legacy/no-locator rows, durable `.dev/backlog/items/*.yaml` identity/lifecycle/reference integrity, and fail-closed development implementation contracts for intent, execution mode, overlays, layered sources, subject revision, and acceptance criteria. Locators that opt into `lifecycle_contract: "1.0"` also enforce active-task cardinality, completed-workflow closure, and completed-task result semantics. Historical tasks and locators before their respective contract adoption remain compatible.
 
 `validate-assessment-artifacts.py` validates `.dev/assessments/` locator and
 index coverage, `ASM-YYYYMMDD-NNN` identity, template and report paths, assessed
@@ -65,6 +60,13 @@ is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
+
+`validate-git-commits.py` validates an explicitly selected commit or revision
+range against `.dev/standards/GIT-COMMIT-POLICY.yaml`. It enforces the subject,
+final AI signature, assessment ID trailer, and—when `--workflow-id` is
+provided—ordered workflow body sections and matching workflow identity. The
+aggregate gate invokes it only when `COMMIT_RANGE` is set, so ordinary working
+tree checks do not guess whether a human-only commit used AI assistance.
 
 `build-ai-context-package.py` reads an immutable Git commit tree and the
 canonical distribution profile to produce normalized ZIP and tar.gz release
@@ -102,7 +104,9 @@ python .ai/scripts/tests/test_fail_closed_validation.py -v
 python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v
 python .ai/scripts/tests/test_ai_context_root_entries.py -v
 python .ai/scripts/tests/test_workflow_implementation_contract.py -v
+python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v
 python .ai/scripts/tests/test_assessment_artifacts.py -v
+python .ai/scripts/tests/test_git_commit_policy.py -v
 python .ai/scripts/tests/test_ai_context_version_governance.py -v
 python .ai/scripts/tests/test_ai_context_package_apply.py -v
 python .ai/scripts/tests/test_ai_context_packaging.py -v
@@ -226,8 +230,7 @@ The context remains useful even when executable validation moves to dotnet-nativ
 
 ## Related Files
 
-- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md`
-- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md`
-- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md`
+- `.ai/scripts/shell-assets.yaml`
+- `.ai/scripts/validate-shell-assets.py`
 - `.ai/assets/tech-stacks/dotnet-backend/README.MD`
 - `.dev/standards/AI-CONTEXT-BOUNDARY.md`

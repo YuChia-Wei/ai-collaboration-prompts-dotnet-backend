@@ -63,7 +63,7 @@ Preserve:
 
 For empty repos, keep README content minimal and do not invent product domains, services, endpoints, or stack versions.
 
-### `.dev/ARCHITECTURE.MD`
+### `.dev/ARCHITECTURE.md`
 
 Update:
 

@@ -22,6 +22,7 @@ This directory owns source-side, machine-readable contracts for building portabl
 - A profile entry marked `allow_empty_until` is a workflow bootstrap exception. A release candidate validator must reject every remaining empty entry.
 - Template-manifest `source` paths are resolved relative to the manifest directory. Targets are repository-relative payload paths; reject absolute paths, `..`, backslashes, duplicates, and collisions. A template may exist once at its canonical managed path and once at its mapped target seed path.
 - `metadata/SHA256SUMS.txt` covers every other envelope member and excludes itself. Archive digests are external `.sha256` sidecars because an archive cannot contain its own final digest.
+- The profile's `reference_integrity` contract rejects concrete links or backtick paths from packaged text back into dated source workflows, assessment instances, release instances, or source backlog items. Generic placeholders remain allowed; package payload must not depend on excluded source lifecycle history.
 
 ## Ownership Classes
 

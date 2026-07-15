@@ -261,3 +261,19 @@ generated_metadata:
   checksum_scope: all-envelope-members-except-metadata/SHA256SUMS.txt
   payload_digest: sha256-of-utf8-lines-sha256-two-spaces-target-path-newline
   archive_checksums: external-sidecars-not-archive-members
+
+reference_integrity:
+  text_extensions:
+    - .md
+    - .yaml
+    - .yml
+    - .json
+    - .toml
+    - .txt
+    - .sh
+    - .ps1
+  forbidden_source_lifecycle_patterns:
+    - .dev/workflows/20*/**
+    - .dev/assessments/ASM-*/**
+    - .dev/releases/v*/**
+    - .dev/backlog/items/**

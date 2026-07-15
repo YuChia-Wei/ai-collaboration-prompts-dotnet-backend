@@ -1,10 +1,13 @@
 # Migrate From v0.1.0 To v0.2.0
 
+`v0.2.0` is also a retrospective source snapshot and provenance anchor, not an installable distribution package. Do not copy either tag tree into a new or existing target. Use these commits only as comparison bases for allowlisted reconciliation; new installations must use a published governed package.
+
 ## Before Changing Files
 
 1. Confirm the target's existing framework source is tag `v0.1.0` at commit `69c285077708dfb96ee49bb39258aec83eb7f1a9`; otherwise record the source as unresolved.
 2. Commit or otherwise preserve target-local changes.
 3. Inventory target-owned root collaboration instructions, requirements, specs, ADRs, operations documents, and runtime customizations.
+4. Exclude source requirements, backlog instances, completed workflows, assessments, release history, and source root truth before proposing reusable framework paths.
 
 ## Required Reconciliation
 

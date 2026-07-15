@@ -169,6 +169,8 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
                 "version": "v0.3.0",
                 "status": "planned",
                 "record_origin": "governed",
+                "distribution_kind": "governed-package",
+                "installable": True,
                 "tag": None,
                 "commit": None,
                 "compatibility": {
@@ -225,6 +227,8 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
                 "version": "v0.3.0",
                 "status": "planned",
                 "record_origin": "governed",
+                "distribution_kind": "governed-package",
+                "installable": False,
                 "tag": "v0.3.0",
                 "commit": None,
                 "compatibility": {
@@ -247,6 +251,58 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
             VALIDATE.validate_release(release, root, errors, verify_git=False)
             # Then identity, safety, compatibility, and pre-publication invariants fail
             self.assertGreaterEqual(len(errors), 10)
+
+    def test_gwt_013_given_retrospective_source_snapshot_when_validated_then_it_is_not_installable(self):
+        # Given a retrospective tag retained only as a source/provenance anchor.
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            release = root / ".dev" / "releases" / "v0.1.0" / "release.yaml"
+            release.parent.mkdir(parents=True)
+            for artifact in ("release-notes.md", "migration-guide.md"):
+                (release.parent / artifact).write_text("historical snapshot\n", encoding="utf-8")
+            release.write_text(yaml.safe_dump({
+                "release_id": "REL-v0.1.0",
+                "version": "v0.1.0",
+                "status": "published",
+                "record_origin": "retrospective",
+                "distribution_kind": "source-snapshot-only",
+                "installable": False,
+                "tag": "v0.1.0",
+                "commit": "69c285077708dfb96ee49bb39258aec83eb7f1a9",
+                "compatibility": {"breaking_changes": False},
+            }, sort_keys=False), encoding="utf-8")
+            # When the record is validated without resolving fixture Git refs.
+            errors: list[str] = []
+            VALIDATE.validate_release(release, root, errors, verify_git=False)
+            # Then the historical non-installable semantics are coherent.
+            self.assertEqual([], errors)
+
+    def test_gwt_014_given_historical_snapshot_claims_installability_when_validated_then_it_fails_closed(self):
+        # Given a retrospective source snapshot falsely claims package installability.
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            release = root / ".dev" / "releases" / "v0.1.0" / "release.yaml"
+            release.parent.mkdir(parents=True)
+            for artifact in ("release-notes.md", "migration-guide.md"):
+                (release.parent / artifact).write_text("historical snapshot\n", encoding="utf-8")
+            release.write_text(yaml.safe_dump({
+                "release_id": "REL-v0.1.0",
+                "version": "v0.1.0",
+                "status": "published",
+                "record_origin": "retrospective",
+                "distribution_kind": "governed-package",
+                "installable": True,
+                "tag": "v0.1.0",
+                "commit": "69c285077708dfb96ee49bb39258aec83eb7f1a9",
+                "compatibility": {"breaking_changes": False},
+                "distribution": {},
+            }, sort_keys=False), encoding="utf-8")
+            # When release validation checks origin and distribution semantics.
+            errors: list[str] = []
+            VALIDATE.validate_release(release, root, errors, verify_git=False)
+            # Then the false package claim and incomplete distribution both fail.
+            self.assertGreaterEqual(len(errors), 5)
+            self.assertTrue(any("retrospective releases" in error for error in errors))
 
 
 if __name__ == "__main__":

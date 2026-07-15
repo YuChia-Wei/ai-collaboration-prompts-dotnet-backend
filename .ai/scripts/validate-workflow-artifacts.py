@@ -29,6 +29,9 @@ IMPLEMENTATION_INTENTS = {
 }
 IMPLEMENTATION_OVERLAYS = {"remediation"}
 REMEDIATION_INTENTS = {"review-remediation", "validation-failure-remediation"}
+WORKFLOW_STATUSES = {"planned", "in_progress", "completed", "blocked", "cancelled"}
+TASK_STATUSES = {"pending", "in_progress", "completed", "deferred", "blocked", "cancelled"}
+TERMINAL_TASK_STATUSES = {"completed", "deferred", "cancelled"}
 ID_RE = re.compile(r"^(\d{4}-\d{2}-\d{2})-[a-z0-9][a-z0-9-]*$")
 TASK_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*$")
 REQUIRED_LOCATOR = {
@@ -330,6 +333,48 @@ def validate_implementation_contract(
         errors.append(f"{label}: subject_revision must be empty or a 40-character Git SHA")
 
 
+def validate_lifecycle_contract(
+    locator: dict[str, str], tasks: list[tuple[str, dict]], label: str, errors: list[str]
+) -> None:
+    """Validate prospective workflow/task semantic consistency when opted in."""
+    contract = locator.get("lifecycle_contract")
+    if contract is None:
+        return
+    if contract != "1.0":
+        errors.append(f"{label}: lifecycle_contract must be 1.0")
+        return
+
+    workflow_status = locator.get("status", "")
+    if workflow_status not in WORKFLOW_STATUSES:
+        errors.append(f"{label}: unsupported workflow status {workflow_status!r}")
+
+    statuses: list[tuple[str, str]] = []
+    for task_label, task in tasks:
+        status = str(task.get("status", ""))
+        statuses.append((task_label, status))
+        if status not in TASK_STATUSES:
+            errors.append(f"{task_label}: unsupported task status {status!r}")
+        if status == "completed":
+            results = task.get("results")
+            if not isinstance(results, dict):
+                errors.append(f"{task_label}: completed task requires results mapping")
+                continue
+            if not isinstance(results.get("summary"), str) or not results["summary"].strip():
+                errors.append(f"{task_label}: completed task requires non-empty results.summary")
+            if results.get("finding_status") in (None, "", "not-addressed"):
+                errors.append(f"{task_label}: completed task requires an addressed results.finding_status")
+
+    in_progress = [task_label for task_label, status in statuses if status == "in_progress"]
+    if workflow_status == "in_progress" and len(in_progress) != 1:
+        errors.append(f"{label}: in_progress workflow requires exactly one in_progress task; found={in_progress}")
+    if workflow_status == "completed":
+        unfinished = [task_label for task_label, status in statuses if status not in TERMINAL_TASK_STATUSES]
+        if unfinished:
+            errors.append(f"{label}: completed workflow has unfinished tasks {unfinished}")
+        if locator.get("current_phase") not in {"completed", "closed"}:
+            errors.append(f"{label}: completed workflow current_phase must be completed or closed")
+
+
 def main() -> int:
     repo = Path(__file__).resolve().parents[2]
     discovery_root = repo / ".dev" / "workflows"
@@ -400,6 +445,7 @@ def main() -> int:
         if not entrypoint.is_file():
             errors.append(f"{locator_path.relative_to(repo)}: entrypoint does not exist in artifact_root")
         task_root = root / "tasks"
+        task_records: list[tuple[str, dict]] = []
         if task_root.is_dir():
             seen: set[str] = set()
             for task_path in sorted(task_root.glob("*.json")):
@@ -408,6 +454,7 @@ def main() -> int:
                 except (json.JSONDecodeError, UnicodeDecodeError) as exc:
                     errors.append(f"{task_path.relative_to(repo)}: invalid JSON: {exc}")
                     continue
+                task_records.append((str(task_path.relative_to(repo)), task))
                 missing_task = sorted(REQUIRED_TASK - task.keys())
                 if missing_task:
                     errors.append(f"{task_path.relative_to(repo)}: missing fields {', '.join(missing_task)}")
@@ -424,6 +471,12 @@ def main() -> int:
                 if task_created and task_updated and task_updated < task_created:
                     errors.append(f"{task_path.relative_to(repo)}: updated_at is earlier than created_at")
                 validate_implementation_contract(task, str(task_path.relative_to(repo)), errors, task_created)
+        validate_lifecycle_contract(
+            locator,
+            task_records,
+            str(locator_path.relative_to(repo)),
+            errors,
+        )
 
     indexed_workflows = validate_workflow_index(repo, discovery_root, errors)
     backlog_items = validate_backlog(repo, errors)

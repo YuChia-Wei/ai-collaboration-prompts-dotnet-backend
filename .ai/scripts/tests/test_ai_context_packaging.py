@@ -53,6 +53,15 @@ class SyntheticPackageRepo:
                 "source_repository": "fixture/repository",
                 "name_template": "fixture-v{version}",
             },
+            "reference_integrity": {
+                "text_extensions": [".md", ".yaml", ".py"],
+                "forbidden_source_lifecycle_patterns": [
+                    ".dev/workflows/20*/**",
+                    ".dev/assessments/ASM-*/**",
+                    ".dev/releases/v*/**",
+                    ".dev/backlog/items/**",
+                ],
+            },
             "entries": [
                 {
                     "id": "fixture-docs",
@@ -268,6 +277,43 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn("gh release view", text)
         self.assertIn("ai-context-release-automation:", text)
         self.assertNotRegex(text, r"(?m)^\s*(?:git\s+(?:tag|push|update-ref)|gh\s+api\s+.*git/refs)\b")
+
+
+class PayloadReferenceIntegrityGwtTests(unittest.TestCase):
+    def test_gwt_010_given_packaged_text_links_excluded_source_workflow_when_built_then_it_fails_closed(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given an allowlisted Markdown file links to a concrete excluded source workflow instance.
+            (fixture.root / "docs/rule.md").write_text(
+                "See `.dev/workflows/2026-05-source-only/report.md`.\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            git(fixture.root, "add", "docs/rule.md")
+            git(fixture.root, "commit", "-qm", "add forbidden source backlink")
+            # When the deterministic builder validates payload references.
+            # Then it rejects the backlink even though the referring file itself is allowlisted.
+            with self.assertRaisesRegex(PACKAGE.PackageError, "excluded source lifecycle"):
+                fixture.build("forbidden-reference")
+        finally:
+            fixture.close()
+
+    def test_gwt_011_given_generic_lifecycle_placeholders_when_built_then_they_remain_portable(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given portable documentation uses placeholders and globs rather than a source instance.
+            (fixture.root / "docs/rule.md").write_text(
+                "Use `.dev/workflows/<workflow-id>/report.md` and `.dev/backlog/items/*.yaml`.\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            git(fixture.root, "add", "docs/rule.md")
+            git(fixture.root, "commit", "-qm", "add portable lifecycle placeholders")
+            # When the package is built, then generic target-side contracts remain valid.
+            result = fixture.build("portable-placeholders")
+            self.assertTrue(Path(result["zip"]).is_file())
+        finally:
+            fixture.close()
 
 
 if __name__ == "__main__":

@@ -3,6 +3,8 @@ release_id: "REL-v0.1.0"
 version: "v0.1.0"
 status: "published"
 record_origin: "retrospective"
+distribution_kind: "source-snapshot-only"
+installable: false
 tag: "v0.1.0"
 commit: "69c285077708dfb96ee49bb39258aec83eb7f1a9"
 tagged_at: "2026-07-14T21:26:05+08:00"

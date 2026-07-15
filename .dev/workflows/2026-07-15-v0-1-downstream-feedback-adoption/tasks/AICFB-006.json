@@ -1,0 +1,72 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
+  "owner_skill": "ai-context-governance",
+  "created_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:37:59+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "AICFB-006",
+  "status": "completed",
+  "finding_ids": [
+    "DSFB-P0-003",
+    "DSFB-P1-003"
+  ],
+  "scope": {
+    "target": "Validator registry parity and workflow lifecycle semantic consistency",
+    "files": [
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/validate-shell-assets.py",
+      ".ai/scripts/validate-workflow-artifacts.py",
+      ".ai/scripts/tests/**"
+    ],
+    "constraints": [
+      "Compare declared sets rather than fixed counts",
+      "Fail closed on completed workflows with unfinished tasks",
+      "Preserve historical compatibility"
+    ],
+    "non_goals": [
+      "Universal workflow body schema",
+      "Rewrite legacy workflows"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Audit current registry ownership",
+      "Remove brittle numeric assumptions",
+      "Define prospective workflow state invariants",
+      "Add contradiction fixtures"
+    ],
+    "validation": [
+      "Fail-closed runner tests",
+      "Workflow artifact GWT",
+      "Existing workflow corpus"
+    ],
+    "last_completed_step": "Added set-based required-command registry parity and opt-in workflow lifecycle consistency with legacy compatibility.",
+    "next_action": "Proceed to AICFB-007 tool-neutral freshness and generated-index drift review."
+  },
+  "results": {
+    "summary": "The aggregate runner's literal required commands are checked as a declared set, while prospective workflows fail on active-task, closure, phase, and completed-result contradictions.",
+    "files_changed": [
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/scripts/validate-shell-assets.py",
+      ".ai/scripts/validate-workflow-artifacts.py",
+      ".ai/scripts/tests/test_fail_closed_validation.py",
+      ".ai/scripts/tests/test_workflow_lifecycle_contract.py",
+      ".ai/assets/skills/*/templates/workflow-locator-template.yaml",
+      ".dev/standards/WORKFLOW-ARTIFACT-POLICY.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_fail_closed_validation.py -v (17 passed)",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v (6 passed)",
+      "python .ai/scripts/validate-shell-assets.py (passed)",
+      "python .ai/scripts/validate-workflow-artifacts.py (passed)",
+      "COMMIT_RANGE=main..HEAD WORKFLOW_ID=2026-07-15-v0-1-downstream-feedback-adoption check-all.sh --quick (passed)"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Legacy locators remain compatible; planned, blocked, and cancelled transition semantics plus content-to-timestamp proof are outside the current prospective snapshot contract.",
+    "follow_up_needed": false
+  }
+}
