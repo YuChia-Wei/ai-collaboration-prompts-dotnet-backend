@@ -1,0 +1,10 @@
+{
+  "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "RULE-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "pending",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T07:22:13+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260715-002#AIC-001", "ASM-20260715-002#AIC-002", "ASM-20260715-002#AIC-013"],
+  "scope": {"target": "Profile, deletion, and testing rule ownership", "files": [".dev/standards/AI-CONTEXT-OWNERSHIP.*", ".dev/standards/coding-standards/**", ".dev/standards/README.md", ".ai/assets/**"], "constraints": ["NSubstitute is required", "Preserve GWT invariant", "Do not resolve soft-delete applicability without V040-DEC-002"], "non_goals": ["Modify downstream lab tests"]},
+  "execution": {"steps": ["Update ownership strengths", "Align canonical and derived consumers", "Remove incompatible profile selectors", "Add relationship validation"], "validation": ["Ownership registry validation", "Moq/NSubstitute scan", "Soft-delete projection scan", "Profile-selector scan"], "last_completed_step": "", "next_action": "Start after PLAN-001 completes."},
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
+

@@ -1,0 +1,10 @@
+{
+  "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "VERIFY-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "pending",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T07:22:13+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260715-002#AIC-001", "ASM-20260715-002#AIC-002", "ASM-20260715-002#AIC-003", "ASM-20260715-002#AIC-004", "ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-006", "ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-008", "ASM-20260715-002#AIC-009", "ASM-20260715-002#AIC-010", "ASM-20260715-002#AIC-011", "ASM-20260715-002#AIC-012", "ASM-20260715-002#AIC-013", "ASM-20260715-002#AIC-014"],
+  "scope": {"target": "Independent verification, finding reconciliation, and workflow closure", "files": [".dev/assessments/<future-assessment-id>/**", ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/reports/remediation-report.md", ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"], "constraints": ["ai-context-auditor owns verification conclusions", "Every finding needs explicit outcome", "Validate workflow commit range"], "non_goals": ["Governance self-verification"]},
+  "execution": {"steps": ["Request independent assessment", "Reconcile each finding", "Record commit and validation evidence", "Close or defer explicitly"], "validation": ["Full quick gate", "Assessment validator", "Workflow validator", "Git commit policy range"], "last_completed_step": "", "next_action": "Start only after all authorized remediation tasks finish."},
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
+

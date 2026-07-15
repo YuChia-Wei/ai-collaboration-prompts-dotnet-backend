@@ -1,0 +1,10 @@
+{
+  "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "TRUTH-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "pending",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T07:22:13+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260715-002#AIC-004", "ASM-20260715-002#AIC-010", "ASM-20260715-002#AIC-012"],
+  "scope": {"target": "Broken active routes and stale executable guidance", "files": [".ai/assets/skills/spec-compliance-validator/**", ".dev/standards/examples/controller/**", ".dev/standards/coding-standards.md"], "constraints": ["Use current analyzer/tool contracts", "Controller example must be async", "Canonical namespaces must remain portable"], "non_goals": ["Redesign analyzers"]},
+  "execution": {"steps": ["Replace removed command route", "Align controller example", "Remove Lab-specific namespace"], "validation": ["Command/path existence", "Async example compilation or declared tier", "Target-name scan"], "last_completed_step": "", "next_action": "Start after RULE-001 establishes applicable truth."},
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
+

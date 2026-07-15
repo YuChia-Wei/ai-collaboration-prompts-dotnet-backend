@@ -1,0 +1,10 @@
+{
+  "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "VALIDATE-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "pending",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T07:22:13+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260715-002#AIC-008", "ASM-20260715-002#AIC-009"],
+  "scope": {"target": "Truthful validator coverage and shell asset lifecycle", "files": [".ai/scripts/check-coding-standards.sh", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", ".ai/scripts/README.md", ".ai/scripts/tests/**"], "constraints": ["Do not claim semantic completeness from structural checks", "Distinguish packaging retention from endorsement", "Preserve active orchestrators"], "non_goals": ["Replace every shell script"]},
+  "execution": {"steps": ["Rename structural success claims", "Add selected relationship checks", "Classify shell lifecycle", "Add fail-closed tests"], "validation": ["Shell asset validator", "Focused GWT tests", "Quick gate"], "last_completed_step": "", "next_action": "Start after remediated relationships are known."},
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
+

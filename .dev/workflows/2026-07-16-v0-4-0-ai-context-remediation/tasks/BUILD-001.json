@@ -1,0 +1,10 @@
+{
+  "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "BUILD-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "pending",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T07:22:13+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-014"],
+  "scope": {"target": "EzDDD lineage, BuildingBlocks API truth, and executable reconstruction proof", "files": [".ai/assets/tech-stacks/dotnet-backend/references/**", ".dev/standards/project-structure.md", ".dev/standards/examples/**", "tools/<reference-fixture>/**"], "constraints": ["Architecture skill owns API design", "Fixture must compile before verified claims", "No NuGet or dotnet-new publication"], "non_goals": ["Copy either lab wholesale", "Finalize future package distribution"]},
+  "execution": {"steps": ["Create concept/disposition matrix", "Select stable BuildingBlocks contracts", "Create or explicitly defer a minimal compile-tested fixture", "Link standards and examples to executable truth"], "validation": ["dotnet build/test fixture", "Dependency-direction checks", "Concept coverage matrix review"], "last_completed_step": "", "next_action": "Start after RULE-001 and EXAMPLE-001 establish ownership and verification contracts."},
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
+
