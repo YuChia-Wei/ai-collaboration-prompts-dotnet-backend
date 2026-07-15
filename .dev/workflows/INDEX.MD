@@ -8,6 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-15-v0-0-1-retrospective-governance`](2026-07-15-v0-0-1-retrospective-governance/workflow.yaml) | Govern Retrospective v0.0.1 Identity And v0.3.0 Upgrade Path | `ai-context-governance` | `in_progress` | `2026-07-15T09:01:25+08:00` | [plan](2026-07-15-v0-0-1-retrospective-governance/workflow-plan.md) |
 | [`2026-07-15-v0-1-downstream-feedback-adoption`](2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml) | Adopt v0.1.0 Downstream Feedback Into Framework Governance | `ai-context-governance` | `completed` | `2026-07-15T08:47:44+08:00` | [plan](2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
