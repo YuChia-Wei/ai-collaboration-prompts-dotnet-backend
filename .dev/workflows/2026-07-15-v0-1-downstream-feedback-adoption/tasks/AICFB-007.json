@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:37:59+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-007",
-  "status": "pending",
+  "status": "in_progress",
   "finding_ids": [
     "DSFB-P1-004",
     "DSFB-P2-001"
@@ -44,8 +44,8 @@
       "Context validator",
       "No external tool required"
     ],
-    "last_completed_step": "Policy already requires freshness disclosure and repository-native verification.",
-    "next_action": "Begin after core governance gates."
+    "last_completed_step": "AICFB-006 completed aggregate registry parity and prospective lifecycle consistency.",
+    "next_action": "Reconcile existing tool-neutral policy with remaining generated-index freshness signals and record bounded implementation or deferral."
   },
   "results": {
     "summary": "",

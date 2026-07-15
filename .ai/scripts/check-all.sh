@@ -235,6 +235,10 @@ run_command_check "python .ai/scripts/tests/test_workflow_implementation_contrac
       "Workflow Implementation Contract Fail-Closed Tests" \
       "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v" \
+    "Workflow Lifecycle Contract Fail-Closed Tests" \
+    "required" "true" "true"
+
 run_command_check "python .ai/scripts/tests/test_git_commit_policy.py -v" \
     "Git Commit Policy Fail-Closed Tests" \
     "required" "true" "true"

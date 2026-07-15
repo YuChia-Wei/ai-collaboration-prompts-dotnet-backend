@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:30:25+08:00",
+  "updated_at": "2026-07-15T08:37:59+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-006",
-  "status": "in_progress",
+  "status": "completed",
   "finding_ids": [
     "DSFB-P0-003",
     "DSFB-P1-003"
@@ -44,15 +44,29 @@
       "Workflow artifact GWT",
       "Existing workflow corpus"
     ],
-    "last_completed_step": "AICFB-005 completed executable commit-policy enforcement and conditional closeout integration.",
-    "next_action": "Audit validator registry ownership, fixed-count assumptions, and prospective workflow lifecycle invariants."
+    "last_completed_step": "Added set-based required-command registry parity and opt-in workflow lifecycle consistency with legacy compatibility.",
+    "next_action": "Proceed to AICFB-007 tool-neutral freshness and generated-index drift review."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "The aggregate runner's literal required commands are checked as a declared set, while prospective workflows fail on active-task, closure, phase, and completed-result contradictions.",
+    "files_changed": [
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/scripts/validate-shell-assets.py",
+      ".ai/scripts/validate-workflow-artifacts.py",
+      ".ai/scripts/tests/test_fail_closed_validation.py",
+      ".ai/scripts/tests/test_workflow_lifecycle_contract.py",
+      ".ai/assets/skills/*/templates/workflow-locator-template.yaml",
+      ".dev/standards/WORKFLOW-ARTIFACT-POLICY.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_fail_closed_validation.py -v (17 passed)",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v (6 passed)",
+      "python .ai/scripts/validate-shell-assets.py (passed)",
+      "python .ai/scripts/validate-workflow-artifacts.py (passed)",
+      "COMMIT_RANGE=main..HEAD WORKFLOW_ID=2026-07-15-v0-1-downstream-feedback-adoption check-all.sh --quick (passed)"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Legacy locators remain structurally compatible until explicitly migrated to lifecycle_contract 1.0.",
+    "follow_up_needed": false
   }
 }
