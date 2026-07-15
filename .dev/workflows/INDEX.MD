@@ -8,13 +8,13 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-15-v0-0-1-retrospective-governance`](2026-07-15-v0-0-1-retrospective-governance/workflow.yaml) | Govern Retrospective v0.0.1 Identity And v0.3.0 Upgrade Path | `ai-context-governance` | `in_progress` | `2026-07-15T09:09:05+08:00` | [plan](2026-07-15-v0-0-1-retrospective-governance/workflow-plan.md) |
 | [`2026-07-15-v0-1-downstream-feedback-adoption`](2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml) | Adopt v0.1.0 Downstream Feedback Into Framework Governance | `ai-context-governance` | `completed` | `2026-07-15T08:47:44+08:00` | [plan](2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-15-v0-0-1-retrospective-governance`](2026-07-15-v0-0-1-retrospective-governance/workflow.yaml) | Govern Retrospective v0.0.1 Identity And v0.3.0 Upgrade Path | `ai-context-governance` | `completed` | `2026-07-15T09:12:33+08:00` | [plan](2026-07-15-v0-0-1-retrospective-governance/workflow-plan.md) |
 | [`2026-07-14-ai-context-release-packaging`](2026-07-14-ai-context-release-packaging/workflow.yaml) | AI Context Deterministic Packaging And Automated Release | `ai-context-governance` | `completed` | `2026-07-15T07:53:30+08:00` | [plan](2026-07-14-ai-context-release-packaging/workflow-plan.md) |
 | [`2026-07-14-ai-context-version-governance`](2026-07-14-ai-context-version-governance/workflow.yaml) | AI Context Version Governance And Upgrade Capability | `ai-context-governance` | `completed` | `2026-07-14T22:07:36+08:00` | [plan](2026-07-14-ai-context-version-governance/workflow-plan.md) |
 | [`2026-07-14-slice-remediation-overlay`](2026-07-14-slice-remediation-overlay/workflow.yaml) | Slice Remediation Intent And Overlay Contract | `ai-context-governance` | `completed` | `2026-07-14T21:19:12+08:00` | [plan](2026-07-14-slice-remediation-overlay/workflow-plan.md) |
