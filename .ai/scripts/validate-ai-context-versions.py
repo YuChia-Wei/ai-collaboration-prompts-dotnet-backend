@@ -191,8 +191,26 @@ def validate_release(path: Path, root: Path, errors: list[str], verify_git: bool
     compatibility = data.get("compatibility")
     if not isinstance(compatibility, dict) or not isinstance(compatibility.get("breaking_changes"), bool):
         errors.append(f"{path}: compatibility.breaking_changes must be boolean")
-    elif data.get("record_origin") == "governed":
-        validate_distribution(path, version, compatibility, data.get("distribution"), errors)
+    distribution_kind = data.get("distribution_kind")
+    installable = data.get("installable")
+    if distribution_kind not in {"source-snapshot-only", "governed-package"}:
+        errors.append(f"{path}: distribution_kind must be source-snapshot-only or governed-package")
+    if not isinstance(installable, bool):
+        errors.append(f"{path}: installable must be boolean")
+    if distribution_kind == "source-snapshot-only":
+        if installable is not False:
+            errors.append(f"{path}: source-snapshot-only releases must not be installable")
+        if "distribution" in data:
+            errors.append(f"{path}: source-snapshot-only releases must not declare governed distribution metadata")
+    if distribution_kind == "governed-package":
+        if installable is not True:
+            errors.append(f"{path}: governed-package releases must be installable")
+        if isinstance(compatibility, dict):
+            validate_distribution(path, version, compatibility, data.get("distribution"), errors)
+    if data.get("record_origin") == "retrospective" and distribution_kind != "source-snapshot-only":
+        errors.append(f"{path}: retrospective releases must be source-snapshot-only")
+    if data.get("record_origin") == "governed" and distribution_kind != "governed-package":
+        errors.append(f"{path}: governed releases must use governed-package distribution_kind")
     if status in {"planned", "validated"}:
         if data.get("tag") is not None or data.get("commit") is not None:
             errors.append(f"{path}: {status} release tag and commit must remain null")

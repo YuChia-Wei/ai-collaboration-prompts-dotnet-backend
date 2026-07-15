@@ -6,6 +6,8 @@ Published retrospectively at tag `v0.2.0`, commit `9abc75b543ae201865c1e119d29fa
 
 This record was created after the tag. It summarizes the material framework difference from `v0.1.0` without claiming that release governance existed at publication time.
 
+This tag is a `source-snapshot-only` provenance anchor and is not an installable package. Its repository tree must not be used as a whole-tree overlay.
+
 ## Highlights
 
 - Normalized the root `AGENTS.md` entry and thin `CLAUDE.md` adapter.
@@ -24,3 +26,4 @@ This pre-1.0 minor release contains contract changes. Targets copied from `v0.1.
 - The release does not yet contain a target provenance manifest or dedicated upgrade skill.
 - Historical workflow artifacts retain their original schemas.
 - Dependency/version validation remains deferred until a dotnet-native replacement exists.
+- New installations must use a published governed package rather than this tag tree.

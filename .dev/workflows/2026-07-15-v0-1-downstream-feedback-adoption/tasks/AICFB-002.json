@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:06:44+08:00",
+  "updated_at": "2026-07-15T08:11:28+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-002",
-  "status": "in_progress",
+  "status": "completed",
   "finding_ids": [
     "DSFB-P0-001"
   ],
@@ -43,15 +43,25 @@
       "Version-governance GWT",
       "Migration wording scan"
     ],
-    "last_completed_step": "Confirmed both retrospective records lack distribution kind and v0.1 still recommends copying the framework.",
-    "next_action": "Implement fail-closed historical release semantics."
+    "last_completed_step": "Added source-snapshot-only and installable=false to retrospective releases, governed-package semantics to v0.3.0, repaired migration guidance, and added fail-closed tests.",
+    "next_action": "None."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Historical tags are now explicit non-installable source/provenance anchors; new installations are directed to a published governed package and raw tag-tree overlays are prohibited.",
+    "files_changed": [
+      ".dev/releases/v0.1.0/**",
+      ".dev/releases/v0.2.0/**",
+      ".dev/releases/v0.3.0/release.yaml",
+      ".dev/releases/v0.3.0/release-notes.md",
+      ".ai/scripts/validate-ai-context-versions.py",
+      ".ai/scripts/tests/test_ai_context_version_governance.py"
+    ],
+    "tests_run": [
+      "Version governance GWT: 14 passed",
+      "python .ai/scripts/validate-ai-context-versions.py --no-git"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "No governed package is published yet; v0.3.0 remains validated but untagged and unpublished.",
+    "follow_up_needed": false
   }
 }
