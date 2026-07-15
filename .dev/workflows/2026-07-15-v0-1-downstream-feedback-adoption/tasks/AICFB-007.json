@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:37:59+08:00",
+  "updated_at": "2026-07-15T08:41:59+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-007",
-  "status": "in_progress",
+  "status": "completed",
   "finding_ids": [
     "DSFB-P1-004",
     "DSFB-P2-001"
@@ -44,15 +44,25 @@
       "Context validator",
       "No external tool required"
     ],
-    "last_completed_step": "AICFB-006 completed aggregate registry parity and prospective lifecycle consistency.",
-    "next_action": "Reconcile existing tool-neutral policy with remaining generated-index freshness signals and record bounded implementation or deferral."
+    "last_completed_step": "Verified graph staleness in-session, added generated-inventory provenance rules and report fields, and removed a false auto-generated claim.",
+    "next_action": "Proceed to AICFB-008 independent verification and workflow closure."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "partially-resolved",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Optional graphs remain discovery-only; retained generated views now have a provenance contract and audit reports have explicit accelerator freshness/fallback fields.",
+    "files_changed": [
+      ".dev/standards/AI-CONTEXT-BOUNDARY.md",
+      ".ai/assets/skills/ai-context-auditor/references/audit-playbook.md",
+      ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md",
+      ".ai/scripts/check-test-compliance.sh"
+    ],
+    "tests_run": [
+      "codebase-memory search_graph for validate_commits returned zero while Git-backed .ai/scripts/validate-git-commits.py existed",
+      "python .ai/scripts/validate-ai-context.py (passed)",
+      "python .ai/scripts/validate-shell-assets.py (passed)",
+      "active AUTO-GENERATED marker scan (none remain)"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "External tools own index creation and query freshness UX; the framework can only require disclosure and file-backed fallback.",
+    "follow_up_needed": false
   }
 }

@@ -22,6 +22,12 @@ from tool output alone. Follow the canonical quick fallback checks in
 the accelerator's freshness, scope, exclusions, and unsupported relationship
 classes when they affect the audit.
 
+If a retained generated inventory or index is used, verify that it declares
+the generator, generation time, source revision or input digest, scope, and
+exclusions. Record the comparison in the report's Discovery Accelerators table.
+Missing or stale provenance downgrades the artifact to a discovery hint; it
+does not establish absence or completeness.
+
 ## 2. Pass A: Independent Baseline
 
 Assess the repository using general knowledge before treating its own governance policies as the rubric. Review:

@@ -3,12 +3,12 @@
 # ====================================================================
 # Test Compliance Check
 # 
-# Generated from: test-standards.md
-# Purpose: Check compliance based on markdown documentation
-# 
-# THIS FILE IS AUTO-GENERATED FROM MARKDOWN - DO NOT EDIT MANUALLY
-# Transitional advisory check. The markdown-to-shell generator was retired;
-# do not present this grep-based script as canonical C# semantic validation.
+# Historical input: test-standards.md
+# Purpose: Transitional advisory check based on markdown documentation
+#
+# Manually maintained legacy asset. The markdown-to-shell generator was retired;
+# do not present this grep-based script as generated, reproducible, or canonical
+# C# semantic validation.
 # ====================================================================
 
 set -e

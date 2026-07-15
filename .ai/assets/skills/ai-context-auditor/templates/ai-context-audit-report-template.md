@@ -3,9 +3,9 @@
 ## Template Metadata
 
 - `template_id`: `ai-context-auditor-report`
-- `template_version`: `2.0.0`
+- `template_version`: `2.1.0`
 - `created_at`: `2026-07-10T18:22:49+08:00`
-- `updated_at`: `2026-07-13T23:11:56+08:00`
+- `updated_at`: `2026-07-15T08:39:00+08:00`
 
 ## Metadata
 
@@ -17,7 +17,7 @@
 - `created_at`: `<ISO-8601-with-offset>`
 - `updated_at`: `<ISO-8601-with-offset>`
 - `template_source`: `.ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md`
-- `template_version`: `2.0.0`
+- `template_version`: `2.1.0`
 - `repository`:
 - `subject_branch`:
 - `subject_commit`:
@@ -70,6 +70,12 @@
 
 - Sub-agents used:
 - Assigned surfaces:
+
+### Discovery Accelerators
+
+| Tool / generated view | Source revision or input digest | Freshness / dirty state | Scope and exclusions | Unsupported relationships | File-backed fallback |
+| --- | --- | --- | --- | --- | --- |
+| None / not applicable |  |  |  |  |  |
 
 ## Repository Context Inventory
 

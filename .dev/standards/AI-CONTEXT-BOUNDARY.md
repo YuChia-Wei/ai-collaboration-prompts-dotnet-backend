@@ -88,6 +88,20 @@ product contract: its full index omitted `.claude/` and exposed Markdown files
 and headings without Markdown link edges. Re-test current tool behavior when it
 matters, and use the fallback checks above regardless of tool brand.
 
+### Generated Inventory Contract
+
+A generated inventory, index, graph export, or snapshot that is retained as a
+repository artifact must identify its generator, generation time, source Git
+revision or input digest, scope, and exclusions. It must also state how a user
+can reproduce or validate it. If those fields are absent or its source revision
+differs from the subject revision, treat it as a discovery hint rather than
+primary evidence.
+
+- Do not overwrite human-owned or file-backed truth with a generated view.
+- Do not infer completeness from a generated artifact merely because it is committed.
+- Prefer a repository-owned deterministic regeneration or parity check when the generated artifact is an active catalog.
+- When no active generated inventory exists, record the check as not applicable instead of creating one solely for convenience.
+
 ## Decision Checklist
 
 Before creating or moving an AI context file, answer these questions:
