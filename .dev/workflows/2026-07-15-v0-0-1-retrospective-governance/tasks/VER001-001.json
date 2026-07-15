@@ -6,9 +6,9 @@
   "task_id": "VER001-001",
   "workflow_id": "2026-07-15-v0-0-1-retrospective-governance",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-15T09:01:25+08:00",
-  "updated_at": "2026-07-15T09:09:05+08:00",
+  "updated_at": "2026-07-15T09:12:33+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["VER001-RETROSPECTIVE-IDENTITY", "VER001-V030-UPGRADE-PATH"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Create retrospective record", "Add manual reconciliation migration", "Validate release contracts", "Merge and push governance", "Create and push annotated historical tag"],
     "validation": ["validate-ai-context-versions.py", "version governance GWT", "workflow/context validators", "tag target verification"],
-    "last_completed_step": "Created the local annotated tag, retrospective v0.0.1 record, manual v0.3.0 reconciliation path, and GWT guard; all source-side validators pass.",
-    "next_action": "Checkpoint-merge and push the registry, push v0.0.1, verify the remote tag, then continue on a fresh branch for closure."
+    "last_completed_step": "Merged and pushed the governed release registry, published annotated tag v0.0.1, and verified its remote peeled target.",
+    "next_action": "None; workflow closure metadata is ready for validation and merge."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Recorded v0.0.1 as a retrospective non-installable source snapshot, constrained v0.3.0 upgrades to provenance-aware manual reconciliation, and published the immutable historical tag.",
+    "files_changed": [".dev/releases/v0.0.1/**", ".dev/releases/v0.3.0/**", ".dev/releases/INDEX.MD", ".ai/scripts/tests/test_ai_context_version_governance.py"],
+    "tests_run": ["check-all.sh --quick", "test_ai_context_version_governance.py -v", "validate-ai-context-versions.py", "remote annotated tag peeled-target verification"],
+    "finding_status": "addressed",
+    "residual_risk": "The exact file selection installed by historical v0.0.1 consumers is unknown; each target still requires provenance and semantic reconciliation before upgrade.",
+    "follow_up_needed": false
   }
 }
