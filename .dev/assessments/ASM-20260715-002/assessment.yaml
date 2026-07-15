@@ -5,16 +5,16 @@ template_metadata:
   template_updated_at: "2026-07-13T23:04:10+08:00"
 
 schema_version: "1.0"
-assessment_id: "ASM-20260715-001"
-commit_search_id: "ASM-20260715-001"
+assessment_id: "ASM-20260715-002"
+commit_search_id: "ASM-20260715-002"
 assessment_type: "ai-context-audit"
-title: "v0.4.0 Standards, Examples, And Script Usage Assessment"
+title: "v0.4.0 Standards Lineage And Downstream Adoption Reassessment"
 owner_skill: "ai-context-auditor"
-status: "superseded"
+status: "final"
 report: "report.md"
-artifact_branch: "codex/assessment/asm-20260715-001"
-base_branch: "main"
-created_at: "2026-07-15T21:25:18+08:00"
+artifact_branch: "codex/assessment/asm-20260715-002"
+base_branch: "codex/assessment/asm-20260715-001"
+created_at: "2026-07-15T23:43:06+08:00"
 updated_at: "2026-07-15T23:43:06+08:00"
 template_source: ".dev/assessments/templates/assessment-locator-template.yaml"
 template_version: "1.0.0"
@@ -35,25 +35,25 @@ scope:
     - "AGENTS.md"
     - "CLAUDE.md"
     - "standards-related validators, indexes, workflow artifacts, and Git history"
-    - "tools/** only where repository-owned analyzers or validators establish standards enforcement"
+    - "read-only lineage evidence from ai-coding-exercise at f7ed0b9b5b23822ec012c375261df44f6f03a97f"
+    - "read-only downstream adoption evidence from dotnet-mq-arch-lab at 0f71e5ca694ceadacf7616a72805a14b2eef2309"
   excluded:
-    - "src/**"
-    - "tests/**"
-    - "test/** product implementation trees"
-    - "docker-compose/**"
+    - "product source-code quality review"
+    - "product test-code quality review"
+    - "docker-compose/** implementation review"
     - "bin/**"
     - "obj/**"
     - "generated and dependency trees"
     - "GitHub Release verification"
 relations:
-  supersedes: []
-  superseded_by:
-    - "ASM-20260715-002"
+  supersedes:
+    - "ASM-20260715-001"
+  superseded_by: []
   related_assessments: []
   workflow_refs: []
   backlog_refs: []
   adr_refs: []
 resume:
-  last_completed_action: "Superseded after the original Java source and the v0.1.0 downstream repository became available as additional evidence."
-  next_action: "Use ASM-20260715-002 for review and finding selection."
+  last_completed_action: "Finalized the v0.4.0 reassessment with original Java lineage and downstream adoption evidence."
+  next_action: "Await user review and selected finding IDs before ai-context-governance creates a remediation workflow."
   blockers: []
