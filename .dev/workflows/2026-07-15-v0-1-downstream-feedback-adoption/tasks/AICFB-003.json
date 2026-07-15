@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:11:28+08:00",
+  "updated_at": "2026-07-15T08:18:40+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-003",
-  "status": "in_progress",
+  "status": "completed",
   "finding_ids": [
     "DSFB-P0-002",
     "DSFB-P1-001"
@@ -43,15 +43,25 @@
       "No excluded-path backlinks",
       "ZIP/tar parity"
     ],
-    "last_completed_step": "AICFB-002 established historical source-snapshot boundaries and prohibited raw tag-tree installation.",
-    "next_action": "Define and test excluded member and excluded-path backlink integrity for built packages."
+    "last_completed_step": "Added profile-owned forbidden source lifecycle patterns, builder enforcement, placeholder preservation, and removed the known script README backlinks.",
+    "next_action": "None."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "The deterministic builder now rejects allowlisted payload text that links to concrete excluded source workflows, assessments, releases, or backlog items while retaining generic portable placeholders.",
+    "files_changed": [
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/distribution/README.md",
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/README.md",
+      ".ai/scripts/tests/test_ai_context_packaging.py"
+    ],
+    "tests_run": [
+      "Packaging GWT: 11 passed",
+      "Actual v0.3.0 ZIP/tar.gz build from 66f3173",
+      "Two-archive package validation and parity passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Reference extraction intentionally targets repository-style path tokens; semantic prose references without a path remain a human review concern.",
+    "follow_up_needed": false
   }
 }

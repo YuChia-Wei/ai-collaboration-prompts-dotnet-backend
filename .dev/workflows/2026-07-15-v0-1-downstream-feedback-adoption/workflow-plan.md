@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `package-reference-integrity`
+- `current_phase`: `exact-case-reference-integrity`
 - `artifact_root`: `.dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption`
 - `created_at`: `2026-07-15T08:06:44+08:00`
-- `updated_at`: `2026-07-15T08:11:28+08:00`
+- `updated_at`: `2026-07-15T08:18:40+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -57,8 +57,8 @@
 | --- | --- | --- | --- |
 | `AICFB-001` | Import the downstream feedback verbatim, bind provenance, and reconcile recommendations against current source truth. | `completed` | Source and copied Git blob IDs match; workflow artifacts validate. |
 | `AICFB-002` | Mark v0.1/v0.2 as non-installable historical source snapshots and repair migration guidance/validation. | `completed` | Release validator and GWT tests reject false installability claims. |
-| `AICFB-003` | Add package excluded-path/reference-integrity gates and v0.1-style regression fixtures. | `in_progress` | Built payload contains no excluded lifecycle file or backlink. |
-| `AICFB-004` | Add exact-case active-reference validation and repair current reusable context paths. | `pending` | Windows-safe Git-path case tests fail closed; active paths use exact Git case. |
+| `AICFB-003` | Add package excluded-path/reference-integrity gates and v0.1-style regression fixtures. | `completed` | Built payload contains no excluded lifecycle file or backlink. |
+| `AICFB-004` | Add exact-case active-reference validation and repair current reusable context paths. | `in_progress` | Windows-safe Git-path case tests fail closed; active paths use exact Git case. |
 | `AICFB-005` | Implement commit subject/body/trailer validation and workflow closeout commit verification. | `pending` | Positive/negative GWT commit fixtures and quick-gate integration pass. |
 | `AICFB-006` | Remove brittle validator-count assumptions and enforce workflow/task semantic state consistency. | `pending` | Registry/set parity and lifecycle contradiction fixtures pass. |
 | `AICFB-007` | Reconcile tool freshness and generated-index drift signals without creating an external-tool dependency. | `pending` | Tool-neutral validation and documentation checks pass or record a bounded deferral. |
@@ -75,11 +75,11 @@
 
 ## Resume Checkpoint
 
-- Last completed action: marked v0.1.0 and v0.2.0 as non-installable retrospective source snapshots, marked v0.3.0 as a governed package candidate, repaired migration guidance, and added fail-closed validation.
-- Current task: `AICFB-003`.
-- Exact next action: define package excluded-path backlink integrity and add downstream-derived synthetic regression fixtures.
-- Validation already completed: version governance GWT passed 14/14; release validation passed for all three records; workflow bootstrap and evidence are committed in `6be4ac9`.
-- Git state: AICFB-002 implementation and workflow progress are uncommitted.
+- Last completed action: added the profile-owned excluded-lifecycle backlink gate, removed the known source workflow backlinks, built actual v0.3.0 ZIP/tar.gz artifacts from `66f3173`, and passed package validation/parity.
+- Current task: `AICFB-004`.
+- Exact next action: implement Git-exact-case active reference validation and repair `.dev/ARCHITECTURE.MD` references to tracked `.dev/ARCHITECTURE.md`.
+- Validation already completed: packaging GWT passed 11/11; actual package build and two-archive validation passed; version governance passed 14/14.
+- Git state: AICFB-003 implementation committed in `66f3173`; task transition is uncommitted.
 - Branch history and checkpoint handoffs: segment 1 started from merge commit `d3ebfc527d49e30c3dc1cee958054a69e415eeef`.
 - Blockers or unresolved decisions: none. Historical `v0.0.1` selection and actual `v0.3.0` publication remain out of scope.
 
