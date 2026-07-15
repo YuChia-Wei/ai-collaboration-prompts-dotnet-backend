@@ -1,6 +1,6 @@
 # Migrate To v0.3.0
 
-This guide is a candidate until `REL-v0.3.0` is published. Do not claim a target is on `v0.3.0` until the tag exists and resolves to the release registry's published commit.
+This guide applies to published release `REL-v0.3.0`. A target may claim `v0.3.0` only after its accepted package changes pass validation and its provenance records tag `v0.3.0` with commit `1e782909b7753b2889014516595d72f703a260f3`.
 
 ## Package Safety Sequence
 
@@ -29,7 +29,7 @@ Use the release archive as a versioned proposal, not as a whole-repository overw
 
 Framework-managed files may be replaced, removed, or renamed automatically only when their target bytes match the previous released hash. Target templates may be created only when absent. Target-owned truth and locally modified files always require reconciliation.
 
-Archive validation alone does not authorize application. This candidate remains unreleased until the workflow closeout gates complete.
+Archive validation alone does not authorize application to a target repository. Review and acknowledge reconciliation before applying the published package.
 
 ## From v0.2.0
 

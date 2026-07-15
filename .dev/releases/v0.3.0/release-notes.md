@@ -2,9 +2,9 @@
 
 ## Status
 
-Validated release candidate. No tag or published commit exists yet. Publication requires a `--no-ff` merge to `main`, post-merge validation, an explicitly user-created `v0.3.0` tag, and successful tag-triggered automation. The automation must never create or move that tag.
+Published from the immutable user-created annotated tag `v0.3.0` at commit `1e782909b7753b2889014516595d72f703a260f3`. Post-merge validation and tag-triggered automation completed successfully. The automation did not create or move the tag.
 
-Unlike retrospective `v0.1.0` and `v0.2.0` source snapshots, this record describes a governed installable package. It does not become published until the user-created tag and Action publication complete.
+Unlike retrospective `v0.1.0` and `v0.2.0` source snapshots, this record describes a governed installable package published from its validated Git tree.
 
 ## Highlights
 
@@ -22,9 +22,9 @@ Unlike retrospective `v0.1.0` and `v0.2.0` source snapshots, this record describ
 - Uses a user-created version tag as publication authorization; GitHub Actions validates and publishes artifacts but never creates, chooses, or moves the tag.
 - Keeps external graphs and indexes optional; Git and repository files remain evidence.
 
-## Candidate Artifacts
+## Release Artifacts
 
-The governed candidate produces these release attachments:
+The governed release provides these attachments:
 
 - `ai-context-dotnet-backend-v0.3.0.zip`
 - `ai-context-dotnet-backend-v0.3.0.zip.sha256`
@@ -44,5 +44,5 @@ This pre-1.0 minor release intentionally adds a required provenance/version gate
 - The comparison tool classifies paths and byte identity; semantic conflict resolution remains a human/agent decision.
 - Unversioned or locally forked framework copies require manual baseline reconciliation.
 - Version-specific `v0.1.0` and `v0.2.0` baseline manifests and generated migration operations are not bundled yet; those sources require reconciliation unless a separately validated baseline is supplied.
-- Retrospective `v0.0.1` is a manual reconciliation source only; prerelease compatibility is not part of this candidate.
+- Retrospective `v0.0.1` is a manual reconciliation source only; prerelease compatibility is not provided by this release.
 - Dependency/version validation unrelated to this AI context release contract remains deferred.

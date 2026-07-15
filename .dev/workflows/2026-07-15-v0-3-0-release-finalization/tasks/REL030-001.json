@@ -6,9 +6,9 @@
   "task_id": "REL030-001",
   "workflow_id": "2026-07-15-v0-3-0-release-finalization",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-15T19:33:36+08:00",
-  "updated_at": "2026-07-15T19:33:36+08:00",
+  "updated_at": "2026-07-15T19:35:37+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL030-REGISTRY-DRIFT"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Finalize published identity", "Refresh publication wording", "Validate registry and context", "Close and merge workflow"],
     "validation": ["remote tag peeled-target verification", "validate-ai-context-versions.py", "validate-ai-context.py", "validate-workflow-artifacts.py", "check-all.sh --quick"],
-    "last_completed_step": "Verified current Git and publication identity after system resume.",
-    "next_action": "Finalize release-owned records and validate."
+    "last_completed_step": "Finalized published release identity, evidence, notes, migration wording, and index.",
+    "next_action": "Validate, commit, merge, and push the completed workflow."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Reconciled the trusted registry with the immutable v0.3.0 tag and user-confirmed successful hosted publication.",
+    "files_changed": [".dev/releases/v0.3.0/release.yaml", ".dev/releases/v0.3.0/release-notes.md", ".dev/releases/v0.3.0/migration-guide.md", ".dev/releases/INDEX.MD"],
+    "tests_run": ["remote tag peeled-target verification", "repository connectivity check", "release, context, and workflow validators"],
+    "finding_status": "addressed",
+    "residual_risk": "Target repositories from v0.0.1 through v0.2.0 still require the documented provenance-aware reconciliation.",
+    "follow_up_needed": false
   }
 }
