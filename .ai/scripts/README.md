@@ -4,15 +4,9 @@ This directory contains transitional AI workflow scripts, context governance che
 
 It is no longer the long-term home for authoritative C# semantic validation. Rules that inspect C# syntax, symbols, type dependencies, attributes, or framework API usage should move to dotnet-native validation mechanisms such as Roslyn analyzers, `.editorconfig`, `dotnet format`, architecture tests, integration tests, or dotnet tools.
 
-## Current Transition
+## Current Boundary
 
-Workflow: `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/`
-
-Key files:
-
-- `script-inventory.md`
-- `dotnet-validation-strategy.md`
-- `script-to-validator-mapping.md`
+`shell-assets.yaml` is the machine-readable lifecycle registry for retained shell assets, and `validate-shell-assets.py` enforces registry, Git mode, and aggregate-runner parity. Current standards and validators own the active contract; packaged documentation must not depend on excluded source workflow history.
 
 ## Retention Policy
 
@@ -226,8 +220,7 @@ The context remains useful even when executable validation moves to dotnet-nativ
 
 ## Related Files
 
-- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-inventory.md`
-- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/dotnet-validation-strategy.md`
-- `.dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md`
+- `.ai/scripts/shell-assets.yaml`
+- `.ai/scripts/validate-shell-assets.py`
 - `.ai/assets/tech-stacks/dotnet-backend/README.MD`
 - `.dev/standards/AI-CONTEXT-BOUNDARY.md`

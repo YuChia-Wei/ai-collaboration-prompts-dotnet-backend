@@ -23,6 +23,10 @@ VERSION_RE = re.compile(r"^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 REGULAR_MODES = {"100644": 0o644, "100755": 0o755}
 ZIP_MINIMUM_EPOCH = int(datetime(1980, 1, 1, tzinfo=timezone.utc).timestamp())
+REPOSITORY_PATH_RE = re.compile(
+    r"(?<![A-Za-z0-9_.-])(?:\.dev|\.ai|\.agents|\.claude|\.codex|\.github)/"
+    r"[A-Za-z0-9._*/{}<>-]+(?:/[A-Za-z0-9._*/{}<>-]+)*/?"
+)
 
 
 class PackageError(ValueError):
@@ -277,6 +281,44 @@ def collect_payload(
     return sorted(output.values(), key=lambda item: item.path.encode("utf-8"))
 
 
+def validate_payload_reference_integrity(files: Iterable[PayloadFile], profile: dict) -> None:
+    contract = profile.get("reference_integrity")
+    if not isinstance(contract, dict):
+        raise PackageError("profile reference_integrity must be a mapping")
+    extensions = contract.get("text_extensions")
+    forbidden = contract.get("forbidden_source_lifecycle_patterns")
+    if not isinstance(extensions, list) or not extensions or not all(
+        isinstance(item, str) and item.startswith(".") for item in extensions
+    ):
+        raise PackageError("reference_integrity.text_extensions must be a non-empty extension list")
+    if not isinstance(forbidden, list) or not forbidden or not all(
+        isinstance(item, str) and item for item in forbidden
+    ):
+        raise PackageError(
+            "reference_integrity.forbidden_source_lifecycle_patterns must be a non-empty list"
+        )
+    normalized_extensions = {item.lower() for item in extensions}
+    violations: list[str] = []
+    for item in files:
+        if PurePosixPath(item.path).suffix.lower() not in normalized_extensions:
+            continue
+        try:
+            text = item.content.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise PackageError(f"packaged text file is not UTF-8: {item.path}") from exc
+        for match in REPOSITORY_PATH_RE.finditer(text):
+            candidate = match.group(0)
+            if any(token in candidate for token in ("*", "?", "<", ">", "{", "}")):
+                continue
+            values = {candidate, candidate.rstrip("/")}
+            if any(matches(value, pattern) for value in values for pattern in forbidden):
+                violations.append(f"{item.path} -> {candidate}")
+    if violations:
+        raise PackageError(
+            "payload references excluded source lifecycle paths: " + "; ".join(sorted(set(violations)))
+        )
+
+
 def yaml_bytes(value: dict) -> bytes:
     return yaml.safe_dump(
         value, sort_keys=False, allow_unicode=True, default_flow_style=False
@@ -369,6 +411,7 @@ def build_package(
     payload_files = collect_payload(repo, tree, profile)
     if not payload_files:
         raise PackageError("package payload is empty")
+    validate_payload_reference_integrity(payload_files, profile)
 
     file_document = {
         "schema_version": "1.0.0",
