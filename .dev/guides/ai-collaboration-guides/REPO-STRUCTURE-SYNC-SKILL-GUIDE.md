@@ -4,6 +4,8 @@
 
 `repo-structure-sync` 應被視為 template 安裝後第一個使用的 skill。它的責任不是設計產品功能，而是先判斷目標 repo 的真實狀態，清掉或改寫從來源 template 帶過來的過時專案資訊。
 
+安裝套件提供的 root 文件是 target-owned seed，不是來源 repo 現況的複本。先依 target evidence 完成英文 `AGENTS.md`，若需要繁中閱讀版，再以低成本 `context-translator` sub-agent 產生 `AGENTS.zh-TW.md`；不得把預先翻譯但尚未 target-specific 的版本當作公版範本。
+
 ## 這個 Skill 可以做什麼
 
 適合用在下列工作：
@@ -78,6 +80,8 @@
 - README 與實際專案檔互相衝突
 - bounded context 邊界不明
 - `AGENTS.md` 或 `.dev/ARCHITECTURE.MD` 的高品質重寫
+
+繁中翻譯是另一個獨立的 bounded handoff：英文內容定稿後，指定 source `AGENTS.md`、output `AGENTS.zh-TW.md`，交給 runtime 的低成本 `context-translator`。若該 runtime 無法使用指定的低成本模型，應將翻譯標記為 deferred，不得自行改用主模型完成。
 
 ## 升級判斷規則
 

@@ -28,6 +28,8 @@ LANGUAGE_ROOTS = (
     Path(".ai"),
     Path(".agents"),
     Path(".claude"),
+    Path(".codex"),
+    Path(".github/agents"),
     Path(".dev/standards"),
     Path(".dev/specs"),
     Path(".dev/problem-frames"),
@@ -174,9 +176,9 @@ def validate_bilingual_entries(errors: list[str]) -> None:
         ),
         (
             Path("AGENTS.md"),
-            "[Traditional Chinese](agents.zh-tw.md)",
+            "[Traditional Chinese](AGENTS.zh-TW.md)",
             "canonical English",
-            Path("agents.zh-tw.md"),
+            Path("AGENTS.zh-TW.md"),
             "[English](AGENTS.md)",
             "翻譯",
         ),
@@ -220,9 +222,9 @@ def validate_bilingual_entries(errors: list[str]) -> None:
             )
 
     required_agent_rows = {
-        "README.md", "README.en.md", "AGENTS.md", "agents.zh-tw.md", "CLAUDE.md"
+        "README.md", "README.en.md", "AGENTS.md", "AGENTS.zh-TW.md", "CLAUDE.md"
     }
-    for path in (Path("AGENTS.md"), Path("agents.zh-tw.md")):
+    for path in (Path("AGENTS.md"), Path("AGENTS.zh-TW.md")):
         if not (ROOT / path).is_file():
             continue
         _, table_paths = markdown_structure(path)

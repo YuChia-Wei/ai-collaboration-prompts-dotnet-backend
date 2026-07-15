@@ -1,0 +1,86 @@
+name: Package AI Context Candidate
+
+on:
+  pull_request:
+    paths:
+      - ".ai/distribution/**"
+      - ".ai/scripts/**"
+      - ".dev/releases/**"
+      - ".github/workflows/package-candidate.yml"
+      - ".github/workflows/publish-release.yml"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Governed candidate version in vMAJOR.MINOR.PATCH form"
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  package:
+    name: Build and validate candidate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Check out candidate commit
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install packaging dependency
+        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+
+      - name: Resolve candidate and render release body
+        id: release
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+        run: |
+          args=(
+            --commit "${GITHUB_SHA}"
+            --mode candidate
+            --output dist/release-body.md
+            --github-output "${GITHUB_OUTPUT}"
+          )
+          if [[ -n "${REQUESTED_VERSION}" ]]; then
+            args+=(--version "${REQUESTED_VERSION}")
+          fi
+          python .ai/scripts/render-ai-context-release-notes.py "${args[@]}"
+
+      - name: Validate release registry
+        run: python .ai/scripts/validate-ai-context-versions.py --no-git
+
+      - name: Build deterministic archives
+        run: |
+          python .ai/scripts/build-ai-context-package.py \
+            --ref "${GITHUB_SHA}" \
+            --version "${{ steps.release.outputs.version }}" \
+            --output dist
+
+      - name: Validate archives and parity
+        run: |
+          python .ai/scripts/validate-ai-context-package.py \
+            "dist/${{ steps.release.outputs.package_id }}.zip" \
+            "dist/${{ steps.release.outputs.package_id }}.tar.gz"
+
+      - name: Upload candidate artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.release.outputs.package_id }}-${{ github.sha }}
+          retention-days: 14
+          compression-level: 0
+          if-no-files-found: error
+          path: |
+            dist/${{ steps.release.outputs.package_id }}.zip
+            dist/${{ steps.release.outputs.package_id }}.zip.sha256
+            dist/${{ steps.release.outputs.package_id }}.tar.gz
+            dist/${{ steps.release.outputs.package_id }}.tar.gz.sha256
+            dist/release-body.md

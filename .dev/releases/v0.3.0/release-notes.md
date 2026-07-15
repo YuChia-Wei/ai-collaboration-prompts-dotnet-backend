@@ -2,7 +2,7 @@
 
 ## Status
 
-Planned release candidate. No tag or published commit exists yet. Publication requires workflow closeout, `--no-ff` merge to `main`, post-merge validation, and explicit tag authorization.
+Validated release candidate. No tag or published commit exists yet. Publication requires a `--no-ff` merge to `main`, post-merge validation, an explicitly user-created `v0.3.0` tag, and successful tag-triggered automation. The automation must never create or move that tag.
 
 ## Highlights
 
@@ -12,14 +12,35 @@ Planned release candidate. No tag or published commit exists yet. Publication re
 - Adds the `ai-context-upgrader` skill with thin Codex and Claude wrappers and a human guide.
 - Adds a read-only Git-backed three-way comparison tool.
 - Adds fail-closed release/source-mode and target/manifest-mode validation with GWT regression tests.
+- Defines the `dotnet-backend` portable distribution profile and deterministic `ai-context-dotnet-backend-v0.3.0` ZIP and tar.gz archives.
+- Adds package, file-inventory, migration, member-checksum, and external archive-checksum metadata with ZIP/tar payload parity validation.
+- Adds dry-run-first, previous-release-hash-aware migration planning that protects target templates and target-owned project truth from silent replacement or removal.
+- Provides minimal public `AGENTS.md`, `CLAUDE.md`, and repository catalog seeds instead of packaging this source repository's active root truth.
+- Derives `AGENTS.zh-TW.md` only after target English context is finalized, using one canonical translator role with thin Codex, Claude Code, and GitHub Copilot adapters.
+- Uses a user-created version tag as publication authorization; GitHub Actions validates and publishes artifacts but never creates, chooses, or moves the tag.
 - Keeps external graphs and indexes optional; Git and repository files remain evidence.
+
+## Candidate Artifacts
+
+The governed candidate produces these release attachments:
+
+- `ai-context-dotnet-backend-v0.3.0.zip`
+- `ai-context-dotnet-backend-v0.3.0.zip.sha256`
+- `ai-context-dotnet-backend-v0.3.0.tar.gz`
+- `ai-context-dotnet-backend-v0.3.0.tar.gz.sha256`
+
+Each archive contains `metadata/package.yaml`, `metadata/files.yaml`, `metadata/migration.yaml`, `metadata/SHA256SUMS.txt`, `INSTALL.md`, pinned target-tool `requirements.txt`, and the installable `payload/`. The packaged planner requires Python 3.11 or newer and `PyYAML==6.0.3`.
 
 ## Compatibility
 
-This pre-1.0 minor release intentionally adds a required provenance/version gate. Existing targets must create a validated provenance manifest while adopting the upgrader. Root collaboration entries and target-owned project knowledge remain manual reconciliation surfaces.
+This pre-1.0 minor release intentionally adds a required provenance/version gate and a new package envelope. `v0.1.0` and `v0.2.0` are supported reconciliation sources, not claims of unattended migration. Hash-gated automatic replace/remove/rename requires a matching previous governed `files.yaml`; when that version-specific baseline is unavailable, the upgrader must use unresolved-provenance reconciliation. Existing targets must create a validated provenance manifest while adopting the upgrader. Root collaboration entries and target-owned project knowledge remain manual reconciliation surfaces.
+
+No `v0.0.1` compatibility is claimed. Commit `ac2e2937b5209ece93e104c4a389a15e164c0d1b` is only an unconfirmed historical candidate until the user creates a version tag, confirms the installed file selection, and a version-specific baseline manifest passes validation.
 
 ## Known Limitations
 
 - The comparison tool classifies paths and byte identity; semantic conflict resolution remains a human/agent decision.
 - Unversioned or locally forked framework copies require manual baseline reconciliation.
+- Version-specific `v0.1.0` and `v0.2.0` baseline manifests and generated migration operations are not bundled yet; those sources require reconciliation unless a separately validated baseline is supplied.
+- Retrospective `v0.0.1` and prerelease compatibility are not part of this candidate.
 - Dependency/version validation unrelated to this AI context release contract remains deferred.

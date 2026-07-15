@@ -1,0 +1,46 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIPKG-001",
+  "workflow_id": "2026-07-14-ai-context-release-packaging",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-14T23:46:44+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIPKG-BOUNDARY-001"],
+  "scope": {
+    "target": "One canonical dotnet-backend distribution profile and package envelope",
+    "files": [".ai/distribution/**", ".dev/standards/AI-CONTEXT-VERSION-POLICY.md"],
+    "constraints": ["Use an allowlist", "Classify ownership and installation behavior", "Exclude source history and target truth", "Keep one profile for v0.3.0"],
+    "non_goals": ["Split universal and dotnet packages", "Build archives before the contract stabilizes"]
+  },
+  "execution": {
+    "steps": ["Inventory distributable categories", "Define envelope and ownership schema", "Define deterministic archive rules", "Define exclusions"],
+    "validation": ["Every tracked candidate path has a disposition", "Schema parses", "No ignored local config enters the profile"],
+    "last_completed_step": "Defined the allowlist, exclusions, ownership classes, deterministic envelope, publication boundary, and metadata schemas.",
+    "next_action": "AIPKG-002 creates the declared empty template and runtime-adapter entries."
+  },
+  "results": {
+    "summary": "Established one machine-readable dotnet-backend distribution profile with 22 allowlist entries, six deny boundaries, and fail-safe ownership semantics.",
+    "files_changed": [
+      ".ai/distribution/README.md",
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/distribution/schemas/package.schema.yaml",
+      ".ai/distribution/schemas/files.schema.yaml",
+      ".ai/distribution/schemas/migration.schema.yaml",
+      ".ai/INDEX.MD",
+      ".dev/standards/AI-CONTEXT-VERSION-POLICY.md"
+    ],
+    "tests_run": [
+      "PyYAML parse and distribution-profile assertions",
+      ".ai/scripts/check-all.sh --quick",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Entries marked allow_empty_until must be populated by AIPKG-002 and rejected before release-candidate build.",
+    "follow_up_needed": true
+  }
+}

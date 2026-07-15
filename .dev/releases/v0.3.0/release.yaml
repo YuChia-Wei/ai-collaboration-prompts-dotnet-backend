@@ -1,22 +1,55 @@
 schema_version: "1.0"
 release_id: "REL-v0.3.0"
 version: "v0.3.0"
-status: "planned"
+status: "validated"
 record_origin: "governed"
 tag: null
 commit: null
 created_at: "2026-07-14T21:51:28+08:00"
-updated_at: "2026-07-14T22:07:36+08:00"
+updated_at: "2026-07-15T07:53:30+08:00"
 compatibility:
   breaking_changes: true
   minimum_source_version: "v0.1.0"
+  reconciliation_sources:
+    - "v0.1.0"
+    - "v0.2.0"
+  automatic_upgrade_sources: []
   affected_contracts:
     - "AI context release and target provenance contract"
     - "repo-structure-sync initial provenance output"
     - "required quick-gate version validation"
+    - "deterministic AI context package envelope and file inventory"
+    - "dry-run-first hash-gated installation and upgrade planning"
+    - "public root seeds and derived Traditional Chinese translation"
+    - "user-created tag and GitHub Actions publication boundary"
 artifacts:
   release_notes: "release-notes.md"
   migration_guide: "migration-guide.md"
+distribution:
+  profile_id: "dotnet-backend"
+  package_id: "ai-context-dotnet-backend-v0.3.0"
+  schema_versions:
+    package: "1.0.0"
+    files: "1.0.0"
+    migration: "1.0.0"
+  artifacts:
+    zip: "ai-context-dotnet-backend-v0.3.0.zip"
+    zip_checksum: "ai-context-dotnet-backend-v0.3.0.zip.sha256"
+    tar_gz: "ai-context-dotnet-backend-v0.3.0.tar.gz"
+    tar_gz_checksum: "ai-context-dotnet-backend-v0.3.0.tar.gz.sha256"
+  migration:
+    default_mode: "dry-run"
+    apply_requires_clean_worktree: true
+    apply_requires_acknowledged_reconciliation: true
+  publication:
+    tag_owner: "user"
+    trigger: "user-created-tag"
+    automation: "github-actions"
+    creates_or_moves_tag: false
 validation:
-  evidence: "Workflow closeout passed 11/11 required quick checks, 10 version-governance GWT tests, 47 analyzer tests, 2 configuration tests, wrapper validation, and independent forward-test. Post-merge validation and tag authorization remain pending."
-  workflow_id: "2026-07-14-ai-context-version-governance"
+  evidence: "The release-packaging workflow passed repeatable ZIP/tar.gz builds, archive parity, extracted clean-install forward-test, synthetic upgrade and preservation scenarios, 12/12 required quick checks, 47 analyzer tests, and 2 configuration tests. Post-merge and hosted tag-triggered publication validation remain pending."
+  workflow_id: "2026-07-14-ai-context-release-packaging"
+  related_workflows:
+    - "2026-07-14-ai-context-version-governance"
+  package_status: "validated"
+  post_merge_status: "pending"

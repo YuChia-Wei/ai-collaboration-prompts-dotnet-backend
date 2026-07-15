@@ -190,7 +190,7 @@ Workflow artifact 規則：
 | `README.en.md` | Repository identity 的英文翻譯 |
 | `AGENTS.md` | Canonical English agent-facing root collaboration guide |
 | `CLAUDE.md` | 匯入 `AGENTS.md` 的薄 Claude Code project-memory 入口 |
-| `agents.zh-tw.md` | Root collaboration guide 的繁體中文（台灣）翻譯 |
+| `AGENTS.zh-TW.md` | Root collaboration guide 的繁體中文（台灣）翻譯 |
 
 ### AI Assets (`.ai/`)
 
@@ -205,6 +205,7 @@ Workflow artifact 規則：
 | `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend building block reference |
 | `.ai/assets/skills/` | Canonical skill specs |
 | `.ai/assets/sub-agent-role-prompts/` | Canonical sub-agent role prompts |
+| `.ai/distribution/` | Source-side 可攜式套件 profiles 與 metadata schemas |
 | `.ai/scripts/` | 過渡期 AI workflow scripts、context governance checks 與本機工具 orchestration helpers |
 
 ### Project Knowledge and Governance (`.dev/`)
@@ -222,7 +223,7 @@ Workflow artifact 規則：
 | `.dev/assessments/` | Durable audits、大型 code reviews 與其他唯讀 assessment artifacts |
 | `.dev/workflows/` | Workflow artifacts |
 
-### Runtime Skill Wrappers
+### Runtime Adapters
 
 | Path | 說明 |
 | :--- | :--- |
@@ -230,6 +231,9 @@ Workflow artifact 規則：
 | `.agents/skills/<skill>/` | Current runtime skill wrapper |
 | `.claude/skills/README.md` | Claude-compatible wrapper index |
 | `.claude/skills/<skill>/` | Claude-compatible skill wrapper |
+| `.codex/agents/` | Codex project sub-agent adapters |
+| `.claude/agents/` | Claude Code project sub-agent adapters |
+| `.github/agents/` | GitHub Copilot custom agent adapters |
 
 ## 語言規則
 

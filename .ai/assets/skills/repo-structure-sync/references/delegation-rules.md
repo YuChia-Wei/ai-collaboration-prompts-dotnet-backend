@@ -21,3 +21,7 @@ Delegate these when the rewrite needs synthesis instead of substitution:
 - cross-document conflict resolution where one change affects several docs
 - module or bounded-context naming normalization
 - mixed-stack partitioning or multi-solution ownership explanation
+
+## Use The Low-Cost Context Translator
+
+After the target-specific English `AGENTS.md` is finalized, translation into `AGENTS.zh-TW.md` is a bounded derived task. Delegate it to `context-translator` with exact source and output paths. Do not translate before the English rewrite is complete, and do not fall back to the main high-cost agent when the requested low-cost runtime/model is unavailable; report the deferred translation instead.

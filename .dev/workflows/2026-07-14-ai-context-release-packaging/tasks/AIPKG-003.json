@@ -1,0 +1,46 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIPKG-003",
+  "workflow_id": "2026-07-14-ai-context-release-packaging",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-15T00:05:22+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIPKG-BUILD-001"],
+  "scope": {
+    "target": "Deterministic archive builder and package metadata",
+    "files": [".ai/scripts/build-ai-context-package.py", ".ai/scripts/validate-ai-context-package.py", ".ai/distribution/**"],
+    "constraints": ["Use Git-tracked input", "Normalize archive metadata", "Generate ZIP and tar.gz from one staging tree", "Record per-file SHA-256"],
+    "non_goals": ["Publish a release", "Read ignored local files"]
+  },
+  "execution": {
+    "steps": ["Build staging tree", "Generate package and file manifests", "Create normalized archives", "Compare extracted payloads"],
+    "validation": ["Repeated build digest", "ZIP/tar payload parity", "Manifest checksum validation"],
+    "last_completed_step": "Built and validated two deterministic archive pairs from commit 2ac316cec5fd4257125572699352f73edee9112d.",
+    "next_action": "AIPKG-004 consumes files.yaml and migration.yaml for safe target planning and application."
+  },
+  "results": {
+    "summary": "Implemented immutable-Git-tree packaging with normalized ZIP/tar.gz archives, package/file/migration metadata, internal member checksums, external archive sidecars, and cross-format validation.",
+    "files_changed": [
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/build-ai-context-package.py",
+      ".ai/scripts/validate-ai-context-package.py",
+      ".ai/distribution/**"
+    ],
+    "tests_run": [
+      "python -m py_compile package scripts",
+      "two builds from 2ac316cec5fd4257125572699352f73edee9112d",
+      "validate-ai-context-package.py for both ZIP/tar pairs",
+      "repeated per-format SHA-256 equality assertion",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-workflow-artifacts.py"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Cross-runtime compression-library reproducibility is not claimed; the release Action must pin its Python execution environment and always publish generated sidecars.",
+    "follow_up_needed": true
+  }
+}

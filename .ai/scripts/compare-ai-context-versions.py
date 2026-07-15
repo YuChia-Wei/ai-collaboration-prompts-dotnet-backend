@@ -36,7 +36,7 @@ TARGET_OWNED_FILES = {
     "CLAUDE.md",
     "README.md",
     "README.en.md",
-    "agents.zh-tw.md",
+    "AGENTS.zh-TW.md",
 }
 
 

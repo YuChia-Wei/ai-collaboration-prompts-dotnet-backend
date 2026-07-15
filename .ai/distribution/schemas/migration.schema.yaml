@@ -1,0 +1,55 @@
+schema_version: 1.0.0
+document: migration.yaml
+required:
+  - schema_version
+  - package_id
+  - from
+  - to
+  - operations
+properties:
+  schema_version: semver
+  package_id: non-empty-string
+  from:
+    required: [version, manifest_sha256]
+    properties:
+      version: semver-without-v-prefix-or-null-for-clean-install
+      manifest_sha256: lowercase-sha256-or-null-for-clean-install
+  to:
+    required: [version, manifest_sha256]
+    properties:
+      version: semver-without-v-prefix
+      manifest_sha256: lowercase-sha256
+  operations:
+    ordering: operation-id-ascending
+    item_required: [id, kind, path, ownership, preconditions]
+    kinds:
+      add:
+        required_preconditions: [destination_absent]
+      replace:
+        required_preconditions: [current_sha256_equals_previous_release]
+      remove:
+        required_preconditions: [current_sha256_equals_previous_release]
+      rename:
+        required: [from_path, path]
+        required_preconditions: [source_sha256_equals_previous_release, destination_absent]
+      reconcile:
+        required_preconditions: [human_acknowledgement]
+    ownership:
+      enum: [framework-managed, target-template, target-owned]
+    ownership_operation_rules:
+      framework-managed: [add, replace, remove, rename, reconcile]
+      target-template: [add, reconcile]
+      target-owned: [reconcile]
+    target_template_rules:
+      add_requires: [destination_absent]
+      forbidden: [replace, remove, rename]
+    target_owned_rules:
+      forbidden: [add, replace, remove, rename]
+  safety:
+    required:
+      - dry_run_default
+      - clean_worktree_required
+      - starting_commit_required
+      - abort_on_unacknowledged_reconciliation
+additional_properties: false
+manifest_sha256_definition: sha256-of-source-files-yaml-bytes

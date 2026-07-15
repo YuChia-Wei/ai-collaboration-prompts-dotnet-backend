@@ -345,5 +345,7 @@ healthchecksdb
 /.codex/*
 !/.codex/skills/
 !/.codex/skills/**
+!/.codex/agents/
+!/.codex/agents/**
 /.dotnet_cli_home/
 .dotnet

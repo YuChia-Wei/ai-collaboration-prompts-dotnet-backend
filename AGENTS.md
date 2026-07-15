@@ -1,8 +1,8 @@
 # AGENTS.md
 
-[Traditional Chinese](agents.zh-tw.md)
+[Traditional Chinese](AGENTS.zh-TW.md)
 
-This document is the canonical English agent-facing root collaboration guide. `agents.zh-tw.md` is its Traditional Chinese (Taiwan) translation.
+This document is the canonical English agent-facing root collaboration guide. `AGENTS.zh-TW.md` is its Traditional Chinese (Taiwan) translation.
 
 ## Scope & Precedence
 
@@ -194,7 +194,7 @@ Use these boundaries:
 | `README.en.md` | English translation of the repository identity |
 | `AGENTS.md` | Canonical English agent-facing root collaboration guide |
 | `CLAUDE.md` | Thin Claude Code project-memory entry that imports `AGENTS.md` |
-| `agents.zh-tw.md` | Traditional Chinese (Taiwan) translation of the root collaboration guide |
+| `AGENTS.zh-TW.md` | Traditional Chinese (Taiwan) translation of the root collaboration guide |
 
 ### AI Assets (`.ai/`)
 
@@ -209,6 +209,7 @@ Use these boundaries:
 | `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend building block reference |
 | `.ai/assets/skills/` | Canonical skill specs |
 | `.ai/assets/sub-agent-role-prompts/` | Canonical sub-agent role prompts |
+| `.ai/distribution/` | Source-side portable package profiles and metadata schemas |
 | `.ai/scripts/` | Transitional AI workflow scripts, context governance checks, and local tool orchestration helpers |
 
 ### Project Knowledge and Governance (`.dev/`)
@@ -226,7 +227,7 @@ Use these boundaries:
 | `.dev/assessments/` | Durable audits, large code reviews, and other read-only assessment artifacts |
 | `.dev/workflows/` | Workflow artifacts |
 
-### Runtime Skill Wrappers
+### Runtime Adapters
 
 | Path | Description |
 | :--- | :--- |
@@ -234,6 +235,9 @@ Use these boundaries:
 | `.agents/skills/<skill>/` | Current runtime skill wrapper |
 | `.claude/skills/README.md` | Claude-compatible wrapper index |
 | `.claude/skills/<skill>/` | Claude-compatible skill wrapper |
+| `.codex/agents/` | Codex project sub-agent adapters |
+| `.claude/agents/` | Claude Code project sub-agent adapters |
+| `.github/agents/` | GitHub Copilot custom agent adapters |
 
 ## Language Rules
 

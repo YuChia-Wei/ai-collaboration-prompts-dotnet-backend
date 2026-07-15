@@ -29,11 +29,11 @@ Version impact is determined by the highest-impact included change. Repository h
 1. **Planned**: create or update a version candidate record and migration material on a dedicated workflow branch. The candidate has no tag or published commit.
 2. **Validated**: all required repository gates pass and release notes describe compatibility, migrations, and known limitations.
 3. **Merged**: merge the workflow with `--no-ff` into `main`. Re-run release validation against the merge commit.
-4. **Published**: after explicit user authorization, create an annotated immutable tag on the validated `main` commit and finalize its release record.
+4. **Published**: the user creates an annotated immutable tag on the validated `main` commit. The tag-triggered publication automation validates that tag, builds the package from it, and publishes the release artifacts and notes.
 
 The merge commit should use `release` scope and mention the candidate version. The annotated tag message must include the release identifier, compatibility summary, and `AI-Model` line when AI assisted the release preparation.
 
-Do not describe a candidate as published, and do not create a final tag from an unmerged workflow branch.
+Do not describe a candidate as published, and do not create a final tag from an unmerged workflow branch. Publication automation must never create, move, recreate, or choose a version tag; the user owns tag timing and version selection.
 
 ## Release Artifacts
 
@@ -90,3 +90,5 @@ A governed release must verify:
 - required Git commit body and AI co-author trailer policy.
 
 Tag creation, remote publication, and target upgrade execution each require explicit authorization appropriate to that action.
+
+For the configured automated publication path, pushing a user-created release tag is the publication authorization. Candidate or pull-request automation may build and retain validation artifacts, but it must not create a GitHub Release or mutate tags.

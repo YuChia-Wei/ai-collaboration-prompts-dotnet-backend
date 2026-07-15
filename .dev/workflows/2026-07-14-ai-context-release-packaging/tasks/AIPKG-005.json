@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "AIPKG-005",
+  "workflow_id": "2026-07-14-ai-context-release-packaging",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-14T23:39:38+08:00",
+  "updated_at": "2026-07-15T07:37:10+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["AIPKG-ACTIONS-001"],
+  "scope": {
+    "target": "Candidate and user-tag-triggered GitHub Actions publication",
+    "files": [".github/workflows/package-candidate.yml", ".github/workflows/publish-release.yml", ".ai/scripts/render-ai-context-release-notes.py"],
+    "constraints": ["User creates the tag", "Use minimal permissions", "Create draft before publish", "Make reruns idempotent", "Never move a tag"],
+    "non_goals": ["Automatically choose a version", "Automatically create a tag"]
+  },
+  "execution": {
+    "steps": ["Create reusable build steps", "Add candidate workflow", "Add tag-triggered publish workflow", "Assemble release body and upload artifacts", "Publish only after validation"],
+    "validation": ["Workflow YAML parse", "Trigger and permission assertions", "Local command parity", "No tag mutation commands"],
+    "last_completed_step": "Added read-only candidate automation and user-tag-authorized draft-to-published release automation.",
+    "next_action": "None."
+  },
+  "results": {"summary": "Candidate automation builds and validates artifacts without release writes; publish automation accepts only a user-pushed version tag, isolates contents:write, and never creates or moves tags.", "files_changed": [".github/workflows/package-candidate.yml", ".github/workflows/publish-release.yml", ".ai/scripts/render-ai-context-release-notes.py"], "tests_run": ["Workflow YAML and embedded Bash parse", "Static trigger, permission, draft ordering, idempotency, and no-tag-mutation assertions"], "finding_status": "resolved", "residual_risk": "Hosted GitHub Actions execution remains an external post-merge/tag verification step.", "follow_up_needed": false}
+}
