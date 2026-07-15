@@ -304,6 +304,24 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
             self.assertGreaterEqual(len(errors), 5)
             self.assertTrue(any("retrospective releases" in error for error in errors))
 
+    def test_gwt_015_given_v001_source_when_v030_is_inspected_then_only_reconciliation_is_supported(self):
+        # Given the confirmed retrospective v0.0.1 source snapshot.
+        historical = yaml.safe_load(
+            (ROOT / ".dev/releases/v0.0.1/release.yaml").read_text(encoding="utf-8")
+        )
+        candidate = yaml.safe_load(
+            (ROOT / ".dev/releases/v0.3.0/release.yaml").read_text(encoding="utf-8")
+        )
+
+        # When the v0.3.0 compatibility boundary is inspected.
+        compatibility = candidate["compatibility"]
+
+        # Then v0.0.1 is non-installable and can only enter manual reconciliation.
+        self.assertEqual("source-snapshot-only", historical["distribution_kind"])
+        self.assertFalse(historical["installable"])
+        self.assertIn("v0.0.1", compatibility["reconciliation_sources"])
+        self.assertNotIn("v0.0.1", compatibility["automatic_upgrade_sources"])
+
 
 if __name__ == "__main__":
     unittest.main()

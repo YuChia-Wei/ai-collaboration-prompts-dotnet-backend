@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `retrospective-release-record`
+- `current_phase`: `checkpoint-publication`
 - `artifact_root`: `.dev/workflows/2026-07-15-v0-0-1-retrospective-governance`
 - `created_at`: `2026-07-15T09:01:25+08:00`
-- `updated_at`: `2026-07-15T09:01:25+08:00`
+- `updated_at`: `2026-07-15T09:09:05+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -38,11 +38,11 @@
 
 ## Resume Checkpoint
 
-- Last completed action: merged and pushed downstream feedback adoption to `main` at `f46fb8a616ba75efbbdc9071486511444f25f6ca`.
+- Last completed action: created the local annotated `v0.0.1` tag, retrospective registry record, manual v0.3.0 reconciliation path, and v0.0.1-to-v0.3.0 GWT guard.
 - Current task: `VER001-001`.
-- Exact next action: add the v0.0.1 retrospective record and update the v0.3.0 manual reconciliation contract.
-- Validation already completed: post-merge quick gate passed 15 required checks; 10 workflow-range commits passed policy validation.
-- Git state: clean dedicated branch created from pushed main.
+- Exact next action: commit, checkpoint-merge and push the registry, push the historical tag, verify the remote target, then create a continuation branch for workflow closure.
+- Validation already completed: 15 version GWT cases, four release records, workflow/context validators, tag target/ancestry, and diff checks pass; read-only comparison classifies 581 reconciliation and 237 exclusion paths without a target state.
+- Git state: release governance changes are ready for implementation commit; local `v0.0.1` exists and is not yet pushed.
 - Branch history and checkpoint handoffs: segment 1 started from `f46fb8a616ba75efbbdc9071486511444f25f6ca`.
 - Blockers or unresolved decisions: exact historical installed file selection remains unknown and must not be inferred from the tag alone.
 
