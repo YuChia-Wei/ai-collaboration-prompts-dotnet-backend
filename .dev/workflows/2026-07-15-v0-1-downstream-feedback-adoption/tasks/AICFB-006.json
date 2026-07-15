@@ -65,8 +65,8 @@
       "python .ai/scripts/validate-workflow-artifacts.py (passed)",
       "COMMIT_RANGE=main..HEAD WORKFLOW_ID=2026-07-15-v0-1-downstream-feedback-adoption check-all.sh --quick (passed)"
     ],
-    "finding_status": "resolved",
-    "residual_risk": "Legacy locators remain structurally compatible until explicitly migrated to lifecycle_contract 1.0.",
+    "finding_status": "partially-resolved",
+    "residual_risk": "Legacy locators remain compatible; planned, blocked, and cancelled transition semantics plus content-to-timestamp proof are outside the current prospective snapshot contract.",
     "follow_up_needed": false
   }
 }

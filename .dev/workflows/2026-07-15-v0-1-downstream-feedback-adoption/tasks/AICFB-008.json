@@ -6,10 +6,10 @@
   "workflow_id": "2026-07-15-v0-1-downstream-feedback-adoption",
   "owner_skill": "ai-context-governance",
   "created_at": "2026-07-15T08:06:44+08:00",
-  "updated_at": "2026-07-15T08:41:59+08:00",
+  "updated_at": "2026-07-15T08:47:44+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "task_id": "AICFB-008",
-  "status": "in_progress",
+  "status": "completed",
   "finding_ids": [
     "DSFB-CLOSE-001"
   ],
@@ -43,15 +43,28 @@
       "Workflow/version/package/context validators",
       "Git status and commit trailers"
     ],
-    "last_completed_step": "AICFB-002 through AICFB-007 completed with persisted validation evidence.",
-    "next_action": "Run independent read-only verification, write the remediation report, execute final gates, and close the workflow."
+    "last_completed_step": "Independent review reconciled all nine findings and reproduced the required validators and quick gate without blockers.",
+    "next_action": "Commit closeout, validate the resulting commit range, and confirm a clean worktree."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Independent verification found no blocker or regression and recommended closure with explicit workflow-state, conditional commit-gate, external graph, and Windows symlink residuals.",
+    "files_changed": [
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/reports/remediation-report.md",
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/tasks/AICFB-008.json",
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md",
+      ".dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "independent read-only review of main..HEAD and all DSFB findings",
+      "check-all.sh --quick with COMMIT_RANGE and WORKFLOW_ID (15 required checks passed)",
+      "packaging/apply GWT (25 passed, 1 Windows symlink permission skip)",
+      "analyzer tests (47 passed)",
+      "configuration validation tests (2 passed)",
+      "workflow/context/version/shell validators (passed)"
+    ],
+    "finding_status": "resolved-with-deferrals",
+    "residual_risk": "See the final remediation report for conditional commit-gate, lifecycle-contract, external graph, and Windows symlink boundaries.",
+    "follow_up_needed": false
   }
 }
