@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `exact-case-reference-integrity`
+- `current_phase`: `commit-policy-enforcement`
 - `artifact_root`: `.dev/workflows/2026-07-15-v0-1-downstream-feedback-adoption`
 - `created_at`: `2026-07-15T08:06:44+08:00`
-- `updated_at`: `2026-07-15T08:18:40+08:00`
+- `updated_at`: `2026-07-15T08:25:22+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -46,7 +46,7 @@
 | `DSFB-P0-003 Validator extension and aggregate parity` | partially resolved | shell assets have a machine-readable manifest and parity validator, but fixed-number assumptions and cross-validator registration still require review. | `AICFB-006` |
 | `DSFB-P0-004 Executable commit policy` | open | policy prose exists; no repository-owned commit-message validator or closeout commit verification gate exists. | `AICFB-005` |
 | `DSFB-P1-001 Source lifecycle install leaks` | resolved by profile, regression pending | v0.3 profile excludes source requirements, backlog instances, workflows, assessments, releases, and source root truth; regression must prove excluded paths and backlinks stay absent. | `AICFB-003` |
-| `DSFB-P1-002 Exact-case active references` | open | active source assets still reference `.dev/ARCHITECTURE.MD` while Git tracks `.dev/ARCHITECTURE.md`; Windows existence checks cannot detect this drift. | `AICFB-004` |
+| `DSFB-P1-002 Exact-case active references` | resolved | Git-backed exact-case validation covers root-relative, Markdown-link, and relative-link forms; 28 active source mismatches were repaired and five GWT cases pass. | `AICFB-004` |
 | `DSFB-P1-003 Workflow metadata semantics` | open | structural timestamps and relationships validate, but completed workflow/task/phase/result consistency is not enforced. | `AICFB-006` |
 | `DSFB-P1-004 Knowledge-graph freshness` | policy-level resolved, automation review pending | tool-neutral evidence policy requires freshness disclosure and file-backed verification; repo must not introduce an MCP dependency. | `AICFB-007` |
 | `DSFB-P2-001 Index and generated-inventory drift` | partially resolved | README/INDEX ownership is established; generated inventory provenance and drift signals need a bounded review. | `AICFB-007` |
@@ -58,8 +58,8 @@
 | `AICFB-001` | Import the downstream feedback verbatim, bind provenance, and reconcile recommendations against current source truth. | `completed` | Source and copied Git blob IDs match; workflow artifacts validate. |
 | `AICFB-002` | Mark v0.1/v0.2 as non-installable historical source snapshots and repair migration guidance/validation. | `completed` | Release validator and GWT tests reject false installability claims. |
 | `AICFB-003` | Add package excluded-path/reference-integrity gates and v0.1-style regression fixtures. | `completed` | Built payload contains no excluded lifecycle file or backlink. |
-| `AICFB-004` | Add exact-case active-reference validation and repair current reusable context paths. | `in_progress` | Windows-safe Git-path case tests fail closed; active paths use exact Git case. |
-| `AICFB-005` | Implement commit subject/body/trailer validation and workflow closeout commit verification. | `pending` | Positive/negative GWT commit fixtures and quick-gate integration pass. |
+| `AICFB-004` | Add exact-case active-reference validation and repair current reusable context paths. | `completed` | Windows-safe Git-path case tests fail closed; active paths use exact Git case. |
+| `AICFB-005` | Implement commit subject/body/trailer validation and workflow closeout commit verification. | `in_progress` | Positive/negative GWT commit fixtures and quick-gate integration pass. |
 | `AICFB-006` | Remove brittle validator-count assumptions and enforce workflow/task semantic state consistency. | `pending` | Registry/set parity and lifecycle contradiction fixtures pass. |
 | `AICFB-007` | Reconcile tool freshness and generated-index drift signals without creating an external-tool dependency. | `pending` | Tool-neutral validation and documentation checks pass or record a bounded deferral. |
 | `AICFB-008` | Run independent verification, reconcile findings, write remediation evidence, and close the workflow. | `pending` | Required quick gate, workflow/version/package gates, Git-policy checks, and independent review pass. |
@@ -75,11 +75,11 @@
 
 ## Resume Checkpoint
 
-- Last completed action: added the profile-owned excluded-lifecycle backlink gate, removed the known source workflow backlinks, built actual v0.3.0 ZIP/tar.gz artifacts from `66f3173`, and passed package validation/parity.
-- Current task: `AICFB-004`.
-- Exact next action: implement Git-exact-case active reference validation and repair `.dev/ARCHITECTURE.MD` references to tracked `.dev/ARCHITECTURE.md`.
-- Validation already completed: packaging GWT passed 11/11; actual package build and two-archive validation passed; version governance passed 14/14.
-- Git state: AICFB-003 implementation committed in `66f3173`; task transition is uncommitted.
+- Last completed action: added Git-backed exact-case validation and repaired 28 active AI-context path mismatches across canonical skills, guides, ADR template, and standards.
+- Current task: `AICFB-005`.
+- Exact next action: define and implement the executable commit-message contract with positive and negative GWT fixtures.
+- Validation already completed: exact-case GWT passed 5/5; AI-context validation passed; packaging GWT passed 11/11; actual package build and two-archive validation passed; version governance passed 14/14.
+- Git state: AICFB-004 implementation and task transition are ready for checkpoint commit.
 - Branch history and checkpoint handoffs: segment 1 started from merge commit `d3ebfc527d49e30c3dc1cee958054a69e415eeef`.
 - Blockers or unresolved decisions: none. Historical `v0.0.1` selection and actual `v0.3.0` publication remain out of scope.
 
