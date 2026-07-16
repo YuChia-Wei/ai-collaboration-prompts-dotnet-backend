@@ -19,7 +19,7 @@
 - `current_phase`: `remediation-planning`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T09:02:26+08:00`
+- `updated_at`: `2026-07-16T09:07:19+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -128,7 +128,7 @@ The reviewable MVP is defined in [the dedicated reconstruction-contract plan](pl
 - Current task: `PLAN-001`.
 - Exact next action: user reviews the revised reconstruction contract, especially the optional `EsAggregateRoot<TId>` decision, then authorizes or adjusts the first remediation slice.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at checkpoint `680104d`; the revised planning documents are not yet committed.
+- Git state: active workflow branch tracks origin at reconstruction-contract checkpoint `cbd467e`; the documents are available for cross-machine review.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: revised reconstruction-contract review; `EsAggregateRoot<TId>` disposition; final approval of the first remediation slice. Repository-profile and Observability proposals remain reviewable rather than final.
 
@@ -139,3 +139,4 @@ The reviewable MVP is defined in [the dedicated reconstruction-contract plan](pl
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | started | `443093bae351c8474beaaf08a553c32d3eb3c068` | local | `2026-07-16T07:22:13+08:00` | Preserve both assessment artifacts without merging or rewriting them. | Continue `PLAN-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `9853cb89797d99d782bafdc32b5d1fc66cc9a0e4` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T08:15:44+08:00` | User manually pushed the planning checkpoint for cross-machine review and authorized later workflow pushes. | Resume and push future coherent workflow checkpoints on the same branch. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `77e54de5ebe1e8ef4bf0adf362d987b5adf8661e` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T08:20:40+08:00` | Publish the confirmed decisions, `TRUTH-001` explanation, and reviewable BuildingBlocks/examples MVP plan. | Await user review before starting the first remediation slice. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `cbd467e82cff31e325719b28d07187c27824bb74` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T09:07:19+08:00` | Publish the documentation-first reconstruction contract, base-class minimization proposal, and repository-lineage provenance. | Await user review; do not start standards remediation. |

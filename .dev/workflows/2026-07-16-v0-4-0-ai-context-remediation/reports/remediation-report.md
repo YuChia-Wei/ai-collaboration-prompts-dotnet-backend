@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T09:02:26+08:00`
+- `updated_at`: `2026-07-16T09:07:19+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -70,6 +70,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: prior planning checkpoint `680104d` is pushed; the revised reconstruction-contract documents are pending a new planning checkpoint.
+- Commit status: reconstruction-contract planning checkpoint `cbd467e` is committed and pushed for review.
 - Workflow/task status: `PLAN-001` in progress; all remediation tasks pending.
 - Final next action: user reviews the revised reconstruction-contract plan and decides whether optional `EsAggregateRoot<TId>` behavior belongs in the context before authorizing the first remediation slice.
