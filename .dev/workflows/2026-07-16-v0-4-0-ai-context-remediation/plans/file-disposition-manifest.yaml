@@ -1,0 +1,48 @@
+schema_version: "1.0"
+manifest_id: "V040-FILE-DISPOSITION-001"
+workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
+target_release: "v0.4.0"
+status: "active"
+created_at: "2026-07-16T21:02:32+08:00"
+updated_at: "2026-07-16T21:02:32+08:00"
+owner_skill: "ai-context-governance"
+consumer_skill: "ai-context-upgrader"
+source_assessment: "ASM-20260715-002"
+
+contract:
+  path_identity: "repository-relative path with exact Git casing"
+  allowed_dispositions:
+    - "kept"
+    - "moved-to"
+    - "merged-into"
+    - "retired"
+  destination_required_for:
+    - "moved-to"
+    - "merged-into"
+  upgrade_rules:
+    - "This manifest describes incoming release intent; it does not replace target-side three-way comparison."
+    - "kept paths remain normal three-way candidates."
+    - "moved-to and merged-into paths require target reconciliation when the target changed the source path."
+    - "retired paths require reconciliation unless the target is unchanged from base and the migration guide explicitly permits automatic removal."
+    - "Target-owned truth and declared local overrides retain precedence until explicitly reconciled."
+
+entries:
+  - path: ".ai/assets/skills/spec-compliance-validator/references/validation-command-templates.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-004"
+    change_summary: "Replace the removed repository shell route with the current DBA1001 analyzer/build contract."
+    target_migration: "three-way"
+    replacement_evidence:
+      - "tools/DotnetBackendAnalyzers/README.md"
+      - ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
+  - path: ".dev/standards/coding-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-012"
+    change_summary: "Replace the Lab-specific integration-contract namespace with the portable project-structure placeholder."
+    target_migration: "three-way"
+    replacement_evidence:
+      - ".dev/standards/project-structure.md"

@@ -1,0 +1,58 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "MIGRATE-001",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-16T21:02:32+08:00",
+  "updated_at": "2026-07-16T21:02:32+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "v0.4.0 file-disposition and downstream upgrade contract",
+    "files": [
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/file-disposition-manifest.yaml",
+      ".dev/releases/v0.4.0/migration-guide.md",
+      ".ai/assets/skills/ai-context-upgrader/**"
+    ],
+    "constraints": [
+      "Every remediated framework path receives kept, moved-to, merged-into, or retired disposition",
+      "The manifest informs but never bypasses three-way comparison",
+      "Retirement and target-owned changes remain reconciliation-safe",
+      "Complete before ROUTE-001 and release closure"
+    ],
+    "non_goals": [
+      "Upgrade either downstream lab in this workflow",
+      "Update target provenance before a real target upgrade validates",
+      "Publish v0.4.0"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Maintain exact-path dispositions as remediation tasks change files",
+      "Define consumer validation and migration-guide projection",
+      "Reconcile moved, merged, and retired paths with upgrader safety rules",
+      "Validate manifest completeness before ROUTE-001 and release preparation"
+    ],
+    "validation": [
+      "YAML parse",
+      "Exact-case path validation",
+      "Allowed-disposition validation",
+      "Destination requirement validation",
+      "Changed-path coverage against the remediation commit range"
+    ],
+    "last_completed_step": "The workflow-level manifest contract and first two planned entries were created as the Gate 6 prerequisite.",
+    "next_action": "Add and validate dispositions for each subsequent remediation slice before ROUTE-001."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "The manifest is workflow-owned until consumer validation and release migration projection are implemented.",
+    "follow_up_needed": true
+  }
+}

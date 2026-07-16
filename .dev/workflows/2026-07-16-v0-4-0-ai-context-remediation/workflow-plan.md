@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation-planning`
+- `current_phase`: `active-truth-remediation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T09:07:19+08:00`
+- `updated_at`: `2026-07-16T21:02:32+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -27,7 +27,7 @@
 
 - Problem statement: v0.4.0 needs one coherent .NET backend context that separates invariants, defaults, target choices, examples, and historical Java/EzDDD provenance while supporting both multi-BC micro-system mono repos and mono-system repositories.
 - Authorized remediation scope: plan and later remediate findings from `ASM-20260715-002`; use `ASM-20260715-001` only as superseded comparison evidence; incorporate the user's confirmed NSubstitute direction, repository lineage, and read-only downstream architecture observations; coordinate standards, examples, routing, validators, BuildingBlocks reconstruction knowledge, and independent verification.
-- Current authorization boundary: workflow and task planning plus a reviewable reconstruction-contract MVP/change plan. Do not execute standards remediation, create a reference product, or implement a BuildingBlocks fixture until the user reviews the revised plan.
+- Current authorization boundary: the review gates and first remediation slice are approved. Execute `AIC-004` and `AIC-012` first, maintain the file-disposition manifest, and do not create a reference product. Later tasks remain bounded by this plan.
 - Exclusions: product code remediation in either lab; publishing packages; creating NuGet packages or a distributable `dotnet new` template; moving tags; GitHub Release work; remote branch deletion; merge without explicit authorization. Pushes of this active workflow branch are authorized for cross-machine review.
 - Completion criteria: all 14 authoritative findings and supplemental architecture decisions have explicit outcomes; selected standards and projections agree; examples have declared verification tiers; the BuildingBlocks and project-structure knowledge supports architectural reconstruction without depending on a committed reference product; validators describe and enforce their real scope; an independent successor assessment verifies the result; commits and closure evidence pass policy.
 
@@ -39,17 +39,20 @@
 - Verification assessment: `.dev/assessments/<future-assessment-id>/assessment.yaml`
 - Tasks: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/tasks/`
 - BuildingBlocks/examples MVP plan: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/building-blocks-examples-mvp.md`
+- File-disposition manifest: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/file-disposition-manifest.yaml`
 
 ## Decision Register
 
 | Decision | State | Current direction | Evidence / consequence |
 | --- | --- | --- | --- |
 | `V040-DEC-001` Mocking framework | confirmed by user | NSubstitute is the framework profile default and is mandatory within that profile. A target may replace it through one explicit technology-selection override instead of editing scattered rules. | Create one target-owned selection slot and make derived testing guidance consume it; GWT remains invariant. |
-| `V040-DEC-002` Deletion semantics | confirmed by user | Soft deletion is standard Aggregate Repository behavior: the Aggregate changes deletion state and `SaveAsync` persists it. Physical deletion is a separately authorized command/use case and restricted repository/capability. | Make soft delete the default Aggregate Repository profile and keep purge explicit for legal/privacy/retention needs. |
-| `V040-DEC-003` Repository profiles | proposed | Use one logical solution-folder grammar: shared foundations plus `<workload>/DomainCore` and `<workload>/Presentation`; workload means BC for micro-system and system for mono-system | Extend the conditional project-structure profile without forcing identical physical layouts. |
-| `V040-DEC-004` Observability | proposed | Treat attribute/AOP observability as runtime CrossCutting infrastructure, separate from build-time Tooling and prohibited from Domain dependencies by default | Add a bounded canonical standard/reference and validation strategy. |
-| `V040-DEC-005` BuildingBlocks realization | confirmed direction; revised plan awaiting review | BuildingBlocks defaults to contracts/interfaces and no product persistence, broker, observability, or other concrete adapter implementation. Product Infrastructure implements outbound ports. `EsAggregateRoot<TId>` is the only optional abstract-base candidate; all other default base classes are rejected unless separately justified. | Replace the complete fixture proposal with a documentation-first reconstruction contract. Decide whether ES reusable behavior belongs in an optional abstraction or remains entirely product-owned. |
-| `V040-DEC-006` Examples contract | confirmed by user; revised execution awaiting review | Executable examples require tests. Documentation-only illustrative/reference examples do not require tests but must not claim executable verification. | Do not create a product fixture solely to produce tests; classify existing material and use focused analyzer/validator inputs where deterministic. |
+| `V040-DEC-002` Deletion semantics | confirmed by user | Soft deletion is a default-profile Aggregate Repository behavior with explicit target opt-out: the Aggregate changes deletion state and `SaveAsync` persists it. Physical deletion is a separately authorized command/use case and restricted repository/capability. | Change `DELETE-SOFT-001` ownership strength and projections consistently; do not make existing targets without global soft deletion violations by default. |
+| `V040-DEC-003` Repository profiles | approved minimal core | Use one logical solution-folder grammar: shared foundations plus `<workload>/DomainCore` and `<workload>/Presentation`; workload means BC for micro-system and system for mono-system. | Do not expand this workflow into detailed naming or cross-profile migration design; physical layouts remain target-owned. |
+| `V040-DEC-004` Observability | moved out of workflow | Runtime AOP/attribute observability is CrossCutting and Domain must not depend on it; full design is not assessment remediation. | Retain only this bounded candidate if needed for context, and create a separate design workflow for a full standard/reference. |
+| `V040-DEC-005` BuildingBlocks realization | approved | BuildingBlocks defaults to contracts/interfaces. Retain one optional `EsAggregateRoot<TId>` abstraction under three conditions: executable-tested pure behavior, an independent behavior contract, and source-copy ownership managed by upgrader three-way reconciliation until packaging exists. | Unify standards/examples and `DBA1009` recognition around the same ES shape; no other default base classes and no reference product. |
+| `V040-DEC-006` Examples contract | approved | Executable examples require tests; structure-validated items name their validator; evidence tiers are machine-readable; unclassified legacy defaults downward to historical or illustrative. | Add schema/validator coverage and never infer upward promotion. |
+| `V040-DEC-007` Technology selection | approved mechanism | Mocking, ORM, broker, and similar target choices use one generic technology-selection override shape. | NSubstitute remains the default mocking selection without creating a mocking-only override mechanism. |
+| `V040-DEC-008` Migration contract | approved prerequisite | Every remediated framework path receives `kept`, `moved-to`, `merged-into`, or `retired` disposition in an upgrader-consumable manifest. | Maintain the manifest during remediation and project it into v0.4.0 migration guidance before `ROUTE-001` and release closure. |
 
 ## Repository Lineage And Evidence Consequences
 
@@ -82,36 +85,39 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | --- | --- | --- | --- |
 | `PLAN-001` | Freeze user decisions, evidence boundaries, finding mapping, and execution order. | `in_progress` | none |
 | `RULE-001` | Align profile, soft-delete, and NSubstitute ownership and projections. | `pending` | `PLAN-001` |
-| `TRUTH-001` | Repair broken validator routing, async controller example, and target namespace leakage. | `pending` | `RULE-001` |
+| `TRUTH-001` | Repair the broken DBA1001 route and target namespace leakage as the first remediation slice. | `in_progress` | `PLAN-001` |
+| `TRUTH-002` | Repair or downgrade the synchronous Java-shaped controller guidance. | `pending` | `TRUTH-001`, `EXAMPLE-001` |
 | `EXAMPLE-001` | Define example verification tiers and consolidate duplicate discovery/fixtures. | `pending` | `PLAN-001` |
 | `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `pending` | `RULE-001`, `EXAMPLE-001` |
 | `ARCH-001` | Extend repository profiles for micro-system/mono-system parity and add CrossCutting Observability boundaries. | `pending` | `PLAN-001`, `RULE-001` |
+| `MIGRATE-001` | Maintain the file-disposition manifest and integrate it with upgrader/release migration guidance. | `pending` | all changed-path tasks; must complete before `ROUTE-001` |
 | `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `pending` | `EXAMPLE-001`, `ARCH-001` |
 | `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `pending` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
 | `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `pending` | all remediation tasks |
 
 ## Stages And Checkpoints
 
-1. Decision confirmation and evidence freeze.
-2. Canonical ownership and active truth repair.
-3. Example contract, BuildingBlocks reference, and repository-profile work.
-4. Placement, routing, validator, and script-lifecycle remediation.
-5. Independent verification assessment.
-6. Finding reconciliation, commit verification, and workflow closure.
+1. Completed: decision confirmation, evidence freeze, and file-disposition contract.
+2. First slice: `AIC-004` and `AIC-012` active truth repair.
+3. Canonical profile ownership and generic technology-selection repair.
+4. Machine-readable example contract, optional ES abstraction, and minimal repository-profile work.
+5. Complete migration-manifest/upgrader/release projection before routing changes.
+6. Placement, routing, validator, and script-lifecycle remediation.
+7. Independent verification assessment, including clean navigation/reconstruction without copying either lab.
+8. Finding reconciliation, commit verification, and workflow closure.
 
 ## Task Detail: TRUTH-001
 
-`TRUTH-001` groups three bounded active-truth defects that can mislead direct agent execution without requiring a broad policy redesign:
+The original task was split so the first slice can close without waiting for profile or example-tier design:
 
 1. `AIC-004`: the active spec-compliance skill still routes to removed `check-repository-compliance.sh`; replace it with the current analyzer/tool contract and test command existence.
-2. `AIC-010`: the controller example still calls a synchronous Java-shaped `Execute`; rewrite it to the current async Use Case port when independently supported, or downgrade it from executable guidance.
-3. `AIC-012`: broad canonical guidance contains `Lab.MessageSchemas.<Domain>`; replace it with the portable canonical namespace placeholder or a link to the canonical project-structure owner.
+2. `AIC-012`: broad canonical guidance contains `Lab.MessageSchemas.<Domain>`; replace it with the portable canonical namespace placeholder or a link to the canonical project-structure owner.
 
-The task deliberately excludes profile ownership, example portfolio consolidation, and analyzer redesign. Its success criterion is that every active command/path/example it touches can be followed literally without reaching a missing command, obsolete synchronous contract, or target-specific namespace.
+`AIC-010` is now `TRUTH-002` and follows the evidence-tier contract. `TRUTH-001` deliberately excludes profile ownership, example portfolio consolidation, and analyzer redesign. Its success criterion is that every active command/path it touches can be followed literally without reaching a missing command or target-specific namespace.
 
 ## BuildingBlocks And Examples MVP
 
-The reviewable MVP is defined in [the dedicated reconstruction-contract plan](plans/building-blocks-examples-mvp.md). It removes the complete BuildingBlocks/SampleProduct fixture proposal, keeps the repository focused on reconstructable knowledge, and treats `EsAggregateRoot<TId>` as the only optional abstract-base decision. No standards remediation or implementation work is authorized until the user approves that revised plan.
+The approved MVP is defined in [the dedicated reconstruction-contract plan](plans/building-blocks-examples-mvp.md). It removes the complete BuildingBlocks/SampleProduct fixture proposal, keeps the repository focused on reconstructable knowledge, and approves `EsAggregateRoot<TId>` option B under executable-test, behavior-contract, and upgrader-ownership conditions.
 
 ## Validation Strategy
 
@@ -124,13 +130,13 @@ The reviewable MVP is defined in [the dedicated reconstruction-contract plan](pl
 
 ## Resume Checkpoint
 
-- Last completed action: revised the BuildingBlocks/examples MVP into a documentation-first reconstruction contract and recorded the repository lineage as provenance.
-- Current task: `PLAN-001`.
-- Exact next action: user reviews the revised reconstruction contract, especially the optional `EsAggregateRoot<TId>` decision, then authorizes or adjusts the first remediation slice.
+- Last completed action: recorded all review-gate decisions, split `TRUTH-001`, and created the file-disposition manifest prerequisite.
+- Current task: `TRUTH-001`.
+- Exact next action: replace the removed repository command route, add fail-closed script-reference validation, and remove the active `Lab.MessageSchemas` namespace.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at reconstruction-contract checkpoint `cbd467e`; the documents are available for cross-machine review.
+- Git state: active workflow branch tracks origin at checkpoint `c4d3064`; gate-decision and first-slice planning changes are not yet committed.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: revised reconstruction-contract review; `EsAggregateRoot<TId>` disposition; final approval of the first remediation slice. Repository-profile and Observability proposals remain reviewable rather than final.
+- Blockers or unresolved decisions: none for the first slice. Full Observability design is deferred; later tasks must preserve their approved bounded scope.
 
 ## Branch Lifecycle
 

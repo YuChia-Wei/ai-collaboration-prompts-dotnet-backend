@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T09:07:19+08:00`
+- `updated_at`: `2026-07-16T21:02:32+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -23,8 +23,8 @@
 
 ## Remediation Summary
 
-- Authorized scope: planning only; no finding remediation is yet authorized.
-- Completed scope: assessment intake, corrected decision register, task decomposition, repository-lineage intake, and revised documentation-first reconstruction-contract MVP plan.
+- Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
+- Completed scope: assessment intake, decision register, repository lineage, reconstruction contract, task-order correction, and file-disposition manifest prerequisite.
 - Validation summary: workflow, assessment, and AI-context validators pass; nine task JSON files parse; `git diff --check` passes.
 - Closure decision: `not-ready`
 
@@ -50,11 +50,13 @@
 ## Supplemental Architecture Decisions
 
 - `V040-DEC-001`: NSubstitute is the framework profile default; a target may replace it through one explicit technology-selection override.
-- `V040-DEC-002`: soft delete is standard Aggregate Repository behavior; physical purge is an explicit restricted capability.
-- `V040-DEC-003`: common logical solution-folder grammar is proposed for micro-system and mono-system profiles.
-- `V040-DEC-004`: CrossCutting Observability is a runtime architecture gap, not Tooling.
-- `V040-DEC-005`: BuildingBlocks defaults to contracts/interfaces; concrete adapters live in product Infrastructure; no complete reference product belongs in this repository. `EsAggregateRoot<TId>` remains the only optional abstract-base decision.
-- `V040-DEC-006`: executable examples require tests; documentation-only examples do not; a product fixture will not be created solely to manufacture executable evidence.
+- `V040-DEC-002`: soft delete is a default profile with explicit target opt-out; physical purge is an explicit restricted capability.
+- `V040-DEC-003`: the minimal common logical solution-folder grammar is approved; detailed physical layout and cross-profile migration design are excluded.
+- `V040-DEC-004`: full Observability design is moved out of this workflow; only the bounded CrossCutting/Domain dependency statement may remain as input.
+- `V040-DEC-005`: BuildingBlocks defaults to contracts/interfaces; optional `EsAggregateRoot<TId>` option B is approved with executable tests, an independent behavior contract, and source-copy/upgrader ownership rules.
+- `V040-DEC-006`: example evidence tiers are machine-readable; structure-validated names its validator; unclassified legacy defaults downward.
+- `V040-DEC-007`: mocking, ORM, broker, and similar choices share one generic technology-selection override shape.
+- `V040-DEC-008`: every changed framework path receives a file disposition for upgrader and migration-guide consumption.
 - Provenance: `ai-coding-exercise` Java origin -> initial .NET standards -> `dotnet-mq-arch-lab` adoption/refinement -> implementation removal and continued evolution in this standalone AI context repository. Historical names are classification evidence, not current truth.
 
 ## Deferred Work
@@ -64,6 +66,7 @@
 | NuGet packages for analyzers/BuildingBlocks | Explicitly not now | user / future workflow | Reconsider only if reusable binaries become a separate product goal. |
 | Distributable `dotnet new` template | Outside the current knowledge-first repository scope | architecture + governance | Evaluate separately if deterministic source reproduction becomes a product goal. |
 | Executable clean-room reconstruction exercise | Useful but not required for the planning MVP | independent verifier / future authorization | Run outside the committed context surface and retain only assessment evidence if later approved. |
+| Full CrossCutting Observability design | Does not map to an assessment finding and would broaden verification scope | future architecture workflow | Retain only the minimal dependency-boundary candidate in this workflow. |
 | Product remediation in either lab | Outside this framework workflow | target repository owners | Use target-owned workflow if authorized. |
 | Remote assessment branch cleanup | No authorization | user | Decide separately; do not delete implicitly. |
 
@@ -71,5 +74,5 @@
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: reconstruction-contract planning checkpoint `cbd467e` is committed and pushed for review.
-- Workflow/task status: `PLAN-001` in progress; all remediation tasks pending.
-- Final next action: user reviews the revised reconstruction-contract plan and decides whether optional `EsAggregateRoot<TId>` behavior belongs in the context before authorizing the first remediation slice.
+- Workflow/task status: `PLAN-001` completed; `TRUTH-001` in progress; all later remediation tasks remain pending.
+- Final next action: complete `AIC-004` and `AIC-012`, validate the active route and namespace, and publish the first remediation checkpoint.

@@ -4,7 +4,7 @@
 
 Demonstrate that v0.4.0 preserves enough architecture and software-engineering knowledge to reconstruct an equivalent .NET backend structure without turning this AI context repository into a product implementation, source template, or BuildingBlocks package.
 
-This remains a review proposal. It does not authorize standards remediation, example migration, or implementation work until the user approves the revised scope.
+The six review gates were approved on 2026-07-16 with the conditions recorded below. The first remediation slice is authorized; later slices remain governed by their task boundaries and validation gates.
 
 ## Repository Identity Decision
 
@@ -67,25 +67,30 @@ The default reconstruction contract must not require `DomainEntity<TId>`, `Aggre
 - value objects should prefer immutable C# records and product-owned equality semantics;
 - shared test base classes remain prohibited.
 
-`EsAggregateRoot<TId>` is the only abstract base-class candidate because event replay, pending-event tracking, `Apply/When`, and committed-version handling may constitute stable reusable behavior. Its disposition remains `decision-required` until review:
+`EsAggregateRoot<TId>` is the only approved optional abstract base class because event replay, pending-event tracking, `Apply/When`, and committed-version handling are stable mechanical behavior that is costly to reimplement incorrectly.
 
-- option A: document the behavior contract only and leave every implementation product-owned;
-- option B: retain one optional Event Sourcing abstraction, separated from the portable core and never required for non-ES products.
+The approved option B has three conditions:
+
+1. The abstraction is `executable-tested` with focused pure-logic tests for replay, pending events, transition dispatch, and committed-version behavior.
+2. The behavior contract is documented independently so a target may reimplement it instead of copying the supplied abstraction.
+3. Until a package distribution path is approved, a source-included copy becomes target-owned. Upgrade reconciliation uses `ai-context-upgrader` three-way comparison and the v0.4.0 file-disposition manifest.
 
 No other abstract base class enters the v0.4.0 default profile without separate evidence and user approval.
 
+Standards, examples, and `DBA1009` must recognize the same `EsAggregateRoot` shape. A rule that cannot recognize the documented descendant type is not considered enforced.
+
 ## Reconstruction Evidence Matrix
 
-Each architecture capability selected for v0.4.0 should have all applicable evidence columns completed:
+Each architecture capability selected for v0.4.0 must have all applicable evidence columns completed. Every equivalence criterion maps to either a deterministic check or an explicit review checklist item:
 
 | Capability | Normative rule | Rationale | Minimal illustration | Validator/analyzer | Downstream evidence |
 | --- | --- | --- | --- | --- | --- |
-| Project/layer grammar | required | required | optional | structural where deterministic | compare both lab profiles |
-| Aggregate and Repository | required | required | focused snippet | analyzer where enforceable | compare `dotnet-mq-arch-lab` |
-| Soft delete and purge | required | required | focused use-case flow | relationship check if feasible | target-specific review |
-| CQRS and MQ boundaries | required | required | focused flow | dependency/routing checks | compare adopted repositories |
-| Technology selection | required | required | profile example | selection/projection check | target override evidence |
-| BuildingBlocks contracts | required | required | signatures only | API-name/relationship checks where stable | downstream implementations |
+| Project/layer grammar | required | required | optional | structural check plus profile checklist | compare both lab profiles |
+| Aggregate and Repository | required | required | focused snippet | analyzer plus review checklist | compare `dotnet-mq-arch-lab` |
+| Soft delete and purge | required | required | focused use-case flow | ownership/projection check plus target opt-out evidence | target-specific review |
+| CQRS and MQ boundaries | required | required | focused flow | dependency/routing checks plus review checklist | compare adopted repositories |
+| Technology selection | required | required | profile example | generic selection/override schema validation | target override evidence |
+| BuildingBlocks contracts | required | required | signatures only | API-name/relationship checks plus ES behavior tests | downstream implementations |
 
 A capability is not considered reconstructable merely because a class name appears in an index. The rule, ownership boundary, and navigation path must be sufficient for an agent working without the historical repositories.
 
@@ -101,25 +106,33 @@ A capability is not considered reconstructable merely because a class name appea
 
 Do not create an executable architecture fixture solely to populate the first tier. Existing code examples may be promoted individually only when they have a real build/test route. Analyzer and validator tests may use minimal inline C# inputs to prove one rule without becoming a reference product.
 
+Tier declarations must be machine-readable through frontmatter or a manifest:
+
+- `structure-validated` names the exact validator that supplies its evidence;
+- `executable-tested` names its build/test route;
+- unclassified legacy material defaults to `historical` or `illustrative`;
+- no validator or migration may promote an unclassified item by inference.
+
 ## Proposed MVP Work
 
 1. Create an EzDDD/Java/lab-to-current-concept disposition matrix.
 2. Reduce the conceptual BuildingBlocks index to interfaces, semantic contracts, conditional target technologies, and clearly labeled historical references.
-3. Record `EsAggregateRoot<TId>` as the only optional base-class decision; reject implicit base-class requirements elsewhere.
+3. Document and executable-test the optional `EsAggregateRoot<TId>` abstraction under the approved conditions; reject implicit base-class requirements elsewhere.
 4. Create a compact reconstruction blueprint for micro-system and mono-system project profiles.
 5. Define the five evidence tiers and reclassify existing examples before deleting or promoting them.
 6. Add or strengthen analyzers/validators only for deterministic rules; keep their test inputs minimal and focused.
 7. Compare the resulting knowledge against `dotnet-mq-arch-lab` and `dotnet-webapi-lab` as read-only downstream evidence.
-8. Use the independent verification assessment to judge whether an agent can navigate and reconstruct the architecture without copying either lab.
+8. Maintain the workflow file-disposition manifest with `kept`, `moved-to`, `merged-into`, and `retired` outcomes for upgrader and migration-guide consumption.
+9. Use the independent verification assessment to judge whether an agent can navigate and reconstruct the architecture without copying either lab.
 
-## Review Gates
+## Approved Review Gates
 
-1. Approve removal of the committed architecture-fixture proposal.
-2. Confirm contracts/interfaces as the default BuildingBlocks form.
-3. Decide whether optional `EsAggregateRoot<TId>` behavior belongs in this context at all.
-4. Approve architectural equivalence, rather than identical implementation, as the reconstruction target.
-5. Approve the five example evidence tiers.
-6. Only then authorize the first remediation slice.
+1. Approved: remove the committed architecture-fixture proposal.
+2. Approved: contracts/interfaces are the default BuildingBlocks form.
+3. Approved: optional `EsAggregateRoot<TId>` option B with executable tests, an independent behavior contract, and source-copy/upgrader ownership rules.
+4. Approved: architectural equivalence is the reconstruction target, with one deterministic check or review checklist item per criterion.
+5. Approved: use five machine-readable evidence tiers with explicit validator identity and default-downward legacy classification.
+6. Approved: begin with `AIC-004` and `AIC-012`; create the file-disposition manifest before remediation and complete release/migration integration before `ROUTE-001`.
 
 ## Deferred
 
