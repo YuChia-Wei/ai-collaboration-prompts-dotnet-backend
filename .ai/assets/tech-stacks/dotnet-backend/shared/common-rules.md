@@ -5,7 +5,8 @@ defined by [AI Context Rule Ownership](../../../../../.dev/standards/AI-CONTEXT-
 
 Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`, `TEST-MOCK-001`,
 `TECH-SELECT-001`, `ARCH-UOW-001`,
-`MAP-EVENTS-001`, `DELETE-SOFT-001`, `DELETE-PURGE-001`.
+`MAP-EVENTS-001`, `DELETE-SOFT-001`, `DELETE-PURGE-001`,
+`CONTRACT-SEMANTICS-001`, `PROJECT-GRAMMAR-001`.
 
 ## Execution Summary
 1. **DTO rule**: Request/Response DTOs are **separate files** (NOT inner classes).
@@ -13,7 +14,8 @@ Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`, `TEST-MOCK-001`,
 3. **Mocking**: Resolve `testing.mocking` from target technology selections;
    default to **NSubstitute** when no explicit selection exists.
 4. **Comments**: Allow **doc comments only** (XML Doc / JSDoc); forbid explanatory inline comments.
-5. **Contracts**: Aggregate/UseCase use Contract; Entity/ValueObject/DomainEvent use Objects/Guard.
+5. **Contracts**: preserve precondition, postcondition, and invariant semantics;
+   helper/package names are target-selected, not framework API truth.
 
 ## ABSOLUTELY FORBIDDEN
 - Hardcode environment/profile inside test classes.
@@ -26,6 +28,9 @@ Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`, `TEST-MOCK-001`,
 
 ## ALWAYS REQUIRED
 - If `repo-structure-sync` generated `.dev/project-config.yaml`, use it as a secondary summary of confirmed environment and architecture facts.
+- When the target adopts the `.slnx` profile, map product projects to
+  `/<workload>/DomainCore/` and `/<workload>/Presentation/` without forcing the
+  same physical directory layout.
 - Resolve ORM, broker, mocking, and similar choices through the generic
   `technologySelections` records defined by `TECH-SELECT-001`; do not infer a
   technology from examples.
@@ -52,8 +57,10 @@ Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`, `TEST-MOCK-001`,
   and mapper coverage unless target evidence records an explicit opt-out.
 
 ## Layered Validation Rules
-- **Aggregate Root / Use Case**: Contract.require / ensure / invariant
-- **Entity / Value Object / Domain Event**: Objects/Guard null checks
+- **Aggregate Root / Use Case**: explicit preconditions, postconditions, and
+  invariants through target-selected guards/contracts plus focused tests.
+- **Entity / Value Object / Domain Event**: constructor guards and invariant
+  preservation.
 
 ## DTO Location Rules
 - Directory: `src/Api/Contracts/<Aggregate>/{Requests|Responses}`

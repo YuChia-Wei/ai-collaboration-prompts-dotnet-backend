@@ -82,9 +82,66 @@ Apply these grouping conventions only when the target repository uses `.slnx` an
 explicitly adopts this profile.
 
 - Solution Folders in `.slnx` use logical grouping and do not need to match the physical directory structure.
-- Solution Folder names must use leading and trailing slashes: `/{Group}/`, `/{Group}/{SubGroup}/` (for example, `/Order/DomainCore/`).
-- Logical grouping should primarily reflect Bounded Context and layer semantics (such as `<ContextA>/DomainCore` and `<ContextB>/Presentation`).
+- Solution Folder names use leading and trailing slashes.
+- Product projects use one logical grammar:
+  `/<workload>/DomainCore/` and `/<workload>/Presentation/`.
 - `tests` may remain a single top-level group: `/tests/`.
+
+### Workload Mapping
+
+Rule ID: `PROJECT-GRAMMAR-001` (`profile-default`).
+
+`workload` is a logical solution-navigation boundary, not a universal physical
+directory name:
+
+| Repository profile | `workload` means | Typical count | Example logical folders |
+| --- | --- | --- | --- |
+| micro-system / mini-system mono repo | one Bounded Context | one or more | `/Orders/DomainCore/`, `/Orders/Presentation/` |
+| mono-system repository | the system represented by the repository | normally one | `/Commerce/DomainCore/`, `/Commerce/Presentation/` |
+
+This mapping gives both profiles the same development navigation:
+
+- `DomainCore` groups Domain, Application, and Infrastructure projects that
+  realize the workload's business capability;
+- `Presentation` groups runtime inbound adapters such as Web API, gRPC, worker,
+  and MQ Consumer projects;
+- tests, analyzers/tooling, BuildingBlocks, Shared Kernel, Published Language,
+  and CrossCutting projects may remain explicit top-level capability groups;
+- a target may retain a flat physical `src/` layout while using the logical
+  `.slnx` grammar.
+
+Do not create artificial Bounded Context folders in a mono-system repository
+only to imitate a micro-system repo. Conversely, do not collapse real Bounded
+Contexts in a micro-system mono repo into one layer-first solution view.
+
+### Downstream Profile Comparison
+
+| Evidence repository | Observed organization | Mapping to the shared grammar | Disposition |
+| --- | --- | --- | --- |
+| `dotnet-mq-arch-lab` | Bounded Context folders such as `Order/DomainCore` and `Order/Presentation` | each Bounded Context is one workload | direct evidence for the micro-system profile |
+| `dotnet-webapi-lab` | numeric layer-first folders (`Domain`, `Application`, `Infrastructure`, `Presentation`) | the repository/system is one workload; layer projects map under its `DomainCore` or `Presentation` group | useful mono-system evidence, but numeric prefixes and physical layout are not canonical |
+
+The downstream repositories are evidence only. Targets do not need their names,
+prefixes, or exact project counts.
+
+### Review Checklist
+
+- [ ] Every product project belongs to one workload or an explicit shared
+      capability group.
+- [ ] Each workload has a logical `DomainCore` and/or `Presentation` group as
+      applicable.
+- [ ] Domain, Application, and Infrastructure libraries are under
+      `DomainCore`; runtime inbound adapters are under `Presentation`.
+- [ ] The logical grouping does not change Clean Architecture dependency
+      direction.
+- [ ] The selected workload mapping is recorded in target repository evidence.
+- [ ] Physical directories are not rewritten solely to match solution folders.
+- [ ] CrossCutting runtime/AOP observability is outside Domain, and Domain has no
+      dependency on it.
+
+The last item is the only Observability boundary in this standard. Detailed
+attribute behavior, redaction, async interception, package selection, and
+validation remain in backlog item `OBS-001` for a separate design workflow.
 
 ## Application-Layer Directory Structure
 
