@@ -74,6 +74,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: checkpoints through BUILD-001 (`5926b26`, metadata `15924bd`) are pushed; TRUTH-002 implementation is committed as `1d683ea` and will be pushed with this metadata checkpoint.
+- Commit status: checkpoints through TRUTH-002 metadata `7edee7a` are pushed; EXAMPLE-002 implementation is committed as `16595ea` and will be pushed with this metadata checkpoint.
 - Workflow/task status: tasks through `EXAMPLE-002` are completed; `ARCH-001` is active.
 - Final next action: commit and publish the EXAMPLE-002 checkpoint, then define the minimal shared logical workload grammar in `ARCH-001`.
