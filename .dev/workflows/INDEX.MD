@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-16-v0-4-0-ai-context-remediation`](2026-07-16-v0-4-0-ai-context-remediation/workflow.yaml) | v0.4.0 AI Context Standards And Reference Architecture Remediation | `ai-context-governance` | `in_progress` | `2026-07-16T22:38:59+08:00` | [plan](2026-07-16-v0-4-0-ai-context-remediation/workflow-plan.md) |
+| [`2026-07-16-v0-4-0-ai-context-remediation`](2026-07-16-v0-4-0-ai-context-remediation/workflow.yaml) | v0.4.0 AI Context Standards And Reference Architecture Remediation | `ai-context-governance` | `in_progress` | `2026-07-16T22:52:49+08:00` | [plan](2026-07-16-v0-4-0-ai-context-remediation/workflow-plan.md) |
 | [`2026-07-15-v0-1-downstream-feedback-adoption`](2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml) | Adopt v0.1.0 Downstream Feedback Into Framework Governance | `ai-context-governance` | `completed` | `2026-07-15T08:47:44+08:00` | [plan](2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
