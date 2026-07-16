@@ -74,6 +74,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: checkpoints through EXAMPLE-002 metadata `3c24c1e` are pushed; ARCH-001 implementation is committed as `b68e82d` and will be pushed with this metadata checkpoint.
-- Workflow/task status: tasks through `ARCH-001` are completed; `MIGRATE-001` is active before ROUTE-001.
-- Final next action: commit and publish the ARCH-001 checkpoint, then validate file-disposition coverage and create the v0.4.0 migration guide.
+- Commit status: checkpoints through ARCH-001 metadata `5b27116` are pushed; MIGRATE-001 implementation is committed as `68086de` and will be pushed with this metadata checkpoint.
+- Workflow/task status: tasks through `MIGRATE-001` are completed; `ROUTE-001` is active before validator lifecycle remediation.
+- Final next action: commit and publish the MIGRATE-001 checkpoint, then inventory audience placement, README/INDEX ownership, and weak inbound routes.
