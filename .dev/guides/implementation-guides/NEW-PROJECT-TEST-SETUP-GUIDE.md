@@ -159,7 +159,7 @@ Do not:
 
 Do:
 1. Use fixtures for DI setup
-2. Use NSubstitute for mocks
+2. Resolve `testing.mocking` from target technology selections; default to NSubstitute
 3. Keep profile registrations isolated
 4. Clear events between scenarios
 5. Use `dotnet test` with environment variables

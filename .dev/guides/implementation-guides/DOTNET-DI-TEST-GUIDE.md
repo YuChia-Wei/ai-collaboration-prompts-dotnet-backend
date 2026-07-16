@@ -78,8 +78,14 @@ public sealed class TestProfileFixture
 }
 ```
 
-### 3. Use NSubstitute for mocks
+### 3. Resolve the target mocking selection
+
+Resolve `.dev/project-config.yaml#technologySelections` slot
+`testing.mocking`. Use NSubstitute when the slot is absent because it is the
+dotnet-backend profile default; use the recorded target selection otherwise.
+
 ```csharp
+// NSubstitute default-profile example
 var eventPublisher = Substitute.For<IProductEventPublisher>();
 services.AddSingleton(eventPublisher);
 ```
@@ -111,7 +117,10 @@ public sealed class TestProfileFixture : IAsyncLifetime
 }
 ```
 
-### Step 3: Replace @MockBean with NSubstitute DI overrides
+### Step 3: Replace @MockBean with target-selected DI test doubles
+
+The following snippet shows the NSubstitute default:
+
 ```csharp
 var eventPublisher = Substitute.For<IProductEventPublisher>();
 services.AddSingleton(eventPublisher);
@@ -144,7 +153,7 @@ ASPNETCORE_ENVIRONMENT=TestOutbox dotnet test
 ## Checklist
 - [ ] Tests resolve use cases via DI (no `new`)
 - [ ] No BaseTestClass or base test inheritance
-- [ ] Mocking uses NSubstitute only
+- [ ] Mocking uses the resolved `testing.mocking` selection; NSubstitute is the default
 - [ ] Profiles switch via `ASPNETCORE_ENVIRONMENT`
 - [ ] No hardcoded repository implementations in tests
 - [ ] `TestInMemory` and `TestOutbox` are both supported when the target adopts both profiles

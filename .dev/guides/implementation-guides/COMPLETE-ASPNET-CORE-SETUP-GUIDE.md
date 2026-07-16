@@ -21,7 +21,7 @@ observed layout and record unresolved structure through `repo-structure-sync`.
 - WolverineFx (CQRS / Messaging)
 - EF Core + provider (Npgsql/SqlServer)
 - xUnit + BDDfy (Gherkin-style naming only)
-- NSubstitute
+- Target `testing.mocking` selection (NSubstitute by default)
 
 ### 3. Configuration
 Use `appsettings.json` and `appsettings.{Environment}.json`.

@@ -133,6 +133,11 @@ dotnet add src/Infrastructure package Npgsql.EntityFrameworkCore.PostgreSQL
 ```
 
 In `src/tests`:
+
+Resolve `testing.mocking` from `.dev/project-config.yaml`. The following command
+uses the NSubstitute default profile; replace only that package command when the
+target records another selection.
+
 ```bash
 dotnet add src/tests package xunit
 dotnet add src/tests package xunit.runner.visualstudio

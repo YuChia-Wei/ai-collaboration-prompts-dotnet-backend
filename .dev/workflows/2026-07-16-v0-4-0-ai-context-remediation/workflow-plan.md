@@ -19,7 +19,7 @@
 - `current_phase`: `verification-remediation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:26:27+08:00`
+- `updated_at`: `2026-07-16T23:31:02+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -96,8 +96,8 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `completed` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
 | `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `in_progress` | all remediation tasks |
 | `PROFILE-002` | Close the verified active profile-selector and naming residual. | `completed` | `VERIFY-001` assessment intake |
-| `DOC-002` | Align routed mocking-default and async use-case documentation. | `in_progress` | `PROFILE-002` |
-| `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `pending` | `DOC-002` |
+| `DOC-002` | Align routed mocking-default and async use-case documentation. | `completed` | `PROFILE-002` |
+| `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `in_progress` | `DOC-002` |
 
 ## Stages And Checkpoints
 
@@ -134,11 +134,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `PROFILE-002` with environment-only selection, canonical names, and fail-closed projection tests.
-- Current task: `DOC-002`, with `VERIFY-001` pending final reconciliation.
-- Exact next action: align mocking-default guidance with `testing.mocking` and replace remaining synchronous use-case snippets.
-- Validation already completed: profile projection tests pass 3/3; file disposition and shell registries validate; quick gate passes 17/17 required checks.
-- Git state: PROFILE-002 changes are dirty and pending a validated checkpoint commit.
+- Last completed action: completed `DOC-002` with override-safe mocking guidance, async Use Case snippets, and fail-closed documentation tests.
+- Current task: `GATE-002`, with `VERIFY-001` pending final reconciliation.
+- Exact next action: make BuildingBlocks behavior tests a required aggregate-gate command.
+- Validation already completed: document projection tests pass 2/2; file disposition and shell registries validate; quick gate passes 18/18 required checks.
+- Git state: DOC-002 changes are dirty and pending a validated checkpoint commit.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: `ASM-20260716-001#VFY-005` requires repair-versus-retire direction for transitional test helpers; `#VFY-006` requires a decision on already-pushed commit-history handling. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 

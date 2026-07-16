@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T23:24:12+08:00"
+updated_at: "2026-07-16T23:29:00+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -1395,3 +1395,60 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".ai/scripts/tests/test_document_projection_contract.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002", "ASM-20260716-001#VFY-003"]
+    change_summary: "Fail closed on unqualified mocking defaults and synchronous Use Case Execute snippets."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md", ".dev/standards/coding-standards/usecase-standards.md"]
+  - path: ".dev/guides/design-guides/EZDDD-FRAMEWORK-REFERENCE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Qualify NSubstitute as the default resolved through testing.mocking."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/guides/design-guides/TEST-DATA-PREPARATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-003"]
+    change_summary: "Use ExecuteAsync with explicit cancellation in test-data setup snippets."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/usecase-standards.md"]
+  - path: ".dev/guides/implementation-guides/quick-setup.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Route mocking through the target technology selection with NSubstitute as default."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/standards/examples/inquiry-archive/USAGE-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-003"]
+    change_summary: "Align the reference-only Reactor snippet with async inquiry and Use Case contracts."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/usecase-standards.md"]
+  - path: ".dev/standards/examples/reference/ezspec-test-template.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Qualify the historical test template with the target mocking selection."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/standards/examples/reference/reactor-pattern-guide.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Qualify external-service test doubles with the target mocking selection."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]

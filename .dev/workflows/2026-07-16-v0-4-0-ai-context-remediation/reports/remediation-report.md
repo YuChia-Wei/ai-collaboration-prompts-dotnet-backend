@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:26:27+08:00`
+- `updated_at`: `2026-07-16T23:31:02+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -36,15 +36,15 @@
 | `#AIC-002` | HIGH | `resolved` | `RULE-001` | Soft delete is profile-default with an explicit target opt-out and aligned ownership/projections; independent verification remains pending. |
 | `#AIC-003` | HIGH | `resolved` | `EXAMPLE-001` | Machine-readable tiers, default-downward classification, and fail-closed validation replace unsupported verified claims; independent verification remains pending. |
 | `#AIC-004` | HIGH | `resolved` | `TRUTH-001` | DBA1001/build guidance replaces the removed script and active script references now fail closed when missing; independent verification remains pending. |
-| `#AIC-005` | HIGH | `resolved` | `BUILD-001`, `EXAMPLE-002` | Placeholder families have canonical replacements and fail-closed evidence/disposition records; unavailable uContract API truth is replaced by library-neutral semantics. |
+| `#AIC-005` | HIGH | `resolved` | `BUILD-001`, `EXAMPLE-002`, `DOC-002` | Placeholder families have canonical replacements and routed legacy test guidance now preserves target technology selection. |
 | `#AIC-006` | MEDIUM | `resolved` | `EXAMPLE-002` | INDEX is the sole catalog, hollow fixture/product routes are retired, exact duplicates are consolidated, and BDDfy versus Reqnroll remains deliberate. |
 | `#AIC-007` | MEDIUM | `resolved` | `ROUTE-001` | Human guides moved to `.dev/guides`, replaced prompt bodies retired, and README purpose is separated from complete INDEX catalogs. |
 | `#AIC-008` | MEDIUM | `resolved` | `VALIDATE-001` | The required shell gate now claims only structural integrity, covers all focused standards and exact INDEX routes, and has fail-closed wording tests. |
 | `#AIC-009` | MEDIUM | `resolved` | `VALIDATE-001` | Shell schema v2 separates role, lifecycle, distribution, authority, and replacement direction; packaged no longer implies endorsement. |
-| `#AIC-010` | MEDIUM | `resolved` | `TRUTH-002` | Controller examples and delegated guidance use ExecuteAsync, request cancellation, separate record DTOs, and typed responses; independent verification remains pending. |
+| `#AIC-010` | MEDIUM | `resolved` | `TRUTH-002`, `DOC-002` | Controller, test-data, and inquiry-reference snippets use ExecuteAsync and cancellation propagation. |
 | `#AIC-011` | LOW | `resolved` | `ROUTE-001` | REST rationale, multi-stack exploration, persistence guidance, and retained guide families now have explicit bounded routes. |
 | `#AIC-012` | MEDIUM | `resolved` | `TRUTH-001` | Active canonical guidance now uses the portable BoundedContextContracts placeholder; independent verification remains pending. |
-| `#AIC-013` | HIGH | `resolved` | `RULE-001` | NSubstitute is an overridable profile default consumed through generic target technology selections; independent verification remains pending. |
+| `#AIC-013` | HIGH | `resolved` | `RULE-001`, `DOC-002` | NSubstitute is an overridable profile default and routed guidance consumes generic target technology selections. |
 | `#AIC-014` | MEDIUM | `resolved` | `BUILD-001`, `ARCH-001` | BuildingBlocks reconstruction and one logical micro/mono workload grammar now have deterministic tests/review checks; independent verification remains pending. |
 
 ## Supplemental Architecture Decisions
@@ -64,8 +64,8 @@
 | Verification Finding | Severity | Status | Task / Decision |
 | --- | --- | --- | --- |
 | `ASM-20260716-001#VFY-001` | HIGH | `resolved` | `PROFILE-002`; profile contract 3/3 and quick gate 17/17 |
-| `#VFY-002` | MEDIUM | `not-addressed` | `DOC-002` |
-| `#VFY-003` | MEDIUM | `not-addressed` | `DOC-002` |
+| `#VFY-002` | MEDIUM | `resolved` | `DOC-002`; document contract 2/2 and quick gate 18/18 |
+| `#VFY-003` | MEDIUM | `resolved` | `DOC-002`; synchronous Use Case scan is empty |
 | `#VFY-004` | MEDIUM | `not-addressed` | `GATE-002` |
 | `#VFY-005` | MEDIUM | `decision-required` | repair or retire transitional test helpers |
 | `#VFY-006` | HIGH | `decision-required`, release-blocking | coordinated history rewrite or policy-compliant exception/repair mechanism |

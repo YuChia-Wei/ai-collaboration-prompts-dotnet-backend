@@ -91,7 +91,7 @@ usecase/
 
 - Use xUnit + BDDfy (Gherkin-style naming).
 - Do **not** use BaseTestClass patterns.
-- Use NSubstitute for mocks.
+- Resolve `testing.mocking` from target technology selections; default to NSubstitute.
 - Prefer DI + in-memory profiles for fast tests.
 
 ## Related Resources
