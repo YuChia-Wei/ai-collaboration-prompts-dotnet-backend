@@ -39,8 +39,8 @@
 | `#AIC-005` | HIGH | `resolved` | `BUILD-001`, `EXAMPLE-002` | Placeholder families have canonical replacements and fail-closed evidence/disposition records; unavailable uContract API truth is replaced by library-neutral semantics. |
 | `#AIC-006` | MEDIUM | `resolved` | `EXAMPLE-002` | INDEX is the sole catalog, hollow fixture/product routes are retired, exact duplicates are consolidated, and BDDfy versus Reqnroll remains deliberate. |
 | `#AIC-007` | MEDIUM | `resolved` | `ROUTE-001` | Human guides moved to `.dev/guides`, replaced prompt bodies retired, and README purpose is separated from complete INDEX catalogs. |
-| `#AIC-008` | MEDIUM | `not-addressed` | `VALIDATE-001` | Structural gate can still be over-read. |
-| `#AIC-009` | MEDIUM | `not-addressed` | `VALIDATE-001` | Retention still conflates lifecycle meanings. |
+| `#AIC-008` | MEDIUM | `resolved` | `VALIDATE-001` | The required shell gate now claims only structural integrity, covers all focused standards and exact INDEX routes, and has fail-closed wording tests. |
+| `#AIC-009` | MEDIUM | `resolved` | `VALIDATE-001` | Shell schema v2 separates role, lifecycle, distribution, authority, and replacement direction; packaged no longer implies endorsement. |
 | `#AIC-010` | MEDIUM | `resolved` | `TRUTH-002` | Controller examples and delegated guidance use ExecuteAsync, request cancellation, separate record DTOs, and typed responses; independent verification remains pending. |
 | `#AIC-011` | LOW | `resolved` | `ROUTE-001` | REST rationale, multi-stack exploration, persistence guidance, and retained guide families now have explicit bounded routes. |
 | `#AIC-012` | MEDIUM | `resolved` | `TRUTH-001` | Active canonical guidance now uses the portable BoundedContextContracts placeholder; independent verification remains pending. |
@@ -74,6 +74,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: checkpoints through MIGRATE-001 metadata `e947c14` are pushed; ROUTE-001 implementation is committed as `48619ab` and will be pushed with this metadata checkpoint.
-- Workflow/task status: tasks through `ROUTE-001` are completed; `VALIDATE-001` is active before independent verification.
-- Final next action: commit and publish the ROUTE-001 checkpoint, then correct validator claims and shell lifecycle taxonomy.
+- Commit status: checkpoints through ROUTE-001 metadata `7d091d4` are pushed; VALIDATE-001 implementation is committed as `36fe0b9` and will be pushed with this metadata checkpoint.
+- Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
+- Final next action: commit and publish the VALIDATE-001 checkpoint, then create the independent durable verification assessment.

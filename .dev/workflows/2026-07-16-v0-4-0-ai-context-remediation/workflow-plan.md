@@ -93,8 +93,8 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `ARCH-001` | Add only the minimal shared logical grammar for micro-system/mono-system repository profiles. | `completed` | `PLAN-001`, `RULE-001` |
 | `MIGRATE-001` | Maintain the file-disposition manifest and integrate it with upgrader/release migration guidance. | `completed` | all changed-path tasks; must complete before `ROUTE-001` |
 | `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `completed` | `EXAMPLE-001`, `ARCH-001` |
-| `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `in_progress` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
-| `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `pending` | all remediation tasks |
+| `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `completed` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
+| `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `in_progress` | all remediation tasks |
 
 ## Stages And Checkpoints
 
@@ -131,11 +131,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `ROUTE-001` with audience-correct guide placement, retired replaced prompt bodies, complete local INDEX catalogs, and active routes for retained rationales/references.
-- Current task: `VALIDATE-001`.
-- Exact next action: correct structural validator claims and classify shell assets by execution role, compatibility, and retirement direction.
-- Validation already completed: 24 active indexes validate; 7 local catalogs are complete; exact-case tests pass; quick gate passes 14/14 required checks.
-- Git state: ROUTE-001 implementation is committed as `48619ab` and pending publication with checkpoint metadata.
+- Last completed action: completed `VALIDATE-001` with truthful structural claims, 10 focused-standard catalog routes, shell schema v2, and required fail-closed runner/registry tests.
+- Current task: `VERIFY-001`.
+- Exact next action: create an independent durable verification assessment through `ai-context-auditor`, then reconcile every baseline finding.
+- Validation already completed: shell registry validates 14 assets across active/compatibility/transitional lifecycles; quick gate passes 16/16 required checks.
+- Git state: VALIDATE-001 implementation is committed as `36fe0b9` and pending publication with checkpoint metadata.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
@@ -156,3 +156,4 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `b68e82d518a22a9b0cda52a9e800013d8fdbd48c` | local, pending push with checkpoint metadata | `2026-07-16T22:28:33+08:00` | Record the shared micro-system/mono-system logical workload grammar. | Commit checkpoint metadata, push both commits, then continue `MIGRATE-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `68086ded0b24ffa59858b6027f461268e5200d87` | local, pending push with checkpoint metadata | `2026-07-16T22:38:59+08:00` | Record complete file dispositions, target-safe upgrader semantics, and the planned v0.4.0 migration/release contract. | Commit checkpoint metadata, push both commits, then continue `ROUTE-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `48619abe0640daa4417b4c6f6632a9ecf0212c73` | local, pending push with checkpoint metadata | `2026-07-16T22:52:49+08:00` | Normalize human-guide placement, retire replaced prompts, and separate README purpose from complete INDEX catalogs. | Commit checkpoint metadata, push both commits, then continue `VALIDATE-001`. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `36fe0b9c6172ae474c2ca0c8c7e15119d8a3e2a7` | local, pending push with checkpoint metadata | `2026-07-16T23:02:25+08:00` | Make structural validation claims truthful and classify every shell asset without equating packaging with endorsement. | Commit checkpoint metadata, push both commits, then create the independent verification assessment. |
