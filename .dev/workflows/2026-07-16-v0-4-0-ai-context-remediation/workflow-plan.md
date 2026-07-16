@@ -16,7 +16,7 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `verification-reconciliation`
+- `current_phase`: `successor-verification`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
 - `updated_at`: `2026-07-16T23:56:28+08:00`
@@ -135,13 +135,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: prepared a local rewrite candidate with corrected commit messages and a recreated assessment merge.
+- Last completed action: applied the validated rewrite candidate to the official remediation branch with an exact `force-with-lease` pinned to `abc1750c8f6c9f77ee75f1abb14b5a8cf8eceea2`.
 - Current task: `VERIFY-001`.
-- Exact next action: obtain explicit approval, verify the remote lease still equals `abc1750`, and move the target branch to the prepared candidate with `--force-with-lease`.
-- Validation already completed: candidate first-parent range passes 28/28; candidate full gate passes 20/20 with zero advisories; candidate and original trees were identical before adding the rewrite evidence artifact.
-- Git state: candidate branch is local-only and dirty only with the rewrite evidence artifact; the original remote branch remains untouched.
+- Exact next action: commit and push the applied-rewrite evidence, run the final post-rewrite gates, and create an independent successor verification assessment.
+- Validation already completed: candidate first-parent range passes 28/28; candidate full gate passes 20/20 with zero advisories; candidate and original trees were identical before adding the rewrite evidence artifact; the guarded remote branch move succeeded.
+- Git state: the local official branch tracks the rewritten remote at `adfbc6979c813ce19271660dd2c1210165180fd9`; the candidate branch remains available as audit evidence.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: only `ASM-20260716-001#VFY-006` remains. A coordinated history rewrite and force-push is recommended because policy was already active for all fourteen commits and a permanent waiver would add governance debt. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
+- Blockers or unresolved decisions: no user decision currently blocks validation. `ASM-20260716-001#VFY-006` has remediation evidence and awaits independent successor verification. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
 ## Branch Lifecycle
 
@@ -162,4 +162,5 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `48619abe0640daa4417b4c6f6632a9ecf0212c73` | local, pending push with checkpoint metadata | `2026-07-16T22:52:49+08:00` | Normalize human-guide placement, retire replaced prompts, and separate README purpose from complete INDEX catalogs. | Commit checkpoint metadata, push both commits, then continue `VALIDATE-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `36fe0b9c6172ae474c2ca0c8c7e15119d8a3e2a7` | local, pending push with checkpoint metadata | `2026-07-16T23:02:25+08:00` | Make structural validation claims truthful and classify every shell asset without equating packaging with endorsement. | Commit checkpoint metadata, push both commits, then create the independent verification assessment. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | assessment-merge-push | `002d415` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T23:17:21+08:00` | Integrate independent verification `ASM-20260716-001` and expose release-blocking residuals. | Execute `PROFILE-002`, `DOC-002`, and `GATE-002`; preserve decision-required findings. |
-| 1 | `codex/rewrite-candidate/2026-07-16-v0-4-0-ai-context-remediation` | `14eeeaf` | local-rewrite-candidate | `b4217fb` | local only | `2026-07-16T23:56:28+08:00` | Prepare corrected first-parent history without moving the remote workflow branch. | Await guarded force-push authorization; use `plans/history-rewrite-map.yaml`. |
+| 1 | `codex/rewrite-candidate/2026-07-16-v0-4-0-ai-context-remediation` | `14eeeaf` | rewrite-candidate-push | `adfbc69` | `origin/codex/rewrite-candidate/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T23:56:28+08:00` | Preserve corrected first-parent history and rewrite evidence without moving the official workflow branch. | Await guarded force-push authorization; use `plans/history-rewrite-map.yaml`. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `14eeeaf` | guarded-history-rewrite | `adfbc69` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-17T07:05:00+08:00` | Apply the fully validated candidate with an exact lease on `abc1750`; preserve the assessment branch and v0.3.0 tag. | Commit applied-rewrite evidence, run final gates, then create the successor assessment. |

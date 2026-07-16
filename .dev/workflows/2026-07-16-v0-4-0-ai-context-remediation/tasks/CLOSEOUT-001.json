@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-16T23:46:42+08:00",
-  "updated_at": "2026-07-16T23:52:09+08:00",
+  "updated_at": "2026-07-17T07:07:49+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260716-001#VFY-005", "ASM-20260716-001#VFY-006"],
   "scope": {
@@ -21,14 +21,14 @@
     "steps": ["Removed the stale helper from aggregate routing", "Marked it retirement-candidate with replacement guidance", "Preserved standalone assessment commit semantics", "Limited workflow range validation to first-parent history", "Re-ran full and commit-range validation"],
     "validation": ["Shell registry", "Aggregate runner fail-closed tests", "Git commit policy tests", "Full gate", "Workflow commit range"],
     "last_completed_step": "Full gate passed without advisory warnings and workflow ranges now validate only first-parent workflow history.",
-    "next_action": "Obtain explicit approval before any coordinated history rewrite for the fourteen remaining trailer violations."
+    "next_action": "The authorized guarded rewrite is applied; proceed to independent successor verification and workflow closure."
   },
   "results": {
     "summary": "Resolved VFY-005 and narrowed VFY-006 to fourteen first-parent workflow commits without weakening workflow-stage enforcement.",
     "files_changed": [".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", ".ai/scripts/README.md", ".ai/scripts/tests/test_fail_closed_validation.py", ".ai/scripts/validate-git-commits.py", ".ai/scripts/tests/test_git_commit_policy.py", ".dev/standards/GIT-COMMIT-POLICY.md", ".dev/releases/v0.4.0/**", "plans/file-disposition-manifest.yaml"],
     "tests_run": ["Shell registry passed with one retirement candidate", "Runner tests passed 18/18", "Commit policy tests passed 10/10", "Standalone assessment and first-parent selection contracts passed", "Full gate passed 20/20 required with zero advisory warnings", "Commit range contains fourteen trailer failures"],
-    "finding_status": "partially-resolved",
-    "residual_risk": "Fourteen already-pushed workflow commits still fail the prospective AI trailer contract and block release closure.",
+    "finding_status": "resolved subject to independent successor verification",
+    "residual_risk": "The rewritten first-parent range requires final validation and an independent successor assessment before release closure.",
     "follow_up_needed": true
   }
 }

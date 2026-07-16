@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:56:28+08:00`
+- `updated_at`: `2026-07-17T07:07:49+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -26,7 +26,7 @@
 - Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
 - Completed scope: assessment intake, decision register, repository lineage, file-disposition/release migration contract, active command/namespace repair, generic profile decisions, example evidence tiers, interface-first BuildingBlocks/optional ES reconstruction truth, minimal project grammar, and audience/routing normalization.
 - Validation summary: quick gate passes 14/14 required checks; AI-context validation recognizes 24 active indexes; all 7 affected local catalogs cover their retained files; exact-case, ES behavior, analyzer, configuration, packaging, and safe-apply tests pass; `git diff --check` passes.
-- Closure decision: `not-ready`; verification follow-up remediation is active
+- Closure decision: `not-ready`; all known remediation is applied and an independent successor verification assessment is required
 
 ## Finding Resolution Matrix
 
@@ -68,7 +68,7 @@
 | `#VFY-003` | MEDIUM | `resolved` | `DOC-002`; synchronous Use Case scan is empty |
 | `#VFY-004` | MEDIUM | `resolved` | `GATE-002`; source-include contract 4/4, BuildingBlocks tests 5/5, quick gate 20/20 |
 | `#VFY-005` | MEDIUM | `resolved` | Automatic routing removed; helper is a packaged `retirement-candidate` for the v0.4.0 migration window; full gate has zero advisories. |
-| `#VFY-006` | HIGH | `partially-resolved`, release-blocking | A local candidate corrects all fourteen messages, recreates the assessment merge, passes 28/28 first-parent validation and 20/20 full gate, and initially matches the original content tree. Only the guarded remote branch move remains unauthorized. |
+| `#VFY-006` | HIGH | `resolved`, successor-verification-pending | The exact `force-with-lease` moved the official remediation branch from `abc1750c8f6c9f77ee75f1abb14b5a8cf8eceea2` to the validated candidate at `adfbc6979c813ce19271660dd2c1210165180fd9`; the candidate corrected all fourteen messages, recreated the assessment merge, passed 28/28 first-parent validation and the 20/20 full gate, and matched the original content tree before rewrite evidence was added. |
 
 ## Deferred Work
 
@@ -84,7 +84,7 @@
 
 ## Closure Evidence
 
-- Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: checkpoints through ROUTE-001 metadata `7d091d4` are pushed; VALIDATE-001 implementation is committed as `36fe0b9` and will be pushed with this metadata checkpoint.
+- Required validations: candidate commit-range and full-gate validation passed; post-rewrite final gates and the independent successor assessment remain pending.
+- Commit status: the guarded rewrite is applied at `adfbc6979c813ce19271660dd2c1210165180fd9`; this applied-state evidence awaits a normal checkpoint commit and push.
 - Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
-- Final next action: authorize the guarded `force-with-lease` described in `plans/history-rewrite-map.yaml`; do not close, tag, or publish before the target branch is moved and final gates pass on the resulting head.
+- Final next action: commit the applied-state evidence, run final gates on the resulting head, and create an independent successor verification assessment; do not close, tag, or publish before that assessment is integrated and reconciled.
