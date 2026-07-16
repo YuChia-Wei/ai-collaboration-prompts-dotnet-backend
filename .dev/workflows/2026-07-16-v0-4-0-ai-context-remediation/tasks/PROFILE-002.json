@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "PROFILE-002",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-16T23:17:21+08:00",
+  "updated_at": "2026-07-16T23:17:21+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260716-001#VFY-001", "ASM-20260715-002#AIC-001"],
+  "scope": {
+    "target": "Converge all active profile projections on the canonical environment grammar",
+    "files": [".dev/standards/templates/**", ".dev/standards/examples/**", ".dev/standards/coding-standards.md", ".dev/guides/**"],
+    "constraints": ["Use only DOTNET_ENVIRONMENT or ASPNETCORE_ENVIRONMENT for profile selection", "Use the canonical InMemory, Outbox, TestInMemory, and TestOutbox names", "Do not select persistence through Profiles:Mode or Repository:Mode", "Keep target-selected persistence implementations possible"],
+    "non_goals": ["Redesign the canonical profile standard", "Add product infrastructure", "Expand OBS-001"]
+  },
+  "execution": {
+    "steps": ["Inventory active contradictory selectors and names", "Rewrite templates/examples/guides against canonical environment selection", "Add fail-closed regression coverage"],
+    "validation": ["Profile literal scan", "AI-context validator", "Focused regression tests", "Quick gate"],
+    "last_completed_step": "ASM-20260716-001 independently confirmed the residual profile conflict.",
+    "next_action": "Rewrite active profile projections and add regression coverage."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Active templates and guides can still generate incompatible profile selectors.",
+    "follow_up_needed": true
+  }
+}

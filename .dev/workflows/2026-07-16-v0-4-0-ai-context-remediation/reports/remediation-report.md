@@ -14,19 +14,19 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T22:52:49+08:00`
+- `updated_at`: `2026-07-16T23:17:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
 - `historical_assessment`: `ASM-20260715-001` (superseded)
-- `verification_assessment`: pending
+- `verification_assessment`: `ASM-20260716-001`
 
 ## Remediation Summary
 
 - Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
 - Completed scope: assessment intake, decision register, repository lineage, file-disposition/release migration contract, active command/namespace repair, generic profile decisions, example evidence tiers, interface-first BuildingBlocks/optional ES reconstruction truth, minimal project grammar, and audience/routing normalization.
 - Validation summary: quick gate passes 14/14 required checks; AI-context validation recognizes 24 active indexes; all 7 affected local catalogs cover their retained files; exact-case, ES behavior, analyzer, configuration, packaging, and safe-apply tests pass; `git diff --check` passes.
-- Closure decision: `not-ready`
+- Closure decision: `not-ready`; verification follow-up remediation is active
 
 ## Finding Resolution Matrix
 
@@ -59,6 +59,17 @@
 - `V040-DEC-008`: every changed framework path receives a file disposition for upgrader and migration-guide consumption.
 - Provenance: `ai-coding-exercise` Java origin -> initial .NET standards -> `dotnet-mq-arch-lab` adoption/refinement -> implementation removal and continued evolution in this standalone AI context repository. Historical names are classification evidence, not current truth.
 
+## Verification Follow-Up Matrix
+
+| Verification Finding | Severity | Status | Task / Decision |
+| --- | --- | --- | --- |
+| `ASM-20260716-001#VFY-001` | HIGH | `in-progress` | `PROFILE-002` |
+| `#VFY-002` | MEDIUM | `not-addressed` | `DOC-002` |
+| `#VFY-003` | MEDIUM | `not-addressed` | `DOC-002` |
+| `#VFY-004` | MEDIUM | `not-addressed` | `GATE-002` |
+| `#VFY-005` | MEDIUM | `decision-required` | repair or retire transitional test helpers |
+| `#VFY-006` | HIGH | `decision-required`, release-blocking | coordinated history rewrite or policy-compliant exception/repair mechanism |
+
 ## Deferred Work
 
 | Item | Reason | Owner | Next Action |
@@ -76,4 +87,4 @@
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: checkpoints through ROUTE-001 metadata `7d091d4` are pushed; VALIDATE-001 implementation is committed as `36fe0b9` and will be pushed with this metadata checkpoint.
 - Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
-- Final next action: commit and publish the VALIDATE-001 checkpoint, then create the independent durable verification assessment.
+- Final next action: execute `PROFILE-002`, `DOC-002`, and `GATE-002`; do not close or publish before decisions on `VFY-005` and `VFY-006`.

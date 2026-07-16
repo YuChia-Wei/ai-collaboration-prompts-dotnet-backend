@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `building-block-reconstruction`
+- `current_phase`: `verification-remediation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:39:12+08:00`
+- `updated_at`: `2026-07-16T23:17:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -36,7 +36,7 @@
 - Historical assessment: `.dev/assessments/ASM-20260715-001/assessment.yaml`
 - Authoritative baseline: `.dev/assessments/ASM-20260715-002/assessment.yaml`
 - Remediation report: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/reports/remediation-report.md`
-- Verification assessment: `.dev/assessments/<future-assessment-id>/assessment.yaml`
+- Verification assessment: `.dev/assessments/ASM-20260716-001/assessment.yaml`
 - Tasks: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/tasks/`
 - BuildingBlocks/examples MVP plan: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/building-blocks-examples-mvp.md`
 - File-disposition manifest: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/file-disposition-manifest.yaml`
@@ -95,6 +95,9 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `completed` | `EXAMPLE-001`, `ARCH-001` |
 | `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `completed` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
 | `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `in_progress` | all remediation tasks |
+| `PROFILE-002` | Close the verified active profile-selector and naming residual. | `in_progress` | `VERIFY-001` assessment intake |
+| `DOC-002` | Align routed mocking-default and async use-case documentation. | `pending` | `PROFILE-002` |
+| `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `pending` | `DOC-002` |
 
 ## Stages And Checkpoints
 
@@ -131,13 +134,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `VALIDATE-001` with truthful structural claims, 10 focused-standard catalog routes, shell schema v2, and required fail-closed runner/registry tests.
-- Current task: `VERIFY-001`.
-- Exact next action: create an independent durable verification assessment through `ai-context-auditor`, then reconcile every baseline finding.
-- Validation already completed: shell registry validates 14 assets across active/compatibility/transitional lifecycles; quick gate passes 16/16 required checks.
-- Git state: VALIDATE-001 implementation is committed as `36fe0b9` and pending publication with checkpoint metadata.
+- Last completed action: integrated independent verification assessment `ASM-20260716-001` at merge commit `002d415`.
+- Current task: `PROFILE-002`, with `VERIFY-001` remaining active for final reconciliation.
+- Exact next action: converge active templates, examples, and guides on the canonical environment/profile grammar.
+- Validation already completed: assessment artifacts validate; independent verification records six residual findings; full gate passes 16 required checks with one advisory warning.
+- Git state: verification assessment and merge checkpoint are committed and pushed.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: none. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
+- Blockers or unresolved decisions: `ASM-20260716-001#VFY-005` requires repair-versus-retire direction for transitional test helpers; `#VFY-006` requires a decision on already-pushed commit-history handling. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
 ## Branch Lifecycle
 
@@ -157,3 +160,4 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `68086ded0b24ffa59858b6027f461268e5200d87` | local, pending push with checkpoint metadata | `2026-07-16T22:38:59+08:00` | Record complete file dispositions, target-safe upgrader semantics, and the planned v0.4.0 migration/release contract. | Commit checkpoint metadata, push both commits, then continue `ROUTE-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `48619abe0640daa4417b4c6f6632a9ecf0212c73` | local, pending push with checkpoint metadata | `2026-07-16T22:52:49+08:00` | Normalize human-guide placement, retire replaced prompts, and separate README purpose from complete INDEX catalogs. | Commit checkpoint metadata, push both commits, then continue `VALIDATE-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `36fe0b9c6172ae474c2ca0c8c7e15119d8a3e2a7` | local, pending push with checkpoint metadata | `2026-07-16T23:02:25+08:00` | Make structural validation claims truthful and classify every shell asset without equating packaging with endorsement. | Commit checkpoint metadata, push both commits, then create the independent verification assessment. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | assessment-merge-push | `002d415` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T23:17:21+08:00` | Integrate independent verification `ASM-20260716-001` and expose release-blocking residuals. | Execute `PROFILE-002`, `DOC-002`, and `GATE-002`; preserve decision-required findings. |
