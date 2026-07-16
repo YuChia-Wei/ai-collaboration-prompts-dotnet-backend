@@ -119,7 +119,7 @@ It preserves the design intent of DDD, Clean Architecture, CQRS, and Event Sourc
 | Domain Events | `./src/<Domain>/DomainCore/<DomainName>.Domains/DomainEvents` |
 | Domain Event Handlers | `./src/<Domain>/DomainCore/<DomainName>.Applications/DomainEventHandlers` |
 | Integration Event Handlers | `./src/<Domain>/Presentation/<DomainName>.Consumer/IntegrationEventHandlers` |
-| Integration Event Schema | `./src/BC-Contracts/Lab.MessageSchemas.<Domain>` |
+| Integration Event Schema | `./src/BC-Contracts/<Company>.BoundedContextContracts.<Domain>` |
 
 ### ⚠ Repository and Query Port Rules
 

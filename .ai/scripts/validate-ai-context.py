@@ -16,6 +16,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[2]
 TABLE_PATH = re.compile(r"^\|\s*`([^`]+)`\s*\|")
 PATH_REFERENCE = re.compile(r"`([^`\n]+)`|\]\(([^)\s]+)\)")
+ACTIVE_SCRIPT_REFERENCE = re.compile(
+    r"(?<![A-Za-z0-9_.-])(?:\./)?(?P<path>\.ai/scripts/[A-Za-z0-9._/-]+\.(?:py|sh))"
+)
 ACTIVE_RUNTIME_ROOTS = (Path(".agents/skills"), Path(".claude/skills"))
 PLANNED_RUNTIME_ROOTS = (
     Path(".github/prompts"),
@@ -164,6 +167,30 @@ def validate_exact_case_references(
                 if canonical is not None and canonical != candidate:
                     errors.append(
                         f"{source}:{line_number}: exact-case mismatch: {value} -> {canonical}"
+                    )
+
+
+def validate_active_script_references(
+    files: list[Path], errors: list[str], root: Path = ROOT
+) -> None:
+    """Reject active AI-context commands that point to missing local scripts."""
+    indexes = set(active_indexes(files))
+    active_files = [
+        path
+        for path in files
+        if is_language_surface(path, indexes)
+        and Path(".ai/scripts/tests") not in (path, *path.parents)
+    ]
+
+    for source in active_files:
+        text = (root / source).read_text(encoding="utf-8")
+        for line_number, line in enumerate(text.splitlines(), 1):
+            for match in ACTIVE_SCRIPT_REFERENCE.finditer(line):
+                script_path = Path(match.group("path"))
+                if not (root / script_path).is_file():
+                    errors.append(
+                        f"{source}:{line_number}: active script reference does not exist: "
+                        f"{script_path.as_posix()}"
                     )
 
 
@@ -645,6 +672,7 @@ def main() -> int:
     indexes = active_indexes(files)
 
     validate_exact_case_references(files, errors)
+    validate_active_script_references(files, errors)
 
     for index in indexes:
         validate_index(index, errors)
