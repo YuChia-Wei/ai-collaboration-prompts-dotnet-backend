@@ -182,7 +182,6 @@ class SyntheticRunnerRepo:
         self._write_stub(self.bin / "dotnet", 'printf "dotnet %s\\n" "$*" >> .aic-sentinel\nexit "${DOTNET_STUB_EXIT:-0}"')
         self._write_child("check-coding-standards.sh", "CODING_STUB_EXIT")
         self._write_child("check-spec-compliance.sh", "SPEC_STUB_EXIT")
-        self._write_child("check-test-compliance.sh", "ADVISORY_STUB_EXIT")
 
     def close(self) -> None:
         self._temporary.cleanup()
@@ -296,19 +295,22 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
-    def test_gwt_005_given_advisory_failure_when_full_runs_then_visible_but_nonblocking(self) -> None:
+    def test_gwt_005_given_retirement_candidate_when_modes_run_then_it_is_never_selected(self) -> None:
         fixture = SyntheticRunnerRepo()
         try:
-            # Given all required stubs pass and the advisory child returns nonzero.
-            # When full mode executes.
-            result = fixture.execute("--full", environment={"ADVISORY_STUB_EXIT": "9"})
+            # Given the stale helper is a packaged retirement candidate.
+            # When every supported mode executes.
+            results = (
+                fixture.execute("--critical"),
+                fixture.execute("--quick"),
+                fixture.execute("--full"),
+            )
 
-            # Then the gate passes with a visible advisory warning.
-            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-            self.assertIn("ADVISORY", result.stdout)
-            self.assertRegex(result.stdout, r"Advisory Warnings: .*1")
-            self.assertRegex(result.stdout, r"Required Failed: .*0")
-            self.assertIn("Passed with 1 Advisory Warning", result.stdout)
+            # Then no aggregate mode routes to its obsolete policy.
+            for result in results:
+                self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+                self.assertNotIn("Test Standards Compliance", result.stdout)
+                self.assertRegex(result.stdout, r"Advisory Warnings: .*0")
         finally:
             fixture.close()
 
@@ -397,7 +399,7 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             )
             self.assertNotIn("Test Standards Compliance", critical.stdout)
             self.assertNotIn("Test Standards Compliance", quick.stdout)
-            self.assertIn("Test Standards Compliance", full.stdout)
+            self.assertNotIn("Test Standards Compliance", full.stdout)
         finally:
             fixture.close()
 

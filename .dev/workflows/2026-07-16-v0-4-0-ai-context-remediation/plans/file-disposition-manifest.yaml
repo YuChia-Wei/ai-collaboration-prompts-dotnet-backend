@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T23:33:00+08:00"
+updated_at: "2026-07-16T23:46:42+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -952,8 +952,8 @@ entries:
   - path: ".ai/scripts/README.md"
     disposition: "kept"
     destination: null
-    finding_ids: []
-    change_summary: "Document the Git-backed disposition validator and its non-authorization boundary."
+    finding_ids: ["ASM-20260716-001#VFY-005"]
+    change_summary: "Document disposition validation and the test-compliance helper retirement window."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/validate-file-disposition-manifest.py"]
@@ -1202,8 +1202,8 @@ entries:
   - path: ".ai/scripts/check-all.sh"
     disposition: "kept"
     destination: null
-    finding_ids: ["ASM-20260715-002#AIC-008", "ASM-20260715-002#AIC-009"]
-    change_summary: "Rename the coding gate to structural integrity and run the shell-registry and claim-contract fail-closed suites."
+    finding_ids: ["ASM-20260715-002#AIC-008", "ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005"]
+    change_summary: "Run truthful required contracts and remove the stale test-compliance helper from automatic full-mode routing."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/shell-assets.yaml"]
@@ -1218,8 +1218,8 @@ entries:
   - path: ".ai/scripts/shell-assets.yaml"
     disposition: "kept"
     destination: null
-    finding_ids: ["ASM-20260715-002#AIC-009"]
-    change_summary: "Replace retained-only classification with role, lifecycle, distribution, authority, and replacement direction."
+    finding_ids: ["ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005"]
+    change_summary: "Classify shell assets by role/lifecycle and mark the stale test-compliance helper as a packaged retirement candidate."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/validate-shell-assets.py"]
@@ -1235,8 +1235,8 @@ entries:
   - path: ".ai/scripts/tests/test_fail_closed_validation.py"
     disposition: "kept"
     destination: null
-    finding_ids: ["ASM-20260715-002#AIC-009"]
-    change_summary: "Update synthetic shell fixtures for schema v2 and require replacement direction for transitional assets."
+    finding_ids: ["ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005"]
+    change_summary: "Cover schema v2, replacement direction, required commands, and absence of retirement candidates from every aggregate mode."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/validate-shell-assets.py"]
@@ -1248,6 +1248,30 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/shell-assets.yaml"]
+  - path: ".ai/scripts/validate-git-commits.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-006"]
+    change_summary: "Preserve standalone assessment commit semantics when assessment branches are later merged into a workflow validation range."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/GIT-COMMIT-POLICY.md", ".ai/scripts/tests/test_git_commit_policy.py"]
+  - path: ".ai/scripts/tests/test_git_commit_policy.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-006"]
+    change_summary: "Fail closed on workflow commits while proving merged standalone assessments do not acquire workflow-only body requirements."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-git-commits.py"]
+  - path: ".dev/standards/GIT-COMMIT-POLICY.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-006"]
+    change_summary: "Clarify commit-contract precedence for standalone assessments included in later workflow ranges."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md", ".ai/scripts/validate-git-commits.py"]
   - path: ".ai/scripts/tests/test_profile_projection_contract.py"
     disposition: "kept"
     destination: null

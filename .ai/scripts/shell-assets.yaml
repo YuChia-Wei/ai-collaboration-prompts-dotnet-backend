@@ -72,10 +72,10 @@ assets:
     replacement: "Use target-selected framework analyzers, architecture tests, and integration tests."
   - path: .ai/scripts/check-test-compliance.sh
     role: transitional-helper
-    lifecycle: transitional
+    lifecycle: retirement-candidate
     distribution: packaged
     authority: advisory
-    replacement: "Use target testing selections, analyzers, and executable test architecture checks."
+    replacement: "Removed from automatic gates; use target testing selections, analyzers, and executable test architecture checks. Retain packaged compatibility for the v0.4.0 migration window."
   - path: .ai/scripts/check-test-di-compliance.sh
     role: transitional-helper
     lifecycle: transitional

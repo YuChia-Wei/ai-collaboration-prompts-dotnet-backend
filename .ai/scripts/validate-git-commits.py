@@ -76,7 +76,10 @@ def validate_message(
             if assessment_id not in assessment_trailers:
                 errors.append(f"{sha}: subject assessment ID lacks matching Assessment-Id trailer: {assessment_id}")
 
-    if workflow_id:
+    # A standalone assessment keeps its assessment commit contract even when a
+    # later workflow merges the assessment branch and validates the combined
+    # range. Only workflow-stage commits require workflow body sections.
+    if workflow_id and not assessment_ids:
         workflow = policy["workflow"]
         assert isinstance(workflow, dict)
         required = [str(value) for value in workflow["required_sections"]]

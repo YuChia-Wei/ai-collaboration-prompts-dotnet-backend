@@ -81,6 +81,12 @@ compatibility; it does not make grep-based C# checks semantic authorities.
 Preserve target-owned shell customizations as local overrides and do not
 silently promote transitional helpers to required gates.
 
+`check-test-compliance.sh` is a packaged `retirement-candidate` and is no
+longer selected by `check-all.sh`. Remove downstream automatic invocations or
+replace them with target-owned testing selections, analyzers, and executable
+test architecture checks. The packaged file exists only for the v0.4.0
+migration window.
+
 ## Move, Merge, And Retirement Projection
 
 The following operations may be proposed automatically only when the target

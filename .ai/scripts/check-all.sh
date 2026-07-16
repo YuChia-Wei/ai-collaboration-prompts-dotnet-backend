@@ -346,12 +346,7 @@ fi
 if [ "$MODE" == "full" ]; then
     echo ""
     echo -e "${MAGENTA}════ Additional Checks ════${NC}"
-    
-    # Test compliance
-    run_check "check-test-compliance.sh" \
-        "Test Standards Compliance" \
-        "advisory" "false" "false"
-    
+
     # Test DI compliance helper remains transitional
     run_deferred_check "check-test-di-compliance.sh" \
         "Test DI Compliance" \

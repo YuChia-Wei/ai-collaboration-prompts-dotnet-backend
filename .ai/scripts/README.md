@@ -210,7 +210,6 @@ target configuration, analyzers, or tests.
 
 ### Transitional Helpers
 
-- `check-test-compliance.sh`
 - `check-test-di-compliance.sh`
 - `check-data-class-annotations.sh`
 - `check-domain-events-compliance.sh`
@@ -221,6 +220,17 @@ target configuration, analyzers, or tests.
 These remain packaged temporarily but are not endorsed as long-term semantic
 validators. Each registry record names its analyzer, compiled validator,
 architecture-test, target-test, or CI replacement direction.
+
+### Retirement Candidates
+
+- `check-test-compliance.sh`
+
+This helper is no longer selected by `check-all.sh`. Its repository-root
+assumption and unconditional package rules are not compatible with reusable
+target technology selections. It remains packaged for the v0.4.0 migration
+window only; downstream repositories should replace direct invocations with
+their selected testing stack, analyzers, and executable test architecture
+checks.
 
 Completed replacement:
 
@@ -245,10 +255,6 @@ The markdown-to-shell generator, its parser and guide, and the `generated/`
 outputs were removed under AIC-007. The root archive grep check was also removed
 because its stale `HardDelete` text rule contradicted the active archive/purge
 standard. Historical workflow evidence retains the original transition record.
-
-`check-test-compliance.sh` remains temporarily as an explicitly advisory helper
-until its rules are split across `.editorconfig`, analyzers, and test architecture
-checks. It is manually maintained and cannot be regenerated from Markdown.
 
 ## AI Reasoning Context
 

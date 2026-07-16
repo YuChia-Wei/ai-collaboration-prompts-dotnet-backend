@@ -85,6 +85,14 @@ Co-Authored-By: OpenAI Codex (GPT-5) <noreply@openai.com>
 """
         self.assertEqual([], self.validate(message, workflow_id=None))
 
+    def test_gwt_009_given_standalone_assessment_in_workflow_range_when_validated_then_assessment_contract_applies(self) -> None:
+        message = """docs(assessment): [ASM-20260715-001] add report
+
+Assessment-Id: ASM-20260715-001
+Co-Authored-By: OpenAI Codex (GPT-5) <noreply@openai.com>
+"""
+        self.assertEqual([], self.validate(message, workflow_id=WORKFLOW_ID))
+
 
 if __name__ == "__main__":
     unittest.main()

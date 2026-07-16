@@ -96,6 +96,13 @@ Standalone durable assessments commit only assessment-owned artifacts and index
 updates. They do not create workflow artifacts solely for persistence and do not
 authorize remediation of the assessed surface.
 
+When a later workflow merges a standalone assessment branch and validates a
+combined commit range, the assessment creation commit retains this standalone
+assessment contract. Its subject, matching `Assessment-Id`, and AI signature are
+validated, but workflow-only `Why`, `What`, `Validation`, and `Workflow`
+sections are not retroactively required. Workflow-stage commits in the same
+range remain subject to the full workflow body contract.
+
 ## Assessment Search Identity
 
 Follow `.dev/standards/ASSESSMENT-ARTIFACT-POLICY.md` for assessment identity

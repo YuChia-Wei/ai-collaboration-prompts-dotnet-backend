@@ -40,6 +40,8 @@ or published.
   catalog coverage, and classifies every shell asset by execution role,
   lifecycle, distribution, authority, and replacement direction so packaging
   is not mistaken for semantic endorsement.
+- Removes the stale test-compliance grep helper from automatic gates and marks
+  it as a packaged retirement candidate for the v0.4.0 migration window.
 
 ## Compatibility
 
