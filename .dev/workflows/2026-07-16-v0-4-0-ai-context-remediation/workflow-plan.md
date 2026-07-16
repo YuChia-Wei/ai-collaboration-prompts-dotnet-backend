@@ -131,13 +131,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `EXAMPLE-001` with machine-readable evidence tiers, default-downward legacy classification, removal of unsupported verification claims, and retirement of stale sync metadata. Created durable backlog item `OBS-001`.
-- Current task: `BUILD-001`.
-- Exact next action: inventory the current AggregateRoot/EsAggregateRoot standards, examples, analyzer recognition, and downstream evidence before defining the optional executable-tested ES abstraction.
-- Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at example-evidence checkpoint `ba3af7f`; `BUILD-001` is the active continuation task.
+- Last completed action: completed `BUILD-001` with interface-first BuildingBlocks truth, canonical `AGGREGATE-ES-001`, an executable-tested optional `EsAggregateRoot<TId>` source include, aligned DBA1009 coverage, and provenance-aware target ownership.
+- Current task: `TRUTH-002`.
+- Exact next action: reconcile the synchronous Java-shaped controller guidance and its linked examples with the current async Use Case boundary.
+- Validation already completed: 9 task JSON files parse; 5 ES behavior tests, 49 analyzer tests, 3 source-include evidence tests, and 4 example-evidence tests pass; AI-context validator passes with 11 owned rules; `git diff --check` passes.
+- Git state: active workflow branch contains the uncommitted BUILD-001 checkpoint on top of pushed commit `14eeeaf`; commit and push the coherent checkpoint before continuing.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: none for the first slice. Full Observability design is deferred; later tasks must preserve their approved bounded scope.
+- Blockers or unresolved decisions: none. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
 ## Branch Lifecycle
 
