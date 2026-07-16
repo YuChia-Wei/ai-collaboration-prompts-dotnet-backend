@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T07:22:13+08:00`
+- `updated_at`: `2026-07-16T08:15:44+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -24,7 +24,7 @@
 ## Remediation Summary
 
 - Authorized scope: planning only; no finding remediation is yet authorized.
-- Completed scope: assessment intake, corrected decision register, and task decomposition.
+- Completed scope: assessment intake, corrected decision register, task decomposition, and reviewable BuildingBlocks/examples MVP plan.
 - Validation summary: workflow, assessment, and AI-context validators pass; nine task JSON files parse; `git diff --check` passes.
 - Closure decision: `not-ready`
 
@@ -49,12 +49,12 @@
 
 ## Supplemental Architecture Decisions
 
-- `V040-DEC-001`: NSubstitute is confirmed; Moq is drift.
-- `V040-DEC-002`: soft-delete applicability awaits user decision.
+- `V040-DEC-001`: NSubstitute is the framework profile default; a target may replace it through one explicit technology-selection override.
+- `V040-DEC-002`: soft delete is standard Aggregate Repository behavior; physical purge is an explicit restricted capability.
 - `V040-DEC-003`: common logical solution-folder grammar is proposed for micro-system and mono-system profiles.
 - `V040-DEC-004`: CrossCutting Observability is a runtime architecture gap, not Tooling.
-- `V040-DEC-005`: a compile-tested BuildingBlocks reference fixture is proposed before template/package distribution.
-- `V040-DEC-006`: minimum executable example coverage awaits user decision.
+- `V040-DEC-005`: BuildingBlocks is contract-only; concrete adapters live in product Infrastructure and are demonstrated only by the sample fixture.
+- `V040-DEC-006`: executable examples require tests; documentation-only examples do not, and the MVP precedes portfolio-wide work.
 
 ## Deferred Work
 
@@ -70,4 +70,4 @@
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: workflow bootstrap not yet committed.
 - Workflow/task status: `PLAN-001` in progress; all remediation tasks pending.
-- Final next action: user reviews decisions and authorizes selected remediation tasks.
+- Final next action: user reviews the BuildingBlocks/examples MVP plan and authorizes or adjusts the first remediation slice.
