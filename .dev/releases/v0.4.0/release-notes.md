@@ -36,6 +36,10 @@ or published.
 - Adds Git-backed file-disposition validation so every changed distributable
   framework path is accounted for without treating incoming intent as target
   write authorization.
+- Renames the coding standards shell gate to structural integrity, expands its
+  catalog coverage, and classifies every shell asset by execution role,
+  lifecycle, distribution, authority, and replacement direction so packaging
+  is not mistaken for semantic endorsement.
 
 ## Compatibility
 

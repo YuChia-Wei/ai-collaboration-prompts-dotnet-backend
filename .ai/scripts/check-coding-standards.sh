@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # ====================================================================
-# Coding Standards Compliance Checker (.NET)
+# Coding Standards Structural Integrity Checker (.NET)
 #
-# Purpose: 檢查 dotnet coding-standards 相關檔案的完整性和一致性
+# Purpose: 檢查 required files、headings、catalog routes 與 shell syntax。
+# This script does not claim C# semantic or architecture compliance.
 # Usage: ./check-coding-standards.sh
 # ====================================================================
 
@@ -21,10 +22,11 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASE_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 STANDARDS_DIR="$BASE_DIR/.dev/standards/coding-standards"
 MAIN_FILE="$BASE_DIR/.dev/standards/coding-standards.md"
-PROMPTS_DIR="$BASE_DIR/.ai/assets/shared"
+INDEX_FILE="$STANDARDS_DIR/INDEX.MD"
+SHARED_CONTEXT_DIR="$BASE_DIR/.ai/assets/shared"
 
 echo -e "${BLUE}========================================${NC}"
-echo -e "${BLUE}Coding Standards Integrity Check (.NET)${NC}"
+echo -e "${BLUE}Coding Standards Structural Integrity Check (.NET)${NC}"
 echo -e "${BLUE}========================================${NC}"
 
 # ====================================================================
@@ -52,10 +54,17 @@ else
     SELF_CHECK_ERRORS=$((SELF_CHECK_ERRORS + 1))
 fi
 
-if [ -d "$PROMPTS_DIR" ]; then
-    echo -e "  ${GREEN}✓${NC} PROMPTS_DIR exists"
+if [ -f "$INDEX_FILE" ]; then
+    echo -e "  ${GREEN}✓${NC} INDEX_FILE exists"
 else
-    echo -e "  ${RED}✗${NC} PROMPTS_DIR not found: $PROMPTS_DIR"
+    echo -e "  ${RED}✗${NC} INDEX_FILE not found: $INDEX_FILE"
+    SELF_CHECK_ERRORS=$((SELF_CHECK_ERRORS + 1))
+fi
+
+if [ -d "$SHARED_CONTEXT_DIR" ]; then
+    echo -e "  ${GREEN}✓${NC} SHARED_CONTEXT_DIR exists"
+else
+    echo -e "  ${RED}✗${NC} SHARED_CONTEXT_DIR not found: $SHARED_CONTEXT_DIR"
     SELF_CHECK_ERRORS=$((SELF_CHECK_ERRORS + 1))
 fi
 
@@ -141,6 +150,8 @@ if check_file_exists "$MAIN_FILE" "coding-standards.md"; then
     check_section "$MAIN_FILE" "Projection Standards" "Projection Standards link" || ERRORS=$((ERRORS + 1))
     check_section "$MAIN_FILE" "Mapper Standards" "Mapper Standards link" || ERRORS=$((ERRORS + 1))
     check_section "$MAIN_FILE" "Archive Standards" "Archive Standards link" || ERRORS=$((ERRORS + 1))
+    check_section "$MAIN_FILE" "Reactor Standards" "Reactor Standards link" || ERRORS=$((ERRORS + 1))
+    check_section "$MAIN_FILE" "Profile / Environment Configuration Standards" "Profile Configuration Standards link" || ERRORS=$((ERRORS + 1))
 else
     ERRORS=$((ERRORS + 1))
 fi
@@ -159,6 +170,8 @@ declare -a SPECIALIZED_FILES=(
     "projection-standards.md"
     "mapper-standards.md"
     "archive-standards.md"
+    "reactor-standards.md"
+    "profile-configuration-standards.md"
 )
 
 # Check each specialized file
@@ -184,6 +197,11 @@ for file in "${SPECIALIZED_FILES[@]}"; do
         if ! grep -q "## Related Documents" "$full_path"; then
             echo -e "  ${YELLOW}⚠${NC} Warning: Missing Related Documents section"
             WARNINGS=$((WARNINGS + 1))
+        fi
+
+        if ! grep -Fq "\`$file\`" "$INDEX_FILE"; then
+            echo -e "  ${RED}✗${NC} Missing exact catalog route in INDEX.MD"
+            ERRORS=$((ERRORS + 1))
         fi
     else
         ERRORS=$((ERRORS + 1))
@@ -298,7 +316,8 @@ echo "========================================"
 
 if [ $ERRORS -eq 0 ] && [ $WARNINGS -eq 0 ]; then
     echo -e "${GREEN}✓ All checks passed successfully!${NC}"
-    echo "Coding standards files are complete and well-organized."
+    echo "Structural integrity passed for required files, headings, catalog routes, executable modes, and shell syntax."
+    echo "This result does not assert C# semantic compliance, architecture completeness, example correctness, or target technology adoption."
     exit 0
 elif [ $ERRORS -eq 0 ]; then
     echo -e "${YELLOW}⚠ Checks passed with $WARNINGS warning(s)${NC}"

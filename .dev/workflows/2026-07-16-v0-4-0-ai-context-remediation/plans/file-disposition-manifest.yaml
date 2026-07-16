@@ -1199,3 +1199,52 @@ entries:
     replacement_evidence:
       - ".dev/standards/templates/INDEX.MD"
       - ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
+  - path: ".ai/scripts/check-all.sh"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-008", "ASM-20260715-002#AIC-009"]
+    change_summary: "Rename the coding gate to structural integrity and run the shell-registry and claim-contract fail-closed suites."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/shell-assets.yaml"]
+  - path: ".ai/scripts/check-coding-standards.sh"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-008"]
+    change_summary: "Limit success to structural facts, remove the retired prompt-folder assumption, and cover all focused standards plus exact catalog routes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/INDEX.MD"]
+  - path: ".ai/scripts/shell-assets.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-009"]
+    change_summary: "Replace retained-only classification with role, lifecycle, distribution, authority, and replacement direction."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-shell-assets.py"]
+  - path: ".ai/scripts/tests/test_coding_standards_integrity_contract.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-008"]
+    change_summary: "Fail closed on semantic-completeness wording, retired prompt-folder assumptions, and omitted focused-standard routes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/check-coding-standards.sh"]
+  - path: ".ai/scripts/tests/test_fail_closed_validation.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-009"]
+    change_summary: "Update synthetic shell fixtures for schema v2 and require replacement direction for transitional assets."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-shell-assets.py"]
+  - path: ".ai/scripts/validate-shell-assets.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-009"]
+    change_summary: "Validate shell role/lifecycle/distribution/authority records, Git modes, runnable subsets, and runner parity."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/shell-assets.yaml"]
