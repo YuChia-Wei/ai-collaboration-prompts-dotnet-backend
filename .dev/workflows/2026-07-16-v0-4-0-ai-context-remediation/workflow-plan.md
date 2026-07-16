@@ -131,11 +131,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `BUILD-001` with interface-first BuildingBlocks truth, canonical `AGGREGATE-ES-001`, an executable-tested optional `EsAggregateRoot<TId>` source include, aligned DBA1009 coverage, and provenance-aware target ownership.
-- Current task: `TRUTH-002`.
-- Exact next action: reconcile the synchronous Java-shaped controller guidance and its linked examples with the current async Use Case boundary.
-- Validation already completed: 9 task JSON files parse; 5 ES behavior tests, 49 analyzer tests, 3 source-include evidence tests, and 4 example-evidence tests pass; AI-context validator passes with 11 owned rules; `git diff --check` passes.
-- Git state: active workflow branch contains BUILD-001 implementation commit `5926b26` on top of pushed commit `14eeeaf`; publish the checkpoint before continuing material TRUTH-002 edits.
+- Last completed action: completed `TRUTH-002` by aligning the Controller example and role prompt with `ExecuteAsync`, request cancellation, separate record DTOs, and typed responses while retaining illustrative evidence strength.
+- Current task: `EXAMPLE-002`.
+- Exact next action: inventory remaining EzDDD/uContract placeholder APIs, competing catalogs, and exact duplicate fixtures before selecting rewrite/reference/retirement dispositions.
+- Validation already completed: async contract scan is clean; 4 example-evidence tests and the AI-context validator pass; prior BUILD-001 executable/analyzer gates remain green.
+- Git state: BUILD-001 commits `5926b26` and `15924bd` are pushed; TRUTH-002 changes are uncommitted on the same active branch.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 

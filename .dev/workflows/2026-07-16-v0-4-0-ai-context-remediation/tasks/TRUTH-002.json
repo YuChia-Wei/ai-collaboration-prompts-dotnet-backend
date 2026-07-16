@@ -6,9 +6,9 @@
   "task_id": "TRUTH-002",
   "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-16T21:02:32+08:00",
-  "updated_at": "2026-07-16T22:01:08+08:00",
+  "updated_at": "2026-07-16T22:08:12+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
     "ASM-20260715-002#AIC-010"
@@ -40,15 +40,29 @@
       "Example evidence-tier validation",
       "Link and target-literal validation"
     ],
-    "last_completed_step": "BUILD-001 established the canonical BuildingBlocks and example evidence boundaries.",
-    "next_action": "Locate and reconcile the active synchronous Execute guidance and linked controller role prompts."
+    "last_completed_step": "Reconciled the Controller example, DTO shape, role prompt, and evidence claim with the current async Use Case contract.",
+    "next_action": "Execute EXAMPLE-002 placeholder and duplicate portfolio disposition."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
+    "summary": "Replaced synchronous Execute guidance with ExecuteAsync and request cancellation, added separate record DTOs and typed ActionResult, and aligned the controller sub-agent prompt without promoting the example beyond illustrative evidence.",
+    "files_changed": [
+      ".dev/standards/examples/controller/CreateTaskController.cs",
+      ".dev/standards/examples/controller/CreateTaskRequest.cs",
+      ".dev/standards/examples/controller/CreateTaskResponse.cs",
+      ".dev/standards/examples/controller/README.md",
+      ".dev/standards/examples/evidence-manifest.yaml",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/sub-agent.yaml",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/references/implementation-guidance.md",
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"
+    ],
+    "tests_run": [
+      "Async contract scan: no synchronous .Execute( or IActionResult action remains in controller example/prompt scope",
+      "Example evidence GWT tests: 4/4 passed",
+      "AI context validator: passed",
+      "git diff --check: passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The controller portfolio remains illustrative and is not claimed as a standalone compiled application.",
     "follow_up_needed": true
   }
 }
