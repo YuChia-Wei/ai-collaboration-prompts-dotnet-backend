@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-16-v0-4-0-ai-context-remediation`
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `final-gate-verification`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-17T07:34:23+08:00`
+- `updated_at`: `2026-07-17T07:42:39+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -137,13 +137,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: integrated `ASM-20260717-002` and completed `GATE-003` for closeout composition finding `FVF-001`.
-- Current task: `VERIFY-001`.
-- Exact next action: commit and push `GATE-003`, then create a final independent verification checkpoint and complete workflow reconciliation.
-- Validation already completed: fail-closed runner suite passes 18/18 with outer closeout variables; composed full gate passes 21/21 with zero advisories and validates 33 first-parent commits.
-- Git state: the official branch contains both successor assessment merges, PROFILE-003, and validated GATE-003 changes; independent assessment and rewrite candidate branches remain available as audit evidence.
+- Last completed action: integrated healthy closeout assessment `ASM-20260717-003` and reconciled every finding.
+- Current task: none; workflow completed.
+- Exact next action: prepare deterministic v0.4.0 release-candidate/package evidence from a selected immutable commit; tagging, publication, and main integration remain user-owned.
+- Validation already completed: final assessment independently passed the fail-closed suite 18/18 and composed full gate 21/21 with zero advisories, including 34 first-parent commits at its pinned subject.
+- Git state: all assessment branches remain available as independent evidence; the official workflow branch contains the closeout assessment merge and will receive this closure commit.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: no user decision currently blocks validation. `FVF-001` awaits independent post-fix verification. `SVF-002` is LOW/deferred and enumerated but not executed automatically. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
+- Blockers or unresolved decisions: none for workflow closure. `SVF-002` is LOW/deferred and enumerated but not executed. Full Observability design remains in backlog item `OBS-001` and outside the completed scope.
 
 ## Branch Lifecycle
 

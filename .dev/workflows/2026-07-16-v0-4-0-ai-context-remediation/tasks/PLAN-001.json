@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-16T07:22:13+08:00",
-  "updated_at": "2026-07-16T21:02:32+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260715-002#AIC-001", "ASM-20260715-002#AIC-002", "ASM-20260715-002#AIC-003", "ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-013", "ASM-20260715-002#AIC-014"],
   "scope": {
@@ -23,5 +23,5 @@
     "last_completed_step": "All six review gates were decided; the first remediation slice was authorized with migration-manifest and task-order constraints.",
     "next_action": "Execute TRUTH-001 for AIC-004 and AIC-012."
   },
-  "results": {"summary": "Planning gates approved with EsAggregateRoot option B conditions, deterministic equivalence checks, machine-readable evidence tiers, revised slice order, and a migration manifest prerequisite.", "files_changed": [".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"], "tests_run": ["Workflow artifact validator passed", "Assessment artifact validator passed", "AI context validator passed", "Task JSON parsing passed", "git diff --check passed"], "finding_status": "partially-resolved", "residual_risk": "Planning resolved disposition decisions but implementation findings remain owned by their remediation tasks.", "follow_up_needed": true}
+  "results": {"summary": "Planning gates approved with EsAggregateRoot option B conditions, deterministic equivalence checks, machine-readable evidence tiers, revised slice order, and a migration manifest prerequisite.", "files_changed": [".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"], "tests_run": ["Workflow artifact validator passed", "Assessment artifact validator passed", "AI context validator passed", "Task JSON parsing passed", "git diff --check passed"], "finding_status": "partially-resolved", "residual_risk": "Planning resolved disposition decisions but implementation findings remain owned by their remediation tasks.", "follow_up_needed": false}
 }

@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-16T21:02:32+08:00",
-  "updated_at": "2026-07-16T22:38:59+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -71,6 +71,6 @@
     ],
     "finding_status": "resolved",
     "residual_risk": "REL-v0.4.0 remains planned. Package build/parity, independent verification, final commit identity, and user-created annotated tag are later release gates.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }

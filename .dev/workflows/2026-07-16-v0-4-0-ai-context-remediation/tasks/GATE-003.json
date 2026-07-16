@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-17T07:34:23+08:00",
-  "updated_at": "2026-07-17T07:34:23+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260717-002#FVF-001"],
   "scope": {
@@ -27,8 +27,8 @@
     "summary": "Synthetic runner fixtures now discard outer COMMIT_RANGE and WORKFLOW_ID unless a test explicitly supplies them, while the real outer gate still validates the selected workflow range.",
     "files_changed": [".ai/scripts/tests/test_fail_closed_validation.py", "plans/file-disposition-manifest.yaml"],
     "tests_run": ["Fail-closed runner suite passed 18/18 with closeout variables exported", "Full composed gate passed 21/21 required checks with zero advisories", "Selected workflow range passed 33 first-parent commits inside the full gate", "File-disposition validation passed"],
-    "finding_status": "resolved subject to independent verification",
+    "finding_status": "resolved and independently verified by ASM-20260717-003",
     "residual_risk": "Other future synthetic fixtures must continue to control optional outer environment inputs explicitly.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }

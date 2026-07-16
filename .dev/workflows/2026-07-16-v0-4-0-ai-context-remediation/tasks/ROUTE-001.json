@@ -1,7 +1,7 @@
 {
   "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
   "task_id": "ROUTE-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "completed",
-  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T22:52:49+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-17T07:42:39+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"],
   "scope": {"target": "Audience placement, README/INDEX ownership, and weak inbound routes", "files": [".dev/standards/guides/**", ".dev/standards/prompts/**", ".dev/guides/**", ".dev/standards/rationale/**", "**/README*", "**/INDEX*"], "constraints": ["README explains purpose; INDEX catalogs", "Preserve useful provenance", "No deletion based only on low inbound count"], "non_goals": ["Broad translation workflow"]},
   "execution": {"steps": ["Compare retained content", "Move or archive by audience", "Consolidate catalogs", "Add routes for retained references"], "validation": ["Exact-case link scan", "AI context validator", "Inbound reference inventory"], "last_completed_step": "Moved human guides, merged conditional EF Core guidance, retired replaced prompt bodies, separated README purpose from complete INDEX catalogs, and added active inbound routes for retained weak-reference material.", "next_action": "Start VALIDATE-001 truthful validator coverage and shell lifecycle taxonomy."},
@@ -38,6 +38,6 @@
     ],
     "finding_status": "resolved",
     "residual_risk": "Independent verification must confirm that the new routing remains sufficient for clean navigation. Historical workflow records intentionally retain old paths as evidence.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }
