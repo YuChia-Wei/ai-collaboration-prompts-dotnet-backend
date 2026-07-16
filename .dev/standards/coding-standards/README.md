@@ -58,7 +58,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 ### Testing Standards
 - **[test-standards.md](./test-standards.md)** - Test coding rules
   - xUnit + BDDfy is the default testing framework; GWT is the minimum requirement and must not be replaced by 3A
-  - NSubstitute Mocking (Moq is prohibited)
+  - NSubstitute default mocking profile with a generic target override slot
   - Contract Tests (DBC Precondition validation)
   - WebApplicationFactory integration tests
   - 📋 Includes test templates
@@ -83,7 +83,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 - ✅ Physical purge and target-specific batch persistence use separate capabilities
 
 #### 2. Aggregate Design
-- ✅ Every Aggregate must support soft deletion (`IsDeleted`)
+- ✅ Aggregate Repository profiles use soft deletion by default; targets may record an explicit opt-out
 - ✅ Use public constructors rather than static factory methods
 - ✅ Command methods must include `Contract.Ensure` postcondition checks
 
@@ -96,7 +96,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 
 #### 4. Testing Requirements
 - ✅ Use xUnit + BDDfy by default; when the target team disables BDDfy, C# tests must still use GWT style
-- ✅ Use NSubstitute (Moq is prohibited)
+- ✅ Resolve the target mocking selection; default to NSubstitute
 - ✅ Do not inherit from BaseTestClass
 - ✅ Use `Guid.NewGuid().ToString()` for Aggregate Root IDs
 - ✅ See [profile-configuration-standards.md](./profile-configuration-standards.md) for profile and environment rules
@@ -120,7 +120,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 
 Database, ORM, event store, message broker, and package versions are determined by target-repository evidence.
 
-This framework may retain conditional/reference guidance for EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, NSubstitute, and similar technologies, but a reference selection must not be treated as mandatory truth for every target repository.
+This framework may retain conditional/reference guidance for EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, NSubstitute, and similar technologies. Resolve target choices through [Target Technology Selection Policy](../TECHNOLOGY-SELECTION-POLICY.md); a reference or default selection must not overwrite an evidenced target choice.
 
 ---
 

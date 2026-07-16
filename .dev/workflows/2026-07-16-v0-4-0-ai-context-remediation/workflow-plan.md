@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `profile-remediation`
+- `current_phase`: `example-evidence-remediation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:12:11+08:00`
+- `updated_at`: `2026-07-16T21:22:19+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -84,10 +84,10 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | Task | Purpose | Status | Depends on |
 | --- | --- | --- | --- |
 | `PLAN-001` | Freeze user decisions, evidence boundaries, finding mapping, and execution order. | `in_progress` | none |
-| `RULE-001` | Align generic technology selection, soft-delete profile ownership, and projections. | `in_progress` | `PLAN-001`, `TRUTH-001` |
+| `RULE-001` | Align generic technology selection, soft-delete profile ownership, and projections. | `completed` | `PLAN-001`, `TRUTH-001` |
 | `TRUTH-001` | Repair the broken DBA1001 route and target namespace leakage as the first remediation slice. | `completed` | `PLAN-001` |
 | `TRUTH-002` | Repair or downgrade the synchronous Java-shaped controller guidance. | `pending` | `TRUTH-001`, `EXAMPLE-001` |
-| `EXAMPLE-001` | Define example verification tiers and consolidate duplicate discovery/fixtures. | `pending` | `PLAN-001` |
+| `EXAMPLE-001` | Define machine-readable example verification tiers and consolidate duplicate discovery/fixtures. | `in_progress` | `PLAN-001`, `RULE-001` |
 | `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `pending` | `RULE-001`, `EXAMPLE-001` |
 | `ARCH-001` | Add only the minimal shared logical grammar for micro-system/mono-system repository profiles. | `pending` | `PLAN-001`, `RULE-001` |
 | `MIGRATE-001` | Maintain the file-disposition manifest and integrate it with upgrader/release migration guidance. | `pending` | all changed-path tasks; must complete before `ROUTE-001` |
@@ -130,11 +130,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `TRUTH-001` by replacing the removed repository command route, adding fail-closed script-reference validation, and removing the active `Lab.MessageSchemas` namespace.
-- Current task: `RULE-001`.
-- Exact next action: inventory technology-selection and deletion projections, then make soft delete profile-default with explicit opt-out and define the generic override shape.
+- Last completed action: completed `RULE-001` with the generic technology-selection schema, overridable NSubstitute default, and soft-delete profile-default/opt-out alignment.
+- Current task: `EXAMPLE-001`.
+- Exact next action: inventory example catalogs and metadata, then define the machine-readable five-tier evidence contract with default-downward classification.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at first-remediation checkpoint `4b6ea28`; `RULE-001` is the active continuation task.
+- Git state: active workflow branch tracks origin at handoff checkpoint `a5b4b6a`; `RULE-001` changes and evidence are not yet committed.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none for the first slice. Full Observability design is deferred; later tasks must preserve their approved bounded scope.
 

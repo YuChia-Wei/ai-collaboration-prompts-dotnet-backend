@@ -31,7 +31,7 @@
 | `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller is sufficiently thin.<br>2. DTO is in a separate file.<br>3. HTTP status is correct. | MEDIUM |
 | `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper is static/sealed.<br>2. One Mapper per DTO.<br>3. Outbox ToDomain handles both with-events and without-events cases. | **HIGH** |
 | `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>+ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. Implements `IOutboxData<TId>`.<br>2. Domain events field is marked NotMapped.<br>3. EF Core key/column naming is correct. | MEDIUM |
-| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD Rules / UseCase Tests** | 1. xUnit GWT structure and naming (BDDfy is the default profile and may be explicitly disabled by the team).<br>2. Do not use 3A or BaseTestClass.<br>3. Use NSubstitute. | HIGH |
+| `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD Rules / UseCase Tests** | 1. xUnit GWT structure and naming (BDDfy is the default profile and may be explicitly disabled by the team).<br>2. Do not use 3A or BaseTestClass.<br>3. Use the target `testing.mocking` selection; default to NSubstitute. | HIGH |
 
 ---
 

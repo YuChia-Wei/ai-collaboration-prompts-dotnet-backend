@@ -1,6 +1,6 @@
 # Repo Init and Scan Playbook
 
-Rule IDs: `AICTX-EVIDENCE-001`
+Rule IDs: `AICTX-EVIDENCE-001`, `TECH-SELECT-001`
 
 Use this reference as the first pass after this AI context framework is copied into a target repository.
 
@@ -25,6 +25,12 @@ Use `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yam
 - Generate `.dev/project-config.yaml` only after the inventory pass.
 - Populate a field only when repository evidence or user-confirmed truth supports it.
 - Keep unknown scalar values as `null` and unknown collections empty.
+- Record technology choices under `technologySelections` using
+  `templates/technology-selection.schema.yaml`. Do not create package-specific
+  top-level selection fields.
+- Leave an absent selection slot unresolved so the applicable framework profile
+  default can be evaluated separately; record an entry only from repository
+  evidence or an explicit target decision.
 - Do not copy credentials, connection strings, local ports, database names, queue names, or product identifiers from the source framework repo.
 - For an empty repository, either omit `.dev/project-config.yaml` or create the template shape with `generationStatus: not-initialized`; do not invent stack or product facts.
 - Record supporting paths under `evidence.files`.
@@ -57,6 +63,8 @@ Capture these facts before editing:
 - shared kernel or building-block projects
 - test frameworks and test project naming
 - database, ORM, message broker, and API host packages
+- explicit target selections or overrides for mocking, BDD runner, ORM,
+  database, broker, messaging framework, and observability runtime
 - container or deployment folders
 - existing `.dev/project-config.yaml` facts that conflict with stronger repository evidence
 

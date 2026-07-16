@@ -1,5 +1,7 @@
 # Document Targets
 
+Rule IDs: `TECH-SELECT-001`.
+
 This skill updates repo-specific architecture and repo-init entry areas only.
 
 ## Primary Targets
@@ -10,6 +12,7 @@ Generate or update:
 
 - repository identity and target mode
 - detected languages and technology profiles
+- target technology selections using the canonical generic selection record
 - .NET SDK, target frameworks, solutions, and projects when present
 - source/test roots and host/library classifications
 - architecture, persistence, messaging, frontend, and deployment facts only when supported by evidence

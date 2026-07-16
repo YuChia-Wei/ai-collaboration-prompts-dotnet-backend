@@ -6,7 +6,7 @@ independent normative owners.
 
 DDD / Clean Architecture / CQRS boundaries are normative. Database, ORM, event store, message broker, test package, and runtime versions are selected by each target repository from file-backed evidence.
 
-EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents are conditional/reference guidance unless target repository configuration explicitly adopts them. For tests, Given-When-Then is the framework-wide minimum and Arrange-Act-Assert is not an allowed substitute. xUnit + BDDfy is the default; a target team may explicitly decline BDDfy, but its C# tests must still preserve GWT structure. Gherkin `.feature` files and their runners remain optional.
+EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and mocking-library documents are conditional/reference guidance unless target repository configuration explicitly adopts them. Technology choices use the generic target selection mechanism in `TECHNOLOGY-SELECTION-POLICY.md`. For tests, Given-When-Then is the framework-wide minimum and Arrange-Act-Assert is not an allowed substitute. xUnit + BDDfy is the default; a target team may explicitly decline BDDfy, but its C# tests must still preserve GWT structure. NSubstitute is the default mocking selection and may be explicitly replaced. Gherkin `.feature` files and their runners remain optional.
 
 ## Structure
 
@@ -26,6 +26,8 @@ EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, and NSubstitute documents
   - code review checklist and review criteria
 - `GIT-COMMIT-POLICY.md`
   - commit title, body, and timing policy for agent-assisted work
+- `TECHNOLOGY-SELECTION-POLICY.md`
+  - generic target-owned technology slots, profile defaults, and override resolution
 - `WORKFLOW-GATE-POLICY.md`
   - rules for when agents should create workflow artifacts
 - `anti-patterns.md`
@@ -75,4 +77,3 @@ Place these materials in the appropriate locations:
 - ezDDD/ezSpec concepts must be preserved even without direct .NET packages.
 - If no .NET equivalent exists, keep the rule and mark TODO rather than deleting it.
 - `standards/` should not accumulate setup guides, troubleshooting guides, or FAQ-style documents.
-

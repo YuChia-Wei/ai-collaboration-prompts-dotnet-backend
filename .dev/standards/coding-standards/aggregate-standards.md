@@ -69,14 +69,19 @@ public class ScrumTeam : AggregateRoot<ScrumTeamId>
 
 ## 🔴 Active Rules
 
-### 0. Soft-Delete Field Requirement
+### 0. Soft-Delete Default Profile
 
-Rule ID: `DELETE-SOFT-001` (`conditional`).
+Rule ID: `DELETE-SOFT-001` (`profile-default`).
 
-When target-repository requirements or an architecture decision explicitly adopt
-aggregate soft deletion, each affected Aggregate must support the following
-field and event-application behavior. Aggregates are not required to add an
-`IsDeleted` field when the capability is not selected.
+The dotnet-backend Aggregate Repository profile defaults to soft deletion.
+Affected Aggregates support the following field and event-application behavior,
+and deletion is persisted through `SaveAsync`.
+
+A target may explicitly opt out for an Aggregate or repository profile when its
+requirements or architecture decision select another lifecycle. The opt-out
+must be recorded in target evidence such as `.dev/project-config.yaml`
+architecture capability selections, requirements, or an ADR. An opted-out
+Aggregate is not required to add `IsDeleted`.
 
 #### Adopted Aggregate Root Must Have an `IsDeleted` Field and Handling Logic
 
@@ -453,7 +458,7 @@ protected override void When(IDomainEvent @event)
 - [ ] Provides an Event Sourcing reconstruction constructor.
 - [ ] Provides a public constructor, not a static factory.
 - [ ] Implements `protected override void When(IDomainEvent @event)`.
-- [ ] Has an `IsDeleted` field for soft deletion.
+- [ ] Has an `IsDeleted` field under the default soft-delete profile, or records an explicit target opt-out.
 - [ ] Command methods check preconditions.
 - [ ] Command methods check postconditions.
 - [ ] Applies Domain Events correctly (`Apply`).

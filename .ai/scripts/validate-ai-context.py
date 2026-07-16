@@ -64,6 +64,12 @@ WRAPPER_TARGETS = {"claude", "codex", "copilot"}
 CAPABILITY_PROFILE = Path(
     ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
 )
+PROJECT_CONFIG_TEMPLATE = Path(
+    ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
+)
+TECHNOLOGY_SELECTION_SCHEMA = Path(
+    ".ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml"
+)
 CLAUDE_ENTRY_TEMPLATE = """# Claude Code Project Instructions
 
 @AGENTS.md
@@ -192,6 +198,62 @@ def validate_active_script_references(
                         f"{source}:{line_number}: active script reference does not exist: "
                         f"{script_path.as_posix()}"
                     )
+
+
+def validate_technology_selection_contract(
+    errors: list[str],
+    root: Path = ROOT,
+    template_path: Path = PROJECT_CONFIG_TEMPLATE,
+    schema_path: Path = TECHNOLOGY_SELECTION_SCHEMA,
+) -> None:
+    """Validate the target-owned generic technology-selection template contract."""
+    try:
+        template = yaml.safe_load((root / template_path).read_text(encoding="utf-8"))
+        schema = yaml.safe_load((root / schema_path).read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        errors.append(f"technology selection contract cannot be loaded: {exc}")
+        return
+
+    if not isinstance(template, dict):
+        errors.append(f"{template_path}: root must be a mapping")
+        return
+    if not isinstance(schema, dict):
+        errors.append(f"{schema_path}: root must be a mapping")
+        return
+
+    if template.get("technologySelections") != []:
+        errors.append(
+            f"{template_path}: technologySelections must default to an empty collection"
+        )
+    architecture = template.get("architecture")
+    if not isinstance(architecture, dict) or architecture.get("capabilitySelections") != []:
+        errors.append(
+            f"{template_path}: architecture.capabilitySelections must default to an empty collection"
+        )
+
+    expected_fields = {"slot", "value", "status", "source", "evidence", "reason"}
+    required_fields = schema.get("required_fields")
+    if not isinstance(required_fields, list) or set(required_fields) != expected_fields:
+        errors.append(
+            f"{schema_path}: required_fields must equal {sorted(expected_fields)}"
+        )
+
+    for key, expected in (
+        ("allowed_statuses", {"selected", "not-applicable", "unresolved"}),
+        ("allowed_sources", {"repository-evidence", "explicit-target-decision"}),
+    ):
+        values = schema.get(key)
+        if not isinstance(values, list) or set(values) != expected:
+            errors.append(f"{schema_path}: {key} must equal {sorted(expected)}")
+
+    slot_pattern = schema.get("slot_pattern")
+    if not isinstance(slot_pattern, str):
+        errors.append(f"{schema_path}: slot_pattern must be a string")
+    else:
+        try:
+            re.compile(slot_pattern)
+        except re.error as exc:
+            errors.append(f"{schema_path}: invalid slot_pattern: {exc}")
 
 
 def is_language_surface(path: Path, indexes: set[Path]) -> bool:
@@ -673,6 +735,7 @@ def main() -> int:
 
     validate_exact_case_references(files, errors)
     validate_active_script_references(files, errors)
+    validate_technology_selection_contract(errors)
 
     for index in indexes:
         validate_index(index, errors)

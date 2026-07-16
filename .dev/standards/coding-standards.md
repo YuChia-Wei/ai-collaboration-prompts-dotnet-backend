@@ -32,7 +32,7 @@ It preserves the design intent of DDD, Clean Architecture, CQRS, and Event Sourc
 
 ### 5. [Test Standards](./coding-standards/test-standards.md)
 - xUnit + BDDfy default testing rules; GWT remains mandatory and 3A prohibited when the target team disables BDDfy
-- NSubstitute mock usage rules
+- target-selected mocking rules with NSubstitute as the default
 - Profile-based testing
 
 ### 6. [Projection Standards](./coding-standards/projection-standards.md)
