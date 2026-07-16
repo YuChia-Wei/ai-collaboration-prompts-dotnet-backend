@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T22:08:12+08:00"
+updated_at: "2026-07-16T22:21:46+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -44,11 +44,13 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-012"
-    change_summary: "Replace the Lab-specific integration-contract namespace with the portable project-structure placeholder."
+      - "ASM-20260715-002#AIC-005"
+    change_summary: "Replace Lab-specific truth and use interface-first Aggregate Repository constraints."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
       - ".dev/standards/project-structure.md"
+      - ".dev/standards/coding-standards/repository-standards.md"
   - path: ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
     disposition: "kept"
     destination: null
@@ -100,7 +102,8 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-002"
-    change_summary: "Require IsDeleted mapping only when the soft-delete profile applies."
+      - "ASM-20260715-002#AIC-005"
+    change_summary: "Align conditional soft-delete mapping and remove implicit non-ES base-class/example API truth."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
@@ -152,11 +155,16 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-013"
-    change_summary: "Validate the project-config and technology-selection schema relationship."
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Validate technology selection, executable source evidence, and placeholder disposition/evidence consistency."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
       - ".ai/scripts/tests/test_ai_context_technology_selection.py"
+      - ".ai/scripts/tests/test_ai_context_source_include_evidence.py"
+      - ".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py"
   - path: ".ai/scripts/tests/test_ai_context_technology_selection.py"
     disposition: "kept"
     destination: null
@@ -173,11 +181,15 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-003"
-    change_summary: "Replace unsupported verified-template claims with the machine-readable evidence contract."
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Own purpose/evidence boundaries and delegate catalog plus placeholder disposition to machine-readable indexes."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
       - ".dev/standards/examples/evidence-manifest.yaml"
+      - ".dev/standards/examples/INDEX.md"
+      - ".dev/standards/examples/placeholder-disposition.yaml"
   - path: ".dev/standards/examples/evidence-schema.yaml"
     disposition: "kept"
     destination: null
@@ -194,12 +206,16 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-003"
-    change_summary: "Classify example families and default unclassified legacy material to historical."
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+      - "ASM-20260715-002#AIC-010"
+    change_summary: "Classify evidence strength, reconcile the async Controller claim, downgrade placeholder-heavy families, and remove retired routes."
     target_migration: "three-way"
     remediation_status: "applied"
     introduced_in: "v0.4.0"
     replacement_evidence:
       - ".dev/standards/examples/evidence-schema.yaml"
+      - ".dev/standards/examples/placeholder-disposition.yaml"
   - path: ".dev/standards/examples/.versions.json"
     disposition: "retired"
     destination: null
@@ -333,16 +349,6 @@ entries:
     target_migration: "framework-tool-only"
     remediation_status: "applied"
     replacement_evidence: ["tools/DotnetBackendAnalyzers/EventSourcedAggregateMutationAnalyzer.cs"]
-  - path: ".ai/scripts/validate-ai-context.py"
-    disposition: "kept"
-    destination: null
-    finding_ids:
-      - "ASM-20260715-002#AIC-005"
-      - "ASM-20260715-002#AIC-014"
-    change_summary: "Fail closed when executable-tested source-include evidence lacks its source path, commands, or test project."
-    target_migration: "three-way"
-    remediation_status: "applied"
-    replacement_evidence: [".ai/scripts/tests/test_ai_context_source_include_evidence.py"]
   - path: ".ai/scripts/tests/test_ai_context_source_include_evidence.py"
     disposition: "kept"
     destination: null
@@ -360,27 +366,11 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
-  - path: ".dev/standards/coding-standards.md"
-    disposition: "kept"
-    destination: null
-    finding_ids: ["ASM-20260715-002#AIC-005"]
-    change_summary: "Change Aggregate Repository constraints to IAggregateRoot<TId>."
-    target_migration: "three-way"
-    remediation_status: "applied"
-    replacement_evidence: [".dev/standards/coding-standards/repository-standards.md"]
   - path: ".dev/standards/coding-standards/repository-standards.md"
     disposition: "kept"
     destination: null
     finding_ids: ["ASM-20260715-002#AIC-005"]
     change_summary: "Use interface-first Aggregate Repository generic constraints."
-    target_migration: "three-way"
-    remediation_status: "applied"
-    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
-  - path: ".dev/standards/coding-standards/mapper-standards.md"
-    disposition: "kept"
-    destination: null
-    finding_ids: ["ASM-20260715-002#AIC-005"]
-    change_summary: "Remove an implicit non-ES AggregateRoot base-class requirement from mapper guidance."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
@@ -482,16 +472,6 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/examples/controller/CreateTaskController.cs"]
-  - path: ".dev/standards/examples/evidence-manifest.yaml"
-    disposition: "kept"
-    destination: null
-    finding_ids:
-      - "ASM-20260715-002#AIC-003"
-      - "ASM-20260715-002#AIC-010"
-    change_summary: "Update the controller claim after async contract reconciliation while retaining illustrative evidence strength."
-    target_migration: "three-way"
-    remediation_status: "applied"
-    replacement_evidence: [".dev/standards/examples/controller/CreateTaskController.cs"]
   - path: ".ai/assets/sub-agent-role-prompts/controller-sub-agent/sub-agent.yaml"
     disposition: "kept"
     destination: null
@@ -508,3 +488,157 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/DESIGN-BY-CONTRACT.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Replace unavailable uContract API truth with library-neutral precondition, postcondition, and invariant semantics."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/examples/placeholder-disposition.yaml"]
+  - path: ".dev/standards/examples/placeholder-disposition.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Record placeholder-family outcomes and canonical replacements in machine-readable form."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py"]
+  - path: ".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Add fail-closed GWT coverage for disposition/evidence tier drift."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/validate-ai-context.py"]
+  - path: ".dev/standards/examples/INDEX.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Become the sole evidence-aware root catalog with two distinct BDD modes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-manifest.yaml"
+      - ".dev/standards/examples/placeholder-disposition.yaml"
+  - path: ".dev/standards/examples/TEMPLATE-INDEX.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/INDEX.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the stale source-mirror third catalog after preserving useful routes in INDEX."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/INDEX.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-example/OUTBOX-TEST-CONFIGURATION.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Consolidate the exact duplicate into a runner-neutral Outbox owner."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/outbox/README.md"]
+  - path: ".dev/standards/examples/bdd-given-when-then-example/OUTBOX-TEST-CONFIGURATION.md"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Move shared Outbox test configuration to the runner-neutral Outbox folder."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/CreateTaskUseCase.feature"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/bdd-gherkin-example/create-task-usecase.feature"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Consolidate the Reqnroll feature mode into one Gherkin entry folder."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-gherkin-example/README.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/CreateTaskUseCaseSteps.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Retire placeholder bindings with no executable route."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-gherkin-example/create-task-usecase.feature"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/TestHostFixture.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the exact duplicate hollow fixture rather than create a framework product fixture."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/UseCaseTestFixture.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the exact duplicate hollow helper."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/README.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/bdd-gherkin-example/README.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Consolidate four BDD routes into one BDDfy and one Reqnroll/Gherkin mode."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/INDEX.md"]
+  - path: ".dev/standards/examples/test/"
+    disposition: "retired"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Retire hollow fixtures and product tests rejected by the no-reference-product gate."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/coding-standards/test-standards.md"
+      - ".dev/standards/examples/bdd-given-when-then-example/"
+      - ".dev/standards/examples/bdd-gherkin-example/"
+  - path: ".dev/standards/examples/testing-guide.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/coding-standards/test-standards.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the competing root testing guide."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/test-example.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/bdd-given-when-then-example/"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire overlapping BDDfy root prose."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-given-when-then-example/README.md"]
+  - path: ".dev/standards/examples/use-case-test-example.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/coding-standards/test-standards.md"
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Retire incomplete Use Case test prose and unimplemented event collector claims."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/projection-example.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/projection/"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the orphan root projection example in favor of the folder owner."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/projection/README.md"]

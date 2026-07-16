@@ -72,6 +72,9 @@ TECHNOLOGY_SELECTION_SCHEMA = Path(
 )
 EXAMPLE_EVIDENCE_SCHEMA = Path(".dev/standards/examples/evidence-schema.yaml")
 EXAMPLE_EVIDENCE_MANIFEST = Path(".dev/standards/examples/evidence-manifest.yaml")
+EXAMPLE_PLACEHOLDER_DISPOSITION = Path(
+    ".dev/standards/examples/placeholder-disposition.yaml"
+)
 SOURCE_INCLUDE_EVIDENCE_MANIFEST = Path(
     ".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"
 )
@@ -418,6 +421,72 @@ def validate_source_include_evidence(
         test_project = entry.get("test_project")
         if not isinstance(test_project, str) or not (root / test_project).is_file():
             errors.append(f"{label}: declared test_project does not exist: {test_project}")
+
+
+def validate_example_placeholder_disposition(
+    errors: list[str],
+    root: Path = ROOT,
+    disposition_path: Path = EXAMPLE_PLACEHOLDER_DISPOSITION,
+    evidence_path: Path = EXAMPLE_EVIDENCE_MANIFEST,
+) -> None:
+    """Validate placeholder outcomes against evidence tiers and canonical replacements."""
+    try:
+        disposition = yaml.safe_load((root / disposition_path).read_text(encoding="utf-8"))
+        evidence = yaml.safe_load((root / evidence_path).read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        errors.append(f"example placeholder disposition cannot be loaded: {exc}")
+        return
+
+    if not isinstance(disposition, dict) or not isinstance(disposition.get("entries"), list):
+        errors.append(f"{disposition_path}: entries must be a list")
+        return
+    if not isinstance(evidence, dict) or not isinstance(evidence.get("entries"), list):
+        errors.append(f"{evidence_path}: entries must be a list")
+        return
+
+    evidence_tiers = {
+        entry.get("path"): entry.get("tier")
+        for entry in evidence["entries"]
+        if isinstance(entry, dict)
+    }
+    allowed_dispositions = {
+        "bounded-rewrite",
+        "reference-only",
+        "historical",
+        "retired",
+    }
+    for index, entry in enumerate(disposition["entries"]):
+        label = f"{disposition_path}:entries[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{label}: entry must be a mapping")
+            continue
+
+        path_value = entry.get("path")
+        outcome = entry.get("disposition")
+        tier = entry.get("evidence_tier")
+        replacements = entry.get("canonical_replacements")
+        if not isinstance(path_value, str) or not path_value:
+            errors.append(f"{label}: path must be a non-empty string")
+            continue
+        if outcome not in allowed_dispositions:
+            errors.append(f"{label}: invalid disposition {outcome!r}")
+        if outcome == "retired":
+            if path_value in evidence_tiers:
+                errors.append(f"{label}: retired path must not remain in evidence manifest")
+        elif evidence_tiers.get(path_value) != tier:
+            errors.append(
+                f"{label}: evidence_tier {tier!r} does not match manifest "
+                f"{evidence_tiers.get(path_value)!r}"
+            )
+
+        if not isinstance(replacements, list) or not replacements:
+            errors.append(f"{label}: canonical_replacements must be non-empty")
+        else:
+            for replacement in replacements:
+                if not isinstance(replacement, str) or not (root / replacement).exists():
+                    errors.append(
+                        f"{label}: canonical replacement does not exist: {replacement}"
+                    )
 
 
 def is_language_surface(path: Path, indexes: set[Path]) -> bool:
@@ -901,6 +970,7 @@ def main() -> int:
     validate_active_script_references(files, errors)
     validate_technology_selection_contract(errors)
     validate_example_evidence_contract(errors)
+    validate_example_placeholder_disposition(errors)
     validate_source_include_evidence(errors)
 
     for index in indexes:

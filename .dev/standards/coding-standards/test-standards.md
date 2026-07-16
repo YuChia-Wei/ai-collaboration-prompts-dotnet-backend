@@ -1,5 +1,8 @@
 # Test Coding Standards (.NET)
 
+Rule ID: `CONTRACT-SEMANTICS-001` applies when tests verify preconditions,
+postconditions, or invariants.
+
 This document defines coding standards for Domain, Use Case, Handler adapter, Controller, and integration tests.
 
 ---
@@ -479,16 +482,15 @@ For more complete examples, see:
 
 | Example | Path |
 |------|------|
-| BDD Gherkin test | [../examples/bdd-gherkin-test/](../examples/bdd-gherkin-test/) |
+| Reqnroll/Gherkin reference | [../examples/bdd-gherkin-example/](../examples/bdd-gherkin-example/) |
 | BDD Given-When-Then | [../examples/bdd-given-when-then-example/](../examples/bdd-given-when-then-example/) |
-| Use Case test example | [../examples/use-case-test-example.md](../examples/use-case-test-example.md) |
-| Testing guide | [../examples/testing-guide.md](../examples/testing-guide.md) |
 
 ---
 
 ## Related Documents
 
 - [aggregate-standards.md](aggregate-standards.md)
+- [Design By Contract Semantics](../DESIGN-BY-CONTRACT.md)
 - [usecase-standards.md](usecase-standards.md)
 - [controller-standards.md](controller-standards.md)
 - [profile-configuration-standards.md](profile-configuration-standards.md)

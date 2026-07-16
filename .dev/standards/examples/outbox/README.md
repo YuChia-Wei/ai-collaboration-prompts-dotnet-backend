@@ -103,5 +103,5 @@ Refer to the dotnet test examples when implemented (TODO).
 - Keep events idempotent with stable IDs.
 
 ## Related Files
-- `../bdd-given-when-then-example/OUTBOX-TEST-CONFIGURATION.md`
+- `OUTBOX-TEST-CONFIGURATION.md`
 - `../bdd-given-when-then-example/ProductOutboxRepositoryTests.cs` (TODO)
