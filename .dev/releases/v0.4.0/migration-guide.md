@@ -90,6 +90,11 @@ planner proves the operation. Otherwise they require reconciliation.
 | merged | `.dev/standards/examples/test-example.md` | `.dev/standards/examples/bdd-given-when-then-example/` |
 | merged | `.dev/standards/examples/use-case-test-example.md` | `.dev/standards/coding-standards/test-standards.md` |
 | merged | `.dev/standards/examples/projection-example.md` | `.dev/standards/examples/projection/` |
+| moved | `.dev/standards/guides/DATABASE-MIGRATION-GUIDE.md` | `.dev/guides/implementation-guides/DATABASE-MIGRATION-GUIDE.md` |
+| moved | `.dev/standards/guides/DEVELOPMENT-TOOLS-GUIDE.md` | `.dev/guides/implementation-guides/DEVELOPMENT-TOOLS-GUIDE.md` |
+| merged | `.dev/standards/guides/EF-CORE-CONFIGURATION-GUIDE.md` | `.dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md` |
+| merged | `.dev/standards/guides/README.md` | `.dev/guides/implementation-guides/README.MD` |
+| merged | `.dev/standards/prompts/README.md` | `.dev/guides/ai-collaboration-guides/README.MD` |
 
 Automatic removal may be proposed under the same byte-identical/no-override
 conditions for these retired sources:
@@ -101,6 +106,8 @@ conditions for these retired sources:
 - `.dev/standards/examples/bdd-gherkin-test/TestHostFixture.cs`;
 - `.dev/standards/examples/bdd-gherkin-test/UseCaseTestFixture.cs`;
 - `.dev/standards/examples/test/` and its hollow fixtures/product tests.
+- `.dev/standards/prompts/add-feature-prompt.md`;
+- `.dev/standards/prompts/create-use-case-prompt.md`.
 
 If a target changed any retired source, preserve it until the user chooses
 whether to keep target-owned content, migrate useful material, or remove it.

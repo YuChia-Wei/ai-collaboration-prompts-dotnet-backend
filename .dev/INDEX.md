@@ -15,7 +15,8 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 
 | Path | Description |
 | --- | --- |
-| `standards/README.md` | Standards entry point. |
+| `standards/README.md` | Standards purpose, scope, and placement boundary. |
+| `standards/INDEX.MD` | Canonical standards catalog. |
 | `standards/AI-CONTEXT-BOUNDARY.md` | AI context placement, boundary, and tool-neutral evidence policy. |
 | `standards/AI-CONTEXT-LANGUAGE-POLICY.md` | Agent-facing and human-facing language policy. |
 | `standards/AI-CONTEXT-VERSION-POLICY.md` | Framework SemVer, immutable release, target provenance, and upgrade safety policy. |

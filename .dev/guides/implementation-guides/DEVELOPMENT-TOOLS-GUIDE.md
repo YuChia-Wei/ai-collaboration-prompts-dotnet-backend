@@ -15,22 +15,22 @@ dotnet build
 dotnet test
 
 # Run a specific test class
-dotnet test --filter FullyQualifiedName~CreatePlanUseCaseTests
+dotnet test --filter FullyQualifiedName~<TestClass>
 
 # Run a specific test method
-dotnet test --filter FullyQualifiedName~CreatePlanUseCaseTests&FullyQualifiedName~ShouldCreate
+dotnet test --filter FullyQualifiedName~<TestClass>&FullyQualifiedName~<TestMethod>
 
 # Publish without running tests
 dotnet publish -c Release -p:RunTests=false
 
 # Watch and rebuild
-dotnet watch --project src/Api
+dotnet watch --project <HostProject>
 ```
 
 ### Dependency Management
 ```bash
 dotnet list package
-dotnet add package WolverineFx
+dotnet add package <SelectedPackage>
 dotnet restore
 ```
 
@@ -62,23 +62,10 @@ test: Add tests
 chore: Adjust supporting tools
 ```
 
-## 🐳 Docker Commands
-
-### Local PostgreSQL Development
-```bash
-docker run --name postgres-dev \
-  -e POSTGRES_PASSWORD=password \
-  -e POSTGRES_DB=aiplan \
-  -p 5432:5432 \
-  -d postgres:15
-
-docker exec -it postgres-dev psql -U postgres -d aiplan
-```
-
 ## 🗃️ EF Core Migration Commands
 ```bash
-dotnet ef migrations add Init --project src/Infrastructure --startup-project src/Api
-dotnet ef database update --project src/Infrastructure --startup-project src/Api
+dotnet ef migrations add <MigrationName> --project <InfrastructureProject> --startup-project <HostProject>
+dotnet ef database update --project <InfrastructureProject> --startup-project <HostProject>
 ```
 
 ## 🔧 IDE Shortcuts
@@ -102,7 +89,7 @@ F12                # Go to Definition
 ## 🐛 Debugging Tips
 
 ```bash
-dotnet watch --project src/Api
+dotnet watch --project <HostProject>
 ```
 
 ### Adjusting Log Levels
@@ -124,17 +111,10 @@ dotnet-counters monitor --process-id <pid>
 dotnet-trace collect --process-id <pid>
 ```
 
-## 📝 Useful Scripts
-
-```bash
-# Replace a class name in .cs files
-rg -l "OldClassName" src | xargs sed -i '' 's/OldClassName/NewClassName/g'
-
-# Count lines of code
-rg --files src tests | xargs wc -l
-```
-
 ## 🔗 Related Resources
 
-- https://learn.microsoft.com/dotnet
-- https://learn.microsoft.com/ef/core
+- [Git flow rules](../../TEAM-GIT-FLOW-RULES.MD)
+- [Git commit policy](../../standards/GIT-COMMIT-POLICY.md)
+- [Database migration guide](DATABASE-MIGRATION-GUIDE.md)
+- [Microsoft .NET documentation](https://learn.microsoft.com/dotnet)
+- [Microsoft EF Core documentation](https://learn.microsoft.com/ef/core)

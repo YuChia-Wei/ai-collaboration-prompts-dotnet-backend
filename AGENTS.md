@@ -36,7 +36,7 @@ Do not treat historical sample backend information as current product truth unle
 1. Read `README.md` or `README.en.md` to understand this repo's purpose.
 2. Read `.dev/standards/AI-CONTEXT-BOUNDARY.md` and `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md` before moving or rewriting AI context.
 3. Use `.ai/assets/skills/README.MD` as the canonical skill registry.
-4. Use `.dev/guides/ai-collaboration-guides/README.MD` for human-facing skill and workflow guides.
+4. Use `.dev/guides/ai-collaboration-guides/INDEX.MD` for human-facing skill and workflow guides.
 5. Use `.ai/INDEX.MD` and `.ai/README.MD` for agent-facing AI asset navigation.
 
 ## Mandatory Workflows
@@ -162,7 +162,7 @@ When using problem-frame workflows:
 - Canonical skill registry: `.ai/assets/skills/README.MD`
 - Current runtime wrappers: `.agents/skills/README.md`
 - Claude-compatible wrappers: `.claude/skills/README.md`
-- Human-facing skill guides: `.dev/guides/ai-collaboration-guides/README.MD`
+- Human-facing skill guides: `.dev/guides/ai-collaboration-guides/INDEX.MD`
 
 When canonical spec and runtime wrapper differ, treat `.ai/assets/skills/` as the source of truth.
 
@@ -216,7 +216,8 @@ Use these boundaries:
 
 | Path | Description |
 | :--- | :--- |
-| `.dev/README.MD` | Human-facing project knowledge index |
+| `.dev/README.MD` | Human-facing project knowledge purpose and boundary guide |
+| `.dev/INDEX.md` | Project knowledge and governance catalog |
 | `.dev/standards/` | Governance, context, workflow, coding, review, and structure standards |
 | `.dev/guides/` | Human-facing guides |
 | `.dev/adr/` | ADR governance and retained decisions |

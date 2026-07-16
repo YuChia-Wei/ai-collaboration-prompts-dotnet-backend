@@ -6,8 +6,11 @@ This guide describes database migration strategies and best practices for .NET, 
 ## 🎯 Migration Strategy
 
 ### Tool Selection
-1. **EF Core Migrations** - Standard approach (development/testing/production)
-2. **DbUp / Flyway** - Advanced or cross-language requirements (depending on project needs)
+
+Use the target repository's selected persistence technology. When
+`persistence.orm` selects EF Core, EF Core Migrations is the default approach
+for development, testing, and production. DbUp, Flyway, or another migration
+tool requires an explicit target selection and operating model.
 
 ```
 Development environment: EF Core Migrations
@@ -21,12 +24,12 @@ Production environment: EF Core Migrations (generate and review SQL first)
 ```bash
 dotnet add package Microsoft.EntityFrameworkCore
 dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add package <Selected-EF-Core-Provider>
 ```
 
 ### 2. Directory Structure (Recommended)
 ```
-src/Infrastructure/
+<Workload>.Infrastructure/
 └── Migrations/
     ├── 202401010900_InitialCreate.cs
     ├── 202401011030_AddUserTable.cs
@@ -36,27 +39,27 @@ src/Infrastructure/
 ### 3. Basic Commands
 ```bash
 # Create a migration
-dotnet ef migrations add InitialCreate --project src/Infrastructure --startup-project src/Api
+dotnet ef migrations add InitialCreate --project <InfrastructureProject> --startup-project <HostProject>
 
 # Apply migrations
-dotnet ef database update --project src/Infrastructure --startup-project src/Api
+dotnet ef database update --project <InfrastructureProject> --startup-project <HostProject>
 
 # Generate SQL (review before deployment is recommended)
-dotnet ef migrations script --project src/Infrastructure --startup-project src/Api -o migration.sql
+dotnet ef migrations script --project <InfrastructureProject> --startup-project <HostProject> -o migration.sql
 ```
 
 ## 🔄 Migration Procedure
 
 ### 1. Development/Testing
 ```bash
-dotnet ef migrations add AddPlanTables --project src/Infrastructure --startup-project src/Api
-dotnet ef database update --project src/Infrastructure --startup-project src/Api
+dotnet ef migrations add <MigrationName> --project <InfrastructureProject> --startup-project <HostProject>
+dotnet ef database update --project <InfrastructureProject> --startup-project <HostProject>
 ```
 
 ### 2. Production Environment (Recommended)
 ```bash
 # Generate SQL, then execute it after manual review
-dotnet ef migrations script --project src/Infrastructure --startup-project src/Api -o release.sql
+dotnet ef migrations script --project <InfrastructureProject> --startup-project <HostProject> -o release.sql
 ```
 
 ## 🔁 Rollback Strategy
@@ -64,10 +67,10 @@ dotnet ef migrations script --project src/Infrastructure --startup-project src/A
 ### EF Core Rollback
 ```bash
 # Return to the previous migration
-dotnet ef database update PreviousMigration --project src/Infrastructure --startup-project src/Api
+dotnet ef database update <PreviousMigration> --project <InfrastructureProject> --startup-project <HostProject>
 
 # Return to the initial state (testing/development only)
-dotnet ef database update 0 --project src/Infrastructure --startup-project src/Api
+dotnet ef database update 0 --project <InfrastructureProject> --startup-project <HostProject>
 ```
 
 ## 🎨 Best Practices
@@ -109,3 +112,9 @@ public sealed class MigrationHealthCheck : IHealthCheck
 - [ ] Verify application functionality
 - [ ] Check pending migrations
 - [ ] Monitor performance metrics
+
+## Related
+
+- [Persistence configuration](PERSISTENCE-CONFIGURATION-GUIDE.md)
+- [Technology selection policy](../../standards/TECHNOLOGY-SELECTION-POLICY.md)
+- [Project structure](../../standards/project-structure.md)

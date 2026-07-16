@@ -29,6 +29,10 @@ or published.
 - Reclassifies examples by machine-readable evidence tier, consolidates
   duplicate BDD and Outbox routes, and retires hollow fixture or placeholder
   material that had no executable evidence.
+- Moves human migration/tooling guidance out of normative standards, retires
+  legacy product-shaped prompt bodies after recording current skill routes,
+  and separates README purpose from INDEX catalogs across standards and guide
+  areas.
 - Adds Git-backed file-disposition validation so every changed distributable
   framework path is accounted for without treating incoming intent as target
   write authorization.
