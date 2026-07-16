@@ -11,11 +11,11 @@ This index is the discovery view for framework releases. Each version's `release
 | [`REL-v0.1.0`](v0.1.0/release.yaml) | `v0.1.0` | `69c285077708dfb96ee49bb39258aec83eb7f1a9` | historical baseline | [notes](v0.1.0/release-notes.md) | [guide](v0.1.0/migration-guide.md) |
 | [`REL-v0.0.1`](v0.0.1/release.yaml) | `v0.0.1` | `ac2e2937b5209ece93e104c4a389a15e164c0d1b` | historical source snapshot; manual reconciliation only | [notes](v0.0.1/release-notes.md) | [guide](v0.0.1/migration-guide.md) |
 
-## Planned Releases
+## Candidate Releases
 
 | Release ID | Version | Status | Compatibility | Notes | Migration |
 | --- | --- | --- | --- | --- | --- |
-| [`REL-v0.4.0`](v0.4.0/release.yaml) | `v0.4.0` | planned; no tag or published commit | governed package candidate; v0.3.0 reconciliation required | [notes](v0.4.0/release-notes.md) | [guide](v0.4.0/migration-guide.md) |
+| [`REL-v0.4.0`](v0.4.0/release.yaml) | `v0.4.0` | validated candidate; no tag or published commit | governed package candidate; v0.3.0 reconciliation required | [notes](v0.4.0/release-notes.md) | [guide](v0.4.0/migration-guide.md) |
 
 ## Related Governance
 
