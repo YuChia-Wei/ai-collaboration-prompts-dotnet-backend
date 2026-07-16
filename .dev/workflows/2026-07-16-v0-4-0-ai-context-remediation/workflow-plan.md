@@ -131,11 +131,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `EXAMPLE-002` by consolidating catalogs and BDD routes, retiring hollow fixtures, downgrading placeholder-heavy families, and adding machine-validated disposition plus library-neutral contract semantics.
-- Current task: `ARCH-001`.
-- Exact next action: compare the two downstream `.slnx` logical folder profiles and define only the approved workload mapping shared by micro-system and mono-system repositories.
-- Validation already completed: 3 placeholder-disposition and 4 evidence-tier tests pass; AI-context, workflow, and shell validators pass; retired-route scan is clean; only the documented ASP.NET environment alias remains an exact duplicate.
-- Git state: checkpoints through TRUTH-002 metadata `7edee7a` are pushed; EXAMPLE-002 implementation is committed as `16595ea` and pending publication with checkpoint metadata.
+- Last completed action: completed `ARCH-001` with `PROJECT-GRAMMAR-001`, mapping workload to Bounded Context for micro-system repos and to the represented system for mono-system repos while preserving physical layout.
+- Current task: `MIGRATE-001`.
+- Exact next action: validate file-disposition completeness against the remediation commit range and project it into the v0.4.0 migration guide before ROUTE-001.
+- Validation already completed: downstream `.slnx` comparison and architecture review checklist are complete; AI-context and workflow validators pass.
+- Git state: checkpoints through EXAMPLE-002 metadata `3c24c1e` are pushed; ARCH-001 changes are uncommitted on the same active branch.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 

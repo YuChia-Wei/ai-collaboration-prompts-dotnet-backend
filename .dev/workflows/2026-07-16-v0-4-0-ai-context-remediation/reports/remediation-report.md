@@ -45,7 +45,7 @@
 | `#AIC-011` | LOW | `not-addressed` | `ROUTE-001` | Weakly routed material remains undecided. |
 | `#AIC-012` | MEDIUM | `resolved` | `TRUTH-001` | Active canonical guidance now uses the portable BoundedContextContracts placeholder; independent verification remains pending. |
 | `#AIC-013` | HIGH | `resolved` | `RULE-001` | NSubstitute is an overridable profile default consumed through generic target technology selections; independent verification remains pending. |
-| `#AIC-014` | MEDIUM | `partially-resolved` | `BUILD-001`, `ARCH-001` | BuildingBlocks reconstruction criteria and ES mechanics are now deterministic; micro/mono project-profile grammar and independent clean navigation verification remain pending. |
+| `#AIC-014` | MEDIUM | `resolved` | `BUILD-001`, `ARCH-001` | BuildingBlocks reconstruction and one logical micro/mono workload grammar now have deterministic tests/review checks; independent verification remains pending. |
 
 ## Supplemental Architecture Decisions
 
@@ -75,5 +75,5 @@
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: checkpoints through TRUTH-002 metadata `7edee7a` are pushed; EXAMPLE-002 implementation is committed as `16595ea` and will be pushed with this metadata checkpoint.
-- Workflow/task status: tasks through `EXAMPLE-002` are completed; `ARCH-001` is active.
-- Final next action: commit and publish the EXAMPLE-002 checkpoint, then define the minimal shared logical workload grammar in `ARCH-001`.
+- Workflow/task status: tasks through `ARCH-001` are completed; `MIGRATE-001` is active before ROUTE-001.
+- Final next action: commit and publish the ARCH-001 checkpoint, then validate file-disposition coverage and create the v0.4.0 migration guide.

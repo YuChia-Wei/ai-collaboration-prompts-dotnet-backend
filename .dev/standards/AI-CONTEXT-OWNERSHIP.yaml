@@ -140,6 +140,20 @@ rules:
       - .dev/standards/coding-standards/aggregate-standards.md
       - .dev/standards/coding-standards/test-standards.md
     status: active
+  - rule_id: PROJECT-GRAMMAR-001
+    domain: solution-navigation
+    strength: profile-default
+    canonical_path: .dev/standards/project-structure.md
+    canonical_anchor: "### Workload Mapping"
+    scope: dotnet-backend
+    applicability: target adopts the conditional .slnx project-structure profile
+    override_policy: explicit-target-decision
+    decision_evidence:
+      - target repository project configuration or architecture decision
+    derived_consumers:
+      - .ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md
+      - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
+    status: active
   - rule_id: DELETE-SOFT-001
     domain: deletion
     strength: profile-default
