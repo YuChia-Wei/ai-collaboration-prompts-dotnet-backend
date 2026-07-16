@@ -72,6 +72,9 @@ TECHNOLOGY_SELECTION_SCHEMA = Path(
 )
 EXAMPLE_EVIDENCE_SCHEMA = Path(".dev/standards/examples/evidence-schema.yaml")
 EXAMPLE_EVIDENCE_MANIFEST = Path(".dev/standards/examples/evidence-manifest.yaml")
+SOURCE_INCLUDE_EVIDENCE_MANIFEST = Path(
+    ".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"
+)
 CLAUDE_ENTRY_TEMPLATE = """# Claude Code Project Instructions
 
 @AGENTS.md
@@ -369,6 +372,52 @@ def validate_example_evidence_contract(
         errors.append(
             f"{stale_versions.relative_to(root)}: stale source-sync metadata must be retired"
         )
+
+
+def validate_source_include_evidence(
+    errors: list[str],
+    root: Path = ROOT,
+    manifest_path: Path = SOURCE_INCLUDE_EVIDENCE_MANIFEST,
+) -> None:
+    """Validate executable-tested claims for source-includable framework assets."""
+    try:
+        manifest = yaml.safe_load((root / manifest_path).read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        errors.append(f"source-include evidence manifest cannot be loaded: {exc}")
+        return
+
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("entries"), list):
+        errors.append(f"{manifest_path}: entries must be a list")
+        return
+
+    asset_root = root / manifest_path.parent
+    for index, entry in enumerate(manifest["entries"]):
+        label = f"{manifest_path}:entries[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{label}: entry must be a mapping")
+            continue
+
+        path_value = entry.get("path")
+        candidate = Path(path_value) if isinstance(path_value, str) else None
+        if (
+            candidate is None
+            or candidate.is_absolute()
+            or ".." in candidate.parts
+            or not (asset_root / candidate).is_dir()
+        ):
+            errors.append(f"{label}: source-include path must be an existing local directory")
+
+        if entry.get("tier") != "executable-tested":
+            errors.append(f"{label}: source includes must declare executable-tested tier")
+
+        for field in ("build_commands", "test_commands"):
+            value = entry.get(field)
+            if not isinstance(value, list) or not value:
+                errors.append(f"{label}: executable-tested tier requires non-empty {field}")
+
+        test_project = entry.get("test_project")
+        if not isinstance(test_project, str) or not (root / test_project).is_file():
+            errors.append(f"{label}: declared test_project does not exist: {test_project}")
 
 
 def is_language_surface(path: Path, indexes: set[Path]) -> bool:
@@ -852,6 +901,7 @@ def main() -> int:
     validate_active_script_references(files, errors)
     validate_technology_selection_contract(errors)
     validate_example_evidence_contract(errors)
+    validate_source_include_evidence(errors)
 
     for index in indexes:
         validate_index(index, errors)

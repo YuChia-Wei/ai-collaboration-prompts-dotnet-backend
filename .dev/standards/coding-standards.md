@@ -127,7 +127,7 @@ Portable Aggregate Repository：
 
 ```csharp
 public interface IAggregateRepository<TAggregate, TId>
-    where TAggregate : AggregateRoot<TId>
+    where TAggregate : IAggregateRoot<TId>
 {
     Task<TAggregate?> FindByIdAsync(TId id, CancellationToken cancellationToken = default);
     Task SaveAsync(TAggregate aggregate, CancellationToken cancellationToken = default);
@@ -139,7 +139,7 @@ Compatibility：
 ```csharp
 public interface IDomainRepository<TAggregate, TId>
     : IAggregateRepository<TAggregate, TId>
-    where TAggregate : AggregateRoot<TId>
+    where TAggregate : IAggregateRoot<TId>
 {
 }
 ```

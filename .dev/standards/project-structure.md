@@ -62,7 +62,7 @@ port/adapter rules and are recorded in target repository evidence.
 | Presentation | Web API | `<DomainName>.WebApi` | `./src/<DomainName>/Presentation` |
 | Presentation | Queue Consumer | `<DomainName>.Consumer` | `./src/<DomainName>/Presentation` |
 | Cross-BC | Cross-BC communication contracts | `<Company>.BoundedContextContracts.<Domain>` | example: `./src/BC-Contracts` |
-| BuildingBlocks | Architectural infrastructure | `<Company>.BuildingBlocks.<Layer>` | example: `./src/BuildingBlocks` |
+| BuildingBlocks | Business-neutral contracts plus narrowly justified mechanics | `<Company>.BuildingBlocks.<Layer>` | example: `./src/BuildingBlocks` |
 | SharedKernel | Shared domain core | `<Company>.SharedKernel` | example: `./src/Shared` |
 | Tests | Test project | `<TargetProject>.Tests` | `./tests` |
 
@@ -233,7 +233,7 @@ When a target adopts this profile, it may use these three distinct shared areas:
 
 | Project | DDD Concept | Responsibility | Dependency Permission |
 |------|---------|------|----------|
-| `BuildingBlocks` | Architectural infrastructure | Abstract bases and interfaces without business semantics | May be referenced by all layers |
+| `BuildingBlocks` | Architectural infrastructure | Interfaces without business semantics; optional `EsAggregateRoot<TId>` mechanics only | May be referenced by all layers |
 | `SharedKernel` | Shared Kernel | Shared domain concepts across BCs (VOs, Enums) | May be referenced by the Domain layer |
 | `BC-Contracts` | Published Language | Communication contracts between BCs (Integration Events, Request/Reply) | **Must not be referenced by the Domain layer** |
 
@@ -254,3 +254,10 @@ BC-Contracts   ← Application / Infrastructure / Presentation (Domain prohibite
 | `DataTransferObjects/` | Cross-BC query response contracts | `OrderDetailsResponse` |
 
 When using these areas, ensure that Bounded Context boundary isolation is not compromised.
+
+The default profile does not require `DomainEntity<TId>`, non-ES
+`AggregateRoot<TId>`, or `ValueObject` base classes. Normal Aggregates implement
+`IAggregateRoot<TId>` directly. See the
+[BuildingBlocks Reconstruction Contract](BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md)
+for the optional executable-tested `EsAggregateRoot<TId>` and target ownership
+rules.

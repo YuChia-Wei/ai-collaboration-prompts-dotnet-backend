@@ -349,7 +349,7 @@ public static Product ToDomain(ProductData data)
 ```csharp
 // ❌ Incorrect: the Aggregate adds a field that the Mapper does not handle
 // Product.cs
-public class Product : AggregateRoot<ProductId>
+public class Product : IAggregateRoot<ProductId>
 {
     private readonly List<CommittedSprint> _committedSprints = new();  // New field
     

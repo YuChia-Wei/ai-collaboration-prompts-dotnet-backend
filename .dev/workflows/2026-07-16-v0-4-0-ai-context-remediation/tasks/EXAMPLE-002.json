@@ -8,18 +8,20 @@
   "owner_skill": "ai-context-governance",
   "status": "pending",
   "created_at": "2026-07-16T21:36:20+08:00",
-  "updated_at": "2026-07-16T21:36:20+08:00",
+  "updated_at": "2026-07-16T22:01:08+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
+    "ASM-20260715-002#AIC-005",
     "ASM-20260715-002#AIC-006"
   ],
   "scope": {
-    "target": "Duplicate example catalogs and shared fixture consolidation",
+    "target": "Remaining placeholder disposition, duplicate example catalogs, and shared fixture consolidation",
     "files": [
       ".dev/standards/examples/**"
     ],
     "constraints": [
       "Preserve deliberate BDDfy and Gherkin modes",
+      "Rewrite, demote to reference/historical, or retire unresolved EzDDD and uContract placeholder APIs",
       "Use evidence-manifest tiers during every merge or retirement",
       "Delete only after replacement links and file dispositions exist"
     ],
@@ -31,6 +33,7 @@
   "execution": {
     "steps": [
       "Compare README, INDEX, TEMPLATE-INDEX, and duplicated discovery surfaces",
+      "Complete concept-to-owner disposition for remaining contract, usecase, outbox, mapper, and test placeholders",
       "Select one catalog owner per navigation purpose",
       "Consolidate genuinely identical fixtures",
       "Update links and file dispositions before retirement"

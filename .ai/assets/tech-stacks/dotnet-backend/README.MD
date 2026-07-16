@@ -32,7 +32,10 @@ Excluded:
 ## References
 
 - `references/BUILDING-BLOCKS-CLASS-INDEX.MD`
+- [BuildingBlocks reconstruction contract](../../../../.dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md)
 - `references/CODE-REVIEW-INDEX.MD`
+- `source-includes/domain/` - optional interface-first Domain contracts and the
+  executable-tested `EsAggregateRoot<TId>` source include
 - `references/CODE-TEMPLATES.MD`
 - `references/COMMON-PITFALLS.MD`
 - `references/FAILURE-CASES.MD`

@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T21:36:20+08:00"
+updated_at: "2026-07-16T22:01:08+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -66,7 +66,9 @@ entries:
     finding_ids:
       - "ASM-20260715-002#AIC-002"
       - "ASM-20260715-002#AIC-013"
-    change_summary: "Register technology-selection ownership, mocking profile default, and soft-delete profile-default opt-out semantics."
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Register technology selection, deletion, and conditional event-sourced Aggregate truth ownership."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
@@ -86,7 +88,9 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-002"
-    change_summary: "Make soft delete the Aggregate Repository profile default with an explicit target opt-out."
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Make soft delete profile-default and distinguish interface-first normal Aggregates from optional event-sourced Aggregates."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
@@ -217,3 +221,230 @@ entries:
     introduced_in: "v0.4.0"
     replacement_evidence:
       - ".ai/scripts/validate-ai-context.py"
+  - path: ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Add the canonical interface-first BuildingBlocks and optional EsAggregateRoot behavior/reconstruction contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"
+      - "tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Replace the historical complete-class wish list with an interface-first contract and target-selected capability index."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEvent.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add the portable Domain event contract source include."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: ["tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEntity.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add optional interface-only entity identity."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IAggregateRoot.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add the interface-first normal Aggregate marker."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/EsAggregateRoot.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Add the only optional base class with replay, pending-event, transition, and commit mechanics."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"
+      - "tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Document source-copy target ownership and reimplementation options."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Declare the source include executable-tested tier and exact verification route."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/tests/test_ai_context_source_include_evidence.py"]
+  - path: "tools/DotnetBackendBuildingBlocks.Tests/DotnetBackendBuildingBlocks.Tests.csproj"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Compile source includes in a focused non-packable verification project."
+    target_migration: "framework-tool-only"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: ["tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"]
+  - path: "tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Prove replay, Apply/When, pending-event, and committed-version behavior."
+    target_migration: "framework-tool-only"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: "tools/DotnetBackendAnalyzers.Tests/EventSourcedAggregateMutationAnalyzerTests.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Align DBA1009 tests to EsAggregateRoot<TId>, indirect descendants, and interface-first normal Aggregates."
+    target_migration: "framework-tool-only"
+    remediation_status: "applied"
+    replacement_evidence: ["tools/DotnetBackendAnalyzers/EventSourcedAggregateMutationAnalyzer.cs"]
+  - path: ".ai/scripts/validate-ai-context.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Fail closed when executable-tested source-include evidence lacks its source path, commands, or test project."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/tests/test_ai_context_source_include_evidence.py"]
+  - path: ".ai/scripts/tests/test_ai_context_source_include_evidence.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add GWT coverage for source-include evidence inflation and missing test routes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/validate-ai-context.py"]
+  - path: ".dev/standards/project-structure.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-014"]
+    change_summary: "Define BuildingBlocks as interfaces plus optional ES mechanics rather than a base-class collection."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/coding-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Change Aggregate Repository constraints to IAggregateRoot<TId>."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/repository-standards.md"]
+  - path: ".dev/standards/coding-standards/repository-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Use interface-first Aggregate Repository generic constraints."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/coding-standards/mapper-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Remove an implicit non-ES AggregateRoot base-class requirement from mapper guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/examples/aggregate/Plan.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Remove the embedded dual-generic placeholder and illustrate the canonical source-included ES contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/EsAggregateRoot.cs"]
+  - path: ".dev/standards/examples/aggregate/PlanEvents.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Bridge the illustrative internal event shape to the canonical IDomainEvent contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEvent.cs"]
+  - path: ".dev/standards/examples/aggregate/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Navigate the illustrative Aggregate portfolio to the canonical ES behavior contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/examples/reference/ezddd-import-mapping.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Classify dual-generic EzDDD Aggregate names as historical Java provenance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Route review through EsAggregateRoot<TId> versus IAggregateRoot<TId> profiles."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Use the canonical ES base for the Apply-based Aggregate template."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-014"]
+    change_summary: "Add navigation to the canonical reconstruction contract and optional source include."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/skills/code-reviewer/references/checklist-reference.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Route Aggregate reviews through interface-first and optional ES shapes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"]

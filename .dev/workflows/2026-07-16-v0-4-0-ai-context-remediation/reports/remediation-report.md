@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:39:12+08:00`
+- `updated_at`: `2026-07-16T22:01:08+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -24,8 +24,8 @@
 ## Remediation Summary
 
 - Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
-- Completed scope: assessment intake, decision register, repository lineage, reconstruction contract, task-order correction, file-disposition manifest prerequisite, and the first active-truth remediation slice.
-- Validation summary: workflow, assessment, and AI-context validators pass; nine task JSON files parse; `git diff --check` passes.
+- Completed scope: assessment intake, decision register, repository lineage, file-disposition prerequisite, active command/namespace repair, generic profile decisions, example evidence tiers, and interface-first BuildingBlocks/optional ES reconstruction truth.
+- Validation summary: workflow, assessment, and AI-context validators pass; nine task JSON files parse; ES behavior tests pass 5/5; analyzer tests pass 49/49; source-include evidence tests pass 3/3; `git diff --check` passes.
 - Closure decision: `not-ready`
 
 ## Finding Resolution Matrix
@@ -36,7 +36,7 @@
 | `#AIC-002` | HIGH | `resolved` | `RULE-001` | Soft delete is profile-default with an explicit target opt-out and aligned ownership/projections; independent verification remains pending. |
 | `#AIC-003` | HIGH | `resolved` | `EXAMPLE-001` | Machine-readable tiers, default-downward classification, and fail-closed validation replace unsupported verified claims; independent verification remains pending. |
 | `#AIC-004` | HIGH | `resolved` | `TRUTH-001` | DBA1001/build guidance replaces the removed script and active script references now fail closed when missing; independent verification remains pending. |
-| `#AIC-005` | HIGH | `not-addressed` | `BUILD-001` | Placeholder APIs remain unresolved. |
+| `#AIC-005` | HIGH | `partially-resolved` | `BUILD-001`, `EXAMPLE-002` | Aggregate/BuildingBlocks placeholder truth is reconciled; remaining contract/usecase/outbox/mapper/test placeholders are explicitly non-copy-ready and still require rewrite/reference/retirement disposition. |
 | `#AIC-006` | MEDIUM | `not-addressed` | `EXAMPLE-002` | Duplicate catalog and fixture consolidation remains after the retained portfolio stabilizes. |
 | `#AIC-007` | MEDIUM | `not-addressed` | `ROUTE-001` | Audience/placement drift remains. |
 | `#AIC-008` | MEDIUM | `not-addressed` | `VALIDATE-001` | Structural gate can still be over-read. |
@@ -45,7 +45,7 @@
 | `#AIC-011` | LOW | `not-addressed` | `ROUTE-001` | Weakly routed material remains undecided. |
 | `#AIC-012` | MEDIUM | `resolved` | `TRUTH-001` | Active canonical guidance now uses the portable BoundedContextContracts placeholder; independent verification remains pending. |
 | `#AIC-013` | HIGH | `resolved` | `RULE-001` | NSubstitute is an overridable profile default consumed through generic target technology selections; independent verification remains pending. |
-| `#AIC-014` | MEDIUM | `not-addressed` | `BUILD-001`, `ARCH-001` | Canonical architecture lacks a compact verified reference. |
+| `#AIC-014` | MEDIUM | `partially-resolved` | `BUILD-001`, `ARCH-001` | BuildingBlocks reconstruction criteria and ES mechanics are now deterministic; micro/mono project-profile grammar and independent clean navigation verification remain pending. |
 
 ## Supplemental Architecture Decisions
 
@@ -75,5 +75,5 @@
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: gate-decision `ed5f8fb`, first-remediation `4b6ea28`, profile-remediation `9ae9703`, and example-evidence `ba3af7f` checkpoints are committed and pushed for review.
-- Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, and `EXAMPLE-001` completed; `BUILD-001` in progress; later remediation tasks remain pending.
-- Final next action: publish the example-evidence checkpoint, then inventory and reconcile the optional `EsAggregateRoot` contract and DBA1009 shape.
+- Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, `EXAMPLE-001`, and `BUILD-001` completed; `TRUTH-002` is next; later remediation tasks remain pending.
+- Final next action: commit and push the BUILD-001 checkpoint, then reconcile synchronous Java-shaped controller guidance in `TRUTH-002`.

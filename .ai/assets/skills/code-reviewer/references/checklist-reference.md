@@ -5,7 +5,8 @@
 ```
 Aggregate Root:
   - src/Domain/**/Aggregates/*.cs
-  - Any class inheriting from AggregateRoot<TId>
+  - Any class implementing `IAggregateRoot<TId>` or inheriting from
+    `EsAggregateRoot<TId>`
 
 Domain Event:
   - src/Domain/**/Events/*Events.cs

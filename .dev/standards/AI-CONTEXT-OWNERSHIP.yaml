@@ -1,5 +1,5 @@
 schema_version: "1.0"
-updated_at: "2026-07-16T21:12:11+08:00"
+updated_at: "2026-07-16T22:01:08+08:00"
 rules:
   - rule_id: ASSESSMENT-ARTIFACT-001
     domain: durable-assessment
@@ -111,6 +111,21 @@ rules:
     decision_evidence: null
     derived_consumers:
       - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
+    status: active
+  - rule_id: AGGREGATE-ES-001
+    domain: event-sourced-aggregate
+    strength: conditional
+    canonical_path: .dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md
+    canonical_anchor: "## Optional `EsAggregateRoot<TId>` Behavior Contract"
+    scope: dotnet-backend
+    applicability: target Aggregate selects Event Sourcing
+    override_policy: not-applicable
+    decision_evidence:
+      - target Aggregate architecture or persistence profile
+    derived_consumers:
+      - .dev/standards/coding-standards/aggregate-standards.md
+      - .ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD
+      - .ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD
     status: active
   - rule_id: DELETE-SOFT-001
     domain: deletion
