@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T22:21:46+08:00`
+- `updated_at`: `2026-07-16T22:52:49+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -24,8 +24,8 @@
 ## Remediation Summary
 
 - Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
-- Completed scope: assessment intake, decision register, repository lineage, file-disposition prerequisite, active command/namespace repair, generic profile decisions, example evidence tiers, and interface-first BuildingBlocks/optional ES reconstruction truth.
-- Validation summary: workflow, assessment, and AI-context validators pass; nine task JSON files parse; ES behavior tests pass 5/5; analyzer tests pass 49/49; source-include evidence tests pass 3/3; `git diff --check` passes.
+- Completed scope: assessment intake, decision register, repository lineage, file-disposition/release migration contract, active command/namespace repair, generic profile decisions, example evidence tiers, interface-first BuildingBlocks/optional ES reconstruction truth, minimal project grammar, and audience/routing normalization.
+- Validation summary: quick gate passes 14/14 required checks; AI-context validation recognizes 24 active indexes; all 7 affected local catalogs cover their retained files; exact-case, ES behavior, analyzer, configuration, packaging, and safe-apply tests pass; `git diff --check` passes.
 - Closure decision: `not-ready`
 
 ## Finding Resolution Matrix
@@ -38,11 +38,11 @@
 | `#AIC-004` | HIGH | `resolved` | `TRUTH-001` | DBA1001/build guidance replaces the removed script and active script references now fail closed when missing; independent verification remains pending. |
 | `#AIC-005` | HIGH | `resolved` | `BUILD-001`, `EXAMPLE-002` | Placeholder families have canonical replacements and fail-closed evidence/disposition records; unavailable uContract API truth is replaced by library-neutral semantics. |
 | `#AIC-006` | MEDIUM | `resolved` | `EXAMPLE-002` | INDEX is the sole catalog, hollow fixture/product routes are retired, exact duplicates are consolidated, and BDDfy versus Reqnroll remains deliberate. |
-| `#AIC-007` | MEDIUM | `not-addressed` | `ROUTE-001` | Audience/placement drift remains. |
+| `#AIC-007` | MEDIUM | `resolved` | `ROUTE-001` | Human guides moved to `.dev/guides`, replaced prompt bodies retired, and README purpose is separated from complete INDEX catalogs. |
 | `#AIC-008` | MEDIUM | `not-addressed` | `VALIDATE-001` | Structural gate can still be over-read. |
 | `#AIC-009` | MEDIUM | `not-addressed` | `VALIDATE-001` | Retention still conflates lifecycle meanings. |
 | `#AIC-010` | MEDIUM | `resolved` | `TRUTH-002` | Controller examples and delegated guidance use ExecuteAsync, request cancellation, separate record DTOs, and typed responses; independent verification remains pending. |
-| `#AIC-011` | LOW | `not-addressed` | `ROUTE-001` | Weakly routed material remains undecided. |
+| `#AIC-011` | LOW | `resolved` | `ROUTE-001` | REST rationale, multi-stack exploration, persistence guidance, and retained guide families now have explicit bounded routes. |
 | `#AIC-012` | MEDIUM | `resolved` | `TRUTH-001` | Active canonical guidance now uses the portable BoundedContextContracts placeholder; independent verification remains pending. |
 | `#AIC-013` | HIGH | `resolved` | `RULE-001` | NSubstitute is an overridable profile default consumed through generic target technology selections; independent verification remains pending. |
 | `#AIC-014` | MEDIUM | `resolved` | `BUILD-001`, `ARCH-001` | BuildingBlocks reconstruction and one logical micro/mono workload grammar now have deterministic tests/review checks; independent verification remains pending. |
@@ -74,6 +74,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: checkpoints through ARCH-001 metadata `5b27116` are pushed; MIGRATE-001 implementation is committed as `68086de` and will be pushed with this metadata checkpoint.
-- Workflow/task status: tasks through `MIGRATE-001` are completed; `ROUTE-001` is active before validator lifecycle remediation.
-- Final next action: commit and publish the MIGRATE-001 checkpoint, then inventory audience placement, README/INDEX ownership, and weak inbound routes.
+- Commit status: checkpoints through MIGRATE-001 metadata `e947c14` are pushed; ROUTE-001 implementation is committed as `48619ab` and will be pushed with this metadata checkpoint.
+- Workflow/task status: tasks through `ROUTE-001` are completed; `VALIDATE-001` is active before independent verification.
+- Final next action: commit and publish the ROUTE-001 checkpoint, then correct validator claims and shell lifecycle taxonomy.

@@ -1,9 +1,43 @@
 {
   "template_id": "ai-context-governance-remediation-task", "template_version": "1.0.0", "template_created_at": "2026-07-10T18:22:49+08:00", "template_updated_at": "2026-07-10T18:22:49+08:00",
-  "task_id": "ROUTE-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "in_progress",
-  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T22:38:59+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "task_id": "ROUTE-001", "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation", "owner_skill": "ai-context-governance", "status": "completed",
+  "created_at": "2026-07-16T07:22:13+08:00", "updated_at": "2026-07-16T22:52:49+08:00", "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"],
   "scope": {"target": "Audience placement, README/INDEX ownership, and weak inbound routes", "files": [".dev/standards/guides/**", ".dev/standards/prompts/**", ".dev/guides/**", ".dev/standards/rationale/**", "**/README*", "**/INDEX*"], "constraints": ["README explains purpose; INDEX catalogs", "Preserve useful provenance", "No deletion based only on low inbound count"], "non_goals": ["Broad translation workflow"]},
-  "execution": {"steps": ["Compare retained content", "Move or archive by audience", "Consolidate catalogs", "Add routes for retained references"], "validation": ["Exact-case link scan", "AI context validator", "Inbound reference inventory"], "last_completed_step": "MIGRATE-001 completed the path-destination and release migration contract required before routing changes.", "next_action": "Inventory .dev/standards/guides, prompts, rationale, and competing README/INDEX ownership before moving or archiving any retained content."},
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "execution": {"steps": ["Compare retained content", "Move or archive by audience", "Consolidate catalogs", "Add routes for retained references"], "validation": ["Exact-case link scan", "AI context validator", "Inbound reference inventory"], "last_completed_step": "Moved human guides, merged conditional EF Core guidance, retired replaced prompt bodies, separated README purpose from complete INDEX catalogs, and added active inbound routes for retained weak-reference material.", "next_action": "Start VALIDATE-001 truthful validator coverage and shell lifecycle taxonomy."},
+  "results": {
+    "summary": "Resolved standards/guide audience placement and weak routing by preserving useful guidance under human-facing owners, retiring only replaced prompt bodies, and establishing complete README/INDEX ownership across the affected standards and guide areas.",
+    "files_changed": [
+      "AGENTS.md",
+      "AGENTS.zh-TW.md",
+      ".ai/INDEX.MD",
+      ".ai/assets/skills/ddd-ca-hex-architect/references/source-map.md",
+      ".dev/INDEX.md",
+      ".dev/guides/**/README.MD",
+      ".dev/guides/**/INDEX.MD",
+      ".dev/guides/implementation-guides/DATABASE-MIGRATION-GUIDE.md",
+      ".dev/guides/implementation-guides/DEVELOPMENT-TOOLS-GUIDE.md",
+      ".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md",
+      ".dev/standards/README.md",
+      ".dev/standards/INDEX.MD",
+      ".dev/standards/coding-standards/README.md",
+      ".dev/standards/coding-standards/INDEX.MD",
+      ".dev/standards/rationale/README.MD",
+      ".dev/standards/rationale/INDEX.MD",
+      ".dev/standards/templates/README.md",
+      ".dev/standards/templates/INDEX.MD",
+      ".dev/releases/v0.4.0/migration-guide.md"
+    ],
+    "tests_run": [
+      "File-disposition manifest validation passed",
+      "AI context validation passed with 24 active indexes",
+      "5 exact-case path GWT tests passed",
+      "7 local catalogs covered every retained file",
+      "Quick gate passed 14/14 required checks, including 49 analyzer tests, 2 configuration tests, and 25 packaging/safe-apply tests with 1 Windows symlink privilege skip",
+      "git diff --check passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Independent verification must confirm that the new routing remains sufficient for clean navigation. Historical workflow records intentionally retain old paths as evidence.",
+    "follow_up_needed": true
+  }
 }
