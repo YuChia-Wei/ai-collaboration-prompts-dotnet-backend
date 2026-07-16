@@ -36,7 +36,7 @@
 1. 閱讀 `README.md` 或 `README.en.md` 以理解本 repo 的用途。
 2. 在移動或重寫 AI context 前，先閱讀 `.dev/standards/AI-CONTEXT-BOUNDARY.md` 與 `.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md`。
 3. 使用 `.ai/assets/skills/README.MD` 作為 canonical skill registry。
-4. 使用 `.dev/guides/ai-collaboration-guides/README.MD` 查閱 human-facing skill 與 workflow guides。
+4. 使用 `.dev/guides/ai-collaboration-guides/INDEX.MD` 查閱 human-facing skill 與 workflow guides。
 5. 使用 `.ai/INDEX.MD` 與 `.ai/README.MD` 瀏覽 agent-facing AI assets。
 
 ## 必要工作流程
@@ -158,7 +158,7 @@ Workflow artifact 規則：
 - Canonical skill registry：`.ai/assets/skills/README.MD`
 - Current runtime wrappers：`.agents/skills/README.md`
 - Claude-compatible wrappers：`.claude/skills/README.md`
-- Human-facing skill guides：`.dev/guides/ai-collaboration-guides/README.MD`
+- Human-facing skill guides：`.dev/guides/ai-collaboration-guides/INDEX.MD`
 
 當 canonical spec 與 runtime wrapper 不一致時，以 `.ai/assets/skills/` 作為 source of truth。
 
@@ -212,7 +212,8 @@ Workflow artifact 規則：
 
 | Path | 說明 |
 | :--- | :--- |
-| `.dev/README.MD` | Human-facing project knowledge index |
+| `.dev/README.MD` | Human-facing project knowledge purpose and boundary guide |
+| `.dev/INDEX.md` | Project knowledge and governance catalog |
 | `.dev/standards/` | Governance、context、workflow、coding、review 與 structure standards |
 | `.dev/guides/` | Human-facing guides |
 | `.dev/adr/` | ADR governance and retained decisions |

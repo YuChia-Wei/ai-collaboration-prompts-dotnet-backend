@@ -15,6 +15,7 @@ coverage:
     - ".agents/"
     - ".ai/"
     - ".claude/"
+    - ".dev/guides/"
     - ".dev/standards/"
     - "tools/"
   excluded_surfaces:
@@ -956,3 +957,245 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/validate-file-disposition-manifest.py"]
+  - path: ".ai/assets/skills/ddd-ca-hex-architect/references/source-map.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Route architecture discovery through the standards INDEX while retaining README as the purpose boundary."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/INDEX.MD"]
+  - path: ".dev/standards/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Add the canonical standards catalog and separate it from README purpose and placement guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/README.md"]
+  - path: ".dev/standards/coding-standards/controller-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-011"]
+    change_summary: "Add an active route to the retained REST resource-path rationale."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/rationale/rest-api-resource-path-rationale.MD"]
+  - path: ".dev/standards/guides/DATABASE-MIGRATION-GUIDE.md"
+    disposition: "moved-to"
+    destination: ".dev/guides/implementation-guides/DATABASE-MIGRATION-GUIDE.md"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Move the human-facing database migration walkthrough out of normative standards and make it target-selection aware."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/standards/guides/DEVELOPMENT-TOOLS-GUIDE.md"
+    disposition: "moved-to"
+    destination: ".dev/guides/implementation-guides/DEVELOPMENT-TOOLS-GUIDE.md"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Move the tool walkthrough to human guides and remove source-product command assumptions."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/standards/guides/EF-CORE-CONFIGURATION-GUIDE.md"
+    disposition: "merged-into"
+    destination: ".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Merge conditional EF Core registration and validation guidance into the existing persistence guide."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"]
+  - path: ".dev/standards/guides/README.md"
+    disposition: "merged-into"
+    destination: ".dev/guides/implementation-guides/README.MD"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retire the source-stack guide catalog after moving its retained contents to the human guide owner."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/standards/prompts/add-feature-prompt.md"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retire the legacy product-shaped prompt body in favor of current workflow, architecture, and slice skills."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/README.MD"]
+  - path: ".dev/standards/prompts/create-use-case-prompt.md"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retire the legacy use-case prompt body after preserving its capability routes in current skill guides."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md"]
+  - path: ".dev/standards/prompts/README.md"
+    disposition: "merged-into"
+    destination: ".dev/guides/ai-collaboration-guides/README.MD"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Replace the migration-only prompt catalog with explicit human-facing capability routing."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/README.MD"]
+  - path: ".dev/standards/rationale/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Add the single rationale catalog while README retains purpose and placement guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/rationale/README.MD"]
+  - path: ".dev/standards/rationale/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Delegate rationale discovery to INDEX and retain only the folder purpose and ADR boundary."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/rationale/INDEX.MD"]
+  - path: ".dev/guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Route the moved implementation guides and previously omitted weak-route references."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/README.MD"]
+  - path: ".dev/guides/ai-collaboration-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Replace legacy prompt bodies with explicit current skill routes for feature and use-case requests."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/README.MD"]
+  - path: ".dev/guides/design-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-011"]
+    change_summary: "Add a bounded route to the exploratory multi-stack placement note without promoting it to active capability."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/design-guides/MULTI-STACK-CONTEXT-PLACEMENT-NOTES.md"]
+  - path: ".dev/guides/implementation-guides/DATABASE-MIGRATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retain the moved target-selection-aware migration walkthrough under human implementation guides."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"]
+  - path: ".dev/guides/implementation-guides/DEVELOPMENT-TOOLS-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retain the moved target-neutral tool reference under human implementation guides."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/implementation-guides/README.MD"]
+  - path: ".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Become the single human-facing persistence placement and conditional EF Core registration guide."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/guides/implementation-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Route the moved and merged implementation guides from their correct human-facing owner."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/guides/ai-collaboration-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the AI collaboration guide catalog separately from README purpose and usage guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/README.MD"]
+  - path: ".dev/guides/design-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Own the complete design-guide catalog and route the multi-stack exploration note."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/design-guides/README.MD"]
+  - path: ".dev/guides/implementation-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Own the complete implementation-guide catalog, including moved persistence and tooling guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/implementation-guides/README.MD"]
+  - path: ".dev/guides/learning-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the learning-guide catalog separately from README purpose and boundary guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/learning-guides/README.MD"]
+  - path: ".dev/guides/learning-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Delegate the learning-guide catalog to INDEX while retaining audience and placement guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/learning-guides/INDEX.MD"]
+  - path: ".ai/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Route the agent-facing related-doc catalog to the AI collaboration guide INDEX rather than README."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/INDEX.MD"]
+  - path: ".dev/guides/ai-collaboration-guides/AI-SKILL-GUIDE-STANDARDS.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Require new human-facing skill guides to update the catalog owner INDEX."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/INDEX.MD"]
+  - path: ".dev/standards/coding-standards/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the focused coding-standard catalog separately from README summaries and common navigation."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/README.md"]
+  - path: ".dev/standards/templates/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the actual standards-template catalog and omit the nonexistent project-config template claim."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/templates/README.md"]
+  - path: ".dev/standards/templates/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Delegate template discovery to INDEX and route target-owned config templates to repo-structure-sync."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/templates/INDEX.MD"
+      - ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
