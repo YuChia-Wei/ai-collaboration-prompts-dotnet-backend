@@ -32,11 +32,14 @@ Example:
   "ConnectionStrings": {
     "MainDb": "Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
   },
-  "Profiles": {
-    "Mode": "outbox"
+  "Outbox": {
+    "Enabled": true
   }
 }
 ```
+
+Select `Outbox` through `DOTNET_ENVIRONMENT` or `ASPNETCORE_ENVIRONMENT`; the
+configuration document does not select its own profile.
 
 ### 4. Outbox / Event Sourcing
 - Configure WolverineFx with persistence/outbox

@@ -51,7 +51,7 @@ active API or package truth.
   infrastructure requires.
 - `outbox/OUTBOX-TEST-CONFIGURATION.md` owns the shared
   Outbox test configuration reference.
-- `appsettings.InMemory.json` and `appsettings.Test.InMemory.json` intentionally
+- `appsettings.InMemory.json` and `appsettings.TestInMemory.json` intentionally
   retain equal values because ASP.NET Core selects sibling environment files by
   exact environment name; this is a semantic alias, not an accidental fixture
   duplicate.

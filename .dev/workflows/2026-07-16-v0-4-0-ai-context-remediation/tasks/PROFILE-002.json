@@ -6,9 +6,9 @@
   "task_id": "PROFILE-002",
   "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-16T23:17:21+08:00",
-  "updated_at": "2026-07-16T23:17:21+08:00",
+  "updated_at": "2026-07-16T23:26:27+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260716-001#VFY-001", "ASM-20260715-002#AIC-001"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Inventory active contradictory selectors and names", "Rewrite templates/examples/guides against canonical environment selection", "Add fail-closed regression coverage"],
     "validation": ["Profile literal scan", "AI-context validator", "Focused regression tests", "Quick gate"],
-    "last_completed_step": "ASM-20260716-001 independently confirmed the residual profile conflict.",
-    "next_action": "Rewrite active profile projections and add regression coverage."
+    "last_completed_step": "Converged active templates, examples, and guides on environment-only selection and canonical names; added a required fail-closed projection contract.",
+    "next_action": "Continue with DOC-002."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "partially-resolved",
-    "residual_risk": "Active templates and guides can still generate incompatible profile selectors.",
-    "follow_up_needed": true
+    "summary": "Removed executable custom selectors, normalized environment names and filenames, prohibited EF Core in the InMemory template, and added aggregate-gate regression coverage.",
+    "files_changed": [".dev/standards/templates/**", ".dev/standards/examples/** profile projections", ".dev/guides/** profile projections", ".ai/scripts/tests/test_profile_projection_contract.py", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", "plans/file-disposition-manifest.yaml"],
+    "tests_run": ["Profile projection contract passed 3/3", "AI-context validation passed", "Shell asset validation passed", "File-disposition validation passed", "Quick gate passed 17/17 required checks"],
+    "finding_status": "resolved",
+    "residual_risk": "The test checks known executable selectors and stale names; semantic profile correctness still depends on focused review and target tests.",
+    "follow_up_needed": false
   }
 }

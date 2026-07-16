@@ -38,7 +38,7 @@ TODO: define .NET implementations that mirror these concepts.
 ## Problem Background
 
 Many tests still create objects with `new` instead of using DI. This causes:
-1. Tests cannot switch between profiles (test-inmemory vs test-outbox)
+1. Tests cannot switch between profiles (`TestInMemory` vs `TestOutbox`)
 2. Tests diverge from runtime behavior
 3. Loss of framework-level test features (transactional behavior, DI validation, mock registration)
 4. Legacy manual wiring leaks into modern tests
@@ -119,14 +119,14 @@ services.AddSingleton(eventPublisher);
 
 ## Test Profile Configuration
 
-### appsettings.test-inmemory.json
+### appsettings.TestInMemory.json
 ```json
 {
   "Data": { "DisableEfCore": true }
 }
 ```
 
-### appsettings.test-outbox.json
+### appsettings.TestOutbox.json
 ```json
 {
   "ConnectionStrings": {
@@ -137,8 +137,8 @@ services.AddSingleton(eventPublisher);
 
 ### Environment selection
 ```bash
-ASPNETCORE_ENVIRONMENT=test-inmemory dotnet test
-ASPNETCORE_ENVIRONMENT=test-outbox dotnet test
+ASPNETCORE_ENVIRONMENT=TestInMemory dotnet test
+ASPNETCORE_ENVIRONMENT=TestOutbox dotnet test
 ```
 
 ## Checklist
@@ -147,7 +147,7 @@ ASPNETCORE_ENVIRONMENT=test-outbox dotnet test
 - [ ] Mocking uses NSubstitute only
 - [ ] Profiles switch via `ASPNETCORE_ENVIRONMENT`
 - [ ] No hardcoded repository implementations in tests
-- [ ] test-inmemory and test-outbox both supported
+- [ ] `TestInMemory` and `TestOutbox` are both supported when the target adopts both profiles
 
 ## Automated Check
 Preferred active entry point:

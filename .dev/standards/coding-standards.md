@@ -166,7 +166,8 @@ Full rules:
 
 ### ⚠ Profile-Based Testing
 - **Do not use BaseTestClass or BaseUseCaseTest as test base classes**
-- All tests must support the `test-inmemory` and `test-outbox` profiles
+- Tests that adopt both persistence profiles must support the canonical
+  `TestInMemory` and `TestOutbox` environment names.
 - Control profiles with `appsettings.*.json`
 - Follow [Profile / Environment Configuration Standards](./coding-standards/profile-configuration-standards.md) for profile naming, loading, DI branches, and profile-specific infrastructure rules
 

@@ -6,9 +6,9 @@
   "task_id": "DOC-002",
   "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-16T23:17:21+08:00",
-  "updated_at": "2026-07-16T23:17:21+08:00",
+  "updated_at": "2026-07-16T23:26:27+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260716-001#VFY-002", "ASM-20260716-001#VFY-003", "ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-010", "ASM-20260715-002#AIC-013"],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Rewrite active guide defaults to consume testing.mocking", "Align synchronous use-case snippets", "Check routed reference examples"],
     "validation": ["Technology-selection scan", "Synchronous Execute scan", "AI-context validator"],
-    "last_completed_step": "ASM-20260716-001 identified the routed documentation residuals.",
-    "next_action": "Start after PROFILE-002 is complete."
+    "last_completed_step": "PROFILE-002 completed with a 17/17 quick gate.",
+    "next_action": "Align mocking-default and synchronous use-case projections."
   },
   "results": {
     "summary": "",

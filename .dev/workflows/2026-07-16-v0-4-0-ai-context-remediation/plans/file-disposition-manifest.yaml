@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T23:02:25+08:00"
+updated_at: "2026-07-16T23:24:12+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -1248,3 +1248,150 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/shell-assets.yaml"]
+  - path: ".ai/scripts/tests/test_profile_projection_contract.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Fail closed on stale environment names, executable custom selectors, and noncanonical test environment filenames."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/design-guides/FRAMEWORK-API-INTEGRATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical Outbox and TestOutbox environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/COMPLETE-ASPNET-CORE-SETUP-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Remove the Profiles.Mode selector and route selection to the host environment."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/DOTNET-DI-TEST-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical TestInMemory and TestOutbox names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/DUAL-PROFILE-CONFIGURATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical environment names and matching appsettings filenames."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/NEW-PROJECT-TEST-SETUP-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical test environment names in registrations, traits, files, and commands."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/PREVENT-SERVICE-REGISTRATION-MISSING.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical InMemory and TestInMemory environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Normalize environment names, appsettings filenames, and commands."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/learning-guides/NEW-PROJECT-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical test environment names in project setup guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/examples/aspnet-core/Program.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use TestOutbox in the composition-root environment branch."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.Test.InMemory.json"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/aspnet-core/appsettings.TestInMemory.json"
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Rename the test environment file to the canonical TestInMemory identity."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.Test.Outbox.json"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/aspnet-core/appsettings.TestOutbox.json"
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Rename the test environment file to the canonical TestOutbox identity."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.TestInMemory.json"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Provide the canonical TestInMemory environment file."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.TestOutbox.json"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Provide the canonical TestOutbox environment file."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/profile-configs/event-architecture-reference.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Remove Repository.Mode selection and use the host environment."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/examples/usecase/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical test environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/templates/application-properties-templates.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Remove Profiles.Mode and define appsettings files under canonical environment identities."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/templates/profile-isolated-configurations.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use host environment selection and prohibit EF Core registration in InMemory profiles."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]

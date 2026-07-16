@@ -284,6 +284,10 @@ run_command_check "python .ai/scripts/tests/test_coding_standards_integrity_cont
     "Coding Standards Integrity Claim Contract" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_profile_projection_contract.py -v" \
+    "Profile Projection Contract" \
+    "required" "true" "true"
+
 # Coding standards are fundamental for AI context and standards docs
 run_check "check-coding-standards.sh" \
     "Coding Standards Structural Integrity" \

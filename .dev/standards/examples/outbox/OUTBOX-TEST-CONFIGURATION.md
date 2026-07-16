@@ -6,7 +6,7 @@ This guide describes how to configure and run Outbox pattern integration tests.
 ## 1. Profile Configuration
 
 Outbox tests use `Test.Outbox` profile:
-- `appsettings.Test.Outbox.json`
+- `appsettings.TestOutbox.json`
 
 Example (connection string):
 ```json

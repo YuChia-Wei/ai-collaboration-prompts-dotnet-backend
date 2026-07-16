@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:17:21+08:00`
+- `updated_at`: `2026-07-16T23:26:27+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -32,7 +32,7 @@
 
 | Assessment Finding | Before Severity | Status | Task | Residual Risk |
 | --- | --- | --- | --- | --- |
-| `ASM-20260715-002#AIC-001` | HIGH | `partially-resolved` | `RULE-001` | Generic selection ownership is established, but environment/profile selector consolidation remains for later validation and example tasks. |
+| `ASM-20260715-002#AIC-001` | HIGH | `resolved` | `RULE-001`, `PROFILE-002` | Environment-only selection, canonical names, templates, examples, guides, and fail-closed projection coverage are aligned. |
 | `#AIC-002` | HIGH | `resolved` | `RULE-001` | Soft delete is profile-default with an explicit target opt-out and aligned ownership/projections; independent verification remains pending. |
 | `#AIC-003` | HIGH | `resolved` | `EXAMPLE-001` | Machine-readable tiers, default-downward classification, and fail-closed validation replace unsupported verified claims; independent verification remains pending. |
 | `#AIC-004` | HIGH | `resolved` | `TRUTH-001` | DBA1001/build guidance replaces the removed script and active script references now fail closed when missing; independent verification remains pending. |
@@ -63,7 +63,7 @@
 
 | Verification Finding | Severity | Status | Task / Decision |
 | --- | --- | --- | --- |
-| `ASM-20260716-001#VFY-001` | HIGH | `in-progress` | `PROFILE-002` |
+| `ASM-20260716-001#VFY-001` | HIGH | `resolved` | `PROFILE-002`; profile contract 3/3 and quick gate 17/17 |
 | `#VFY-002` | MEDIUM | `not-addressed` | `DOC-002` |
 | `#VFY-003` | MEDIUM | `not-addressed` | `DOC-002` |
 | `#VFY-004` | MEDIUM | `not-addressed` | `GATE-002` |

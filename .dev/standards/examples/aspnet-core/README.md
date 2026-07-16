@@ -23,7 +23,7 @@ Wolverine + EF Core + ezDDD-style patterns.
 
 5. `appsettings*.json`
    - Base configuration + profile-specific overrides
-   - `appsettings.InMemory.json` and `appsettings.Test.InMemory.json`
+   - `appsettings.InMemory.json` and `appsettings.TestInMemory.json`
      intentionally repeat the same values because ASP.NET Core loads sibling
      environment files by exact environment name; keep them synchronized.
 
