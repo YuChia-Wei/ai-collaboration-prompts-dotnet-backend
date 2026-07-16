@@ -19,17 +19,17 @@
 - `current_phase`: `remediation-planning`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T08:20:40+08:00`
+- `updated_at`: `2026-07-16T09:02:26+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
 ## Objective And Scope
 
 - Problem statement: v0.4.0 needs one coherent .NET backend context that separates invariants, defaults, target choices, examples, and historical Java/EzDDD provenance while supporting both multi-BC micro-system mono repos and mono-system repositories.
-- Authorized remediation scope: plan and later remediate findings from `ASM-20260715-002`; use `ASM-20260715-001` only as superseded comparison evidence; incorporate the user's confirmed NSubstitute direction and the read-only `dotnet-webapi-lab` architecture observations; coordinate standards, examples, routing, validators, BuildingBlocks reference realization, and independent verification.
-- Current authorization boundary: workflow and task planning plus a reviewable MVP/change plan. Do not execute standards remediation or create the fixture implementation until the user reviews the MVP plan.
+- Authorized remediation scope: plan and later remediate findings from `ASM-20260715-002`; use `ASM-20260715-001` only as superseded comparison evidence; incorporate the user's confirmed NSubstitute direction, repository lineage, and read-only downstream architecture observations; coordinate standards, examples, routing, validators, BuildingBlocks reconstruction knowledge, and independent verification.
+- Current authorization boundary: workflow and task planning plus a reviewable reconstruction-contract MVP/change plan. Do not execute standards remediation, create a reference product, or implement a BuildingBlocks fixture until the user reviews the revised plan.
 - Exclusions: product code remediation in either lab; publishing packages; creating NuGet packages or a distributable `dotnet new` template; moving tags; GitHub Release work; remote branch deletion; merge without explicit authorization. Pushes of this active workflow branch are authorized for cross-machine review.
-- Completion criteria: all 14 authoritative findings and supplemental architecture decisions have explicit outcomes; selected standards and projections agree; examples have declared verification tiers; BuildingBlocks reconstruction has executable proof or a recorded deferral; validators describe and enforce their real scope; an independent successor assessment verifies the result; commits and closure evidence pass policy.
+- Completion criteria: all 14 authoritative findings and supplemental architecture decisions have explicit outcomes; selected standards and projections agree; examples have declared verification tiers; the BuildingBlocks and project-structure knowledge supports architectural reconstruction without depending on a committed reference product; validators describe and enforce their real scope; an independent successor assessment verifies the result; commits and closure evidence pass policy.
 
 ## Artifact Contract
 
@@ -48,8 +48,14 @@
 | `V040-DEC-002` Deletion semantics | confirmed by user | Soft deletion is standard Aggregate Repository behavior: the Aggregate changes deletion state and `SaveAsync` persists it. Physical deletion is a separately authorized command/use case and restricted repository/capability. | Make soft delete the default Aggregate Repository profile and keep purge explicit for legal/privacy/retention needs. |
 | `V040-DEC-003` Repository profiles | proposed | Use one logical solution-folder grammar: shared foundations plus `<workload>/DomainCore` and `<workload>/Presentation`; workload means BC for micro-system and system for mono-system | Extend the conditional project-structure profile without forcing identical physical layouts. |
 | `V040-DEC-004` Observability | proposed | Treat attribute/AOP observability as runtime CrossCutting infrastructure, separate from build-time Tooling and prohibited from Domain dependencies by default | Add a bounded canonical standard/reference and validation strategy. |
-| `V040-DEC-005` BuildingBlocks realization | confirmed by user | BuildingBlocks owns contracts/interfaces and no product persistence, broker, or other concrete adapter implementation. Product Infrastructure implements the outbound ports. | The MVP fixture proves the contracts with a separate sample product implementation; no implementation is placed in BuildingBlocks. |
-| `V040-DEC-006` Examples contract | confirmed by user | Executable examples require tests. Documentation-only illustrative/reference examples do not require tests but must not claim executable verification. | Start with a minimal tested MVP and defer full portfolio conversion until review. |
+| `V040-DEC-005` BuildingBlocks realization | confirmed direction; revised plan awaiting review | BuildingBlocks defaults to contracts/interfaces and no product persistence, broker, observability, or other concrete adapter implementation. Product Infrastructure implements outbound ports. `EsAggregateRoot<TId>` is the only optional abstract-base candidate; all other default base classes are rejected unless separately justified. | Replace the complete fixture proposal with a documentation-first reconstruction contract. Decide whether ES reusable behavior belongs in an optional abstraction or remains entirely product-owned. |
+| `V040-DEC-006` Examples contract | confirmed by user; revised execution awaiting review | Executable examples require tests. Documentation-only illustrative/reference examples do not require tests but must not claim executable verification. | Do not create a product fixture solely to produce tests; classify existing material and use focused analyzer/validator inputs where deterministic. |
+
+## Repository Lineage And Evidence Consequences
+
+The user supplied this provenance chain: the earliest Java source is `ai-coding-exercise` at `f7ed0b9b5b23822ec012c375261df44f6f03a97f`; initial .NET standards were applied to `dotnet-mq-arch-lab`; that lab was then used to refine the desired architecture and standards; this repository was created after removing the .NET implementation and has evolved as the standalone AI context product.
+
+This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does not make those literals current truth. Remediation must classify each occurrence as an active portable concept, target-owned example, or historical/reference artifact; active canonical guidance must be understandable without either source repository. `dotnet-mq-arch-lab` and `dotnet-webapi-lab` remain read-only adoption evidence rather than canonical implementation sources.
 
 ## Finding Triage
 
@@ -57,9 +63,9 @@
 | --- | --- | --- | --- | --- | --- |
 | `ASM-20260715-002#AIC-001` | HIGH | governance + architecture | rewrite profile truth | `RULE-001` | relationship checks and profile fixture |
 | `#AIC-002` | HIGH | governance + architecture | make soft delete standard Aggregate Repository behavior; keep purge explicit | `RULE-001` | ownership/projection parity |
-| `#AIC-003` | HIGH | governance | define verification tiers; replace stale sync claims | `EXAMPLE-001` | fixture/tier validator |
+| `#AIC-003` | HIGH | governance | define verification tiers; replace stale sync claims | `EXAMPLE-001` | tier inventory and evidence-route checks |
 | `#AIC-004` | HIGH | governance + validator owner | replace removed command route | `TRUTH-001` | command existence and analyzer route |
-| `#AIC-005` | HIGH | architecture + governance | extract portable concepts; replace placeholders with executable proof or archive | `BUILD-001` | compile/tests/concept matrix |
+| `#AIC-005` | HIGH | architecture + governance | extract portable concepts; replace placeholders with reconstruction contracts or archive | `BUILD-001` | provenance/concept/reconstruction matrix |
 | `#AIC-006` | MEDIUM | governance | consolidate catalogs and shared fixtures while preserving deliberate test modes | `EXAMPLE-001` | duplicate and link scan |
 | `#AIC-007` | MEDIUM | governance | move/re-route by audience and ownership | `ROUTE-001` | context and link validators |
 | `#AIC-008` | MEDIUM | validator owner | state structural scope and add selected relationship checks | `VALIDATE-001` | fail-closed tests |
@@ -68,7 +74,7 @@
 | `#AIC-011` | LOW | governance | link, archive, or remove after comparison | `ROUTE-001` | inbound route inventory |
 | `#AIC-012` | MEDIUM | governance | remove target-specific namespace from canonical guidance | `TRUTH-001` | literal target-name scan |
 | `#AIC-013` | HIGH | governance + testing | define NSubstitute profile default with one explicit target override slot | `RULE-001` | package/rule/projection scans |
-| `#AIC-014` | MEDIUM | architecture + governance | add minimal verified multi-BC/system reference or narrow portfolio claim | `BUILD-001`, `ARCH-001` | reference fixture and profile checks |
+| `#AIC-014` | MEDIUM | architecture + governance | add a compact reconstruction blueprint and evidence matrix or narrow the portfolio claim | `BUILD-001`, `ARCH-001` | navigation, profile, and downstream comparison checks |
 
 ## Task Plan
 
@@ -78,7 +84,7 @@
 | `RULE-001` | Align profile, soft-delete, and NSubstitute ownership and projections. | `pending` | `PLAN-001` |
 | `TRUTH-001` | Repair broken validator routing, async controller example, and target namespace leakage. | `pending` | `RULE-001` |
 | `EXAMPLE-001` | Define example verification tiers and consolidate duplicate discovery/fixtures. | `pending` | `PLAN-001` |
-| `BUILD-001` | Produce the EzDDD-to-BuildingBlocks concept matrix and compile-tested reference fixture plan/implementation. | `pending` | `RULE-001`, `EXAMPLE-001` |
+| `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `pending` | `RULE-001`, `EXAMPLE-001` |
 | `ARCH-001` | Extend repository profiles for micro-system/mono-system parity and add CrossCutting Observability boundaries. | `pending` | `PLAN-001`, `RULE-001` |
 | `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `pending` | `EXAMPLE-001`, `ARCH-001` |
 | `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `pending` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
@@ -98,33 +104,33 @@
 `TRUTH-001` groups three bounded active-truth defects that can mislead direct agent execution without requiring a broad policy redesign:
 
 1. `AIC-004`: the active spec-compliance skill still routes to removed `check-repository-compliance.sh`; replace it with the current analyzer/tool contract and test command existence.
-2. `AIC-010`: the controller example still calls a synchronous Java-shaped `Execute`; rewrite it to the current async Use Case port and include it in the executable MVP or downgrade it from executable guidance.
+2. `AIC-010`: the controller example still calls a synchronous Java-shaped `Execute`; rewrite it to the current async Use Case port when independently supported, or downgrade it from executable guidance.
 3. `AIC-012`: broad canonical guidance contains `Lab.MessageSchemas.<Domain>`; replace it with the portable canonical namespace placeholder or a link to the canonical project-structure owner.
 
 The task deliberately excludes profile ownership, example portfolio consolidation, and analyzer redesign. Its success criterion is that every active command/path/example it touches can be followed literally without reaching a missing command, obsolete synchronous contract, or target-specific namespace.
 
 ## BuildingBlocks And Examples MVP
 
-The reviewable MVP is defined in [the dedicated MVP plan](plans/building-blocks-examples-mvp.md). It keeps BuildingBlocks contract-only, puts concrete adapters in a sample product Infrastructure project, and tests only executable artifacts. No fixture code is authorized until the user approves that plan.
+The reviewable MVP is defined in [the dedicated reconstruction-contract plan](plans/building-blocks-examples-mvp.md). It removes the complete BuildingBlocks/SampleProduct fixture proposal, keeps the repository focused on reconstructable knowledge, and treats `EsAggregateRoot<TId>` as the only optional abstract-base decision. No standards remediation or implementation work is authorized until the user approves that revised plan.
 
 ## Validation Strategy
 
 - Parse all task JSON and validate workflow artifacts after every task status change.
 - Run `validate-ai-context.py`, `validate-shell-assets.py`, and focused fail-closed tests for changed validators.
-- Compile and test any BuildingBlocks/reference fixture; do not label it verified otherwise.
+- Build and test only retained executable examples with real validation routes; use focused inline analyzer/validator inputs rather than a committed reference product.
 - Scan exact-case links, target-specific names, Moq/NSubstitute projections, profile selectors, and soft-delete applicability.
 - Run the repository quick gate and validate the full workflow commit range before closure.
 - Require `ai-context-auditor` to create a new verification assessment; governance must not author its conclusions.
 
 ## Resume Checkpoint
 
-- Last completed action: created the workflow branch and drafted the remediation plan from both assessments and supplemental cross-repository evidence.
+- Last completed action: revised the BuildingBlocks/examples MVP into a documentation-first reconstruction contract and recorded the repository lineage as provenance.
 - Current task: `PLAN-001`.
-- Exact next action: user reviews the BuildingBlocks/examples MVP plan and `TRUTH-001` explanation, then authorizes or adjusts the first remediation slice.
+- Exact next action: user reviews the revised reconstruction contract, especially the optional `EsAggregateRoot<TId>` decision, then authorizes or adjusts the first remediation slice.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at planning checkpoint `77e54de`; the checkpoint is available for cross-machine review.
+- Git state: active workflow branch tracks origin at checkpoint `680104d`; the revised planning documents are not yet committed.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: MVP plan review; final approval of the first remediation slice. Repository-profile and Observability proposals remain reviewable rather than final.
+- Blockers or unresolved decisions: revised reconstruction-contract review; `EsAggregateRoot<TId>` disposition; final approval of the first remediation slice. Repository-profile and Observability proposals remain reviewable rather than final.
 
 ## Branch Lifecycle
 

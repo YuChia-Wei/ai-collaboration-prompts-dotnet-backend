@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T08:15:44+08:00`
+- `updated_at`: `2026-07-16T09:02:26+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -24,7 +24,7 @@
 ## Remediation Summary
 
 - Authorized scope: planning only; no finding remediation is yet authorized.
-- Completed scope: assessment intake, corrected decision register, task decomposition, and reviewable BuildingBlocks/examples MVP plan.
+- Completed scope: assessment intake, corrected decision register, task decomposition, repository-lineage intake, and revised documentation-first reconstruction-contract MVP plan.
 - Validation summary: workflow, assessment, and AI-context validators pass; nine task JSON files parse; `git diff --check` passes.
 - Closure decision: `not-ready`
 
@@ -53,21 +53,23 @@
 - `V040-DEC-002`: soft delete is standard Aggregate Repository behavior; physical purge is an explicit restricted capability.
 - `V040-DEC-003`: common logical solution-folder grammar is proposed for micro-system and mono-system profiles.
 - `V040-DEC-004`: CrossCutting Observability is a runtime architecture gap, not Tooling.
-- `V040-DEC-005`: BuildingBlocks is contract-only; concrete adapters live in product Infrastructure and are demonstrated only by the sample fixture.
-- `V040-DEC-006`: executable examples require tests; documentation-only examples do not, and the MVP precedes portfolio-wide work.
+- `V040-DEC-005`: BuildingBlocks defaults to contracts/interfaces; concrete adapters live in product Infrastructure; no complete reference product belongs in this repository. `EsAggregateRoot<TId>` remains the only optional abstract-base decision.
+- `V040-DEC-006`: executable examples require tests; documentation-only examples do not; a product fixture will not be created solely to manufacture executable evidence.
+- Provenance: `ai-coding-exercise` Java origin -> initial .NET standards -> `dotnet-mq-arch-lab` adoption/refinement -> implementation removal and continued evolution in this standalone AI context repository. Historical names are classification evidence, not current truth.
 
 ## Deferred Work
 
 | Item | Reason | Owner | Next Action |
 | --- | --- | --- | --- |
-| NuGet packages for analyzers/BuildingBlocks | Explicitly not now | user / future workflow | Reconsider after APIs and fixture stabilize. |
-| Distributable `dotnet new` template | Premature before executable truth stabilizes | architecture + governance | Derive later from one tested source. |
+| NuGet packages for analyzers/BuildingBlocks | Explicitly not now | user / future workflow | Reconsider only if reusable binaries become a separate product goal. |
+| Distributable `dotnet new` template | Outside the current knowledge-first repository scope | architecture + governance | Evaluate separately if deterministic source reproduction becomes a product goal. |
+| Executable clean-room reconstruction exercise | Useful but not required for the planning MVP | independent verifier / future authorization | Run outside the committed context surface and retain only assessment evidence if later approved. |
 | Product remediation in either lab | Outside this framework workflow | target repository owners | Use target-owned workflow if authorized. |
 | Remote assessment branch cleanup | No authorization | user | Decide separately; do not delete implicitly. |
 
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: workflow bootstrap not yet committed.
+- Commit status: prior planning checkpoint `680104d` is pushed; the revised reconstruction-contract documents are pending a new planning checkpoint.
 - Workflow/task status: `PLAN-001` in progress; all remediation tasks pending.
-- Final next action: user reviews the BuildingBlocks/examples MVP plan and authorizes or adjusts the first remediation slice.
+- Final next action: user reviews the revised reconstruction-contract plan and decides whether optional `EsAggregateRoot<TId>` behavior belongs in the context before authorizing the first remediation slice.
