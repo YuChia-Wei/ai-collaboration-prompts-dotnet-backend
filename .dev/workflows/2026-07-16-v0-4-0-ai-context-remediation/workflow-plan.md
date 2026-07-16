@@ -19,7 +19,7 @@
 - `current_phase`: `verification-reconciliation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:48:08+08:00`
+- `updated_at`: `2026-07-16T23:52:09+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -138,7 +138,7 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 - Last completed action: completed `CLOSEOUT-001`; full validation has zero advisories and standalone assessment commits retain their own contract.
 - Current task: `VERIFY-001`.
 - Exact next action: obtain explicit approval for a coordinated rewrite and force-push of the fourteen already-pushed commits that violate the prospective AI trailer contract.
-- Validation already completed: quick/full gates pass 20/20 with zero advisories; shell lifecycle includes one retirement candidate; commit policy tests pass 9/9; standalone assessment commit validation passes; combined range still fails fourteen trailers.
+- Validation already completed: quick/full gates pass 20/20 with zero advisories; shell lifecycle includes one retirement candidate; commit policy tests pass 10/10; standalone assessment and first-parent range contracts pass; workflow first-parent range still fails fourteen trailers.
 - Git state: CLOSEOUT-001 changes are dirty and pending a validated checkpoint commit.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: only `ASM-20260716-001#VFY-006` remains. A coordinated history rewrite and force-push is recommended because policy was already active for all fourteen commits and a permanent waiver would add governance debt. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.

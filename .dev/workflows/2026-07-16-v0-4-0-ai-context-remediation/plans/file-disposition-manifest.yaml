@@ -1252,7 +1252,7 @@ entries:
     disposition: "kept"
     destination: null
     finding_ids: ["ASM-20260716-001#VFY-006"]
-    change_summary: "Preserve standalone assessment commit semantics when assessment branches are later merged into a workflow validation range."
+    change_summary: "Validate workflow ranges on first-parent history and preserve standalone assessment semantics for independently governed side branches."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/GIT-COMMIT-POLICY.md", ".ai/scripts/tests/test_git_commit_policy.py"]
@@ -1260,7 +1260,7 @@ entries:
     disposition: "kept"
     destination: null
     finding_ids: ["ASM-20260716-001#VFY-006"]
-    change_summary: "Fail closed on workflow commits while proving merged standalone assessments do not acquire workflow-only body requirements."
+    change_summary: "Fail closed on workflow commits while proving standalone assessment semantics and first-parent range selection."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/validate-git-commits.py"]
@@ -1268,7 +1268,7 @@ entries:
     disposition: "kept"
     destination: null
     finding_ids: ["ASM-20260716-001#VFY-006"]
-    change_summary: "Clarify commit-contract precedence for standalone assessments included in later workflow ranges."
+    change_summary: "Clarify standalone assessment precedence and first-parent workflow range validation."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md", ".ai/scripts/validate-git-commits.py"]
