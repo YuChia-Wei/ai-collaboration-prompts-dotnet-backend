@@ -74,6 +74,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: gate-decision `ed5f8fb`, first-remediation `4b6ea28`, profile-remediation `9ae9703`, and example-evidence `ba3af7f` checkpoints are committed and pushed for review.
+- Commit status: gate-decision `ed5f8fb`, first-remediation `4b6ea28`, profile-remediation `9ae9703`, and example-evidence `ba3af7f` checkpoints are pushed; BUILD-001 implementation is committed as `5926b26` and will be pushed with this metadata checkpoint.
 - Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, `EXAMPLE-001`, and `BUILD-001` completed; `TRUTH-002` is next; later remediation tasks remain pending.
 - Final next action: commit and push the BUILD-001 checkpoint, then reconcile synchronous Java-shaped controller guidance in `TRUTH-002`.
