@@ -1237,8 +1237,8 @@ entries:
   - path: ".ai/scripts/tests/test_fail_closed_validation.py"
     disposition: "kept"
     destination: null
-    finding_ids: ["ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005"]
-    change_summary: "Cover schema v2, replacement direction, required commands, and absence of retirement candidates from every aggregate mode."
+    finding_ids: ["ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005", "ASM-20260717-002#FVF-001"]
+    change_summary: "Cover schema v2, replacement direction, required commands, retirement-candidate execution boundaries, and deterministic isolation from outer closeout variables."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/scripts/validate-shell-assets.py"]

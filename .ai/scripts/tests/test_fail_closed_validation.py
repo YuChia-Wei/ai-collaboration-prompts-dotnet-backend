@@ -209,6 +209,8 @@ class SyntheticRunnerRepo:
         merged_environment["PATH"] = str(self.bin) + os.pathsep + merged_environment["PATH"]
         merged_environment.pop("SPEC_FILE", None)
         merged_environment.pop("TASK_NAME", None)
+        merged_environment.pop("COMMIT_RANGE", None)
+        merged_environment.pop("WORKFLOW_ID", None)
         if environment:
             merged_environment.update(environment)
         return subprocess.run(

@@ -14,21 +14,21 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-17T07:21:21+08:00`
+- `updated_at`: `2026-07-17T07:34:23+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
 - `historical_assessment`: `ASM-20260715-001` (superseded)
 - `verification_assessment`: `ASM-20260716-001`
 - `successor_verification_assessment`: `ASM-20260717-001`
-- `final_verification_assessment`: `pending`
+- `final_verification_assessment`: `ASM-20260717-002` (follow-up `FVF-001` remediation verification pending)
 
 ## Remediation Summary
 
 - Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
 - Completed scope: assessment intake, decision register, repository lineage, file-disposition/release migration contract, active command/namespace repair, generic profile decisions, example evidence tiers, interface-first BuildingBlocks/optional ES reconstruction truth, minimal project grammar, and audience/routing normalization.
 - Validation summary: quick gate passes 14/14 required checks; AI-context validation recognizes 24 active indexes; all 7 affected local catalogs cover their retained files; exact-case, ES behavior, analyzer, configuration, packaging, and safe-apply tests pass; `git diff --check` passes.
-- Closure decision: `not-ready`; successor finding `SVF-001` is remediated and requires final independent verification
+- Closure decision: `not-ready`; final-gate finding `FVF-001` is remediated and requires independent verification
 
 ## Finding Resolution Matrix
 
@@ -79,6 +79,12 @@
 | `ASM-20260717-001#SVF-001` | HIGH | `resolved`, final-verification-pending | `PROFILE-003`; canonical names applied to both active agent-loading projections and fail-closed coverage expanded to `.ai/assets/tech-stacks/dotnet-backend/shared` |
 | `#SVF-002` | LOW | `deferred` | Manual-only transitional DI helper remains excluded from automatic gates; governance may later remove its mocking-library judgment or retire it |
 
+## Final Verification Matrix
+
+| Final Finding | Severity | Status | Task / Decision |
+| --- | --- | --- | --- |
+| `ASM-20260717-002#FVF-001` | MEDIUM | `resolved`, verification-pending | `GATE-003`; synthetic fixtures discard outer closeout variables, while the real composed gate validates the selected range and passes 21/21 |
+
 ## Deferred Work
 
 | Item | Reason | Owner | Next Action |
@@ -94,7 +100,7 @@
 
 ## Closure Evidence
 
-- Required validations: PROFILE-003 focused and full-gate validation passed; final independent verification and final commit-range/release gates remain pending.
-- Commit status: the guarded rewrite and `ASM-20260717-001` are integrated; PROFILE-003 awaits its normal checkpoint commit and push.
+- Required validations: GATE-003 focused and composed full-gate validation passed; final independent verification and release-candidate packaging remain pending.
+- Commit status: the guarded rewrite, three verification assessments through `ASM-20260717-002`, PROFILE-003, and GATE-003 are integrated; GATE-003 awaits its normal checkpoint commit and push.
 - Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
-- Final next action: commit PROFILE-003, create the final independent verification assessment, and reconcile release readiness; do not close, tag, or publish before that assessment passes.
+- Final next action: commit GATE-003, independently verify the composed closeout gate, and reconcile release readiness; do not close, tag, or publish before that verification passes.

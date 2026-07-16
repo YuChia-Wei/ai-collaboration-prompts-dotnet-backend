@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `successor-remediation-verification`
+- `current_phase`: `final-gate-verification`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-17T07:21:21+08:00`
+- `updated_at`: `2026-07-17T07:34:23+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -100,6 +100,7 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `completed` | `DOC-002` |
 | `CLOSEOUT-001` | Retire stale automatic helper routing and correct assessment commit validation scope. | `completed` | `GATE-002` |
 | `PROFILE-003` | Align active `.ai` profile projections and expand fail-closed projection coverage. | `completed` | `ASM-20260717-001` intake |
+| `GATE-003` | Isolate synthetic runner fixtures from outer closeout variables and restore the composed gate. | `completed` | `ASM-20260717-002` intake |
 
 ## Stages And Checkpoints
 
@@ -136,13 +137,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: integrated `ASM-20260717-001` and completed `PROFILE-003` for release-blocking `SVF-001`.
+- Last completed action: integrated `ASM-20260717-002` and completed `GATE-003` for closeout composition finding `FVF-001`.
 - Current task: `VERIFY-001`.
-- Exact next action: commit and push `PROFILE-003`, then create a final independent verification assessment for the corrected projection and complete workflow reconciliation.
-- Validation already completed: `ASM-20260717-001` verified history and most remediation; PROFILE-003 focused contract passes 3/3 with `.ai` coverage; full gate passes 20/20 with zero advisories.
-- Git state: the official branch contains the no-ff assessment merge plus validated PROFILE-003 changes; the independent assessment and rewrite candidate branches remain available as audit evidence.
+- Exact next action: commit and push `GATE-003`, then create a final independent verification checkpoint and complete workflow reconciliation.
+- Validation already completed: fail-closed runner suite passes 18/18 with outer closeout variables; composed full gate passes 21/21 with zero advisories and validates 33 first-parent commits.
+- Git state: the official branch contains both successor assessment merges, PROFILE-003, and validated GATE-003 changes; independent assessment and rewrite candidate branches remain available as audit evidence.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: no user decision currently blocks validation. `SVF-001` awaits independent post-fix verification. `SVF-002` is a LOW deferred manual-helper issue with no automatic route. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
+- Blockers or unresolved decisions: no user decision currently blocks validation. `FVF-001` awaits independent post-fix verification. `SVF-002` is LOW/deferred and enumerated but not executed automatically. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
 ## Branch Lifecycle
 
