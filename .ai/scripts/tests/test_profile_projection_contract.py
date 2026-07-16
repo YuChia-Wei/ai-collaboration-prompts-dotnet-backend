@@ -13,6 +13,7 @@ PROJECTION_PATHS = (
     ROOT / ".dev/standards/templates",
     ROOT / ".dev/standards/examples",
     ROOT / ".dev/guides",
+    ROOT / ".ai/assets/tech-stacks/dotnet-backend/shared",
 )
 
 STALE_ENVIRONMENT_NAMES = (

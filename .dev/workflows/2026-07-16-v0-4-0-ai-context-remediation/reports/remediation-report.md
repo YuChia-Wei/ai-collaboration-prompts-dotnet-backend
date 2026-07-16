@@ -14,19 +14,21 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-17T07:07:49+08:00`
+- `updated_at`: `2026-07-17T07:21:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
 - `historical_assessment`: `ASM-20260715-001` (superseded)
 - `verification_assessment`: `ASM-20260716-001`
+- `successor_verification_assessment`: `ASM-20260717-001`
+- `final_verification_assessment`: `pending`
 
 ## Remediation Summary
 
 - Authorized scope: all review gates and the first active-truth remediation slice are approved with recorded conditions.
 - Completed scope: assessment intake, decision register, repository lineage, file-disposition/release migration contract, active command/namespace repair, generic profile decisions, example evidence tiers, interface-first BuildingBlocks/optional ES reconstruction truth, minimal project grammar, and audience/routing normalization.
 - Validation summary: quick gate passes 14/14 required checks; AI-context validation recognizes 24 active indexes; all 7 affected local catalogs cover their retained files; exact-case, ES behavior, analyzer, configuration, packaging, and safe-apply tests pass; `git diff --check` passes.
-- Closure decision: `not-ready`; all known remediation is applied and an independent successor verification assessment is required
+- Closure decision: `not-ready`; successor finding `SVF-001` is remediated and requires final independent verification
 
 ## Finding Resolution Matrix
 
@@ -70,6 +72,13 @@
 | `#VFY-005` | MEDIUM | `resolved` | Automatic routing removed; helper is a packaged `retirement-candidate` for the v0.4.0 migration window; full gate has zero advisories. |
 | `#VFY-006` | HIGH | `resolved`, successor-verification-pending | The exact `force-with-lease` moved the official remediation branch from `abc1750c8f6c9f77ee75f1abb14b5a8cf8eceea2` to the validated candidate at `adfbc6979c813ce19271660dd2c1210165180fd9`; the candidate corrected all fourteen messages, recreated the assessment merge, passed 28/28 first-parent validation and the 20/20 full gate, and matched the original content tree before rewrite evidence was added. |
 
+## Successor Verification Matrix
+
+| Successor Finding | Severity | Status | Task / Decision |
+| --- | --- | --- | --- |
+| `ASM-20260717-001#SVF-001` | HIGH | `resolved`, final-verification-pending | `PROFILE-003`; canonical names applied to both active agent-loading projections and fail-closed coverage expanded to `.ai/assets/tech-stacks/dotnet-backend/shared` |
+| `#SVF-002` | LOW | `deferred` | Manual-only transitional DI helper remains excluded from automatic gates; governance may later remove its mocking-library judgment or retire it |
+
 ## Deferred Work
 
 | Item | Reason | Owner | Next Action |
@@ -79,12 +88,13 @@
 | Executable clean-room reconstruction exercise | Useful but not required for the planning MVP | independent verifier / future authorization | Run outside the committed context surface and retain only assessment evidence if later approved. |
 | Full CrossCutting Observability design | Does not map to an assessment finding and would broaden verification scope | future architecture workflow | Retain only the minimal dependency-boundary candidate in this workflow. |
 | `OBS-001` CrossCutting Observability | Durable backlog owner now exists | `ddd-ca-hex-architect` | Open a separate architecture workflow after v0.4.0 remediation or explicit prioritization. |
+| `ASM-20260717-001#SVF-002` manual DI helper wording | Deferred/transitional and never selected by aggregate gates | `ai-context-governance` | Remove override-unaware mocking advice or retire the helper in a bounded later slice. |
 | Product remediation in either lab | Outside this framework workflow | target repository owners | Use target-owned workflow if authorized. |
 | Remote assessment branch cleanup | No authorization | user | Decide separately; do not delete implicitly. |
 
 ## Closure Evidence
 
-- Required validations: candidate commit-range and full-gate validation passed; post-rewrite final gates and the independent successor assessment remain pending.
-- Commit status: the guarded rewrite is applied at `adfbc6979c813ce19271660dd2c1210165180fd9`; this applied-state evidence awaits a normal checkpoint commit and push.
+- Required validations: PROFILE-003 focused and full-gate validation passed; final independent verification and final commit-range/release gates remain pending.
+- Commit status: the guarded rewrite and `ASM-20260717-001` are integrated; PROFILE-003 awaits its normal checkpoint commit and push.
 - Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
-- Final next action: commit the applied-state evidence, run final gates on the resulting head, and create an independent successor verification assessment; do not close, tag, or publish before that assessment is integrated and reconciled.
+- Final next action: commit PROFILE-003, create the final independent verification assessment, and reconcile release readiness; do not close, tag, or publish before that assessment passes.

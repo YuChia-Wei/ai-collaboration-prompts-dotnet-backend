@@ -151,7 +151,8 @@ entries:
     finding_ids:
       - "ASM-20260715-002#AIC-002"
       - "ASM-20260715-002#AIC-013"
-    change_summary: "Project generic technology selection and soft-delete default/opt-out semantics into agent-loading rules."
+      - "ASM-20260717-001#SVF-001"
+    change_summary: "Project generic technology selection, canonical environment names, and soft-delete default/opt-out semantics into agent-loading rules."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
@@ -161,7 +162,8 @@ entries:
     destination: null
     finding_ids:
       - "ASM-20260715-002#AIC-013"
-    change_summary: "Consume testing.mocking and default to NSubstitute only when no target selection exists."
+      - "ASM-20260717-001#SVF-001"
+    change_summary: "Consume testing.mocking, default to NSubstitute only when no target selection exists, and use canonical test environment names."
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence:
@@ -1275,8 +1277,8 @@ entries:
   - path: ".ai/scripts/tests/test_profile_projection_contract.py"
     disposition: "kept"
     destination: null
-    finding_ids: ["ASM-20260716-001#VFY-001"]
-    change_summary: "Fail closed on stale environment names, executable custom selectors, and noncanonical test environment filenames."
+    finding_ids: ["ASM-20260716-001#VFY-001", "ASM-20260717-001#SVF-001"]
+    change_summary: "Fail closed on stale environment names across .dev and active agent-loading .ai projections, executable custom selectors, and noncanonical test environment filenames."
     target_migration: "three-way"
     remediation_status: "applied"
     introduced_in: "v0.4.0"

@@ -21,7 +21,7 @@ Rule IDs: `TEST-GWT-001`, `TEST-BDDFY-001`, `TEST-MOCK-001`, `TECH-SELECT-001`.
 ## Profile Switching Pattern (xUnit)
 - Use `ICollectionFixture<TFixture>` to set environment variables before test execution
 - Example fixture (conceptual):
-  - Set `ASPNETCORE_ENVIRONMENT=test-inmemory`
+  - Set `ASPNETCORE_ENVIRONMENT=TestInMemory`
   - Initialize test service container
 
 ## Test Types
@@ -138,15 +138,15 @@ children[1].Order.Should().Be(1);
 ## Dual-Profile Execution (Dotnet)
 
 ### When `dualProfileSupport: true`
-- Run **all relevant use case tests** twice: `test-inmemory` and `test-outbox`.
+- Run **all relevant use case tests** twice: `TestInMemory` and `TestOutbox`.
 - Do NOT hardcode environment in test classes.
 - Prefer xUnit fixtures/collections to set `ASPNETCORE_ENVIRONMENT` before host startup.
 
 ### Execution Options
 1) **Two test runs (recommended in CI)**
 ```bash
-ASPNETCORE_ENVIRONMENT=test-inmemory dotnet test
-ASPNETCORE_ENVIRONMENT=test-outbox dotnet test
+ASPNETCORE_ENVIRONMENT=TestInMemory dotnet test
+ASPNETCORE_ENVIRONMENT=TestOutbox dotnet test
 ```
 
 2) **Two test projects (if isolation needed)**

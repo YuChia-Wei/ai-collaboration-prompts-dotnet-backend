@@ -121,11 +121,11 @@ TODO: finalize mapper rules for domain event serialization and metadata fields.
 - Use environment checks to select DI registrations.
 
 ```csharp
-if (env.IsEnvironment("test-inmemory"))
+if (env.IsEnvironment("TestInMemory"))
 {
     services.AddDbContext<AppDbContext>(o => o.UseInMemoryDatabase("InMemory"));
 }
-else if (env.IsEnvironment("test-outbox"))
+else if (env.IsEnvironment("TestOutbox"))
 {
     services.AddDbContext<AppDbContext>(o => o.UseNpgsql(configuration.GetConnectionString("Outbox")));
 }

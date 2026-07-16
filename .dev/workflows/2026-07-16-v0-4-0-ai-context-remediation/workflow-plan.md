@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `successor-verification`
+- `current_phase`: `successor-remediation-verification`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:56:28+08:00`
+- `updated_at`: `2026-07-17T07:21:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -99,6 +99,7 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `DOC-002` | Align routed mocking-default and async use-case documentation. | `completed` | `PROFILE-002` |
 | `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `completed` | `DOC-002` |
 | `CLOSEOUT-001` | Retire stale automatic helper routing and correct assessment commit validation scope. | `completed` | `GATE-002` |
+| `PROFILE-003` | Align active `.ai` profile projections and expand fail-closed projection coverage. | `completed` | `ASM-20260717-001` intake |
 
 ## Stages And Checkpoints
 
@@ -135,13 +136,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: applied the validated rewrite candidate to the official remediation branch with an exact `force-with-lease` pinned to `abc1750c8f6c9f77ee75f1abb14b5a8cf8eceea2`.
+- Last completed action: integrated `ASM-20260717-001` and completed `PROFILE-003` for release-blocking `SVF-001`.
 - Current task: `VERIFY-001`.
-- Exact next action: commit and push the applied-rewrite evidence, run the final post-rewrite gates, and create an independent successor verification assessment.
-- Validation already completed: candidate first-parent range passes 28/28; candidate full gate passes 20/20 with zero advisories; candidate and original trees were identical before adding the rewrite evidence artifact; the guarded remote branch move succeeded.
-- Git state: the local official branch tracks the rewritten remote at `adfbc6979c813ce19271660dd2c1210165180fd9`; the candidate branch remains available as audit evidence.
+- Exact next action: commit and push `PROFILE-003`, then create a final independent verification assessment for the corrected projection and complete workflow reconciliation.
+- Validation already completed: `ASM-20260717-001` verified history and most remediation; PROFILE-003 focused contract passes 3/3 with `.ai` coverage; full gate passes 20/20 with zero advisories.
+- Git state: the official branch contains the no-ff assessment merge plus validated PROFILE-003 changes; the independent assessment and rewrite candidate branches remain available as audit evidence.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: no user decision currently blocks validation. `ASM-20260716-001#VFY-006` has remediation evidence and awaits independent successor verification. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
+- Blockers or unresolved decisions: no user decision currently blocks validation. `SVF-001` awaits independent post-fix verification. `SVF-002` is a LOW deferred manual-helper issue with no automatic route. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
 ## Branch Lifecycle
 
