@@ -6,9 +6,9 @@
   "task_id": "GATE-002",
   "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-16T23:17:21+08:00",
-  "updated_at": "2026-07-16T23:31:02+08:00",
+  "updated_at": "2026-07-16T23:38:27+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["ASM-20260716-001#VFY-004"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Add the focused test project to the required runner", "Add contract coverage for the gate route", "Run quick and full gates"],
     "validation": ["BuildingBlocks tests 5/5", "Runner contract tests", "Quick gate", "Full gate"],
-    "last_completed_step": "DOC-002 completed with an 18/18 quick gate.",
-    "next_action": "Add the BuildingBlocks behavior project to the required aggregate gate and contract tests."
+    "last_completed_step": "Added the BuildingBlocks behavior project and its source-include evidence contract to every quick/full aggregate gate.",
+    "next_action": "Return to VERIFY-001 for final reconciliation and decision-required blockers."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "The sole executable-tested reusable base can drift while the aggregate gate stays green.",
-    "follow_up_needed": true
+    "summary": "The aggregate gate now runs the BuildingBlocks behavior tests and fails closed if the required runner/registry route is removed.",
+    "files_changed": [".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", ".ai/scripts/tests/test_ai_context_source_include_evidence.py", ".ai/scripts/tests/test_fail_closed_validation.py", "plans/file-disposition-manifest.yaml"],
+    "tests_run": ["Source-include evidence contract passed 4/4", "BuildingBlocks behavior tests passed 5/5", "Aggregate runner fail-closed tests passed 18/18", "Quick gate passed 20/20 required checks"],
+    "finding_status": "resolved",
+    "residual_risk": "A fresh environment still requires normal NuGet restore availability before dotnet test can execute.",
+    "follow_up_needed": false
   }
 }

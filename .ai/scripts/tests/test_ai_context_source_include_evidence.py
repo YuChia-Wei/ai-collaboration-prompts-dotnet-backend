@@ -68,6 +68,20 @@ class SourceIncludeEvidenceTests(unittest.TestCase):
         errors = self.validate(entry)
         self.assertTrue(any("must declare executable-tested tier" in error for error in errors))
 
+    def test_gwt_004_given_building_blocks_claim_when_gate_is_inspected_then_behavior_tests_are_required(self) -> None:
+        command = (
+            "dotnet test "
+            "tools/DotnetBackendBuildingBlocks.Tests/"
+            "DotnetBackendBuildingBlocks.Tests.csproj"
+        )
+        runner = (REPO_ROOT / ".ai/scripts/check-all.sh").read_text(encoding="utf-8")
+        registry = yaml.safe_load(
+            (REPO_ROOT / ".ai/scripts/shell-assets.yaml").read_text(encoding="utf-8")
+        )
+
+        self.assertIn(command, runner)
+        self.assertIn(command, registry["check_all_required_commands"])
+
 
 if __name__ == "__main__":
     unittest.main()

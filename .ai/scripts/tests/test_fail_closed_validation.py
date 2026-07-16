@@ -286,13 +286,13 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
         fixture = SyntheticRunnerRepo()
         try:
             # Given deterministic dotnet command stubs return command-not-found semantics.
-            # When critical mode executes both required dotnet checks.
+            # When critical mode executes all required dotnet checks.
             result = fixture.execute("--critical", environment={"DOTNET_STUB_EXIT": "127"})
 
-            # Then both selected command checks fail without workstation dependency.
+            # Then all three selected command checks fail without workstation dependency.
             self.assertEqual(1, result.returncode)
-            self.assertRegex(result.stdout, r"Required Failed: .*2")
-            self.assertEqual(2, sum(line.startswith("dotnet ") for line in fixture.sentinel()))
+            self.assertRegex(result.stdout, r"Required Failed: .*3")
+            self.assertEqual(3, sum(line.startswith("dotnet ") for line in fixture.sentinel()))
         finally:
             fixture.close()
 

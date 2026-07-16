@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `verification-remediation`
+- `current_phase`: `verification-reconciliation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:31:02+08:00`
+- `updated_at`: `2026-07-16T23:38:27+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -97,7 +97,7 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `in_progress` | all remediation tasks |
 | `PROFILE-002` | Close the verified active profile-selector and naming residual. | `completed` | `VERIFY-001` assessment intake |
 | `DOC-002` | Align routed mocking-default and async use-case documentation. | `completed` | `PROFILE-002` |
-| `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `in_progress` | `DOC-002` |
+| `GATE-002` | Add BuildingBlocks behavior tests to the required aggregate gate. | `completed` | `DOC-002` |
 
 ## Stages And Checkpoints
 
@@ -134,11 +134,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `DOC-002` with override-safe mocking guidance, async Use Case snippets, and fail-closed documentation tests.
-- Current task: `GATE-002`, with `VERIFY-001` pending final reconciliation.
-- Exact next action: make BuildingBlocks behavior tests a required aggregate-gate command.
-- Validation already completed: document projection tests pass 2/2; file disposition and shell registries validate; quick gate passes 18/18 required checks.
-- Git state: DOC-002 changes are dirty and pending a validated checkpoint commit.
+- Last completed action: completed `GATE-002`; the required aggregate gate now executes BuildingBlocks behavior tests.
+- Current task: `VERIFY-001`.
+- Exact next action: obtain decisions for `VFY-005` and `VFY-006`, then perform final full and commit-range validation.
+- Validation already completed: source-include contract passes 4/4; BuildingBlocks behavior tests pass 5/5; fail-closed runner tests pass 18/18; quick gate passes 20/20.
+- Git state: GATE-002 changes are dirty and pending a validated checkpoint commit.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: `ASM-20260716-001#VFY-005` requires repair-versus-retire direction for transitional test helpers; `#VFY-006` requires a decision on already-pushed commit-history handling. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
