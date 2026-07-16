@@ -33,6 +33,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `validate-file-disposition-manifest.py`
 - `validate-git-commits.py`
 - `build-ai-context-package.py`
 - `validate-ai-context-package.py`
@@ -60,6 +61,14 @@ is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
+
+`validate-file-disposition-manifest.py` validates a supplied remediation
+file-disposition manifest against repository Git facts. It enforces exact-case repository paths,
+the `kept` / `moved-to` / `merged-into` / `retired` vocabulary, destination and
+base-presence rules, and complete coverage of distributable framework paths
+changed since the recorded remediation base commit. The manifest describes
+incoming release intent only and does not replace target-side three-way
+comparison.
 
 `validate-git-commits.py` validates an explicitly selected commit or revision
 range against `.dev/standards/GIT-COMMIT-POLICY.yaml`. It enforces the subject,

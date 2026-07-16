@@ -13,7 +13,9 @@ This index is the discovery view for framework releases. Each version's `release
 
 ## Planned Releases
 
-No planned releases are currently registered.
+| Release ID | Version | Status | Compatibility | Notes | Migration |
+| --- | --- | --- | --- | --- | --- |
+| [`REL-v0.4.0`](v0.4.0/release.yaml) | `v0.4.0` | planned; no tag or published commit | governed package candidate; v0.3.0 reconciliation required | [notes](v0.4.0/release-notes.md) | [guide](v0.4.0/migration-guide.md) |
 
 ## Related Governance
 
