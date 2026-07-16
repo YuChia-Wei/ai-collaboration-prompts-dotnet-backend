@@ -83,16 +83,16 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 
 | Task | Purpose | Status | Depends on |
 | --- | --- | --- | --- |
-| `PLAN-001` | Freeze user decisions, evidence boundaries, finding mapping, and execution order. | `in_progress` | none |
+| `PLAN-001` | Freeze user decisions, evidence boundaries, finding mapping, and execution order. | `completed` | none |
 | `RULE-001` | Align generic technology selection, soft-delete profile ownership, and projections. | `completed` | `PLAN-001`, `TRUTH-001` |
 | `TRUTH-001` | Repair the broken DBA1001 route and target namespace leakage as the first remediation slice. | `completed` | `PLAN-001` |
-| `TRUTH-002` | Repair or downgrade the synchronous Java-shaped controller guidance. | `pending` | `TRUTH-001`, `EXAMPLE-001` |
+| `TRUTH-002` | Repair or downgrade the synchronous Java-shaped controller guidance. | `completed` | `TRUTH-001`, `EXAMPLE-001` |
 | `EXAMPLE-001` | Define machine-readable example verification tiers and default-downward legacy classification. | `completed` | `PLAN-001`, `RULE-001` |
-| `EXAMPLE-002` | Consolidate duplicate example catalogs and fixtures after the retained portfolio stabilizes. | `pending` | `BUILD-001`, `TRUTH-002` |
-| `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `in_progress` | `RULE-001`, `EXAMPLE-001` |
-| `ARCH-001` | Add only the minimal shared logical grammar for micro-system/mono-system repository profiles. | `pending` | `PLAN-001`, `RULE-001` |
-| `MIGRATE-001` | Maintain the file-disposition manifest and integrate it with upgrader/release migration guidance. | `pending` | all changed-path tasks; must complete before `ROUTE-001` |
-| `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `pending` | `EXAMPLE-001`, `ARCH-001` |
+| `EXAMPLE-002` | Consolidate duplicate example catalogs and fixtures after the retained portfolio stabilizes. | `completed` | `BUILD-001`, `TRUTH-002` |
+| `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `completed` | `RULE-001`, `EXAMPLE-001` |
+| `ARCH-001` | Add only the minimal shared logical grammar for micro-system/mono-system repository profiles. | `completed` | `PLAN-001`, `RULE-001` |
+| `MIGRATE-001` | Maintain the file-disposition manifest and integrate it with upgrader/release migration guidance. | `completed` | all changed-path tasks; must complete before `ROUTE-001` |
+| `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `in_progress` | `EXAMPLE-001`, `ARCH-001` |
 | `VALIDATE-001` | Correct validator claims and shell lifecycle taxonomy; add required fail-closed coverage. | `pending` | `TRUTH-001`, `BUILD-001`, `ROUTE-001` |
 | `VERIFY-001` | Run independent verification assessment, reconcile all findings, and close or defer explicitly. | `pending` | all remediation tasks |
 
@@ -131,11 +131,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `ARCH-001` with `PROJECT-GRAMMAR-001`, mapping workload to Bounded Context for micro-system repos and to the represented system for mono-system repos while preserving physical layout.
-- Current task: `MIGRATE-001`.
-- Exact next action: validate file-disposition completeness against the remediation commit range and project it into the v0.4.0 migration guide before ROUTE-001.
-- Validation already completed: downstream `.slnx` comparison and architecture review checklist are complete; AI-context and workflow validators pass.
-- Git state: checkpoints through EXAMPLE-002 metadata `3c24c1e` are pushed; ARCH-001 implementation is committed as `b68e82d` and pending publication with checkpoint metadata.
+- Last completed action: completed `MIGRATE-001` with Git-backed exact-path disposition coverage, upgrader reconciliation semantics, and a planned `REL-v0.4.0` migration/release record.
+- Current task: `ROUTE-001`.
+- Exact next action: inventory audience placement, README/INDEX ownership, and weak inbound routes before moving or archiving retained guidance.
+- Validation already completed: disposition validation and 4 fail-closed tests pass; release/version validation covers 5 records and 15 GWT tests; AI-context and shell validators pass.
+- Git state: MIGRATE-001 implementation is committed as `68086de` and pending publication with checkpoint metadata.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
@@ -154,3 +154,4 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `1d683ea457c013e8be197eb0f9c1815c32d037c8` | local, pending push with checkpoint metadata | `2026-07-16T22:09:43+08:00` | Resolve AIC-010 by aligning Controller examples and delegated guidance to the async Use Case contract. | Commit checkpoint metadata, push both commits, then continue `EXAMPLE-002`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `16595ea257be5dc1af7d765a453472d6ed3bc87b` | local, pending push with checkpoint metadata | `2026-07-16T22:24:16+08:00` | Resolve placeholder and duplicate example routing without creating a reference product. | Commit checkpoint metadata, push both commits, then continue `ARCH-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `b68e82d518a22a9b0cda52a9e800013d8fdbd48c` | local, pending push with checkpoint metadata | `2026-07-16T22:28:33+08:00` | Record the shared micro-system/mono-system logical workload grammar. | Commit checkpoint metadata, push both commits, then continue `MIGRATE-001`. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `68086ded0b24ffa59858b6027f461268e5200d87` | local, pending push with checkpoint metadata | `2026-07-16T22:38:59+08:00` | Record complete file dispositions, target-safe upgrader semantics, and the planned v0.4.0 migration/release contract. | Commit checkpoint metadata, push both commits, then continue `ROUTE-001`. |
