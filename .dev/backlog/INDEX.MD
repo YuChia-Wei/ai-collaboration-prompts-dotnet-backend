@@ -7,6 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Item | Priority | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- |
+| [OBS-001](items/OBS-001.yaml) | MEDIUM | Design the reusable CrossCutting Observability and attribute/AOP boundary. | Open a separate architecture workflow; keep it outside the current assessment-remediation verification baseline. | 2026-07-16 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | Verify hosted Linux behavior and consider manifest-driven runner execution. | Decide Linux verification, runner redesign, both, or defer. | 2026-07-12 |
 | [LANG-001](items/LANG-001.yaml) | MEDIUM | Refresh and reduce translation debt before strengthening semantic parity gates. | Decide priority after a refreshed candidate inventory. | 2026-07-12 |
 | [GOV-001](items/GOV-001.yaml) | MEDIUM | Reconcile legacy workflow follow-ups against later completed work. | Read-only reconciliation first; promote only current work. | 2026-07-12 |

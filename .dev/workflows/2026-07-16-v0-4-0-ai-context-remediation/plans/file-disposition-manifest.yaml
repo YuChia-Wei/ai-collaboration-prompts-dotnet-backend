@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T21:22:19+08:00"
+updated_at: "2026-07-16T21:36:20+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -159,6 +159,59 @@ entries:
     finding_ids:
       - "ASM-20260715-002#AIC-013"
     change_summary: "Add fail-closed GWT coverage for the generic selection contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/scripts/validate-ai-context.py"
+  - path: ".dev/standards/examples/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Replace unsupported verified-template claims with the machine-readable evidence contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-manifest.yaml"
+  - path: ".dev/standards/examples/evidence-schema.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Add the machine-readable five-tier evidence schema."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/scripts/tests/test_ai_context_example_evidence.py"
+  - path: ".dev/standards/examples/evidence-manifest.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Classify example families and default unclassified legacy material to historical."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-schema.yaml"
+  - path: ".dev/standards/examples/.versions.json"
+    disposition: "retired"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Retire stale source-sync metadata that tracked one absent source path."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-manifest.yaml"
+  - path: ".ai/scripts/tests/test_ai_context_example_evidence.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Add fail-closed GWT coverage for tier requirements, default-downward behavior, and stale sync metadata."
     target_migration: "three-way"
     remediation_status: "applied"
     introduced_in: "v0.4.0"

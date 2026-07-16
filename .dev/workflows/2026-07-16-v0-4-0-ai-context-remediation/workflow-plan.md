@@ -16,10 +16,10 @@
 - `base_branch`: `codex/assessment/asm-20260715-002`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `example-evidence-remediation`
+- `current_phase`: `building-block-reconstruction`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:24:37+08:00`
+- `updated_at`: `2026-07-16T21:36:20+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -87,8 +87,9 @@ This history explains why Java, EzDDD, and `Lab.*` material can coexist. It does
 | `RULE-001` | Align generic technology selection, soft-delete profile ownership, and projections. | `completed` | `PLAN-001`, `TRUTH-001` |
 | `TRUTH-001` | Repair the broken DBA1001 route and target namespace leakage as the first remediation slice. | `completed` | `PLAN-001` |
 | `TRUTH-002` | Repair or downgrade the synchronous Java-shaped controller guidance. | `pending` | `TRUTH-001`, `EXAMPLE-001` |
-| `EXAMPLE-001` | Define machine-readable example verification tiers and consolidate duplicate discovery/fixtures. | `in_progress` | `PLAN-001`, `RULE-001` |
-| `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `pending` | `RULE-001`, `EXAMPLE-001` |
+| `EXAMPLE-001` | Define machine-readable example verification tiers and default-downward legacy classification. | `completed` | `PLAN-001`, `RULE-001` |
+| `EXAMPLE-002` | Consolidate duplicate example catalogs and fixtures after the retained portfolio stabilizes. | `pending` | `BUILD-001`, `TRUTH-002` |
+| `BUILD-001` | Produce the lineage-to-BuildingBlocks concept matrix, minimize base classes, and establish the documentation-first reconstruction contract. | `in_progress` | `RULE-001`, `EXAMPLE-001` |
 | `ARCH-001` | Add only the minimal shared logical grammar for micro-system/mono-system repository profiles. | `pending` | `PLAN-001`, `RULE-001` |
 | `MIGRATE-001` | Maintain the file-disposition manifest and integrate it with upgrader/release migration guidance. | `pending` | all changed-path tasks; must complete before `ROUTE-001` |
 | `ROUTE-001` | Correct audience placement and weak routing; archive only after replacement evidence. | `pending` | `EXAMPLE-001`, `ARCH-001` |
@@ -130,11 +131,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `RULE-001` with the generic technology-selection schema, overridable NSubstitute default, and soft-delete profile-default/opt-out alignment.
-- Current task: `EXAMPLE-001`.
-- Exact next action: inventory example catalogs and metadata, then define the machine-readable five-tier evidence contract with default-downward classification.
+- Last completed action: completed `EXAMPLE-001` with machine-readable evidence tiers, default-downward legacy classification, removal of unsupported verification claims, and retirement of stale sync metadata. Created durable backlog item `OBS-001`.
+- Current task: `BUILD-001`.
+- Exact next action: inventory the current AggregateRoot/EsAggregateRoot standards, examples, analyzer recognition, and downstream evidence before defining the optional executable-tested ES abstraction.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at profile-remediation checkpoint `9ae9703`; `EXAMPLE-001` is the active continuation task.
+- Git state: active workflow branch tracks origin at handoff checkpoint `a30cb56`; Observability backlog and `EXAMPLE-001` changes are not yet committed.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none for the first slice. Full Observability design is deferred; later tasks must preserve their approved bounded scope.
 

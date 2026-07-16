@@ -70,6 +70,8 @@ PROJECT_CONFIG_TEMPLATE = Path(
 TECHNOLOGY_SELECTION_SCHEMA = Path(
     ".ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml"
 )
+EXAMPLE_EVIDENCE_SCHEMA = Path(".dev/standards/examples/evidence-schema.yaml")
+EXAMPLE_EVIDENCE_MANIFEST = Path(".dev/standards/examples/evidence-manifest.yaml")
 CLAUDE_ENTRY_TEMPLATE = """# Claude Code Project Instructions
 
 @AGENTS.md
@@ -254,6 +256,119 @@ def validate_technology_selection_contract(
             re.compile(slot_pattern)
         except re.error as exc:
             errors.append(f"{schema_path}: invalid slot_pattern: {exc}")
+
+
+def validate_example_evidence_contract(
+    errors: list[str],
+    root: Path = ROOT,
+    manifest_path: Path = EXAMPLE_EVIDENCE_MANIFEST,
+    schema_path: Path = EXAMPLE_EVIDENCE_SCHEMA,
+) -> None:
+    """Validate machine-readable example tiers and fail closed on evidence inflation."""
+    try:
+        manifest = yaml.safe_load((root / manifest_path).read_text(encoding="utf-8"))
+        schema = yaml.safe_load((root / schema_path).read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        errors.append(f"example evidence contract cannot be loaded: {exc}")
+        return
+
+    if not isinstance(manifest, dict) or not isinstance(schema, dict):
+        errors.append("example evidence manifest and schema roots must be mappings")
+        return
+
+    expected_tiers = {
+        "executable-tested",
+        "structure-validated",
+        "illustrative",
+        "reference-only",
+        "historical",
+    }
+    allowed_tiers = schema.get("allowed_tiers")
+    if not isinstance(allowed_tiers, list) or set(allowed_tiers) != expected_tiers:
+        errors.append(f"{schema_path}: allowed_tiers must equal {sorted(expected_tiers)}")
+        return
+
+    default_allowed = schema.get("default_allowed_tiers")
+    default_tier = manifest.get("default_tier")
+    if (
+        not isinstance(default_allowed, list)
+        or set(default_allowed) != {"illustrative", "historical"}
+        or default_tier not in default_allowed
+    ):
+        errors.append(
+            f"{manifest_path}: default_tier must be illustrative or historical"
+        )
+
+    required_fields = schema.get("required_entry_fields")
+    if not isinstance(required_fields, list):
+        errors.append(f"{schema_path}: required_entry_fields must be a list")
+        return
+    required = set(required_fields)
+    tier_requirements = schema.get("tier_requirements")
+    if not isinstance(tier_requirements, dict):
+        errors.append(f"{schema_path}: tier_requirements must be a mapping")
+        return
+
+    entries = manifest.get("entries")
+    if not isinstance(entries, list):
+        errors.append(f"{manifest_path}: entries must be a list")
+        return
+
+    seen: set[str] = set()
+    example_root = root / manifest_path.parent
+    for index, entry in enumerate(entries):
+        label = f"{manifest_path}:entries[{index}]"
+        if not isinstance(entry, dict):
+            errors.append(f"{label}: entry must be a mapping")
+            continue
+        missing = sorted(required - set(entry))
+        if missing:
+            errors.append(f"{label}: missing required fields: {missing}")
+            continue
+
+        path_value = entry.get("path")
+        tier = entry.get("tier")
+        if not isinstance(path_value, str) or not path_value:
+            errors.append(f"{label}: path must be a non-empty string")
+            continue
+        if path_value in seen:
+            errors.append(f"{label}: duplicate path {path_value}")
+        seen.add(path_value)
+        candidate = Path(path_value)
+        if candidate.is_absolute() or ".." in candidate.parts:
+            errors.append(f"{label}: path must remain under examples: {path_value}")
+        elif not (example_root / candidate).exists():
+            errors.append(f"{label}: classified path does not exist: {path_value}")
+
+        if tier not in expected_tiers:
+            errors.append(f"{label}: invalid tier {tier!r}")
+            continue
+        requirement = tier_requirements.get(tier)
+        if not isinstance(requirement, dict):
+            errors.append(f"{schema_path}: missing requirement for tier {tier}")
+            continue
+        for field in requirement.get("required_nonempty", []):
+            value = entry.get(field)
+            if not isinstance(value, list) or not value:
+                errors.append(f"{label}: tier {tier} requires non-empty {field}")
+
+        if tier == "structure-validated":
+            for validator in entry.get("validators", []):
+                if not isinstance(validator, str) or not (root / validator).is_file():
+                    errors.append(f"{label}: declared validator does not exist: {validator}")
+
+    readme = root / manifest_path.parent / "README.md"
+    if readme.is_file():
+        readme_text = readme.read_text(encoding="utf-8")
+        for claim in ("Verified Templates", "Single Source of Truth"):
+            if claim in readme_text:
+                errors.append(f"{readme.relative_to(root)}: unsupported claim remains: {claim}")
+
+    stale_versions = root / manifest_path.parent / ".versions.json"
+    if stale_versions.exists():
+        errors.append(
+            f"{stale_versions.relative_to(root)}: stale source-sync metadata must be retired"
+        )
 
 
 def is_language_surface(path: Path, indexes: set[Path]) -> bool:
@@ -736,6 +851,7 @@ def main() -> int:
     validate_exact_case_references(files, errors)
     validate_active_script_references(files, errors)
     validate_technology_selection_contract(errors)
+    validate_example_evidence_contract(errors)
 
     for index in indexes:
         validate_index(index, errors)

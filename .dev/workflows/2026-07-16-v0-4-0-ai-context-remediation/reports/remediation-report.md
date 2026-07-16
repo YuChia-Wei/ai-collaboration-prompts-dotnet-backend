@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:24:37+08:00`
+- `updated_at`: `2026-07-16T21:36:20+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -34,10 +34,10 @@
 | --- | --- | --- | --- | --- |
 | `ASM-20260715-002#AIC-001` | HIGH | `partially-resolved` | `RULE-001` | Generic selection ownership is established, but environment/profile selector consolidation remains for later validation and example tasks. |
 | `#AIC-002` | HIGH | `resolved` | `RULE-001` | Soft delete is profile-default with an explicit target opt-out and aligned ownership/projections; independent verification remains pending. |
-| `#AIC-003` | HIGH | `not-addressed` | `EXAMPLE-001` | Verification claims remain stronger than evidence. |
+| `#AIC-003` | HIGH | `resolved` | `EXAMPLE-001` | Machine-readable tiers, default-downward classification, and fail-closed validation replace unsupported verified claims; independent verification remains pending. |
 | `#AIC-004` | HIGH | `resolved` | `TRUTH-001` | DBA1001/build guidance replaces the removed script and active script references now fail closed when missing; independent verification remains pending. |
 | `#AIC-005` | HIGH | `not-addressed` | `BUILD-001` | Placeholder APIs remain unresolved. |
-| `#AIC-006` | MEDIUM | `not-addressed` | `EXAMPLE-001` | Duplicate maintenance remains. |
+| `#AIC-006` | MEDIUM | `not-addressed` | `EXAMPLE-002` | Duplicate catalog and fixture consolidation remains after the retained portfolio stabilizes. |
 | `#AIC-007` | MEDIUM | `not-addressed` | `ROUTE-001` | Audience/placement drift remains. |
 | `#AIC-008` | MEDIUM | `not-addressed` | `VALIDATE-001` | Structural gate can still be over-read. |
 | `#AIC-009` | MEDIUM | `not-addressed` | `VALIDATE-001` | Retention still conflates lifecycle meanings. |
@@ -67,6 +67,7 @@
 | Distributable `dotnet new` template | Outside the current knowledge-first repository scope | architecture + governance | Evaluate separately if deterministic source reproduction becomes a product goal. |
 | Executable clean-room reconstruction exercise | Useful but not required for the planning MVP | independent verifier / future authorization | Run outside the committed context surface and retain only assessment evidence if later approved. |
 | Full CrossCutting Observability design | Does not map to an assessment finding and would broaden verification scope | future architecture workflow | Retain only the minimal dependency-boundary candidate in this workflow. |
+| `OBS-001` CrossCutting Observability | Durable backlog owner now exists | `ddd-ca-hex-architect` | Open a separate architecture workflow after v0.4.0 remediation or explicit prioritization. |
 | Product remediation in either lab | Outside this framework workflow | target repository owners | Use target-owned workflow if authorized. |
 | Remote assessment branch cleanup | No authorization | user | Decide separately; do not delete implicitly. |
 
@@ -74,5 +75,5 @@
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: gate-decision `ed5f8fb`, first-remediation `4b6ea28`, and profile-remediation `9ae9703` checkpoints are committed and pushed for review.
-- Workflow/task status: `PLAN-001`, `TRUTH-001`, and `RULE-001` completed; `EXAMPLE-001` in progress; later remediation tasks remain pending.
-- Final next action: publish the profile-remediation checkpoint, then define and validate machine-readable example evidence tiers.
+- Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, and `EXAMPLE-001` completed; `BUILD-001` in progress; later remediation tasks remain pending.
+- Final next action: publish the example-evidence checkpoint, then inventory and reconcile the optional `EsAggregateRoot` contract and DBA1009 shape.
