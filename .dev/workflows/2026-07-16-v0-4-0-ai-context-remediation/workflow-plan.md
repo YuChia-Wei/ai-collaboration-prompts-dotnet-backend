@@ -19,7 +19,7 @@
 - `current_phase`: `verification-reconciliation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:52:09+08:00`
+- `updated_at`: `2026-07-16T23:56:28+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -135,11 +135,11 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `CLOSEOUT-001`; full validation has zero advisories and standalone assessment commits retain their own contract.
+- Last completed action: prepared a local rewrite candidate with corrected commit messages and a recreated assessment merge.
 - Current task: `VERIFY-001`.
-- Exact next action: obtain explicit approval for a coordinated rewrite and force-push of the fourteen already-pushed commits that violate the prospective AI trailer contract.
-- Validation already completed: quick/full gates pass 20/20 with zero advisories; shell lifecycle includes one retirement candidate; commit policy tests pass 10/10; standalone assessment and first-parent range contracts pass; workflow first-parent range still fails fourteen trailers.
-- Git state: CLOSEOUT-001 changes are dirty and pending a validated checkpoint commit.
+- Exact next action: obtain explicit approval, verify the remote lease still equals `abc1750`, and move the target branch to the prepared candidate with `--force-with-lease`.
+- Validation already completed: candidate first-parent range passes 28/28; candidate full gate passes 20/20 with zero advisories; candidate and original trees were identical before adding the rewrite evidence artifact.
+- Git state: candidate branch is local-only and dirty only with the rewrite evidence artifact; the original remote branch remains untouched.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: only `ASM-20260716-001#VFY-006` remains. A coordinated history rewrite and force-push is recommended because policy was already active for all fourteen commits and a permanent waiver would add governance debt. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
@@ -162,3 +162,4 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `48619abe0640daa4417b4c6f6632a9ecf0212c73` | local, pending push with checkpoint metadata | `2026-07-16T22:52:49+08:00` | Normalize human-guide placement, retire replaced prompts, and separate README purpose from complete INDEX catalogs. | Commit checkpoint metadata, push both commits, then continue `VALIDATE-001`. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | checkpoint-commit | `36fe0b9c6172ae474c2ca0c8c7e15119d8a3e2a7` | local, pending push with checkpoint metadata | `2026-07-16T23:02:25+08:00` | Make structural validation claims truthful and classify every shell asset without equating packaging with endorsement. | Commit checkpoint metadata, push both commits, then create the independent verification assessment. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | assessment-merge-push | `002d415` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T23:17:21+08:00` | Integrate independent verification `ASM-20260716-001` and expose release-blocking residuals. | Execute `PROFILE-002`, `DOC-002`, and `GATE-002`; preserve decision-required findings. |
+| 1 | `codex/rewrite-candidate/2026-07-16-v0-4-0-ai-context-remediation` | `14eeeaf` | local-rewrite-candidate | `b4217fb` | local only | `2026-07-16T23:56:28+08:00` | Prepare corrected first-parent history without moving the remote workflow branch. | Await guarded force-push authorization; use `plans/history-rewrite-map.yaml`. |

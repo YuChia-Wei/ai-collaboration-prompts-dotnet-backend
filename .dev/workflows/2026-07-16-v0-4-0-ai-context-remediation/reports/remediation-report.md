@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:52:09+08:00`
+- `updated_at`: `2026-07-16T23:56:28+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -68,7 +68,7 @@
 | `#VFY-003` | MEDIUM | `resolved` | `DOC-002`; synchronous Use Case scan is empty |
 | `#VFY-004` | MEDIUM | `resolved` | `GATE-002`; source-include contract 4/4, BuildingBlocks tests 5/5, quick gate 20/20 |
 | `#VFY-005` | MEDIUM | `resolved` | Automatic routing removed; helper is a packaged `retirement-candidate` for the v0.4.0 migration window; full gate has zero advisories. |
-| `#VFY-006` | HIGH | `partially-resolved`, release-blocking | Standalone assessment scope and first-parent workflow range selection are corrected and tested. Fourteen post-policy first-parent commits still require a coordinated history rewrite/force-push or an explicitly authorized waiver mechanism. |
+| `#VFY-006` | HIGH | `partially-resolved`, release-blocking | A local candidate corrects all fourteen messages, recreates the assessment merge, passes 28/28 first-parent validation and 20/20 full gate, and initially matches the original content tree. Only the guarded remote branch move remains unauthorized. |
 
 ## Deferred Work
 
@@ -87,4 +87,4 @@
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: checkpoints through ROUTE-001 metadata `7d091d4` are pushed; VALIDATE-001 implementation is committed as `36fe0b9` and will be pushed with this metadata checkpoint.
 - Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
-- Final next action: obtain explicit authorization for the coordinated history rewrite/force-push required by `VFY-006`; do not close, tag, or publish before the commit range passes.
+- Final next action: authorize the guarded `force-with-lease` described in `plans/history-rewrite-map.yaml`; do not close, tag, or publish before the target branch is moved and final gates pass on the resulting head.
