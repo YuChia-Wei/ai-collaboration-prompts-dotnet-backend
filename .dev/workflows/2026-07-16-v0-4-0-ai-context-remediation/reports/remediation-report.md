@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T22:01:08+08:00`
+- `updated_at`: `2026-07-16T22:08:12+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -41,7 +41,7 @@
 | `#AIC-007` | MEDIUM | `not-addressed` | `ROUTE-001` | Audience/placement drift remains. |
 | `#AIC-008` | MEDIUM | `not-addressed` | `VALIDATE-001` | Structural gate can still be over-read. |
 | `#AIC-009` | MEDIUM | `not-addressed` | `VALIDATE-001` | Retention still conflates lifecycle meanings. |
-| `#AIC-010` | MEDIUM | `not-addressed` | `TRUTH-001` | Synchronous controller example remains. |
+| `#AIC-010` | MEDIUM | `resolved` | `TRUTH-002` | Controller examples and delegated guidance use ExecuteAsync, request cancellation, separate record DTOs, and typed responses; independent verification remains pending. |
 | `#AIC-011` | LOW | `not-addressed` | `ROUTE-001` | Weakly routed material remains undecided. |
 | `#AIC-012` | MEDIUM | `resolved` | `TRUTH-001` | Active canonical guidance now uses the portable BoundedContextContracts placeholder; independent verification remains pending. |
 | `#AIC-013` | HIGH | `resolved` | `RULE-001` | NSubstitute is an overridable profile default consumed through generic target technology selections; independent verification remains pending. |
@@ -75,5 +75,5 @@
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: gate-decision `ed5f8fb`, first-remediation `4b6ea28`, profile-remediation `9ae9703`, and example-evidence `ba3af7f` checkpoints are pushed; BUILD-001 implementation is committed as `5926b26` and will be pushed with this metadata checkpoint.
-- Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, `EXAMPLE-001`, and `BUILD-001` completed; `TRUTH-002` is next; later remediation tasks remain pending.
-- Final next action: commit and push the BUILD-001 checkpoint, then reconcile synchronous Java-shaped controller guidance in `TRUTH-002`.
+- Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, `EXAMPLE-001`, `BUILD-001`, and `TRUTH-002` completed; `EXAMPLE-002` is active.
+- Final next action: commit the TRUTH-002 checkpoint, then inventory remaining placeholder and duplicate example surfaces in `EXAMPLE-002`.

@@ -51,8 +51,8 @@ entries:
     test_commands: []
   - path: "controller/"
     tier: "illustrative"
-    claim: "Illustrates controller boundaries."
-    reason: "The portfolio still contains material awaiting async contract reconciliation in TRUTH-002."
+    claim: "Illustrates an async ASP.NET Core Controller-to-Use-Case boundary."
+    reason: "The example aligns to ExecuteAsync and CancellationToken but is not a standalone compiled application."
     validators: []
     build_commands: []
     test_commands: []

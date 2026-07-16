@@ -4,7 +4,7 @@ workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
 target_release: "v0.4.0"
 status: "active"
 created_at: "2026-07-16T21:02:32+08:00"
-updated_at: "2026-07-16T22:01:08+08:00"
+updated_at: "2026-07-16T22:08:12+08:00"
 owner_skill: "ai-context-governance"
 consumer_skill: "ai-context-upgrader"
 source_assessment: "ASM-20260715-002"
@@ -448,3 +448,63 @@ entries:
     target_migration: "three-way"
     remediation_status: "applied"
     replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"]
+  - path: ".dev/standards/examples/controller/CreateTaskController.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Replace synchronous Java-shaped execution with ExecuteAsync, request cancellation, typed ActionResult, and separate DTOs."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/examples/controller/CreateTaskRequest.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Add the separate immutable request DTO required by the current Controller contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/examples/controller/CreateTaskResponse.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Add the separate immutable response DTO used by typed Controller results."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/examples/controller/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Align the illustrative Controller pattern with ExecuteAsync, CancellationToken, and separate record DTOs."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/controller/CreateTaskController.cs"]
+  - path: ".dev/standards/examples/evidence-manifest.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+      - "ASM-20260715-002#AIC-010"
+    change_summary: "Update the controller claim after async contract reconciliation while retaining illustrative evidence strength."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/controller/CreateTaskController.cs"]
+  - path: ".ai/assets/sub-agent-role-prompts/controller-sub-agent/sub-agent.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Require delegated Controller work to use ExecuteAsync and forward CancellationToken."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".ai/assets/sub-agent-role-prompts/controller-sub-agent/references/implementation-guidance.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Project the current async typed Controller contract into implementation guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
