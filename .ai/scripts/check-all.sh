@@ -276,9 +276,17 @@ run_command_check "python .ai/scripts/validate-shell-assets.py" \
     "Shell Asset Classification And Git Modes" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_fail_closed_validation.py -v" \
+    "Aggregate Runner And Shell Registry Fail-Closed Tests" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_coding_standards_integrity_contract.py -v" \
+    "Coding Standards Integrity Claim Contract" \
+    "required" "true" "true"
+
 # Coding standards are fundamental for AI context and standards docs
 run_check "check-coding-standards.sh" \
-    "Coding Standards Compliance" \
+    "Coding Standards Structural Integrity" \
     "required" "true" "true"
 
 run_command_check "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj" \

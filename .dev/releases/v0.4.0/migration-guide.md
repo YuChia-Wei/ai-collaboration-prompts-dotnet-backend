@@ -72,6 +72,15 @@ default downward to illustrative or historical unless a validator and
 verification route prove a stronger tier. Do not restore retired fixtures just
 to preserve a previous folder shape.
 
+### Shell Asset Registry
+
+Reconcile `shell-assets.yaml` from schema `1.0` to `2.0`. Every tracked shell
+asset now declares role, lifecycle, distribution, authority, and replacement
+direction. `packaged` means the asset remains available for execution or
+compatibility; it does not make grep-based C# checks semantic authorities.
+Preserve target-owned shell customizations as local overrides and do not
+silently promote transitional helpers to required gates.
+
 ## Move, Merge, And Retirement Projection
 
 The following operations may be proposed automatically only when the target
