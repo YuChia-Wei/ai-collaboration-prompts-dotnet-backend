@@ -74,6 +74,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: gate-decision `ed5f8fb`, first-remediation `4b6ea28`, profile-remediation `9ae9703`, and example-evidence `ba3af7f` checkpoints are pushed; BUILD-001 implementation is committed as `5926b26` and will be pushed with this metadata checkpoint.
+- Commit status: checkpoints through BUILD-001 (`5926b26`, metadata `15924bd`) are pushed; TRUTH-002 implementation is committed as `1d683ea` and will be pushed with this metadata checkpoint.
 - Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, `EXAMPLE-001`, `BUILD-001`, and `TRUTH-002` completed; `EXAMPLE-002` is active.
 - Final next action: commit the TRUTH-002 checkpoint, then inventory remaining placeholder and duplicate example surfaces in `EXAMPLE-002`.
