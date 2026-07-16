@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:10:03+08:00`
+- `updated_at`: `2026-07-16T21:12:11+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -73,6 +73,6 @@
 ## Closure Evidence
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
-- Commit status: reconstruction-contract planning checkpoint `cbd467e` is committed and pushed for review.
+- Commit status: gate-decision checkpoint `ed5f8fb` and first-remediation checkpoint `4b6ea28` are committed and pushed for review.
 - Workflow/task status: `PLAN-001` and `TRUTH-001` completed; `RULE-001` in progress; later remediation tasks remain pending.
 - Final next action: publish the first remediation checkpoint, then inventory generic technology-selection and soft-delete projections for `RULE-001`.

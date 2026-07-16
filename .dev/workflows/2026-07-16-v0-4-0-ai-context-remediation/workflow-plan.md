@@ -19,7 +19,7 @@
 - `current_phase`: `profile-remediation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:10:03+08:00`
+- `updated_at`: `2026-07-16T21:12:11+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -134,7 +134,7 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 - Current task: `RULE-001`.
 - Exact next action: inventory technology-selection and deletion projections, then make soft delete profile-default with explicit opt-out and define the generic override shape.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch is one committed planning checkpoint ahead of origin; the first remediation slice and task evidence are not yet committed.
+- Git state: active workflow branch tracks origin at first-remediation checkpoint `4b6ea28`; `RULE-001` is the active continuation task.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none for the first slice. Full Observability design is deferred; later tasks must preserve their approved bounded scope.
 
@@ -146,3 +146,4 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `9853cb89797d99d782bafdc32b5d1fc66cc9a0e4` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T08:15:44+08:00` | User manually pushed the planning checkpoint for cross-machine review and authorized later workflow pushes. | Resume and push future coherent workflow checkpoints on the same branch. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `77e54de5ebe1e8ef4bf0adf362d987b5adf8661e` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T08:20:40+08:00` | Publish the confirmed decisions, `TRUTH-001` explanation, and reviewable BuildingBlocks/examples MVP plan. | Await user review before starting the first remediation slice. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `cbd467e82cff31e325719b28d07187c27824bb74` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T09:07:19+08:00` | Publish the documentation-first reconstruction contract, base-class minimization proposal, and repository-lineage provenance. | Await user review; do not start standards remediation. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `4b6ea2811c53eb892693c6e1b648a5965f4ffe24` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T21:12:11+08:00` | Publish the approved gate decisions, migration manifest prerequisite, and completed `AIC-004`/`AIC-012` first slice. | Continue with `RULE-001` on the same branch. |
