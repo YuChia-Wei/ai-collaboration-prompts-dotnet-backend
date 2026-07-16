@@ -19,7 +19,7 @@
 - `current_phase`: `building-block-reconstruction`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T21:36:20+08:00`
+- `updated_at`: `2026-07-16T21:39:12+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -135,7 +135,7 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 - Current task: `BUILD-001`.
 - Exact next action: inventory the current AggregateRoot/EsAggregateRoot standards, examples, analyzer recognition, and downstream evidence before defining the optional executable-tested ES abstraction.
 - Validation already completed: 9 task JSON files parse; workflow validator passes for 17 post-adoption workflows and 37 indexed workflow directories; assessment and AI-context validators pass; `git diff --check` passes.
-- Git state: active workflow branch tracks origin at handoff checkpoint `a30cb56`; Observability backlog and `EXAMPLE-001` changes are not yet committed.
+- Git state: active workflow branch tracks origin at example-evidence checkpoint `ba3af7f`; `BUILD-001` is the active continuation task.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
 - Blockers or unresolved decisions: none for the first slice. Full Observability design is deferred; later tasks must preserve their approved bounded scope.
 
@@ -149,3 +149,4 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `cbd467e82cff31e325719b28d07187c27824bb74` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T09:07:19+08:00` | Publish the documentation-first reconstruction contract, base-class minimization proposal, and repository-lineage provenance. | Await user review; do not start standards remediation. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `4b6ea2811c53eb892693c6e1b648a5965f4ffe24` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T21:12:11+08:00` | Publish the approved gate decisions, migration manifest prerequisite, and completed `AIC-004`/`AIC-012` first slice. | Continue with `RULE-001` on the same branch. |
 | 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `9ae97035954d52e1ac1aa34dac05ccd2e60249ad` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T21:24:37+08:00` | Publish generic target technology selection, overridable NSubstitute default, and soft-delete profile-default/opt-out alignment. | Continue with `EXAMPLE-001` on the same branch. |
+| 1 | `codex/2026-07-16-v0-4-0-ai-context-remediation` | `codex/assessment/asm-20260715-002` | push | `ba3af7fc74acad987a4d02b5cb2cb0fd61288255` | `origin/codex/2026-07-16-v0-4-0-ai-context-remediation` | `2026-07-16T21:39:12+08:00` | Publish machine-readable example evidence tiers, stale metadata retirement, and durable Observability backlog item `OBS-001`. | Continue with `BUILD-001` on the same branch. |
