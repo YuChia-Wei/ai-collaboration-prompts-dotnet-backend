@@ -14,6 +14,7 @@ No draft assessments are currently registered.
 
 | Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| [`ASM-20260717-003`](ASM-20260717-003/assessment.yaml) | v0.4.0 AI Context Closeout Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `a13adec9bbc789c954ddd480cf3e115966eb963f` | `2026-07-17T07:39:43+08:00` | [report](ASM-20260717-003/report.md) |
 | [`ASM-20260717-002`](ASM-20260717-002/assessment.yaml) | v0.4.0 AI Context Final Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `36c0add48129eff6bfa503b2244a45c4a802b5c5` | `2026-07-17T07:28:50+08:00` | [report](ASM-20260717-002/report.md) |
 | [`ASM-20260717-001`](ASM-20260717-001/assessment.yaml) | v0.4.0 AI Context Successor Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `26c958069510f56818752368bec4bd7ad83e5038` | `2026-07-17T07:16:38+08:00` | [report](ASM-20260717-001/report.md) |
 | [`ASM-20260716-001`](ASM-20260716-001/assessment.yaml) | v0.4.0 AI Context Remediation Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `e7ca51a7f03c114d5ce5826a15eeb15338efea76` | `2026-07-16T23:10:20+08:00` | [report](ASM-20260716-001/report.md) |
