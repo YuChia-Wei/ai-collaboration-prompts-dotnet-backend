@@ -429,7 +429,6 @@ For more complete examples, see:
 | Example | Path |
 |------|------|
 | Mapper example | [../examples/mapper/](../examples/mapper/) |
-| Outbox Mapper example | [../examples/outbox/](../examples/outbox/) |
 | DTO example | [../examples/dto/](../examples/dto/) |
 
 ---

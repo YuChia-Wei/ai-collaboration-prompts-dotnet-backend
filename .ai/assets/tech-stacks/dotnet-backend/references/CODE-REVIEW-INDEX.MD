@@ -30,7 +30,7 @@
 | `src/**/Repositories/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Repository** | 1. Write side conforms to `IAggregateRepository<TAggregate, TId>`.<br>2. Generic type is an Aggregate Root.<br>3. Query and write capabilities are separated. | HIGH |
 | `src/Api/Controllers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Controller** | 1. Controller is sufficiently thin.<br>2. DTO is in a separate file.<br>3. HTTP status is correct. | MEDIUM |
 | `src/Application/**/Ports/**/*Mapper.cs`<br>`src/Infrastructure/**/Mappers/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Mapper** | 1. Mapper is static/sealed.<br>2. One Mapper per DTO.<br>3. Outbox ToDomain handles both with-events and without-events cases. | **HIGH** |
-| `src/Infrastructure/**/Outbox/*Data.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **Adapter / Mapper**<br>+ [Outbox README](../../../../../.dev/standards/examples/outbox/README.md) | 1. Implements `IOutboxData<TId>`.<br>2. Domain events field is marked NotMapped.<br>3. EF Core key/column naming is correct. | MEDIUM |
+| `src/Infrastructure/**/Outbox/*Data.cs` | [Repository Standards](../../../../../.dev/standards/coding-standards/repository-standards.md)<br>+ [Mapper Standards](../../../../../.dev/standards/coding-standards/mapper-standards.md) | 1. Preserve Aggregate + Outbox atomicity.<br>2. Keep serialized data separate from Domain types.<br>3. Apply target-selected EF/SQL mapping rules. | MEDIUM |
 | `src/tests/**/*.cs` | [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)<br>→ **BDD Rules / UseCase Tests** | 1. xUnit GWT structure and naming (BDDfy is the default profile and may be explicitly disabled by the team).<br>2. Do not use 3A or BaseTestClass.<br>3. Use the target `testing.mocking` selection; default to NSubstitute. | HIGH |
 
 ---
@@ -106,7 +106,7 @@ public static Plan ToDomain(PlanData data)
 - **Complete checklist**: [CODE-REVIEW-CHECKLIST.md](../../../../../.dev/standards/CODE-REVIEW-CHECKLIST.md)
 - **Aggregate rules**: [aggregate-standards.md](../../../../../.dev/standards/coding-standards/aggregate-standards.md)
 - **Mapper rules**: [mapper-standards.md](../../../../../.dev/standards/coding-standards/mapper-standards.md)
-- **Outbox example**: [examples/outbox/README.md](../../../../../.dev/standards/examples/outbox/README.md)
+- **Outbox lifecycle**: [repository-standards.md](../../../../../.dev/standards/coding-standards/repository-standards.md)
 
 ---
 

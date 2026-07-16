@@ -2,6 +2,11 @@
 
 This document defines coding standards for Aggregates, Entities, Value Objects, and Domain Events.
 
+Contract semantics are defined in
+[Design By Contract Semantics](../DESIGN-BY-CONTRACT.md). Names such as
+`Contract.Require` and `Contract.Ensure` in snippets are illustrative helper
+names, not a required package API.
+
 ---
 
 ## 📌 Overview
@@ -30,7 +35,8 @@ is an explicit Aggregate profile, not a requirement for every Aggregate.
 completeness, event completeness, and target deletion-policy adoption still
 require tests and review.
 
-Rule IDs: `AGGREGATE-ES-001`, `DELETE-SOFT-001`.
+Rule IDs: `AGGREGATE-ES-001`, `DELETE-SOFT-001`,
+`CONTRACT-SEMANTICS-001`.
 
 ```yaml
 normal-aggregate:
@@ -523,7 +529,6 @@ For more complete examples, see:
 | Aggregate examples | [../examples/aggregate/](../examples/aggregate/) |
 | Domain Events | [../examples/aggregate/PlanEvents.cs](../examples/aggregate/PlanEvents.cs) |
 | Value Objects | [../examples/aggregate/PlanId.cs](../examples/aggregate/PlanId.cs) |
-| Outbox + Data examples | [../examples/outbox/](../examples/outbox/) |
 
 ---
 
@@ -534,3 +539,4 @@ For more complete examples, see:
 - [repository-standards.md](repository-standards.md)
 - [test-standards.md](test-standards.md)
 - [BuildingBlocks Reconstruction Contract](../BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md)
+- [Design By Contract Semantics](../DESIGN-BY-CONTRACT.md)

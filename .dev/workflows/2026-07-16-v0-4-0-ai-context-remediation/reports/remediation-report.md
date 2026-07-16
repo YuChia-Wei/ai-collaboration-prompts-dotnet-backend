@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T22:08:12+08:00`
+- `updated_at`: `2026-07-16T22:21:46+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -36,8 +36,8 @@
 | `#AIC-002` | HIGH | `resolved` | `RULE-001` | Soft delete is profile-default with an explicit target opt-out and aligned ownership/projections; independent verification remains pending. |
 | `#AIC-003` | HIGH | `resolved` | `EXAMPLE-001` | Machine-readable tiers, default-downward classification, and fail-closed validation replace unsupported verified claims; independent verification remains pending. |
 | `#AIC-004` | HIGH | `resolved` | `TRUTH-001` | DBA1001/build guidance replaces the removed script and active script references now fail closed when missing; independent verification remains pending. |
-| `#AIC-005` | HIGH | `partially-resolved` | `BUILD-001`, `EXAMPLE-002` | Aggregate/BuildingBlocks placeholder truth is reconciled; remaining contract/usecase/outbox/mapper/test placeholders are explicitly non-copy-ready and still require rewrite/reference/retirement disposition. |
-| `#AIC-006` | MEDIUM | `not-addressed` | `EXAMPLE-002` | Duplicate catalog and fixture consolidation remains after the retained portfolio stabilizes. |
+| `#AIC-005` | HIGH | `resolved` | `BUILD-001`, `EXAMPLE-002` | Placeholder families have canonical replacements and fail-closed evidence/disposition records; unavailable uContract API truth is replaced by library-neutral semantics. |
+| `#AIC-006` | MEDIUM | `resolved` | `EXAMPLE-002` | INDEX is the sole catalog, hollow fixture/product routes are retired, exact duplicates are consolidated, and BDDfy versus Reqnroll remains deliberate. |
 | `#AIC-007` | MEDIUM | `not-addressed` | `ROUTE-001` | Audience/placement drift remains. |
 | `#AIC-008` | MEDIUM | `not-addressed` | `VALIDATE-001` | Structural gate can still be over-read. |
 | `#AIC-009` | MEDIUM | `not-addressed` | `VALIDATE-001` | Retention still conflates lifecycle meanings. |
@@ -75,5 +75,5 @@
 
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: checkpoints through BUILD-001 (`5926b26`, metadata `15924bd`) are pushed; TRUTH-002 implementation is committed as `1d683ea` and will be pushed with this metadata checkpoint.
-- Workflow/task status: `PLAN-001`, `TRUTH-001`, `RULE-001`, `EXAMPLE-001`, `BUILD-001`, and `TRUTH-002` completed; `EXAMPLE-002` is active.
-- Final next action: commit the TRUTH-002 checkpoint, then inventory remaining placeholder and duplicate example surfaces in `EXAMPLE-002`.
+- Workflow/task status: tasks through `EXAMPLE-002` are completed; `ARCH-001` is active.
+- Final next action: commit and publish the EXAMPLE-002 checkpoint, then define the minimal shared logical workload grammar in `ARCH-001`.
