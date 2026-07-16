@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:38:27+08:00`
+- `updated_at`: `2026-07-16T23:40:51+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260715-002`
@@ -67,8 +67,8 @@
 | `#VFY-002` | MEDIUM | `resolved` | `DOC-002`; document contract 2/2 and quick gate 18/18 |
 | `#VFY-003` | MEDIUM | `resolved` | `DOC-002`; synchronous Use Case scan is empty |
 | `#VFY-004` | MEDIUM | `resolved` | `GATE-002`; source-include contract 4/4, BuildingBlocks tests 5/5, quick gate 20/20 |
-| `#VFY-005` | MEDIUM | `decision-required` | repair or retire transitional test helpers |
-| `#VFY-006` | HIGH | `decision-required`, release-blocking | coordinated history rewrite or policy-compliant exception/repair mechanism |
+| `#VFY-005` | MEDIUM | `decision-required` | Recommended: remove the automatic full-gate route and mark the helper `retirement-candidate`, retaining packaged compatibility for one release; alternative: repair root and technology-selection semantics. |
+| `#VFY-006` | HIGH | `decision-required`, release-blocking | Recommended: coordinated history rewrite and force-push; alternative: define a narrow policy-compliant exception/repair mechanism. Current failure is fourteen trailer violations plus the merged standalone assessment commit lacking workflow-only sections. |
 
 ## Deferred Work
 
@@ -87,4 +87,4 @@
 - Required validations: workflow bootstrap validations passed; remediation and closure gates remain pending.
 - Commit status: checkpoints through ROUTE-001 metadata `7d091d4` are pushed; VALIDATE-001 implementation is committed as `36fe0b9` and will be pushed with this metadata checkpoint.
 - Workflow/task status: all remediation tasks through `VALIDATE-001` are completed; `VERIFY-001` is active.
-- Final next action: obtain decisions on `VFY-005` and `VFY-006`; do not close, tag, or publish before both have explicit outcomes and final gates pass.
+- Final next action: obtain decisions on `VFY-005` and `VFY-006`; do not close, tag, or publish before both have explicit outcomes and the commit range passes.

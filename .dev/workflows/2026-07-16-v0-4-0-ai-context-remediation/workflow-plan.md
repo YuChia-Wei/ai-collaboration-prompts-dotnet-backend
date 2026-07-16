@@ -19,7 +19,7 @@
 - `current_phase`: `verification-reconciliation`
 - `artifact_root`: `.dev/workflows/2026-07-16-v0-4-0-ai-context-remediation`
 - `created_at`: `2026-07-16T07:22:13+08:00`
-- `updated_at`: `2026-07-16T23:38:27+08:00`
+- `updated_at`: `2026-07-16T23:40:51+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -134,13 +134,13 @@ The approved MVP is defined in [the dedicated reconstruction-contract plan](plan
 
 ## Resume Checkpoint
 
-- Last completed action: completed `GATE-002`; the required aggregate gate now executes BuildingBlocks behavior tests.
+- Last completed action: completed `GATE-002` and re-ran final candidate validation.
 - Current task: `VERIFY-001`.
-- Exact next action: obtain decisions for `VFY-005` and `VFY-006`, then perform final full and commit-range validation.
-- Validation already completed: source-include contract passes 4/4; BuildingBlocks behavior tests pass 5/5; fail-closed runner tests pass 18/18; quick gate passes 20/20.
-- Git state: GATE-002 changes are dirty and pending a validated checkpoint commit.
+- Exact next action: obtain decisions for `VFY-005` and `VFY-006`, execute the selected dispositions, then repeat final full and commit-range validation.
+- Validation already completed: quick gate passes 20/20; full gate passes all 20 required checks with one advisory from the stale transitional test helper; commit-range validation fails fourteen historical trailer violations plus the merged assessment commit's missing workflow sections.
+- Git state: GATE-002 commit `a3a816d` is pushed and the worktree is clean before this resume-evidence update.
 - Branch history and checkpoint handoffs: branch segment 1 starts from `codex/assessment/asm-20260715-002` because both unmerged assessment reports are required inputs.
-- Blockers or unresolved decisions: `ASM-20260716-001#VFY-005` requires repair-versus-retire direction for transitional test helpers; `#VFY-006` requires a decision on already-pushed commit-history handling. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
+- Blockers or unresolved decisions: `ASM-20260716-001#VFY-005` requires repair-versus-retire direction for transitional test helpers; the recommended low-maintenance disposition is to remove the automatic full-gate route and mark the helper `retirement-candidate` while retaining one release of packaged compatibility. `#VFY-006` requires a decision on already-pushed commit-history handling; the recommended strict disposition is a coordinated rewrite and force-push because a permanent validator exception would add governance debt. Full Observability design remains in backlog item `OBS-001` and outside the current verification scope.
 
 ## Branch Lifecycle
 
