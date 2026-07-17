@@ -29,6 +29,6 @@
     "tests_run": ["check-all.sh --full", "two deterministic package builds", "validate-ai-context-package.py for both archive pairs"],
     "finding_status": "resolved",
     "residual_risk": "Hosted tag-triggered publication and trusted-registry finalization remain pending.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }

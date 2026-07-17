@@ -2,11 +2,10 @@
 
 ## Status
 
-Validated main candidate. No `v0.4.0` tag or published commit exists yet. The declared
-archive names are release targets, not evidence that packages have been built
-or published. Candidate package validation used
-`79db0d199016af5c17f0e47e1a821c9a69704633`; this is validation provenance,
-not the eventual published commit identity.
+Published. Annotated tag `v0.4.0` resolves to
+`5af1db672928f9d51f55fee04183ad27b79fb9f8`. Tag-triggered automation
+successfully published `REL-v0.4.0` and its governed ZIP, tar.gz, and adjacent
+checksum assets.
 
 ## Highlights
 
@@ -57,7 +56,7 @@ The full Observability/AOP framework remains deferred in backlog item
 `OBS-001`. This release only retains the bounded rule that runtime
 CrossCutting/Observability concerns must not become a Domain dependency.
 
-## Candidate Validation
+## Release Validation
 
 The remediation workflow completed, and independent closeout assessment
 `ASM-20260717-003` reported no new release-blocking findings. At candidate commit
@@ -71,23 +70,27 @@ The remediation workflow completed, and independent closeout assessment
 - archive envelopes, inventories, member checksums, external checksum sidecars,
   and ZIP/tar parity passed validation.
 
-The candidate archives are local validation artifacts. The publication
-automation will rebuild final assets from the eventual user-created tag.
+The candidate archives were local validation artifacts. Publication automation
+rebuilt the final assets from the immutable user-created tag.
 
 Post-merge validation also passed at
 `7de3036f72aa4454d3ddbde8f188f0cc5e9acb14`: the full gate passed and two
 immutable-tree package builds were byte-identical with valid archive parity and
 checksums.
 
-## Remaining Publication Gate
+The final tagged-tree commit
+`5af1db672928f9d51f55fee04183ad27b79fb9f8` also passed the full gate and two
+byte-identical package builds. GitHub Actions run `29544032150` completed
+successfully. The four published assets were downloaded again; archive
+inventories, member checksums, external checksum sidecars, and ZIP/tar parity
+all passed validation.
 
-Before this candidate can become published:
+## Publication Completion
 
-1. integrate this post-merge evidence into `main` and rerun validation against
-   the final tagged-tree commit;
-2. let the user create and push the annotated `v0.4.0` tag on that validated
-   commit;
-3. let tag-triggered automation rebuild, validate, and publish the governed
-   artifacts without creating, moving, or replacing the tag;
-4. finalize the trusted release registry with the published tag, commit, and
-   hosted-publication evidence after publication succeeds.
+- Release ID: `REL-v0.4.0`
+- Annotated tag: `v0.4.0`
+- Published commit: `5af1db672928f9d51f55fee04183ad27b79fb9f8`
+- GitHub Actions run: `29544032150`
+- Release state: stable, non-draft, non-prerelease
+- Tag ownership: user-created and immutable; automation did not create or move
+  the tag

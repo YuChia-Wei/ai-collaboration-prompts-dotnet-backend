@@ -1,9 +1,9 @@
 # Migrate To v0.4.0
 
-This is the candidate migration contract for `REL-v0.4.0`. It does not claim
-that a `v0.4.0` tag, immutable release commit, or package exists yet. Replace
-candidate identities with the published values only after release
-finalization.
+This is the published migration contract for `REL-v0.4.0`. Annotated tag
+`v0.4.0` resolves to
+`5af1db672928f9d51f55fee04183ad27b79fb9f8`. Validate the downloaded archive
+against its adjacent `.sha256` asset before planning an upgrade.
 
 ## Supported Source
 

@@ -6,9 +6,9 @@
   "task_id": "REL040-002",
   "workflow_id": "2026-07-17-v0-4-0-release-publication",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-17T08:05:32+08:00",
-  "updated_at": "2026-07-17T08:05:32+08:00",
+  "updated_at": "2026-07-17T08:12:09+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL040-HOSTED-PUBLICATION"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Validate final main", "Push main", "Create and push annotated tag", "Verify hosted publication"],
     "validation": ["tag object and peeled commit", "GitHub Actions conclusion", "GitHub Release asset set and checksums"],
-    "last_completed_step": "Publication authorization received.",
-    "next_action": "Integrate REL040-001 and validate final main before creating the tag."
+    "last_completed_step": "Pushed annotated v0.4.0, verified successful Actions run 29544032150, and validated the published four-asset set.",
+    "next_action": "Finalize the trusted published registry in REL040-003."
   },
   "results": {
-    "summary": "Pending tag creation and hosted publication.",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "pending",
-    "residual_risk": "Publication has not run yet.",
-    "follow_up_needed": true
+    "summary": "Annotated v0.4.0 resolves to the final validated main commit and GitHub Actions published the stable governed release successfully.",
+    "files_changed": ["refs/tags/v0.4.0"],
+    "tests_run": ["final tagged-tree full gate", "two deterministic package builds", "remote annotated-tag verification", "GitHub Actions run 29544032150", "published release asset and checksum validation"],
+    "finding_status": "resolved",
+    "residual_risk": "None for hosted publication; trusted-registry finalization remains in REL040-003.",
+    "follow_up_needed": false
   }
 }

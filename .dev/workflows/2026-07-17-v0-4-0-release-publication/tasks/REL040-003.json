@@ -6,9 +6,9 @@
   "task_id": "REL040-003",
   "workflow_id": "2026-07-17-v0-4-0-release-publication",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-17T08:05:32+08:00",
-  "updated_at": "2026-07-17T08:05:32+08:00",
+  "updated_at": "2026-07-17T08:12:09+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL040-REGISTRY-FINALIZATION"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Record published identity", "Refresh release wording and index", "Close workflow", "Merge and push registry finalization"],
     "validation": ["tag peeled-target verification", "validate-ai-context-versions.py", "validate-ai-context.py", "validate-workflow-artifacts.py"],
-    "last_completed_step": "Task initialized.",
-    "next_action": "Wait for REL040-002 hosted publication success."
+    "last_completed_step": "Recorded published tag, commit, timestamps, hosted evidence, release wording, migration identity, and release index entry.",
+    "next_action": "Validate, commit, merge, and push the completed registry finalization."
   },
   "results": {
-    "summary": "Pending hosted publication.",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "pending",
-    "residual_risk": "Published registry cannot be finalized before hosted publication succeeds.",
-    "follow_up_needed": true
+    "summary": "Reconciled the trusted registry and workflow lifecycle with the immutable published v0.4.0 identity and hosted release evidence.",
+    "files_changed": [".dev/releases/v0.4.0/release.yaml", ".dev/releases/v0.4.0/release-notes.md", ".dev/releases/v0.4.0/migration-guide.md", ".dev/releases/INDEX.MD", ".dev/workflows/2026-07-17-v0-4-0-release-publication/**", ".dev/workflows/INDEX.MD"],
+    "tests_run": ["tag peeled-target verification", "GitHub Actions and Release API verification", "downloaded package validation", "release, context, workflow, and commit validators"],
+    "finding_status": "resolved",
+    "residual_risk": "Downstream v0.3.0 targets still require the documented provenance-aware reconciliation.",
+    "follow_up_needed": false
   }
 }

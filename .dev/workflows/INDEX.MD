@@ -8,7 +8,6 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-17-v0-4-0-release-publication`](2026-07-17-v0-4-0-release-publication/workflow.yaml) | Publish And Finalize v0.4.0 | `ai-context-governance` | `in_progress` | `2026-07-17T08:05:32+08:00` | [plan](2026-07-17-v0-4-0-release-publication/workflow-plan.md) |
 | [`2026-07-16-v0-4-0-ai-context-remediation`](2026-07-16-v0-4-0-ai-context-remediation/workflow.yaml) | v0.4.0 AI Context Standards And Reference Architecture Remediation | `ai-context-governance` | `completed` | `2026-07-17T07:42:39+08:00` | [plan](2026-07-16-v0-4-0-ai-context-remediation/workflow-plan.md) |
 | [`2026-07-15-v0-1-downstream-feedback-adoption`](2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml) | Adopt v0.1.0 Downstream Feedback Into Framework Governance | `ai-context-governance` | `completed` | `2026-07-15T08:47:44+08:00` | [plan](2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md) |
 
@@ -16,6 +15,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-17-v0-4-0-release-publication`](2026-07-17-v0-4-0-release-publication/workflow.yaml) | Publish And Finalize v0.4.0 | `ai-context-governance` | `completed` | `2026-07-17T08:12:09+08:00` | [plan](2026-07-17-v0-4-0-release-publication/workflow-plan.md) |
 | [`2026-07-15-v0-3-0-release-finalization`](2026-07-15-v0-3-0-release-finalization/workflow.yaml) | Finalize Published v0.3.0 Release Registry | `ai-context-governance` | `completed` | `2026-07-15T19:35:37+08:00` | [plan](2026-07-15-v0-3-0-release-finalization/workflow-plan.md) |
 | [`2026-07-15-v0-0-1-retrospective-governance`](2026-07-15-v0-0-1-retrospective-governance/workflow.yaml) | Govern Retrospective v0.0.1 Identity And v0.3.0 Upgrade Path | `ai-context-governance` | `completed` | `2026-07-15T09:12:33+08:00` | [plan](2026-07-15-v0-0-1-retrospective-governance/workflow-plan.md) |
 | [`2026-07-14-ai-context-release-packaging`](2026-07-14-ai-context-release-packaging/workflow.yaml) | AI Context Deterministic Packaging And Automated Release | `ai-context-governance` | `completed` | `2026-07-15T07:53:30+08:00` | [plan](2026-07-14-ai-context-release-packaging/workflow-plan.md) |
