@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "REL040-003",
+  "workflow_id": "2026-07-17-v0-4-0-release-publication",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-17T08:05:32+08:00",
+  "updated_at": "2026-07-17T08:05:32+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["REL040-REGISTRY-FINALIZATION"],
+  "scope": {
+    "target": "Published v0.4.0 trusted registry truth",
+    "files": [".dev/releases/v0.4.0/**", ".dev/releases/INDEX.MD", ".dev/workflows/2026-07-17-v0-4-0-release-publication/**", ".dev/workflows/INDEX.MD"],
+    "constraints": ["Backfill exact immutable tag commit", "Do not move the tag", "Use hosted publication evidence"],
+    "non_goals": ["Modify tagged-tree payload", "Republish assets", "Change v0.3.0"]
+  },
+  "execution": {
+    "steps": ["Record published identity", "Refresh release wording and index", "Close workflow", "Merge and push registry finalization"],
+    "validation": ["tag peeled-target verification", "validate-ai-context-versions.py", "validate-ai-context.py", "validate-workflow-artifacts.py"],
+    "last_completed_step": "Task initialized.",
+    "next_action": "Wait for REL040-002 hosted publication success."
+  },
+  "results": {
+    "summary": "Pending hosted publication.",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "pending",
+    "residual_risk": "Published registry cannot be finalized before hosted publication succeeds.",
+    "follow_up_needed": true
+  }
+}

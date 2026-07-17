@@ -2,7 +2,7 @@
 
 ## Status
 
-Validated candidate. No `v0.4.0` tag or published commit exists yet. The declared
+Validated main candidate. No `v0.4.0` tag or published commit exists yet. The declared
 archive names are release targets, not evidence that packages have been built
 or published. Candidate package validation used
 `79db0d199016af5c17f0e47e1a821c9a69704633`; this is validation provenance,
@@ -74,16 +74,20 @@ The remediation workflow completed, and independent closeout assessment
 The candidate archives are local validation artifacts. The publication
 automation will rebuild final assets from the eventual user-created tag.
 
+Post-merge validation also passed at
+`7de3036f72aa4454d3ddbde8f188f0cc5e9acb14`: the full gate passed and two
+immutable-tree package builds were byte-identical with valid archive parity and
+checksums.
+
 ## Remaining Publication Gate
 
 Before this candidate can become published:
 
-1. obtain user review and authorization to merge the workflow branch into
-   `main` with `--no-ff`;
-2. rerun release validation against the resulting immutable `main` commit;
-3. let the user create and push the annotated `v0.4.0` tag on that validated
+1. integrate this post-merge evidence into `main` and rerun validation against
+   the final tagged-tree commit;
+2. let the user create and push the annotated `v0.4.0` tag on that validated
    commit;
-4. let tag-triggered automation rebuild, validate, and publish the governed
+3. let tag-triggered automation rebuild, validate, and publish the governed
    artifacts without creating, moving, or replacing the tag;
-5. finalize the trusted release registry with the published tag, commit, and
+4. finalize the trusted release registry with the published tag, commit, and
    hosted-publication evidence after publication succeeds.
