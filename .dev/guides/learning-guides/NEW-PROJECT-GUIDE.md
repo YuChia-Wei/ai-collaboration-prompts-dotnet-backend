@@ -133,6 +133,11 @@ dotnet add src/Infrastructure package Npgsql.EntityFrameworkCore.PostgreSQL
 ```
 
 In `src/tests`:
+
+Resolve `testing.mocking` from `.dev/project-config.yaml`. The following command
+uses the NSubstitute default profile; replace only that package command when the
+target records another selection.
+
 ```bash
 dotnet add src/tests package xunit
 dotnet add src/tests package xunit.runner.visualstudio
@@ -192,7 +197,7 @@ There are no direct .NET packages yet. Preserve the concepts and use TODOs where
 Use Wolverine message registration and ensure events are serializable. TODO: define a shared event registration pattern.
 
 ### Q3: Tests failing because of profile mismatch
-Ensure `ASPNETCORE_ENVIRONMENT` matches `test-inmemory` or `test-outbox` and that the matching appsettings file is present.
+Ensure `ASPNETCORE_ENVIRONMENT` matches `TestInMemory` or `TestOutbox` and that the matching appsettings file is present.
 
 ## Next Steps
 1. Read `.dev/guides/learning-guides/LEARNING-PATH.md`.

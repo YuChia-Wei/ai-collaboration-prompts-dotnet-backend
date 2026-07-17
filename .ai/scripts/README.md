@@ -6,7 +6,14 @@ It is no longer the long-term home for authoritative C# semantic validation. Rul
 
 ## Current Boundary
 
-`shell-assets.yaml` is the machine-readable lifecycle registry for retained shell assets and the aggregate runner's literal required script/command sets. `validate-shell-assets.py` enforces registry, Git mode, and set-based aggregate-runner parity without fixed expected counts. Current standards and validators own the active contract; packaged documentation must not depend on excluded source workflow history.
+`shell-assets.yaml` is the machine-readable role, lifecycle, distribution, and
+authority registry for shell assets plus the aggregate runner's literal required
+script/command sets. `packaged` means shipped for execution or compatibility; it
+does not endorse the script as a semantic source of truth.
+`validate-shell-assets.py` enforces registry, Git mode, lifecycle requirements,
+and set-based aggregate-runner parity without fixed expected counts. Current
+standards, analyzers, compiled validators, and tests own semantic contracts;
+packaged documentation must not depend on excluded source workflow history.
 
 ## Retention Policy
 
@@ -33,6 +40,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `validate-file-disposition-manifest.py`
 - `validate-git-commits.py`
 - `build-ai-context-package.py`
 - `validate-ai-context-package.py`
@@ -60,6 +68,14 @@ is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
+
+`validate-file-disposition-manifest.py` validates a supplied remediation
+file-disposition manifest against repository Git facts. It enforces exact-case repository paths,
+the `kept` / `moved-to` / `merged-into` / `retired` vocabulary, destination and
+base-presence rules, and complete coverage of distributable framework paths
+changed since the recorded remediation base commit. The manifest describes
+incoming release intent only and does not replace target-side three-way
+comparison.
 
 `validate-git-commits.py` validates an explicitly selected commit or revision
 range against `.dev/standards/GIT-COMMIT-POLICY.yaml`. It enforces the subject,
@@ -117,12 +133,20 @@ The wrapper-metadata fixture invokes only the bounded validator function against
 temporary wrapper directories. Neither suite may source `check-all.sh` or
 change files, modes, or index entries outside its temporary repository.
 
-`shell-assets.yaml` classifies every tracked `.ai/scripts/**/*.sh` file as
-`retained` or `retirement_candidates`. Retained shell assets must use Git index
-mode `100755`; required entrypoints and child scripts must be retained.
-`validate-shell-assets.py` enforces this contract with `git ls-files --stage`
-instead of host filesystem executability, which is unreliable under Windows
-Git Bash and `core.filemode=false`.
+`shell-assets.yaml` classifies every tracked `.ai/scripts/**/*.sh` file with:
+
+- `role`: active orchestrator, context validator, compatibility entrypoint,
+  manual advisory, or transitional helper;
+- `lifecycle`: active, compatibility, transitional, or retirement candidate;
+- `distribution`: packaged or source-only;
+- `authority`: orchestration-only, structural, context, or advisory.
+
+Every non-active lifecycle requires an explicit replacement direction. Every
+tracked shell asset must use Git index mode `100755`; required entrypoints and
+required child scripts must be packaged and runnable under an active or
+compatibility lifecycle. `validate-shell-assets.py` uses
+`git ls-files --stage` instead of host filesystem executability, which is
+unreliable under Windows Git Bash and `core.filemode=false`.
 
 Required child-script calls in `check-all.sh` use the literal multiline form
 `run_check "<script>"`, description, then `"required"` on the third line. The
@@ -130,12 +154,17 @@ shell asset validator compares those literal calls with
 `check_all_required_scripts`; changing that call shape requires updating the
 validator and its negative parity fixture in the same change.
 
-### Keep As Orchestrator Only
+### Active Orchestration And Context Validation
 
 - `check-all.sh`
-- `code-review.sh`
+- `check-coding-standards.sh`
+- `check-prompt-portability.sh`
 
-These may remain as local workflow entry points, but their future role is to invoke dotnet-native validation and summarize outputs. They should not remain regex-based C# validators.
+`check-all.sh` orchestrates repository gates. The two context validators inspect
+repository structure or prompt portability; neither claims C# semantic
+compliance. `check-coding-standards.sh` checks required files, headings, catalog
+routes, executable modes, and shell syntax, and explicitly excludes architecture
+completeness, example correctness, and target technology adoption.
 
 `check-all.sh` uses four enforcement classes:
 
@@ -168,13 +197,40 @@ Current behavior:
 - runs `dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj`;
 - does not invoke the retired repository grep checks.
 
-### Replace With Roslyn Analyzer Or Architecture Tests
+### Compatibility And Manual Entry Points
 
-- `check-test-compliance.sh`
+- `code-review.sh`
+- `check-spec-compliance.sh`
+- `check-mutation-coverage.sh`
+- `test-profile-startup.sh`
+
+These remain packaged for current manual or downstream invocation. Their output
+is advisory or orchestration evidence and does not override the owning skill,
+target configuration, analyzers, or tests.
+
+### Transitional Helpers
+
 - `check-test-di-compliance.sh`
 - `check-data-class-annotations.sh`
 - `check-domain-events-compliance.sh`
 - `check-framework-api-compliance.sh`
+- `check-dotnet-config.sh`
+- `validate-dual-profile-config.sh`
+
+These remain packaged temporarily but are not endorsed as long-term semantic
+validators. Each registry record names its analyzer, compiled validator,
+architecture-test, target-test, or CI replacement direction.
+
+### Retirement Candidates
+
+- `check-test-compliance.sh`
+
+This helper is no longer selected by `check-all.sh`. Its repository-root
+assumption and unconditional package rules are not compatible with reusable
+target technology selections. It remains packaged for the v0.4.0 migration
+window only; downstream repositories should replace direct invocations with
+their selected testing stack, analyzers, and executable test architecture
+checks.
 
 Completed replacement:
 
@@ -193,27 +249,12 @@ Analyzer source template:
 - `tools/DotnetBackendAnalyzers/`
 - `tools/DotnetBackendAnalyzers.Tests/`
 
-### Replace With Dotnet Tool Or Tests
-
-- `check-dockerfile-csproj-copy-sync.ps1`
-- `check-dotnet-config.sh`
-- `check-spec-compliance.sh`
-- `check-mutation-coverage.sh`
-- `test-profile-startup.sh`
-- `validate-dual-profile-config.sh`
-
-These are not necessarily Roslyn analyzer rules. They belong in dotnet tools, integration tests, config tests, Stryker.NET configuration, or CI orchestration.
-
 ### Retired Generated Regex Checks
 
 The markdown-to-shell generator, its parser and guide, and the `generated/`
 outputs were removed under AIC-007. The root archive grep check was also removed
 because its stale `HardDelete` text rule contradicted the active archive/purge
 standard. Historical workflow evidence retains the original transition record.
-
-`check-test-compliance.sh` remains temporarily as an explicitly advisory helper
-until its rules are split across `.editorconfig`, analyzers, and test architecture
-checks. It is manually maintained and cannot be regenerated from Markdown.
 
 ## AI Reasoning Context
 

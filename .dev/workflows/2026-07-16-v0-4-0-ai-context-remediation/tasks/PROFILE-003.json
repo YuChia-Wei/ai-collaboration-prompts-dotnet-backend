@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "PROFILE-003",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-17T07:21:21+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260717-001#SVF-001"],
+  "scope": {
+    "target": "Align active agent-loading profile projections and close the projection validator allowlist gap",
+    "files": [".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md", ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md", ".ai/scripts/tests/test_profile_projection_contract.py", "plans/file-disposition-manifest.yaml"],
+    "constraints": ["Use canonical InMemory, Outbox, TestInMemory, and TestOutbox names", "Keep environment-only profile selection", "Include active agent-loading projections in fail-closed coverage", "Do not promote reference-only legacy examples"],
+    "non_goals": ["Redesign profile semantics", "Modify downstream products", "Expand OBS-001", "Resolve the separately deferred SVF-002 helper lifecycle decision"]
+  },
+  "execution": {
+    "steps": ["Reproduce the stale active projection names", "Align the two routed projections", "Expand the profile projection test allowlist", "Record file dispositions", "Run focused and aggregate validation"],
+    "validation": ["Profile projection contract", "Active shared-projection stale-name scan", "AI-context validator", "File-disposition validator", "Full aggregate gate"],
+    "last_completed_step": "Aligned both active agent-loading projections and expanded fail-closed coverage to the dotnet-backend shared projection root.",
+    "next_action": "Request an independent verification assessment for the PROFILE-003 result."
+  },
+  "results": {
+    "summary": "Replaced stale lowercase test environment names with TestInMemory/TestOutbox and made the profile projection contract scan active .ai shared projections.",
+    "files_changed": [".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md", ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md", ".ai/scripts/tests/test_profile_projection_contract.py", "plans/file-disposition-manifest.yaml"],
+    "tests_run": ["Profile projection contract passed 3/3 with .ai shared coverage", "Active shared-projection stale-name scan returned no matches", "AI-context validation passed", "File-disposition validation passed", "Full gate passed 20/20 required checks with zero advisories"],
+    "finding_status": "resolved and independently verified by ASM-20260717-003",
+    "residual_risk": "Reference-only legacy examples may retain down-tiered historical names; they are outside active projection enforcement.",
+    "follow_up_needed": false
+  }
+}

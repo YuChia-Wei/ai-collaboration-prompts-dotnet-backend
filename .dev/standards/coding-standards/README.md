@@ -4,69 +4,10 @@ This directory contains all .NET coding-standard documents. Each document focuse
 
 ---
 
-## 📚 Standards Document Index
+## Navigation
 
-### Core Domain Standards
-- **[aggregate-standards.md](./aggregate-standards.md)** - Aggregate, Entity, Value Object, and Domain Event rules
-  - Aggregate Root design principles
-  - Domain Event structure and handling
-  - Value Object immutability design
-  - Soft Delete implementation requirements
-  - 📋 Includes complete code templates
-
-- **[repository-standards.md](./repository-standards.md)** - Repository pattern rules
-  - Aggregate Repository and compatibility contract
-  - Query Repository marker
-  - Physical purge and optional batch capability
-  - Transaction / Domain Event lifecycle
-  - Conditional adapter guidance
-
-- **[usecase-standards.md](./usecase-standards.md)** - Handler/Use Case layer rules
-  - Command vs Query separation principle (CQRS)
-  - WolverineFx Handler design
-  - Result Pattern error handling
-  - 📋 Includes complete Command/Query templates
-
-- **[reactor-standards.md](./reactor-standards.md)** - Reactor/event-handling rules
-  - `IReactor<DomainEventData>` interface rules
-  - event-to-action flow boundaries
-  - replay and duplicate-delivery considerations
-
-### Data Access Standards
-- **[projection-standards.md](./projection-standards.md)** - Projection/Query Service pattern rules
-  - Read Model design principles
-  - EF Core Query implementation
-  - Pagination and complex-query handling
-
-- **[archive-standards.md](./archive-standards.md)** - Archive pattern rules
-  - Query Model CRUD operations
-  - Cross-Bounded-Context reference data
-  - Event-driven writes
-
-- **[mapper-standards.md](./mapper-standards.md)** - Mapper design rules
-  - Domain and Data object conversion
-  - System.Text.Json serialization
-  - Static-method design principles
-
-### API and Controller-Layer Standards
-- **[controller-standards.md](./controller-standards.md)** - ASP.NET Core Controller rules
-  - HTTP status-code usage
-  - ProblemDetails error responses
-  - Request validation
-  - Minimal API vs Controller
-
-### Testing Standards
-- **[test-standards.md](./test-standards.md)** - Test coding rules
-  - xUnit + BDDfy is the default testing framework; GWT is the minimum requirement and must not be replaced by 3A
-  - NSubstitute Mocking (Moq is prohibited)
-  - Contract Tests (DBC Precondition validation)
-  - WebApplicationFactory integration tests
-  - 📋 Includes test templates
-
-- **[profile-configuration-standards.md](./profile-configuration-standards.md)** - Profile/Environment rules
-  - `DOTNET_ENVIRONMENT` / `ASPNETCORE_ENVIRONMENT` loading rules
-  - `appsettings.{Environment}.json` naming and responsibilities
-  - InMemory/Outbox profile-specific DI constraints
+Use [INDEX.MD](INDEX.MD) for the complete focused-standard catalog. This README
+summarizes the shared rules and common navigation choices.
 
 ---
 
@@ -83,7 +24,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 - ✅ Physical purge and target-specific batch persistence use separate capabilities
 
 #### 2. Aggregate Design
-- ✅ Every Aggregate must support soft deletion (`IsDeleted`)
+- ✅ Aggregate Repository profiles use soft deletion by default; targets may record an explicit opt-out
 - ✅ Use public constructors rather than static factory methods
 - ✅ Command methods must include `Contract.Ensure` postcondition checks
 
@@ -96,7 +37,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 
 #### 4. Testing Requirements
 - ✅ Use xUnit + BDDfy by default; when the target team disables BDDfy, C# tests must still use GWT style
-- ✅ Use NSubstitute (Moq is prohibited)
+- ✅ Resolve the target mocking selection; default to NSubstitute
 - ✅ Do not inherit from BaseTestClass
 - ✅ Use `Guid.NewGuid().ToString()` for Aggregate Root IDs
 - ✅ See [profile-configuration-standards.md](./profile-configuration-standards.md) for profile and environment rules
@@ -120,7 +61,7 @@ This directory contains all .NET coding-standard documents. Each document focuse
 
 Database, ORM, event store, message broker, and package versions are determined by target-repository evidence.
 
-This framework may retain conditional/reference guidance for EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, NSubstitute, and similar technologies, but a reference selection must not be treated as mandatory truth for every target repository.
+This framework may retain conditional/reference guidance for EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, Kafka, xUnit, NSubstitute, and similar technologies. Resolve target choices through [Target Technology Selection Policy](../TECHNOLOGY-SELECTION-POLICY.md); a reference or default selection must not overwrite an evidenced target choice.
 
 ---
 

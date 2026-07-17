@@ -1,0 +1,76 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "EXAMPLE-002",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-16T21:36:20+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260715-002#AIC-005",
+    "ASM-20260715-002#AIC-006"
+  ],
+  "scope": {
+    "target": "Remaining placeholder disposition, duplicate example catalogs, and shared fixture consolidation",
+    "files": [
+      ".dev/standards/examples/**"
+    ],
+    "constraints": [
+      "Preserve deliberate BDDfy and Gherkin modes",
+      "Rewrite, demote to reference/historical, or retire unresolved EzDDD and uContract placeholder APIs",
+      "Use evidence-manifest tiers during every merge or retirement",
+      "Delete only after replacement links and file dispositions exist"
+    ],
+    "non_goals": [
+      "Reclassify evidence strength without new proof",
+      "Create a reference product"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Compare README, INDEX, TEMPLATE-INDEX, and duplicated discovery surfaces",
+      "Complete concept-to-owner disposition for remaining contract, usecase, outbox, mapper, and test placeholders",
+      "Select one catalog owner per navigation purpose",
+      "Consolidate genuinely identical fixtures",
+      "Update links and file dispositions before retirement"
+    ],
+    "validation": [
+      "Duplicate scan",
+      "Markdown link validation",
+      "Evidence manifest validation",
+      "File-disposition coverage"
+    ],
+    "last_completed_step": "Consolidated catalogs and BDD routes, retired hollow fixtures, classified placeholder families, and added library-neutral contract semantics.",
+    "next_action": "Execute ARCH-001 minimal micro-system/mono-system logical grammar."
+  },
+  "results": {
+    "summary": "Made INDEX the sole evidence-aware catalog, retired the stale template index and hollow product/test fixtures, reduced four BDD routes to distinct BDDfy and Reqnroll modes, consolidated exact duplicates, downgraded placeholder-heavy families, and introduced machine-validated placeholder dispositions plus library-neutral Design by Contract semantics.",
+    "files_changed": [
+      ".dev/standards/DESIGN-BY-CONTRACT.md",
+      ".dev/standards/examples/**",
+      ".dev/standards/coding-standards/aggregate-standards.md",
+      ".dev/standards/coding-standards/mapper-standards.md",
+      ".dev/standards/coding-standards/test-standards.md",
+      ".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py",
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"
+    ],
+    "tests_run": [
+      "Example placeholder disposition GWT: 3/3 passed",
+      "Example evidence GWT: 4/4 passed",
+      "AI-context validator: passed with 12 owned rules",
+      "Workflow and shell validators: passed",
+      "Retired-route scan: clean",
+      "Exact duplicate scan: only intentional ASP.NET environment aliases remain",
+      "git diff --check: passed"
+    ],
+    "finding_status": "AIC-005 and AIC-006 resolved subject to independent verification",
+    "residual_risk": "Reference-only folders still contain historical placeholder code by design; validators prevent evidence-tier inflation, and active review/standard routes no longer use them as API truth.",
+    "follow_up_needed": false
+  }
+}

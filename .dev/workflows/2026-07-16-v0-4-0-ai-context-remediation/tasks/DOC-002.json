@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "DOC-002",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-16T23:17:21+08:00",
+  "updated_at": "2026-07-16T23:31:02+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260716-001#VFY-002", "ASM-20260716-001#VFY-003", "ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-010", "ASM-20260715-002#AIC-013"],
+  "scope": {
+    "target": "Align routed testing and use-case documentation with generic technology selection and async contracts",
+    "files": [".dev/guides/**", ".dev/standards/examples/**"],
+    "constraints": ["NSubstitute remains the default", "Resolve testing.mocking before prescribing a library", "Use ExecuteAsync and cancellation propagation", "Preserve example evidence tiers"],
+    "non_goals": ["Change the selected default", "Add a product fixture", "Review downstream product tests"]
+  },
+  "execution": {
+    "steps": ["Rewrite active guide defaults to consume testing.mocking", "Align synchronous use-case snippets", "Check routed reference examples"],
+    "validation": ["Technology-selection scan", "Synchronous Execute scan", "AI-context validator"],
+    "last_completed_step": "Qualified routed mocking guidance through testing.mocking, aligned synchronous Use Case snippets, and added required regression coverage.",
+    "next_action": "Continue with GATE-002."
+  },
+  "results": {
+    "summary": "Routed test guidance now resolves the generic target mocking selection with NSubstitute as default, and active/reference snippets use ExecuteAsync with cancellation.",
+    "files_changed": [".dev/guides/** testing and use-case projections", ".dev/standards/examples/** routed testing and inquiry references", ".ai/scripts/tests/test_document_projection_contract.py", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", "plans/file-disposition-manifest.yaml"],
+    "tests_run": ["Documentation projection contract passed 2/2", "AI-context validation passed", "Shell asset validation passed", "File-disposition validation passed", "Quick gate passed 18/18 required checks"],
+    "finding_status": "resolved",
+    "residual_risk": "Package-specific historical inventories remain reference-only; targets still must record their selected mocking technology.",
+    "follow_up_needed": false
+  }
+}

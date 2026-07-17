@@ -1,0 +1,76 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "MIGRATE-001",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-16T21:02:32+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "v0.4.0 file-disposition and downstream upgrade contract",
+    "files": [
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/file-disposition-manifest.yaml",
+      ".dev/releases/v0.4.0/migration-guide.md",
+      ".ai/assets/skills/ai-context-upgrader/**"
+    ],
+    "constraints": [
+      "Every remediated framework path receives kept, moved-to, merged-into, or retired disposition",
+      "The manifest informs but never bypasses three-way comparison",
+      "Retirement and target-owned changes remain reconciliation-safe",
+      "Complete before ROUTE-001 and release closure"
+    ],
+    "non_goals": [
+      "Upgrade either downstream lab in this workflow",
+      "Update target provenance before a real target upgrade validates",
+      "Publish v0.4.0"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Maintain exact-path dispositions as remediation tasks change files",
+      "Define consumer validation and migration-guide projection",
+      "Reconcile moved, merged, and retired paths with upgrader safety rules",
+      "Validate manifest completeness before ROUTE-001 and release preparation"
+    ],
+    "validation": [
+      "YAML parse",
+      "Exact-case path validation",
+      "Allowed-disposition validation",
+      "Destination requirement validation",
+      "Changed-path coverage against the remediation commit range"
+    ],
+    "last_completed_step": "Validated every distributable framework path changed since ed5f8fb with Git-backed exact-case dispositions and projected safe move, merge, retirement, and target-owned reconciliation rules into the planned v0.4.0 release.",
+    "next_action": "Start ROUTE-001 audience placement and inbound-route remediation."
+  },
+  "results": {
+    "summary": "Completed the v0.4.0 file-disposition contract, added reusable Git-backed validation, taught ai-context-upgrader to treat dispositions as incoming intent only, and registered planned release notes and migration guidance without creating a tag or claiming publication.",
+    "files_changed": [
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/plans/file-disposition-manifest.yaml",
+      ".ai/scripts/validate-file-disposition-manifest.py",
+      ".ai/scripts/tests/test_file_disposition_manifest.py",
+      ".ai/scripts/README.md",
+      ".ai/assets/skills/ai-context-upgrader/references/upgrade-playbook.md",
+      ".ai/assets/skills/ai-context-upgrader/references/three-way-merge-boundaries.md",
+      ".dev/releases/INDEX.MD",
+      ".dev/releases/v0.4.0/release.yaml",
+      ".dev/releases/v0.4.0/release-notes.md",
+      ".dev/releases/v0.4.0/migration-guide.md"
+    ],
+    "tests_run": [
+      "File-disposition manifest validation passed with complete Git changed-path coverage",
+      "4 file-disposition fail-closed GWT tests passed",
+      "AI context version validation passed for 5 release records",
+      "15 version-governance GWT tests passed",
+      "AI context and shell asset validators passed",
+      "git diff --check passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "REL-v0.4.0 remains planned. Package build/parity, independent verification, final commit identity, and user-created annotated tag are later release gates.",
+    "follow_up_needed": false
+  }
+}

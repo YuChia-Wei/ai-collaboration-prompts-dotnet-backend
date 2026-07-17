@@ -1,0 +1,1480 @@
+schema_version: "1.0"
+manifest_id: "V040-FILE-DISPOSITION-001"
+workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
+target_release: "v0.4.0"
+status: "active"
+created_at: "2026-07-16T21:02:32+08:00"
+updated_at: "2026-07-16T23:46:42+08:00"
+owner_skill: "ai-context-governance"
+consumer_skill: "ai-context-upgrader"
+source_assessment: "ASM-20260715-002"
+
+coverage:
+  base_commit: "ed5f8fb9e7cefe849dcd129571d21a92f31c830d"
+  included_roots:
+    - ".agents/"
+    - ".ai/"
+    - ".claude/"
+    - ".dev/guides/"
+    - ".dev/standards/"
+    - "tools/"
+  excluded_surfaces:
+    - ".dev/workflows/"
+    - ".dev/assessments/"
+    - ".dev/backlog/"
+    - ".dev/releases/"
+  rationale: "Cover every distributable framework path changed after remediation authorization while excluding source lifecycle instances and release registry artifacts."
+
+contract:
+  path_identity: "repository-relative path with exact Git casing"
+  allowed_dispositions:
+    - "kept"
+    - "moved-to"
+    - "merged-into"
+    - "retired"
+  destination_required_for:
+    - "moved-to"
+    - "merged-into"
+  upgrade_rules:
+    - "This manifest describes incoming release intent; it does not replace target-side three-way comparison."
+    - "kept paths remain normal three-way candidates."
+    - "moved-to and merged-into paths require target reconciliation when the target changed the source path."
+    - "retired paths require reconciliation unless the target is unchanged from base and the migration guide explicitly permits automatic removal."
+    - "Target-owned truth and declared local overrides retain precedence until explicitly reconciled."
+
+entries:
+  - path: ".ai/assets/skills/spec-compliance-validator/references/validation-command-templates.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-004"
+    change_summary: "Replace the removed repository shell route with the current DBA1001 analyzer/build contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - "tools/DotnetBackendAnalyzers/README.md"
+      - ".dev/workflows/2026-05-dotnet-script-to-analyzer-transition/script-to-validator-mapping.md"
+      - ".ai/scripts/tests/test_ai_context_active_script_references.py"
+  - path: ".dev/standards/coding-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-012"
+      - "ASM-20260715-002#AIC-005"
+    change_summary: "Replace Lab-specific truth and use interface-first Aggregate Repository constraints."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/project-structure.md"
+      - ".dev/standards/coding-standards/repository-standards.md"
+  - path: ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+    change_summary: "Add the canonical generic target technology-selection and override contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml"
+  - path: ".dev/standards/AI-CONTEXT-OWNERSHIP.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-002"
+      - "ASM-20260715-002#AIC-013"
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Register technology selection, deletion, and conditional event-sourced Aggregate truth ownership."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+  - path: ".dev/standards/coding-standards/test-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+    change_summary: "Make NSubstitute the overridable testing.mocking profile default instead of an invariant prohibition."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+  - path: ".dev/standards/coding-standards/aggregate-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-002"
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Make soft delete profile-default and distinguish interface-first normal Aggregates from optional event-sourced Aggregates."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/AI-CONTEXT-OWNERSHIP.yaml"
+  - path: ".dev/standards/coding-standards/mapper-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-002"
+      - "ASM-20260715-002#AIC-005"
+    change_summary: "Align conditional soft-delete mapping and remove implicit non-ES base-class/example API truth."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/coding-standards/aggregate-standards.md"
+  - path: ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+    change_summary: "Add empty generic technologySelections and architecture capabilitySelections target-owned slots."
+    target_migration: "reconcile"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+  - path: ".ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+    change_summary: "Add the machine-readable generic technology-selection record schema."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-002"
+      - "ASM-20260715-002#AIC-013"
+      - "ASM-20260717-001#SVF-001"
+    change_summary: "Project generic technology selection, canonical environment names, and soft-delete default/opt-out semantics into agent-loading rules."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/AI-CONTEXT-OWNERSHIP.yaml"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+      - "ASM-20260717-001#SVF-001"
+    change_summary: "Consume testing.mocking, default to NSubstitute only when no target selection exists, and use canonical test environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/coding-standards/test-standards.md"
+  - path: ".ai/scripts/validate-ai-context.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Validate technology selection, executable source evidence, and placeholder disposition/evidence consistency."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".ai/scripts/tests/test_ai_context_technology_selection.py"
+      - ".ai/scripts/tests/test_ai_context_source_include_evidence.py"
+      - ".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py"
+  - path: ".ai/scripts/tests/test_ai_context_technology_selection.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-013"
+    change_summary: "Add fail-closed GWT coverage for the generic selection contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/scripts/validate-ai-context.py"
+  - path: ".dev/standards/examples/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Own purpose/evidence boundaries and delegate catalog plus placeholder disposition to machine-readable indexes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-manifest.yaml"
+      - ".dev/standards/examples/INDEX.md"
+      - ".dev/standards/examples/placeholder-disposition.yaml"
+  - path: ".dev/standards/examples/evidence-schema.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Add the machine-readable five-tier evidence schema."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/scripts/tests/test_ai_context_example_evidence.py"
+  - path: ".dev/standards/examples/evidence-manifest.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+      - "ASM-20260715-002#AIC-010"
+    change_summary: "Classify evidence strength, reconcile the async Controller claim, downgrade placeholder-heavy families, and remove retired routes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-schema.yaml"
+      - ".dev/standards/examples/placeholder-disposition.yaml"
+  - path: ".dev/standards/examples/.versions.json"
+    disposition: "retired"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Retire stale source-sync metadata that tracked one absent source path."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-manifest.yaml"
+  - path: ".ai/scripts/tests/test_ai_context_example_evidence.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-003"
+    change_summary: "Add fail-closed GWT coverage for tier requirements, default-downward behavior, and stale sync metadata."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/scripts/validate-ai-context.py"
+  - path: ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Add the canonical interface-first BuildingBlocks and optional EsAggregateRoot behavior/reconstruction contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"
+      - "tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Replace the historical complete-class wish list with an interface-first contract and target-selected capability index."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEvent.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add the portable Domain event contract source include."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: ["tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEntity.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add optional interface-only entity identity."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IAggregateRoot.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Add the interface-first normal Aggregate marker."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/EsAggregateRoot.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Add the only optional base class with replay, pending-event, transition, and commit mechanics."
+    target_migration: "three-way-target-owned-copy"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence:
+      - ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"
+      - "tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Document source-copy target ownership and reimplementation options."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/source-includes/evidence-manifest.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Declare the source include executable-tested tier and exact verification route."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/tests/test_ai_context_source_include_evidence.py"]
+  - path: "tools/DotnetBackendBuildingBlocks.Tests/DotnetBackendBuildingBlocks.Tests.csproj"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Compile source includes in a focused non-packable verification project."
+    target_migration: "framework-tool-only"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: ["tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"]
+  - path: "tools/DotnetBackendBuildingBlocks.Tests/EsAggregateRootTests.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-014"
+    change_summary: "Prove replay, Apply/When, pending-event, and committed-version behavior."
+    target_migration: "framework-tool-only"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: "tools/DotnetBackendAnalyzers.Tests/EventSourcedAggregateMutationAnalyzerTests.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Align DBA1009 tests to EsAggregateRoot<TId>, indirect descendants, and interface-first normal Aggregates."
+    target_migration: "framework-tool-only"
+    remediation_status: "applied"
+    replacement_evidence: ["tools/DotnetBackendAnalyzers/EventSourcedAggregateMutationAnalyzer.cs"]
+  - path: ".ai/scripts/tests/test_ai_context_source_include_evidence.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005", "ASM-20260716-001#VFY-004"]
+    change_summary: "Cover source-include evidence inflation, missing test routes, and required aggregate-gate execution of BuildingBlocks behavior tests."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/validate-ai-context.py", ".ai/scripts/check-all.sh", "tools/DotnetBackendBuildingBlocks.Tests/DotnetBackendBuildingBlocks.Tests.csproj"]
+  - path: ".dev/standards/project-structure.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-014"]
+    change_summary: "Define interface-first BuildingBlocks and the shared workload/DomainCore/Presentation logical solution grammar."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-014"]
+    change_summary: "Project PROJECT-GRAMMAR-001 workload mapping into agent-loaded architecture context."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/project-structure.md"]
+  - path: ".dev/standards/coding-standards/repository-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Use interface-first Aggregate Repository generic constraints."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/examples/aggregate/Plan.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Remove the embedded dual-generic placeholder and illustrate the canonical source-included ES contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/EsAggregateRoot.cs"]
+  - path: ".dev/standards/examples/aggregate/PlanEvents.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Bridge the illustrative internal event shape to the canonical IDomainEvent contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEvent.cs"]
+  - path: ".dev/standards/examples/aggregate/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Navigate the illustrative Aggregate portfolio to the canonical ES behavior contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/examples/reference/ezddd-import-mapping.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Classify dual-generic EzDDD Aggregate names as historical Java provenance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Route review through EsAggregateRoot<TId> versus IAggregateRoot<TId> profiles."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/references/CODE-TEMPLATES.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Use the canonical ES base for the Apply-based Aggregate template."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-014"]
+    change_summary: "Add navigation to the canonical reconstruction contract and optional source include."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".ai/assets/skills/code-reviewer/references/checklist-reference.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Route Aggregate reviews through interface-first and optional ES shapes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"]
+  - path: ".dev/standards/examples/controller/CreateTaskController.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Replace synchronous Java-shaped execution with ExecuteAsync, request cancellation, typed ActionResult, and separate DTOs."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/examples/controller/CreateTaskRequest.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Add the separate immutable request DTO required by the current Controller contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/examples/controller/CreateTaskResponse.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Add the separate immutable response DTO used by typed Controller results."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/examples/controller/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Align the illustrative Controller pattern with ExecuteAsync, CancellationToken, and separate record DTOs."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/controller/CreateTaskController.cs"]
+  - path: ".ai/assets/sub-agent-role-prompts/controller-sub-agent/sub-agent.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Require delegated Controller work to use ExecuteAsync and forward CancellationToken."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".ai/assets/sub-agent-role-prompts/controller-sub-agent/references/implementation-guidance.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010"]
+    change_summary: "Project the current async typed Controller contract into implementation guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/controller-standards.md"]
+  - path: ".dev/standards/DESIGN-BY-CONTRACT.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Replace unavailable uContract API truth with library-neutral precondition, postcondition, and invariant semantics."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/examples/placeholder-disposition.yaml"]
+  - path: ".dev/standards/examples/placeholder-disposition.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Record placeholder-family outcomes and canonical replacements in machine-readable form."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py"]
+  - path: ".ai/scripts/tests/test_ai_context_example_placeholder_disposition.py"
+    disposition: "kept"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Add fail-closed GWT coverage for disposition/evidence tier drift."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/validate-ai-context.py"]
+  - path: ".dev/standards/examples/INDEX.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Become the sole evidence-aware root catalog with two distinct BDD modes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/examples/evidence-manifest.yaml"
+      - ".dev/standards/examples/placeholder-disposition.yaml"
+  - path: ".dev/standards/examples/TEMPLATE-INDEX.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/INDEX.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the stale source-mirror third catalog after preserving useful routes in INDEX."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/INDEX.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-example/OUTBOX-TEST-CONFIGURATION.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Consolidate the exact duplicate into a runner-neutral Outbox owner."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/outbox/README.md"]
+  - path: ".dev/standards/examples/bdd-given-when-then-example/OUTBOX-TEST-CONFIGURATION.md"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Move shared Outbox test configuration to the runner-neutral Outbox folder."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/CreateTaskUseCase.feature"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/bdd-gherkin-example/create-task-usecase.feature"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Consolidate the Reqnroll feature mode into one Gherkin entry folder."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-gherkin-example/README.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/CreateTaskUseCaseSteps.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Retire placeholder bindings with no executable route."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-gherkin-example/create-task-usecase.feature"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/TestHostFixture.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the exact duplicate hollow fixture rather than create a framework product fixture."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/UseCaseTestFixture.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the exact duplicate hollow helper."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-test/README.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/bdd-gherkin-example/README.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Consolidate four BDD routes into one BDDfy and one Reqnroll/Gherkin mode."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/INDEX.md"]
+  - path: ".dev/standards/examples/test/"
+    disposition: "retired"
+    destination: null
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Retire hollow fixtures and product tests rejected by the no-reference-product gate."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/coding-standards/test-standards.md"
+      - ".dev/standards/examples/bdd-given-when-then-example/"
+      - ".dev/standards/examples/bdd-gherkin-example/"
+  - path: ".dev/standards/examples/testing-guide.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/coding-standards/test-standards.md"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the competing root testing guide."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/test-example.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/bdd-given-when-then-example/"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire overlapping BDDfy root prose."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-given-when-then-example/README.md"]
+  - path: ".dev/standards/examples/use-case-test-example.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/coding-standards/test-standards.md"
+    finding_ids:
+      - "ASM-20260715-002#AIC-005"
+      - "ASM-20260715-002#AIC-006"
+    change_summary: "Retire incomplete Use Case test prose and unimplemented event collector claims."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".dev/standards/examples/projection-example.md"
+    disposition: "merged-into"
+    destination: ".dev/standards/examples/projection/"
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retire the orphan root projection example in favor of the folder owner."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/projection/README.md"]
+  - path: ".agents/skills/repo-structure-sync/SKILL.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Route the runtime wrapper to the generic technology-selection template."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/repo-structure-sync/skill.yaml"]
+  - path: ".claude/skills/repo-structure-sync/SKILL.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Keep the Claude wrapper synchronized with the canonical technology-selection route."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/repo-structure-sync/skill.yaml"]
+  - path: ".ai/assets/skills/ddd-ca-hex-architect/references/architecture-playbook.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-014"]
+    change_summary: "Project the shared logical workload grammar into architecture design guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/project-structure.md"]
+  - path: ".ai/assets/skills/repo-structure-sync/references/document-targets.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Declare the target-owned technology-selection document slot."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".ai/assets/skills/repo-structure-sync/references/scan-playbook.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013", "ASM-20260715-002#AIC-014"]
+    change_summary: "Discover target technology selections and logical workload mappings without forcing source-repo defaults."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"]
+  - path: ".ai/assets/skills/repo-structure-sync/skill.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Register the generic technology-selection template as a canonical skill resource."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml"]
+  - path: ".ai/assets/skills/spec-compliance-validator/references/spec-compliance-rules.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-004", "ASM-20260715-002#AIC-013"]
+    change_summary: "Align compliance rules with active analyzer routes and target-selected mocking technology."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/spec-compliance-validator/references/validation-command-templates.md"]
+  - path: ".ai/assets/skills/spec-compliance-validator/references/test-validation-steps.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-004", "ASM-20260715-002#AIC-013"]
+    change_summary: "Replace retired script guidance and avoid hard-coding a target-overridable mocking library."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".ai/assets/sub-agent-role-prompts/aggregate-test-sub-agent/references/test-generation-guidance.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Use the target testing.mocking selection with NSubstitute only as the default."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".ai/assets/sub-agent-role-prompts/controller-test-sub-agent/references/test-generation-guidance.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-010", "ASM-20260715-002#AIC-013"]
+    change_summary: "Align generated Controller tests with async contracts and target-selected mocking."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/test-standards.md"]
+  - path: ".ai/assets/sub-agent-role-prompts/reactor-test-sub-agent/references/test-generation-guidance.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Use the generic target mocking selection in Reactor test guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".ai/assets/sub-agent-role-prompts/usecase-test-sub-agent/references/test-generation-guidance.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-013"]
+    change_summary: "Use the generic target mocking selection in Use Case test guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".ai/assets/tech-stacks/dotnet-backend/shared/code-review-checklist.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Distinguish normal interface-first Aggregates from optional event-sourced Aggregates."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"]
+  - path: ".ai/scripts/tests/test_ai_context_active_script_references.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-004"]
+    change_summary: "Fail closed when active context routes reference removed validation scripts."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/validate-ai-context.py"]
+  - path: ".dev/standards/AI-CONTEXT-OWNERSHIP.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-002", "ASM-20260715-002#AIC-013", "ASM-20260715-002#AIC-014"]
+    change_summary: "Explain the new ownership records for technology selection, deletion policy, BuildingBlocks, and project grammar."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/AI-CONTEXT-OWNERSHIP.yaml"]
+  - path: ".dev/standards/CODE-REVIEW-CHECKLIST.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Align the root review checklist with interface-first and optional ES Aggregate shapes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD"]
+  - path: ".dev/standards/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-013"]
+    change_summary: "Route readers to the new technology-selection, BuildingBlocks, and design-by-contract standards."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/standards/anti-patterns.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Remove a historical base-class assumption from active anti-pattern guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md"]
+  - path: ".dev/standards/coding-guide.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Route coding guidance through the current interface-first Aggregate contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/aggregate-standards.md"]
+  - path: ".dev/standards/coding-standards/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-013"]
+    change_summary: "Update the coding-standard catalog for target selection and Aggregate profiles."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/standards/examples/aggregate/Project.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Align the illustrative Aggregate with the canonical single-ID ES base."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/EsAggregateRoot.cs"]
+  - path: ".dev/standards/examples/aggregate/TagEvents.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005"]
+    change_summary: "Make illustrative tag events implement the canonical domain-event contract."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/tech-stacks/dotnet-backend/source-includes/domain/IDomainEvent.cs"]
+  - path: ".dev/standards/examples/aspnet-core/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-003"]
+    change_summary: "Clarify that the compatibility alias is intentionally duplicate evidence."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/evidence-manifest.yaml"]
+  - path: ".dev/standards/examples/bdd-gherkin-example/AggregateOutboxRepositorySteps.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-006"]
+    change_summary: "Retire placeholder step bindings without an executable product fixture."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-gherkin-example/README.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-example/CompleteUseCaseSteps.cs"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-005", "ASM-20260715-002#AIC-006"]
+    change_summary: "Retire incomplete step bindings that depended on absent product types."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/bdd-gherkin-example/create-task-usecase.feature"]
+  - path: ".dev/standards/examples/bdd-gherkin-example/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Own the single retained Reqnroll/Gherkin example route and evidence boundary."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/INDEX.md"]
+  - path: ".dev/standards/examples/bdd-gherkin-example/create-task-usecase.feature"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Retain the consolidated runner-specific Gherkin feature as illustrative evidence."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/evidence-manifest.yaml"]
+  - path: ".dev/standards/examples/bdd-given-when-then-example/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Own the distinct BDDfy code-first example route."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/INDEX.md"]
+  - path: ".dev/standards/examples/generation-templates/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-003", "ASM-20260715-002#AIC-006"]
+    change_summary: "Downgrade generation templates to their evidence-backed illustrative boundary."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/evidence-manifest.yaml"]
+  - path: ".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Own the consolidated runner-neutral Outbox test configuration."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/outbox/README.md"]
+  - path: ".dev/standards/examples/outbox/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-006"]
+    change_summary: "Route Outbox examples to the single retained test-configuration owner."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/outbox/OUTBOX-TEST-CONFIGURATION.md"]
+  - path: ".ai/scripts/validate-file-disposition-manifest.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: []
+    change_summary: "Add fail-closed Git-backed validation for exact path dispositions and changed-path coverage."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/tests/test_file_disposition_manifest.py"]
+  - path: ".ai/scripts/tests/test_file_disposition_manifest.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: []
+    change_summary: "Prove coverage, destination, base-presence, and exact manifest contract behavior."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/validate-file-disposition-manifest.py"]
+  - path: ".ai/assets/skills/ai-context-upgrader/references/upgrade-playbook.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: []
+    change_summary: "Consume release file dispositions as incoming intent without bypassing three-way reconciliation."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/releases/v0.4.0/migration-guide.md"]
+  - path: ".ai/assets/skills/ai-context-upgrader/references/three-way-merge-boundaries.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: []
+    change_summary: "Define target-safe semantics for kept, moved, merged, and retired incoming paths."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/releases/v0.4.0/migration-guide.md"]
+  - path: ".ai/scripts/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-005"]
+    change_summary: "Document disposition validation and the test-compliance helper retirement window."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-file-disposition-manifest.py"]
+  - path: ".ai/assets/skills/ddd-ca-hex-architect/references/source-map.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Route architecture discovery through the standards INDEX while retaining README as the purpose boundary."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/INDEX.MD"]
+  - path: ".dev/standards/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Add the canonical standards catalog and separate it from README purpose and placement guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/README.md"]
+  - path: ".dev/standards/coding-standards/controller-standards.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-011"]
+    change_summary: "Add an active route to the retained REST resource-path rationale."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/rationale/rest-api-resource-path-rationale.MD"]
+  - path: ".dev/standards/guides/DATABASE-MIGRATION-GUIDE.md"
+    disposition: "moved-to"
+    destination: ".dev/guides/implementation-guides/DATABASE-MIGRATION-GUIDE.md"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Move the human-facing database migration walkthrough out of normative standards and make it target-selection aware."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/standards/guides/DEVELOPMENT-TOOLS-GUIDE.md"
+    disposition: "moved-to"
+    destination: ".dev/guides/implementation-guides/DEVELOPMENT-TOOLS-GUIDE.md"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Move the tool walkthrough to human guides and remove source-product command assumptions."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/standards/guides/EF-CORE-CONFIGURATION-GUIDE.md"
+    disposition: "merged-into"
+    destination: ".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Merge conditional EF Core registration and validation guidance into the existing persistence guide."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"]
+  - path: ".dev/standards/guides/README.md"
+    disposition: "merged-into"
+    destination: ".dev/guides/implementation-guides/README.MD"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retire the source-stack guide catalog after moving its retained contents to the human guide owner."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/standards/prompts/add-feature-prompt.md"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retire the legacy product-shaped prompt body in favor of current workflow, architecture, and slice skills."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/README.MD"]
+  - path: ".dev/standards/prompts/create-use-case-prompt.md"
+    disposition: "retired"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retire the legacy use-case prompt body after preserving its capability routes in current skill guides."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md"]
+  - path: ".dev/standards/prompts/README.md"
+    disposition: "merged-into"
+    destination: ".dev/guides/ai-collaboration-guides/README.MD"
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Replace the migration-only prompt catalog with explicit human-facing capability routing."
+    target_migration: "reconcile-removal"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/README.MD"]
+  - path: ".dev/standards/rationale/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Add the single rationale catalog while README retains purpose and placement guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/rationale/README.MD"]
+  - path: ".dev/standards/rationale/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Delegate rationale discovery to INDEX and retain only the folder purpose and ADR boundary."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/rationale/INDEX.MD"]
+  - path: ".dev/guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Route the moved implementation guides and previously omitted weak-route references."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/README.MD"]
+  - path: ".dev/guides/ai-collaboration-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Replace legacy prompt bodies with explicit current skill routes for feature and use-case requests."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/assets/skills/README.MD"]
+  - path: ".dev/guides/design-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-011"]
+    change_summary: "Add a bounded route to the exploratory multi-stack placement note without promoting it to active capability."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/design-guides/MULTI-STACK-CONTEXT-PLACEMENT-NOTES.md"]
+  - path: ".dev/guides/implementation-guides/DATABASE-MIGRATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retain the moved target-selection-aware migration walkthrough under human implementation guides."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"]
+  - path: ".dev/guides/implementation-guides/DEVELOPMENT-TOOLS-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Retain the moved target-neutral tool reference under human implementation guides."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/implementation-guides/README.MD"]
+  - path: ".dev/guides/implementation-guides/PERSISTENCE-CONFIGURATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Become the single human-facing persistence placement and conditional EF Core registration guide."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/guides/implementation-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Route the moved and merged implementation guides from their correct human-facing owner."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/INDEX.MD"]
+  - path: ".dev/guides/ai-collaboration-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the AI collaboration guide catalog separately from README purpose and usage guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/README.MD"]
+  - path: ".dev/guides/design-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Own the complete design-guide catalog and route the multi-stack exploration note."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/design-guides/README.MD"]
+  - path: ".dev/guides/implementation-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007", "ASM-20260715-002#AIC-011"]
+    change_summary: "Own the complete implementation-guide catalog, including moved persistence and tooling guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/implementation-guides/README.MD"]
+  - path: ".dev/guides/learning-guides/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the learning-guide catalog separately from README purpose and boundary guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/guides/learning-guides/README.MD"]
+  - path: ".dev/guides/learning-guides/README.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Delegate the learning-guide catalog to INDEX while retaining audience and placement guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/learning-guides/INDEX.MD"]
+  - path: ".ai/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Route the agent-facing related-doc catalog to the AI collaboration guide INDEX rather than README."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/INDEX.MD"]
+  - path: ".dev/guides/ai-collaboration-guides/AI-SKILL-GUIDE-STANDARDS.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Require new human-facing skill guides to update the catalog owner INDEX."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/guides/ai-collaboration-guides/INDEX.MD"]
+  - path: ".dev/standards/coding-standards/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the focused coding-standard catalog separately from README summaries and common navigation."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/README.md"]
+  - path: ".dev/standards/templates/INDEX.MD"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Own the actual standards-template catalog and omit the nonexistent project-config template claim."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/templates/README.md"]
+  - path: ".dev/standards/templates/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-007"]
+    change_summary: "Delegate template discovery to INDEX and route target-owned config templates to repo-structure-sync."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence:
+      - ".dev/standards/templates/INDEX.MD"
+      - ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
+  - path: ".ai/scripts/check-all.sh"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-008", "ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005"]
+    change_summary: "Run truthful required contracts and remove the stale test-compliance helper from automatic full-mode routing."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/shell-assets.yaml"]
+  - path: ".ai/scripts/check-coding-standards.sh"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-008"]
+    change_summary: "Limit success to structural facts, remove the retired prompt-folder assumption, and cover all focused standards plus exact catalog routes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/INDEX.MD"]
+  - path: ".ai/scripts/shell-assets.yaml"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005"]
+    change_summary: "Classify shell assets by role/lifecycle and mark the stale test-compliance helper as a packaged retirement candidate."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-shell-assets.py"]
+  - path: ".ai/scripts/tests/test_coding_standards_integrity_contract.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-008"]
+    change_summary: "Fail closed on semantic-completeness wording, retired prompt-folder assumptions, and omitted focused-standard routes."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".ai/scripts/check-coding-standards.sh"]
+  - path: ".ai/scripts/tests/test_fail_closed_validation.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-009", "ASM-20260716-001#VFY-005", "ASM-20260717-002#FVF-001"]
+    change_summary: "Cover schema v2, replacement direction, required commands, retirement-candidate execution boundaries, and deterministic isolation from outer closeout variables."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-shell-assets.py"]
+  - path: ".ai/scripts/validate-shell-assets.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260715-002#AIC-009"]
+    change_summary: "Validate shell role/lifecycle/distribution/authority records, Git modes, runnable subsets, and runner parity."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/shell-assets.yaml"]
+  - path: ".ai/scripts/validate-git-commits.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-006"]
+    change_summary: "Validate workflow ranges on first-parent history and preserve standalone assessment semantics for independently governed side branches."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/GIT-COMMIT-POLICY.md", ".ai/scripts/tests/test_git_commit_policy.py"]
+  - path: ".ai/scripts/tests/test_git_commit_policy.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-006"]
+    change_summary: "Fail closed on workflow commits while proving standalone assessment semantics and first-parent range selection."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".ai/scripts/validate-git-commits.py"]
+  - path: ".dev/standards/GIT-COMMIT-POLICY.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-006"]
+    change_summary: "Clarify standalone assessment precedence and first-parent workflow range validation."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md", ".ai/scripts/validate-git-commits.py"]
+  - path: ".ai/scripts/tests/test_profile_projection_contract.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001", "ASM-20260717-001#SVF-001"]
+    change_summary: "Fail closed on stale environment names across .dev and active agent-loading .ai projections, executable custom selectors, and noncanonical test environment filenames."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/design-guides/FRAMEWORK-API-INTEGRATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical Outbox and TestOutbox environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/COMPLETE-ASPNET-CORE-SETUP-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Remove the Profiles.Mode selector and route selection to the host environment."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/DOTNET-DI-TEST-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical TestInMemory and TestOutbox names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/DUAL-PROFILE-CONFIGURATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical environment names and matching appsettings filenames."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/NEW-PROJECT-TEST-SETUP-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical test environment names in registrations, traits, files, and commands."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/PREVENT-SERVICE-REGISTRATION-MISSING.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical InMemory and TestInMemory environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/implementation-guides/PROFILE-CONFIGURATION-COMPLEXITY-SOLUTION.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Normalize environment names, appsettings filenames, and commands."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/guides/learning-guides/NEW-PROJECT-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical test environment names in project setup guidance."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/examples/aspnet-core/Program.cs"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use TestOutbox in the composition-root environment branch."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.Test.InMemory.json"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/aspnet-core/appsettings.TestInMemory.json"
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Rename the test environment file to the canonical TestInMemory identity."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.Test.Outbox.json"
+    disposition: "moved-to"
+    destination: ".dev/standards/examples/aspnet-core/appsettings.TestOutbox.json"
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Rename the test environment file to the canonical TestOutbox identity."
+    target_migration: "reconcile-move"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.TestInMemory.json"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Provide the canonical TestInMemory environment file."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/aspnet-core/appsettings.TestOutbox.json"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Provide the canonical TestOutbox environment file."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/examples/aspnet-core/README.md"]
+  - path: ".dev/standards/examples/profile-configs/event-architecture-reference.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Remove Repository.Mode selection and use the host environment."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/examples/usecase/README.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use canonical test environment names."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/templates/application-properties-templates.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Remove Profiles.Mode and define appsettings files under canonical environment identities."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".dev/standards/templates/profile-isolated-configurations.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-001"]
+    change_summary: "Use host environment selection and prohibit EF Core registration in InMemory profiles."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/profile-configuration-standards.md"]
+  - path: ".ai/scripts/tests/test_document_projection_contract.py"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002", "ASM-20260716-001#VFY-003"]
+    change_summary: "Fail closed on unqualified mocking defaults and synchronous Use Case Execute snippets."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    introduced_in: "v0.4.0"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md", ".dev/standards/coding-standards/usecase-standards.md"]
+  - path: ".dev/guides/design-guides/EZDDD-FRAMEWORK-REFERENCE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Qualify NSubstitute as the default resolved through testing.mocking."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/guides/design-guides/TEST-DATA-PREPARATION-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-003"]
+    change_summary: "Use ExecuteAsync with explicit cancellation in test-data setup snippets."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/usecase-standards.md"]
+  - path: ".dev/guides/implementation-guides/quick-setup.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Route mocking through the target technology selection with NSubstitute as default."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/standards/examples/inquiry-archive/USAGE-GUIDE.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-003"]
+    change_summary: "Align the reference-only Reactor snippet with async inquiry and Use Case contracts."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/coding-standards/usecase-standards.md"]
+  - path: ".dev/standards/examples/reference/ezspec-test-template.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Qualify the historical test template with the target mocking selection."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]
+  - path: ".dev/standards/examples/reference/reactor-pattern-guide.md"
+    disposition: "kept"
+    destination: null
+    finding_ids: ["ASM-20260716-001#VFY-002"]
+    change_summary: "Qualify external-service test doubles with the target mocking selection."
+    target_migration: "three-way"
+    remediation_status: "applied"
+    replacement_evidence: [".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"]

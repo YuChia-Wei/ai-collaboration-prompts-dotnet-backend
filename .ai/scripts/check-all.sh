@@ -276,9 +276,29 @@ run_command_check "python .ai/scripts/validate-shell-assets.py" \
     "Shell Asset Classification And Git Modes" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_fail_closed_validation.py -v" \
+    "Aggregate Runner And Shell Registry Fail-Closed Tests" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_coding_standards_integrity_contract.py -v" \
+    "Coding Standards Integrity Claim Contract" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_profile_projection_contract.py -v" \
+    "Profile Projection Contract" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_document_projection_contract.py -v" \
+    "Documentation Projection Contract" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_ai_context_source_include_evidence.py -v" \
+    "Source-Include Evidence Contract" \
+    "required" "true" "true"
+
 # Coding standards are fundamental for AI context and standards docs
 run_check "check-coding-standards.sh" \
-    "Coding Standards Compliance" \
+    "Coding Standards Structural Integrity" \
     "required" "true" "true"
 
 run_command_check "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj" \
@@ -287,6 +307,10 @@ run_command_check "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendA
 
 run_command_check "dotnet test tools/DotnetBackendValidation.Tests/DotnetBackendValidation.Tests.csproj" \
     "Dotnet Backend Configuration Validation Tests" \
+    "required" "true" "true"
+
+run_command_check "dotnet test tools/DotnetBackendBuildingBlocks.Tests/DotnetBackendBuildingBlocks.Tests.csproj" \
+    "Dotnet Backend BuildingBlocks Behavior Tests" \
     "required" "true" "true"
 
 # Repository source validation is covered by DBA1001 in analyzer tests.
@@ -322,12 +346,7 @@ fi
 if [ "$MODE" == "full" ]; then
     echo ""
     echo -e "${MAGENTA}════ Additional Checks ════${NC}"
-    
-    # Test compliance
-    run_check "check-test-compliance.sh" \
-        "Test Standards Compliance" \
-        "advisory" "false" "false"
-    
+
     # Test DI compliance helper remains transitional
     run_deferred_check "check-test-di-compliance.sh" \
         "Test DI Compliance" \

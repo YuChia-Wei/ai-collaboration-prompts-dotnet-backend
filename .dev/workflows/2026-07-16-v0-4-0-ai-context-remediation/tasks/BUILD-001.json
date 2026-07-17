@@ -1,0 +1,97 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "BUILD-001",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-16T07:22:13+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260715-002#AIC-005",
+    "ASM-20260715-002#AIC-014"
+  ],
+  "scope": {
+    "target": "Historical lineage disposition, minimal BuildingBlocks contract truth, and a documentation-first reconstruction contract",
+    "files": [
+      ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md",
+      ".ai/assets/tech-stacks/dotnet-backend/references/**",
+      ".ai/assets/tech-stacks/dotnet-backend/source-includes/**",
+      ".dev/standards/project-structure.md",
+      ".dev/standards/examples/**",
+      "tools/DotnetBackendAnalyzers/**",
+      "tools/DotnetBackendBuildingBlocks.Tests/**"
+    ],
+    "constraints": [
+      "Architecture skill owns contract and reconstruction design",
+      "BuildingBlocks defaults to interfaces/contracts rather than shared inheritance",
+      "Retain one optional EsAggregateRoot abstraction under the approved B conditions",
+      "EsAggregateRoot has a documented behavior contract and executable-tested pure-logic coverage",
+      "Source-include copies become target-owned and upgrades use ai-context-upgrader three-way comparison",
+      "Product Infrastructure owns concrete persistence, messaging, and observability adapters",
+      "Do not add a complete BuildingBlocks or SampleProduct fixture",
+      "No NuGet or dotnet-new publication"
+    ],
+    "non_goals": [
+      "Copy either lab wholesale",
+      "Commit a golden product implementation",
+      "Add other mandatory base classes",
+      "Put EF, Dapper, Wolverine, or observability implementations in BuildingBlocks",
+      "Finalize future package distribution"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Created the Java, EzDDD, lab, and current concept disposition matrix",
+      "Selected interface-first BuildingBlocks surfaces",
+      "Defined AGGREGATE-ES-001 and the independent EsAggregateRoot behavior contract",
+      "Added the minimal source include and executable-tested pure-logic coverage",
+      "Aligned standards, examples, review routing, and DBA1009 tests to EsAggregateRoot<TId>",
+      "Documented target ownership and upgrader three-way reconciliation",
+      "Recorded architectural equivalence checks and downstream evidence"
+    ],
+    "validation": [
+      "5 pure-logic EsAggregateRoot tests passed",
+      "49 DotnetBackendAnalyzers tests passed including DBA1009 positive and negative coverage",
+      "3 source-include evidence GWT tests passed",
+      "4 example-evidence GWT tests passed",
+      "AI context validator passed with 11 owned rules",
+      "Repository-native scans found dual-generic ES shapes only in explicitly historical provenance",
+      "git diff --check passed"
+    ],
+    "last_completed_step": "Completed the interface-first reconstruction contract and executable-tested optional ES abstraction.",
+    "next_action": "Execute TRUTH-002 to reconcile synchronous Java-shaped controller guidance before duplicate-example consolidation."
+  },
+  "results": {
+    "summary": "Replaced the historical complete-class wish list with an interface-first BuildingBlocks contract, retained only optional EsAggregateRoot<TId> mechanical behavior, removed the embedded dual-generic placeholder, and added executable tests plus evidence validation without creating a reference product.",
+    "files_changed": [
+      ".dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md",
+      ".dev/standards/AI-CONTEXT-OWNERSHIP.yaml",
+      ".dev/standards/coding-standards/**",
+      ".dev/standards/examples/aggregate/**",
+      ".dev/standards/examples/reference/ezddd-import-mapping.md",
+      ".dev/standards/project-structure.md",
+      ".ai/assets/tech-stacks/dotnet-backend/**",
+      ".ai/assets/skills/code-reviewer/references/checklist-reference.md",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/test_ai_context_source_include_evidence.py",
+      "tools/DotnetBackendAnalyzers.Tests/EventSourcedAggregateMutationAnalyzerTests.cs",
+      "tools/DotnetBackendBuildingBlocks.Tests/**",
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"
+    ],
+    "tests_run": [
+      "dotnet test tools/DotnetBackendBuildingBlocks.Tests/DotnetBackendBuildingBlocks.Tests.csproj --no-restore: 5/5 passed",
+      "dotnet test tools/DotnetBackendAnalyzers.Tests/DotnetBackendAnalyzers.Tests.csproj --no-restore: 49/49 passed",
+      "python .ai/scripts/tests/test_ai_context_source_include_evidence.py: 3/3 passed",
+      "python .ai/scripts/tests/test_ai_context_example_evidence.py: 4/4 passed",
+      "python .ai/scripts/validate-ai-context.py: passed",
+      "git diff --check: passed"
+    ],
+    "finding_status": "AIC-005 partially resolved for Aggregate/BuildingBlocks truth; AIC-014 partially resolved pending ARCH-001 and independent reconstruction verification",
+    "residual_risk": "Non-Aggregate placeholder examples remain explicitly illustrative and require rewrite/reference/retirement disposition in EXAMPLE-002. The source include has no package distribution path by design; copied files are target-owned and require upgrader reconciliation.",
+    "follow_up_needed": false
+  }
+}

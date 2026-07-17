@@ -1,0 +1,68 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "TRUTH-002",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-16T21:02:32+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260715-002#AIC-010"
+  ],
+  "scope": {
+    "target": "Synchronous Java-shaped controller guidance",
+    "files": [
+      ".dev/standards/examples/controller/**",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/**"
+    ],
+    "constraints": [
+      "Use the current async Use Case inbound-port contract",
+      "Retained executable guidance needs a real validation route",
+      "Otherwise classify the material as illustrative or historical"
+    ],
+    "non_goals": [
+      "Redesign controller architecture",
+      "Create a complete reference product"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Locate the active synchronous Execute guidance",
+      "Rewrite it to ExecuteAsync with CancellationToken or downgrade its evidence tier",
+      "Update routing and file disposition"
+    ],
+    "validation": [
+      "Async contract scan",
+      "Example evidence-tier validation",
+      "Link and target-literal validation"
+    ],
+    "last_completed_step": "Reconciled the Controller example, DTO shape, role prompt, and evidence claim with the current async Use Case contract.",
+    "next_action": "Execute EXAMPLE-002 placeholder and duplicate portfolio disposition."
+  },
+  "results": {
+    "summary": "Replaced synchronous Execute guidance with ExecuteAsync and request cancellation, added separate record DTOs and typed ActionResult, and aligned the controller sub-agent prompt without promoting the example beyond illustrative evidence.",
+    "files_changed": [
+      ".dev/standards/examples/controller/CreateTaskController.cs",
+      ".dev/standards/examples/controller/CreateTaskRequest.cs",
+      ".dev/standards/examples/controller/CreateTaskResponse.cs",
+      ".dev/standards/examples/controller/README.md",
+      ".dev/standards/examples/evidence-manifest.yaml",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/sub-agent.yaml",
+      ".ai/assets/sub-agent-role-prompts/controller-sub-agent/references/implementation-guidance.md",
+      ".dev/workflows/2026-07-16-v0-4-0-ai-context-remediation/**"
+    ],
+    "tests_run": [
+      "Async contract scan: no synchronous .Execute( or IActionResult action remains in controller example/prompt scope",
+      "Example evidence GWT tests: 4/4 passed",
+      "AI context validator: passed",
+      "git diff --check: passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The controller portfolio remains illustrative and is not claimed as a standalone compiled application.",
+    "follow_up_needed": false
+  }
+}

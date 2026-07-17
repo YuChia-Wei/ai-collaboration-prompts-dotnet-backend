@@ -1,0 +1,57 @@
+schema_version: "1.0"
+release_id: "REL-v0.4.0"
+version: "v0.4.0"
+status: "validated"
+record_origin: "governed"
+distribution_kind: "governed-package"
+installable: true
+tag: null
+commit: null
+tagged_at: null
+recorded_at: "2026-07-16T22:35:37+08:00"
+created_at: "2026-07-16T22:35:37+08:00"
+updated_at: "2026-07-17T07:50:33+08:00"
+compatibility:
+  breaking_changes: true
+  minimum_source_version: "v0.3.0"
+  reconciliation_sources:
+    - "v0.3.0"
+  automatic_upgrade_sources: []
+  affected_contracts:
+    - "target-owned generic technology selection and profile overrides"
+    - "NSubstitute default with product-owned mocking override"
+    - "profile-default soft delete and explicit hard-delete capability"
+    - "interface-first BuildingBlocks reconstruction contract"
+    - "optional executable-tested EsAggregateRoot source include"
+    - "logical workload DomainCore and Presentation solution grammar"
+    - "evidence-tiered example portfolio and retired duplicate routes"
+    - "Git-backed file-disposition and migration reconciliation contract"
+artifacts:
+  release_notes: "release-notes.md"
+  migration_guide: "migration-guide.md"
+distribution:
+  profile_id: "dotnet-backend"
+  package_id: "ai-context-dotnet-backend-v0.4.0"
+  schema_versions:
+    package: "1.0.0"
+    files: "1.0.0"
+    migration: "1.0.0"
+  artifacts:
+    zip: "ai-context-dotnet-backend-v0.4.0.zip"
+    zip_checksum: "ai-context-dotnet-backend-v0.4.0.zip.sha256"
+    tar_gz: "ai-context-dotnet-backend-v0.4.0.tar.gz"
+    tar_gz_checksum: "ai-context-dotnet-backend-v0.4.0.tar.gz.sha256"
+  migration:
+    default_mode: "dry-run"
+    apply_requires_clean_worktree: true
+    apply_requires_acknowledged_reconciliation: true
+  publication:
+    tag_owner: "user"
+    trigger: "user-created-tag"
+    automation: "github-actions"
+    creates_or_moves_tag: false
+validation:
+  evidence: "The v0.4.0 AI-context remediation workflow completed and independent assessment ASM-20260717-003 found no new release-blocking findings. At candidate commit 79db0d199016af5c17f0e47e1a821c9a69704633, the composed full gate passed 21/21 required checks with zero failures or advisories; focused profile, analyzer, validation, and executable BuildingBlocks tests passed; and two deterministic package builds produced byte-identical ZIP and tar.gz archives whose inventory, member checksums, external sidecars, and ZIP/tar parity validated. Merge-to-main, post-merge validation, user-created tag, hosted publication, and published-registry finalization remain pending."
+  workflow_id: "2026-07-16-v0-4-0-ai-context-remediation"
+  package_status: "validated"
+  post_merge_status: "not-run"

@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "GATE-003",
+  "workflow_id": "2026-07-16-v0-4-0-ai-context-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-17T07:34:23+08:00",
+  "updated_at": "2026-07-17T07:42:39+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["ASM-20260717-002#FVF-001"],
+  "scope": {
+    "target": "Isolate synthetic aggregate-runner fixtures from outer workflow closeout variables",
+    "files": [".ai/scripts/tests/test_fail_closed_validation.py", "plans/file-disposition-manifest.yaml"],
+    "constraints": ["Keep real COMMIT_RANGE/WORKFLOW_ID closeout validation enabled", "Make synthetic fixtures deterministic", "Permit test-specific environment overrides after isolation", "Do not weaken fail-closed counts"],
+    "non_goals": ["Change commit policy", "Remove the selected commit check", "Change shell lifecycle classifications", "Expand product scope"]
+  },
+  "execution": {
+    "steps": ["Reproduce the composed-gate failure", "Remove closeout-only variables from the synthetic fixture base environment", "Run focused tests with outer closeout variables", "Run the full composed gate"],
+    "validation": ["Fail-closed runner tests with COMMIT_RANGE/WORKFLOW_ID", "Full gate with COMMIT_RANGE/WORKFLOW_ID", "Commit range", "Disposition validator"],
+    "last_completed_step": "Isolated the synthetic runner and passed the composed full closeout gate.",
+    "next_action": "Request final independent verification before closing VERIFY-001."
+  },
+  "results": {
+    "summary": "Synthetic runner fixtures now discard outer COMMIT_RANGE and WORKFLOW_ID unless a test explicitly supplies them, while the real outer gate still validates the selected workflow range.",
+    "files_changed": [".ai/scripts/tests/test_fail_closed_validation.py", "plans/file-disposition-manifest.yaml"],
+    "tests_run": ["Fail-closed runner suite passed 18/18 with closeout variables exported", "Full composed gate passed 21/21 required checks with zero advisories", "Selected workflow range passed 33 first-parent commits inside the full gate", "File-disposition validation passed"],
+    "finding_status": "resolved and independently verified by ASM-20260717-003",
+    "residual_risk": "Other future synthetic fixtures must continue to control optional outer environment inputs explicitly.",
+    "follow_up_needed": false
+  }
+}

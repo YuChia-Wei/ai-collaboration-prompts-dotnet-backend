@@ -1,5 +1,5 @@
 schema_version: "1.0"
-updated_at: "2026-07-13T23:22:03+08:00"
+updated_at: "2026-07-16T22:19:34+08:00"
 rules:
   - rule_id: ASSESSMENT-ARTIFACT-001
     domain: durable-assessment
@@ -57,6 +57,35 @@ rules:
       - .ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md
       - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
     status: active
+  - rule_id: TECH-SELECT-001
+    domain: technology-selection
+    strength: invariant
+    canonical_path: .dev/standards/TECHNOLOGY-SELECTION-POLICY.md
+    canonical_anchor: "## Selection Record"
+    scope: universal
+    applicability: a target records or overrides a framework technology choice
+    override_policy: forbidden
+    decision_evidence: null
+    derived_consumers:
+      - .ai/assets/skills/repo-structure-sync/references/scan-playbook.md
+      - .ai/assets/skills/repo-structure-sync/references/document-targets.md
+    status: active
+  - rule_id: TEST-MOCK-001
+    domain: testing
+    strength: profile-default
+    canonical_path: .dev/standards/coding-standards/test-standards.md
+    canonical_anchor: "### 6. Mocking Library Selection"
+    scope: dotnet-backend
+    applicability: dotnet-backend profile is adopted and tests require a mocking library
+    override_policy: explicit-target-decision
+    decision_evidence:
+      - .dev/project-config.yaml technologySelections slot testing.mocking
+      - target repository test packages and configuration
+      - target repository collaboration or technology requirements
+    derived_consumers:
+      - .ai/assets/tech-stacks/dotnet-backend/shared/testing-strategy.md
+      - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
+    status: active
   - rule_id: ARCH-UOW-001
     domain: aggregate-transaction-boundary
     strength: profile-default
@@ -83,15 +112,58 @@ rules:
     derived_consumers:
       - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
     status: active
-  - rule_id: DELETE-SOFT-001
-    domain: deletion
+  - rule_id: AGGREGATE-ES-001
+    domain: event-sourced-aggregate
     strength: conditional
-    canonical_path: .dev/standards/coding-standards/aggregate-standards.md
-    canonical_anchor: "### 0. Soft-Delete Field Requirement"
+    canonical_path: .dev/standards/BUILDING-BLOCKS-RECONSTRUCTION-CONTRACT.md
+    canonical_anchor: "## Optional `EsAggregateRoot<TId>` Behavior Contract"
     scope: dotnet-backend
-    applicability: target repository explicitly adopts aggregate soft deletion
+    applicability: target Aggregate selects Event Sourcing
     override_policy: not-applicable
     decision_evidence:
+      - target Aggregate architecture or persistence profile
+    derived_consumers:
+      - .dev/standards/coding-standards/aggregate-standards.md
+      - .ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD
+      - .ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD
+    status: active
+  - rule_id: CONTRACT-SEMANTICS-001
+    domain: design-by-contract
+    strength: invariant
+    canonical_path: .dev/standards/DESIGN-BY-CONTRACT.md
+    canonical_anchor: "## Contract Categories"
+    scope: dotnet-backend
+    applicability: Domain or Application behavior declares preconditions, postconditions, or invariants
+    override_policy: forbidden
+    decision_evidence: null
+    derived_consumers:
+      - .dev/standards/coding-standards/aggregate-standards.md
+      - .dev/standards/coding-standards/test-standards.md
+    status: active
+  - rule_id: PROJECT-GRAMMAR-001
+    domain: solution-navigation
+    strength: profile-default
+    canonical_path: .dev/standards/project-structure.md
+    canonical_anchor: "### Workload Mapping"
+    scope: dotnet-backend
+    applicability: target adopts the conditional .slnx project-structure profile
+    override_policy: explicit-target-decision
+    decision_evidence:
+      - target repository project configuration or architecture decision
+    derived_consumers:
+      - .ai/assets/tech-stacks/dotnet-backend/shared/architecture-config.md
+      - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
+    status: active
+  - rule_id: DELETE-SOFT-001
+    domain: deletion
+    strength: profile-default
+    canonical_path: .dev/standards/coding-standards/aggregate-standards.md
+    canonical_anchor: "### 0. Soft-Delete Default Profile"
+    scope: dotnet-backend
+    applicability: dotnet-backend Aggregate Repository profile is adopted unless the target explicitly opts out
+    override_policy: explicit-target-decision
+    decision_evidence:
+      - .dev/project-config.yaml architecture capability selection
       - target repository requirements or architecture decision
     derived_consumers:
       - .ai/assets/tech-stacks/dotnet-backend/shared/common-rules.md
