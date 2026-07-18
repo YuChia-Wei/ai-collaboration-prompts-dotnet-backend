@@ -1,0 +1,29 @@
+schema_version: "1.0"
+backlog_id: "SKILL-001"
+title: "AI Context Skill Family Taxonomy And Init Rename"
+category: "ai-context-governance"
+status: "planned"
+priority: "MEDIUM"
+summary: "Introduce an AI context lifecycle family, transition repo-structure-sync to ai-context-init through a deprecated compatibility entry, and group development skills by lifecycle role without cosmetic bulk renames."
+created_at: "2026-07-18T14:53:16+08:00"
+updated_at: "2026-07-18T14:53:16+08:00"
+release:
+  target: "v0.6.0"
+  completed_in: null
+  published_in: null
+  target_scope: "taxonomy-and-compatible-identifier-transition"
+origin_refs:
+  - ".dev/backlog/ROADMAP.md#release-horizons"
+  - ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow-plan.md#v060--skill-family-taxonomy-and-compatibility-transition"
+recommended_owner_skill: "ai-context-governance"
+handoff_condition: "After v0.5.0 governance contracts stabilize, create a dedicated workflow that defines deprecation metadata and validation before changing canonical identifiers, wrappers, paths, distribution, or provenance behavior."
+workflow_refs: []
+task_refs:
+  - ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/tasks/ROADMAP-003.json"
+resolution_ref: null
+decision_needed: "Approve the v0.6.0 compatibility contract and decide in a later release whether evidence supports retiring the repo-structure-sync entry."
+compatibility_boundaries:
+  - "v0.6.0 introduces ai-context-init as the active name and retains repo-structure-sync as a thin deprecated compatibility entry."
+  - "Historical initialized_by, generatedBy, workflow, assessment, and release provenance remains unchanged."
+  - "v0.7.0 removal is conditional on downstream migration evidence and is not pre-committed."
+  - "Development skills are grouped by lifecycle role before any further rename is considered."

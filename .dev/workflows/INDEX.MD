@@ -15,6 +15,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-18-post-v0-4-roadmap-planning`](2026-07-18-post-v0-4-roadmap-planning/workflow.yaml) | Post-v0.4.0 Version And Skill Taxonomy Roadmap Planning | `ai-context-governance` | `completed` | `2026-07-18T14:53:16+08:00` | [plan](2026-07-18-post-v0-4-roadmap-planning/workflow-plan.md) |
 | [`2026-07-17-v0-4-0-release-publication`](2026-07-17-v0-4-0-release-publication/workflow.yaml) | Publish And Finalize v0.4.0 | `ai-context-governance` | `completed` | `2026-07-17T08:12:09+08:00` | [plan](2026-07-17-v0-4-0-release-publication/workflow-plan.md) |
 | [`2026-07-15-v0-3-0-release-finalization`](2026-07-15-v0-3-0-release-finalization/workflow.yaml) | Finalize Published v0.3.0 Release Registry | `ai-context-governance` | `completed` | `2026-07-15T19:35:37+08:00` | [plan](2026-07-15-v0-3-0-release-finalization/workflow-plan.md) |
 | [`2026-07-15-v0-0-1-retrospective-governance`](2026-07-15-v0-0-1-retrospective-governance/workflow.yaml) | Govern Retrospective v0.0.1 Identity And v0.3.0 Upgrade Path | `ai-context-governance` | `completed` | `2026-07-15T09:12:33+08:00` | [plan](2026-07-15-v0-0-1-retrospective-governance/workflow-plan.md) |

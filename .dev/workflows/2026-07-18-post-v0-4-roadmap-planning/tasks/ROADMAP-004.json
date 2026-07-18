@@ -1,0 +1,81 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ROADMAP-004",
+  "workflow_id": "2026-07-18-post-v0-4-roadmap-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T14:19:06+08:00",
+  "updated_at": "2026-07-18T14:53:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Durable predecessor ordering and compact backlog roadmap promotion",
+    "files": [
+      ".dev/assessments/ASM-20260717-004/assessment.yaml",
+      ".dev/assessments/ASM-20260717-004/provenance-addendum.md",
+      ".dev/assessments/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/plans/**",
+      ".dev/backlog/INDEX.MD",
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Do not rewrite the final assessment report or finding conclusions",
+      "Keep task-level execution progress in child workflows",
+      "Make the backlog roadmap the compact discovery entry",
+      "Preserve assessment-before-workflow Git history"
+    ],
+    "non_goals": [
+      "Remediation execution",
+      "Release candidate creation",
+      "Backlog task duplication"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Commit and index ASM-20260717-004 on its dedicated assessment branch",
+      "Rebase the unpushed planning commit onto the assessment commit",
+      "Create .dev/backlog/ROADMAP.md with release-level state and activation gates",
+      "Move the independently authored Fable 5 plan to .dev/backlog/plans/ and record the historical assessment provenance addendum",
+      "Add reciprocal assessment, backlog, and workflow references",
+      "Validate assessment, backlog, workflow, context, and Git history"
+    ],
+    "validation": [
+      "Assessment artifact validator",
+      "Workflow artifact and backlog validator",
+      "AI context validator",
+      "Git commit policy validator",
+      "Task JSON parsing",
+      "git diff --check"
+    ],
+    "last_completed_step": "Promoted the compact roadmap into .dev/backlog/ROADMAP.md, corrected the historical assessment provenance, moved the independent plan to .dev/backlog/plans/, and repaired durable predecessor ordering and references.",
+    "next_action": "Read .dev/backlog/ROADMAP.md and confirm the exact subject commit for successor assessment formalization."
+  },
+  "results": {
+    "summary": "ASM-20260717-004 now precedes the planning workflow in Git history as a historical assessment, the independent Fable 5 plan is retained under .dev/backlog/plans/, and .dev/backlog/ROADMAP.md is the compact cross-session roadmap source while workflow details remain the decision record.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260717-004/assessment.yaml",
+      ".dev/assessments/ASM-20260717-004/provenance-addendum.md",
+      ".dev/assessments/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/plans/**",
+      ".dev/backlog/INDEX.MD",
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "Assessment artifact validation passed for 7 assessments",
+      "Workflow artifact validation passed for 19 post-adoption workflows, 39 indexed workflow directories, and 11 backlog items",
+      "AI context validation passed",
+      "All six task JSON files parsed",
+      "git diff --check passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The independent v0.4.0 planning source still lacks an exact immutable subject commit; the roadmap gates remediation on a governed successor assessment rather than an automatic full re-audit.",
+    "follow_up_needed": true
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ROADMAP-001",
+  "workflow_id": "2026-07-18-post-v0-4-roadmap-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T14:19:06+08:00",
+  "updated_at": "2026-07-18T14:53:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260717-004#AIC-001",
+    "ASM-20260717-004#AIC-002",
+    "ASM-20260717-004#AIC-003",
+    "ASM-20260717-004#AIC-004",
+    "ASM-20260717-004#AIC-005",
+    "ASM-20260717-004#AIC-007"
+  ],
+  "scope": {
+    "target": "Planning-input freshness and SemVer classification",
+    "files": [
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
+    ],
+    "constraints": [
+      "Treat ASM-20260717-004 as a durable roadmap predecessor, not an authoritative post-v0.4.0 remediation baseline",
+      "Verify graph-discovered candidates against direct repository files",
+      "Do not remediate findings"
+    ],
+    "non_goals": [
+      "Assessment modification",
+      "Release implementation",
+      "Tag or publication work"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Inspect the historical assessment locator and report separately from the independently authored roadmap source",
+      "Compare the assessment subject revision with the published v0.4.0 and current main revisions",
+      "Classify proposed work against the repository SemVer policy",
+      "Record the fresh-baseline activation gate"
+    ],
+    "validation": [
+      "Direct file-backed policy inspection",
+      "Git base and untracked-state inspection",
+      "Codebase Memory exclusion comparison"
+    ],
+    "last_completed_step": "Recorded the assessment provenance limitation and patch-versus-minor classification gates.",
+    "next_action": "Confirm the exact v0.4.0 commit used by Claude Fable 5 and establish a governed successor assessment from the independent plan and reproducible evidence before remediation."
+  },
+  "results": {
+    "summary": "The historical assessment and independently authored Fable 5 plan are separate durable planning inputs. The plan is substantively suitable to seed a successor assessment once its exact subject, scope, method, and evidence are governed; a full re-audit is not automatically required.",
+    "files_changed": [
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
+    ],
+    "tests_run": [
+      "Direct evidence review completed",
+      "Graph-versus-file inventory comparison completed",
+      "Assessment artifact validation passed after ASM-20260717-004 was committed and indexed"
+    ],
+    "finding_status": "deferred",
+    "residual_risk": "The exact v0.4.0 tree used for the independent plan is not yet recorded, so its claims cannot yet be reproduced against one immutable assessment subject.",
+    "follow_up_needed": true
+  }
+}

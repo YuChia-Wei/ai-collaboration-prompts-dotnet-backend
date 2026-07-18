@@ -1,0 +1,72 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ROADMAP-006",
+  "workflow_id": "2026-07-18-post-v0-4-roadmap-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T14:53:16+08:00",
+  "updated_at": "2026-07-18T14:53:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "ASM-20260717-004 provenance clarification and independent planning-source ownership",
+    "files": [
+      ".dev/assessments/ASM-20260717-004/assessment.yaml",
+      ".dev/assessments/ASM-20260717-004/provenance-addendum.md",
+      ".dev/backlog/plans/**",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
+    ],
+    "constraints": [
+      "Do not rewrite the final assessment report or findings",
+      "Preserve the historical assessment subject",
+      "Do not reclassify a planning document as an assessment",
+      "Keep the independent source plan discoverable from the active roadmap"
+    ],
+    "non_goals": [
+      "Successor assessment creation",
+      "Re-auditing the repository",
+      "Remediation implementation"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Record the repository owner's provenance clarification as an addendum",
+      "Move the independently authored Fable 5 plan from the assessment directory to .dev/backlog/plans/",
+      "Update the roadmap and workflow to treat the assessment and plan as separate inputs",
+      "Preserve the exact-commit gate for successor assessment formalization"
+    ],
+    "validation": [
+      "Assessment artifact validator",
+      "Workflow artifact and backlog validator",
+      "AI context validator",
+      "Task JSON parsing",
+      "git diff --check"
+    ],
+    "last_completed_step": "Separated the historical assessment from the independently authored planning source and updated all active planning references.",
+    "next_action": "Confirm the exact v0.4.0 commit analyzed by Claude Fable 5 before creating the successor assessment."
+  },
+  "results": {
+    "summary": "ASM-20260717-004 remains a historical assessment, while the Fable 5 plan is retained as an independent backlog planning source that may seed but does not itself constitute a successor assessment.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260717-004/assessment.yaml",
+      ".dev/assessments/ASM-20260717-004/provenance-addendum.md",
+      ".dev/backlog/plans/**",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
+    ],
+    "tests_run": [
+      "Assessment artifact validation passed for 7 assessments",
+      "Workflow artifact validation passed for 19 post-adoption workflows, 39 indexed workflow directories, and 11 backlog items",
+      "AI context validation passed",
+      "All six task JSON files parsed",
+      "git diff --check passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The exact immutable v0.4.0-era commit analyzed by Claude Fable 5 remains unrecorded.",
+    "follow_up_needed": true
+  }
+}

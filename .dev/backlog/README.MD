@@ -6,6 +6,11 @@ any single workflow. It is not a second workflow engine.
 ## Ownership Boundary
 
 - `INDEX.MD` owns the backlog catalog and current item state.
+- `ROADMAP.md` owns the active cross-release horizon, release-level state,
+  activation gates, and workflow handoffs. It does not duplicate child workflow
+  tasks or validation evidence.
+- `plans/` preserves durable source plans that informed the roadmap. Those
+  sources are not assessment artifacts and do not own live release state.
 - `items/<item-id>.yaml` owns the problem, priority, origin, acceptance boundary,
   and workflow handoff for one durable item.
 - `.dev/assessments/<assessment-id>/` owns durable observations and finding
@@ -32,3 +37,25 @@ in backlog items.
   remain traceable without copying workflow progress.
 - Reference assessment findings as `<assessment-id>#<finding-id>` in
   `origin_refs`; do not copy the full assessment report into a backlog item.
+
+## Release Metadata
+
+Every backlog item records:
+
+```yaml
+release:
+  target: "v0.5.0"   # or "unassigned"
+  completed_in: null # set when the item reaches resolved
+  published_in: null # set to the first release tag containing the resolution
+```
+
+- `target` is the release expected to complete the item's declared scope. Use
+  `unassigned` instead of guessing.
+- `completed_in` identifies the release train that accepted the completed work.
+- `published_in` identifies the first immutable published version containing the
+  resolution. It may remain `null` between completion and publication.
+- A resolved item must set `completed_in`.
+- When `published_in` is set, preserve Git ancestry evidence in the item when
+  available.
+- Roadmap-level horizons remain in `ROADMAP.md`; do not create a synthetic
+  backlog item merely to represent the roadmap.
