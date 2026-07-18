@@ -19,6 +19,12 @@ PATH_REFERENCE = re.compile(r"`([^`\n]+)`|\]\(([^)\s]+)\)")
 ACTIVE_SCRIPT_REFERENCE = re.compile(
     r"(?<![A-Za-z0-9_.-])(?:\./)?(?P<path>\.ai/scripts/[A-Za-z0-9._/-]+\.(?:py|sh))"
 )
+SOURCE_ONLY_SCRIPT_REFERENCES = frozenset(
+    {
+        Path(".ai/scripts/tests/test_ai_context_packaging.py"),
+        Path(".ai/scripts/tests/test_ai_context_version_governance.py"),
+    }
+)
 ACTIVE_RUNTIME_ROOTS = (Path(".agents/skills"), Path(".claude/skills"))
 PLANNED_RUNTIME_ROOTS = (
     Path(".github/prompts"),
@@ -188,6 +194,11 @@ def validate_active_script_references(
     files: list[Path], errors: list[str], root: Path = ROOT
 ) -> None:
     """Reject active AI-context commands that point to missing local scripts."""
+    source_release_context = (
+        (root / ".dev/releases").is_dir()
+        and (root / ".ai/distribution").is_dir()
+        and (root / ".ai/scripts/ai_context_package.py").is_file()
+    )
     indexes = set(active_indexes(files))
     active_files = [
         path
@@ -202,6 +213,11 @@ def validate_active_script_references(
             for match in ACTIVE_SCRIPT_REFERENCE.finditer(line):
                 script_path = Path(match.group("path"))
                 if not (root / script_path).is_file():
+                    if (
+                        script_path in SOURCE_ONLY_SCRIPT_REFERENCES
+                        and not source_release_context
+                    ):
+                        continue
                     errors.append(
                         f"{source}:{line_number}: active script reference does not exist: "
                         f"{script_path.as_posix()}"
