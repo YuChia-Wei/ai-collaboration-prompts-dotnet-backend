@@ -6,9 +6,9 @@
   "task_id": "REL041-001",
   "workflow_id": "2026-07-18-v0-4-1-release-publication",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-18T23:25:13+08:00",
-  "updated_at": "2026-07-18T23:25:13+08:00",
+  "updated_at": "2026-07-18T23:34:24+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL041-TAGGED-TREE-READINESS"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Commit workflow bootstrap", "Run full source gate", "Build and compare packages twice", "Record readiness evidence"],
     "validation": ["check-all.sh --full", "validate-ai-context-versions.py", "two deterministic package builds", "archive parity and checksum validation"],
-    "last_completed_step": "Created the publication workflow from pushed main f68e85aff5511fcc59b52bcd90b3ee7337da5ee8.",
-    "next_action": "Commit the bootstrap, then run final immutable-tree validation."
+    "last_completed_step": "Validated commit bc99a795e9d6f23e1dd1e70ff3da83c9a9de1161 with the full source gate and two byte-identical package builds.",
+    "next_action": "Integrate the evidence to main and continue with REL041-002."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "The final tag candidate has not yet been built or validated from this publication branch.",
-    "follow_up_needed": true
+    "summary": "The immutable publication-preparation commit passed the 21/21 full gate, version validation, archive validation, and two byte-identical v0.4.1 builds based on the published v0.3.0 files manifest.",
+    "files_changed": [".dev/workflows/2026-07-18-v0-4-1-release-publication/**", ".dev/workflows/INDEX.MD"],
+    "tests_run": [".ai/scripts/check-all.sh --full (21/21 passed)", "build-ai-context-package.py twice from bc99a795e9d6f23e1dd1e70ff3da83c9a9de1161", "validate-ai-context-package.py (passed)", "ZIP SHA-256 030a94df60c923917e265c0f90d7921d830d8d1bb2f487c3c5d345128a03703f", "tar.gz SHA-256 c8d0cdda3a08c89df546aefa34ac47d658379a3473926320e819690f80352cfe"],
+    "finding_status": "addressed",
+    "residual_risk": "The final main merge commit still requires the same validation before tag creation.",
+    "follow_up_needed": false
   }
 }
