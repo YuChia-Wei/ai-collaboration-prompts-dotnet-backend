@@ -2,6 +2,12 @@
 
 This index is the discovery view for framework releases. Each version's `release.yaml` is its lifecycle source of truth.
 
+## Planned Releases
+
+| Release ID | Version | Status | Compatibility | Notes | Migration |
+| --- | --- | --- | --- | --- | --- |
+| [`REL-v0.4.1`](v0.4.1/release.yaml) | `v0.4.1` | `planned` | governed package patch; automatic source v0.3.0; v0.4.0 consumers should wait for v0.5.0 | [notes](v0.4.1/release-notes.md) | [guide](v0.4.1/migration-guide.md) |
+
 ## Published Releases
 
 | Release ID | Version | Published commit | Compatibility | Notes | Migration |

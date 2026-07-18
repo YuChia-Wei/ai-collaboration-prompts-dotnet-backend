@@ -36,7 +36,7 @@
 - Remediation report: `reports/remediation-report.md`
 - Verification assessment: pending; create a successor `ASM-YYYYMMDD-NNN` with `ai-context-auditor` after implementation
 - Tasks: `tasks/`
-- Backlog: `.dev/backlog/items/PKG-001.yaml`, `.dev/backlog/items/PKG-002.yaml`
+- Backlog: `.dev/backlog/items/PKG-001.yaml`, `.dev/backlog/items/PKG-002.yaml`, `.dev/backlog/items/PKG-003.yaml`
 
 ## Roadmap Reordering Decision
 

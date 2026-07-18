@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.4.1` | `active` | Resolve `PKG-001` and `PKG-002` as release blockers in the active downstream-upgrade remediation workflow. | 2026-07-18 |
+| [ROADMAP.md](ROADMAP.md) | `v0.4.1` | `active` | Validate and publish focused `PKG-001`/`PKG-002`; activate the complete deferred correction set in required v0.4.2. | 2026-07-18 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -16,7 +16,8 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- |
-| [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.1; add the governance and validator contract in v0.5.0 before v0.6.0 taxonomy work. | 2026-07-18 |
+| [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | Introduce a governed multi-source direct-upgrade contract and prove v0.3.0, v0.4.0, and v0.4.1 paths. | Design a new migration contract; retain dotnet-mq-arch-lab on v0.4.0 as the direct-upgrade acceptance target. | 2026-07-18 |
+| [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.2; add the governance and validator contract in v0.5.0 before v0.6.0 taxonomy work. | 2026-07-18 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | Introduce AI context lifecycle taxonomy and transition `repo-structure-sync` to `ai-context-init` with compatibility. | Stabilize v0.5.0 governance, then design deprecation metadata and validation before renaming. | 2026-07-18 |
 | [OBS-001](items/OBS-001.yaml) | MEDIUM | `unassigned` | Design the reusable CrossCutting Observability and attribute/AOP boundary. | Open a separate architecture workflow; keep it outside the current assessment-remediation verification baseline. | 2026-07-18 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | Verify hosted Linux behavior and consider manifest-driven runner execution. | Decide Linux verification, runner redesign, both, or defer. | 2026-07-18 |

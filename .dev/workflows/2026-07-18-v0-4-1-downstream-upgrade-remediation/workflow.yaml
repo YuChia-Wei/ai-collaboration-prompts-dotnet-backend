@@ -23,6 +23,7 @@ template_version: "1.2.0"
 backlog_refs:
   - ".dev/backlog/items/PKG-001.yaml"
   - ".dev/backlog/items/PKG-002.yaml"
+  - ".dev/backlog/items/PKG-003.yaml"
 external_evidence:
   repository: "C:/Github/YuChia/dotnet-mq-arch-lab"
   commit: "2eeddf392ca79deb4407c47d13ad53178015ba90"
