@@ -1,0 +1,57 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V041-003",
+  "workflow_id": "2026-07-18-v0-4-1-downstream-upgrade-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-18T21:39:19+08:00",
+  "updated_at": "2026-07-18T21:39:19+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["PKG-002"],
+  "scope": {
+    "target": "Source-only versus downstream-packaged test applicability contract",
+    "files": [
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/scripts/README.md",
+      ".ai/scripts/tests/**"
+    ],
+    "constraints": [
+      "Keep source release and builder tests required in the source repository",
+      "Keep applicable target manifest and safe-apply checks packaged",
+      "Do not require excluded source release records, tags, or builder modules downstream"
+    ],
+    "non_goals": [
+      "Redesign the full runner",
+      "Add general governance CI",
+      "Modify a downstream runner"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Inventory every required command and its packaged dependencies",
+      "Classify source-only and downstream-supported tests explicitly",
+      "Correct profile, runner projection, and packaged README",
+      "Add extracted-package positive and missing-dependency negative fixtures"
+    ],
+    "validation": [
+      "Source full gate retains release/package-builder coverage",
+      "Extracted downstream required gate passes",
+      "Profile inventory proves every selected command dependency is present"
+    ],
+    "last_completed_step": "",
+    "next_action": "Begin only after V041-002 establishes the candidate package shape."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Downstream packages still advertise and may select impossible source-only checks.",
+    "follow_up_needed": true
+  }
+}

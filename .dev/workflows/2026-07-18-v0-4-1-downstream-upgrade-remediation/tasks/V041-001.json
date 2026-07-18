@@ -1,0 +1,71 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V041-001",
+  "workflow_id": "2026-07-18-v0-4-1-downstream-upgrade-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T21:39:19+08:00",
+  "updated_at": "2026-07-18T21:39:19+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["PKG-001", "PKG-002"],
+  "scope": {
+    "target": "Downstream evidence intake, backlog registration, roadmap reordering, and durable implementation handoff",
+    "files": [
+      ".dev/backlog/**",
+      ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Do not modify the downstream repository",
+      "Do not implement package fixes in the planning session",
+      "Preserve external evidence identity and distinguish it from a local assessment"
+    ],
+    "non_goals": [
+      "Publish v0.4.1",
+      "Merge the workflow",
+      "Start unrelated v0.4.1 content corrections"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Pin downstream commits, assessment, workflow, observed operations, and validation results",
+      "Create HIGH/P0 backlog items with v0.4.1 acceptance criteria",
+      "Activate the remediation workflow",
+      "Reorder the live roadmap and indexes",
+      "Create a draft remediation report and exact resume checkpoint"
+    ],
+    "validation": [
+      "Parse all new task JSON",
+      "Run workflow artifact validation",
+      "Run AI-context validation",
+      "Run backlog release-contract tests",
+      "Run git diff --check"
+    ],
+    "last_completed_step": "Created the durable evidence, backlog, roadmap, workflow, task, and draft remediation-report handoff set.",
+    "next_action": "Commit the validated planning checkpoint, then resume V041-002 in a new source-repository session."
+  },
+  "results": {
+    "summary": "Promoted two proven downstream package failures to HIGH/P0 v0.4.1 blockers and reordered the active remediation flow around them.",
+    "files_changed": [
+      ".dev/backlog/items/PKG-001.yaml",
+      ".dev/backlog/items/PKG-002.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/INDEX.MD",
+      ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/**"
+    ],
+    "tests_run": [
+      "workflow artifact validation",
+      "AI-context validation",
+      "backlog release-contract tests",
+      "JSON parse",
+      "git diff --check"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Both productized package defects remain fully present until V041-002 and V041-003 are implemented and independently verified.",
+    "follow_up_needed": true
+  }
+}

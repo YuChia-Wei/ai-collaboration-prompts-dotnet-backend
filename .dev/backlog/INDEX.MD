@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.4.1` | `active` | Confirm the exact v0.4.0 commit analyzed by Claude Fable 5 and establish a governed successor assessment from the independent plan. | 2026-07-18 |
+| [ROADMAP.md](ROADMAP.md) | `v0.4.1` | `active` | Resolve `PKG-001` and `PKG-002` as release blockers in the active downstream-upgrade remediation workflow. | 2026-07-18 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -27,7 +27,10 @@ roadmap but do not replace it or a governed assessment.
 
 ## In Progress
 
-No durable backlog item is currently in progress.
+| Item | Priority | Target Release | Summary | Active Workflow | Updated |
+| --- | --- | --- | --- | --- | --- |
+| [PKG-001](items/PKG-001.yaml) | HIGH / P0 | `v0.4.1` | Publish executable version-to-version migration metadata for every declared governed source. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | 2026-07-18 |
+| [PKG-002](items/PKG-002.yaml) | HIGH / P0 | `v0.4.1` | Separate source-release tests from downstream package documentation and required gates. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | 2026-07-18 |
 
 ## Resolved
 

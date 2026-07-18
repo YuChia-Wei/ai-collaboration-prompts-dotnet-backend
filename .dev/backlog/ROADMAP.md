@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.4.1`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-18T20:15:59+08:00`
+- `updated_at`: `2026-07-18T21:39:19+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -24,7 +24,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 
 | Version | State | Required | Objective | Activation Gate | Workflow |
 | --- | --- | --- | --- | --- | --- |
-| `v0.4.1` | `planned` | yes | Correct published-context defects and reproducibility gaps without changing public contracts or removing published paths. | Confirm the exact v0.4.0 commit analyzed by Claude Fable 5, establish a governed successor assessment from the independent plan and reproducible evidence, and pass patch-impact classification. | not created |
+| `v0.4.1` | `in_progress` | yes | First restore the published package upgrade and downstream-validation contracts, then complete remaining contract-preserving correctness fixes without removing published paths. | Resolve and independently verify `PKG-001` and `PKG-002`; stop for reclassification if either requires a new schema, required contract, or published-path removal. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) |
 | `v0.4.2` | `conditional` | no | Ship a remaining contract-preserving portability defect only if v0.5.0 is materially delayed. | A qualifying defect remains after v0.4.1 and adds no validation route, schema, removal, or required-gate semantic change. | not created |
 | `v0.5.0` | `planned` | yes | Institutionalize governance enforcement, CI, validation contracts, selective sub-agent adapter promotion, policy decisions, and published-path retirement with migration evidence. | Complete v0.4.1 and approve policy, template, CI, sub-agent adapter, and migration decisions. | not created |
 | `v0.6.0` | `planned` | yes | Introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry. | Stabilize v0.5.0 governance and sub-agent adapter contracts, then design deprecated-replacement validation. | not created |
@@ -32,28 +32,32 @@ Read this file before planning or resuming a post-v0.4.0 release.
 
 ## Current Gate
 
-The historical assessment and the independently authored Fable 5 plan are two
-different inputs:
+The first governed downstream v0.4.0 upgrade supplied newer and more direct
+release evidence than the earlier planning source:
 
-1. `ASM-20260717-004/assessment.yaml` and `report.md` identify the earlier
-   `82b88b7287deb7a64e0311fde6b1b53ea0d194b1` subject and remain a historical
-   assessment.
-2. `.dev/backlog/plans/post-v0.4.0-improvement-plan.md` was authored separately
-   by Claude Fable 5 against the v0.4.0-era repository and was only later placed
-   manually in the assessment directory. It is a planning source, not an
-   assessment artifact.
-3. Confirm whether the analyzed tree was the annotated `v0.4.0` tag commit
-   `5af1db672928f9d51f55fee04183ad27b79fb9f8` or a later `main` commit.
-4. Use the plan as primary input to a successor assessment, but first record an
-   immutable subject, explicit scope and method, and reproducible evidence.
-   Recheck only claims that cannot be pinned to the subject or have become
-   stale; a full audit is not required by default.
+1. `dotnet-mq-arch-lab@2eeddf392ca79deb4407c47d13ad53178015ba90`
+   completed the progressive v0.1.0 to v0.3.0 to v0.4.0 upgrade and retained
+   workflow plus assessment evidence.
+2. `PKG-001` proves that the published guide requires the v0.3.0 manifest while
+   the tagged builder emits a clean-install-only `migration.yaml`; this blocks
+   the advertised upgrade path.
+3. `PKG-002` proves that the package includes and selects source-release tests
+   whose Git history, release registry, or builder module is excluded
+   downstream.
+4. Both are patch-compatible defect corrections unless implementation requires
+   a new schema, new required validation contract, or published-path removal.
+   Such expansion must stop for v0.5.0 reclassification.
+5. The historical assessment and independent Fable 5 plan remain valid planning
+   inputs, but their general content corrections no longer precede these
+   observed release failures.
 
 ## Backlog Release Targets
 
 The backlog index is the quick catalog for target, completion, and publication
 versions. Current assignments:
 
+- `v0.4.1`: `PKG-001` and `PKG-002` are HIGH/P0 release blockers in the active
+  downstream-upgrade remediation workflow.
 - `v0.5.0`: `SAG-001`, `TOOL-001`, `LANG-001`, `GOV-001`, `CAP-001`, and `VAL-001`
   for their declared decision, inventory, or remediation scope.
 - `v0.6.0`: `SKILL-001` for the taxonomy and compatible
@@ -77,8 +81,10 @@ versions. Current assignments:
 
 ## Next Action
 
-Confirm the exact v0.4.0 subject commit used by Claude Fable 5, establish a
-governed successor assessment using the independent plan and reproducible
-evidence, then create the bounded v0.4.1 remediation workflow. During patch
-selection, include only the `SAG-001` routing/catalog correction; keep the
-adapter contract and validation work gated for `v0.5.0`.
+Resume
+[`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml)
+on its recorded branch. Implement `PKG-001` first, validate a real extracted
+v0.3.0-to-v0.4.1 package upgrade, then implement `PKG-002` and prove that the
+downstream required gate contains only package-applicable checks. Reassess the
+remaining v0.4.1 content candidates only after both release blockers pass
+independent verification.
