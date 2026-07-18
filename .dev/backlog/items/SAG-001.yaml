@@ -6,7 +6,7 @@ status: "planned"
 priority: "MEDIUM"
 summary: "Define when a canonical delegated role remains dynamically loaded versus receiving runtime-native adapters, close context-translator discovery drift, and validate declared adapter parity without bulk-generating wrappers."
 created_at: "2026-07-18T20:15:59+08:00"
-updated_at: "2026-07-18T20:15:59+08:00"
+updated_at: "2026-07-18T22:58:51+08:00"
 release:
   target: "v0.5.0"
   completed_in: null
@@ -19,7 +19,7 @@ origin_refs:
   - ".dev/backlog/plans/post-v0.4.0-improvement-plan.md"
   - ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/workflow-plan.md"
 recommended_owner_skill: "ai-context-governance"
-handoff_condition: "Use v0.4.1 only for the existing context-translator routing/catalog correction; after v0.4.1 closes, open a dedicated v0.5.0 workflow for schema, validator, packaging, and selective promotion decisions."
+handoff_condition: "Use v0.4.2 only for the existing context-translator routing/catalog correction; after v0.4.2 closes, open a dedicated v0.5.0 workflow for schema, validator, packaging, and selective promotion decisions."
 workflow_refs:
   - ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/workflow.yaml"
 task_refs:
@@ -31,7 +31,7 @@ related_backlog_refs:
   - "SKILL-001"
 roadmap_timing:
   patch_candidate:
-    version: "v0.4.1"
+    version: "v0.4.2"
     scope: "Add context-translator to active routing and related catalogs without changing adapter behavior or schema."
   target:
     version: "v0.5.0"

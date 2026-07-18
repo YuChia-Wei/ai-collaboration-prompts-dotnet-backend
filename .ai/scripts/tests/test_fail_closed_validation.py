@@ -189,6 +189,15 @@ class SyntheticRunnerRepo:
     def remove_child(self, name: str) -> None:
         (self.scripts / name).unlink()
 
+    def enable_source_release_context(self) -> None:
+        (self.root / ".dev/releases").mkdir(parents=True)
+        (self.root / ".ai/distribution").mkdir(parents=True)
+        (self.scripts / "ai_context_package.py").write_text(
+            "# source-only package builder marker\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+
     def execute(
         self,
         *arguments: str,
@@ -319,15 +328,23 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
     def test_gwt_006_given_no_spec_inputs_when_quick_runs_then_spec_is_not_applicable(self) -> None:
         fixture = SyntheticRunnerRepo()
         try:
-            # Given both conditional spec inputs are absent.
+            # Given both conditional spec inputs and source release context are absent.
             # When quick mode reaches spec compliance.
             result = fixture.execute("--quick")
 
-            # Then spec and optional commit-range validation record N/A without failing.
+            # Then target-inapplicable checks and optional inputs record N/A without failing.
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-            self.assertIn("NOT APPLICABLE", result.stdout)
-            self.assertRegex(result.stdout, r"Not Applicable: .*2")
+            self.assertIn("source release context not packaged", result.stdout)
+            self.assertIn("source package builder not packaged", result.stdout)
+            self.assertRegex(result.stdout, r"Not Applicable: .*4")
             self.assertRegex(result.stdout, r"Required Failed: .*0")
+            self.assertFalse(
+                any(
+                    "test_ai_context_version_governance.py" in line
+                    or "test_ai_context_packaging.py" in line
+                    for line in fixture.sentinel()
+                )
+            )
         finally:
             fixture.close()
 
@@ -421,6 +438,29 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             self.assertIn("Usage:", extra.stderr)
             self.assertIn("Usage:", help_result.stdout)
             self.assertEqual([], fixture.sentinel())
+        finally:
+            fixture.close()
+
+    def test_gwt_012_given_source_release_context_when_critical_runs_then_source_tests_are_required(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the runner can prove it is executing in the source release repository.
+            fixture.enable_source_release_context()
+
+            # When the critical gate executes.
+            result = fixture.execute("--critical")
+
+            # Then both source-only suites and the downstream-safe apply suite execute.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            commands = fixture.sentinel()
+            self.assertTrue(
+                any("test_ai_context_version_governance.py -v" in line for line in commands)
+            )
+            self.assertTrue(any("test_ai_context_packaging.py -v" in line for line in commands))
+            self.assertTrue(
+                any("test_ai_context_package_apply.py -v" in line for line in commands)
+            )
+            self.assertNotIn("source release context not packaged", result.stdout)
         finally:
             fixture.close()
 

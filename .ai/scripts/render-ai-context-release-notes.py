@@ -97,6 +97,18 @@ def validate_release(root: Path, version: str, commit: str, mode: str) -> tuple[
         compatibility.get("breaking_changes"), bool
     ):
         raise ReleaseNotesError("compatibility.breaking_changes must be boolean")
+    automatic_sources = compatibility.get("automatic_upgrade_sources", [])
+    if not isinstance(automatic_sources, list) or any(
+        not isinstance(item, str) or not VERSION_RE.fullmatch(item)
+        for item in automatic_sources
+    ):
+        raise ReleaseNotesError(
+            "compatibility.automatic_upgrade_sources must contain stable versions"
+        )
+    if len(automatic_sources) > 1:
+        raise ReleaseNotesError(
+            "migration schema 1.0.0 supports at most one automatic upgrade source"
+        )
     artifacts = data.get("artifacts")
     if not isinstance(artifacts, dict):
         raise ReleaseNotesError("artifacts must be a mapping")
@@ -169,6 +181,10 @@ def main() -> int:
             "title": data["release_id"],
             "commit": commit,
             "package_id": f"ai-context-dotnet-backend-{version}",
+            "migration_source": next(
+                iter(data["compatibility"].get("automatic_upgrade_sources", [])),
+                "",
+            ),
         }
         if args.github_output:
             append_github_outputs(args.github_output, outputs)

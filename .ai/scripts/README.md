@@ -128,6 +128,15 @@ python .ai/scripts/tests/test_ai_context_package_apply.py -v
 python .ai/scripts/tests/test_ai_context_packaging.py -v
 ```
 
+`test_ai_context_version_governance.py` and
+`test_ai_context_packaging.py` are source-repository release/build tests. They
+remain required when `check-all.sh` detects source release records,
+distribution control, and the package builder, but they are intentionally
+excluded from public target packages. `test_ai_context_package_apply.py` is
+downstream-supported and remains packaged and required. A packaged
+`check-all.sh` reports the two source-only checks as not applicable instead of
+requiring unavailable release history, Git tags, or builder modules.
+
 The shell fixture suite snapshots the real checkout before and after execution.
 The wrapper-metadata fixture invokes only the bounded validator function against
 temporary wrapper directories. Neither suite may source `check-all.sh` or

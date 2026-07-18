@@ -1,0 +1,71 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V041-004",
+  "workflow_id": "2026-07-18-v0-4-1-downstream-upgrade-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T21:39:19+08:00",
+  "updated_at": "2026-07-18T23:15:10+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["PKG-001", "PKG-002"],
+  "scope": {
+    "target": "Immutable candidate validation, independent verification, and remediation closeout",
+    "files": [
+      ".dev/assessments/**",
+      ".dev/backlog/**",
+      ".dev/releases/v0.4.1/**",
+      ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Use ai-context-auditor for independent verification",
+      "Do not publish, tag, or merge without separate authorization",
+      "Keep release publication in a separate workflow"
+    ],
+    "non_goals": [
+      "GitHub Release publication",
+      "User-owned annotated tag creation",
+      "Unrelated v0.4.1 content remediation"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Validate immutable candidate package parity and real upgrade",
+      "Run source and extracted-package required gates",
+      "Create independent verification assessment",
+      "Reconcile backlog and remediation report",
+      "Close the remediation workflow and hand off publication"
+    ],
+    "validation": [
+      "Full source gate",
+      "Workflow, assessment, version, package, shell, and commit validators",
+      "Independent verification assessment",
+      "Clean Git state"
+    ],
+    "last_completed_step": "Validated the governed candidate, two immutable builds, source and extracted target gates, and independent assessment ASM-20260718-001.",
+    "next_action": "Hand the validated candidate to the separately authorized v0.4.1 release-publication workflow."
+  },
+  "results": {
+    "summary": "Candidate commit 962919b passed 21/21 source checks, 19/19 synchronized target checks, focused package validation, two byte-identical builds, and independent assessment ASM-20260718-001. PKG-001 and PKG-002 are resolved in v0.4.1; publication remains a separate workflow.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260718-001/**",
+      ".dev/backlog/**",
+      ".dev/releases/v0.4.1/**",
+      ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/**"
+    ],
+    "tests_run": [
+      ".ai/scripts/check-all.sh --full (21/21 passed)",
+      "two immutable candidate builds (byte-identical ZIP, tar.gz, and sidecars)",
+      "python .ai/scripts/validate-ai-context-package.py <zip> <tar.gz>",
+      "python .ai/scripts/validate-assessment-artifacts.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context-versions.py"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "v0.4.0 direct upgrade remains intentionally deferred to PKG-003/v0.5.0; v0.0.1 requires manual reconciliation to validated v0.3.0 provenance first.",
+    "follow_up_needed": false
+  }
+}
