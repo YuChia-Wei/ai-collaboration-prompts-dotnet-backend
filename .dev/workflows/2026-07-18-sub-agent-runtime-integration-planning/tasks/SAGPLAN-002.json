@@ -1,0 +1,77 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "SAGPLAN-002",
+  "workflow_id": "2026-07-18-sub-agent-runtime-integration-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T20:15:59+08:00",
+  "updated_at": "2026-07-18T20:15:59+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "SAG-F-001",
+    "SAG-F-002",
+    "SAG-F-003"
+  ],
+  "scope": {
+    "target": "Durable backlog and roadmap handoff",
+    "files": [
+      ".dev/backlog/items/SAG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Keep routing correction separate from new governance semantics.",
+      "Do not duplicate workflow task progress into the roadmap.",
+      "Make broad adapter generation opt-in and evidence-based."
+    ],
+    "non_goals": [
+      "Resolve SAG-001 in this planning workflow.",
+      "Change the current v0.4.1 activation gate.",
+      "Expand the v0.6.0 taxonomy scope."
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Create one backlog item with selective-promotion acceptance criteria.",
+      "Assign patch-safe discovery correction to v0.4.1 candidate selection.",
+      "Assign the adapter contract and validation work to v0.5.0.",
+      "Make v0.6.0 taxonomy depend on the stabilized contract.",
+      "Update backlog and workflow discovery indexes."
+    ],
+    "validation": [
+      "Workflow and backlog artifact validation",
+      "AI-context validation",
+      "JSON and YAML parse",
+      "git diff --check"
+    ],
+    "last_completed_step": "Persisted the backlog item, release timing, dependency, and discovery updates.",
+    "next_action": "Activate the bounded correction or governance workflow only when its roadmap gate is reached."
+  },
+  "results": {
+    "summary": "Created SAG-001 with a v0.5.0 target, recorded the v0.4.1 routing-only patch candidate, and made v0.6.0 taxonomy consume rather than redefine the adapter contract.",
+    "files_changed": [
+      ".dev/backlog/items/SAG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/workflow.yaml",
+      ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/workflow-plan.md",
+      ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/tasks/SAGPLAN-001.json",
+      ".dev/workflows/2026-07-18-sub-agent-runtime-integration-planning/tasks/SAGPLAN-002.json",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "JSON and YAML parse",
+      "git diff --check"
+    ],
+    "finding_status": "deferred",
+    "residual_risk": "The routing omission and validator blind spot remain until their version-specific execution workflows are authorized.",
+    "follow_up_needed": true
+  }
+}
