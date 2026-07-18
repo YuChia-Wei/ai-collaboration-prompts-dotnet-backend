@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "REL041-002",
+  "workflow_id": "2026-07-18-v0-4-1-release-publication",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-18T23:25:13+08:00",
+  "updated_at": "2026-07-18T23:34:24+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["REL041-HOSTED-PUBLICATION"],
+  "scope": {
+    "target": "Authorized v0.4.1 tag and hosted publication",
+    "files": ["refs/tags/v0.4.1", ".github/workflows/publish-release.yml"],
+    "constraints": ["Create one annotated immutable tag", "Push only after final main validation", "Let automation build and publish assets", "Never move or recreate the tag"],
+    "non_goals": ["Automation-created tag", "Manual unverified asset upload", "Change v0.4.0 release assets"]
+  },
+  "execution": {
+    "steps": ["Merge the validated publication branch", "Revalidate final main", "Push main", "Create and push annotated tag", "Verify hosted publication"],
+    "validation": ["tag object and peeled commit", "GitHub Actions conclusion", "GitHub Release asset set and checksums"],
+    "last_completed_step": "REL041-001 completed immutable-tree readiness validation.",
+    "next_action": "Merge the publication branch, revalidate final main, and create the authorized annotated tag."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "No immutable v0.4.1 tag or hosted release exists yet.",
+    "follow_up_needed": true
+  }
+}
