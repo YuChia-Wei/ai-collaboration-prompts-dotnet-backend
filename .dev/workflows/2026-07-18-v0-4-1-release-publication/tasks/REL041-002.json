@@ -6,9 +6,9 @@
   "task_id": "REL041-002",
   "workflow_id": "2026-07-18-v0-4-1-release-publication",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-18T23:25:13+08:00",
-  "updated_at": "2026-07-18T23:34:24+08:00",
+  "updated_at": "2026-07-18T23:47:03+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL041-HOSTED-PUBLICATION"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Merge the validated publication branch", "Revalidate final main", "Push main", "Create and push annotated tag", "Verify hosted publication"],
     "validation": ["tag object and peeled commit", "GitHub Actions conclusion", "GitHub Release asset set and checksums"],
-    "last_completed_step": "REL041-001 completed immutable-tree readiness validation.",
-    "next_action": "Merge the publication branch, revalidate final main, and create the authorized annotated tag."
+    "last_completed_step": "Pushed annotated v0.4.1, verified successful Actions run 29650583394, and validated the published four-asset set.",
+    "next_action": "Finalize trusted registry and backlog truth in REL041-003."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "No immutable v0.4.1 tag or hosted release exists yet.",
-    "follow_up_needed": true
+    "summary": "Annotated v0.4.1 resolves to the final validated main commit and GitHub Actions published the stable governed release successfully.",
+    "files_changed": ["refs/tags/v0.4.1"],
+    "tests_run": ["final tagged-tree check-all.sh --full (21/21 passed)", "two deterministic package builds", "publish-mode release-note rendering", "local and remote annotated-tag verification", "GitHub Actions run 29650583394", "published four-asset checksum and archive validation"],
+    "finding_status": "addressed",
+    "residual_risk": "None for hosted publication; trusted-registry finalization is completed in REL041-003.",
+    "follow_up_needed": false
   }
 }

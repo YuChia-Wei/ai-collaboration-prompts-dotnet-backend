@@ -2,8 +2,10 @@
 
 ## Status
 
-Validated governed patch candidate. Publication remains pending merge, final
-immutable-tree validation, and the user-authorized annotated tag.
+Published. Annotated tag `v0.4.1` resolves to
+`3daefcef1318c12d03c189f232993ccbe04665f2`. Tag-triggered automation
+successfully published the stable governed release and its ZIP, tar.gz, and
+adjacent checksum assets.
 
 ## Highlights
 
@@ -48,3 +50,24 @@ Candidate commit `962919bfa15e7dba1f56e4a9741538d9caf1d7e6`
 passed the full source gate at 21/21, the real extracted v0.3.0 upgrade, the
 synchronized downstream gate at 19/19, and two byte-identical package builds.
 Independent verification `ASM-20260718-001` found no new release blocker.
+
+Final tagged-tree commit
+`3daefcef1318c12d03c189f232993ccbe04665f2` passed the 21/21 full gate,
+publish-mode rendering, archive validation, and two byte-identical package
+builds. GitHub Actions run `29650583394` completed successfully. The four
+published assets were downloaded again and passed adjacent checksum, inventory,
+member-checksum, and ZIP/tar parity validation.
+
+## Publication Completion
+
+- Release ID: `REL-v0.4.1`
+- Annotated tag: `v0.4.1`
+- Published commit: `3daefcef1318c12d03c189f232993ccbe04665f2`
+- GitHub Actions run: `29650583394`
+- Release state: stable, non-draft, non-prerelease
+- Published ZIP SHA-256:
+  `86ff43d9ba4e8494e3b1ba0d62f8664336f18207f5948c5b6cac0c64aaef0371`
+- Published tar.gz SHA-256:
+  `f0c1da6f63ccaf105fca2aa0f6795e86744c5ef0ae1b6e135256d0f2372d1323`
+- Tag ownership: user-authorized and immutable; automation did not create or
+  move the tag
