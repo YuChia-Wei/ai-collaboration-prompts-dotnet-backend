@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "PKG-002"
 title: "Separate Source-Only Tests From Downstream Package Gates"
 category: "release-packaging"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH"
 summary: "Prevent packaged documentation and required gates from selecting source-release tests whose tags, release registry, or package-builder module are absent downstream."
 created_at: "2026-07-18T21:39:19+08:00"
-updated_at: "2026-07-18T21:39:19+08:00"
+updated_at: "2026-07-18T23:15:10+08:00"
 release:
   target: "v0.4.1"
-  completed_in: null
+  completed_in: "v0.4.1"
   published_in: null
   target_scope: "downstream-package-applicability-correction"
 origin_refs:
@@ -23,7 +23,7 @@ workflow_refs:
   - ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/tasks/V041-003.json"
-resolution_ref: null
+resolution_ref: ".dev/assessments/ASM-20260718-001/report.md"
 decision_needed: null
 acceptance:
   - "Every packaged required check can execute using only package contents, target repository truth, and documented target dependencies."
@@ -35,3 +35,4 @@ inventory_notes:
   - "The evidence file pins external dotnet-mq-arch-lab commit 2eeddf392ca79deb4407c47d13ad53178015ba90 and ASM-20260718-001#AIC-001."
   - "The v0.4.0 profile includes all .ai/scripts/** while excluding .dev/releases/** and does not provide ai_context_package.py as an importable downstream dependency for the selected builder test."
   - "The downstream assessment classified the mismatch as MEDIUM only because the target overrode the runner; it is HIGH/P0 for the source release because every new installation inherits the misleading contract."
+  - "Resolved at candidate commit 962919bfa15e7dba1f56e4a9741538d9caf1d7e6 and independently verified by ASM-20260718-001."

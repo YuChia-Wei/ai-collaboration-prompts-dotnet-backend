@@ -2,9 +2,8 @@
 
 ## Status
 
-Planned governed patch release. Publication remains pending immutable candidate
-validation, independent verification, merge, and the user-authorized annotated
-tag.
+Validated governed patch candidate. Publication remains pending merge, final
+immutable-tree validation, and the user-authorized annotated tag.
 
 ## Highlights
 
@@ -45,4 +44,7 @@ v0.3.0-to-v0.4.1 package path.
 
 ## Release Validation
 
-Pending final immutable candidate and independent verification evidence.
+Candidate commit `962919bfa15e7dba1f56e4a9741538d9caf1d7e6`
+passed the full source gate at 21/21, the real extracted v0.3.0 upgrade, the
+synchronized downstream gate at 19/19, and two byte-identical package builds.
+Independent verification `ASM-20260718-001` found no new release blocker.

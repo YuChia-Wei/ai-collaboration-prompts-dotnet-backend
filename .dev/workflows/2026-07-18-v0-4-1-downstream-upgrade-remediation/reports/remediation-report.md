@@ -12,36 +12,36 @@
 - `report_id`: `remediation-report-2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `workflow_id`: `2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `owner_skill`: `ai-context-governance`
-- `status`: `draft`
+- `status`: `final`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T22:58:51+08:00`
+- `updated_at`: `2026-07-18T23:15:10+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `external dotnet-mq-arch-lab#ASM-20260718-001 plus provenance-bound workflow evidence`
-- `verification_assessment`: `pending after V041-002 and V041-003`
+- `verification_assessment`: `ASM-20260718-001`
 
 ## Remediation Summary
 
 - Authorized scope: prioritize and remediate the two package defects proven by the first governed downstream v0.4.0 upgrade.
 - Completed scope: evidence intake, PKG-001 migration implementation, PKG-002 package-applicability correction, and real extracted-package upgrade/target-gate validation.
 - Validation summary: immutable v0.4.0 failed as reported; corrected immutable candidates passed focused GWT, archive parity, a real v0.3.0-to-v0.4.1 dry-run/apply, and a synchronized target quick gate at 19/19.
-- Closure decision: `not-ready`
+- Closure decision: `ready-for-separate-release-publication`
 
 ## Finding Resolution Matrix
 
 | Finding | Before Severity | Status | Changed Files | Validation | Commit | Residual Risk |
 | --- | --- | --- | --- | --- | --- | --- |
-| `PKG-001` | HIGH / P0 | resolved-pending-verification | builder, release workflows, packaging GWT | 14/14 packaging GWT; real extracted v0.3.0 upgrade; archive parity | `af18803` | Schema 1.0.0 remains intentionally single-source; multi-source upgrades move to v0.5.0. |
-| `PKG-002` | HIGH / P0 | resolved-pending-verification | profile, runner, shell registry, README, navigation validator, GWT | source gates retained; source-only payload paths absent; synchronized target quick gate 19/19 | `ff9908c`, `3221276` | Target-owned synchronization and provenance finalization remain required after package apply. |
+| `PKG-001` | HIGH / P0 | resolved | builder, release workflows, packaging GWT | 14/14 packaging GWT; real extracted v0.3.0 upgrade; archive parity; `ASM-20260718-001` | `af18803` | Schema 1.0.0 remains intentionally single-source; multi-source upgrades move to v0.5.0. |
+| `PKG-002` | HIGH / P0 | resolved | profile, runner, shell registry, README, navigation validator, GWT | source gates retained; source-only payload paths absent; synchronized target quick gate 19/19; `ASM-20260718-001` | `ff9908c`, `3221276` | Target-owned synchronization and provenance finalization remain required after package apply. |
 
 ## Changes And Evidence
 
 ### `PKG-001`
 
 - Changes: added paired `--previous-files` and `--previous-version` builder inputs, exact previous manifest identity binding, deterministic add/replace/remove/rename/reconcile derivation, and release-workflow projection of the single declared automatic source.
-- Evidence: `evidence/downstream-v0.4-upgrade-findings.md`, immutable v0.3.0 files inventory SHA binding, and the candidate pending-validation receipt.
+- Evidence: `evidence/downstream-v0.4-upgrade-findings.md`, immutable v0.3.0 files inventory SHA binding, candidate validation evidence, and `ASM-20260718-001`.
 - Validation: 14/14 packaging GWT; 13 apply GWT plus one platform skip; real extracted v0.3.0-to-v0.4.1 dry-run and apply; ZIP/tar parity and sidecars.
-- Remaining risk: independent verification remains pending; multi-source automatic migration is not part of v0.4.1.
+- Remaining risk: multi-source automatic migration is not part of v0.4.1 and remains assigned to `PKG-003`/v0.5.0.
 
 ### `PKG-002`
 
@@ -52,10 +52,10 @@
 
 ## Verification Assessment Reconciliation
 
-- Independent auditor: pending.
-- Confirmed resolved: none.
-- Recurring findings: pending.
-- New or regressed findings: pending.
+- Independent auditor: `ai-context-auditor` in `ASM-20260718-001`.
+- Confirmed resolved: `PKG-001`, `PKG-002`.
+- Recurring findings: none.
+- New or regressed findings: none.
 
 ## Deferred Work
 
@@ -67,7 +67,7 @@
 
 ## Closure Evidence
 
-- Required validations: pending implementation, immutable candidate package parity, real extracted-package upgrade, source full gate, package-applicable downstream gate, and independent verification.
-- Commit status: planning checkpoint committed as `69ac74f5c9eeeb9efe8a9055a812348773127d0b`; implementation commits do not exist yet.
-- Workflow/task status: workflow in progress; `V041-001` completed, `V041-002` in progress, `V041-003` and `V041-004` pending.
-- Final next action: resume `V041-002` on the workflow branch in a new source-repository session.
+- Required validations: source full gate 21/21; package-applicable downstream gate 19/19; packaging GWT 14/14; package apply 13 passes plus one Windows privilege skip; two byte-identical package builds; archive validation; independent assessment.
+- Commit status: implementation and verification checkpoints `af18803`, `ff9908c`, `3221276`, `25c7847`, `962919b`, and `8eeb63c` exist; this final governance reconciliation is the closure commit.
+- Workflow/task status: all four tasks completed; workflow closed.
+- Final next action: start the separate v0.4.1 release-publication workflow authorized by the user.

@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T22:58:51+08:00`
+- `updated_at`: `2026-07-18T23:15:10+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -34,7 +34,7 @@
 
 - Baseline evidence: `evidence/downstream-v0.4-upgrade-findings.md`
 - Remediation report: `reports/remediation-report.md`
-- Verification assessment: pending; create a successor `ASM-YYYYMMDD-NNN` with `ai-context-auditor` after implementation
+- Verification assessment: `.dev/assessments/ASM-20260718-001/assessment.yaml`
 - Tasks: `tasks/`
 - Backlog: `.dev/backlog/items/PKG-001.yaml`, `.dev/backlog/items/PKG-002.yaml`, `.dev/backlog/items/PKG-003.yaml`
 
@@ -102,15 +102,15 @@ the independently authored planning source:
 | `V041-001` | Preserve downstream evidence, create P0 backlog items, and reorder the live roadmap. | `completed` |
 | `V041-002` | Implement executable governed version-to-version migration metadata and real upgrade validation. | `completed` |
 | `V041-003` | Separate source-only tests from downstream package documentation and required gates. | `completed` |
-| `V041-004` | Run immutable candidate validation, independent verification, and remediation closeout. | `in_progress` |
+| `V041-004` | Run immutable candidate validation, independent verification, and remediation closeout. | `completed` |
 
 ## Resume Checkpoint
 
-- Last completed action: separated source-only release/package-builder tests from the public payload and proved an immutable v0.3.0-to-v0.4.1 extracted upgrade whose synchronized target passed all 19 selected quick-gate checks.
-- Current task: `V041-004`.
-- Exact next action: update roadmap horizons, create the governed v0.4.1 release candidate, validate two immutable builds and the full source gate, then run independent verification.
-- Validation already completed: 14/14 package-builder GWT; 13 package-apply passes plus one Windows symlink privilege skip; 19/19 fail-closed runner fixtures; 5/5 active-script applicability fixtures; archive parity and sidecars; real versioned planner/apply; synchronized downstream `check-all.sh --quick` 19/19.
-- Git state: implementation checkpoints `af18803`, `ff9908c`, and `3221276` exist on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation`; workflow closeout artifacts remain uncommitted.
+- Last completed action: closed PKG-001 and PKG-002 after independent verification `ASM-20260718-001`; the governed v0.4.1 candidate is validated.
+- Current task: none; workflow completed.
+- Exact next action: create the separate release-publication workflow, merge with `--no-ff`, rebuild from the final immutable release commit, then create and push the authorized annotated v0.4.1 tag.
+- Validation already completed: source full gate 21/21; synchronized extracted target 19/19; packaging GWT 14/14; package-apply 13 passes plus one Windows privilege skip; two byte-identical candidate builds; independent assessment healthy with no new release blocker.
+- Git state: remediation closure is ready for commit on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation`.
 - Branch history and checkpoint handoffs: segment 1 is a local session-handoff checkpoint; no source branch push, merge, tag, or publication was requested.
 - Blockers or unresolved decisions: none. The user assigned multi-source automatic migration to v0.5.0 and selected a v0.4.0-to-v0.5.0 direct upgrade gate; dotnet-mq-arch-lab remains unchanged on v0.4.0.
 

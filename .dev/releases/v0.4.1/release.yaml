@@ -1,7 +1,7 @@
 schema_version: "1.0"
 release_id: "REL-v0.4.1"
 version: "v0.4.1"
-status: "planned"
+status: "validated"
 record_origin: "governed"
 distribution_kind: "governed-package"
 installable: true
@@ -10,7 +10,7 @@ commit: null
 tagged_at: null
 recorded_at: null
 created_at: "2026-07-18T22:58:51+08:00"
-updated_at: "2026-07-18T22:58:51+08:00"
+updated_at: "2026-07-18T23:15:10+08:00"
 compatibility:
   breaking_changes: false
   minimum_source_version: "v0.3.0"
@@ -46,9 +46,9 @@ distribution:
     automation: "github-actions"
     creates_or_moves_tag: false
 validation:
-  evidence: "Pending immutable candidate validation and independent verification in workflow 2026-07-18-v0-4-1-downstream-upgrade-remediation."
+  evidence: "Candidate commit 962919bfa15e7dba1f56e4a9741538d9caf1d7e6 passed the full source gate at 21/21, real extracted v0.3.0-to-v0.4.1 plan/apply, synchronized downstream gate at 19/19, focused package/applicability GWT, and two byte-identical ZIP/tar.gz builds with valid inventories, member checksums, sidecars, and archive parity. Independent verification ASM-20260718-001 found no new release blocker."
   workflow_id: "2026-07-18-v0-4-1-downstream-upgrade-remediation"
   related_workflows:
     - "2026-07-17-v0-4-0-release-publication"
-  package_status: "pending"
+  package_status: "validated"
   post_merge_status: "pending"

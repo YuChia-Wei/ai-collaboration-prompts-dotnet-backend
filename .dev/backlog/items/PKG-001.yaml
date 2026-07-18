@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "PKG-001"
 title: "Publish Executable Version-To-Version Migration Metadata"
 category: "release-packaging"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH"
 summary: "Make the published package migration metadata executable for every declared governed upgrade source instead of emitting a clean-install-only manifest."
 created_at: "2026-07-18T21:39:19+08:00"
-updated_at: "2026-07-18T21:39:19+08:00"
+updated_at: "2026-07-18T23:15:10+08:00"
 release:
   target: "v0.4.1"
-  completed_in: null
+  completed_in: "v0.4.1"
   published_in: null
   target_scope: "release-blocking-upgrade-contract-correction"
 origin_refs:
@@ -23,7 +23,7 @@ workflow_refs:
   - ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/tasks/V041-002.json"
-resolution_ref: null
+resolution_ref: ".dev/assessments/ASM-20260718-001/report.md"
 decision_needed: null
 acceptance:
   - "Every release that declares a governed automatic or guided source emits migration.from identity matching that source manifest."
@@ -36,3 +36,4 @@ inventory_notes:
   - "The v0.4.0 guide requires the governed v0.3.0 files.yaml, but the v0.4.0 builder emits migration.from null and clean-install add operations only."
   - "The downstream workflow had to derive 166 operations locally; the official planner then applied 151 byte-safe operations and exposed 15 reconciliation items."
   - "This is P0 within v0.4.1 because the published upgrade contract cannot be executed as documented."
+  - "Resolved at candidate commit 962919bfa15e7dba1f56e4a9741538d9caf1d7e6 and independently verified by ASM-20260718-001."

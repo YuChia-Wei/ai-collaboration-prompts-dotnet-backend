@@ -67,7 +67,7 @@
       "python .ai/scripts/validate-ai-context.py",
       "extracted synchronized target: .ai/scripts/check-all.sh --quick (19/19 passed)"
     ],
-    "finding_status": "resolved-pending-verification",
+    "finding_status": "resolved",
     "residual_risk": "The target still must run repo-structure-sync or ai-context-upgrader to reconcile target-owned root, catalog, and provenance files; source-only tests are no longer an invalid package dependency.",
     "follow_up_needed": false
   }

@@ -6,9 +6,9 @@
   "task_id": "V041-004",
   "workflow_id": "2026-07-18-v0-4-1-downstream-upgrade-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-18T21:39:19+08:00",
-  "updated_at": "2026-07-18T22:58:51+08:00",
+  "updated_at": "2026-07-18T23:15:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PKG-001", "PKG-002"],
   "scope": {
@@ -45,15 +45,27 @@
       "Independent verification assessment",
       "Clean Git state"
     ],
-    "last_completed_step": "V041-003 passed all 19 selected checks in a synchronized target upgraded from the real v0.3.0 package.",
-    "next_action": "Update roadmap horizons, create the governed v0.4.1 release candidate, build twice from an immutable ref, run the full source gate, and request independent verification."
+    "last_completed_step": "Validated the governed candidate, two immutable builds, source and extracted target gates, and independent assessment ASM-20260718-001.",
+    "next_action": "Hand the validated candidate to the separately authorized v0.4.1 release-publication workflow."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "No candidate or independent verification exists yet.",
-    "follow_up_needed": true
+    "summary": "Candidate commit 962919b passed 21/21 source checks, 19/19 synchronized target checks, focused package validation, two byte-identical builds, and independent assessment ASM-20260718-001. PKG-001 and PKG-002 are resolved in v0.4.1; publication remains a separate workflow.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260718-001/**",
+      ".dev/backlog/**",
+      ".dev/releases/v0.4.1/**",
+      ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/**"
+    ],
+    "tests_run": [
+      ".ai/scripts/check-all.sh --full (21/21 passed)",
+      "two immutable candidate builds (byte-identical ZIP, tar.gz, and sidecars)",
+      "python .ai/scripts/validate-ai-context-package.py <zip> <tar.gz>",
+      "python .ai/scripts/validate-assessment-artifacts.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context-versions.py"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "v0.4.0 direct upgrade remains intentionally deferred to PKG-003/v0.5.0; v0.0.1 requires manual reconciliation to validated v0.3.0 provenance first.",
+    "follow_up_needed": false
   }
 }
