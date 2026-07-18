@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T21:39:19+08:00`
+- `updated_at`: `2026-07-18T21:43:22+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `external dotnet-mq-arch-lab#ASM-20260718-001 plus provenance-bound workflow evidence`
@@ -31,8 +31,8 @@
 
 | Finding | Before Severity | Status | Changed Files | Validation | Commit | Residual Risk |
 | --- | --- | --- | --- | --- | --- | --- |
-| `PKG-001` | HIGH / P0 | not-addressed | planning artifacts only | downstream reproduction preserved; source implementation pending | pending | Published version-to-version upgrade remains unusable without locally derived metadata. |
-| `PKG-002` | HIGH / P0 | not-addressed | planning artifacts only | downstream failure and target override preserved; source implementation pending | pending | Packaged users can still invoke or inherit required tests whose source-only dependencies are absent. |
+| `PKG-001` | HIGH / P0 | not-addressed | planning artifacts only | downstream reproduction preserved; source implementation pending | `69ac74f` | Published version-to-version upgrade remains unusable without locally derived metadata. |
+| `PKG-002` | HIGH / P0 | not-addressed | planning artifacts only | downstream failure and target override preserved; source implementation pending | `69ac74f` | Packaged users can still invoke or inherit required tests whose source-only dependencies are absent. |
 
 ## Changes And Evidence
 
@@ -67,6 +67,6 @@
 ## Closure Evidence
 
 - Required validations: pending implementation, immutable candidate package parity, real extracted-package upgrade, source full gate, package-applicable downstream gate, and independent verification.
-- Commit status: planning checkpoint pending.
+- Commit status: planning checkpoint committed as `69ac74f5c9eeeb9efe8a9055a812348773127d0b`; implementation commits do not exist yet.
 - Workflow/task status: workflow in progress; `V041-001` completed, `V041-002` in progress, `V041-003` and `V041-004` pending.
 - Final next action: resume `V041-002` on the workflow branch in a new source-repository session.

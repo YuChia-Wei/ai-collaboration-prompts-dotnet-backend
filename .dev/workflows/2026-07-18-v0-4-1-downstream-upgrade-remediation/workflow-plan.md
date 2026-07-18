@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T21:39:19+08:00`
+- `updated_at`: `2026-07-18T21:43:22+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -109,8 +109,8 @@ the independently authored planning source:
 - Last completed action: retained the downstream upgrade findings, created `PKG-001` and `PKG-002` as HIGH/P0 v0.4.1 items, activated this remediation workflow, and reordered the roadmap so package correctness precedes general content fixes.
 - Current task: `V041-002`.
 - Exact next action: read `evidence/downstream-v0.4-upgrade-findings.md`, reproduce the clean-install-only metadata from `v0.4.0`, then design the smallest patch-compatible builder input that binds the governed v0.3.0 `files.yaml` and emits deterministic upgrade operations.
-- Validation already completed: immutable `v0.4.0` tag behavior compared with current `main`; source guide/builder/apply/profile/runner contracts inspected; downstream workflow and assessment evidence pinned to `dotnet-mq-arch-lab@2eeddf392ca79deb4407c47d13ad53178015ba90`; workflow/backlog/roadmap validators are run before the planning checkpoint commit.
-- Git state: planning checkpoint is on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation` from local `main@728fb73025b834997f8b7818380b9ca28f72f220`; implementation has not started.
+- Validation already completed: immutable `v0.4.0` tag behavior compared with current `main`; source guide/builder/apply/profile/runner contracts inspected; downstream workflow and assessment evidence pinned to `dotnet-mq-arch-lab@2eeddf392ca79deb4407c47d13ad53178015ba90`; workflow artifact validation passed for 21 workflows, 41 indexed directories, and 14 backlog items; AI-context, assessment, and five-release version validation passed; six backlog release-contract GWT passed; all four task JSON files parsed; `git diff --check` passed.
+- Git state: planning checkpoint `69ac74f5c9eeeb9efe8a9055a812348773127d0b` is committed on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation` from local `main@728fb73025b834997f8b7818380b9ca28f72f220`; implementation has not started.
 - Branch history and checkpoint handoffs: segment 1 is a local session-handoff checkpoint; no source branch push, merge, tag, or publication was requested.
 - Blockers or unresolved decisions: none for `PKG-001` or `PKG-002`; if implementation requires a new schema, new required validation contract, or published-path removal, stop and request SemVer/roadmap reclassification before making that expansion.
 
@@ -118,4 +118,4 @@ the independently authored planning source:
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation` | `main@728fb73025b834997f8b7818380b9ca28f72f220` | local session handoff | pending | local | `2026-07-18T21:39:19+08:00` | Preserve planning and evidence before implementation in a new source-repository session. | Open this repository and resume the same branch at `V041-002`. |
+| 1 | `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation` | `main@728fb73025b834997f8b7818380b9ca28f72f220` | local session handoff | `69ac74f5c9eeeb9efe8a9055a812348773127d0b` | local | `2026-07-18T21:43:22+08:00` | Preserve planning and evidence before implementation in a new source-repository session. | Open this repository and resume the same branch at `V041-002`. |
