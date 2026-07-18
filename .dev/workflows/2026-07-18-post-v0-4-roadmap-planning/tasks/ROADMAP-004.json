@@ -1,0 +1,76 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ROADMAP-004",
+  "workflow_id": "2026-07-18-post-v0-4-roadmap-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T14:19:06+08:00",
+  "updated_at": "2026-07-18T14:22:41+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Durable predecessor ordering and compact backlog roadmap promotion",
+    "files": [
+      ".dev/assessments/ASM-20260717-004/assessment.yaml",
+      ".dev/assessments/INDEX.MD",
+      ".dev/backlog/items/AIC-ROADMAP-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Do not rewrite the final assessment report or finding conclusions",
+      "Keep task-level execution progress in child workflows",
+      "Make the backlog roadmap the compact discovery entry",
+      "Preserve assessment-before-workflow Git history"
+    ],
+    "non_goals": [
+      "Remediation execution",
+      "Release candidate creation",
+      "Backlog task duplication"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Commit and index ASM-20260717-004 on its dedicated assessment branch",
+      "Rebase the unpushed planning commit onto the assessment commit",
+      "Create AIC-ROADMAP-001 with release-level state and activation gates",
+      "Add reciprocal assessment, backlog, and workflow references",
+      "Validate assessment, backlog, workflow, context, and Git history"
+    ],
+    "validation": [
+      "Assessment artifact validator",
+      "Workflow artifact and backlog validator",
+      "AI context validator",
+      "Git commit policy validator",
+      "Task JSON parsing",
+      "git diff --check"
+    ],
+    "last_completed_step": "Promoted the compact roadmap into AIC-ROADMAP-001 and repaired the durable predecessor ordering and references.",
+    "next_action": "Read AIC-ROADMAP-001 and activate the successor assessment gate for v0.4.1."
+  },
+  "results": {
+    "summary": "ASM-20260717-004 now precedes the planning workflow in Git history, and AIC-ROADMAP-001 is the compact cross-session roadmap source while workflow details remain the decision record.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260717-004/assessment.yaml",
+      ".dev/assessments/INDEX.MD",
+      ".dev/backlog/items/AIC-ROADMAP-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "Assessment artifact validation passed for 7 assessments",
+      "Workflow artifact validation passed for 19 post-adoption workflows, 39 indexed workflow directories, and 11 backlog items",
+      "AI context validation passed",
+      "All four task JSON files parsed",
+      "git diff --check passed"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The durable predecessor report still targets a pre-v0.4.0 commit; the roadmap correctly gates remediation on a fresh successor assessment.",
+    "follow_up_needed": true
+  }
+}

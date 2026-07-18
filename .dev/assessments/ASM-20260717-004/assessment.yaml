@@ -15,7 +15,7 @@ report: "report.md"
 artifact_branch: "claude/assessment/asm-20260717-004"
 base_branch: "main"
 created_at: "2026-07-17T13:02:24+08:00"
-updated_at: "2026-07-17T13:02:24+08:00"
+updated_at: "2026-07-18T14:22:41+08:00"
 template_source: ".dev/assessments/templates/assessment-locator-template.yaml"
 template_version: "1.0.0"
 report_template_source: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md"
@@ -50,9 +50,11 @@ relations:
     - "ASM-20260716-001"
   workflow_refs:
     - "2026-07-16-v0-4-0-ai-context-remediation"
-  backlog_refs: []
+    - "2026-07-18-post-v0-4-roadmap-planning"
+  backlog_refs:
+    - "AIC-ROADMAP-001"
   adr_refs: []
 resume:
-  last_completed_action: "Reallocated from ASM-20260716-001 after that ID was published by the v0.4.0 remediation verification; content unchanged except identity, relations, and provenance note"
-  next_action: ""
+  last_completed_action: "Committed as the durable predecessor to the post-v0.4.0 roadmap and linked to AIC-ROADMAP-001 and its planning workflow; final report conclusions remain unchanged"
+  next_action: "Use AIC-ROADMAP-001 as the compact roadmap entry and create a successor assessment pinned to the selected post-v0.4.0 revision before remediation"
   blockers: []

@@ -1,0 +1,62 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "ROADMAP-003",
+  "workflow_id": "2026-07-18-post-v0-4-roadmap-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T14:19:06+08:00",
+  "updated_at": "2026-07-18T14:22:41+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Skill-family taxonomy, rename horizon, and compatibility workflow map",
+    "files": [
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
+    ],
+    "constraints": [
+      "Do not rename skills during planning",
+      "Preserve historical artifact prose",
+      "Design compatibility before identifier changes",
+      "Group development skills before considering aesthetic renames"
+    ],
+    "non_goals": [
+      "Runtime wrapper edits",
+      "Registry schema implementation",
+      "Bulk development-skill rename"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Inventory canonical skills and lifecycle roles",
+      "Measure active and historical repo-structure-sync references",
+      "Check current schema support for aliases and deprecation",
+      "Place additive taxonomy and compatibility transition in v0.6.0",
+      "Make v0.7.0 retirement conditional on downstream evidence"
+    ],
+    "validation": [
+      "Canonical skill registry inspection",
+      "Runtime and distribution reference inventory",
+      "Direct 87-tracked-file plus one local-input rename-impact inventory",
+      "Current skill schema inspection"
+    ],
+    "last_completed_step": "Defined AI-context and development lifecycle families with a two-release identifier transition.",
+    "next_action": "After v0.5.0 stabilizes governance, design alias metadata and activate the v0.6.0 taxonomy workflow."
+  },
+  "results": {
+    "summary": "Use v0.6.0 for additive family taxonomy and the ai-context-init compatibility transition. Use v0.7.0 only for evidence-backed retirement of repo-structure-sync or other justified breaking renames.",
+    "files_changed": [
+      ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
+    ],
+    "tests_run": [
+      "Skill and reference inventory completed",
+      "Schema capability inspection completed",
+      "Workflow task JSON parsing passed"
+    ],
+    "finding_status": "deferred",
+    "residual_risk": "Runtime alias behavior is not yet a canonical schema capability and must be designed before the rename.",
+    "follow_up_needed": true
+  }
+}

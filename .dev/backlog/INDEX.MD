@@ -3,6 +3,12 @@
 This index catalogs durable work that must remain visible outside workflow
 artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
+## Active Release Roadmap
+
+| Roadmap | Current Target | Status | Next Gate | Updated |
+| --- | --- | --- | --- | --- |
+| [AIC-ROADMAP-001](items/AIC-ROADMAP-001.yaml) | `v0.4.1` | `planned` | Pin a successor post-v0.4.0 assessment revision before remediation. | 2026-07-18 |
+
 ## Planned / Open
 
 | Item | Priority | Summary | Decision / Handoff | Updated |
