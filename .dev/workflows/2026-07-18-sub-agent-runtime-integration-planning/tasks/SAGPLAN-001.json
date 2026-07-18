@@ -1,0 +1,70 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "SAGPLAN-001",
+  "workflow_id": "2026-07-18-sub-agent-runtime-integration-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-18T20:15:59+08:00",
+  "updated_at": "2026-07-18T20:15:59+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "SAG-F-001",
+    "SAG-F-002",
+    "SAG-F-003"
+  ],
+  "scope": {
+    "target": "Canonical sub-agent role consumption and runtime adapter coverage",
+    "files": [
+      ".ai/assets/sub-agent-role-prompts/**",
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".ai/assets/CANONICAL-SCHEMA.MD",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".codex/agents/**",
+      ".claude/agents/**",
+      ".github/agents/**"
+    ],
+    "constraints": [
+      "Use direct repository files and Git history as authoritative evidence.",
+      "Keep product source and tests outside the analysis scope.",
+      "Distinguish intentional dynamic prompt loading from missing native adapters."
+    ],
+    "non_goals": [
+      "Create runtime adapters.",
+      "Change canonical role behavior.",
+      "Select new runtime models or tools."
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Enumerate all canonical role manifests and wrapper targets.",
+      "Verify active consumers for every role.",
+      "Inspect runtime adapter roots, packaging entries, schema, validator coverage, and Git provenance.",
+      "Classify findings and release impact."
+    ],
+    "validation": [
+      "Direct file-backed 18-role inventory",
+      "Active external reference inventory",
+      "Git history inspection for context-translator",
+      "Validator control-flow and canonical-schema comparison"
+    ],
+    "last_completed_step": "Classified 17 roles as intentionally dynamic, context-translator as runtime-native, and the missing parity contract as v0.5.0 governance work.",
+    "next_action": "Use SAGPLAN-002 to persist the release handoff."
+  },
+  "results": {
+    "summary": "Confirmed that no canonical role is orphaned, corrected the historical premise for context-translator, and identified deterministic adapter parity plus promotion criteria as the durable gap.",
+    "files_changed": [],
+    "tests_run": [
+      "git ls-files scoped canonical and runtime inventory",
+      "git grep active external role references",
+      "git show 0a7ac646e3d5d48c77fc45ebdac7b1fdeeb2176d",
+      "direct canonical schema and validate-ai-context.py inspection"
+    ],
+    "finding_status": "deferred",
+    "residual_risk": "A declared sub-agent adapter can be removed or misplaced without current wrapper-path validation detecting it.",
+    "follow_up_needed": true
+  }
+}

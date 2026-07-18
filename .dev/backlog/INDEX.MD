@@ -16,6 +16,7 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- |
+| [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.1; add the governance and validator contract in v0.5.0 before v0.6.0 taxonomy work. | 2026-07-18 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | Introduce AI context lifecycle taxonomy and transition `repo-structure-sync` to `ai-context-init` with compatibility. | Stabilize v0.5.0 governance, then design deprecation metadata and validation before renaming. | 2026-07-18 |
 | [OBS-001](items/OBS-001.yaml) | MEDIUM | `unassigned` | Design the reusable CrossCutting Observability and attribute/AOP boundary. | Open a separate architecture workflow; keep it outside the current assessment-remediation verification baseline. | 2026-07-18 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | Verify hosted Linux behavior and consider manifest-driven runner execution. | Decide Linux verification, runner redesign, both, or defer. | 2026-07-18 |
