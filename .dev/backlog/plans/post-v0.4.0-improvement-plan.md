@@ -100,7 +100,7 @@
 | Disposition manifest 制度化 | 把「breaking release 必附 file-disposition manifest + 專用驗證器通過」寫入 `AI-CONTEXT-VERSION-POLICY.md`。v0.4.0 的 163 筆 manifest 做得很好，但它是單次 workflow 產物，無政策保證下次會再做 | manifest 正式落點：隨 release 資產發佈，或留 workflow 目錄由 `metadata/migration.yaml` 投影（現狀） |
 | 發版前全量 baseline | 把「minor release 前跑一次全量 `ai-context-auditor` baseline（非僅 remediation verification）」寫入 version policy。理由：v0.4.0 驗證鏈只驗「這次改的」，範圍外殘留（本計畫 1.1、1.2）正是這樣活過三個版本 | 是否含 patch 版 |
 | first-parent 驗證留檔 | 為「guarded history rewrite + commit 驗證收窄為 first-parent」補 ADR 或 workflow 附註：決策理由、適用邊界、為何不構成放寬先例。main 歷史現有兩組主旨相同的 commit 序列，不留檔會被未來讀史者誤判 | ADR 或附註形式（0.5h 工作） |
-| 檔名規則（前瞻性） | 訂一句話規則「新檔案一律小寫 `.md`」。v0.4.0 剛做完大規模搬移，不建議回溯改名 | 是否採納 | 
+| 檔名規則（前瞻性） | 訂一句話規則「新檔案一律小寫 `.md`」。v0.4.0 剛做完大規模搬移，不建議回溯改名 | 是否採納 |
 
 ### 3.2 設計項目
 | 項 | 工作 | 備註 |
