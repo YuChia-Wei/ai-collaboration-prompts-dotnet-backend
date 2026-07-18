@@ -203,6 +203,29 @@ run_spec_compliance_check() {
         "required" "false" "true" "$spec_file" "$task_name"
 }
 
+source_release_context_available() {
+    [ -d "$PROJECT_ROOT/.dev/releases" ] &&
+        [ -d "$PROJECT_ROOT/.ai/distribution" ] &&
+        [ -f "$PROJECT_ROOT/.ai/scripts/ai_context_package.py" ]
+}
+
+run_source_repository_release_checks() {
+    if ! source_release_context_available; then
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Version Governance Fail-Closed Tests (source release context not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Packaging GWT Tests (source package builder not packaged)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 2))
+        return
+    fi
+
+    run_command_check "python .ai/scripts/tests/test_ai_context_version_governance.py -v" \
+        "AI Context Version Governance Fail-Closed Tests" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_ai_context_packaging.py -v" \
+        "AI Context Packaging GWT Tests" \
+        "required" "true" "true"
+}
+
 # Header
 echo ""
 echo -e "${MAGENTA}╔════════════════════════════════════════╗${NC}"
@@ -264,12 +287,10 @@ run_command_check "python .ai/scripts/validate-ai-context-versions.py" \
     "AI Context Release And Version Contracts" \
     "required" "true" "true"
 
-run_command_check "python .ai/scripts/tests/test_ai_context_version_governance.py -v" \
-    "AI Context Version Governance Fail-Closed Tests" \
-    "required" "true" "true"
+run_source_repository_release_checks
 
-run_command_check "python -m unittest discover -s .ai/scripts/tests -p 'test_ai_context_packag*.py' -v" \
-    "AI Context Packaging And Safe Apply GWT Tests" \
+run_command_check "python .ai/scripts/tests/test_ai_context_package_apply.py -v" \
+    "AI Context Safe Apply GWT Tests" \
     "required" "true" "true"
 
 run_command_check "python .ai/scripts/validate-shell-assets.py" \

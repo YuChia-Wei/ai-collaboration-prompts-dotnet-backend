@@ -243,11 +243,13 @@ exclusions:
       - .ai/scripts/ai_context_package.py
       - .ai/scripts/build-ai-context-package.py
       - .ai/scripts/validate-ai-context-package.py
+      - .ai/scripts/tests/test_ai_context_packaging.py
+      - .ai/scripts/tests/test_ai_context_version_governance.py
       - '**/bin/**'
       - '**/obj/**'
       - '**/__pycache__/**'
       - '**/.pytest_cache/**'
-    reason: Git state, local runtime policy, and caches are never portable framework truth.
+    reason: Git state, source release/build tests, local runtime policy, and caches are never portable framework truth.
   - id: source-distribution-control
     patterns:
       - .ai/distribution/**

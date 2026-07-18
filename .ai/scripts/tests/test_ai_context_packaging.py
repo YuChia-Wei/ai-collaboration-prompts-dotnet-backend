@@ -472,6 +472,19 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             migration = yaml.safe_load(
                 (candidate_root / "metadata/migration.yaml").read_text(encoding="utf-8")
             )
+            candidate_payload = candidate_root / "payload"
+            self.assertFalse(
+                (candidate_payload / ".ai/scripts/tests/test_ai_context_version_governance.py").exists()
+            )
+            self.assertFalse(
+                (candidate_payload / ".ai/scripts/tests/test_ai_context_packaging.py").exists()
+            )
+            self.assertFalse(
+                (candidate_payload / ".ai/scripts/ai_context_package.py").exists()
+            )
+            self.assertTrue(
+                (candidate_payload / ".ai/scripts/tests/test_ai_context_package_apply.py").is_file()
+            )
             self.assertEqual("0.3.0", migration["from"]["version"])
             self.assertEqual(
                 PACKAGE.sha256_bytes(previous_files.read_bytes()),
