@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T22:27:21+08:00`
+- `updated_at`: `2026-07-18T22:58:51+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -101,16 +101,16 @@ the independently authored planning source:
 | --- | --- | --- |
 | `V041-001` | Preserve downstream evidence, create P0 backlog items, and reorder the live roadmap. | `completed` |
 | `V041-002` | Implement executable governed version-to-version migration metadata and real upgrade validation. | `completed` |
-| `V041-003` | Separate source-only tests from downstream package documentation and required gates. | `in_progress` |
-| `V041-004` | Run immutable candidate validation, independent verification, and remediation closeout. | `pending` |
+| `V041-003` | Separate source-only tests from downstream package documentation and required gates. | `completed` |
+| `V041-004` | Run immutable candidate validation, independent verification, and remediation closeout. | `in_progress` |
 
 ## Resume Checkpoint
 
-- Last completed action: reproduced the immutable v0.4.0 failure, added an optional previous-inventory builder input within migration schema 1.0.0, derived deterministic versioned operations, and proved a real extracted v0.3.0-to-v0.4.1 dry-run and apply.
-- Current task: `V041-003`.
-- Exact next action: classify source-only release/package-builder tests, exclude them from the target payload, and make the packaged runner select only target-applicable version and safe-apply checks.
-- Validation already completed: 14/14 package-builder GWT passed including the real v0.3.0-to-v0.4.1 extracted upgrade; 13/14 package-apply GWT passed with the Windows symlink fixture skipped for unavailable privilege; candidate and publish workflows parse and bind their single automatic migration source; ZIP/tar parity and sidecars passed; `git diff --check` passed.
-- Git state: V041-002 implementation is ready for its required task commit on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation`.
+- Last completed action: separated source-only release/package-builder tests from the public payload and proved an immutable v0.3.0-to-v0.4.1 extracted upgrade whose synchronized target passed all 19 selected quick-gate checks.
+- Current task: `V041-004`.
+- Exact next action: update roadmap horizons, create the governed v0.4.1 release candidate, validate two immutable builds and the full source gate, then run independent verification.
+- Validation already completed: 14/14 package-builder GWT; 13 package-apply passes plus one Windows symlink privilege skip; 19/19 fail-closed runner fixtures; 5/5 active-script applicability fixtures; archive parity and sidecars; real versioned planner/apply; synchronized downstream `check-all.sh --quick` 19/19.
+- Git state: implementation checkpoints `af18803`, `ff9908c`, and `3221276` exist on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation`; workflow closeout artifacts remain uncommitted.
 - Branch history and checkpoint handoffs: segment 1 is a local session-handoff checkpoint; no source branch push, merge, tag, or publication was requested.
 - Blockers or unresolved decisions: none. The user assigned multi-source automatic migration to v0.5.0 and selected a v0.4.0-to-v0.5.0 direct upgrade gate; dotnet-mq-arch-lab remains unchanged on v0.4.0.
 

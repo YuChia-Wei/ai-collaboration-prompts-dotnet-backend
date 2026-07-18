@@ -6,9 +6,9 @@
   "task_id": "V041-003",
   "workflow_id": "2026-07-18-v0-4-1-downstream-upgrade-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-18T21:39:19+08:00",
-  "updated_at": "2026-07-18T22:27:21+08:00",
+  "updated_at": "2026-07-18T22:58:51+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PKG-002"],
   "scope": {
@@ -43,15 +43,32 @@
       "Extracted downstream required gate passes",
       "Profile inventory proves every selected command dependency is present"
     ],
-    "last_completed_step": "V041-002 established a versioned candidate package with a real extracted upgrade path.",
-    "next_action": "Classify source-only tests, correct package projection and runner selection, and run the extracted target gate."
+    "last_completed_step": "Excluded source-only release and builder tests from the target payload, gated their source execution, and passed the synchronized extracted-target quick gate.",
+    "next_action": "Proceed to V041-004 for immutable release-candidate validation and independent verification."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "Downstream packages still advertise and may select impossible source-only checks.",
-    "follow_up_needed": true
+    "summary": "Source release and package-builder suites remain required in the source repository, are excluded from the public payload, and are reported as not applicable by the packaged runner and navigation validator. A real v0.3.0 payload upgraded from immutable candidate commit 32212761c8b6e06f895486ca393059645e18d44a and passed all 19 selected downstream quick-gate checks after target-owned synchronization.",
+    "files_changed": [
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/scripts/README.md",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
+      ".ai/scripts/tests/test_fail_closed_validation.py",
+      ".ai/scripts/tests/test_ai_context_active_script_references.py"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_fail_closed_validation.py -v (19 passed)",
+      "python .ai/scripts/tests/test_ai_context_active_script_references.py -v (5 passed)",
+      "python .ai/scripts/tests/test_ai_context_packaging.py -v (14 passed)",
+      "python .ai/scripts/tests/test_ai_context_package_apply.py -v (13 passed, 1 Windows symlink privilege skip)",
+      "python .ai/scripts/validate-shell-assets.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "extracted synchronized target: .ai/scripts/check-all.sh --quick (19/19 passed)"
+    ],
+    "finding_status": "resolved-pending-verification",
+    "residual_risk": "The target still must run repo-structure-sync or ai-context-upgrader to reconcile target-owned root, catalog, and provenance files; source-only tests are no longer an invalid package dependency.",
+    "follow_up_needed": false
   }
 }
