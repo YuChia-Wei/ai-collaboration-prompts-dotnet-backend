@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T21:43:22+08:00`
+- `updated_at`: `2026-07-18T22:27:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `external dotnet-mq-arch-lab#ASM-20260718-001 plus provenance-bound workflow evidence`
@@ -23,25 +23,25 @@
 ## Remediation Summary
 
 - Authorized scope: prioritize and remediate the two package defects proven by the first governed downstream v0.4.0 upgrade.
-- Completed scope: evidence intake, backlog registration, roadmap reordering, task decomposition, and implementation handoff only.
-- Validation summary: source contracts and immutable v0.4.0 behavior were inspected; workflow, backlog, roadmap, JSON, context, and diff checks are recorded in `V041-001`.
+- Completed scope: evidence intake plus PKG-001 implementation and real extracted-package upgrade validation.
+- Validation summary: immutable v0.4.0 failed as reported; the corrected builder and release workflows passed focused GWT, archive parity, and a real v0.3.0-to-v0.4.1 dry-run and apply.
 - Closure decision: `not-ready`
 
 ## Finding Resolution Matrix
 
 | Finding | Before Severity | Status | Changed Files | Validation | Commit | Residual Risk |
 | --- | --- | --- | --- | --- | --- | --- |
-| `PKG-001` | HIGH / P0 | not-addressed | planning artifacts only | downstream reproduction preserved; source implementation pending | `69ac74f` | Published version-to-version upgrade remains unusable without locally derived metadata. |
+| `PKG-001` | HIGH / P0 | resolved-pending-verification | builder, release workflows, packaging GWT | 14/14 packaging GWT; real extracted v0.3.0 upgrade; archive parity | pending task commit | Schema 1.0.0 remains intentionally single-source; multi-source upgrades move to v0.5.0. |
 | `PKG-002` | HIGH / P0 | not-addressed | planning artifacts only | downstream failure and target override preserved; source implementation pending | `69ac74f` | Packaged users can still invoke or inherit required tests whose source-only dependencies are absent. |
 
 ## Changes And Evidence
 
 ### `PKG-001`
 
-- Changes: registered the defect as the first v0.4.1 release blocker and defined immutable inventory, planner, real-upgrade, and deterministic-package acceptance.
-- Evidence: `evidence/downstream-v0.4-upgrade-findings.md` and the source guide/builder/apply contract.
-- Validation: planning validation only.
-- Remaining risk: full; implementation has intentionally not started in this session.
+- Changes: added paired `--previous-files` and `--previous-version` builder inputs, exact previous manifest identity binding, deterministic add/replace/remove/rename/reconcile derivation, and release-workflow projection of the single declared automatic source.
+- Evidence: `evidence/downstream-v0.4-upgrade-findings.md`, immutable v0.3.0 files inventory SHA binding, and the candidate pending-validation receipt.
+- Validation: 14/14 packaging GWT; 13 apply GWT plus one platform skip; real extracted v0.3.0-to-v0.4.1 dry-run and apply; ZIP/tar parity and sidecars.
+- Remaining risk: independent verification remains pending; multi-source automatic migration is not part of v0.4.1.
 
 ### `PKG-002`
 

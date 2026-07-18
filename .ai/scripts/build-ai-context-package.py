@@ -19,9 +19,26 @@ def main() -> int:
     parser.add_argument(
         "--profile", default=".ai/distribution/profiles/dotnet-backend.yaml"
     )
+    parser.add_argument(
+        "--previous-files",
+        type=Path,
+        help="Governed files.yaml for the one declared upgrade source",
+    )
+    parser.add_argument(
+        "--previous-version",
+        help="Version identity bound to --previous-files",
+    )
     args = parser.parse_args()
     try:
-        result = build_package(args.repo, args.ref, args.version, args.output, args.profile)
+        result = build_package(
+            args.repo,
+            args.ref,
+            args.version,
+            args.output,
+            args.profile,
+            args.previous_files,
+            args.previous_version,
+        )
     except (OSError, PackageError) as exc:
         print(f"AI context package build failed: {exc}", file=sys.stderr)
         return 1

@@ -389,12 +389,189 @@ def normalize_version(value: str) -> str:
     return ".".join(match.groups())
 
 
+def inventory_document(payload_files: Iterable[PayloadFile], package_id: str) -> dict:
+    return {
+        "schema_version": "1.0.0",
+        "package_id": package_id,
+        "files": [
+            {
+                "path": item.path,
+                "source_path": item.source_path,
+                "sha256": item.sha256,
+                "size": len(item.content),
+                "mode": f"{item.mode:04o}",
+                "ownership": item.ownership,
+                "install_behavior": item.install_behavior,
+                "entry_id": item.entry_id,
+            }
+            for item in payload_files
+        ],
+    }
+
+
+def load_previous_inventory(path: Path, expected_package_id: str) -> tuple[dict[str, dict], str]:
+    try:
+        content = path.read_bytes()
+        document = yaml.safe_load(content)
+    except (OSError, yaml.YAMLError) as exc:
+        raise PackageError(f"cannot read previous files manifest: {exc}") from exc
+    if not isinstance(document, dict) or document.get("schema_version") != "1.0.0":
+        raise PackageError("previous files manifest must use schema 1.0.0")
+    if document.get("package_id") != expected_package_id:
+        raise PackageError(
+            "previous files manifest package_id does not match the declared previous version"
+        )
+    raw_records = document.get("files")
+    if not isinstance(raw_records, list):
+        raise PackageError("previous files manifest files must be a list")
+    records: dict[str, dict] = {}
+    order: list[str] = []
+    for raw in raw_records:
+        if not isinstance(raw, dict):
+            raise PackageError("previous files manifest entries must be mappings")
+        relative = safe_relative_path(raw.get("path"), "previous inventory path")
+        if relative in records:
+            raise PackageError(f"duplicate previous inventory path: {relative}")
+        if not SHA256_RE.fullmatch(str(raw.get("sha256", ""))):
+            raise PackageError(f"invalid previous inventory sha256: {relative}")
+        if raw.get("mode") not in {"0644", "0755"}:
+            raise PackageError(f"invalid previous inventory mode: {relative}")
+        if raw.get("ownership") not in {"framework-managed", "target-template"}:
+            raise PackageError(f"invalid previous inventory ownership: {relative}")
+        if not isinstance(raw.get("size"), int) or raw["size"] < 0:
+            raise PackageError(f"invalid previous inventory size: {relative}")
+        records[relative] = raw
+        order.append(relative)
+    if order != sorted(order, key=lambda item: item.encode("utf-8")):
+        raise PackageError("previous inventory paths must use UTF-8 bytewise order")
+    return records, sha256_bytes(content)
+
+
+def migration_operations(
+    previous: dict[str, dict],
+    incoming_files: Iterable[PayloadFile],
+) -> list[dict]:
+    incoming = {
+        item.path: {
+            "sha256": item.sha256,
+            "mode": f"{item.mode:04o}",
+            "ownership": item.ownership,
+        }
+        for item in incoming_files
+    }
+    removed = set(previous) - set(incoming)
+    added = set(incoming) - set(previous)
+
+    previous_signatures: dict[tuple[str, str, str], list[str]] = {}
+    incoming_signatures: dict[tuple[str, str, str], list[str]] = {}
+    for path in removed:
+        record = previous[path]
+        if record.get("ownership") == "framework-managed":
+            signature = (record["sha256"], record["mode"], record["ownership"])
+            previous_signatures.setdefault(signature, []).append(path)
+    for path in added:
+        record = incoming[path]
+        if record["ownership"] == "framework-managed":
+            signature = (record["sha256"], record["mode"], record["ownership"])
+            incoming_signatures.setdefault(signature, []).append(path)
+
+    renamed_sources: set[str] = set()
+    renamed_destinations: set[str] = set()
+    operations: list[dict] = []
+    for signature in sorted(set(previous_signatures) & set(incoming_signatures)):
+        sources = sorted(previous_signatures[signature], key=lambda item: item.encode("utf-8"))
+        destinations = sorted(incoming_signatures[signature], key=lambda item: item.encode("utf-8"))
+        if len(sources) != 1 or len(destinations) != 1:
+            continue
+        source, destination = sources[0], destinations[0]
+        renamed_sources.add(source)
+        renamed_destinations.add(destination)
+        operations.append(
+            {
+                "kind": "rename",
+                "path": destination,
+                "from_path": source,
+                "ownership": "framework-managed",
+                "preconditions": [
+                    "source_sha256_equals_previous_release",
+                    "destination_absent",
+                ],
+            }
+        )
+
+    for path in sorted(set(previous) & set(incoming), key=lambda item: item.encode("utf-8")):
+        before, after = previous[path], incoming[path]
+        if all(before.get(key) == after.get(key) for key in ("sha256", "mode", "ownership")):
+            continue
+        if before.get("ownership") == after.get("ownership") == "framework-managed":
+            operations.append(
+                {
+                    "kind": "replace",
+                    "path": path,
+                    "ownership": "framework-managed",
+                    "preconditions": ["current_sha256_equals_previous_release"],
+                }
+            )
+        else:
+            ownership = (
+                "target-template"
+                if "target-template" in {before.get("ownership"), after.get("ownership")}
+                else str(after.get("ownership"))
+            )
+            operations.append(
+                {
+                    "kind": "reconcile",
+                    "path": path,
+                    "ownership": ownership,
+                    "preconditions": ["human_acknowledgement"],
+                }
+            )
+
+    for path in sorted(added - renamed_destinations, key=lambda item: item.encode("utf-8")):
+        operations.append(
+            {
+                "kind": "add",
+                "path": path,
+                "ownership": incoming[path]["ownership"],
+                "preconditions": ["destination_absent"],
+            }
+        )
+    for path in sorted(removed - renamed_sources, key=lambda item: item.encode("utf-8")):
+        ownership = previous[path].get("ownership")
+        operations.append(
+            {
+                "kind": "remove" if ownership == "framework-managed" else "reconcile",
+                "path": path,
+                "ownership": ownership,
+                "preconditions": [
+                    "current_sha256_equals_previous_release"
+                    if ownership == "framework-managed"
+                    else "human_acknowledgement"
+                ],
+            }
+        )
+
+    operations.sort(
+        key=lambda item: (
+            item["path"].encode("utf-8"),
+            item["kind"],
+            str(item.get("from_path", "")).encode("utf-8"),
+        )
+    )
+    return [
+        {"id": f"migration-{index:04d}", **operation}
+        for index, operation in enumerate(operations, 1)
+    ]
+
+
 def build_package(
     repo: Path,
     ref: str,
     version_value: str,
     output_dir: Path,
     profile_path: str = ".ai/distribution/profiles/dotnet-backend.yaml",
+    previous_files_path: Path | None = None,
+    previous_version_value: str | None = None,
 ) -> dict[str, Path | str]:
     repo = repo.resolve()
     commit = resolve_commit(repo, ref)
@@ -413,23 +590,7 @@ def build_package(
         raise PackageError("package payload is empty")
     validate_payload_reference_integrity(payload_files, profile)
 
-    file_document = {
-        "schema_version": "1.0.0",
-        "package_id": package_id,
-        "files": [
-            {
-                "path": item.path,
-                "source_path": item.source_path,
-                "sha256": item.sha256,
-                "size": len(item.content),
-                "mode": f"{item.mode:04o}",
-                "ownership": item.ownership,
-                "install_behavior": item.install_behavior,
-                "entry_id": item.entry_id,
-            }
-            for item in payload_files
-        ],
-    }
+    file_document = inventory_document(payload_files, package_id)
     files_content = yaml_bytes(file_document)
     files_sha = sha256_bytes(files_content)
     created_at = datetime.fromtimestamp(epoch, timezone.utc).isoformat().replace("+00:00", "Z")
@@ -449,12 +610,18 @@ def build_package(
         },
         "compatibility": {"minimum_governed_source": "v0.1.0", "breaking_changes": True},
     }
-    migration_document = {
-        "schema_version": "1.0.0",
-        "package_id": package_id,
-        "from": {"version": None, "manifest_sha256": None},
-        "to": {"version": version, "manifest_sha256": files_sha},
-        "operations": [
+    if (previous_files_path is None) != (previous_version_value is None):
+        raise PackageError(
+            "previous files manifest and previous version must be supplied together"
+        )
+    previous_version = (
+        normalize_version(previous_version_value)
+        if previous_version_value is not None
+        else None
+    )
+    if previous_files_path is None:
+        migration_from = {"version": None, "manifest_sha256": None}
+        operations = [
             {
                 "id": f"clean-install-{index:04d}",
                 "kind": "add",
@@ -463,7 +630,23 @@ def build_package(
                 "preconditions": ["destination_absent"],
             }
             for index, item in enumerate(payload_files, 1)
-        ],
+        ]
+    else:
+        previous_package_id = name_template.format(version=previous_version)
+        previous, previous_sha = load_previous_inventory(
+            previous_files_path.resolve(), previous_package_id
+        )
+        migration_from = {
+            "version": previous_version,
+            "manifest_sha256": previous_sha,
+        }
+        operations = migration_operations(previous, payload_files)
+    migration_document = {
+        "schema_version": "1.0.0",
+        "package_id": package_id,
+        "from": migration_from,
+        "to": {"version": version, "manifest_sha256": files_sha},
+        "operations": operations,
         "safety": {
             "dry_run_default": True,
             "clean_worktree_required": True,

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import subprocess
+import shutil
 import sys
 import tempfile
 import unittest
@@ -44,6 +45,8 @@ class SyntheticPackageRepo:
             "PyYAML==6.0.3\n", encoding="utf-8", newline="\n"
         )
         (self.root / "docs/rule.md").write_text("committed rule\n", encoding="utf-8", newline="\n")
+        (self.root / "docs/remove.md").write_text("remove me\n", encoding="utf-8", newline="\n")
+        (self.root / "docs/old-name.md").write_text("renamed bytes\n", encoding="utf-8", newline="\n")
         for script in ("ai_context_package_apply.py", "plan-ai-context-package-apply.py"):
             (self.root / ".ai/scripts" / script).write_bytes((SCRIPTS / script).read_bytes())
         profile = {
@@ -93,8 +96,28 @@ class SyntheticPackageRepo:
     def output(self, name: str) -> Path:
         return Path(self._temporary.name) / name
 
-    def build(self, name: str) -> dict[str, Path | str]:
-        return PACKAGE.build_package(self.root, "HEAD", "1.0.0", self.output(name), self.profile)
+    def build(
+        self,
+        name: str,
+        version: str = "1.0.0",
+        previous_files: Path | None = None,
+        previous_version: str | None = None,
+    ) -> dict[str, Path | str]:
+        return PACKAGE.build_package(
+            self.root,
+            "HEAD",
+            version,
+            self.output(name),
+            self.profile,
+            previous_files,
+            previous_version,
+        )
+
+    def extract(self, result: dict[str, Path | str], name: str) -> Path:
+        destination = self.output(name)
+        with zipfile.ZipFile(Path(result["zip"])) as archive:
+            archive.extractall(destination)
+        return destination / str(result["package_id"])
 
 
 def rewrite_zip_member(source: Path, target: Path, suffix: str, replacement: bytes) -> None:
@@ -248,6 +271,8 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertEqual({}, workflow["permissions"])
         self.assertEqual({"contents": "read"}, jobs["package"]["permissions"])
         self.assertIn("actions/upload-artifact@", text)
+        self.assertIn("--previous-files", text)
+        self.assertIn("steps.release.outputs.migration_source", text)
         self.assertNotIn("gh release", text)
         self.assertNotRegex(text, r"(?m)^\s*(?:git\s+(?:tag|push|update-ref)|gh\s+api\s+.*git/refs)\b")
 
@@ -264,6 +289,8 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertEqual("ai-context-release", jobs["publish"]["environment"])
         self.assertIn(r"^v[0-9]+\.[0-9]+\.[0-9]+$", text)
         self.assertIn('--ref "refs/tags/${GITHUB_REF_NAME}"', text)
+        self.assertIn("--previous-files", text)
+        self.assertIn("steps.release.outputs.migration_source", text)
 
     def test_gwt_009_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
         # Given the commands used to create, verify, and publish a release.
@@ -314,6 +341,203 @@ class PayloadReferenceIntegrityGwtTests(unittest.TestCase):
             self.assertTrue(Path(result["zip"]).is_file())
         finally:
             fixture.close()
+
+
+class VersionedMigrationPackagingGwtTests(unittest.TestCase):
+    def test_gwt_012_given_governed_previous_inventory_when_built_then_versioned_operations_apply(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given an extracted governed previous package and an immutable incoming commit.
+            previous_result = fixture.build("previous", "0.9.0")
+            previous_root = fixture.extract(previous_result, "previous-extracted")
+            previous_files = previous_root / "metadata/files.yaml"
+            (fixture.root / "docs/rule.md").write_text(
+                "incoming rule\n", encoding="utf-8", newline="\n"
+            )
+            (fixture.root / "docs/remove.md").unlink()
+            (fixture.root / "docs/old-name.md").rename(fixture.root / "docs/new-name.md")
+            (fixture.root / "docs/add.md").write_text(
+                "added\n", encoding="utf-8", newline="\n"
+            )
+            git(fixture.root, "add", "-A")
+            git(fixture.root, "commit", "-qm", "incoming package source")
+
+            # When the candidate is built with the exact previous files manifest.
+            candidate_result = fixture.build(
+                "candidate", "1.0.0", previous_files, "0.9.0"
+            )
+            candidate_root = fixture.extract(candidate_result, "candidate-extracted")
+            migration = yaml.safe_load(
+                (candidate_root / "metadata/migration.yaml").read_text(encoding="utf-8")
+            )
+
+            # Then migration identity and every existing operation kind are deterministic.
+            self.assertEqual("0.9.0", migration["from"]["version"])
+            self.assertEqual(
+                PACKAGE.sha256_bytes(previous_files.read_bytes()),
+                migration["from"]["manifest_sha256"],
+            )
+            self.assertEqual(
+                {"add", "replace", "remove", "rename"},
+                {item["kind"] for item in migration["operations"]},
+            )
+            self.assertEqual(
+                sorted(item["id"] for item in migration["operations"]),
+                [item["id"] for item in migration["operations"]],
+            )
+
+            # And the planner from the extracted candidate upgrades the extracted base.
+            target = fixture.output("upgrade-target")
+            shutil.copytree(previous_root / "payload", target)
+            git(target, "init", "-q")
+            git(target, "config", "user.name", "Fixture")
+            git(target, "config", "user.email", "fixture@example.invalid")
+            git(target, "add", ".")
+            git(target, "commit", "-qm", "governed previous package")
+            planner = candidate_root / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            applied = subprocess.run(
+                [
+                    sys.executable,
+                    str(planner),
+                    "--package-root",
+                    str(candidate_root),
+                    "--target-root",
+                    str(target),
+                    "--previous-files",
+                    str(previous_files),
+                    "--apply",
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, applied.returncode, applied.stdout + applied.stderr)
+            self.assertEqual(b"incoming rule\n", (target / "docs/rule.md").read_bytes())
+            self.assertFalse((target / "docs/remove.md").exists())
+            self.assertFalse((target / "docs/old-name.md").exists())
+            self.assertEqual(b"renamed bytes\n", (target / "docs/new-name.md").read_bytes())
+            self.assertEqual(b"added\n", (target / "docs/add.md").read_bytes())
+        finally:
+            fixture.close()
+
+    def test_gwt_013_given_partial_previous_identity_when_built_then_it_fails_closed(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given only one half of the previous-release identity.
+            previous_result = fixture.build("previous", "0.9.0")
+            previous_root = fixture.extract(previous_result, "previous-extracted")
+            previous_files = previous_root / "metadata/files.yaml"
+
+            # When either the version or manifest is omitted, then building fails closed.
+            with self.assertRaisesRegex(PACKAGE.PackageError, "supplied together"):
+                fixture.build("missing-version", previous_files=previous_files)
+            with self.assertRaisesRegex(PACKAGE.PackageError, "supplied together"):
+                fixture.build("missing-manifest", previous_version="0.9.0")
+        finally:
+            fixture.close()
+
+    def test_gwt_014_given_real_v030_package_when_candidate_is_extracted_then_upgrade_applies(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="ai-context-real-upgrade-") as temp_value:
+            temp = Path(temp_value)
+
+            # Given the immutable published v0.3.0 tree is built and extracted.
+            previous_result = PACKAGE.build_package(
+                ROOT, "v0.3.0", "0.3.0", temp / "previous"
+            )
+            previous_extract = temp / "previous-extracted"
+            with zipfile.ZipFile(Path(previous_result["zip"])) as archive:
+                archive.extractall(previous_extract)
+            previous_root = previous_extract / "ai-context-dotnet-backend-v0.3.0"
+            previous_files = previous_root / "metadata/files.yaml"
+
+            # When the current immutable candidate is built against that exact inventory.
+            candidate_result = PACKAGE.build_package(
+                ROOT,
+                "HEAD",
+                "0.4.1",
+                temp / "candidate",
+                previous_files_path=previous_files,
+                previous_version_value="0.3.0",
+            )
+            PACKAGE.validate_sidecar(Path(candidate_result["zip"]))
+            PACKAGE.validate_sidecar(Path(candidate_result["tar_gz"]))
+            self.assertEqual(
+                PACKAGE.validate_archive(Path(candidate_result["zip"])),
+                PACKAGE.validate_archive(Path(candidate_result["tar_gz"])),
+            )
+            candidate_extract = temp / "candidate-extracted"
+            with zipfile.ZipFile(Path(candidate_result["zip"])) as archive:
+                archive.extractall(candidate_extract)
+            candidate_root = candidate_extract / "ai-context-dotnet-backend-v0.4.1"
+            migration = yaml.safe_load(
+                (candidate_root / "metadata/migration.yaml").read_text(encoding="utf-8")
+            )
+            self.assertEqual("0.3.0", migration["from"]["version"])
+            self.assertEqual(
+                PACKAGE.sha256_bytes(previous_files.read_bytes()),
+                migration["from"]["manifest_sha256"],
+            )
+            self.assertGreater(len(migration["operations"]), 100)
+
+            # Then the extracted candidate planner dry-runs and applies to a real v0.3.0 payload.
+            target = temp / "target"
+            shutil.copytree(previous_root / "payload", target)
+            git(target, "init", "-q")
+            git(target, "config", "user.name", "Fixture")
+            git(target, "config", "user.email", "fixture@example.invalid")
+            git(target, "add", ".")
+            git(target, "commit", "-qm", "published v0.3.0 package baseline")
+            planner = candidate_root / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            plan_path = temp / "plan.yaml"
+            dry_run = subprocess.run(
+                [
+                    sys.executable,
+                    str(planner),
+                    "--package-root",
+                    str(candidate_root),
+                    "--target-root",
+                    str(target),
+                    "--previous-files",
+                    str(previous_files),
+                    "--plan-output",
+                    str(plan_path),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, dry_run.returncode, dry_run.stdout + dry_run.stderr)
+            plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))
+            acknowledgements = [
+                item["id"] for item in plan["operations"] if item["action"] == "reconcile"
+            ]
+            apply_arguments = [
+                sys.executable,
+                str(planner),
+                "--package-root",
+                str(candidate_root),
+                "--target-root",
+                str(target),
+                "--previous-files",
+                str(previous_files),
+                "--apply",
+            ]
+            for operation_id in acknowledgements:
+                apply_arguments.extend(["--acknowledge", operation_id])
+            applied = subprocess.run(
+                apply_arguments,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, applied.returncode, applied.stdout + applied.stderr)
+            receipt = yaml.safe_load(
+                (target / ".dev/AI-CONTEXT-APPLY-PENDING.yaml").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual("0.4.1", receipt["package_version"])
+            self.assertEqual(sorted(acknowledgements), receipt["skipped_reconciliation_ids"])
 
 
 if __name__ == "__main__":

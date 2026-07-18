@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation`
 - `created_at`: `2026-07-18T21:39:19+08:00`
-- `updated_at`: `2026-07-18T21:43:22+08:00`
+- `updated_at`: `2026-07-18T22:27:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -46,13 +46,13 @@ the independently authored planning source:
 1. `PKG-001` is the v0.4.1 release blocker and executes first.
 2. `PKG-002` executes second and must be included in the same extracted-package
    acceptance path.
-3. Existing contract-preserving content corrections remain v0.4.1 candidates,
-   but cannot displace these two package defects.
+3. Existing contract-preserving content corrections move to v0.4.2 by user
+   decision; v0.4.1 remains a focused package-defect patch.
 4. New policy, schema, CI, or generalized validation contracts remain v0.5.0
    unless the smallest defect correction cannot be expressed within existing
    published contracts.
-5. `v0.4.2` remains conditional; it is not a destination for either confirmed
-   defect merely because implementation touches packaging code.
+5. Multi-source automatic migration requires a new public contract and is
+   assigned to v0.5.0; v0.4.1 binds only the governed v0.3.0 inventory.
 
 ## Finding Triage
 
@@ -100,19 +100,19 @@ the independently authored planning source:
 | Task | Purpose | Status |
 | --- | --- | --- |
 | `V041-001` | Preserve downstream evidence, create P0 backlog items, and reorder the live roadmap. | `completed` |
-| `V041-002` | Implement executable governed version-to-version migration metadata and real upgrade validation. | `in_progress` |
-| `V041-003` | Separate source-only tests from downstream package documentation and required gates. | `pending` |
+| `V041-002` | Implement executable governed version-to-version migration metadata and real upgrade validation. | `completed` |
+| `V041-003` | Separate source-only tests from downstream package documentation and required gates. | `in_progress` |
 | `V041-004` | Run immutable candidate validation, independent verification, and remediation closeout. | `pending` |
 
 ## Resume Checkpoint
 
-- Last completed action: retained the downstream upgrade findings, created `PKG-001` and `PKG-002` as HIGH/P0 v0.4.1 items, activated this remediation workflow, and reordered the roadmap so package correctness precedes general content fixes.
-- Current task: `V041-002`.
-- Exact next action: read `evidence/downstream-v0.4-upgrade-findings.md`, reproduce the clean-install-only metadata from `v0.4.0`, then design the smallest patch-compatible builder input that binds the governed v0.3.0 `files.yaml` and emits deterministic upgrade operations.
-- Validation already completed: immutable `v0.4.0` tag behavior compared with current `main`; source guide/builder/apply/profile/runner contracts inspected; downstream workflow and assessment evidence pinned to `dotnet-mq-arch-lab@2eeddf392ca79deb4407c47d13ad53178015ba90`; workflow artifact validation passed for 21 workflows, 41 indexed directories, and 14 backlog items; AI-context, assessment, and five-release version validation passed; six backlog release-contract GWT passed; all four task JSON files parsed; `git diff --check` passed.
-- Git state: planning checkpoint `69ac74f5c9eeeb9efe8a9055a812348773127d0b` is committed on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation` from local `main@728fb73025b834997f8b7818380b9ca28f72f220`; implementation has not started.
+- Last completed action: reproduced the immutable v0.4.0 failure, added an optional previous-inventory builder input within migration schema 1.0.0, derived deterministic versioned operations, and proved a real extracted v0.3.0-to-v0.4.1 dry-run and apply.
+- Current task: `V041-003`.
+- Exact next action: classify source-only release/package-builder tests, exclude them from the target payload, and make the packaged runner select only target-applicable version and safe-apply checks.
+- Validation already completed: 14/14 package-builder GWT passed including the real v0.3.0-to-v0.4.1 extracted upgrade; 13/14 package-apply GWT passed with the Windows symlink fixture skipped for unavailable privilege; candidate and publish workflows parse and bind their single automatic migration source; ZIP/tar parity and sidecars passed; `git diff --check` passed.
+- Git state: V041-002 implementation is ready for its required task commit on `codex/2026-07-18-v0-4-1-downstream-upgrade-remediation`.
 - Branch history and checkpoint handoffs: segment 1 is a local session-handoff checkpoint; no source branch push, merge, tag, or publication was requested.
-- Blockers or unresolved decisions: none for `PKG-001` or `PKG-002`; if implementation requires a new schema, new required validation contract, or published-path removal, stop and request SemVer/roadmap reclassification before making that expansion.
+- Blockers or unresolved decisions: none. The user assigned multi-source automatic migration to v0.5.0 and selected a v0.4.0-to-v0.5.0 direct upgrade gate; dotnet-mq-arch-lab remains unchanged on v0.4.0.
 
 ## Branch Lifecycle
 

@@ -6,9 +6,9 @@
   "task_id": "V041-002",
   "workflow_id": "2026-07-18-v0-4-1-downstream-upgrade-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-18T21:39:19+08:00",
-  "updated_at": "2026-07-18T21:39:19+08:00",
+  "updated_at": "2026-07-18T22:27:21+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PKG-001"],
   "scope": {
@@ -49,15 +49,29 @@
       "ZIP/tar.gz byte parity and sidecars",
       "Source required gate"
     ],
-    "last_completed_step": "Planning and acceptance boundaries recorded; implementation intentionally not started.",
-    "next_action": "Read the evidence file and reproduce the tagged v0.4.0 failure before editing the builder."
+    "last_completed_step": "Built and applied a real candidate archive from the immutable v0.3.0 package inventory.",
+    "next_action": "Continue with V041-003 and keep source-only release and builder tests out of the downstream gate."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "The published upgrade remains non-executable as documented.",
-    "follow_up_needed": true
+    "summary": "The existing migration schema now emits executable versioned operations when the builder receives the exact governed v0.3.0 files manifest; clean install remains supported separately.",
+    "files_changed": [
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/build-ai-context-package.py",
+      ".ai/scripts/render-ai-context-release-notes.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
+      ".github/workflows/package-candidate.yml",
+      ".github/workflows/publish-release.yml"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_ai_context_packaging.py -v (14/14 passed)",
+      "python .ai/scripts/tests/test_ai_context_package_apply.py -v (13 passed, 1 Windows symlink privilege skip)",
+      "real v0.3.0 extracted payload to v0.4.1 candidate dry-run and apply",
+      "ZIP/tar.gz member parity and checksum sidecars",
+      "GitHub workflow YAML parse",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Migration schema 1.0.0 supports one automatic source; multi-source direct upgrades are explicitly deferred to v0.5.0.",
+    "follow_up_needed": false
   }
 }
