@@ -28,7 +28,7 @@
     "files_changed": [".dev/workflows/2026-07-18-v0-4-1-release-publication/**", ".dev/workflows/INDEX.MD"],
     "tests_run": [".ai/scripts/check-all.sh --full (21/21 passed)", "build-ai-context-package.py twice from bc99a795e9d6f23e1dd1e70ff3da83c9a9de1161", "validate-ai-context-package.py (passed)", "ZIP SHA-256 030a94df60c923917e265c0f90d7921d830d8d1bb2f487c3c5d345128a03703f", "tar.gz SHA-256 c8d0cdda3a08c89df546aefa34ac47d658379a3473926320e819690f80352cfe"],
     "finding_status": "addressed",
-    "residual_risk": "The final main merge commit still requires the same validation before tag creation.",
+    "residual_risk": "None; the final tagged-tree commit repeated and passed the required validation.",
     "follow_up_needed": false
   }
 }

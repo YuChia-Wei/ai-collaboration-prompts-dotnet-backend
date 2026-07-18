@@ -1,16 +1,16 @@
 schema_version: "1.0"
 release_id: "REL-v0.4.1"
 version: "v0.4.1"
-status: "validated"
+status: "published"
 record_origin: "governed"
 distribution_kind: "governed-package"
 installable: true
-tag: null
-commit: null
-tagged_at: null
-recorded_at: null
+tag: "v0.4.1"
+commit: "3daefcef1318c12d03c189f232993ccbe04665f2"
+tagged_at: "2026-07-18T23:44:29+08:00"
+recorded_at: "2026-07-18T23:47:03+08:00"
 created_at: "2026-07-18T22:58:51+08:00"
-updated_at: "2026-07-18T23:15:10+08:00"
+updated_at: "2026-07-18T23:47:03+08:00"
 compatibility:
   breaking_changes: false
   minimum_source_version: "v0.3.0"
@@ -46,9 +46,10 @@ distribution:
     automation: "github-actions"
     creates_or_moves_tag: false
 validation:
-  evidence: "Candidate commit 962919bfa15e7dba1f56e4a9741538d9caf1d7e6 passed the full source gate at 21/21, real extracted v0.3.0-to-v0.4.1 plan/apply, synchronized downstream gate at 19/19, focused package/applicability GWT, and two byte-identical ZIP/tar.gz builds with valid inventories, member checksums, sidecars, and archive parity. Independent verification ASM-20260718-001 found no new release blocker."
-  workflow_id: "2026-07-18-v0-4-1-downstream-upgrade-remediation"
+  evidence: "The focused remediation and independent assessment ASM-20260718-001 found no release blocker. Final tagged-tree commit 3daefcef1318c12d03c189f232993ccbe04665f2 passed the 21/21 full source gate, publish-mode rendering, real extracted v0.3.0-to-v0.4.1 testing, synchronized downstream validation, and two byte-identical package builds. The user-authorized annotated v0.4.1 tag resolves to that commit. GitHub Actions run 29650583394 completed successfully and published stable non-draft REL-v0.4.1 with the exact four governed assets. Downloaded ZIP and tar.gz archives passed sidecar, inventory, member-checksum, and archive-parity validation; SHA-256 values are 86ff43d9ba4e8494e3b1ba0d62f8664336f18207f5948c5b6cac0c64aaef0371 and f0c1da6f63ccaf105fca2aa0f6795e86744c5ef0ae1b6e135256d0f2372d1323."
+  workflow_id: "2026-07-18-v0-4-1-release-publication"
   related_workflows:
+    - "2026-07-18-v0-4-1-downstream-upgrade-remediation"
     - "2026-07-17-v0-4-0-release-publication"
   package_status: "validated"
-  post_merge_status: "pending"
+  post_merge_status: "passed"

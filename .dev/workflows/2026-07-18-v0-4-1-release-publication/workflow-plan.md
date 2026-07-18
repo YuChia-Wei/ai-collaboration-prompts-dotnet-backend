@@ -12,14 +12,14 @@
 - `workflow_id`: `2026-07-18-v0-4-1-release-publication`
 - `workflow_kind`: `ai-context-maintenance`
 - `owner_skill`: `ai-context-governance`
-- `branch`: `codex/2026-07-18-v0-4-1-release-publication`
+- `branch`: `codex/2026-07-18-v0-4-1-release-publication-cont-02`
 - `base_branch`: `main`
-- `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `publication`
+- `branch_segment`: `2`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-18-v0-4-1-release-publication`
 - `created_at`: `2026-07-18T23:25:13+08:00`
-- `updated_at`: `2026-07-18T23:34:24+08:00`
+- `updated_at`: `2026-07-18T23:47:03+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -42,16 +42,16 @@
 | Task | Purpose | Status | Validation |
 | --- | --- | --- | --- |
 | `REL041-001` | Validate and record the immutable tagged-tree candidate. | `completed` | Full gate, version validation, two deterministic package builds and parity. |
-| `REL041-002` | Create and push the authorized annotated tag, then verify hosted publication. | `in_progress` | Annotated tag identity, Actions run, release asset set and checksums. |
-| `REL041-003` | Finalize published registry/backlog truth and close the workflow. | `pending` | Published record, tag resolution, context/workflow/version validators. |
+| `REL041-002` | Create and push the authorized annotated tag, then verify hosted publication. | `completed` | Annotated tag identity, Actions run, release asset set and checksums. |
+| `REL041-003` | Finalize published registry/backlog truth and close the workflow. | `completed` | Published record, tag resolution, context/workflow/version validators. |
 
 ## Resume Checkpoint
 
-- Last completed action: validated publication-preparation commit `bc99a795e9d6f23e1dd1e70ff3da83c9a9de1161` with the full 21/21 gate and two byte-identical v0.4.1 builds.
-- Current task: `REL041-002`.
-- Exact next action: commit readiness evidence, merge this branch to `main`, revalidate the final main commit, then create and push annotated `v0.4.1`.
-- Validation already completed: full source gate 21/21; archive validation; deterministic ZIP `030a94df60c923917e265c0f90d7921d830d8d1bb2f487c3c5d345128a03703f`; deterministic tar.gz `c8d0cdda3a08c89df546aefa34ac47d658379a3473926320e819690f80352cfe`.
-- Git state: publication branch contains immutable readiness evidence and remains untagged.
+- Last completed action: published annotated `v0.4.1` at `3daefcef1318c12d03c189f232993ccbe04665f2`, verified successful Actions run `29650583394`, validated downloaded assets, and finalized registry truth.
+- Current task: none; `REL041-001` through `REL041-003` are complete.
+- Exact next action: validate this finalization commit, merge it to `main` with `--no-ff`, push `main`, and confirm the tag remains unchanged.
+- Validation already completed: final tagged-tree full gate 21/21; two byte-identical package builds; publish-mode renderer; annotated local and remote tag identity; successful stable hosted release; exact four-asset set; downloaded package checksum and parity validation.
+- Git state: continuation branch created from published `main`; registry and workflow finalization are ready for commit and integration.
 - Blockers or unresolved decisions: none; the user explicitly authorized v0.4.1 publication.
 
 ## Branch Lifecycle
@@ -60,3 +60,6 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-18-v0-4-1-release-publication` | `main@f68e85aff5511fcc59b52bcd90b3ee7337da5ee8` | started | `f68e85aff5511fcc59b52bcd90b3ee7337da5ee8` | local | `2026-07-18T23:25:13+08:00` | Prepare immutable v0.4.1 publication evidence and authorized tag. | Complete `REL041-001`, integrate, revalidate final main, and publish. |
 | 1 | `codex/2026-07-18-v0-4-1-release-publication` | `main@f68e85aff5511fcc59b52bcd90b3ee7337da5ee8` | readiness-validated | `bc99a795e9d6f23e1dd1e70ff3da83c9a9de1161` | local | `2026-07-18T23:34:24+08:00` | Full gate and two immutable-tree builds passed. | Integrate to main, revalidate the final commit, then publish the annotated tag. |
+| 1 | `codex/2026-07-18-v0-4-1-release-publication` | `main@f68e85aff5511fcc59b52bcd90b3ee7337da5ee8` | merge-and-publish | `3daefcef1318c12d03c189f232993ccbe04665f2` | `main` / `v0.4.1` | `2026-07-18T23:44:29+08:00` | Integrate the validated tagged-tree candidate and exercise user-authorized publication. | Continue registry finalization from published `main`. |
+| 2 | `codex/2026-07-18-v0-4-1-release-publication-cont-02` | `main@3daefcef1318c12d03c189f232993ccbe04665f2` | started | `3daefcef1318c12d03c189f232993ccbe04665f2` | local | `2026-07-18T23:47:03+08:00` | Reconcile trusted registry and backlog truth after hosted publication succeeded. | Complete `REL041-003`. |
+| 2 | `codex/2026-07-18-v0-4-1-release-publication-cont-02` | `main@3daefcef1318c12d03c189f232993ccbe04665f2` | completed | pending | `main` | `2026-07-18T23:47:03+08:00` | Publication and registry finalization are complete. | Validate, merge, and push. |

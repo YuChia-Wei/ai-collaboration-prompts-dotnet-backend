@@ -2,16 +2,11 @@
 
 This index is the discovery view for framework releases. Each version's `release.yaml` is its lifecycle source of truth.
 
-## Planned Releases
-
-| Release ID | Version | Status | Compatibility | Notes | Migration |
-| --- | --- | --- | --- | --- | --- |
-| [`REL-v0.4.1`](v0.4.1/release.yaml) | `v0.4.1` | `validated` | governed package patch; automatic source v0.3.0; v0.4.0 consumers should wait for v0.5.0 | [notes](v0.4.1/release-notes.md) | [guide](v0.4.1/migration-guide.md) |
-
 ## Published Releases
 
 | Release ID | Version | Published commit | Compatibility | Notes | Migration |
 | --- | --- | --- | --- | --- | --- |
+| [`REL-v0.4.1`](v0.4.1/release.yaml) | `v0.4.1` | `3daefcef1318c12d03c189f232993ccbe04665f2` | governed package patch; automatic source v0.3.0; v0.4.0 consumers should wait for v0.5.0 | [notes](v0.4.1/release-notes.md) | [guide](v0.4.1/migration-guide.md) |
 | [`REL-v0.4.0`](v0.4.0/release.yaml) | `v0.4.0` | `5af1db672928f9d51f55fee04183ad27b79fb9f8` | governed package; pre-1.0 breaking changes; v0.3.0 reconciliation required | [notes](v0.4.0/release-notes.md) | [guide](v0.4.0/migration-guide.md) |
 | [`REL-v0.3.0`](v0.3.0/release.yaml) | `v0.3.0` | `1e782909b7753b2889014516595d72f703a260f3` | governed package; pre-1.0 breaking changes documented | [notes](v0.3.0/release-notes.md) | [guide](v0.3.0/migration-guide.md) |
 | [`REL-v0.2.0`](v0.2.0/release.yaml) | `v0.2.0` | `9abc75b543ae201865c1e119d29fac2bcd2f4542` | pre-1.0 breaking changes documented | [notes](v0.2.0/release-notes.md) | [guide](v0.2.0/migration-guide.md) |

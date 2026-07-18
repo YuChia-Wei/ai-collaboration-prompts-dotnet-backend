@@ -4,9 +4,9 @@
 
 - `roadmap_id`: `post-v0.4.0`
 - `status`: `active`
-- `current_target`: `v0.4.1`
+- `current_target`: `v0.4.2`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-18T23:15:10+08:00`
+- `updated_at`: `2026-07-18T23:47:03+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -24,8 +24,8 @@ Read this file before planning or resuming a post-v0.4.0 release.
 
 | Version | State | Required | Objective | Activation Gate | Workflow |
 | --- | --- | --- | --- | --- | --- |
-| `v0.4.1` | `ready_for_publication` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Publish the independently verified focused patch without adding a schema, required contract, or published-path removal. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) |
-| `v0.4.2` | `planned` | yes | Deliver the complete content and wrapper correctness set originally assigned to v0.4.1, including context-translator routing, without broadening into new runtime-adapter semantics. | Publish v0.4.1, then activate the retained post-v0.4.0 improvement plan as a fresh remediation workflow. | not created |
+| `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
+| `v0.4.2` | `ready_for_workflow` | yes | Deliver the complete content and wrapper correctness set originally assigned to v0.4.1, including context-translator routing, without broadening into new runtime-adapter semantics. | Create a fresh remediation workflow from the retained post-v0.4.0 improvement plan; do not silently broaden into v0.5.0 schema or adapter work. | not created |
 | `v0.5.0` | `planned` | yes | Add a governed multi-source direct-upgrade contract and institutionalize governance enforcement, CI, validation contracts, selective sub-agent adapter promotion, policy decisions, and published-path retirement with migration evidence. | Complete v0.4.2 and approve policy, template, CI, sub-agent adapter, and migration-schema decisions; verify v0.3.0, v0.4.0, and v0.4.1 direct sources. | not created |
 | `v0.6.0` | `planned` | yes | Introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry. | Stabilize v0.5.0 governance and sub-agent adapter contracts, then design deprecated-replacement validation. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal. | Demonstrate adoption of `ai-context-init` and no remaining dependency on old prompts, wrappers, provenance values, or template paths. | not created |
@@ -62,8 +62,8 @@ release evidence than the earlier planning source:
 The backlog index is the quick catalog for target, completion, and publication
 versions. Current assignments:
 
-- `v0.4.1`: `PKG-001` and `PKG-002` are HIGH/P0 release blockers in the active
-  downstream-upgrade remediation workflow.
+- `v0.4.1`: `PKG-001` and `PKG-002` were completed and published in
+  `REL-v0.4.1`.
 - `v0.4.2`: all corrections originally assigned to v0.4.1 by the retained
   source plan, including the context-translator routing correction.
 - `v0.5.0`: `PKG-003`, `SAG-001`, `TOOL-001`, `LANG-001`, `GOV-001`, `CAP-001`, and `VAL-001`
@@ -89,7 +89,7 @@ versions. Current assignments:
 
 ## Next Action
 
-Publish the validated v0.4.1 candidate through a separate release workflow,
-then activate v0.4.2 for the complete deferred correction set. Keep v0.4.0
-consumers on their current version until v0.5.0 unless they explicitly choose a
-manual reconciliation; `PKG-003` must prove their direct v0.5.0 path.
+Create a fresh v0.4.2 remediation workflow for the complete deferred correction
+set. Keep v0.4.0 consumers on their current version until v0.5.0 unless they
+explicitly choose a manual reconciliation; `PKG-003` must prove their direct
+v0.5.0 path.

@@ -1,8 +1,9 @@
 # Migrate To v0.4.1
 
-This is the candidate migration contract for `REL-v0.4.1`. Do not treat it as
-published until the annotated `v0.4.1` tag and GitHub Release exist and the
-downloaded archive matches its adjacent checksum asset.
+This is the published migration contract for `REL-v0.4.1`. Annotated tag
+`v0.4.1` resolves to
+`3daefcef1318c12d03c189f232993ccbe04665f2`. Validate the downloaded archive
+against its adjacent `.sha256` asset before planning an upgrade.
 
 ## Supported Governed Source
 
