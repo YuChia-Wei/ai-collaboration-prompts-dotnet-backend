@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-18T14:19:06+08:00",
-  "updated_at": "2026-07-18T14:22:41+08:00",
+  "updated_at": "2026-07-18T14:53:16+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
     "ASM-20260717-004#AIC-001",
@@ -36,7 +36,7 @@
   },
   "execution": {
     "steps": [
-      "Inspect the assessment locator, report, and supplemental roadmap",
+      "Inspect the historical assessment locator and report separately from the independently authored roadmap source",
       "Compare the assessment subject revision with the published v0.4.0 and current main revisions",
       "Classify proposed work against the repository SemVer policy",
       "Record the fresh-baseline activation gate"
@@ -47,10 +47,10 @@
       "Codebase Memory exclusion comparison"
     ],
     "last_completed_step": "Recorded the assessment provenance limitation and patch-versus-minor classification gates.",
-    "next_action": "Create a successor assessment pinned to the selected post-v0.4.0 revision before remediation."
+    "next_action": "Confirm the exact v0.4.0 commit used by Claude Fable 5 and establish a governed successor assessment from the independent plan and reproducible evidence before remediation."
   },
   "results": {
-    "summary": "The assessment and supplemental plan are durable roadmap predecessors, but the report is not a fresh authoritative post-v0.4.0 baseline. Release work requires a pinned successor assessment or equivalent durable re-verification.",
+    "summary": "The historical assessment and independently authored Fable 5 plan are separate durable planning inputs. The plan is substantively suitable to seed a successor assessment once its exact subject, scope, method, and evidence are governed; a full re-audit is not automatically required.",
     "files_changed": [
       ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
     ],
@@ -60,7 +60,7 @@
       "Assessment artifact validation passed after ASM-20260717-004 was committed and indexed"
     ],
     "finding_status": "deferred",
-    "residual_risk": "The selected findings may have changed since the assessment subject revision.",
+    "residual_risk": "The exact v0.4.0 tree used for the independent plan is not yet recorded, so its claims cannot yet be reproduced against one immutable assessment subject.",
     "follow_up_needed": true
   }
 }

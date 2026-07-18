@@ -15,7 +15,7 @@ report: "report.md"
 artifact_branch: "claude/assessment/asm-20260717-004"
 base_branch: "main"
 created_at: "2026-07-17T13:02:24+08:00"
-updated_at: "2026-07-18T14:22:41+08:00"
+updated_at: "2026-07-18T14:53:16+08:00"
 template_source: ".dev/assessments/templates/assessment-locator-template.yaml"
 template_version: "1.0.0"
 report_template_source: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md"
@@ -51,10 +51,15 @@ relations:
   workflow_refs:
     - "2026-07-16-v0-4-0-ai-context-remediation"
     - "2026-07-18-post-v0-4-roadmap-planning"
-  backlog_refs:
-    - "AIC-ROADMAP-001"
+  backlog_refs: []
+  roadmap_refs:
+    - ".dev/backlog/ROADMAP.md"
+  planning_refs:
+    - ".dev/backlog/plans/post-v0.4.0-improvement-plan.md"
   adr_refs: []
+addenda:
+  - "provenance-addendum.md"
 resume:
-  last_completed_action: "Committed as the durable predecessor to the post-v0.4.0 roadmap and linked to AIC-ROADMAP-001 and its planning workflow; final report conclusions remain unchanged"
-  next_action: "Use AIC-ROADMAP-001 as the compact roadmap entry and create a successor assessment pinned to the selected post-v0.4.0 revision before remediation"
+  last_completed_action: "Recorded a provenance addendum that keeps this historical assessment separate from the independently authored Fable 5 plan now stored under .dev/backlog/plans/"
+  next_action: "Use this historical assessment and the independent Fable 5 plan as separate inputs; before creating a successor assessment, confirm the exact v0.4.0 commit analyzed and record its scope, method, and evidence"
   blockers: []

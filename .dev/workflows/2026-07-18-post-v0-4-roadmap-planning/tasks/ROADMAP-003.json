@@ -8,12 +8,13 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-18T14:19:06+08:00",
-  "updated_at": "2026-07-18T14:22:41+08:00",
+  "updated_at": "2026-07-18T14:53:16+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
     "target": "Skill-family taxonomy, rename horizon, and compatibility workflow map",
     "files": [
+      ".dev/backlog/items/SKILL-001.yaml",
       ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
     ],
     "constraints": [
@@ -48,6 +49,7 @@
   "results": {
     "summary": "Use v0.6.0 for additive family taxonomy and the ai-context-init compatibility transition. Use v0.7.0 only for evidence-backed retirement of repo-structure-sync or other justified breaking renames.",
     "files_changed": [
+      ".dev/backlog/items/SKILL-001.yaml",
       ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/**"
     ],
     "tests_run": [
