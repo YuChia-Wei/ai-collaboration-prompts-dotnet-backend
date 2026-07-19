@@ -14,11 +14,11 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T13:29:10+08:00`
+- `updated_at`: `2026-07-19T13:35:08+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260717-004`
-- `verification_assessment`: `pending`
+- `verification_assessment`: `ASM-20260719-001` (`draft`)
 
 ## Remediation Summary
 
@@ -47,10 +47,16 @@
 
 ## Verification Assessment Reconciliation
 
-- Independent auditor: pending.
-- Confirmed resolved: none.
-- Recurring findings: pending.
-- New or regressed findings: pending.
+- Independent auditor: `ASM-20260719-001` at
+  `e76d89ca7927152cd993af7d53c3f0eb8a322384`.
+- Confirmed resolved: selected wrapper/routing, doctrine/standards,
+  navigation/lifecycle, interpreter/bootstrap, and advisory-root defects were
+  not reproduced.
+- Recurring findings: `ASM-20260719-001#V042-001` retains the MEDIUM
+  hosted-Ubuntu execution gap.
+- New or regressed findings: none. A commit-subject policy failure discovered
+  during audit intake was corrected on the unpublished branch; the resulting
+  workflow range passes 8/8 through the assessment commit.
 
 ### Navigation And Lifecycle Hygiene
 
@@ -93,4 +99,4 @@
 - Required validations: pending.
 - Commit status: workflow bootstrap pending.
 - Workflow/task status: `V042-001` through `V042-004` completed; `V042-005` awaits hosted Ubuntu; final verification pending.
-- Final next action: independently verify the corrected AI-context surfaces, then obtain owner-approved hosted Ubuntu evidence before closure.
+- Final next action: obtain owner-approved hosted Ubuntu evidence, then finalize `ASM-20260719-001` and close the workflow.

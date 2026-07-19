@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-19-v0-4-2-remediation`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T13:29:10+08:00`
+- `updated_at`: `2026-07-19T13:35:08+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -35,7 +35,7 @@
 - Baseline assessment: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - Current candidate inventory: `evidence/current-candidate-inventory.md`
 - Remediation report: `reports/remediation-report.md`
-- Verification assessment: `.dev/assessments/<verification-assessment-id>/assessment.yaml`
+- Verification assessment: `.dev/assessments/ASM-20260719-001/assessment.yaml` (`draft`)
 - Tasks: `.dev/workflows/2026-07-19-v0-4-2-remediation/tasks/`
 - Backlog: `.dev/backlog/items/R042-001.yaml` through `.dev/backlog/items/R042-004.yaml`
 
@@ -109,10 +109,10 @@ templates and runner redesign are also v0.5.0 scope.
 
 ## Resume Checkpoint
 
-- Last completed action: implemented patch-safe interpreter discovery, source dependency/bootstrap declaration, and the retained advisory script root correction; Windows Git Bash quick validation passed on `e76d89ca7927152cd993af7d53c3f0eb8a322384`.
+- Last completed action: independent `ASM-20260719-001` verification reproduced no HIGH defect and retained one MEDIUM hosted-Ubuntu evidence gap; commit-range validation passes 8/8 through the assessment commit.
 - Current task: `V042-005`.
 - Exact next action: run the immutable candidate on an owner-approved hosted Ubuntu environment, then complete platform reconciliation and independent verification.
-- Validation already completed: 22 portability/fail-closed GWT tests and shell asset parity passed; Windows Git Bash quick gate selected, executed, and passed 21/21 required checks with 0 warnings on the immutable implementation revision; prior workflow, assessment, AI-context, routing, doctrine, and navigation gates also pass.
+- Validation already completed: 22 portability/fail-closed GWT tests and shell asset parity passed; Windows Git Bash quick gate selected, executed, and passed 21/21 required checks with 0 warnings on the immutable implementation revision; `ASM-20260719-001` completed both audit passes; assessment, workflow, AI-context, and commit-range validators pass.
 - Git state: `codex/2026-07-19-v0-4-2-remediation` at `main@9b03668f14af7e69e283b4caf30d25fe41d2b460`.
 - Branch history and checkpoint handoffs: segment 1 begins after the completed roadmap workflow was merged to `main`.
 - Blockers or unresolved decisions: hosted Ubuntu aggregate-gate execution requires an owner-approved external environment because existing repository workflows do not run it and v0.4.2 cannot add a new CI route; macOS remains explicitly unverified; tag and publication remain user-owned and excluded.

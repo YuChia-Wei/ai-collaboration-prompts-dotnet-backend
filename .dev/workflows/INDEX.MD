@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-19-v0-4-2-remediation`](2026-07-19-v0-4-2-remediation/workflow.yaml) | v0.4.2 Patch-Compatible AI Context Remediation | `ai-context-governance` | `in_progress` | `2026-07-19T13:29:10+08:00` | [plan](2026-07-19-v0-4-2-remediation/workflow-plan.md) |
+| [`2026-07-19-v0-4-2-remediation`](2026-07-19-v0-4-2-remediation/workflow.yaml) | v0.4.2 Patch-Compatible AI Context Remediation | `ai-context-governance` | `in_progress` | `2026-07-19T13:35:08+08:00` | [plan](2026-07-19-v0-4-2-remediation/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
