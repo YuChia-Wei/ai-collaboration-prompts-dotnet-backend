@@ -6,21 +6,31 @@ status: "open"
 priority: "MEDIUM"
 summary: "Verify the fail-closed shell gates on hosted Linux and evaluate replacing formatting-sensitive runner parsing with manifest-driven execution."
 created_at: "2026-07-12T14:17:52+08:00"
-updated_at: "2026-07-18T14:41:03+08:00"
+updated_at: "2026-07-19T12:27:12+08:00"
 release:
   target: "v0.5.0"
   completed_in: null
   published_in: null
   target_scope: "governance-enforcement-and-runner-decision"
+  gate: "release-blocker"
 origin_refs:
   - ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/review-report.md"
   - ".dev/workflows/2026-07-11-aic-007-fail-closed-validation/workflow-plan.md"
 recommended_owner_skill: "dev-workflow"
-handoff_condition: "Choose whether to authorize hosted Linux execution, manifest-driven runner work, or both before opening a dedicated tooling workflow."
-workflow_refs: []
-task_refs: []
+handoff_condition: "After v0.4.2 closes, open the v0.5.0 workflow and complete hosted evidence plus an explicit keep-or-redesign runner decision; deferral beyond v0.5.0 requires a new roadmap decision."
+workflow_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+task_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
 resolution_ref: null
-decision_needed: "User decision: hosted Linux verification only, runner redesign only, both, or defer."
+decision_needed: "Decide whether the existing formatting-sensitive runner is retained with evidence or replaced by manifest-driven execution; the decision and validation evidence are required before v0.5.0 publication."
+acceptance:
+  - "Hosted Ubuntu executes the governed shell gate set and retains reproducible evidence."
+  - "Windows Git Bash evidence remains green for the same declared gate set."
+  - "The runner receives an explicit retain or redesign disposition backed by maintainability and compatibility evidence."
+  - "Any accepted runner redesign includes deterministic tests and migration impact review."
+  - "macOS remains an explicitly separate environment follow-up until the repository owner arranges access; v0.5.0 must not imply unexecuted macOS coverage."
 inventory_notes:
-  - "AIC-007 is resolved; this item captures nonblocking residual portability and maintainability risks only."
+  - "AIC-007 is resolved; this item is now a v0.5.0 release blocker for institutionalized portability evidence and the runner disposition."
   - "Real full mode remains outside AI-context audit scope when it would inspect product tests."
+  - "R042-004 owns only patch-safe portability defects; this item owns new enforcement or runner-contract decisions."

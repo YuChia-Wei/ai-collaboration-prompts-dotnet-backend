@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation-planning`
+- `current_phase`: `closure`
 - `artifact_root`: `.dev/workflows/2026-07-19-roadmap-gate-revision`
 - `created_at`: `2026-07-19T12:25:11+08:00`
-- `updated_at`: `2026-07-19T12:25:11+08:00`
+- `updated_at`: `2026-07-19T12:36:28+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -44,6 +44,17 @@ These decisions supersede only the active roadmap timing and gate classification
 The completed predecessor workflow and
 `.dev/backlog/plans/post-v0.4.0-improvement-plan.md` remain immutable historical
 planning records.
+
+## Decision Register Addendum
+
+| Decision | Outcome | Relationship To Prior Plan |
+| --- | --- | --- |
+| `ROADMAP-REV-001` strict release sequence | v0.4.2 is required and v0.5.0 remains blocked until v0.4.2 completion. | Supersedes the predecessor's conditional-v0.4.2 timing; does not rewrite its historical rationale. |
+| `ROADMAP-REV-002` patch boundary | v0.4.2 contains only `R042-001` through `R042-004` patch-compatible corrections. | Retains the predecessor SemVer boundary and applies it to the now-required patch release. |
+| `ROADMAP-REV-003` portability evidence | Windows Git Bash and hosted Ubuntu are required minimum evidence; macOS is explicitly deferred to a separately arranged environment. | Replaces any broad cross-platform implication with executed-environment claims. |
+| `ROADMAP-REV-004` v0.5.0 blockers | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, and `LANG-001` require completed implementation and evidence. | Elevates TOOL-001 and LANG-001 from disposition candidates; preserves governance, adapter, and migration institutionalization. |
+| `ROADMAP-REV-005` v0.5.0 dispositions | `GOV-001`, `CAP-001`, and `VAL-001` require explicit disposition but not necessarily implementation. | Prevents low-priority decisions from silently disappearing without turning every valid deferral into release implementation. |
+| `ROADMAP-REV-006` AI behavior evaluation | `EVAL-001` is a deterministic-first, budgeted release-side activation gate for v0.6.0; normal downstream upgrades remain model-free. | Adds the regression strategy required before the taxonomy and `ai-context-init` transition. |
 
 ## Gate Semantics
 
@@ -71,15 +82,15 @@ planning records.
 
 | Task | Purpose | Status |
 | --- | --- | --- |
-| `RGR-001` | Persist the approved roadmap and backlog gate revisions. | `in_progress` |
-| `RGR-002` | Validate, close, commit, and merge the revision workflow. | `pending` |
+| `RGR-001` | Persist the approved roadmap and backlog gate revisions. | `completed` |
+| `RGR-002` | Validate, close, commit, and merge the revision workflow. | `in_progress` |
 
 ## Resume Checkpoint
 
-- Last completed action: created the dedicated branch and workflow locator from `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932`.
-- Current task: `RGR-001`.
-- Exact next action: add the four bounded v0.4.2 backlog items, the v0.6.0 evaluation item, and revise the active roadmap and index.
-- Validation already completed: governance, workflow, commit, backlog, and version policies were read; current Git state was clean and synchronized with `origin/main`.
+- Last completed action: persisted the approved gate semantics, four v0.4.2 blockers, five v0.5.0 blockers, three v0.5.0 disposition gates, and the deterministic-first v0.6.0 evaluation contract.
+- Current task: `RGR-002`.
+- Exact next action: commit the roadmap revision, validate the workflow commit range, close lifecycle records, and merge to `main` with `--no-ff`.
+- Validation already completed: workflow artifact validation passed for 23 workflows and 21 backlog items; six backlog release-contract tests passed; AI-context and version validation passed; Git Bash quick gate passed 21/21 required checks with one declared deferred dependency/version check and two not-applicable checks; task JSON, backlog YAML, and `git diff --check` passed.
 - Git state: branch `codex/2026-07-19-roadmap-gate-revision` is based on `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932`.
 - Branch history and checkpoint handoffs: segment 1 started locally for the approved roadmap revision.
 - Blockers or unresolved decisions: none for the approved planning revision; release tagging and publication remain outside this workflow.
@@ -89,4 +100,3 @@ planning records.
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-19-roadmap-gate-revision` | `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932` | workflow start | `e83d6ba8aba60263e49fa214db9df3ec8e8f8932` | local | `2026-07-19T12:25:11+08:00` | Persist the approved gate revision without rewriting historical planning records. | Complete `RGR-001`, validate `RGR-002`, then merge to `main`. |
-

@@ -6,9 +6,9 @@
   "task_id": "RGR-002",
   "workflow_id": "2026-07-19-roadmap-gate-revision",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-19T12:25:11+08:00",
-  "updated_at": "2026-07-19T12:25:11+08:00",
+  "updated_at": "2026-07-19T12:36:28+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -45,8 +45,8 @@
       "python .ai/scripts/validate-git-commits.py --range main..HEAD --workflow-id 2026-07-19-roadmap-gate-revision",
       "git diff --check"
     ],
-    "last_completed_step": "",
-    "next_action": "Wait for RGR-001 to complete."
+    "last_completed_step": "RGR-001 completed with the governed validators and Git Bash quick gate passing.",
+    "next_action": "Commit the roadmap revision, validate main..HEAD, close lifecycle records, and merge to main."
   },
   "results": {
     "summary": "",
@@ -57,4 +57,3 @@
     "follow_up_needed": true
   }
 }
-

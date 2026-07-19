@@ -1,0 +1,36 @@
+schema_version: "1.0"
+backlog_id: "EVAL-001"
+title: "Deterministic AI Behavior Regression And Model-In-The-Loop Evaluation"
+category: "ai-behavior-evaluation"
+status: "planned"
+priority: "HIGH"
+summary: "Establish deterministic output oracles and a budgeted release-side model evaluation before the v0.6.0 skill taxonomy and ai-context-init transition."
+created_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-19T12:27:12+08:00"
+release:
+  target: "v0.6.0"
+  completed_in: null
+  published_in: null
+  target_scope: "deterministic-baseline-and-budgeted-release-evaluation"
+  gate: "activation-gate"
+origin_refs:
+  - ".dev/backlog/items/SKILL-001.yaml"
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow-plan.md"
+recommended_owner_skill: "ai-context-governance"
+handoff_condition: "Before v0.6.0 taxonomy implementation, approve the fixture corpus, deterministic oracle, model/judge configuration, sampling policy, and maximum token budget."
+workflow_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+task_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
+resolution_ref: null
+decision_needed: "Approve the release-side model and judge selection, repetitions, acceptance threshold, and token budget after deterministic fixtures are stable."
+acceptance:
+  - "Deterministic fixtures cover empty, existing, and copied-template repository states."
+  - "A deterministic structural and semantic oracle is mandatory and can run without a model call."
+  - "Model-in-the-loop evaluation is release-side and opt-in outside release validation; routine downstream upgrades do not invoke it."
+  - "The evaluation plan declares model, judge, repetitions, prompt/context inputs, token ceiling, result retention, and failure disposition before execution."
+  - "Taxonomy or ai-context-init changes cannot proceed when deterministic regression fails or the approved model-evaluation threshold is not met."
+  - "Baseline and candidate results are comparable without treating one stochastic run as conclusive."
+inventory_notes:
+  - "Token cost belongs to framework release validation, not to the default downstream upgrade path."
+  - "Full model evaluation may use representative sampling after deterministic coverage establishes the complete structural baseline."
