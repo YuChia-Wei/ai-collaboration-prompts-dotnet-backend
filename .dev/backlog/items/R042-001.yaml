@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "R042-001"
 title: "Runtime Wrapper And Routing Correctness"
 category: "runtime-routing"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH"
 summary: "Correct cross-runtime wrapper identity and existing skill or sub-agent routing omissions without adding a new adapter, schema, or validation contract."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T12:41:16+08:00"
+updated_at: "2026-07-19T15:50:00+08:00"
 release:
   target: "v0.4.2"
-  completed_in: null
+  completed_in: "v0.4.2"
   published_in: null
   target_scope: "contract-preserving-wrapper-and-routing-corrections"
   gate: "release-blocker"
@@ -25,7 +25,7 @@ workflow_refs:
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
   - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-002.json"
-resolution_ref: null
+resolution_ref: ".dev/workflows/2026-07-19-v0-4-2-remediation/reports/remediation-report.md"
 decision_needed: null
 acceptance:
   - "Claude wrappers identify Claude rather than Codex where the runtime wrapper describes its own actor."

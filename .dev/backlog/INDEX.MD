@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.4.2` | `active` | Reproduce and triage the four active patch blockers, then execute the bounded remediation tasks; v0.5.0 remains blocked. | 2026-07-19 |
+| [ROADMAP.md](ROADMAP.md) | `v0.4.2` | `active` | Publish the independently verified v0.4.2 candidate; v0.5.0 remains blocked until publication completes. | 2026-07-19 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -32,15 +32,14 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Gate | Current Task | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
-| [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | release blocker | `V042-002` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
-| [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | release blocker | `V042-003` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
-| [R042-003](items/R042-003.yaml) | MEDIUM | `v0.4.2` | release blocker | `V042-004` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
-| [R042-004](items/R042-004.yaml) | HIGH | `v0.4.2` | release blocker | `V042-005` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
-
 ## Resolved
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | — | Existing wrapper identity and routing corrections are independently verified without adding adapter contracts. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | — | Handler, time, naming, and spec examples align with existing canonical doctrine. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-003](items/R042-003.yaml) | MEDIUM | `v0.4.2` | — | Navigation and lifecycle facts are corrected while published historical paths remain retained. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-004](items/R042-004.yaml) | HIGH | `v0.4.2` | — | Patch-safe interpreter, dependency, root, and test portability corrections pass Windows Git Bash and Codespaces Ubuntu 24.04. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
 | [PKG-001](items/PKG-001.yaml) | HIGH / P0 | `v0.4.1` | `v0.4.1` | Versioned migration metadata binds the exact v0.3.0 manifest and produces deterministic executable operations. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | 2026-07-18 |
 | [PKG-002](items/PKG-002.yaml) | HIGH / P0 | `v0.4.1` | `v0.4.1` | Source-only suites remain required at source and are excluded/not-applicable in downstream packages; extracted target gate passed 19/19. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | 2026-07-18 |
 | [CTX-003](items/CTX-003.yaml) | HIGH | `v0.1.0` | `v0.1.0` | Remediated and independently verified all five CTX-001 findings with no regression. | [`2026-07-12-ai-context-truth-contract-remediation`](../workflows/2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | 2026-07-18 |

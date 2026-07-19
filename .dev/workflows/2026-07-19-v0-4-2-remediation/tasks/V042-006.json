@@ -6,9 +6,9 @@
   "task_id": "V042-006",
   "workflow_id": "2026-07-19-v0-4-2-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T15:50:00+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-001", "R042-002", "R042-003", "R042-004"],
   "scope": {
@@ -48,16 +48,30 @@
       "Git commit range validation",
       "git diff --check"
     ],
-    "last_completed_step": "",
-    "next_action": "Wait for V042-002 through V042-005."
+    "last_completed_step": "Reconciled the dual-platform candidate evidence, finalized ASM-20260719-001, resolved all four release blockers, and prepared the separate publication handoff.",
+    "next_action": ""
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "The v0.4.2 remediation candidate is independently verified and ready for a separate release-publication workflow.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260719-001/**",
+      ".dev/backlog/**",
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "Windows Git Bash .ai/scripts/check-all.sh --quick: 21/21 required",
+      "GitHub Codespaces Ubuntu 24.04 .ai/scripts/check-all.sh --quick: 21/21 required, exit 0",
+      "python .ai/scripts/tests/test_ai_context_package_apply.py -v",
+      "python .ai/scripts/validate-assessment-artifacts.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-ai-context-versions.py",
+      "python .ai/scripts/validate-shell-assets.py",
+      "AI-assisted commit segment main..baf51d5: 9/9 valid"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "macOS is explicitly unverified. Repository-owner commits 931f5ac and 51be197 are retained without fabricated AI trailers or pushed-history rewriting.",
+    "follow_up_needed": false
   }
 }
-

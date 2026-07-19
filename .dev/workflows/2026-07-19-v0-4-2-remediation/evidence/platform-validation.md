@@ -36,20 +36,30 @@
 
 ## Hosted Ubuntu
 
-- Status: `pending`
-- Revision: must use
-  `e76d89ca7927152cd993af7d53c3f0eb8a322384` or an explicitly superseding
-  candidate revision.
-- Required command:
+- Status: `passed`
+- Provider: GitHub Codespaces
+- Environment: Ubuntu 24.04 dev container
+- Revision:
+  `51be197a9a46caf23438c98065fcca58c723ce99`, explicitly superseding the
+  original candidate after the repository owner corrected two CLI test
+  subprocesses to use the active interpreter.
+- Completed at: `2026-07-19T07:33:07Z`
+- Command:
 
-  ```text
+  ```bash
   .ai/scripts/check-all.sh --quick
   ```
 
-- Constraint: v0.4.2 must not add a new required CI route. The current
-  repository workflows do not execute this aggregate gate, so hosted execution
-  requires an owner-approved external environment or an already-authorized
-  remote checkpoint.
+- Result: exit `0`; 21 required checks selected, 21 executed, 21 passed,
+  0 failed, 0 advisory warnings, 1 declared deferred check, and 2
+  not-applicable checks.
+- Safe-apply evidence: all 14 package-apply GWT tests passed after the
+  subprocesses used `sys.executable`.
+- Evidence authority: repository-owner-provided Codespaces execution summary.
+  The committed `.devcontainer/` configuration identifies Ubuntu 24.04,
+  .NET 10, and Python 3.13 for reproducibility.
+- Boundary: this execution satisfies the v0.4.2 hosted Ubuntu evidence gate
+  without adding a new required CI route.
 
 ## macOS
 

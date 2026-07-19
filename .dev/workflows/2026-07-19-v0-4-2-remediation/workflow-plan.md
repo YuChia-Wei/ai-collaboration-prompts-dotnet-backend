@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-19-v0-4-2-remediation`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-19-v0-4-2-remediation`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T13:35:08+08:00`
+- `updated_at`: `2026-07-19T15:50:00+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -35,7 +35,7 @@
 - Baseline assessment: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - Current candidate inventory: `evidence/current-candidate-inventory.md`
 - Remediation report: `reports/remediation-report.md`
-- Verification assessment: `.dev/assessments/ASM-20260719-001/assessment.yaml` (`draft`)
+- Verification assessment: `.dev/assessments/ASM-20260719-001/assessment.yaml` (`final`)
 - Tasks: `.dev/workflows/2026-07-19-v0-4-2-remediation/tasks/`
 - Backlog: `.dev/backlog/items/R042-001.yaml` through `.dev/backlog/items/R042-004.yaml`
 
@@ -104,21 +104,34 @@ templates and runner redesign are also v0.5.0 scope.
 | `V042-002` | Resolve `R042-001` wrapper and routing correctness. | `completed` |
 | `V042-003` | Resolve `R042-002` doctrine and standards consistency. | `completed` |
 | `V042-004` | Resolve `R042-003` navigation and lifecycle hygiene. | `completed` |
-| `V042-005` | Resolve `R042-004` patch-safe tooling portability. | `in_progress` |
-| `V042-006` | Run candidate gates, hosted evidence, independent verification, and closeout. | `pending` |
+| `V042-005` | Resolve `R042-004` patch-safe tooling portability. | `completed` |
+| `V042-006` | Run candidate gates, hosted evidence, independent verification, and closeout. | `completed` |
 
 ## Resume Checkpoint
 
-- Last completed action: independent `ASM-20260719-001` verification reproduced no HIGH defect and retained one MEDIUM hosted-Ubuntu evidence gap; commit-range validation passes 8/8 through the assessment commit.
-- Current task: `V042-005`.
-- Exact next action: run the immutable candidate on an owner-approved hosted Ubuntu environment, then complete platform reconciliation and independent verification.
-- Validation already completed: 22 portability/fail-closed GWT tests and shell asset parity passed; Windows Git Bash quick gate selected, executed, and passed 21/21 required checks with 0 warnings on the immutable implementation revision; `ASM-20260719-001` completed both audit passes; assessment, workflow, AI-context, and commit-range validators pass.
-- Git state: `codex/2026-07-19-v0-4-2-remediation` at `main@9b03668f14af7e69e283b4caf30d25fe41d2b460`.
+- Last completed action: finalized `ASM-20260719-001`, reconciled the
+  GitHub Codespaces Ubuntu 24.04 21/21 gate at superseding candidate
+  `51be197`, and resolved all four v0.4.2 blockers.
+- Current task: none.
+- Exact next action: merge this completed remediation workflow to `main` with
+  `--no-ff`, then start the separately authorized v0.4.2 release-publication
+  workflow.
+- Validation already completed: 22 portability/fail-closed GWT tests and shell
+  asset parity; Windows Git Bash quick gate 21/21 at `e76d89c`; GitHub
+  Codespaces Ubuntu 24.04 quick gate 21/21 at `51be197`; final
+  `ASM-20260719-001`; assessment, workflow, AI-context, version, shell, and
+  segmented commit validators.
+- Git state: completed workflow branch prepared for its governance closeout
+  commit; local untracked `tmp/` evidence is not part of the candidate tree.
 - Branch history and checkpoint handoffs: segment 1 begins after the completed roadmap workflow was merged to `main`.
-- Blockers or unresolved decisions: hosted Ubuntu aggregate-gate execution requires an owner-approved external environment because existing repository workflows do not run it and v0.4.2 cannot add a new CI route; macOS remains explicitly unverified; tag and publication remain user-owned and excluded.
+- Blockers or unresolved decisions: none for remediation closure. macOS remains
+  explicitly unverified; tag and publication belong to the separately
+  authorized release-publication workflow.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-19-v0-4-2-remediation` | `main@9b03668f14af7e69e283b4caf30d25fe41d2b460` | workflow start | `9b03668f14af7e69e283b4caf30d25fe41d2b460` | local | `2026-07-19T12:41:16+08:00` | Execute the required patch-only v0.4.2 blockers after roadmap approval. | Complete V042-001, then execute the four bounded remediation tasks. |
+| 1 | `codex/2026-07-19-v0-4-2-remediation` | `main@9b03668f14af7e69e283b4caf30d25fe41d2b460` | owner intervention | `51be197a9a46caf23438c98065fcca58c723ce99` | `origin/codex/2026-07-19-v0-4-2-remediation` | `2026-07-19T15:24:25+08:00` | Preserve repository-owner test and Codespaces setup commits without fabricated AI trailers or pushed-history rewriting. | Validate the owner changes directly and continue with a separately validated AI closeout segment. |
+| 1 | `codex/2026-07-19-v0-4-2-remediation` | `main@9b03668f14af7e69e283b4caf30d25fe41d2b460` | completed | pending | `main` | `2026-07-19T15:50:00+08:00` | All remediation blockers and platform evidence are resolved. | Commit closeout, merge with `--no-ff`, and start release publication. |

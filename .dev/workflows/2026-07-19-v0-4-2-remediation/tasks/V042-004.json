@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T13:05:09+08:00",
+  "updated_at": "2026-07-19T15:50:00+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-003", "ASM-20260717-004#AIC-004", "ASM-20260717-004#AIC-006", "ASM-20260717-004#AIC-014", "ASM-20260717-004#AIC-015", "ASM-20260717-004#AIC-018"],
   "scope": {
@@ -74,6 +74,6 @@
     ],
     "finding_status": "resolved",
     "residual_risk": "The historical auditor workflow templates remain at published paths by design; physical retirement and enforcement remain ENF-001 v0.5.0 scope.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }
