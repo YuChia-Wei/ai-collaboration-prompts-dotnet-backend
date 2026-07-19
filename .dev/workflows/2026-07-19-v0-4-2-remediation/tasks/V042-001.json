@@ -6,9 +6,9 @@
   "task_id": "V042-001",
   "workflow_id": "2026-07-19-v0-4-2-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T12:48:48+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
     "R042-001",
@@ -48,16 +48,25 @@
       "YAML and JSON parse",
       "git diff --check"
     ],
-    "last_completed_step": "Created the v0.4.2 workflow from the approved roadmap and immutable main base.",
-    "next_action": "Write the current candidate inventory with exact patch-impact dispositions."
+    "last_completed_step": "Reproduced all selected observations and froze exact patch, stale, already-resolved, and v0.5.0 dispositions.",
+    "next_action": "Activate V042-002 for runtime wrapper and routing corrections."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "Historical observations have not yet been fully refreshed against the workflow base.",
+    "summary": "All four blockers have patch-compatible correction paths. New semantic validation/CI, adapter contracts, template removal, runner redesign, and SDK FAIL-to-SKIP behavior remain explicitly assigned to v0.5.0.",
+    "files_changed": [
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/evidence/current-candidate-inventory.md",
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/**"
+    ],
+    "tests_run": [
+      "direct current-file and exact-match scans",
+      "Python, PyYAML, and .NET version execution",
+      "Git shell-mode inventory",
+      "workflow, backlog, and AI-context validation",
+      "YAML and JSON parse",
+      "git diff --check"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Hosted Ubuntu evidence remains pending; macOS is intentionally unverified; implementation may still expose a candidate that crosses the patch-impact gate.",
     "follow_up_needed": true
   }
 }
-

@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T12:41:16+08:00`
+- `updated_at`: `2026-07-19T12:48:48+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260717-004`
@@ -23,8 +23,8 @@
 ## Remediation Summary
 
 - Authorized scope: `R042-001` through `R042-004`, patch-compatible corrections only.
-- Completed scope: workflow bootstrap only.
-- Validation summary: pending.
+- Completed scope: workflow bootstrap and current candidate inventory.
+- Validation summary: current direct evidence and patch-impact triage completed; implementation validation pending.
 - Closure decision: `not-ready`
 
 ## Finding Resolution Matrix
@@ -40,10 +40,10 @@
 
 ### Current Candidate Inventory
 
-- Changes: none.
-- Evidence: `../evidence/current-candidate-inventory.md` pending.
-- Validation: pending.
-- Remaining risk: currentness and patch impact are not yet frozen.
+- Changes: froze exact candidates and named v0.5.0 dispositions without source remediation.
+- Evidence: `../evidence/current-candidate-inventory.md`.
+- Validation: direct scans, tool version execution, Git mode inspection, governed artifact validation, structured parse, and whitespace checks.
+- Remaining risk: hosted Ubuntu evidence and implementation-time patch-impact confirmation remain.
 
 ## Verification Assessment Reconciliation
 
@@ -66,6 +66,5 @@
 
 - Required validations: pending.
 - Commit status: workflow bootstrap pending.
-- Workflow/task status: `V042-001` in progress; remaining tasks pending.
-- Final next action: freeze the current candidate inventory and patch-impact decisions.
-
+- Workflow/task status: `V042-001` completed; `V042-002` in progress; remaining tasks pending.
+- Final next action: correct runtime wrapper and routing facts without adding validator or adapter contracts.

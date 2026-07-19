@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation-planning`
+- `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-19-v0-4-2-remediation`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T12:41:16+08:00`
+- `updated_at`: `2026-07-19T12:48:48+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -100,8 +100,8 @@ templates and runner redesign are also v0.5.0 scope.
 
 | Task | Purpose | Status |
 | --- | --- | --- |
-| `V042-001` | Reproduce findings, classify patch impact, and freeze the candidate inventory. | `in_progress` |
-| `V042-002` | Resolve `R042-001` wrapper and routing correctness. | `pending` |
+| `V042-001` | Reproduce findings, classify patch impact, and freeze the candidate inventory. | `completed` |
+| `V042-002` | Resolve `R042-001` wrapper and routing correctness. | `in_progress` |
 | `V042-003` | Resolve `R042-002` doctrine and standards consistency. | `pending` |
 | `V042-004` | Resolve `R042-003` navigation and lifecycle hygiene. | `pending` |
 | `V042-005` | Resolve `R042-004` patch-safe tooling portability. | `pending` |
@@ -109,10 +109,10 @@ templates and runner redesign are also v0.5.0 scope.
 
 ## Resume Checkpoint
 
-- Last completed action: created the dedicated v0.4.2 branch from the roadmap-revised `main`.
-- Current task: `V042-001`.
-- Exact next action: reproduce every selected finding against the immutable workflow base and write `evidence/current-candidate-inventory.md` with patch or v0.5.0 disposition.
-- Validation already completed: the roadmap revision and merge commit passed workflow, backlog, AI-context, version, commit, and Git Bash quick-gate validation.
+- Last completed action: reproduced every selected finding against the workflow base and froze patch, stale, already-resolved, and v0.5.0 dispositions in `evidence/current-candidate-inventory.md`.
+- Current task: `V042-002`.
+- Exact next action: correct the five Claude wrapper descriptions and add the existing `spec-compliance-validator` and `context-translator` routing entries without adding semantic validation or adapter contracts.
+- Validation already completed: direct current-file scans, current Python/PyYAML/.NET execution, Git shell-mode inspection, workflow/backlog/AI-context validation, structured parse, and whitespace validation.
 - Git state: `codex/2026-07-19-v0-4-2-remediation` at `main@9b03668f14af7e69e283b4caf30d25fe41d2b460`.
 - Branch history and checkpoint handoffs: segment 1 begins after the completed roadmap workflow was merged to `main`.
 - Blockers or unresolved decisions: hosted Ubuntu evidence may require a remote branch/run checkpoint; tag and publication remain user-owned and excluded.
@@ -122,4 +122,3 @@ templates and runner redesign are also v0.5.0 scope.
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-19-v0-4-2-remediation` | `main@9b03668f14af7e69e283b4caf30d25fe41d2b460` | workflow start | `9b03668f14af7e69e283b4caf30d25fe41d2b460` | local | `2026-07-19T12:41:16+08:00` | Execute the required patch-only v0.4.2 blockers after roadmap approval. | Complete V042-001, then execute the four bounded remediation tasks. |
-
