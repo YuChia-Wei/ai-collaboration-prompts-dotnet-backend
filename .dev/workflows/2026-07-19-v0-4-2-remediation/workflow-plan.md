@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-19-v0-4-2-remediation`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T13:05:09+08:00`
+- `updated_at`: `2026-07-19T13:29:10+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -109,13 +109,13 @@ templates and runner redesign are also v0.5.0 scope.
 
 ## Resume Checkpoint
 
-- Last completed action: repaired active workflow discovery, labeled retained auditor workflow templates historical, modernized install and skill-guide facts, neutralized bounded source residue, and recorded two evidence-backed requirement outcomes.
+- Last completed action: implemented patch-safe interpreter discovery, source dependency/bootstrap declaration, and the retained advisory script root correction; Windows Git Bash quick validation passed on `e76d89ca7927152cd993af7d53c3f0eb8a322384`.
 - Current task: `V042-005`.
-- Exact next action: implement patch-safe Python interpreter discovery, source dependency/bootstrap documentation, and the advisory repository-root correction while preserving required gate semantics.
-- Validation already completed: workflow, assessment, and AI-context validators passed; exact-case and active-reference unittest suites passed; Git Bash coding-standards structural validation passed; JSON/YAML parse, focused stale-content scans, and `git diff --check` passed.
+- Exact next action: run the immutable candidate on an owner-approved hosted Ubuntu environment, then complete platform reconciliation and independent verification.
+- Validation already completed: 22 portability/fail-closed GWT tests and shell asset parity passed; Windows Git Bash quick gate selected, executed, and passed 21/21 required checks with 0 warnings on the immutable implementation revision; prior workflow, assessment, AI-context, routing, doctrine, and navigation gates also pass.
 - Git state: `codex/2026-07-19-v0-4-2-remediation` at `main@9b03668f14af7e69e283b4caf30d25fe41d2b460`.
 - Branch history and checkpoint handoffs: segment 1 begins after the completed roadmap workflow was merged to `main`.
-- Blockers or unresolved decisions: hosted Ubuntu evidence may require a remote branch/run checkpoint; tag and publication remain user-owned and excluded.
+- Blockers or unresolved decisions: hosted Ubuntu aggregate-gate execution requires an owner-approved external environment because existing repository workflows do not run it and v0.4.2 cannot add a new CI route; macOS remains explicitly unverified; tag and publication remain user-owned and excluded.
 
 ## Branch Lifecycle
 

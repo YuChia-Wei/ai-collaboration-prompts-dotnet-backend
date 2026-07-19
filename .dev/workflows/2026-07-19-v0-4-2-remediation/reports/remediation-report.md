@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T13:05:09+08:00`
+- `updated_at`: `2026-07-19T13:29:10+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260717-004`
@@ -34,7 +34,7 @@
 | `R042-001`; `AIC-001`, `AIC-010`, `SAG-F-002` | HIGH / MEDIUM | `resolved` | five Claude wrappers; `AGENTS*`; sub-agent routing and taxonomy guide | cross-runtime scans; AI-context validation; 15 wrapper/root GWT tests | pending | New semantic validation and adapter parity remain v0.5.0 scope. |
 | `R042-002`; `AIC-002`, `AIC-008`, `AIC-011` | HIGH / MEDIUM | `resolved` | Handler learning/spec surfaces; time examples; naming/config checklists; spec-compliance rules | focused scans; structural gate; 8 GWT tests; AI-context validation | pending | Existing DateProvider remains an example convention; independent confirmation pending. |
 | `R042-003`; `AIC-004`, `AIC-006`, `AIC-014`, `AIC-015`, `AIC-018` | HIGH / MEDIUM / LOW | `resolved` | workflow index; retained auditor templates; prompt/install/design guides; bounded examples; completed requirements | workflow/assessment/AI-context validators; exact-case/reference tests; Git Bash structural gate; focused scans | pending | Published historical templates remain; physical retirement stays ENF-001 v0.5.0 scope. |
-| `R042-004`; `AIC-003`, `AIC-005`, `AIC-013` | HIGH / MEDIUM | `not-addressed` | pending | pending | pending | Portability corrections and hosted evidence remain. |
+| `R042-004`; `AIC-003`, `AIC-005`, `AIC-013` | HIGH / MEDIUM | `partially-resolved` | aggregate runner; source bootstrap; advisory helper; focused fixtures | 22 focused GWT tests; shell parity; Windows Git Bash quick 21/21 at `e76d89ca` | `e76d89c` | Hosted Ubuntu remains pending; macOS remains explicitly unverified. |
 
 ## Changes And Evidence
 
@@ -65,6 +65,19 @@
 - Remaining risk: published historical templates intentionally remain until
   `ENF-001` supplies a minor-version disposition.
 
+### Patch-Safe Tooling Portability
+
+- Changes: selected a usable Python 3.11+ interpreter while preserving the
+  governed literal command inventory; declared source `PyYAML==6.0.3`
+  bootstrap; corrected the retained advisory helper's repository root; added
+  bounded interpreter and root-resolution fixtures.
+- Validation: 22 focused GWT tests, shell asset parity and syntax checks, and
+  Windows Git Bash quick gate 21/21 on
+  `e76d89ca7927152cd993af7d53c3f0eb8a322384`.
+- Evidence: `../evidence/platform-validation.md`.
+- Remaining risk: hosted Ubuntu must execute the aggregate gate; macOS is
+  explicitly unverified.
+
 ## Deferred Work
 
 | Finding | Reason | Owner | Next Action |
@@ -79,5 +92,5 @@
 
 - Required validations: pending.
 - Commit status: workflow bootstrap pending.
-- Workflow/task status: `V042-001` through `V042-004` completed; `V042-005` in progress; final verification pending.
-- Final next action: resolve patch-safe portability defects, then run platform and independent verification gates.
+- Workflow/task status: `V042-001` through `V042-004` completed; `V042-005` awaits hosted Ubuntu; final verification pending.
+- Final next action: independently verify the corrected AI-context surfaces, then obtain owner-approved hosted Ubuntu evidence before closure.

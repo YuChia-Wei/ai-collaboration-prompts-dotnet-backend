@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T13:05:09+08:00",
+  "updated_at": "2026-07-19T13:29:10+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-004", "ASM-20260717-004#AIC-003", "ASM-20260717-004#AIC-005", "ASM-20260717-004#AIC-013"],
   "scope": {
@@ -47,15 +47,26 @@
       "Windows Git Bash quick/full gate",
       "Hosted Ubuntu governed gate"
     ],
-    "last_completed_step": "V042-001 confirmed interpreter discovery, dependency declaration, and the advisory root correction are patch-compatible while runner redesign and FAIL-to-SKIP behavior are excluded.",
-    "next_action": "Implement interpreter discovery, source bootstrap documentation, and the advisory repository-root correction without changing required command inventory or failure semantics."
+    "last_completed_step": "Implemented and committed usable Python 3.11+ discovery, source dependency/bootstrap declaration, and the advisory repository-root correction; Windows Git Bash quick validation passed on the immutable implementation revision.",
+    "next_action": "Obtain owner-approved hosted Ubuntu execution for the immutable candidate revision, then complete platform reconciliation."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
+    "summary": "Patch-safe portability corrections are implemented and locally verified without changing the required command inventory or converting required failures to skips; hosted Ubuntu evidence remains pending.",
+    "files_changed": [
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/check-test-compliance.sh",
+      ".ai/scripts/README.md",
+      ".ai/scripts/tests/test_fail_closed_validation.py",
+      "requirements.txt"
+    ],
+    "tests_run": [
+      "22 fail-closed, shell-registry, interpreter, and advisory-root GWT tests",
+      "python .ai/scripts/validate-shell-assets.py",
+      "Git Bash syntax checks",
+      "Windows Git Bash .ai/scripts/check-all.sh --quick at e76d89ca7927152cd993af7d53c3f0eb8a322384"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Hosted Ubuntu has not executed the aggregate gate; macOS remains explicitly unverified by owner decision.",
     "follow_up_needed": true
   }
 }
