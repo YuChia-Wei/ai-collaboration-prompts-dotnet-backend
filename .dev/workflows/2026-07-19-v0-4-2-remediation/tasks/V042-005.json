@@ -1,0 +1,62 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V042-005",
+  "workflow_id": "2026-07-19-v0-4-2-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T12:41:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["R042-004", "ASM-20260717-004#AIC-003", "ASM-20260717-004#AIC-005", "ASM-20260717-004#AIC-013"],
+  "scope": {
+    "target": "Existing-contract interpreter, dependency, Python-floor, and repository-root portability defects",
+    "files": [
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/check-test-compliance.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/scripts/README.md",
+      ".ai/scripts/tests/**",
+      "global.json"
+    ],
+    "constraints": [
+      "Preserve fail-closed required-gate semantics",
+      "Use interpreter discovery rather than a runner redesign",
+      "Do not change SDK absence from failure to skip",
+      "Record only executed platform evidence"
+    ],
+    "non_goals": [
+      "Manifest-driven runner redesign",
+      "Governance PR CI",
+      "macOS evidence",
+      "SDK policy change without current defect evidence"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Refresh interpreter, dependency, Python-floor, root-path, and SDK observations",
+      "Implement only reproduced patch-safe defects",
+      "Add focused fail-closed fixtures without creating a new required route",
+      "Run Windows Git Bash and hosted Ubuntu evidence"
+    ],
+    "validation": [
+      "Fail-closed validation GWT",
+      "Shell asset validation",
+      "Windows Git Bash quick/full gate",
+      "Hosted Ubuntu governed gate"
+    ],
+    "last_completed_step": "",
+    "next_action": "Wait for V042-001 patch-impact inventory."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}
+

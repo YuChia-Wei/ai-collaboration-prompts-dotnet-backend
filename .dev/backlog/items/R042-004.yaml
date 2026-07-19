@@ -2,11 +2,11 @@ schema_version: "1.0"
 backlog_id: "R042-004"
 title: "Patch-Safe Tooling Portability Corrections"
 category: "tooling-portability"
-status: "planned"
+status: "in_progress"
 priority: "HIGH"
 summary: "Correct interpreter discovery, existing dependency and Python-floor declarations, and the advisory repository-root defect while preserving required-gate semantics."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-19T12:41:16+08:00"
 release:
   target: "v0.4.2"
   completed_in: null
@@ -21,8 +21,10 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Use existing fail-closed contracts and correct only reproducibility defects; stop for v0.5.0 reclassification if a new runner, CI route, required validation, or intentional pass/fail semantic change is needed."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-005.json"
 resolution_ref: null
 decision_needed: null
 acceptance:

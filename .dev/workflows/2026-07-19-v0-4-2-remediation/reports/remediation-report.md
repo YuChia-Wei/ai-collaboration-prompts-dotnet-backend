@@ -1,0 +1,71 @@
+# v0.4.2 AI Context Remediation Report
+
+## Template Metadata
+
+- `template_id`: `ai-context-governance-remediation-report`
+- `template_version`: `2.0.0`
+- `created_at`: `2026-07-10T18:22:49+08:00`
+- `updated_at`: `2026-07-13T23:11:56+08:00`
+
+## Report Metadata
+
+- `report_id`: `remediation-report-2026-07-19-v0-4-2-remediation`
+- `workflow_id`: `2026-07-19-v0-4-2-remediation`
+- `owner_skill`: `ai-context-governance`
+- `status`: `draft`
+- `created_at`: `2026-07-19T12:41:16+08:00`
+- `updated_at`: `2026-07-19T12:41:16+08:00`
+- `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
+- `template_version`: `2.0.0`
+- `baseline_assessment`: `ASM-20260717-004`
+- `verification_assessment`: `pending`
+
+## Remediation Summary
+
+- Authorized scope: `R042-001` through `R042-004`, patch-compatible corrections only.
+- Completed scope: workflow bootstrap only.
+- Validation summary: pending.
+- Closure decision: `not-ready`
+
+## Finding Resolution Matrix
+
+| Assessment Finding | Before Severity | Status | Changed Files | Validation | Commit | Residual Risk |
+| --- | --- | --- | --- | --- | --- | --- |
+| `R042-001`; `AIC-001`, `AIC-010`, `SAG-F-002` | HIGH / MEDIUM | `not-addressed` | pending | pending | pending | Existing wrapper and routing drift remains. |
+| `R042-002`; `AIC-002`, `AIC-008`, `AIC-011` | HIGH / MEDIUM | `not-addressed` | pending | pending | Doctrine and standards contradictions remain. |
+| `R042-003`; `AIC-004`, `AIC-006`, `AIC-014`, `AIC-015`, `AIC-018` | HIGH / MEDIUM / LOW | `not-addressed` | pending | pending | Navigation and lifecycle hygiene remains stale. |
+| `R042-004`; `AIC-003`, `AIC-005`, `AIC-013` | HIGH / MEDIUM | `not-addressed` | pending | pending | Portability corrections and hosted evidence remain. |
+
+## Changes And Evidence
+
+### Current Candidate Inventory
+
+- Changes: none.
+- Evidence: `../evidence/current-candidate-inventory.md` pending.
+- Validation: pending.
+- Remaining risk: currentness and patch impact are not yet frozen.
+
+## Verification Assessment Reconciliation
+
+- Independent auditor: pending.
+- Confirmed resolved: none.
+- Recurring findings: pending.
+- New or regressed findings: pending.
+
+## Deferred Work
+
+| Finding | Reason | Owner | Next Action |
+| --- | --- | --- | --- |
+| New semantic wrapper validation and governance PR CI | Minor-release enforcement contract | `ENF-001` / v0.5.0 | Activate only after v0.4.2 completion. |
+| Runtime adapter promotion/parity schema | Minor-release adapter contract | `SAG-001` / v0.5.0 | Keep v0.4.2 routing-only. |
+| Published template/path removal | Published-path retirement needs migration evidence | `ENF-001` / v0.5.0 | Mark historical in v0.4.2; disposition later. |
+| Runner redesign or required-gate semantic change | Intentional behavior/contract change | `TOOL-001` / v0.5.0 | Correct only existing-contract defects in v0.4.2. |
+| macOS execution | Environment not yet arranged | repository owner | Retain explicit unverified status. |
+
+## Closure Evidence
+
+- Required validations: pending.
+- Commit status: workflow bootstrap pending.
+- Workflow/task status: `V042-001` in progress; remaining tasks pending.
+- Final next action: freeze the current candidate inventory and patch-impact decisions.
+

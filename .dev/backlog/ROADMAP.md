@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.4.2`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-19T12:27:12+08:00`
+- `updated_at`: `2026-07-19T12:41:16+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -26,7 +26,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | Version | State | Required | Objective | Activation Gate | Workflow |
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
-| `v0.4.2` | `ready_for_workflow` | yes | Resolve `R042-001` through `R042-004`: wrapper/routing correctness, doctrine consistency, navigation/lifecycle hygiene, and patch-safe portability defects. | Every candidate must remain patch-compatible; Windows Git Bash and hosted Ubuntu are the minimum executed portability evidence; new contracts or removals are dispositioned to v0.5.0. | not created |
+| `v0.4.2` | `in_progress` | yes | Resolve `R042-001` through `R042-004`: wrapper/routing correctness, doctrine consistency, navigation/lifecycle hygiene, and patch-safe portability defects. | Every candidate must remain patch-compatible; Windows Git Bash and hosted Ubuntu are the minimum executed portability evidence; new contracts or removals are dispositioned to v0.5.0. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) |
 | `v0.5.0` | `blocked_by_v0.4.2` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, and `LANG-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Do not create the v0.5.0 implementation workflow until v0.4.2 is completed. Then approve policy, CI, validator, adapter, migration-schema, runner, language, and published-path decisions. | not created |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy implementation. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal. | Demonstrate adoption of `ai-context-init` and no remaining dependency on old prompts, wrappers, provenance values, or template paths. | not created |
@@ -145,9 +145,9 @@ versions. Current assignments:
 
 ## Next Action
 
-Merge the approved gate revision, then create a fresh v0.4.2 remediation
-workflow for `R042-001` through `R042-004`. Complete patch-impact triage before
-implementation, retain Windows Git Bash and hosted Ubuntu evidence, and do not
-activate v0.5.0 until v0.4.2 is complete. Keep v0.4.0 consumers on their current
-version until v0.5.0 unless they explicitly choose a manual reconciliation;
-`PKG-003` must prove their direct v0.5.0 path.
+Execute `V042-001` in the active v0.4.2 remediation workflow: reproduce every
+selected observation against `main@9b03668f`, freeze patch-impact dispositions,
+then complete `R042-001` through `R042-004`. Retain Windows Git Bash and hosted
+Ubuntu evidence, and do not activate v0.5.0 until v0.4.2 is complete. Keep
+v0.4.0 consumers on their current version until v0.5.0 unless they explicitly
+choose a manual reconciliation; `PKG-003` must prove their direct v0.5.0 path.

@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.4.2` | `active` | Merge the gate revision, then activate the patch-only `R042-001` through `R042-004` remediation workflow; v0.5.0 remains blocked. | 2026-07-19 |
+| [ROADMAP.md](ROADMAP.md) | `v0.4.2` | `active` | Reproduce and triage the four active patch blockers, then execute the bounded remediation tasks; v0.5.0 remains blocked. | 2026-07-19 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -16,10 +16,6 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Gate | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
-| [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | release blocker | Correct cross-runtime wrapper identity and existing translator routing without new adapter semantics. | Implement only existing-contract corrections; move new validation or adapter contracts to v0.5.0. | 2026-07-19 |
-| [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | release blocker | Align doctrine and standards examples with already-canonical Handler, time, naming, and spec contracts. | Stop if a candidate requires a new universal policy or intentional behavior change. | 2026-07-19 |
-| [R042-003](items/R042-003.yaml) | MEDIUM | `v0.4.2` | release blocker | Repair navigation, lifecycle status, outcomes, and historical-template labeling. | Preserve published paths; v0.5.0 owns retirement or relocation. | 2026-07-19 |
-| [R042-004](items/R042-004.yaml) | HIGH | `v0.4.2` | release blocker | Correct interpreter, dependency declaration, Python-floor, and advisory root defects. | Require Windows Git Bash and hosted Ubuntu evidence; do not change required-gate semantics. | 2026-07-19 |
 | [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | release blocker | Introduce a governed multi-source direct-upgrade contract and prove v0.3.0, v0.4.0, and v0.4.1 paths. | Start only after v0.4.2 completes; retain dotnet-mq-arch-lab on v0.4.0 as the direct-upgrade target. | 2026-07-19 |
 | [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.2; implement the adapter contract in v0.5.0. | 2026-07-19 |
 | [ENF-001](items/ENF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add semantic wrapper validation and governance CI, then disposition obsolete published paths with migration evidence. | Approve the new enforcement contracts and every retain/deprecate/relocate/remove decision. | 2026-07-19 |
@@ -34,7 +30,12 @@ roadmap but do not replace it or a governed assessment.
 
 ## In Progress
 
-No backlog items are currently in progress.
+| Item | Priority | Target Release | Gate | Current Task | Workflow | Updated |
+| --- | --- | --- | --- | --- | --- | --- |
+| [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | release blocker | `V042-002` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | release blocker | `V042-003` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-003](items/R042-003.yaml) | MEDIUM | `v0.4.2` | release blocker | `V042-004` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-004](items/R042-004.yaml) | HIGH | `v0.4.2` | release blocker | `V042-005` pending after shared triage | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
 
 ## Resolved
 

@@ -1,0 +1,58 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V042-003",
+  "workflow_id": "2026-07-19-v0-4-2-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T12:41:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["R042-002", "ASM-20260717-004#AIC-002", "ASM-20260717-004#AIC-008", "ASM-20260717-004#AIC-011"],
+  "scope": {
+    "target": "Consistency with already-canonical Handler, time, naming, and spec contracts",
+    "files": [
+      ".dev/standards/**",
+      ".ai/assets/skills/spec-compliance-validator/**",
+      ".agents/skills/spec-compliance-validator/**",
+      ".claude/skills/spec-compliance-validator/**"
+    ],
+    "constraints": [
+      "Derive corrections from current canonical standards",
+      "Preserve intentionally negative examples as clearly negative",
+      "Stop if a new universal decision is required"
+    ],
+    "non_goals": [
+      "Product source or test review",
+      "New architecture doctrine",
+      "New validator behavior"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Align best-practice and anti-pattern Handler examples",
+      "Replace inappropriate bare wall-clock examples with the existing abstraction or explicit negative framing",
+      "Correct method-naming and retained spec-compliance contract facts",
+      "Run focused structural and documentation contract tests"
+    ],
+    "validation": [
+      "Focused content assertions",
+      "Coding standards structural integrity",
+      "Documentation projection tests",
+      "Independent post-remediation audit"
+    ],
+    "last_completed_step": "",
+    "next_action": "Wait for V042-001 patch-impact inventory."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}
+

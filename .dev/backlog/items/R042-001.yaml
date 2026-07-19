@@ -2,11 +2,11 @@ schema_version: "1.0"
 backlog_id: "R042-001"
 title: "Runtime Wrapper And Routing Correctness"
 category: "runtime-routing"
-status: "planned"
+status: "in_progress"
 priority: "HIGH"
 summary: "Correct cross-runtime wrapper identity and existing skill or sub-agent routing omissions without adding a new adapter, schema, or validation contract."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-19T12:41:16+08:00"
 release:
   target: "v0.4.2"
   completed_in: null
@@ -21,8 +21,10 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Open the required v0.4.2 remediation workflow and keep adapter metadata, selective promotion rules, and new parity validation in SAG-001 for v0.5.0."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-002.json"
 resolution_ref: null
 decision_needed: null
 acceptance:

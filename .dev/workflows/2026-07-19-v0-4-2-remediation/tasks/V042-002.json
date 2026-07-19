@@ -1,0 +1,59 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V042-002",
+  "workflow_id": "2026-07-19-v0-4-2-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T12:41:16+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["R042-001", "ASM-20260717-004#AIC-001", "ASM-20260717-004#AIC-010", "SAG-F-002"],
+  "scope": {
+    "target": "Runtime wrapper identity and existing routing/catalog correctness",
+    "files": [
+      ".claude/skills/*/SKILL.md",
+      "AGENTS.md",
+      "AGENTS.zh-TW.md",
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".dev/guides/ai-collaboration-guides/**"
+    ],
+    "constraints": [
+      "Use runtime-neutral or Claude-appropriate wrapper wording",
+      "Add only already-existing skills and roles to routing surfaces",
+      "Do not add validator or adapter semantics"
+    ],
+    "non_goals": [
+      "Cross-runtime semantic validator",
+      "Runtime adapter schema",
+      "Bulk wrapper generation"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Correct five Claude wrapper descriptions",
+      "Add missing current skill and context-translator routing entries",
+      "Align related human-facing catalogs without duplicating canonical rules",
+      "Run focused wrapper and routing validation"
+    ],
+    "validation": [
+      "Runtime wrapper quick validation",
+      "Direct routing inventory comparison",
+      "AI-context validation",
+      "Independent post-remediation audit"
+    ],
+    "last_completed_step": "",
+    "next_action": "Wait for V042-001 patch-impact inventory."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}
+
