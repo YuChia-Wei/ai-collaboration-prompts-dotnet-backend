@@ -1,0 +1,60 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "RGR-002",
+  "workflow_id": "2026-07-19-roadmap-gate-revision",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-19T12:25:11+08:00",
+  "updated_at": "2026-07-19T12:25:11+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Roadmap revision validation, closure, and main-branch merge",
+    "files": [
+      ".dev/backlog/**",
+      ".dev/workflows/2026-07-19-roadmap-gate-revision/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "All governed validators must pass",
+      "Commit messages must satisfy the workflow commit policy",
+      "Merge to main with --no-ff",
+      "Do not tag or publish a release"
+    ],
+    "non_goals": [
+      "v0.4.2 remediation implementation",
+      "Remote push",
+      "Release publication"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Run task and artifact validators",
+      "Run AI-context and whitespace validation",
+      "Validate the workflow commit range",
+      "Close workflow records",
+      "Commit and merge to main with --no-ff"
+    ],
+    "validation": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_backlog_release_contract.py",
+      "bash .ai/scripts/validate-ai-context.sh",
+      "python .ai/scripts/validate-git-commits.py --range main..HEAD --workflow-id 2026-07-19-roadmap-gate-revision",
+      "git diff --check"
+    ],
+    "last_completed_step": "",
+    "next_action": "Wait for RGR-001 to complete."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}
+

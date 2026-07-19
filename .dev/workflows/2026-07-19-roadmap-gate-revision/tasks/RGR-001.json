@@ -1,0 +1,63 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "RGR-001",
+  "workflow_id": "2026-07-19-roadmap-gate-revision",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-19T12:25:11+08:00",
+  "updated_at": "2026-07-19T12:25:11+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Approved post-v0.4 release sequencing, release blockers, disposition gates, environment evidence, and evaluation planning",
+    "files": [
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/items/*.yaml",
+      ".dev/workflows/2026-07-19-roadmap-gate-revision/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Do not rewrite the completed predecessor workflow or historical source plan",
+      "Keep v0.4.2 strictly patch-compatible",
+      "Do not implement v0.4.2 or v0.5.0 scope in this task",
+      "Do not infer macOS evidence",
+      "Keep routine downstream upgrades deterministic and model-free by default"
+    ],
+    "non_goals": [
+      "Release implementation",
+      "New validator or CI route",
+      "Tag or publication work"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define release blocker and disposition gate semantics",
+      "Create bounded v0.4.2 backlog items for patch-compatible correction classes",
+      "Classify v0.5.0 blockers and disposition gates",
+      "Add a deterministic-first v0.6.0 AI behavior evaluation backlog item",
+      "Update roadmap and discovery indexes"
+    ],
+    "validation": [
+      "Workflow and backlog artifact validation",
+      "Backlog release-contract tests",
+      "AI context validation",
+      "Task JSON parsing",
+      "git diff --check"
+    ],
+    "last_completed_step": "Created the workflow and recorded the repository owner's approved decisions.",
+    "next_action": "Revise the active roadmap and create the bounded backlog items."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}
+
