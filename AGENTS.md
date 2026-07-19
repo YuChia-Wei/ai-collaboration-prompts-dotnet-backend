@@ -178,6 +178,7 @@ Use these boundaries:
 | .NET backend architecture design | `ddd-ca-hex-architect` |
 | GWT scenario and assertion design | `bdd-gwt-test-designer` |
 | .NET backend code review | `code-reviewer` |
+| Problem-frame spec compliance validation | `spec-compliance-validator` |
 | Requirement authoring | `requirement-author` |
 | Spec authoring | `spec-author` |
 | Problem frame authoring | `problem-frame-author` |

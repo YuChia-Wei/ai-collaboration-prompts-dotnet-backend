@@ -6,9 +6,9 @@
   "task_id": "V042-003",
   "workflow_id": "2026-07-19-v0-4-2-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T12:52:07+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-002", "ASM-20260717-004#AIC-002", "ASM-20260717-004#AIC-008", "ASM-20260717-004#AIC-011"],
   "scope": {
@@ -43,8 +43,8 @@
       "Documentation projection tests",
       "Independent post-remediation audit"
     ],
-    "last_completed_step": "",
-    "next_action": "Wait for V042-001 patch-impact inventory."
+    "last_completed_step": "V042-001 confirmed current canonical doctrine supplies patch-compatible corrections.",
+    "next_action": "Correct Handler, time, naming, connection, and spec-compliance content, then run focused validation."
   },
   "results": {
     "summary": "",
@@ -55,4 +55,3 @@
     "follow_up_needed": true
   }
 }
-

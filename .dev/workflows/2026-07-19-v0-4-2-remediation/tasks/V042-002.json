@@ -6,9 +6,9 @@
   "task_id": "V042-002",
   "workflow_id": "2026-07-19-v0-4-2-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T12:48:48+08:00",
+  "updated_at": "2026-07-19T12:52:07+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-001", "ASM-20260717-004#AIC-001", "ASM-20260717-004#AIC-010", "SAG-F-002"],
   "scope": {
@@ -44,15 +44,28 @@
       "AI-context validation",
       "Independent post-remediation audit"
     ],
-    "last_completed_step": "V042-001 confirmed wrapper wording and existing routing completion are patch-compatible.",
-    "next_action": "Correct the five wrapper descriptions and two routing inventories, then run focused validation."
+    "last_completed_step": "Corrected five Claude wrapper descriptions and restored the two missing current routing entries plus human taxonomy discovery.",
+    "next_action": "V042-003 resolves doctrine and standards consistency."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
+    "summary": "Claude wrapper descriptions are runtime-neutral, root skill routing exposes spec-compliance-validator, and active sub-agent routing plus the human taxonomy expose context-translator without changing adapter semantics.",
+    "files_changed": [
+      ".claude/skills/{bdd-gwt-test-designer,ddd-ca-hex-architect,problem-frame-author,requirement-author,spec-author}/SKILL.md",
+      "AGENTS.md",
+      "AGENTS.zh-TW.md",
+      ".ai/SUB-AGENT-SYSTEM.MD",
+      ".dev/guides/ai-collaboration-guides/SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md"
+    ],
+    "tests_run": [
+      "cross-runtime description token scans: zero matches",
+      "python .ai/scripts/validate-ai-context.py",
+      "9 wrapper metadata GWT tests",
+      "6 root entry GWT tests",
+      "canonical inventory: 14 skills and 18 roles",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Semantic wrapper enforcement and adapter parity remain intentionally assigned to ENF-001 and SAG-001 in v0.5.0.",
     "follow_up_needed": true
   }
 }

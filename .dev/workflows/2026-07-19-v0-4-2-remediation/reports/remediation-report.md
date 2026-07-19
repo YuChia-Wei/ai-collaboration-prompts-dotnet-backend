@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T12:48:48+08:00`
+- `updated_at`: `2026-07-19T12:52:07+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260717-004`
@@ -31,7 +31,7 @@
 
 | Assessment Finding | Before Severity | Status | Changed Files | Validation | Commit | Residual Risk |
 | --- | --- | --- | --- | --- | --- | --- |
-| `R042-001`; `AIC-001`, `AIC-010`, `SAG-F-002` | HIGH / MEDIUM | `not-addressed` | pending | pending | pending | Existing wrapper and routing drift remains. |
+| `R042-001`; `AIC-001`, `AIC-010`, `SAG-F-002` | HIGH / MEDIUM | `resolved` | five Claude wrappers; `AGENTS*`; sub-agent routing and taxonomy guide | cross-runtime scans; AI-context validation; 15 wrapper/root GWT tests | pending | New semantic validation and adapter parity remain v0.5.0 scope. |
 | `R042-002`; `AIC-002`, `AIC-008`, `AIC-011` | HIGH / MEDIUM | `not-addressed` | pending | pending | Doctrine and standards contradictions remain. |
 | `R042-003`; `AIC-004`, `AIC-006`, `AIC-014`, `AIC-015`, `AIC-018` | HIGH / MEDIUM / LOW | `not-addressed` | pending | pending | Navigation and lifecycle hygiene remains stale. |
 | `R042-004`; `AIC-003`, `AIC-005`, `AIC-013` | HIGH / MEDIUM | `not-addressed` | pending | pending | Portability corrections and hosted evidence remain. |
@@ -66,5 +66,5 @@
 
 - Required validations: pending.
 - Commit status: workflow bootstrap pending.
-- Workflow/task status: `V042-001` completed; `V042-002` in progress; remaining tasks pending.
-- Final next action: correct runtime wrapper and routing facts without adding validator or adapter contracts.
+- Workflow/task status: `V042-001` and `V042-002` completed; `V042-003` in progress; remaining tasks pending.
+- Final next action: align existing standards and examples with canonical doctrine.
