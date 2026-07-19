@@ -8,7 +8,7 @@ owns its identity, current lifecycle state, subject revision, and relationships.
 | Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 
-No draft assessments are currently registered.
+| [`ASM-20260719-001`](ASM-20260719-001/assessment.yaml) | v0.4.2 AI Context Remediation Verification | `ai-context-verification` | `ai-context-auditor` | `draft` | `e76d89ca7927152cd993af7d53c3f0eb8a322384` | `2026-07-19T13:30:10+08:00` | [report](ASM-20260719-001/report.md) |
 
 ## Final Assessments
 
