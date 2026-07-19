@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T12:55:31+08:00`
+- `updated_at`: `2026-07-19T13:05:09+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260717-004`
@@ -23,8 +23,8 @@
 ## Remediation Summary
 
 - Authorized scope: `R042-001` through `R042-004`, patch-compatible corrections only.
-- Completed scope: workflow bootstrap and current candidate inventory.
-- Validation summary: current direct evidence and patch-impact triage completed; implementation validation pending.
+- Completed scope: candidate inventory, wrapper/routing, doctrine/standards, and navigation/lifecycle corrections.
+- Validation summary: local focused and repository governance checks pass for the completed remediation groups; portability and final candidate validation remain.
 - Closure decision: `not-ready`
 
 ## Finding Resolution Matrix
@@ -33,7 +33,7 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | `R042-001`; `AIC-001`, `AIC-010`, `SAG-F-002` | HIGH / MEDIUM | `resolved` | five Claude wrappers; `AGENTS*`; sub-agent routing and taxonomy guide | cross-runtime scans; AI-context validation; 15 wrapper/root GWT tests | pending | New semantic validation and adapter parity remain v0.5.0 scope. |
 | `R042-002`; `AIC-002`, `AIC-008`, `AIC-011` | HIGH / MEDIUM | `resolved` | Handler learning/spec surfaces; time examples; naming/config checklists; spec-compliance rules | focused scans; structural gate; 8 GWT tests; AI-context validation | pending | Existing DateProvider remains an example convention; independent confirmation pending. |
-| `R042-003`; `AIC-004`, `AIC-006`, `AIC-014`, `AIC-015`, `AIC-018` | HIGH / MEDIUM / LOW | `not-addressed` | pending | pending | pending | Navigation and lifecycle hygiene remains stale. |
+| `R042-003`; `AIC-004`, `AIC-006`, `AIC-014`, `AIC-015`, `AIC-018` | HIGH / MEDIUM / LOW | `resolved` | workflow index; retained auditor templates; prompt/install/design guides; bounded examples; completed requirements | workflow/assessment/AI-context validators; exact-case/reference tests; Git Bash structural gate; focused scans | pending | Published historical templates remain; physical retirement stays ENF-001 v0.5.0 scope. |
 | `R042-004`; `AIC-003`, `AIC-005`, `AIC-013` | HIGH / MEDIUM | `not-addressed` | pending | pending | pending | Portability corrections and hosted evidence remain. |
 
 ## Changes And Evidence
@@ -52,6 +52,19 @@
 - Recurring findings: pending.
 - New or regressed findings: pending.
 
+### Navigation And Lifecycle Hygiene
+
+- Changes: moved completed workflows out of active discovery; removed the dead
+  workflow-template route; marked three retained auditor workflow templates
+  historical with current assessment routing; corrected skill, spec, install,
+  and source-residue facts; and added evidence-backed outcomes to two completed
+  requirements.
+- Validation: workflow, assessment, and AI-context validators; exact-case and
+  active-reference unittest suites; Git Bash coding-standards structural gate;
+  structured template parse; focused stale-content scans; `git diff --check`.
+- Remaining risk: published historical templates intentionally remain until
+  `ENF-001` supplies a minor-version disposition.
+
 ## Deferred Work
 
 | Finding | Reason | Owner | Next Action |
@@ -66,5 +79,5 @@
 
 - Required validations: pending.
 - Commit status: workflow bootstrap pending.
-- Workflow/task status: `V042-001` through `V042-003` completed; `V042-004` in progress; remaining tasks pending.
-- Final next action: correct active navigation and evidence-backed lifecycle facts while retaining published paths and history.
+- Workflow/task status: `V042-001` through `V042-004` completed; `V042-005` in progress; final verification pending.
+- Final next action: resolve patch-safe portability defects, then run platform and independent verification gates.

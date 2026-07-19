@@ -8,22 +8,22 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-19-v0-4-2-remediation`](2026-07-19-v0-4-2-remediation/workflow.yaml) | v0.4.2 Patch-Compatible AI Context Remediation | `ai-context-governance` | `in_progress` | `2026-07-19T12:55:31+08:00` | [plan](2026-07-19-v0-4-2-remediation/workflow-plan.md) |
-| [`2026-07-18-v0-4-1-release-publication`](2026-07-18-v0-4-1-release-publication/workflow.yaml) | Publish And Finalize v0.4.1 | `ai-context-governance` | `completed` | `2026-07-18T23:47:03+08:00` | [plan](2026-07-18-v0-4-1-release-publication/workflow-plan.md) |
-| [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | v0.4.1 Downstream Upgrade Contract Remediation | `ai-context-governance` | `completed` | `2026-07-18T23:15:10+08:00` | [plan](2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow-plan.md) |
-| [`2026-07-16-v0-4-0-ai-context-remediation`](2026-07-16-v0-4-0-ai-context-remediation/workflow.yaml) | v0.4.0 AI Context Standards And Reference Architecture Remediation | `ai-context-governance` | `completed` | `2026-07-17T07:42:39+08:00` | [plan](2026-07-16-v0-4-0-ai-context-remediation/workflow-plan.md) |
-| [`2026-07-15-v0-1-downstream-feedback-adoption`](2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml) | Adopt v0.1.0 Downstream Feedback Into Framework Governance | `ai-context-governance` | `completed` | `2026-07-15T08:47:44+08:00` | [plan](2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md) |
+| [`2026-07-19-v0-4-2-remediation`](2026-07-19-v0-4-2-remediation/workflow.yaml) | v0.4.2 Patch-Compatible AI Context Remediation | `ai-context-governance` | `in_progress` | `2026-07-19T13:05:09+08:00` | [plan](2026-07-19-v0-4-2-remediation/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
 | [`2026-07-19-roadmap-gate-revision`](2026-07-19-roadmap-gate-revision/workflow.yaml) | Post-v0.4 Roadmap Release Gate Revision | `ai-context-governance` | `completed` | `2026-07-19T12:37:58+08:00` | [plan](2026-07-19-roadmap-gate-revision/workflow-plan.md) |
+| [`2026-07-18-v0-4-1-release-publication`](2026-07-18-v0-4-1-release-publication/workflow.yaml) | Publish And Finalize v0.4.1 | `ai-context-governance` | `completed` | `2026-07-18T23:47:03+08:00` | [plan](2026-07-18-v0-4-1-release-publication/workflow-plan.md) |
+| [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | v0.4.1 Downstream Upgrade Contract Remediation | `ai-context-governance` | `completed` | `2026-07-18T23:15:10+08:00` | [plan](2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow-plan.md) |
 | [`2026-07-18-sub-agent-runtime-integration-planning`](2026-07-18-sub-agent-runtime-integration-planning/workflow.yaml) | Sub-Agent Runtime Integration Planning | `ai-context-governance` | `completed` | `2026-07-18T20:15:59+08:00` | [plan](2026-07-18-sub-agent-runtime-integration-planning/workflow-plan.md) |
 | [`2026-07-18-post-v0-4-roadmap-planning`](2026-07-18-post-v0-4-roadmap-planning/workflow.yaml) | Post-v0.4.0 Version And Skill Taxonomy Roadmap Planning | `ai-context-governance` | `completed` | `2026-07-18T14:53:16+08:00` | [plan](2026-07-18-post-v0-4-roadmap-planning/workflow-plan.md) |
 | [`2026-07-17-v0-4-0-release-publication`](2026-07-17-v0-4-0-release-publication/workflow.yaml) | Publish And Finalize v0.4.0 | `ai-context-governance` | `completed` | `2026-07-17T08:12:09+08:00` | [plan](2026-07-17-v0-4-0-release-publication/workflow-plan.md) |
+| [`2026-07-16-v0-4-0-ai-context-remediation`](2026-07-16-v0-4-0-ai-context-remediation/workflow.yaml) | v0.4.0 AI Context Standards And Reference Architecture Remediation | `ai-context-governance` | `completed` | `2026-07-17T07:42:39+08:00` | [plan](2026-07-16-v0-4-0-ai-context-remediation/workflow-plan.md) |
 | [`2026-07-15-v0-3-0-release-finalization`](2026-07-15-v0-3-0-release-finalization/workflow.yaml) | Finalize Published v0.3.0 Release Registry | `ai-context-governance` | `completed` | `2026-07-15T19:35:37+08:00` | [plan](2026-07-15-v0-3-0-release-finalization/workflow-plan.md) |
 | [`2026-07-15-v0-0-1-retrospective-governance`](2026-07-15-v0-0-1-retrospective-governance/workflow.yaml) | Govern Retrospective v0.0.1 Identity And v0.3.0 Upgrade Path | `ai-context-governance` | `completed` | `2026-07-15T09:12:33+08:00` | [plan](2026-07-15-v0-0-1-retrospective-governance/workflow-plan.md) |
+| [`2026-07-15-v0-1-downstream-feedback-adoption`](2026-07-15-v0-1-downstream-feedback-adoption/workflow.yaml) | Adopt v0.1.0 Downstream Feedback Into Framework Governance | `ai-context-governance` | `completed` | `2026-07-15T08:47:44+08:00` | [plan](2026-07-15-v0-1-downstream-feedback-adoption/workflow-plan.md) |
 | [`2026-07-14-ai-context-release-packaging`](2026-07-14-ai-context-release-packaging/workflow.yaml) | AI Context Deterministic Packaging And Automated Release | `ai-context-governance` | `completed` | `2026-07-15T07:53:30+08:00` | [plan](2026-07-14-ai-context-release-packaging/workflow-plan.md) |
 | [`2026-07-14-ai-context-version-governance`](2026-07-14-ai-context-version-governance/workflow.yaml) | AI Context Version Governance And Upgrade Capability | `ai-context-governance` | `completed` | `2026-07-14T22:07:36+08:00` | [plan](2026-07-14-ai-context-version-governance/workflow-plan.md) |
 | [`2026-07-14-slice-remediation-overlay`](2026-07-14-slice-remediation-overlay/workflow.yaml) | Slice Remediation Intent And Overlay Contract | `ai-context-governance` | `completed` | `2026-07-14T21:19:12+08:00` | [plan](2026-07-14-slice-remediation-overlay/workflow-plan.md) |
@@ -65,12 +65,6 @@ lifecycle states. Add a locator only when a legacy workflow is formally resumed.
 | [`2026-07-historical-context-normalization`](2026-07-historical-context-normalization/) | legacy / no locator |
 | [`2026-07-repository-pattern-standards-alignment`](2026-07-repository-pattern-standards-alignment/) | legacy / no locator |
 | [`2026-07-usecase-command-handler-boundary`](2026-07-usecase-command-handler-boundary/) | legacy / no locator |
-
-## Templates
-
-| Path | Purpose |
-| --- | --- |
-| [`templates/`](templates/) | Legacy shared workflow templates retained for historical consumers; new workflows use their owner skill's templates. |
 
 ## Related Discovery
 

@@ -58,11 +58,11 @@ all-aggregates:
 
 ```csharp
 // ❌ Incorrect: Replay can dispatch When before _members is initialized here
-public class ScrumTeam : EsAggregateRoot<ScrumTeamId>
+public class DeliveryTeam : EsAggregateRoot<DeliveryTeamId>
 {
     private readonly List<TeamMember> _members;
     
-    public ScrumTeam(IEnumerable<IDomainEvent> domainEvents)
+    public DeliveryTeam(IEnumerable<IDomainEvent> domainEvents)
     {
         Replay(domainEvents);
         _members = new List<TeamMember>();  // Too late for replay transitions
@@ -70,11 +70,11 @@ public class ScrumTeam : EsAggregateRoot<ScrumTeamId>
 }
 
 // ✅ Correct: initialize at field declaration
-public class ScrumTeam : EsAggregateRoot<ScrumTeamId>
+public class DeliveryTeam : EsAggregateRoot<DeliveryTeamId>
 {
     private readonly List<TeamMember> _members = new();  // Correct initialization timing
     
-    public ScrumTeam(IEnumerable<IDomainEvent> domainEvents)
+    public DeliveryTeam(IEnumerable<IDomainEvent> domainEvents)
     {
         Replay(domainEvents); // called from the derived constructor body
     }

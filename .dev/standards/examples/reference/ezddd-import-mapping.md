@@ -1,10 +1,11 @@
-# ezDDD .NET Import Mapping (Reference)
+# Historical ezDDD Import Mapping (Reference)
 
-This guide defines the expected .NET type and namespace conventions for ezDDD.
-Because ezDDD .NET packages may not exist yet, treat namespaces as placeholders
-and update them once the real packages are available.
+This guide preserves source-stack terminology as historical provenance. It does
+not define expected .NET namespaces, promise a future package, or authorize
+copying the placeholder imports into target code. Current contracts come from
+the linked canonical standards.
 
-## Core Concepts (Expected Types)
+## Core Concepts (Historical Labels)
 
 | Concept | Expected Type Name | Notes |
 | --- | --- | --- |
@@ -51,14 +52,15 @@ BuildingBlocks truth is the
 
 1. Do not mix `DomainEvent` with `DomainEventData`.  
    `DomainEventData` is the serialized transport shape.
-2. Do not guess namespaces. Update this doc once ezDDD .NET packages are set.
+2. Do not guess namespaces; select target-owned contracts and packages from
+   repository evidence.
 3. Always keep domain events immutable (record types recommended).
 4. Use `DomainEventTypeMapper` for serialization stability.
 
-## Example Usage (Placeholder)
+## Historical Import Shape (Do Not Copy)
 
 ```csharp
-// TODO: replace namespaces with actual ezDDD .NET packages.
+// Historical placeholder namespaces retained only as provenance.
 using EzDdd.Entity;
 using EzDdd.Cqrs;
 using EzDdd.UseCase;
@@ -71,9 +73,7 @@ public sealed record PlanCreated(/* ... */) : IDomainEvent
 
 ## Contract Utilities
 
-Use uContract in .NET once available:
-```csharp
-using static UContract.Contract;
-```
-
-TODO: add actual namespace once uContract .NET is created.
+Design by Contract semantics are defined by
+[Design By Contract Semantics](../../DESIGN-BY-CONTRACT.md). Helper names and
+package selection remain target-owned; this historical mapping does not require
+`uContract`.

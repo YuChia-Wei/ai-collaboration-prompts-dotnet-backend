@@ -6,9 +6,9 @@
   "task_id": "V042-004",
   "workflow_id": "2026-07-19-v0-4-2-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T12:55:31+08:00",
+  "updated_at": "2026-07-19T13:05:09+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-003", "ASM-20260717-004#AIC-004", "ASM-20260717-004#AIC-006", "ASM-20260717-004#AIC-014", "ASM-20260717-004#AIC-015", "ASM-20260717-004#AIC-018"],
   "scope": {
@@ -46,15 +46,34 @@
       "Requirement outcome inventory",
       "Independent post-remediation audit"
     ],
-    "last_completed_step": "V042-001 confirmed retained-path labeling and evidence-backed lifecycle corrections are patch-compatible.",
-    "next_action": "Correct active navigation, historical labels, stale guide/install facts, bounded source residue, and completed requirement outcomes."
+    "last_completed_step": "Repaired workflow discovery, marked retained auditor workflow templates historical, modernized install and skill-guide facts, neutralized bounded source residue, and recorded evidence-backed requirement outcomes.",
+    "next_action": "V042-005 resolves patch-safe tooling portability."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
+    "summary": "Active workflow discovery now reports only active work; retained auditor workflow templates route readers to standalone assessments; guides, examples, historical mappings, and completed requirements no longer present stale lifecycle or future-package truth.",
+    "files_changed": [
+      ".dev/workflows/INDEX.MD",
+      ".ai/assets/skills/ai-context-auditor/templates/**",
+      ".dev/guides/ai-collaboration-guides/**",
+      ".dev/guides/design-guides/EZDDD-FRAMEWORK-REFERENCE.md",
+      ".dev/guides/implementation-guides/quick-setup.md",
+      ".dev/requirement/DOTNET-VALIDATOR-PHASE-2-REQUIREMENTS.MD",
+      ".dev/requirement/HISTORICAL-CONTEXT-NORMALIZATION-REQUIREMENTS.MD",
+      ".dev/standards/coding-standards/aggregate-standards.md",
+      ".dev/standards/examples/**"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-assessment-artifacts.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/tests/test_ai_context_exact_case_paths.py",
+      "python .ai/scripts/tests/test_ai_context_active_script_references.py",
+      "Git Bash .ai/scripts/check-coding-standards.sh",
+      "JSON/YAML parse and focused stale-content scans",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The historical auditor workflow templates remain at published paths by design; physical retirement and enforcement remain ENF-001 v0.5.0 scope.",
     "follow_up_needed": true
   }
 }

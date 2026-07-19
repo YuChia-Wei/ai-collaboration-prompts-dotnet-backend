@@ -5,7 +5,20 @@
 - Version: 0.1
 - Date: 2026-07-04
 - Owner: YuChia-Wei
-- Status: Approved for implementation
+- Status: Implemented
+
+## Implementation Outcome
+
+- Completed by: `.dev/workflows/2026-07-dotnet-validator-phase-2/`
+- Evidence: the completed workflow records `DBA1004` through `DBA1006`, positive
+  and negative analyzer tests, removal of the controller grep checks, and
+  promotion of analyzer tests into `check-all.sh` executable gates.
+- Validation contract: the workflow records the analyzer test project,
+  controller script/reference search, JSON and Markdown checks, and
+  `git diff --check`.
+
+The original requirement wording below is retained as the implementation
+contract and historical decision record.
 
 ## 目標
 
