@@ -49,6 +49,38 @@ elif [ "$#" -eq 1 ]; then
     esac
 fi
 
+# Resolve the existing Python contract across Windows Git Bash and POSIX hosts.
+# Keep literal `python ...` command declarations below for shell-manifest parity.
+resolve_python() {
+    local candidate
+    if [ -n "${AI_CONTEXT_PYTHON:-}" ]; then
+        if command -v "$AI_CONTEXT_PYTHON" >/dev/null 2>&1 &&
+            "$AI_CONTEXT_PYTHON" -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)' >/dev/null 2>&1; then
+            command -v "$AI_CONTEXT_PYTHON"
+            return 0
+        fi
+        return 1
+    fi
+
+    for candidate in python python3; do
+        if command -v "$candidate" >/dev/null 2>&1 &&
+            "$candidate" -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)' >/dev/null 2>&1; then
+            command -v "$candidate"
+            return 0
+        fi
+    done
+    return 1
+}
+
+if ! PYTHON_EXECUTABLE="$(resolve_python)"; then
+    echo "Python 3.11 or newer is required. Install source dependencies from requirements.txt or set AI_CONTEXT_PYTHON to a usable interpreter." >&2
+    exit 1
+fi
+
+python() {
+    "$PYTHON_EXECUTABLE" "$@"
+}
+
 # Track results
 TOTAL_CHECKS=0
 PASSED_CHECKS=0

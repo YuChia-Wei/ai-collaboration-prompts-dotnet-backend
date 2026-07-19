@@ -4,6 +4,33 @@ This directory contains transitional AI workflow scripts, context governance che
 
 It is no longer the long-term home for authoritative C# semantic validation. Rules that inspect C# syntax, symbols, type dependencies, attributes, or framework API usage should move to dotnet-native validation mechanisms such as Roslyn analyzers, `.editorconfig`, `dotnet format`, architecture tests, integration tests, or dotnet tools.
 
+## Source Tooling Prerequisites
+
+Repository-side Python tooling requires Python 3.11 or newer and the
+checksum-stable dependency declared in the root `requirements.txt`:
+
+```text
+PyYAML==6.0.3
+```
+
+Create and activate a virtual environment using the conventions for the host,
+then install the source dependency from the repository root:
+
+```text
+python -m venv .venv
+python -m pip install -r requirements.txt
+```
+
+On POSIX hosts the interpreter may be named `python3`. `check-all.sh` discovers
+`python` and then `python3` without changing its governed command inventory.
+Set `AI_CONTEXT_PYTHON` to an executable name or path when an explicit
+interpreter is required. Missing or failing required tools remain gate failures;
+interpreter discovery does not convert them to skips.
+
+The extracted release package has its own checksum-governed envelope
+`requirements.txt`; follow the package `INSTALL.md` rather than using this
+source-repository bootstrap.
+
 ## Current Boundary
 
 `shell-assets.yaml` is the machine-readable role, lifecycle, distribution, and
