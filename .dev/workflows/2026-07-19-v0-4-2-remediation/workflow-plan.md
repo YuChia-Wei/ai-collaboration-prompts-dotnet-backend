@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-19-v0-4-2-remediation`
 - `created_at`: `2026-07-19T12:41:16+08:00`
-- `updated_at`: `2026-07-19T12:52:07+08:00`
+- `updated_at`: `2026-07-19T12:55:31+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -102,17 +102,17 @@ templates and runner redesign are also v0.5.0 scope.
 | --- | --- | --- |
 | `V042-001` | Reproduce findings, classify patch impact, and freeze the candidate inventory. | `completed` |
 | `V042-002` | Resolve `R042-001` wrapper and routing correctness. | `completed` |
-| `V042-003` | Resolve `R042-002` doctrine and standards consistency. | `in_progress` |
-| `V042-004` | Resolve `R042-003` navigation and lifecycle hygiene. | `pending` |
+| `V042-003` | Resolve `R042-002` doctrine and standards consistency. | `completed` |
+| `V042-004` | Resolve `R042-003` navigation and lifecycle hygiene. | `in_progress` |
 | `V042-005` | Resolve `R042-004` patch-safe tooling portability. | `pending` |
 | `V042-006` | Run candidate gates, hosted evidence, independent verification, and closeout. | `pending` |
 
 ## Resume Checkpoint
 
-- Last completed action: corrected five Claude wrapper descriptions, restored the existing spec-compliance and context-translator routing entries, and aligned the human taxonomy guide.
-- Current task: `V042-003`.
-- Exact next action: align Handler, time, naming, connection configuration, and spec-compliance examples with current canonical doctrine.
-- Validation already completed: cross-runtime-token scans returned no wrapper-description matches; canonical inventories remain 14 skills and 18 roles; AI-context validation and 15 focused wrapper/root GWT tests passed; `git diff --check` passed.
+- Last completed action: aligned Handler boundaries, positive time examples, C# naming, connection configuration, and spec-compliance wording with current canonical doctrine.
+- Current task: `V042-004`.
+- Exact next action: repair workflow navigation, mark retained auditor templates historical, correct stale guide/install facts, neutralize bounded source residue, and add evidence-backed requirement outcomes.
+- Validation already completed: focused stale-content scan leaves bare wall-clock use only in explicit anti-pattern examples; coding-standards structural check, AI-context validation, and eight documentation/standards GWT tests passed; `git diff --check` passed.
 - Git state: `codex/2026-07-19-v0-4-2-remediation` at `main@9b03668f14af7e69e283b4caf30d25fe41d2b460`.
 - Branch history and checkpoint handoffs: segment 1 begins after the completed roadmap workflow was merged to `main`.
 - Blockers or unresolved decisions: hosted Ubuntu evidence may require a remote branch/run checkpoint; tag and publication remain user-owned and excluded.

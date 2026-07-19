@@ -138,7 +138,7 @@ public void CreateTask(TaskId taskId, string name, int? estimatedHours, string c
     ArgumentException.ThrowIfNullOrEmpty(name);
     
     // Apply domain event
-    Apply(new TaskCreated(Id, taskId, name, estimatedHours, creatorId, DateTime.UtcNow));
+    Apply(new TaskCreated(Id, taskId, name, estimatedHours, creatorId, DateProvider.Now()));
     
     // Postconditions: verify business state
     var createdTask = _tasks.FirstOrDefault(t => t.Id.Equals(taskId));
@@ -225,7 +225,7 @@ public class Product : EsAggregateRoot<ProductId>
         ArgumentException.ThrowIfNullOrEmpty(name);
         ArgumentException.ThrowIfNullOrEmpty(creatorId);
         
-        Apply(new ProductCreated(id, name, creatorId, DateTime.UtcNow));
+        Apply(new ProductCreated(id, name, creatorId, DateProvider.Now()));
         
         // Postconditions
         Contract.Ensure(Id.Equals(id), "ID must be set");
@@ -254,7 +254,7 @@ public void Rename(string newName)
         return;  // No update and no event
     
     // 3. Apply the event
-    Apply(new ProductRenamed(Id, newName, DateTime.UtcNow));
+    Apply(new ProductRenamed(Id, newName, DateProvider.Now()));
     
     // 4. Postconditions
     Contract.Ensure(Name == newName, "Name must be updated");

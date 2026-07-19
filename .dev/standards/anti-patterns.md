@@ -4,6 +4,11 @@
 
 This document records common mistakes and anti-patterns to avoid in the .NET DDD + WolverineFx + EF Core technology stack.
 
+When this learning-oriented summary conflicts with
+[`coding-standards/`](coding-standards/) or
+[`USECASE-COMMAND-HANDLER-RELATIONSHIP.MD`](USECASE-COMMAND-HANDLER-RELATIONSHIP.MD),
+those canonical standards take precedence.
+
 ## Domain Layer Anti-Patterns
 
 ### 1. ❌ Anemic Domain Model
@@ -109,9 +114,9 @@ private void When(TaskCompleted e)
 
 ### 4. ❌ Business Logic in a Use Case
 ```csharp
-public sealed class CreateOrderHandler
+public sealed class CreateOrderUseCase
 {
-    public Task<CqrsOutput> Handle(CreateOrderInput input)
+    public Task<CqrsOutput> ExecuteAsync(CreateOrderInput input)
     {
         // Incorrect: business rules belong in the Domain
         if (input.Items.Count == 0)
@@ -124,14 +129,16 @@ public sealed class CreateOrderHandler
 
 ✅ **Recommended approach**:
 ```csharp
-public sealed class CreateOrderHandler
+public sealed class CreateOrderUseCase : ICreateOrderUseCase
 {
     private readonly IAggregateRepository<Order, OrderId> _repository;
 
-    public async Task<CqrsOutput> Handle(CreateOrderInput input)
+    public async Task<CqrsOutput> ExecuteAsync(
+        CreateOrderInput input,
+        CancellationToken cancellationToken)
     {
         var order = Order.Create(input.CustomerId, input.Items);
-        await _repository.Save(order);
+        await _repository.SaveAsync(order, cancellationToken);
         return CqrsOutput.Success();
     }
 }

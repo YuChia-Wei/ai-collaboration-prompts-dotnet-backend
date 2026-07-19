@@ -6,9 +6,9 @@
   "task_id": "V042-004",
   "workflow_id": "2026-07-19-v0-4-2-remediation",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-19T12:41:16+08:00",
-  "updated_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T12:55:31+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["R042-003", "ASM-20260717-004#AIC-004", "ASM-20260717-004#AIC-006", "ASM-20260717-004#AIC-014", "ASM-20260717-004#AIC-015", "ASM-20260717-004#AIC-018"],
   "scope": {
@@ -46,8 +46,8 @@
       "Requirement outcome inventory",
       "Independent post-remediation audit"
     ],
-    "last_completed_step": "",
-    "next_action": "Wait for V042-001 patch-impact inventory."
+    "last_completed_step": "V042-001 confirmed retained-path labeling and evidence-backed lifecycle corrections are patch-compatible.",
+    "next_action": "Correct active navigation, historical labels, stale guide/install facts, bounded source residue, and completed requirement outcomes."
   },
   "results": {
     "summary": "",
@@ -58,4 +58,3 @@
     "follow_up_needed": true
   }
 }
-
