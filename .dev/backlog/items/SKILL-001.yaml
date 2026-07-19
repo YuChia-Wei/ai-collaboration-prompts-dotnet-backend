@@ -6,20 +6,24 @@ status: "planned"
 priority: "MEDIUM"
 summary: "Introduce an AI context lifecycle family, transition repo-structure-sync to ai-context-init through a deprecated compatibility entry, and group development skills by lifecycle role without cosmetic bulk renames."
 created_at: "2026-07-18T14:53:16+08:00"
-updated_at: "2026-07-18T14:53:16+08:00"
+updated_at: "2026-07-19T12:27:12+08:00"
 release:
   target: "v0.6.0"
   completed_in: null
   published_in: null
   target_scope: "taxonomy-and-compatible-identifier-transition"
+  gate: "release-blocker"
 origin_refs:
   - ".dev/backlog/ROADMAP.md#release-horizons"
   - ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow-plan.md#v060--skill-family-taxonomy-and-compatibility-transition"
+  - ".dev/backlog/items/EVAL-001.yaml"
 recommended_owner_skill: "ai-context-governance"
 handoff_condition: "After v0.5.0 governance contracts stabilize, create a dedicated workflow that defines deprecation metadata and validation before changing canonical identifiers, wrappers, paths, distribution, or provenance behavior."
-workflow_refs: []
+workflow_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/tasks/ROADMAP-003.json"
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
 resolution_ref: null
 decision_needed: "Approve the v0.6.0 compatibility contract and decide in a later release whether evidence supports retiring the repo-structure-sync entry."
 compatibility_boundaries:
@@ -27,3 +31,6 @@ compatibility_boundaries:
   - "Historical initialized_by, generatedBy, workflow, assessment, and release provenance remains unchanged."
   - "v0.7.0 removal is conditional on downstream migration evidence and is not pre-committed."
   - "Development skills are grouped by lifecycle role before any further rename is considered."
+activation_dependencies:
+  - "v0.5.0 is completed and its governance and adapter contracts are stable."
+  - "EVAL-001 deterministic regression baseline and approved release-side model evaluation are complete."

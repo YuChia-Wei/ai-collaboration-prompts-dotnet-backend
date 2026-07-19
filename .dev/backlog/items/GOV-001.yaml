@@ -6,12 +6,13 @@ status: "open"
 priority: "MEDIUM"
 summary: "Reconcile follow-up and open-question markers in legacy no-locator workflows against later completed work so historical clues do not remain hidden or get mistaken for active tasks."
 created_at: "2026-07-12T14:17:52+08:00"
-updated_at: "2026-07-18T14:41:03+08:00"
+updated_at: "2026-07-19T12:27:12+08:00"
 release:
   target: "v0.5.0"
   completed_in: null
   published_in: null
   target_scope: "reconciliation-and-disposition"
+  gate: "disposition-gate"
 origin_refs:
   - ".dev/workflows/INDEX.MD"
   - ".dev/workflows/2026-04-14-legacy-decision-portability-consolidation/workflow-plan.md"
@@ -19,8 +20,10 @@ origin_refs:
   - ".dev/workflows/2026-07-usecase-command-handler-boundary/workflow-plan.md"
 recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Run a read-only reconciliation first; promote only still-current work to separate backlog items and do not retrofit lifecycle locators unless a legacy workflow is formally resumed."
-workflow_refs: []
-task_refs: []
+workflow_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+task_refs:
+  - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
 resolution_ref: null
 decision_needed: "No immediate decision; request user disposition only for follow-ups that remain current after reconciliation."
 inventory_notes:

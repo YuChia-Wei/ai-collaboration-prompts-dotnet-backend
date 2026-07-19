@@ -1,0 +1,74 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "RGR-001",
+  "workflow_id": "2026-07-19-roadmap-gate-revision",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-19T12:25:11+08:00",
+  "updated_at": "2026-07-19T12:36:28+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Approved post-v0.4 release sequencing, release blockers, disposition gates, environment evidence, and evaluation planning",
+    "files": [
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/items/*.yaml",
+      ".dev/workflows/2026-07-19-roadmap-gate-revision/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Do not rewrite the completed predecessor workflow or historical source plan",
+      "Keep v0.4.2 strictly patch-compatible",
+      "Do not implement v0.4.2 or v0.5.0 scope in this task",
+      "Do not infer macOS evidence",
+      "Keep routine downstream upgrades deterministic and model-free by default"
+    ],
+    "non_goals": [
+      "Release implementation",
+      "New validator or CI route",
+      "Tag or publication work"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define release blocker and disposition gate semantics",
+      "Create bounded v0.4.2 backlog items for patch-compatible correction classes",
+      "Classify v0.5.0 blockers and disposition gates",
+      "Add a deterministic-first v0.6.0 AI behavior evaluation backlog item",
+      "Update roadmap and discovery indexes"
+    ],
+    "validation": [
+      "Workflow and backlog artifact validation",
+      "Backlog release-contract tests",
+      "AI context validation",
+      "Task JSON parsing",
+      "git diff --check"
+    ],
+    "last_completed_step": "Revised the active roadmap, indexes, and backlog items with the approved release, disposition, environment, and evaluation gates.",
+    "next_action": "RGR-002 validates, commits, closes, and merges the roadmap revision."
+  },
+  "results": {
+    "summary": "The active roadmap now makes v0.4.2 mandatory and patch-only, blocks v0.5.0 on v0.4.2 completion, elevates TOOL-001 and LANG-001 to blockers, and adds a deterministic-first budgeted model evaluation before v0.6.0 taxonomy work.",
+    "files_changed": [
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/items/*.yaml",
+      ".dev/workflows/2026-07-19-roadmap-gate-revision/**"
+    ],
+    "tests_run": [
+      "workflow artifact validation",
+      "backlog release-contract tests",
+      "AI-context and version validation",
+      "Git Bash quick gate: 21/21 required checks passed",
+      "task JSON and backlog YAML parse",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "macOS execution remains intentionally unverified until the repository owner arranges a separate environment; model token budget remains a future user-approved v0.6.0 decision.",
+    "follow_up_needed": true
+  }
+}
