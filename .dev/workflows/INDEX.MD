@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-19-v0-4-2-release-publication`](2026-07-19-v0-4-2-release-publication/workflow.yaml) | Publish And Finalize v0.4.2 | `ai-context-governance` | `active` | `2026-07-19T15:50:00+08:00` | [plan](2026-07-19-v0-4-2-release-publication/workflow-plan.md) |
+| [`2026-07-19-v0-4-2-release-publication`](2026-07-19-v0-4-2-release-publication/workflow.yaml) | Publish And Finalize v0.4.2 | `ai-context-governance` | `completed` | `2026-07-19T15:58:00+08:00` | [plan](2026-07-19-v0-4-2-release-publication/workflow-plan.md) |
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |

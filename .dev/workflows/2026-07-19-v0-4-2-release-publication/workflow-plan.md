@@ -41,15 +41,15 @@
 
 | Task | Purpose | Status | Validation |
 | --- | --- | --- | --- |
-| `REL042-001` | Validate and record the immutable tagged-tree candidate. | `pending` | Full gate, version validation, two deterministic package builds and parity. |
-| `REL042-002` | Create and push the authorized annotated tag, then verify hosted publication. | `pending` | Annotated tag identity, Actions run, release asset set and checksums. |
-| `REL042-003` | Finalize published registry/backlog truth and close the workflow. | `pending` | Published record, tag resolution, context/workflow/version validators. |
+| `REL042-001` | Validate and record the immutable tagged-tree candidate. | `completed` | Full gate, version validation, two deterministic package builds and parity. |
+| `REL042-002` | Create and push the authorized annotated tag, then verify hosted publication. | `completed` | Annotated tag identity, Actions run, release asset set and checksums. |
+| `REL042-003` | Finalize published registry/backlog truth and close the workflow. | `completed` | Published record, tag resolution, context/workflow/version validators. |
 
 ## Resume Checkpoint
 
 - Last completed action: Remediation workflow completed and merged to main.
 - Current task: `REL042-001`
-- Exact next action: Validate the immutable tagged-tree candidate.
+- Exact next action: Merge registry finalization to main and push.
 - Validation already completed: none for this workflow segment yet.
 - Git state: workflow branch created from merged `main`.
 - Blockers or unresolved decisions: none.
