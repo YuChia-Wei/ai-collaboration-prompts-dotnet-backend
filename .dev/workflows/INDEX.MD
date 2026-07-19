@@ -8,7 +8,6 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-19-roadmap-gate-revision`](2026-07-19-roadmap-gate-revision/workflow.yaml) | Post-v0.4 Roadmap Release Gate Revision | `ai-context-governance` | `in_progress` | `2026-07-19T12:36:28+08:00` | [plan](2026-07-19-roadmap-gate-revision/workflow-plan.md) |
 | [`2026-07-18-v0-4-1-release-publication`](2026-07-18-v0-4-1-release-publication/workflow.yaml) | Publish And Finalize v0.4.1 | `ai-context-governance` | `completed` | `2026-07-18T23:47:03+08:00` | [plan](2026-07-18-v0-4-1-release-publication/workflow-plan.md) |
 | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | v0.4.1 Downstream Upgrade Contract Remediation | `ai-context-governance` | `completed` | `2026-07-18T23:15:10+08:00` | [plan](2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow-plan.md) |
 | [`2026-07-16-v0-4-0-ai-context-remediation`](2026-07-16-v0-4-0-ai-context-remediation/workflow.yaml) | v0.4.0 AI Context Standards And Reference Architecture Remediation | `ai-context-governance` | `completed` | `2026-07-17T07:42:39+08:00` | [plan](2026-07-16-v0-4-0-ai-context-remediation/workflow-plan.md) |
@@ -18,6 +17,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-19-roadmap-gate-revision`](2026-07-19-roadmap-gate-revision/workflow.yaml) | Post-v0.4 Roadmap Release Gate Revision | `ai-context-governance` | `completed` | `2026-07-19T12:37:58+08:00` | [plan](2026-07-19-roadmap-gate-revision/workflow-plan.md) |
 | [`2026-07-18-sub-agent-runtime-integration-planning`](2026-07-18-sub-agent-runtime-integration-planning/workflow.yaml) | Sub-Agent Runtime Integration Planning | `ai-context-governance` | `completed` | `2026-07-18T20:15:59+08:00` | [plan](2026-07-18-sub-agent-runtime-integration-planning/workflow-plan.md) |
 | [`2026-07-18-post-v0-4-roadmap-planning`](2026-07-18-post-v0-4-roadmap-planning/workflow.yaml) | Post-v0.4.0 Version And Skill Taxonomy Roadmap Planning | `ai-context-governance` | `completed` | `2026-07-18T14:53:16+08:00` | [plan](2026-07-18-post-v0-4-roadmap-planning/workflow-plan.md) |
 | [`2026-07-17-v0-4-0-release-publication`](2026-07-17-v0-4-0-release-publication/workflow.yaml) | Publish And Finalize v0.4.0 | `ai-context-governance` | `completed` | `2026-07-17T08:12:09+08:00` | [plan](2026-07-17-v0-4-0-release-publication/workflow-plan.md) |

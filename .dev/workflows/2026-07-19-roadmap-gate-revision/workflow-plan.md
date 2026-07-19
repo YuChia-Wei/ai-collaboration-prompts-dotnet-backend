@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-19-roadmap-gate-revision`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `closure`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-19-roadmap-gate-revision`
 - `created_at`: `2026-07-19T12:25:11+08:00`
-- `updated_at`: `2026-07-19T12:36:28+08:00`
+- `updated_at`: `2026-07-19T12:37:58+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -83,15 +83,15 @@ planning records.
 | Task | Purpose | Status |
 | --- | --- | --- |
 | `RGR-001` | Persist the approved roadmap and backlog gate revisions. | `completed` |
-| `RGR-002` | Validate, close, commit, and merge the revision workflow. | `in_progress` |
+| `RGR-002` | Validate, close, commit, and merge the revision workflow. | `completed` |
 
 ## Resume Checkpoint
 
-- Last completed action: persisted the approved gate semantics, four v0.4.2 blockers, five v0.5.0 blockers, three v0.5.0 disposition gates, and the deterministic-first v0.6.0 evaluation contract.
-- Current task: `RGR-002`.
-- Exact next action: commit the roadmap revision, validate the workflow commit range, close lifecycle records, and merge to `main` with `--no-ff`.
-- Validation already completed: workflow artifact validation passed for 23 workflows and 21 backlog items; six backlog release-contract tests passed; AI-context and version validation passed; Git Bash quick gate passed 21/21 required checks with one declared deferred dependency/version check and two not-applicable checks; task JSON, backlog YAML, and `git diff --check` passed.
-- Git state: branch `codex/2026-07-19-roadmap-gate-revision` is based on `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932`.
+- Last completed action: committed the approved gate revision at `90edd79f20d3167f852359276c9a595cdd590d8d` and validated both workflow commits.
+- Current task: none; workflow completed.
+- Exact next action: merge this completed branch to `main` with `--no-ff`, then create the separate v0.4.2 remediation branch and workflow.
+- Validation already completed: workflow artifact validation passed for 23 workflows and 21 backlog items; six backlog release-contract tests passed; AI-context and version validation passed; Git Bash quick gate passed 21/21 required checks with one declared deferred dependency/version check and two not-applicable checks; task JSON, backlog YAML, `git diff --check`, and `main..HEAD` commit validation for two commits passed.
+- Git state: branch `codex/2026-07-19-roadmap-gate-revision` is based on `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932`; roadmap content commit is `90edd79f20d3167f852359276c9a595cdd590d8d`.
 - Branch history and checkpoint handoffs: segment 1 started locally for the approved roadmap revision.
 - Blockers or unresolved decisions: none for the approved planning revision; release tagging and publication remain outside this workflow.
 
@@ -99,4 +99,4 @@ planning records.
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-19-roadmap-gate-revision` | `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932` | workflow start | `e83d6ba8aba60263e49fa214db9df3ec8e8f8932` | local | `2026-07-19T12:25:11+08:00` | Persist the approved gate revision without rewriting historical planning records. | Complete `RGR-001`, validate `RGR-002`, then merge to `main`. |
+| 1 | `codex/2026-07-19-roadmap-gate-revision` | `main@e83d6ba8aba60263e49fa214db9df3ec8e8f8932` | completed workflow | `90edd79f20d3167f852359276c9a595cdd590d8d` | local / `main` | `2026-07-19T12:37:58+08:00` | Persist and validate the approved gate revision without rewriting historical planning records. | Merge with `--no-ff`, then start a separate v0.4.2 remediation branch from updated `main`. |
