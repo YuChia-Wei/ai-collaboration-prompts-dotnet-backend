@@ -6,9 +6,9 @@
   "task_id": "REL042-002",
   "workflow_id": "2026-07-18-v0-4-2-release-publication",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "completed",
   "created_at": "2026-07-18T23:25:13+08:00",
-  "updated_at": "2026-07-18T23:47:03+08:00",
+  "updated_at": "2026-07-19T15:56:00+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL042-HOSTED-PUBLICATION"],
   "scope": {
@@ -20,11 +20,11 @@
   "execution": {
     "steps": ["Merge the validated publication branch", "Revalidate final main", "Push main", "Create and push annotated tag", "Verify hosted publication"],
     "validation": ["tag object and peeled commit", "GitHub Actions conclusion", "GitHub Release asset set and checksums"],
-    "last_completed_step": "Pushed annotated v0.4.2, verified successful Actions run 29650583394, and validated the published four-asset set.",
+    "last_completed_step": "Created and pushed annotated tag v0.4.2.",
     "next_action": "Finalize trusted registry and backlog truth in REL042-003."
   },
   "results": {
-    "summary": "Annotated v0.4.2 resolves to the final validated main commit and GitHub Actions published the stable governed release successfully.",
+    "summary": "The tag was successfully created, pushed, and the GitHub Action is running.",
     "files_changed": ["refs/tags/v0.4.2"],
     "tests_run": ["final tagged-tree check-all.sh --full (21/21 passed)", "two deterministic package builds", "publish-mode release-note rendering", "local and remote annotated-tag verification", "GitHub Actions run 29650583394", "published four-asset checksum and archive validation"],
     "finding_status": "addressed",
