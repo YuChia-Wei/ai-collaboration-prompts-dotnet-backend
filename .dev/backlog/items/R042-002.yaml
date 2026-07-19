@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "R042-002"
 title: "Doctrine And Standards Consistency Corrections"
 category: "ai-context-standards"
-status: "planned"
+status: "resolved"
 priority: "HIGH"
 summary: "Align Handler, time abstraction, naming, and retained validator examples with already-canonical repository doctrine."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-19T15:50:00+08:00"
 release:
   target: "v0.4.2"
-  completed_in: null
+  completed_in: "v0.4.2"
   published_in: null
   target_scope: "existing-doctrine-consistency-corrections"
   gate: "release-blocker"
@@ -20,9 +20,11 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Apply only corrections already determined by current canonical standards; stop and reclassify any candidate that requires a new universal policy or intentional behavior change."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
-resolution_ref: null
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-003.json"
+resolution_ref: ".dev/workflows/2026-07-19-v0-4-2-remediation/reports/remediation-report.md"
 decision_needed: null
 acceptance:
   - "Positive and negative Handler examples agree with the canonical Use Case and Handler boundary."

@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.4.2` | `active` | Merge the gate revision, then activate the patch-only `R042-001` through `R042-004` remediation workflow; v0.5.0 remains blocked. | 2026-07-19 |
+| [ROADMAP.md](ROADMAP.md) | `v0.4.2` | `active` | Publish the independently verified v0.4.2 candidate; v0.5.0 remains blocked until publication completes. | 2026-07-19 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -16,10 +16,6 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Gate | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
-| [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | release blocker | Correct cross-runtime wrapper identity and existing translator routing without new adapter semantics. | Implement only existing-contract corrections; move new validation or adapter contracts to v0.5.0. | 2026-07-19 |
-| [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | release blocker | Align doctrine and standards examples with already-canonical Handler, time, naming, and spec contracts. | Stop if a candidate requires a new universal policy or intentional behavior change. | 2026-07-19 |
-| [R042-003](items/R042-003.yaml) | MEDIUM | `v0.4.2` | release blocker | Repair navigation, lifecycle status, outcomes, and historical-template labeling. | Preserve published paths; v0.5.0 owns retirement or relocation. | 2026-07-19 |
-| [R042-004](items/R042-004.yaml) | HIGH | `v0.4.2` | release blocker | Correct interpreter, dependency declaration, Python-floor, and advisory root defects. | Require Windows Git Bash and hosted Ubuntu evidence; do not change required-gate semantics. | 2026-07-19 |
 | [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | release blocker | Introduce a governed multi-source direct-upgrade contract and prove v0.3.0, v0.4.0, and v0.4.1 paths. | Start only after v0.4.2 completes; retain dotnet-mq-arch-lab on v0.4.0 as the direct-upgrade target. | 2026-07-19 |
 | [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.2; implement the adapter contract in v0.5.0. | 2026-07-19 |
 | [ENF-001](items/ENF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add semantic wrapper validation and governance CI, then disposition obsolete published paths with migration evidence. | Approve the new enforcement contracts and every retain/deprecate/relocate/remove decision. | 2026-07-19 |
@@ -34,12 +30,16 @@ roadmap but do not replace it or a governed assessment.
 
 ## In Progress
 
-No backlog items are currently in progress.
-
+| Item | Priority | Target Release | Gate | Current Task | Workflow | Updated |
+| --- | --- | --- | --- | --- | --- | --- |
 ## Resolved
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | — | Existing wrapper identity and routing corrections are independently verified without adding adapter contracts. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | — | Handler, time, naming, and spec examples align with existing canonical doctrine. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-003](items/R042-003.yaml) | MEDIUM | `v0.4.2` | — | Navigation and lifecycle facts are corrected while published historical paths remain retained. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
+| [R042-004](items/R042-004.yaml) | HIGH | `v0.4.2` | — | Patch-safe interpreter, dependency, root, and test portability corrections pass Windows Git Bash and Codespaces Ubuntu 24.04. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-19 |
 | [PKG-001](items/PKG-001.yaml) | HIGH / P0 | `v0.4.1` | `v0.4.1` | Versioned migration metadata binds the exact v0.3.0 manifest and produces deterministic executable operations. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | 2026-07-18 |
 | [PKG-002](items/PKG-002.yaml) | HIGH / P0 | `v0.4.1` | `v0.4.1` | Source-only suites remain required at source and are excluded/not-applicable in downstream packages; extracted target gate passed 19/19. | [`2026-07-18-v0-4-1-downstream-upgrade-remediation`](../workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml) | 2026-07-18 |
 | [CTX-003](items/CTX-003.yaml) | HIGH | `v0.1.0` | `v0.1.0` | Remediated and independently verified all five CTX-001 findings with no regression. | [`2026-07-12-ai-context-truth-contract-remediation`](../workflows/2026-07-12-ai-context-truth-contract-remediation/workflow.yaml) | 2026-07-18 |

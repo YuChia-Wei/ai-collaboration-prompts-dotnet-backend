@@ -28,6 +28,7 @@ Sub-agent role prompts are not top-level skills. They are bounded worker roles u
 | Aggregate test generation | `bdd-gwt-test-designer` | `.ai/assets/sub-agent-role-prompts/aggregate-test-sub-agent/sub-agent.yaml` |
 | Controller test generation | `bdd-gwt-test-designer` | `.ai/assets/sub-agent-role-prompts/controller-test-sub-agent/sub-agent.yaml` |
 | Reactor test generation | `bdd-gwt-test-designer` | `.ai/assets/sub-agent-role-prompts/reactor-test-sub-agent/sub-agent.yaml` |
+| Derived Traditional Chinese translation after English context is final | `repo-structure-sync` or the owning main workflow | `.ai/assets/sub-agent-role-prompts/context-translator/sub-agent.yaml` |
 | General code review support | `code-reviewer` | `.ai/assets/sub-agent-role-prompts/code-review-sub-agent/sub-agent.yaml` |
 | Aggregate code review support | `code-reviewer` | `.ai/assets/sub-agent-role-prompts/aggregate-code-review-sub-agent/sub-agent.yaml` |
 | Controller code review support | `code-reviewer` | `.ai/assets/sub-agent-role-prompts/controller-code-review-sub-agent/sub-agent.yaml` |

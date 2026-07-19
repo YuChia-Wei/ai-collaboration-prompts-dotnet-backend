@@ -15,7 +15,9 @@ Legacy patterns to avoid:
 - `GenericInMemoryRepository` (replaced by Outbox + InMemory ORM)
 - `BlockingMessageBus` (replaced by InMemory message broker)
 
-.NET equivalents are **TODO** until ezDDD/ezapp ports exist. Keep the architecture intent:
+These examples use local placeholder contracts rather than promising a future
+shared package. Each target selects concrete packages and implementations while
+preserving the architecture intent:
 - Profile-based wiring (`TestInMemory` vs `TestOutbox`)
 - Repository + Outbox with Wolverine + EF Core
 - In-memory implementations for fast tests

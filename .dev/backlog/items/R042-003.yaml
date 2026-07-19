@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "R042-003"
 title: "Navigation And Lifecycle Hygiene Corrections"
 category: "context-navigation"
-status: "planned"
+status: "resolved"
 priority: "MEDIUM"
 summary: "Repair indexes, stale status text, requirement outcomes, obsolete installation paths, and historical-template labeling without removing published paths."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-19T15:50:00+08:00"
 release:
   target: "v0.4.2"
-  completed_in: null
+  completed_in: "v0.4.2"
   published_in: null
   target_scope: "navigation-status-and-lifecycle-hygiene"
   gate: "release-blocker"
@@ -20,9 +20,11 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Correct discovery and lifecycle facts in place; retain obsolete published templates or paths with explicit deprecated or historical labeling until v0.5.0 disposition."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
-resolution_ref: null
+  - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-004.json"
+resolution_ref: ".dev/workflows/2026-07-19-v0-4-2-remediation/reports/remediation-report.md"
 decision_needed: null
 acceptance:
   - "Workflow, skill, prompt, and human-facing indexes resolve to current retained entries and status."

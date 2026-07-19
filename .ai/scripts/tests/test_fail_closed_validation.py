@@ -21,6 +21,7 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parents[3]
 VALIDATOR_SOURCE = REPO_ROOT / ".ai/scripts/validate-shell-assets.py"
 RUNNER_SOURCE = REPO_ROOT / ".ai/scripts/check-all.sh"
+TEST_COMPLIANCE_SOURCE = REPO_ROOT / ".ai/scripts/check-test-compliance.sh"
 
 
 def run(command: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
@@ -44,6 +45,16 @@ def real_repo_snapshot() -> tuple[str, str, str]:
         if result.returncode != 0:
             raise RuntimeError(result.stderr.strip())
     return head.stdout, status.stdout, shell_stage.stdout
+
+
+def bash_executable() -> str | None:
+    if os.name == "nt":
+        candidates = (
+            Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "Git/bin/bash.exe",
+            Path(os.environ.get("LOCALAPPDATA", "")) / "Programs/Git/bin/bash.exe",
+        )
+        return next((str(candidate) for candidate in candidates if candidate.is_file()), None)
+    return shutil.which("bash")
 
 
 class SyntheticShellAssetRepo:
@@ -178,7 +189,7 @@ class SyntheticRunnerRepo:
         self.scripts.mkdir(parents=True)
         self.bin.mkdir()
         shutil.copy2(RUNNER_SOURCE, self.scripts / RUNNER_SOURCE.name)
-        self._write_stub(self.bin / "python", 'printf "python %s\\n" "$*" >> .aic-sentinel\nexit "${PYTHON_STUB_EXIT:-0}"')
+        self.add_python_stub("python")
         self._write_stub(self.bin / "dotnet", 'printf "dotnet %s\\n" "$*" >> .aic-sentinel\nexit "${DOTNET_STUB_EXIT:-0}"')
         self._write_child("check-coding-standards.sh", "CODING_STUB_EXIT")
         self._write_child("check-spec-compliance.sh", "SPEC_STUB_EXIT")
@@ -188,6 +199,12 @@ class SyntheticRunnerRepo:
 
     def remove_child(self, name: str) -> None:
         (self.scripts / name).unlink()
+
+    def add_python_stub(self, name: str) -> None:
+        self._write_stub(
+            self.bin / name,
+            f'printf "{name} %s\\n" "$*" >> .aic-sentinel\nexit "${{PYTHON_STUB_EXIT:-0}}"',
+        )
 
     def enable_source_release_context(self) -> None:
         (self.root / ".dev/releases").mkdir(parents=True)
@@ -203,15 +220,7 @@ class SyntheticRunnerRepo:
         *arguments: str,
         environment: dict[str, str] | None = None,
     ) -> subprocess.CompletedProcess[str]:
-        bash = None
-        if os.name == "nt":
-            candidates = (
-                Path(os.environ.get("ProgramFiles", "C:/Program Files")) / "Git/bin/bash.exe",
-                Path(os.environ.get("LOCALAPPDATA", "")) / "Programs/Git/bin/bash.exe",
-            )
-            bash = next((str(candidate) for candidate in candidates if candidate.is_file()), None)
-        else:
-            bash = shutil.which("bash")
+        bash = bash_executable()
         if not bash:
             raise unittest.SkipTest("Bash is required for check-all.sh fixture tests")
         merged_environment = dict(os.environ)
@@ -463,6 +472,89 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             self.assertNotIn("source release context not packaged", result.stdout)
         finally:
             fixture.close()
+
+    def test_gwt_013_given_explicit_python3_when_critical_runs_then_runner_uses_it(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the host selects a usable python3 executable explicitly.
+            fixture.add_python_stub("python3")
+
+            # When the critical gate executes with the supported override.
+            result = fixture.execute(
+                "--critical",
+                environment={"AI_CONTEXT_PYTHON": "python3"},
+            )
+
+            # Then required Python commands use that interpreter and the gate passes.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertTrue(
+                any(line.startswith("python3 ") for line in fixture.sentinel())
+            )
+        finally:
+            fixture.close()
+
+    def test_gwt_014_given_explicit_python_missing_when_gate_starts_then_it_fails_closed(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given an explicit interpreter selection cannot be resolved.
+            # When the critical gate starts.
+            result = fixture.execute(
+                "--critical",
+                environment={"AI_CONTEXT_PYTHON": "missing-aic-python"},
+            )
+
+            # Then the runner fails before launching any required check.
+            self.assertEqual(1, result.returncode)
+            self.assertIn("Python 3.11 or newer is required", result.stderr)
+            self.assertEqual([], fixture.sentinel())
+        finally:
+            fixture.close()
+
+
+class AdvisoryRootResolutionGwtTests(unittest.TestCase):
+    def test_gwt_001_given_retained_script_when_run_from_ai_scripts_then_repo_src_is_scanned(self) -> None:
+        bash = bash_executable()
+        if not bash:
+            raise unittest.SkipTest("Bash is required for advisory path fixture tests")
+
+        with tempfile.TemporaryDirectory(prefix="aic005-test-root-") as temporary:
+            # Given the retained script is at .ai/scripts and a repository test exists.
+            root = Path(temporary)
+            scripts = root / ".ai/scripts"
+            target = root / "src/Example/Tests/SampleTest.cs"
+            scripts.mkdir(parents=True)
+            target.parent.mkdir(parents=True)
+            script = scripts / TEST_COMPLIANCE_SOURCE.name
+            shutil.copy2(TEST_COMPLIANCE_SOURCE, script)
+            script.chmod(0o755)
+            target.write_text(
+                "// Gherkin-style sample\npublic sealed class SampleTest { }\n",
+                encoding="utf-8",
+                newline="\n",
+            )
+            environment = dict(os.environ)
+            if os.name == "nt":
+                git_usr_bin = Path(bash).parent.parent / "usr/bin"
+                environment["PATH"] = (
+                    str(git_usr_bin) + os.pathsep + environment["PATH"]
+                )
+
+            # When the advisory helper resolves its repository root.
+            result = subprocess.run(
+                [bash, str(script)],
+                cwd=root,
+                env=environment,
+                check=False,
+                capture_output=True,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+            )
+
+            # Then it scans the repository src tree instead of the repository parent.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertNotIn("No target files found", result.stdout)
+            self.assertIn("All checks passed", result.stdout)
 
 
 class ShellAssetValidationGwtTests(unittest.TestCase):

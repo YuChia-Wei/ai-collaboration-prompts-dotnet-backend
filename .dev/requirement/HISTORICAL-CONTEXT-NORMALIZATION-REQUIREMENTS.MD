@@ -5,7 +5,19 @@
 - Version: 0.1
 - Date: 2026-07-04
 - Owner: YuChia-Wei
-- Status: Approved for implementation
+- Status: Implemented
+
+## Implementation Outcome
+
+- Completed by: `.dev/workflows/2026-07-historical-context-normalization/`
+- Evidence: the completed workflow records governance metadata normalization,
+  retirement of product-specific truth from active paths, and
+  `repo-structure-sync` project-config integration.
+- Preserved boundary: React and Vite remain only as future multi-stack context
+  placement exploration, not current dotnet-backend project truth.
+
+The original requirement wording below is retained as the implementation
+contract and historical decision record.
 
 ## 背景
 

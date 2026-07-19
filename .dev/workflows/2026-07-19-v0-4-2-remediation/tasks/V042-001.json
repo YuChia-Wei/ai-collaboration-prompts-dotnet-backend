@@ -1,0 +1,72 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V042-001",
+  "workflow_id": "2026-07-19-v0-4-2-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T15:50:00+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "R042-001",
+    "R042-002",
+    "R042-003",
+    "R042-004",
+    "ASM-20260717-004"
+  ],
+  "scope": {
+    "target": "Current finding reproduction and patch-impact inventory",
+    "files": [
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/evidence/current-candidate-inventory.md",
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/**",
+      ".dev/backlog/**"
+    ],
+    "constraints": [
+      "Reproduce every selected finding against main@9b03668f14af7e69e283b4caf30d25fe41d2b460",
+      "Do not implement a correction during triage",
+      "Stop and name the v0.5.0 owner for any non-patch candidate"
+    ],
+    "non_goals": [
+      "Source remediation",
+      "New schema or validator",
+      "Tag or publication"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Inspect the baseline assessment and independent source plan",
+      "Reproduce selected observations with direct repository evidence",
+      "Classify each candidate as patch, stale, already resolved, or v0.5.0 disposition",
+      "Freeze exact target files and validation commands"
+    ],
+    "validation": [
+      "Current file and Git evidence",
+      "Backlog and workflow artifact validation",
+      "YAML and JSON parse",
+      "git diff --check"
+    ],
+    "last_completed_step": "Reproduced all selected observations and froze exact patch, stale, already-resolved, and v0.5.0 dispositions.",
+    "next_action": "Activate V042-002 for runtime wrapper and routing corrections."
+  },
+  "results": {
+    "summary": "All four blockers have patch-compatible correction paths. New semantic validation/CI, adapter contracts, template removal, runner redesign, and SDK FAIL-to-SKIP behavior remain explicitly assigned to v0.5.0.",
+    "files_changed": [
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/evidence/current-candidate-inventory.md",
+      ".dev/workflows/2026-07-19-v0-4-2-remediation/**"
+    ],
+    "tests_run": [
+      "direct current-file and exact-match scans",
+      "Python, PyYAML, and .NET version execution",
+      "Git shell-mode inventory",
+      "workflow, backlog, and AI-context validation",
+      "YAML and JSON parse",
+      "git diff --check"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Hosted Ubuntu evidence remains pending; macOS is intentionally unverified; implementation may still expose a candidate that crosses the patch-impact gate.",
+    "follow_up_needed": false
+  }
+}

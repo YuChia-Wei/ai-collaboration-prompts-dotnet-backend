@@ -1,0 +1,76 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V042-003",
+  "workflow_id": "2026-07-19-v0-4-2-remediation",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-19T12:41:16+08:00",
+  "updated_at": "2026-07-19T15:50:00+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["R042-002", "ASM-20260717-004#AIC-002", "ASM-20260717-004#AIC-008", "ASM-20260717-004#AIC-011"],
+  "scope": {
+    "target": "Consistency with already-canonical Handler, time, naming, and spec contracts",
+    "files": [
+      ".dev/standards/**",
+      ".ai/assets/skills/spec-compliance-validator/**",
+      ".agents/skills/spec-compliance-validator/**",
+      ".claude/skills/spec-compliance-validator/**"
+    ],
+    "constraints": [
+      "Derive corrections from current canonical standards",
+      "Preserve intentionally negative examples as clearly negative",
+      "Stop if a new universal decision is required"
+    ],
+    "non_goals": [
+      "Product source or test review",
+      "New architecture doctrine",
+      "New validator behavior"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Align best-practice and anti-pattern Handler examples",
+      "Replace inappropriate bare wall-clock examples with the existing abstraction or explicit negative framing",
+      "Correct method-naming and retained spec-compliance contract facts",
+      "Run focused structural and documentation contract tests"
+    ],
+    "validation": [
+      "Focused content assertions",
+      "Coding standards structural integrity",
+      "Documentation projection tests",
+      "Independent post-remediation audit"
+    ],
+    "last_completed_step": "Corrected Handler, time, naming, connection, and spec-compliance content from existing canonical truth.",
+    "next_action": "V042-004 resolves navigation and lifecycle hygiene."
+  },
+  "results": {
+    "summary": "Positive learning content now separates Use Cases from optional thin Handlers, time examples use the retained DateProvider convention, naming and connection facts are accurate, and spec-compliance guidance is GWT-neutral, sequential, and target-relative.",
+    "files_changed": [
+      ".dev/standards/best-practices.md",
+      ".dev/standards/anti-patterns.md",
+      ".dev/guides/learning-guides/LEARNING-PATH.md",
+      ".dev/specs/SPEC-GUIDE.MD",
+      ".dev/standards/coding-standards/aggregate-standards.md",
+      ".dev/standards/examples/dto/TaskDto.cs",
+      ".dev/standards/examples/projection/EfTasksDueTodayProjection.cs",
+      ".dev/standards/CODE-REVIEW-CHECKLIST.md",
+      ".dev/standards/ASPNET-CORE-CONFIGURATION-CHECKLIST.md",
+      ".ai/assets/skills/spec-compliance-validator/references/spec-compliance-rules.md"
+    ],
+    "tests_run": [
+      "focused stale-content and positive-example scan",
+      "check-coding-standards.sh",
+      "3 coding standards integrity GWT tests",
+      "2 documentation projection GWT tests",
+      "3 profile projection GWT tests",
+      "python .ai/scripts/validate-ai-context.py",
+      "git diff --check"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The DateProvider shown here remains an existing example abstraction rather than a newly selected universal time contract; independent verification must confirm no positive contradiction remains.",
+    "follow_up_needed": false
+  }
+}

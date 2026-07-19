@@ -21,7 +21,7 @@
 - [ ] **MUST**: Do not copy behavior solely because it appears in an example.
 
 ### Coding Conventions
-- [ ] Follow C# naming conventions (PascalCase for classes and camelCase for methods).
+- [ ] Follow C# naming conventions (PascalCase for classes and methods; camelCase for parameters and local variables).
 - [ ] No unused `using` directives.
 - [ ] No commented-out code.
 - [ ] Use appropriate access modifiers.

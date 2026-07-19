@@ -440,7 +440,7 @@ class AiContextPackageApplyGwtTests(unittest.TestCase):
             # When the CLI runs without the explicit --apply flag.
             result = subprocess.run(
                 [
-                    "python",
+                    sys.executable,
                     str(ROOT / ".ai/scripts/plan-ai-context-package-apply.py"),
                     "--package-root",
                     str(fixture.package),
@@ -471,7 +471,7 @@ class AiContextPackageApplyGwtTests(unittest.TestCase):
                 # When the CLI is asked to write a plan inside either protected root.
                 result = subprocess.run(
                     [
-                        "python",
+                        sys.executable,
                         str(ROOT / ".ai/scripts/plan-ai-context-package-apply.py"),
                         "--package-root",
                         str(fixture.package),

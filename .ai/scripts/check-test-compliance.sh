@@ -22,7 +22,7 @@ NC='[0m' # No Color
 
 # Directories
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BASE_DIR="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+BASE_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 SRC_DIR="$BASE_DIR/src"
 
 TARGET_FILES=$(find "$SRC_DIR" -type f \( -path "*/Tests/*.cs" -o -name "*Test*.cs" \) -not -path "*/bin/*" -not -path "*/obj/*")
