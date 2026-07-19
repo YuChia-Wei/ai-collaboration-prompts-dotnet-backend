@@ -10,12 +10,12 @@ commit_search_id: "ASM-20260719-001"
 assessment_type: "ai-context-verification"
 title: "v0.4.2 AI Context Remediation Verification"
 owner_skill: "ai-context-auditor"
-status: "draft"
+status: "final"
 report: "report.md"
 artifact_branch: "codex/2026-07-19-v0-4-2-remediation"
 base_branch: "main"
 created_at: "2026-07-19T13:30:10+08:00"
-updated_at: "2026-07-19T13:30:10+08:00"
+updated_at: "2026-07-19T15:45:00+08:00"
 template_source: ".dev/assessments/templates/assessment-locator-template.yaml"
 template_version: "1.0.0"
 report_template_source: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md"
@@ -23,7 +23,7 @@ report_template_version: "2.1.0"
 subject_ref:
   repository: "YuChia/ai-collaboration-prompts-dotnet-backend"
   branch: "codex/2026-07-19-v0-4-2-remediation"
-  commit: "e76d89ca7927152cd993af7d53c3f0eb8a322384"
+  commit: "51be197a9a46caf23438c98065fcca58c723ce99"
 scope:
   included:
     - "Root collaboration and repository identity entries"
@@ -49,7 +49,6 @@ relations:
     - "R042-004"
   adr_refs: []
 resume:
-  last_completed_action: "Verified the selected content, routing, lifecycle, portability implementation, local aggregate gate, and commit-range policy at the pinned subject revision."
-  next_action: "Verify owner-approved hosted Ubuntu aggregate-gate evidence for the pinned or explicitly superseding candidate, then finalize the assessment."
-  blockers:
-    - "Hosted Ubuntu has not executed .ai/scripts/check-all.sh --quick; current repository workflows do not provide this route and v0.4.2 may not add a new required CI route."
+  last_completed_action: "Finalized verification after Windows Git Bash and GitHub Codespaces Ubuntu 24.04 both passed the required quick aggregate gate at the original and superseding candidate revisions."
+  next_action: "Hand the final assessment to ai-context-governance for remediation workflow closeout and release-publication preparation."
+  blockers: []
