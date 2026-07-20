@@ -4,31 +4,31 @@
   "template_created_at": "2026-07-10T18:22:49+08:00",
   "template_updated_at": "2026-07-10T18:22:49+08:00",
   "task_id": "REL042-003",
-  "workflow_id": "2026-07-18-v0-4-2-release-publication",
+  "workflow_id": "2026-07-19-v0-4-2-release-publication",
   "owner_skill": "ai-context-governance",
   "status": "completed",
-  "created_at": "2026-07-18T23:25:13+08:00",
-  "updated_at": "2026-07-19T15:58:00+08:00",
+  "created_at": "2026-07-19T15:50:00+08:00",
+  "updated_at": "2026-07-20T22:28:31+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL042-REGISTRY-FINALIZATION"],
   "scope": {
     "target": "Published v0.4.2 trusted registry and backlog truth",
-    "files": [".dev/releases/v0.4.2/**", ".dev/releases/INDEX.MD", ".dev/backlog/**", ".dev/workflows/2026-07-18-v0-4-2-release-publication/**", ".dev/workflows/INDEX.MD"],
+    "files": [".dev/releases/v0.4.2/**", ".dev/releases/INDEX.MD", ".dev/backlog/**", ".dev/workflows/2026-07-19-v0-4-2-release-publication/**", ".dev/workflows/INDEX.MD"],
     "constraints": ["Backfill exact immutable tag commit and hosted evidence", "Do not move the tag", "Set published_in only after publication succeeds"],
     "non_goals": ["Modify tagged-tree payload", "Republish assets", "Activate v0.4.2 implementation"]
   },
   "execution": {
     "steps": ["Create a continuation branch from published main", "Record published identity", "Refresh release/backlog wording and index", "Close workflow", "Merge and push registry finalization"],
     "validation": ["tag peeled-target verification", "validate-ai-context-versions.py", "validate-ai-context.py", "validate-workflow-artifacts.py"],
-    "last_completed_step": "Rendered v0.4.2 release notes and updated releases index.",
-    "next_action": "Validate, commit, merge, and push the completed registry finalization."
+    "last_completed_step": "Successor workflow corrected the local v0.4.2 release registry, authored documents, backlog, and workflow evidence.",
+    "next_action": "Retain the successor workflow as the authoritative correction and do not resume this historical branch."
   },
   "results": {
-    "summary": "The release notes and registry index were finalized successfully.",
-    "files_changed": [".dev/releases/v0.4.2/**", ".dev/releases/INDEX.MD", ".dev/backlog/ROADMAP.md", ".dev/backlog/items/PKG-001.yaml", ".dev/backlog/items/PKG-002.yaml", ".dev/workflows/2026-07-18-v0-4-2-release-publication/**", ".dev/workflows/INDEX.MD"],
-    "tests_run": ["tag peeled-target verification", "GitHub Actions and Release API verification", "downloaded package validation", "release, context, assessment, workflow, and commit validators"],
-    "finding_status": "addressed",
-    "residual_risk": "Existing v0.4.0 consumers remain intentionally outside the v0.4.2 automatic path and should wait for PKG-003 in v0.5.0 unless manually reconciled.",
-    "follow_up_needed": false
+    "summary": "The original finalization was incomplete and recorded false evidence. Workflow 2026-07-20-v0-4-2-release-finalization-hotfix repaired the mutable local records without rewriting Git history or moving the final tag.",
+    "files_changed": [".dev/releases/v0.4.2/**", ".dev/releases/INDEX.MD", ".dev/backlog/**", ".dev/workflows/2026-07-19-v0-4-2-release-publication/**", ".dev/workflows/INDEX.MD"],
+    "tests_run": ["successor tag peeled-target verification", "successor release, context, assessment, workflow, and commit validators"],
+    "finding_status": "partially-resolved",
+    "residual_risk": "The public GitHub Release body correction is not a local artifact change and remains assigned to R042-005.",
+    "follow_up_needed": true
   }
 }

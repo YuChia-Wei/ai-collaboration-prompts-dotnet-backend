@@ -1,0 +1,65 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "R042005-004",
+  "workflow_id": "2026-07-20-v0-4-2-release-finalization-hotfix",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-20T22:23:02+08:00",
+  "updated_at": "2026-07-20T22:37:10+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260720-001#AIC-001",
+    "ASM-20260720-001#AIC-002",
+    "ASM-20260720-001#AIC-003",
+    "ASM-20260720-001#AIC-004",
+    "ASM-20260720-001#AIC-005",
+    "ASM-20260720-001#AIC-006",
+    "ASM-20260720-001#AIC-007"
+  ],
+  "scope": {
+    "target": "Independent verification, full repository gate, finding reconciliation, and workflow closeout",
+    "files": [
+      ".dev/assessments/<verification-assessment-id>/**",
+      ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/**"
+    ],
+    "constraints": [
+      "Keep public GitHub Release body correction explicitly deferred until authorized",
+      "Do not claim lifecycle closure without an independent verification assessment",
+      "Validate workflow commits before final completion"
+    ],
+    "non_goals": [
+      "Modify product source or tests",
+      "Implement v0.5.0 backlog items"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Run ai-context-auditor post-remediation verification",
+      "Run focused validators and check-all.sh --full",
+      "Reconcile every baseline finding",
+      "Validate workflow commit range",
+      "Close or checkpoint the workflow based on the public-release authorization state"
+    ],
+    "validation": [
+      "validate-assessment-artifacts.py",
+      "validate-workflow-artifacts.py",
+      "validate-ai-context-versions.py",
+      "validate-ai-context.py",
+      "check-all.sh --full",
+      "validate-git-commits.py"
+    ],
+    "last_completed_step": "Focused structural and release-source validation passed.",
+    "next_action": "Commit the checkpoint, create the independent verification assessment, and run check-all.sh --full."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "",
+    "follow_up_needed": true
+  }
+}

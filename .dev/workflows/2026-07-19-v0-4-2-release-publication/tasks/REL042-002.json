@@ -4,11 +4,11 @@
   "template_created_at": "2026-07-10T18:22:49+08:00",
   "template_updated_at": "2026-07-10T18:22:49+08:00",
   "task_id": "REL042-002",
-  "workflow_id": "2026-07-18-v0-4-2-release-publication",
+  "workflow_id": "2026-07-19-v0-4-2-release-publication",
   "owner_skill": "ai-context-governance",
   "status": "completed",
-  "created_at": "2026-07-18T23:25:13+08:00",
-  "updated_at": "2026-07-19T15:56:00+08:00",
+  "created_at": "2026-07-19T15:50:00+08:00",
+  "updated_at": "2026-07-20T22:28:31+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["REL042-HOSTED-PUBLICATION"],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Merge the validated publication branch", "Revalidate final main", "Push main", "Create and push annotated tag", "Verify hosted publication"],
     "validation": ["tag object and peeled commit", "GitHub Actions conclusion", "GitHub Release asset set and checksums"],
-    "last_completed_step": "Created and pushed annotated tag v0.4.2.",
-    "next_action": "Finalize trusted registry and backlog truth in REL042-003."
+    "last_completed_step": "The final annotated tag resolved to f474c3b058cb9f89f93929e0732fc1f276422dd9 and owner-supplied GitHub Actions run 29679273269 succeeded.",
+    "next_action": "Regenerate the public GitHub Release body from the corrected local authored source after explicit authorization."
   },
   "results": {
-    "summary": "The tag was successfully created, pushed, and the GitHub Action is running.",
+    "summary": "The first tag push at 1c13d799a8cd0c897304e6f21c14a1874ea76b81 failed closed in run 29678934006. The final v0.4.2 tag resolves to f474c3b058cb9f89f93929e0732fc1f276422dd9 and owner-supplied run 29679273269 published the release.",
     "files_changed": ["refs/tags/v0.4.2"],
-    "tests_run": ["final tagged-tree check-all.sh --full (21/21 passed)", "two deterministic package builds", "publish-mode release-note rendering", "local and remote annotated-tag verification", "GitHub Actions run 29650583394", "published four-asset checksum and archive validation"],
-    "finding_status": "addressed",
-    "residual_risk": "None for hosted publication; trusted-registry finalization is completed in REL042-003.",
-    "follow_up_needed": false
+    "tests_run": ["local annotated-tag peel verification", "owner-supplied failed GitHub Actions run 29678934006", "owner-supplied successful GitHub Actions run 29679273269"],
+    "finding_status": "partially-resolved",
+    "residual_risk": "The public GitHub Release body contains invalid provenance until it is explicitly authorized, regenerated, and verified.",
+    "follow_up_needed": true
   }
 }

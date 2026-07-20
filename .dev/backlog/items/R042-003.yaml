@@ -6,11 +6,11 @@ status: "resolved"
 priority: "MEDIUM"
 summary: "Repair indexes, stale status text, requirement outcomes, obsolete installation paths, and historical-template labeling without removing published paths."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T15:50:00+08:00"
+updated_at: "2026-07-20T22:28:31+08:00"
 release:
   target: "v0.4.2"
   completed_in: "v0.4.2"
-  published_in: null
+  published_in: "v0.4.2"
   target_scope: "navigation-status-and-lifecycle-hygiene"
   gate: "release-blocker"
 origin_refs:
@@ -21,6 +21,7 @@ handoff_condition: "Correct discovery and lifecycle facts in place; retain obsol
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
   - ".dev/workflows/2026-07-19-v0-4-2-remediation/workflow.yaml"
+  - ".dev/workflows/2026-07-19-v0-4-2-release-publication/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
   - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-004.json"

@@ -166,6 +166,35 @@ when the commit message and assessment artifact are preserved.
 - An adopted decision may reference an assessment from an ADR or standard, but
   the assessment remains evidence rather than normative truth.
 
+## External Review Intake
+
+External reviewers may use their own structure, language, methodology, and
+finding identifiers. Do not require a reviewer on another host or runtime to
+instantiate this repository's locator or report templates before giving an
+independent opinion.
+
+Before external claims become durable backlog, workflow, policy, or release
+evidence, the receiving agent must:
+
+1. create a repo-native assessment on the applicable assessment or active
+   governance workflow branch;
+2. preserve the raw external package without rewriting it under
+   `.dev/assessments/<assessment-id>/evidence/<source-id>/`;
+3. pin the repository subject commit and reproduce every material claim with
+   repository-native evidence;
+4. record confirmed, added, downgraded, and overturned claims in `report.md`;
+5. assign stable `<assessment-id>#<finding-id>` identifiers;
+6. reference only those stable identifiers from backlog and remediation
+   artifacts; and
+7. catalog the raw source and normalized assessment in
+   `.dev/assessments/INDEX.MD`.
+
+The raw package is attributed evidence, not a second assessment locator,
+normative truth, or write authorization. If a claim cannot be reproduced,
+retain it as external context with its uncertainty; do not silently promote it
+to a repository finding. The receiving agent owns normalization, so external
+reviewers remain free to optimize for a genuinely different point of view.
+
 ## Template And Time Metadata
 
 - The repository locator template records `template_id`, `template_version`,
