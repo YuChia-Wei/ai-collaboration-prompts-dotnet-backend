@@ -325,6 +325,14 @@ run_command_check "python .ai/scripts/tests/test_ai_context_package_apply.py -v"
     "AI Context Safe Apply GWT Tests" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/validate-dependency-versions.py" \
+    "Offline Dependency And Version Consistency" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_dependency_version_consistency.py -v" \
+    "Dependency And Version Consistency Fail-Closed Tests" \
+    "required" "true" "true"
+
 run_command_check "python .ai/scripts/validate-shell-assets.py" \
     "Shell Asset Classification And Git Modes" \
     "required" "true" "true"
@@ -386,10 +394,6 @@ if [ "$MODE" != "critical" ]; then
     # Spec compliance is important
     run_spec_compliance_check
     
-    # Dependencies check (dotnet-native replacement not yet available)
-    run_deferred_check "check-dependencies.sh" \
-        "Dependencies and Versions" \
-        "false" "true" "dotnet-native replacement not yet available"
 fi
 
 # ====================================================================

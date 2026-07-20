@@ -13,6 +13,7 @@ rules.
 | `AI-CONTEXT-OWNERSHIP.md` / `AI-CONTEXT-OWNERSHIP.yaml` | Normative rule ownership and machine-readable projections. |
 | `AI-CONTEXT-VERSION-POLICY.md` | Release identity, provenance, and safe upgrades. |
 | `ASSESSMENT-ARTIFACT-POLICY.md` | Durable read-only assessment contract. |
+| `DEPENDENCY-VERSION-CONSISTENCY-POLICY.md` | Deterministic offline dependency/runtime consistency and online advisory boundary. |
 | `GIT-COMMIT-POLICY.md` / `GIT-COMMIT-POLICY.yaml` | Agent-assisted Git commit contract. |
 | `WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow artifact metadata. |
 | `WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode. |

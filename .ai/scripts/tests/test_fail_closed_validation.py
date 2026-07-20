@@ -390,17 +390,25 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
-    def test_gwt_009_given_deferred_check_when_quick_runs_then_only_deferred_count_increments(self) -> None:
+    def test_gwt_009_given_dependency_gate_when_quick_runs_then_it_is_required_not_deferred(self) -> None:
         fixture = SyntheticRunnerRepo()
         try:
-            # Given the dependency check has no implementation script.
-            # When quick mode reaches the declared deferred entry.
+            # Given the offline dependency validator and its fixtures are declared required.
+            # When quick mode reaches the dependency gate.
             result = fixture.execute("--quick")
 
-            # Then it is explicitly deferred and cannot fail the gate.
+            # Then both commands execute and no dependency deferral remains.
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-            self.assertIn("DEFERRED: Dependencies and Versions", result.stdout)
-            self.assertRegex(result.stdout, r"Deferred: .*1")
+            self.assertNotIn("DEFERRED: Dependencies and Versions", result.stdout)
+            self.assertIn("Offline Dependency And Version Consistency", result.stdout)
+            self.assertIn("Dependency And Version Consistency Fail-Closed Tests", result.stdout)
+            self.assertTrue(
+                any("validate-dependency-versions.py" in line for line in fixture.sentinel())
+            )
+            self.assertTrue(
+                any("test_dependency_version_consistency.py" in line for line in fixture.sentinel())
+            )
+            self.assertRegex(result.stdout, r"Deferred: .*0")
             self.assertRegex(result.stdout, r"Required Failed: .*0")
         finally:
             fixture.close()
@@ -742,6 +750,35 @@ class ShellAssetValidationGwtTests(unittest.TestCase):
             self.assertEqual(1, result.returncode)
             self.assertIn("check_all required-command coverage mismatch", result.stdout)
             self.assertIn("python second.py", result.stdout)
+        finally:
+            fixture.close()
+
+    def test_gwt_018_given_required_command_format_changes_when_validated_then_parity_fails(self) -> None:
+        fixture = SyntheticShellAssetRepo()
+        try:
+            # Given the manifest owns one command but the runner call no longer
+            # follows the retained literal multiline format.
+            runner = fixture.add_command_runner(["python first.py"])
+            fixture.write_manifest(
+                retained=[runner],
+                required_entrypoints=[runner],
+                check_all_required_commands=["python first.py"],
+            )
+            (fixture.root / runner).write_text(
+                "#!/bin/bash\n"
+                'run_command_check "python first.py" "Fixture" "required" "true" "true"\n',
+                encoding="utf-8",
+                newline="\n",
+            )
+
+            # When the shell registry validator compares the retained grammar.
+            result = fixture.validate()
+
+            # Then formatting drift fails closed rather than silently removing
+            # a required command from the governed set.
+            self.assertEqual(1, result.returncode)
+            self.assertIn("check_all required-command coverage mismatch", result.stdout)
+            self.assertIn("extra=['python first.py']", result.stdout)
         finally:
             fixture.close()
 

@@ -96,6 +96,17 @@ only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
 
+`validate-dependency-versions.py` is a deterministic offline gate. In the source
+framework repository it enforces byte-identical pinned Python requirement
+mirrors, requirements-file use and one Python version across GitHub workflows,
+exact and consistent direct package versions in framework-managed
+`tools/**/*.csproj`, and an exact `global.json` SDK new enough for those tools.
+In initialized targets, source-only workflow and distribution checks become not
+applicable while managed-tool checks remain active. It does not query package
+registries or advisory databases and therefore makes no package-currency or
+vulnerability claim. The normative boundary is
+`.dev/standards/DEPENDENCY-VERSION-CONSISTENCY-POLICY.md`.
+
 `validate-file-disposition-manifest.py` validates a supplied remediation
 file-disposition manifest against repository Git facts. It enforces exact-case repository paths,
 the `kept` / `moved-to` / `merged-into` / `retired` vocabulary, destination and
@@ -153,6 +164,7 @@ python .ai/scripts/tests/test_git_commit_policy.py -v
 python .ai/scripts/tests/test_ai_context_version_governance.py -v
 python .ai/scripts/tests/test_ai_context_package_apply.py -v
 python .ai/scripts/tests/test_ai_context_packaging.py -v
+python .ai/scripts/tests/test_dependency_version_consistency.py -v
 ```
 
 `test_ai_context_version_governance.py` and

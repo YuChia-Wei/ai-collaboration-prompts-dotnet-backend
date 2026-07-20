@@ -40,7 +40,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install packaging dependency
-        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Verify user-created annotated tag
         id: tag
@@ -145,7 +145,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install packaging dependency
-        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Download validated release artifact
         uses: actions/download-artifact@v5
