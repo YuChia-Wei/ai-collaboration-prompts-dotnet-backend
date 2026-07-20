@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-20T22:55:15+08:00`
+- `updated_at`: `2026-07-20T23:24:59+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -28,8 +28,8 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
 | `v0.5.0` | `ready_for_planning` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, and `HANDOFF-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Open a governed planning workflow. Release and handoff enforcement decisions remain required before implementation can claim those gates and before publication. | not created |
-| `v0.6.0` | `planned` | yes | Establish `EVAL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy implementation. | not created |
-| `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal. | Demonstrate adoption of `ai-context-init` and no remaining dependency on old prompts, wrappers, provenance values, or template paths. | not created |
+| `v0.6.0` | `planned` | yes | Establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; measure actual loaded context; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
+| `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
 ## Release Gate Semantics
 
@@ -47,10 +47,12 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- |
 | `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004`, `R042-005` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
 | `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
-| `v0.6.0` | `SKILL-001` | Any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
+| `v0.6.0` | `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
+| `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
-`OBS-001` remains an independent unassigned architecture decision. It is not a
-hidden v0.5.0 blocker or disposition gate.
+`STD-001` and `OBS-001` remain independent unassigned decisions. Neither is a
+hidden v0.5.0 or v0.6.0 blocker. Standards may receive a dedicated release
+after deliberation instead of being forced into an existing horizon.
 
 ## Current Release Evidence
 
@@ -120,9 +122,12 @@ versions. Current assignments:
 - `v0.5.0` disposition gates: `GOV-001`, `CAP-001`, and `VAL-001`.
 - `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
   taxonomy and compatible `repo-structure-sync` to `ai-context-init`
-  transition.
-- `unassigned`: `OBS-001`, which remains an independent architecture workflow
-  and is not a mandatory v0.5.0 closeout gate.
+  transition; `SIMPL-001` owns measured simplification disposition.
+- `v0.7.0`: historical archive migration remains conditional and requires a
+  separately approved successor after `SIMPL-001`; it is not implied work.
+- `unassigned`: `STD-001` owns standards deliberation and release allocation;
+  `OBS-001` remains an independent architecture workflow. Neither is a
+  mandatory closeout gate for an assigned release.
 - Resolved `AIC-007` and `CTX-001` through `CTX-003` were first completed and
   published in `v0.1.0`, verified by Git tag ancestry.
 
@@ -153,6 +158,41 @@ versions. Current assignments:
   model evaluation may use an approved representative sample to bound cost.
 - Stochastic results are comparative evidence, not a sole oracle. A single
   model pass cannot override deterministic regression failure.
+
+## Simplification, Archive, And Standards Sequencing
+
+`SIMPL-001` distinguishes repository corpus size from context actually loaded
+into an agent session. Fable 5's word-count baseline is useful for discovery,
+but it does not prove that completed workflows, assessments, or long references
+are paid as prompt tokens on every run. v0.6.0 therefore measures representative
+runtime, release, handoff, routing, and development sessions before accepting
+token-savings claims.
+
+Historical compression is conditional v0.7.0 work for five reasons:
+
+1. completed workflow and assessment records are normally reached through
+   indexes or explicit evidence lookup rather than loaded by default;
+2. the v0.4.2 incident required historical records to reconstruct tag, run,
+   commit, handoff, and finalization truth;
+3. stable repository-relative references currently bind backlog, workflow,
+   assessment, release, and Git-search evidence;
+4. an archive branch or Git history alone is less deterministic for fresh
+   agents and external reviewers than file-backed evidence; and
+5. indexes or discovery routing may remove most operational noise without
+   accepting migration and auditability risk.
+
+v0.6.0 may reduce default discovery while preserving stable files. Moving,
+deleting, summarizing, or replacing full historical evidence requires a
+separate v0.7.0 item with measured benefit, a retention policy, immutable
+manifest/digests, stable summaries and redirects, reference validation,
+restore/lookup behavior, and downstream migration evidence.
+
+Standards simplification is not normal token cleanup. Standards are a core
+software-development capability of this framework, so `STD-001` remains
+unassigned while bounded ChatGPT, Fable 5, and repository-agent discussions are
+normalized and reviewed. Only after the accepted doctrine, validator impact,
+examples, compatibility, and migration boundaries are understood may the owner
+assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 

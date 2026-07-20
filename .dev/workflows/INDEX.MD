@@ -8,6 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-20-simplification-roadmap-intake`](2026-07-20-simplification-roadmap-intake/workflow.yaml) | Plan Measured Simplification, Archive Disposition, And Standards Deliberation | `ai-context-governance` | `completed` | `2026-07-20T23:30:28+08:00` | [plan](2026-07-20-simplification-roadmap-intake/workflow-plan.md) |
 | [`2026-07-20-v0-4-2-release-finalization-hotfix`](2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | Repair v0.4.2 Release Finalization And Cold-Start Handoff Gaps | `ai-context-governance` | `completed` | `2026-07-20T22:55:15+08:00` | [plan](2026-07-20-v0-4-2-release-finalization-hotfix/workflow-plan.md) |
 | [`2026-07-19-v0-4-2-release-publication`](2026-07-19-v0-4-2-release-publication/workflow.yaml) | Publish And Finalize v0.4.2 | `ai-context-governance` | `completed` | `2026-07-20T22:28:31+08:00` | [plan](2026-07-19-v0-4-2-release-publication/workflow-plan.md) |
 | [`2026-07-19-v0-4-2-remediation`](2026-07-19-v0-4-2-remediation/workflow.yaml) | v0.4.2 Patch-Compatible AI Context Remediation | `ai-context-governance` | `completed` | `2026-07-19T15:50:00+08:00` | [plan](2026-07-19-v0-4-2-remediation/workflow-plan.md) |

@@ -14,6 +14,7 @@
 | `BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Given-When-Then test-design usage. |
 | `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Architecture design and refactoring usage. |
 | `DEV-WORKFLOW-SKILL-GUIDE.md` | Development workflow orchestration usage. |
+| `EXTERNAL-AI-DISCUSSION-ROUNDTRIP-GUIDE.md` | Bounded discussion packets and feedback intake for ChatGPT, Fable 5, and other external AI reviewers. |
 | `LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md` | Local technical change usage. |
 | `LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Runtime wrapper setup and boundaries. |
 | `OPTIONAL-MINIMAL-WORKFLOW-MODE.md` | Minimal workflow mode. |
