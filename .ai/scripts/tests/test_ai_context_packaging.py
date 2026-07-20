@@ -914,6 +914,29 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
                 receipt["skipped_reconciliation_ids"],
             )
 
+    def test_gwt_019_given_current_profile_when_payload_is_collected_then_all_native_agent_adapters_are_included(self) -> None:
+        # Given the immutable current source tree and public package profile.
+        tree = PACKAGE.git_tree(ROOT, "HEAD")
+        profile = PACKAGE.load_yaml_blob(
+            ROOT,
+            tree,
+            ".ai/distribution/profiles/dotnet-backend.yaml",
+        )
+
+        # When the authoritative package engine resolves the payload.
+        payload = PACKAGE.collect_payload(ROOT, tree, profile)
+        targets = {item.path for item in payload}
+
+        # Then every promoted runtime-native adapter retains its exact path.
+        self.assertTrue(
+            {
+                ".codex/agents/context-translator.toml",
+                ".claude/agents/context-translator.md",
+                ".github/agents/context-translator.agent.md",
+            }
+            <= targets
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

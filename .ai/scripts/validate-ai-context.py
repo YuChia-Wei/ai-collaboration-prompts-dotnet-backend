@@ -7,8 +7,9 @@ import posixpath
 import re
 import subprocess
 import sys
+import tomllib
 from collections import Counter
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 import yaml
 
@@ -60,13 +61,34 @@ LANGUAGE_ALLOWLIST: dict[Path, frozenset[str]] = {
 OWNERSHIP_REGISTRY = Path(".dev/standards/AI-CONTEXT-OWNERSHIP.yaml")
 RULE_STRENGTHS = {"invariant", "profile-default", "conditional", "example", "historical"}
 RULE_STATUSES = {"active", "deprecated", "historical"}
-ASSET_SCHEMA_VERSION = "1.0"
+ASSET_SCHEMA_VERSIONS = {
+    "skill.yaml": "1.0",
+    "sub-agent.yaml": "1.1",
+}
 KEBAB_ID = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 ASSET_PORTABILITY = {"portable", "repo-portable", "wrapper-specific"}
 ASSET_AUDIENCES = {"agent-facing", "human-facing", "mixed"}
 ASSET_SOURCES = {"canonical", "wrapper", "generated"}
 ASSET_STATUSES = {"draft", "active", "deprecated", "historical"}
 WRAPPER_TARGETS = {"claude", "codex", "copilot"}
+PACKAGE_PROFILE = Path(".ai/distribution/profiles/dotnet-backend.yaml")
+SUB_AGENT_ADAPTER_CONTRACTS = {
+    "codex": {
+        "root": PurePosixPath(".codex/agents"),
+        "format": "toml",
+        "suffixes": (".toml",),
+    },
+    "claude": {
+        "root": PurePosixPath(".claude/agents"),
+        "format": "markdown-yaml-frontmatter",
+        "suffixes": (".md",),
+    },
+    "copilot": {
+        "root": PurePosixPath(".github/agents"),
+        "format": "markdown-yaml-frontmatter",
+        "suffixes": (".md", ".agent.md"),
+    },
+}
 CAPABILITY_PROFILE = Path(
     ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
 )
@@ -804,6 +826,349 @@ def validate_wrapper_metadata(
             errors.append(f"{label}.wrapper_path does not exist: {wrapper_value}")
 
 
+def yaml_string_list(value: object) -> list[str]:
+    """Normalize one YAML string-or-list field without accepting other types."""
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list) and all(isinstance(item, str) for item in value):
+        return value
+    return []
+
+
+def package_glob_matches(path: str, pattern: str) -> bool:
+    """Match the package builder's repository-relative glob semantics."""
+    expression = ""
+    index = 0
+    while index < len(pattern):
+        char = pattern[index]
+        if char == "*":
+            if index + 1 < len(pattern) and pattern[index + 1] == "*":
+                index += 2
+                if index < len(pattern) and pattern[index] == "/":
+                    expression += "(?:.*/)?"
+                    index += 1
+                else:
+                    expression += ".*"
+                continue
+            expression += "[^/]*"
+        elif char == "?":
+            expression += "[^/]"
+        else:
+            expression += re.escape(char)
+        index += 1
+    return bool(re.fullmatch(expression, path))
+
+
+def package_static_prefix(pattern: str) -> str:
+    """Return the package builder's non-wildcard source prefix."""
+    wildcard = min(
+        (pattern.find(token) for token in ("*", "?") if token in pattern),
+        default=-1,
+    )
+    if wildcard < 0:
+        return pattern.rsplit("/", 1)[0] + "/" if "/" in pattern else ""
+    slash = pattern.rfind("/", 0, wildcard)
+    return pattern[: slash + 1] if slash >= 0 else ""
+
+
+def package_target_path(entry: dict, source_pattern: str, source_path: str) -> str | None:
+    """Project one matched source through the package builder's target rules."""
+    target_rule = entry.get("target")
+    if target_rule == "preserve-relative-path":
+        return source_path
+    if isinstance(target_rule, str) and target_rule.endswith("/"):
+        prefix = package_static_prefix(source_pattern)
+        relative = (
+            source_path[len(prefix) :]
+            if prefix and source_path.startswith(prefix)
+            else PurePosixPath(source_path).name
+        )
+        return f"{target_rule}{relative}"
+    sources = yaml_string_list(entry.get("source"))
+    if (
+        isinstance(target_rule, str)
+        and len(sources) == 1
+        and "*" not in source_pattern
+        and "?" not in source_pattern
+    ):
+        return target_rule
+    return None
+
+
+def package_profile_includes(
+    adapter_path: str,
+    errors: list[str],
+    *,
+    root: Path = ROOT,
+    profile_path: Path = PACKAGE_PROFILE,
+) -> bool:
+    """Return whether the effective package profile includes one exact adapter file."""
+    label = f"{profile_path}: package inclusion for {adapter_path}"
+    resolved_profile = root / profile_path
+    if not resolved_profile.is_file():
+        if (root / ".ai/distribution").is_dir():
+            errors.append(f"{label}: source distribution profile is missing")
+            return False
+        return True
+    try:
+        profile = yaml.safe_load(resolved_profile.read_text(encoding="utf-8"))
+    except (OSError, yaml.YAMLError) as exc:
+        errors.append(f"{label}: cannot load profile: {exc}")
+        return False
+    if not isinstance(profile, dict):
+        errors.append(f"{label}: profile root must be a mapping")
+        return False
+    entries = profile.get("entries")
+    exclusions = profile.get("exclusions", [])
+    if not isinstance(entries, list) or not isinstance(exclusions, list):
+        errors.append(f"{label}: entries and exclusions must be lists")
+        return False
+
+    included = False
+    for entry in entries:
+        if (
+            not isinstance(entry, dict)
+            or entry.get("ownership") != "framework-managed"
+            or entry.get("install_behavior") != "managed"
+        ):
+            continue
+        for pattern in yaml_string_list(entry.get("source")):
+            if package_glob_matches(adapter_path, pattern) and package_target_path(
+                entry, pattern, adapter_path
+            ) == adapter_path:
+                included = True
+                break
+        if included:
+            break
+    excluded = False
+    for exclusion in exclusions:
+        if not isinstance(exclusion, dict):
+            continue
+        patterns = yaml_string_list(exclusion.get("patterns"))
+        exceptions = yaml_string_list(exclusion.get("except"))
+        if any(
+            package_glob_matches(adapter_path, pattern) for pattern in patterns
+        ) and not any(
+            package_glob_matches(adapter_path, pattern) for pattern in exceptions
+        ):
+            excluded = True
+            break
+    if not included or excluded:
+        errors.append(
+            f"{label}: adapter must be effectively included as framework-managed payload"
+        )
+        return False
+    return True
+
+
+def markdown_agent_parts(
+    adapter_file: Path, label: str, errors: list[str]
+) -> tuple[dict, str] | None:
+    """Parse one Markdown custom-agent file with YAML frontmatter."""
+    try:
+        text = adapter_file.read_text(encoding="utf-8")
+    except OSError as exc:
+        errors.append(f"{label}: cannot read adapter: {exc}")
+        return None
+    if not text.startswith("---"):
+        errors.append(f"{label}: Markdown adapter must start with YAML frontmatter")
+        return None
+    parts = text.split("---", 2)
+    if len(parts) != 3:
+        errors.append(f"{label}: Markdown adapter frontmatter is not closed")
+        return None
+    try:
+        metadata = yaml.safe_load(parts[1])
+    except yaml.YAMLError as exc:
+        errors.append(f"{label}: invalid YAML frontmatter: {exc}")
+        return None
+    if not isinstance(metadata, dict):
+        errors.append(f"{label}: YAML frontmatter must be a mapping")
+        return None
+    return metadata, parts[2].strip()
+
+
+def validate_sub_agent_adapter_file(
+    target: str,
+    adapter_file: Path,
+    canonical_path: Path,
+    asset_id: str,
+    errors: list[str],
+) -> None:
+    """Validate current runtime schema markers and canonical linkage."""
+    label = f"{canonical_path}: adapter_metadata.{target}.adapter_path"
+    canonical_reference = canonical_path.as_posix()
+    if target == "codex":
+        try:
+            metadata = tomllib.loads(adapter_file.read_text(encoding="utf-8"))
+        except (OSError, tomllib.TOMLDecodeError) as exc:
+            errors.append(f"{label}: invalid Codex TOML adapter: {exc}")
+            return
+        body = metadata.get("developer_instructions")
+        required = ("name", "description", "developer_instructions")
+        missing = [
+            key
+            for key in required
+            if not isinstance(metadata.get(key), str) or not metadata.get(key)
+        ]
+        if missing:
+            errors.append(f"{label}: Codex adapter missing non-empty fields {missing}")
+            return
+    else:
+        parsed = markdown_agent_parts(adapter_file, label, errors)
+        if parsed is None:
+            return
+        metadata, body = parsed
+        required = ("name", "description") if target == "claude" else ("description",)
+        missing = [
+            key
+            for key in required
+            if not isinstance(metadata.get(key), str) or not metadata.get(key)
+        ]
+        if missing:
+            errors.append(f"{label}: {target} adapter missing non-empty fields {missing}")
+            return
+        if target == "copilot":
+            if "infer" in metadata:
+                errors.append(
+                    f"{label}: Copilot infer is retired; use disable-model-invocation "
+                    "and user-invocable"
+                )
+            for key in ("disable-model-invocation", "user-invocable"):
+                if key in metadata and not isinstance(metadata[key], bool):
+                    errors.append(f"{label}: Copilot {key} must be boolean")
+
+    if metadata.get("name") != asset_id:
+        errors.append(
+            f"{label}: adapter name must equal canonical asset_id {asset_id!r}"
+        )
+    if not isinstance(body, str) or canonical_reference not in body:
+        errors.append(
+            f"{label}: adapter must cite canonical role {canonical_reference}"
+        )
+
+
+def validate_sub_agent_adapter_metadata(
+    path: Path,
+    data: dict,
+    errors: list[str],
+    *,
+    root: Path = ROOT,
+    profile_path: Path = PACKAGE_PROFILE,
+) -> None:
+    """Validate one role's dynamic disposition or exact runtime-adapter contract."""
+    targets = data.get("wrapper_targets")
+    metadata = data.get("adapter_metadata")
+    if not isinstance(targets, list) or not all(isinstance(item, str) for item in targets):
+        return
+    if len(targets) != len(set(targets)):
+        errors.append(f"{path}: wrapper_targets must not contain duplicates")
+    if not isinstance(metadata, dict):
+        errors.append(f"{path}: adapter_metadata must be a mapping")
+        return
+
+    target_set = set(targets)
+    metadata_keys = list(metadata)
+    non_string_keys = [key for key in metadata_keys if not isinstance(key, str)]
+    if non_string_keys:
+        errors.append(f"{path}: adapter_metadata keys must be strings: {non_string_keys!r}")
+    metadata_set = {key for key in metadata_keys if isinstance(key, str)}
+    if metadata_set != target_set:
+        errors.append(
+            f"{path}: adapter_metadata target parity mismatch; "
+            f"missing={sorted(target_set - metadata_set)}, "
+            f"extra={sorted(metadata_set - target_set)}"
+        )
+    if not target_set:
+        return
+
+    exact_files = {
+        candidate.relative_to(root).as_posix().casefold():
+        candidate.relative_to(root).as_posix()
+        for candidate in root.rglob("*")
+        if candidate.is_file()
+    }
+    root_resolved = root.resolve()
+    adapter_values: list[str] = []
+    asset_id = data.get("asset_id")
+    if not isinstance(asset_id, str) or not asset_id:
+        return
+
+    for target in sorted(target_set & metadata_set):
+        target_metadata = metadata[target]
+        label = f"{path}: adapter_metadata.{target}"
+        contract = SUB_AGENT_ADAPTER_CONTRACTS.get(target)
+        if contract is None:
+            continue
+        if not isinstance(target_metadata, dict):
+            errors.append(f"{label} must be a mapping")
+            continue
+        allowed_keys = {"adapter_path", "adapter_format"}
+        extra_keys = sorted(
+            (repr(key) for key in target_metadata if key not in allowed_keys)
+        )
+        if extra_keys:
+            errors.append(f"{label}: unsupported keys {extra_keys}")
+        adapter_value = target_metadata.get("adapter_path")
+        adapter_format = target_metadata.get("adapter_format")
+        if not isinstance(adapter_value, str) or not adapter_value:
+            errors.append(f"{label}.adapter_path must be a non-empty string")
+            continue
+        if adapter_format != contract["format"]:
+            errors.append(
+                f"{label}.adapter_format must be {contract['format']!r}"
+            )
+        if (
+            Path(adapter_value).is_absolute()
+            or "\\" in adapter_value
+            or any(character in adapter_value for character in "<>*?[]{}")
+        ):
+            errors.append(
+                f"{label}.adapter_path must be a repository-relative exact file "
+                "path without placeholders or globs"
+            )
+            continue
+        adapter_path = (root / adapter_value).resolve()
+        try:
+            adapter_path.relative_to(root_resolved)
+        except ValueError:
+            errors.append(f"{label}.adapter_path escapes the repository: {adapter_value}")
+            continue
+
+        posix_value = PurePosixPath(adapter_value)
+        expected_root = contract["root"]
+        if posix_value.parts[: len(expected_root.parts)] != expected_root.parts:
+            errors.append(
+                f"{label}.adapter_path must be under {expected_root.as_posix()}"
+            )
+        if not any(adapter_value.endswith(suffix) for suffix in contract["suffixes"]):
+            errors.append(
+                f"{label}.adapter_path uses an unsupported {target} filename format"
+            )
+        canonical_case = exact_files.get(adapter_value.casefold())
+        if canonical_case is not None and canonical_case != adapter_value:
+            errors.append(
+                f"{label}.adapter_path exact-case mismatch: "
+                f"{adapter_value} -> {canonical_case}"
+            )
+            continue
+        if canonical_case is None or not adapter_path.is_file():
+            errors.append(f"{label}.adapter_path does not exist: {adapter_value}")
+            continue
+
+        adapter_values.append(adapter_value)
+        package_profile_includes(
+            adapter_value, errors, root=root, profile_path=profile_path
+        )
+        validate_sub_agent_adapter_file(
+            target, adapter_path, path, asset_id, errors
+        )
+
+    folded_paths = [value.casefold() for value in adapter_values]
+    if len(folded_paths) != len(set(folded_paths)):
+        errors.append(f"{path}: adapter paths must be unique across runtime targets")
+
+
 def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
     """Validate versioned skill and sub-agent manifests against the canonical contract."""
     manifests = sorted(Path(".ai/assets/skills").glob("*/skill.yaml")) + sorted(
@@ -838,8 +1203,11 @@ def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
             errors.append(f"{path}: asset_id must use kebab-case")
         if asset_id != path.parent.name:
             errors.append(f"{path}: asset_id must match parent folder {path.parent.name}")
-        if data.get("schema_version") != ASSET_SCHEMA_VERSION:
-            errors.append(f"{path}: schema_version must be {ASSET_SCHEMA_VERSION}")
+        expected_schema_version = ASSET_SCHEMA_VERSIONS[path.name]
+        if data.get("schema_version") != expected_schema_version:
+            errors.append(
+                f"{path}: schema_version must be {expected_schema_version}"
+            )
         if data.get("asset_type") != expected_types[path.name]:
             errors.append(f"{path}: unexpected asset_type {data.get('asset_type')!r}")
         for key in ("title", "purpose"):
@@ -871,6 +1239,8 @@ def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
         if path.name == "skill.yaml":
             skill_assets[asset_id] = data
             validate_wrapper_metadata(path, data, errors)
+        else:
+            validate_sub_agent_adapter_metadata(path, data, errors)
         for key in ("triggers", "workflow"):
             if key not in data:
                 errors.append(f"{path}: missing type-specific field {key}")

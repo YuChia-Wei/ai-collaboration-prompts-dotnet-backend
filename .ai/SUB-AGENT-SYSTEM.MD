@@ -12,6 +12,25 @@ This file defines the active agent-facing routing rules for delegated sub-agent 
 
 Sub-agent role prompts are not top-level skills. They are bounded worker roles used by a main agent or a top-level skill.
 
+## Runtime Integration
+
+Dynamic loading is the default. A canonical role with empty `wrapper_targets`
+and empty `adapter_metadata` is read by the owning skill or main agent and
+delegated through a generic worker. Runtime-native promotion is an
+evidence-backed exception for a concrete model, tool, permission, or invocation
+need; symmetry alone is not a promotion reason.
+
+Only `context-translator` is currently promoted. Its canonical manifest maps
+exactly one thin adapter for each supported target:
+
+- Codex: `.codex/agents/context-translator.toml`
+- Claude: `.claude/agents/context-translator.md`
+- GitHub Copilot: `.github/agents/context-translator.agent.md`
+
+Adapter presence proves a validated project configuration file, not that every
+host or tool surface can invoke that named adapter in the current session.
+Callers must confirm runtime availability and resolved model before delegating.
+
 ## Active Role Routing
 
 | Work Type | Top-Level Skill | Delegated Role Prompt |
