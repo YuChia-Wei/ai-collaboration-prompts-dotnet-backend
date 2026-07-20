@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-20T23:24:59+08:00`
+- `updated_at`: `2026-07-21T00:19:22+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -27,7 +27,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
-| `v0.5.0` | `ready_for_planning` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, and `HANDOFF-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Open a governed planning workflow. Release and handoff enforcement decisions remain required before implementation can claim those gates and before publication. | not created |
+| `v0.5.0` | `in_progress` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, and `HANDOFF-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Complete the governed inventory and decision freeze, then execute each bounded release task with retained validation and commit checkpoints. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; measure actual loaded context; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
@@ -196,7 +196,6 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Open v0.5.0 planning with `REL-001` and `HANDOFF-001` as release blockers
-alongside the existing package, runtime, enforcement, tooling, and language
-work. Keep v0.4.0 consumers on their current version until `PKG-003` proves the
-direct v0.5.0 path.
+Complete `V050-001` in the active v0.5.0 workflow, freeze the dependency and
+decision matrix, and create the bounded execution tasks. Keep v0.4.0 consumers
+on their current version until `PKG-003` proves the direct v0.5.0 path.

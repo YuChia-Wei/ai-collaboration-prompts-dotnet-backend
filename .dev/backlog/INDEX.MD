@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Open governed v0.5.0 planning; retain REL-001 and HANDOFF-001 as release blockers alongside the existing package, runtime, enforcement, tooling, and language work. | 2026-07-20 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Complete the active v0.5.0 inventory and decision freeze, then execute the bounded release tasks with checkpoint commits. | 2026-07-21 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
