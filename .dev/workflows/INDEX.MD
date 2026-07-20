@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-20-v0-4-2-release-finalization-hotfix`](2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | Repair v0.4.2 Release Finalization And Cold-Start Handoff Gaps | `ai-context-governance` | `in_progress` | `2026-07-20T22:37:10+08:00` | [plan](2026-07-20-v0-4-2-release-finalization-hotfix/workflow-plan.md) |
+| [`2026-07-20-v0-4-2-release-finalization-hotfix`](2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | Repair v0.4.2 Release Finalization And Cold-Start Handoff Gaps | `ai-context-governance` | `in_progress` | `2026-07-20T22:43:57+08:00` | [plan](2026-07-20-v0-4-2-release-finalization-hotfix/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

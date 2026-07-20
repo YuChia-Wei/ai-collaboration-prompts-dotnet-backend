@@ -12,7 +12,8 @@ owns its identity, current lifecycle state, subject revision, and relationships.
 
 | Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [`ASM-20260720-001`](ASM-20260720-001/assessment.yaml) | v0.4.2 Publication Incident External Review Intake | `ai-context-audit` | `ai-context-auditor` | `final` | `71c41dbd9c4f2b65105a616d15b7f1cc9db2a338` | `2026-07-20T22:37:10+08:00` | [report](ASM-20260720-001/report.md) |
+| [`ASM-20260720-002`](ASM-20260720-002/assessment.yaml) | v0.4.2 Release Finalization Hotfix Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `895ce060b2287e6c6be6a5327496f6e763145891` | `2026-07-20T22:43:57+08:00` | [report](ASM-20260720-002/report.md) |
+| [`ASM-20260720-001`](ASM-20260720-001/assessment.yaml) | v0.4.2 Publication Incident External Review Intake | `ai-context-audit` | `ai-context-auditor` | `final` | `71c41dbd9c4f2b65105a616d15b7f1cc9db2a338` | `2026-07-20T22:43:57+08:00` | [report](ASM-20260720-001/report.md) |
 | [`ASM-20260719-001`](ASM-20260719-001/assessment.yaml) | v0.4.2 AI Context Remediation Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `51be197a9a46caf23438c98065fcca58c723ce99` | `2026-07-19T15:45:00+08:00` | [report](ASM-20260719-001/report.md) |
 | [`ASM-20260718-001`](ASM-20260718-001/assessment.yaml) | v0.4.1 Package Upgrade And Downstream Gate Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `962919bfa15e7dba1f56e4a9741538d9caf1d7e6` | `2026-07-18T23:11:56+08:00` | [report](ASM-20260718-001/report.md) |
 | [`ASM-20260717-004`](ASM-20260717-004/assessment.yaml) | AI context self-audit of v0.3.0 with verification of the 2026-07-07 informal review findings | `ai-context-audit` | `ai-context-auditor` | `final` | `82b88b7287deb7a64e0311fde6b1b53ea0d194b1` | `2026-07-18T14:53:16+08:00` | [report](ASM-20260717-004/report.md) |

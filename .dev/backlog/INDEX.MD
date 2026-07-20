@@ -34,7 +34,7 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Gate | Current Task | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
-| [R042-005](items/R042-005.yaml) | HIGH / P0 | `v0.4.2` | release blocker | `R042005-004` independent verification and closeout | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | 2026-07-20 |
+| [R042-005](items/R042-005.yaml) | HIGH / P0 | `v0.4.2` | release blocker | `R042005-005` authorized public Release body correction | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | 2026-07-20 |
 
 ## Resolved
 

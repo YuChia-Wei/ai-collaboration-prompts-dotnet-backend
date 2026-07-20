@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `post-audit`
+- `current_phase`: `closure`
 - `artifact_root`: `.dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix`
 - `created_at`: `2026-07-20T22:23:02+08:00`
-- `updated_at`: `2026-07-20T22:37:10+08:00`
+- `updated_at`: `2026-07-20T22:43:57+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -48,7 +48,7 @@
 - Baseline assessment: `.dev/assessments/ASM-20260720-001/assessment.yaml`
 - External review input: `.dev/assessments/ASM-20260720-001/evidence/fable5-v0.4.2/README.md`
 - Remediation report: `.dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/reports/remediation-report.md`
-- Verification assessment: pending after local remediation
+- Verification assessment: `.dev/assessments/ASM-20260720-002/assessment.yaml`
 - Tasks: `.dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/tasks/`
 
 ## Finding Triage
@@ -71,18 +71,20 @@
    without rewriting Git history or the immutable tag (`R042005-002`).
 3. Reconcile roadmap/backlog truth and define cold-start release, handoff, and
    external-review intake work (`R042005-003`).
-4. Run independent post-remediation verification, full validation, commit
-   checks, and workflow closure (`R042005-004`).
+4. Run independent post-remediation verification, full validation, and commit
+   checks (`R042005-004`).
+5. After explicit authorization, replace and verify the public Release body,
+   then close R042-005 and the workflow (`R042005-005`).
 
 ## Resume Checkpoint
 
-- Last completed action: Repaired the local v0.4.2 finalization records, reconciled roadmap/backlog state, and defined external-review, release, and handoff work.
-- Current task: `R042005-004`
-- Exact next action: commit the remediation checkpoint, run the independent verification assessment, and execute the full aggregate gate.
-- Validation already completed: assessment, workflow, version, and AI-context validators pass; structured backlog/task parsing and authored release-body dry-run pass; tag peel equals `f474c3b058cb9f89f93929e0732fc1f276422dd9`; invalid provenance SHA is not a Git object.
-- Git state: intended assessment, workflow, release, roadmap, backlog, and assessment-policy changes are unstaged on the dedicated branch.
+- Last completed action: Committed local remediation at `895ce060b2287e6c6be6a5327496f6e763145891`, completed independent verification `ASM-20260720-002`, and passed the full gate 21/21.
+- Current task: `R042005-005`
+- Exact next action: obtain explicit authorization to replace the public GitHub Release body, then read it back and close R042-005.
+- Validation already completed: all focused validators pass; full gate passed 21/21 required with 0 failures; rendered-body dry-run passed; tag peel is correct; read-only GitHub API reports one invalid SHA, one final SHA, and four assets.
+- Git state: verification and closure-checkpoint artifacts are uncommitted on the dedicated branch.
 - Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: public GitHub Release body replacement requires explicit authorization.
+- Blockers or unresolved decisions: explicit authorization for public GitHub Release body replacement.
 
 ## Branch Lifecycle
 
