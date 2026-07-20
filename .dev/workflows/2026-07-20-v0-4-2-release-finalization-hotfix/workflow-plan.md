@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-20-v0-4-2-release-finalization-hotfix`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `closure`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix`
 - `created_at`: `2026-07-20T22:23:02+08:00`
-- `updated_at`: `2026-07-20T22:43:57+08:00`
+- `updated_at`: `2026-07-20T22:55:15+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -57,7 +57,7 @@
 | --- | --- | --- | --- | --- | --- |
 | `ASM-20260720-001#AIC-001` | CRITICAL | `ai-context-governance` | repair now | `R042005-002` | workflow validator |
 | `ASM-20260720-001#AIC-002` | CRITICAL | `ai-context-governance` | repair now | `R042005-002` | version and candidate discovery checks |
-| `ASM-20260720-001#AIC-003` | HIGH | `ai-context-governance` | repair local source now; public body pending authorization | `R042005-002` | render and marker checks |
+| `ASM-20260720-001#AIC-003` | HIGH | `ai-context-governance` | repaired local source and authorized public body | `R042005-002`, `R042005-005` | render, hosted read-back, state, and asset checks |
 | `ASM-20260720-001#AIC-004` | HIGH | `ai-context-governance` | repair now | `R042005-002` | non-empty migration content |
 | `ASM-20260720-001#AIC-005` | HIGH | `ai-context-governance` | correct evidence; preserve incident history | `R042005-002` | tag, object, and run identity checks |
 | `ASM-20260720-001#AIC-006` | MEDIUM | `ai-context-governance` | reconcile now | `R042005-003` | backlog and roadmap checks |
@@ -78,13 +78,13 @@
 
 ## Resume Checkpoint
 
-- Last completed action: Committed local remediation at `895ce060b2287e6c6be6a5327496f6e763145891`, completed independent verification `ASM-20260720-002`, and passed the full gate 21/21.
-- Current task: `R042005-005`
-- Exact next action: obtain explicit authorization to replace the public GitHub Release body, then read it back and close R042-005.
-- Validation already completed: all focused validators pass; full gate passed 21/21 required with 0 failures; rendered-body dry-run passed; tag peel is correct; read-only GitHub API reports one invalid SHA, one final SHA, and four assets.
-- Git state: verification and closure-checkpoint artifacts are uncommitted on the dedicated branch.
+- Last completed action: Replaced only the authorized public GitHub Release body and verified exact rendered-body equality, stable release state, unchanged tag, and all four original asset digests.
+- Current task: none
+- Exact next action: open a governed v0.5.0 planning workflow.
+- Validation already completed: all focused validators pass; full gate passed 21/21 required with 0 failures; rendered-body dry-run passed; tag peel is correct; hosted read-back reports zero invalid SHA occurrences, one generated marker/provenance/migration section, and four unchanged assets.
+- Git state: closure artifacts are ready for the workflow closure commit on the dedicated branch.
 - Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: explicit authorization for public GitHub Release body replacement.
+- Blockers or unresolved decisions: none for v0.4.2 finalization; v0.5.0 contract decisions remain owned by their backlog gates.
 
 ## Branch Lifecycle
 

@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "R042-005"
 title: "v0.4.2 Publication Finalization Hotfix"
 category: "release-finalization"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH / P0"
 summary: "Repair the broken v0.4.2 publication finalization without changing the immutable tag or published package contracts."
 created_at: "2026-07-20T22:23:02+08:00"
-updated_at: "2026-07-20T22:43:57+08:00"
+updated_at: "2026-07-20T22:55:15+08:00"
 release:
   target: "v0.4.2"
-  completed_in: null
+  completed_in: "v0.4.2"
   published_in: null
   target_scope: "post-publication-registry-evidence-and-public-body-finalization"
   gate: "release-blocker"
@@ -30,7 +30,7 @@ task_refs:
   - ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/tasks/R042005-004.json"
   - ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/tasks/R042005-005.json"
 resolution_ref: ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/reports/remediation-report.md"
-decision_needed: "Authorize regeneration and replacement of the public REL-v0.4.2 GitHub Release body from the corrected authored release notes and migration guide."
+decision_needed: null
 acceptance:
   - "The v0.4.2 publication workflow locator, plan, task identities, and workflow index are internally consistent."
   - "REL-v0.4.2 is published at commit f474c3b058cb9f89f93929e0732fc1f276422dd9 with successful hosted run 29679273269 and failed run 29678934006 retained as incident evidence."

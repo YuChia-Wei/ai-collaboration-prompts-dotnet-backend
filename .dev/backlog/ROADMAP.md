@@ -4,9 +4,9 @@
 
 - `roadmap_id`: `post-v0.4.0`
 - `status`: `active`
-- `current_target`: `v0.4.2`
+- `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-20T22:28:31+08:00`
+- `updated_at`: `2026-07-20T22:55:15+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -26,8 +26,8 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | Version | State | Required | Objective | Activation Gate | Workflow |
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
-| `v0.4.2` | `published_finalization_in_progress` | yes | The immutable package is published at `f474c3b`; complete `R042-005` local verification and replace the invalid public Release body only after explicit authorization. | Local registry, authored sources, workflow evidence, roadmap, and backlog must pass successor verification; the final tag must not move. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
-| `v0.5.0` | `blocked_by_v0.4.2_finalization` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, and `HANDOFF-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Planning may begin after the local R042-005 repair is verified. Implementation and any next release publication remain blocked until R042-005 closes and release/handoff enforcement decisions are approved. | not created |
+| `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
+| `v0.5.0` | `ready_for_planning` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, and `HANDOFF-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Open a governed planning workflow. Release and handoff enforcement decisions remain required before implementation can claim those gates and before publication. | not created |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy implementation. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal. | Demonstrate adoption of `ai-context-init` and no remaining dependency on old prompts, wrappers, provenance values, or template paths. | not created |
 
@@ -79,10 +79,10 @@ release evidence than the earlier planning source:
    v0.5.0 multi-source contract, including direct v0.4.0-to-v0.5.0 validation
    against the retained `dotnet-mq-arch-lab` consumer.
 8. v0.4.2 is genuinely published from
-   `f474c3b058cb9f89f93929e0732fc1f276422dd9`, but its original
-   post-publication finalization left the local critical gate red and the
-   public Release body with invalid provenance. `R042-005` owns correction
-   without moving the final tag.
+   `f474c3b058cb9f89f93929e0732fc1f276422dd9`. `R042-005` repaired the
+   post-publication finalization and, after explicit authorization, replaced
+   and verified the public Release body without moving the final tag or
+   changing the four published assets.
 9. `ASM-20260720-001` preserves the independent Fable 5 review and confirms
    its release-finalization findings with repository-native evidence.
 
@@ -156,12 +156,7 @@ versions. Current assignments:
 
 ## Next Action
 
-Complete `R042-005`: verify the corrected local release registry, authored
-release notes, migration guide, historical workflow evidence, roadmap, and
-backlog through an independent successor assessment and the full gate. Then
-obtain explicit authorization to regenerate and verify the public
-`REL-v0.4.2` GitHub Release body without moving the tag. After R042-005 closes,
-open v0.5.0 planning with `REL-001` and `HANDOFF-001` as release blockers
+Open v0.5.0 planning with `REL-001` and `HANDOFF-001` as release blockers
 alongside the existing package, runtime, enforcement, tooling, and language
 work. Keep v0.4.0 consumers on their current version until `PKG-003` proves the
 direct v0.5.0 path.
