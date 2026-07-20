@@ -133,7 +133,7 @@ Use `ai-context-upgrader` after an initialized target repository needs to move b
 - Require `.dev/AI-CONTEXT-SOURCE.yaml` or an explicit unresolved-provenance reconciliation.
 - Compare the recorded framework version, requested framework version, and current target state before writing.
 - Preserve target-owned collaboration, requirement, spec, ADR, architecture, operations, and project configuration truth.
-- Treat automatic candidates as proposals, not write authorization; update provenance only after successful validation.
+- Treat `automatic-candidate` entries as proposals, not write authorization; update provenance only after successful validation.
 - Use Git and repository files as evidence. Optional graphs and indexes may accelerate discovery but cannot establish completeness.
 
 ### Code Review

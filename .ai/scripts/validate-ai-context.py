@@ -36,6 +36,7 @@ LANGUAGE_SKIP_PARTS = SKIP_PARTS | {"examples", "example", "generated"}
 PRODUCT_ROOTS = {"src", "test", "tests"}
 LANGUAGE_EXTENSIONS = {".md", ".yaml", ".yml", ".json"}
 HAN = re.compile(r"[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]")
+NON_ASCII_AGENT_PUNCTUATION = re.compile(r"[：。]")
 LANGUAGE_ROOTS = (
     Path(".ai"),
     Path(".agents"),
@@ -542,21 +543,32 @@ def is_language_surface(path: Path, indexes: set[Path]) -> bool:
     )
 
 
-def validate_language(path: Path, errors: list[str]) -> None:
-    """Reject Han prose except exact, path-scoped routing trigger fragments."""
+def validate_language(
+    path: Path, errors: list[str], *, root: Path = ROOT
+) -> None:
+    """Reject Han prose and selected non-ASCII punctuation outside exact exceptions."""
     allowed_lines = LANGUAGE_ALLOWLIST.get(path, frozenset())
-    text = (ROOT / path).read_text(encoding="utf-8")
+    text = (root / path).read_text(encoding="utf-8")
     for line_number, line in enumerate(text.splitlines(), 1):
-        if HAN.search(line) and line not in allowed_lines:
+        if line in allowed_lines:
+            continue
+        if HAN.search(line):
             errors.append(f"{path}:{line_number}: unexpected Han text in agent-facing context")
+        if NON_ASCII_AGENT_PUNCTUATION.search(line):
+            errors.append(
+                f"{path}:{line_number}: unexpected non-ASCII punctuation "
+                "in agent-facing context"
+            )
 
 
-def markdown_structure(path: Path) -> tuple[list[int], list[str]]:
+def markdown_structure(
+    path: Path, *, root: Path = ROOT
+) -> tuple[list[int], list[str]]:
     """Return heading levels and ordered path-like backtick values in table rows."""
     headings: list[int] = []
     table_paths: list[str] = []
     fenced = False
-    for line in (ROOT / path).read_text(encoding="utf-8").splitlines():
+    for line in (root / path).read_text(encoding="utf-8").splitlines():
         if line.lstrip().startswith("```"):
             fenced = not fenced
             continue
@@ -572,7 +584,56 @@ def markdown_structure(path: Path) -> tuple[list[int], list[str]]:
     return headings, table_paths
 
 
-def validate_bilingual_entries(errors: list[str]) -> None:
+def markdown_parity_structure(
+    path: Path,
+    entry_files: frozenset[str],
+    *,
+    root: Path = ROOT,
+) -> dict[str, object]:
+    """Return deterministic Markdown structure without claiming prose equivalence."""
+    links: list[str] = []
+    fences: list[str] = []
+    inline_code: list[str] = []
+    table_columns: list[int] = []
+    list_markers: list[tuple[int, str]] = []
+    fenced = False
+
+    def normalize(value: str) -> str:
+        return "<bilingual-entry-file>" if value in entry_files else value
+
+    for line in (root / path).read_text(encoding="utf-8").splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("```"):
+            fences.append(stripped)
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
+        links.extend(
+            normalize(value)
+            for value in re.findall(r"\[[^\]]+\]\(([^)\s]+)\)", line)
+        )
+        inline_code.extend(
+            normalize(value) for value in re.findall(r"`([^`\n]+)`", line)
+        )
+        if stripped.startswith("|"):
+            table_columns.append(len(line.strip().split("|")[1:-1]))
+        list_match = re.match(r"^(\s*)([-+*]|\d+\.)\s+", line)
+        if list_match:
+            list_markers.append((len(list_match.group(1)), list_match.group(2)))
+
+    return {
+        "links": links,
+        "fences": fences,
+        "inline_code": Counter(inline_code),
+        "table_columns": table_columns,
+        "list_markers": list_markers,
+    }
+
+
+def validate_bilingual_entries(
+    errors: list[str], *, root: Path = ROOT
+) -> None:
     """Validate entry-file ownership and reciprocal links, not semantic parity."""
     contracts = (
         (
@@ -601,12 +662,12 @@ def validate_bilingual_entries(errors: list[str]) -> None:
         translation_marker,
     ) in contracts:
         for path in (canonical, translation):
-            if not (ROOT / path).is_file():
+            if not (root / path).is_file():
                 errors.append(f"missing bilingual entry file: {path}")
-        if not (ROOT / canonical).is_file() or not (ROOT / translation).is_file():
+        if not (root / canonical).is_file() or not (root / translation).is_file():
             continue
-        canonical_text = (ROOT / canonical).read_text(encoding="utf-8")
-        translation_text = (ROOT / translation).read_text(encoding="utf-8")
+        canonical_text = (root / canonical).read_text(encoding="utf-8")
+        translation_text = (root / translation).read_text(encoding="utf-8")
         if canonical_link not in canonical_text:
             errors.append(f"{canonical}: missing reciprocal translation link to {translation}")
         if translation_link not in translation_text:
@@ -615,8 +676,10 @@ def validate_bilingual_entries(errors: list[str]) -> None:
             errors.append(f"{canonical}: missing canonical ownership marker")
         if translation_marker not in translation_text:
             errors.append(f"{translation}: missing translation ownership marker")
-        canonical_headings, canonical_paths = markdown_structure(canonical)
-        translation_headings, translation_paths = markdown_structure(translation)
+        canonical_headings, canonical_paths = markdown_structure(canonical, root=root)
+        translation_headings, translation_paths = markdown_structure(
+            translation, root=root
+        )
         if canonical_headings != translation_headings:
             errors.append(
                 f"{canonical} <-> {translation}: heading-level structural parity mismatch"
@@ -629,14 +692,33 @@ def validate_bilingual_entries(errors: list[str]) -> None:
             errors.append(
                 f"{canonical} <-> {translation}: backtick table-path order parity mismatch"
             )
+        entry_files = frozenset((canonical.as_posix(), translation.as_posix()))
+        canonical_parity = markdown_parity_structure(
+            canonical, entry_files, root=root
+        )
+        translation_parity = markdown_parity_structure(
+            translation, entry_files, root=root
+        )
+        parity_labels = {
+            "links": "link-target order",
+            "fences": "fence-marker order",
+            "inline_code": "inline-code identifier multiset",
+            "table_columns": "table-column shape",
+            "list_markers": "list-marker shape",
+        }
+        for key, label in parity_labels.items():
+            if canonical_parity[key] != translation_parity[key]:
+                errors.append(
+                    f"{canonical} <-> {translation}: {label} parity mismatch"
+                )
 
     required_agent_rows = {
         "README.md", "README.en.md", "AGENTS.md", "AGENTS.zh-TW.md", "CLAUDE.md"
     }
     for path in (Path("AGENTS.md"), Path("AGENTS.zh-TW.md")):
-        if not (ROOT / path).is_file():
+        if not (root / path).is_file():
             continue
-        _, table_paths = markdown_structure(path)
+        _, table_paths = markdown_structure(path, root=root)
         missing = sorted(required_agent_rows - set(table_paths))
         if missing:
             errors.append(f"{path}: missing required root entry table rows: {missing}")

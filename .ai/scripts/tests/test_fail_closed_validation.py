@@ -413,6 +413,29 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
+    def test_gwt_009_language_gate_when_quick_runs_then_it_is_required(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the language and bilingual parity fixtures are a required gate.
+            # When quick mode reaches the AI context validators.
+            result = fixture.execute("--quick")
+
+            # Then the language suite executes and remains fail closed.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn(
+                "AI Context Language And Bilingual Parity Fail-Closed Tests",
+                result.stdout,
+            )
+            self.assertTrue(
+                any(
+                    "test_ai_context_language_policy.py -v" in line
+                    for line in fixture.sentinel()
+                )
+            )
+            self.assertRegex(result.stdout, r"Required Failed: .*0")
+        finally:
+            fixture.close()
+
     def test_gwt_010_given_modes_when_each_runs_then_selection_and_default_are_truthful(self) -> None:
         fixture = SyntheticRunnerRepo()
         try:
