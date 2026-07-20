@@ -17,6 +17,7 @@ rules.
 | `GIT-COMMIT-POLICY.md` / `GIT-COMMIT-POLICY.yaml` | Agent-assisted Git commit contract. |
 | `WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow artifact metadata. |
 | `WORKFLOW-GATE-POLICY.md` | Direct mode versus workflow mode. |
+| `WORKFLOW-HANDOFF-POLICY.md` / `WORKFLOW-HANDOFF-POLICY.yaml` | Fail-closed cross-model, runtime, host, machine, and fresh-session receiving checkpoint contract. |
 
 ## Architecture And Implementation
 

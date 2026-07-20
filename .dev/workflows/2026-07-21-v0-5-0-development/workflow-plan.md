@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-10T18:22:49+08:00`
-- `updated_at`: `2026-07-13T23:11:56+08:00`
+- `updated_at`: `2026-07-21T03:32:43+08:00`
 
 ## Workflow Metadata
 
@@ -116,23 +116,24 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed `V050-005` at `83a0c1c`; Windows Git Bash
-  and hosted Ubuntu run `29770661564` pass 28/28, dedicated governance run
-  `29770662383` passes, and the package-candidate failure is confined to the
-  intentionally absent REL-001 v0.5.0 release record.
+- Last completed action: implemented the HANDOFF-001 generic receiving policy,
+  machine contract, template, read-only validator, stable instance registry,
+  15 fail-closed GWT cases, aggregate/hosted routing, and four-path fixture
+  inventory without changing provider settings or the existing Git commit
+  validator.
 - Current task: `V050-008`
-- Exact next action: define the generic receiving-checkpoint schema,
-  executable validation-evidence shape, and REL phase-check interface; keep
-  unavailable provider fixtures explicitly blocked and avoid provider-specific
-  identity rules without captured evidence.
+- Exact next action: commit the HANDOFF core, run the real critical gate at
+  that clean subject commit, then register and repository-verify the V050-008
+  checkpoint instance before completing HANDOFF-001.
 - Validation already completed: ENF-001 focused suites, affected package
   upgrade cases 16 and 17, Windows Git Bash 28/28, hosted Ubuntu 28/28, and
   the separate read-only governance workflow all pass at `83a0c1c`.
-- Git state: `83a0c1c` is committed and pushed; ENF completion evidence and
-  V050-008 activation are pending this closeout checkpoint commit.
+- Git state: `7d95827` is committed and pushed; the HANDOFF core is validated
+  in the working tree and pending its task-level checkpoint commit.
 - Branch history and checkpoint handoffs: the branch is pushed through
   `d5d74ea`; draft PR `#1` is the hosted evidence and continuing CI surface.
-- Blockers or unresolved decisions: package-candidate run `29770662983`
+- Blockers or unresolved decisions: the REL phase interface now fails closed
+  until V050-009 supplies a real sanctioned contract. Package-candidate run `29770662983`
   correctly fails closed until `V050-009` creates a governed v0.5.0 release
   record. Real Copilot CLI/cloud-agent and Claude attribution fixtures are not
   present; V050-008 must retain that absence explicitly rather than inventing

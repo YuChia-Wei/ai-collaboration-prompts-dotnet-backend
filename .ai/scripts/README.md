@@ -69,6 +69,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context-versions.py`
 - `validate-file-disposition-manifest.py`
 - `validate-git-commits.py`
+- `validate-workflow-handoff.py`
 - `build-ai-context-package.py`
 - `validate-ai-context-package.py`
 - `plan-ai-context-package-apply.py`
@@ -124,6 +125,19 @@ final AI signature, assessment ID trailer, and—when `--workflow-id` is
 provided—ordered workflow body sections and matching workflow identity. The
 aggregate gate invokes it only when `COMMIT_RANGE` is set, so ordinary working
 tree checks do not guess whether a human-only commit used AI assistance.
+
+`validate-workflow-handoff.py` validates a bounded receiving checkpoint for
+cross-model, runtime, host, machine, and fresh-session continuation. It pins the
+validated commit and containing checkpoint commit, records a real critical-gate
+command and bounded output digest, blocks red gates outside an explicitly named
+repair task, requires REL-owned phase evidence for release handoffs, separates
+execution provenance from Git attribution, and preserves a generic
+provider-compatible evidence union. Optional `--verify-repository` checks the
+current branch, checkpoint-containing commit, worktree state, and pinned commit
+metadata using an explicit read-only Git command allowlist. `--all` discovers
+durable instances through `.dev/workflows/handoff-checkpoints.yaml`; source
+repositories require that registry, while packaged targets without a checkpoint
+registry report the check as not applicable.
 
 `build-ai-context-package.py` reads an immutable Git commit tree and the
 canonical distribution profile to produce normalized ZIP and tar.gz release

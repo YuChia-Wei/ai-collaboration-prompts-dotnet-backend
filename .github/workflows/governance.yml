@@ -25,6 +25,8 @@ on:
       - ".dev/specs/**"
       - ".dev/standards/**"
       - ".dev/workflows/README.MD"
+      - ".dev/workflows/handoff-checkpoints.yaml"
+      - ".dev/workflows/**/handoff-checkpoints/**"
       - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml"
       - ".github/agents/**"
       - ".github/workflows/governance.yml"
@@ -71,6 +73,8 @@ jobs:
           python .ai/scripts/validate-dependency-versions.py
           python .ai/scripts/tests/test_dependency_version_consistency.py -v
           python .ai/scripts/validate-shell-assets.py
+          python .ai/scripts/tests/test_workflow_handoff.py -v
+          python .ai/scripts/validate-workflow-handoff.py --all
 
       - name: Validate v0.5.0 path disposition
         run: |

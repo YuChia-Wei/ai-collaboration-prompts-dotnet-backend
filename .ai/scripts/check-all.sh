@@ -322,6 +322,14 @@ run_command_check "python .ai/scripts/tests/test_git_commit_policy.py -v" \
     "Git Commit Policy Fail-Closed Tests" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_workflow_handoff.py -v" \
+    "Workflow Handoff Fail-Closed Tests" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/validate-workflow-handoff.py --all" \
+    "Registered Workflow Handoff Checkpoints" \
+    "required" "true" "true"
+
 if [ -n "${COMMIT_RANGE:-}" ]; then
     COMMIT_VALIDATION_COMMAND="python .ai/scripts/validate-git-commits.py --range '$COMMIT_RANGE'"
     if [ -n "${WORKFLOW_ID:-}" ]; then

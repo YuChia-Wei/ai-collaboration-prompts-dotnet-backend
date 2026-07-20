@@ -60,6 +60,7 @@ Workflow artifact rules:
 - Record `branch` and `base_branch` on workflows created on or after 2026-07-11.
 - Do not store runtime workflow records under canonical skill or runtime wrapper directories.
 - Treat an explicitly requested merge/push before completion as a checkpoint handoff and keep the workflow active. Resume a push-only handoff from the pushed branch; after a checkpoint merge, start a new dedicated continuation branch from the updated target.
+- Follow `.dev/standards/WORKFLOW-HANDOFF-POLICY.md` before transferring an active workflow across a model, runtime, host, machine, or fresh session; the receiving checkpoint must remain executable without hidden session context.
 - Merge workflow branches with `--no-ff` by default unless the user explicitly requests another strategy.
 
 ### Assessment Gate

@@ -100,6 +100,10 @@ Workflow stages should follow `.dev/standards/GIT-COMMIT-POLICY.md`. Commit afte
 
 Merging or pushing an incomplete workflow is a checkpoint handoff, not workflow completion. Keep the workflow and unfinished tasks active. Resume a push-only handoff from the pushed branch; after a checkpoint merge, create the next continuation branch from the updated target as defined by `.dev/TEAM-GIT-FLOW-RULES.MD`.
 
+When continuation also crosses a model, runtime, host, machine, or fresh
+session, follow `.dev/standards/WORKFLOW-HANDOFF-POLICY.md` and create its
+machine-readable receiving checkpoint before transfer.
+
 ## Workflow Closing Checklist
 
 Before sending a final response in workflow mode, the agent must verify all of the following:

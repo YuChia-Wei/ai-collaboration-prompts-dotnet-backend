@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T03:08:50+08:00",
+  "updated_at": "2026-07-21T03:32:43+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,8 +20,8 @@
   "execution": {
     "steps": ["Define handoff schema and template", "Add validator and negative fixtures", "Capture real provider attribution fixtures", "Redesign commit attribution acceptance without mutation", "Exercise a fresh receiving-agent checkpoint", "Validate and checkpoint"],
     "validation": ["handoff schema GWT", "critical gate evidence", "provider fixture regression", "commit validator read-only proof"],
-    "last_completed_step": "Activated after ENF-001 completed semantic enforcement, source/downstream aggregate routing, and hosted governance plus portable gates at 83a0c1c.",
-    "next_action": "Define the generic receiving-checkpoint schema, validation-evidence contract, and REL phase-check interface; preserve unavailable provider fixtures as explicit blocked evidence instead of encoding provider-specific identities."
+    "last_completed_step": "Implemented the generic receiving-checkpoint policy, machine contract, template, read-only validator, stable instance registry, 15 fail-closed GWT cases, aggregate/hosted routing, four-path fixture inventory, and REL-owned fail-closed phase interface without changing provider settings or the existing Git commit validator.",
+    "next_action": "Commit the HANDOFF core, run the real critical gate at that clean subject commit, then register and repository-verify a V050-008 checkpoint instance before completing HANDOFF-001."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "Provider fixture availability may block attribution closeout.", "follow_up_needed": true}
 }

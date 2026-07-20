@@ -24,6 +24,8 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `standards/ASSESSMENT-ARTIFACT-POLICY.md` | Standalone assessment identity, storage, lifecycle, Git lookup, and workflow handoff contract. |
 | `standards/GIT-COMMIT-POLICY.md` | Agent-assisted commit format and timing policy. |
 | `standards/GIT-COMMIT-POLICY.yaml` | Machine-readable commit subject, workflow-section, assessment-ID, and AI-signature contract. |
+| `standards/WORKFLOW-HANDOFF-POLICY.md` | Fail-closed receiving checkpoint and provider-attribution preservation policy. |
+| `standards/WORKFLOW-HANDOFF-POLICY.yaml` | Machine-readable handoff vocabulary, output bounds, and read-only Git allowlist. |
 | `standards/coding-standards/` | .NET backend coding standards by component type. |
 | `standards/examples/` | Reusable .NET backend examples and templates. |
 | `standards/rationale/` | Rationale records for retained standards. |
@@ -83,6 +85,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `workflows/` | Workflow discovery locators and default artifact roots. |
 | `workflows/README.MD` | Workflow discovery, ownership, and artifact-root guidance. |
 | `workflows/INDEX.MD` | Active, completed post-adoption, and legacy workflow discovery view. |
+| `workflows/handoff-checkpoints.yaml` | Registry of durable machine-readable receiving checkpoints. |
 | `standards/WORKFLOW-ARTIFACT-POLICY.md` | Shared workflow locator, ID, timestamp, and minimum task contract. |
 
 ## AI Context Releases

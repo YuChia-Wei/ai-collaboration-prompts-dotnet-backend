@@ -11,6 +11,7 @@ This is a thin current-runtime wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Assessment Policy: `.dev/standards/ASSESSMENT-ARTIFACT-POLICY.md`
+- Handoff Policy: `.dev/standards/WORKFLOW-HANDOFF-POLICY.md`
 - Spec: `.ai/assets/skills/ai-context-governance/skill.yaml`
 - Human Guide: `.dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md`
 - References:
@@ -23,6 +24,7 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/ai-context-governance/templates/workflow-locator-template.yaml`
   - `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
   - `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json`
+  - `.ai/assets/skills/ai-context-governance/templates/workflow-handoff-checkpoint-template.yaml`
   - `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 
 ## Wrapper Rules
