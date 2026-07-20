@@ -1,0 +1,82 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "SIMPLPLAN-001",
+  "workflow_id": "2026-07-20-simplification-roadmap-intake",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-20T23:24:59+08:00",
+  "updated_at": "2026-07-20T23:30:28+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "SIMPL-001, STD-001, archive rationale, external discussion roundtrip, and roadmap sequencing",
+    "files": [
+      ".dev/backlog/items/SIMPL-001.yaml",
+      ".dev/backlog/items/STD-001.yaml",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/guides/ai-collaboration-guides/EXTERNAL-AI-DISCUSSION-ROUNDTRIP-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/INDEX.MD"
+    ],
+    "constraints": [
+      "Do not implement simplification or archive operations",
+      "Do not assign standards simplification to a release",
+      "Preserve Fable 5 as independent planning input",
+      "Require repo-native normalization before external feedback becomes repository truth"
+    ],
+    "non_goals": [
+      "Rewrite canonical standards",
+      "Move completed workflows or assessments",
+      "Generate wrappers or merge skills",
+      "Open a v0.6.0 implementation workflow"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Create SIMPL-001 as the measured v0.6.0 disposition gate",
+      "Create STD-001 as an unassigned independent deliberation item",
+      "Record the archive deferral rationale and v0.7.0 preconditions",
+      "Publish a provider-neutral ChatGPT/Fable discussion roundtrip guide",
+      "Update roadmap and indexes",
+      "Run governance validators and close the planning workflow"
+    ],
+    "validation": [
+      "workflow and backlog artifact validation",
+      "AI context navigation and language validation",
+      "structured YAML and JSON parsing",
+      "git diff check"
+    ],
+    "last_completed_step": "Validated the backlog, roadmap, indexes, workflow records, and external discussion roundtrip.",
+    "next_action": "None in this workflow; resume through SIMPL-001 or STD-001 under their declared handoff conditions."
+  },
+  "results": {
+    "summary": "Created measured simplification and standards deliberation backlog boundaries, documented why historical archiving is conditional v0.7 work, and published a provider-neutral ChatGPT/Fable feedback roundtrip.",
+    "files_changed": [
+      ".dev/backlog/items/SIMPL-001.yaml",
+      ".dev/backlog/items/STD-001.yaml",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/guides/ai-collaboration-guides/EXTERNAL-AI-DISCUSSION-ROUNDTRIP-GUIDE.md",
+      ".dev/guides/ai-collaboration-guides/INDEX.MD",
+      ".dev/workflows/2026-07-20-simplification-roadmap-intake/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v",
+      "python .ai/scripts/tests/test_backlog_release_contract.py -v",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-ai-context-versions.py",
+      "python .ai/scripts/validate-assessment-artifacts.py",
+      "YAML and JSON parse checks",
+      "git diff --check",
+      "Git for Windows Bash .ai/scripts/check-all.sh --quick: 21/21 required checks passed with zero failures"
+    ],
+    "finding_status": "addressed",
+    "residual_risk": "Actual simplification, standards changes, and historical archive migration remain intentionally unimplemented until their evidence and owner-decision gates are satisfied.",
+    "follow_up_needed": true
+  }
+}
