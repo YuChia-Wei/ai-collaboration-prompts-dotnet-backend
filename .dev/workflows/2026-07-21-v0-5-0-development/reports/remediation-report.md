@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T00:19:22+08:00`
+- `updated_at`: `2026-07-21T00:24:09+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessments`: `ASM-20260717-004`, `ASM-20260720-001`
@@ -24,16 +24,16 @@
 
 | Backlog Item | Gate | Current Workflow State | Required Outcome |
 | --- | --- | --- | --- |
-| `PKG-003` | release blocker | inventory | multi-source direct upgrades proven |
-| `SAG-001` | release blocker | inventory | adapter promotion and parity contract complete |
-| `ENF-001` | release blocker | inventory | semantic enforcement and PR CI complete |
-| `TOOL-001` | release blocker | inventory | hosted portability and runner decision complete |
-| `LANG-001` | release blocker | inventory | approved translation batch and semantic parity complete |
-| `REL-001` | release blocker | inventory | cold-start release mechanics and terminal validation complete |
-| `HANDOFF-001` | release blocker | inventory | fail-closed resume and native attribution contract complete |
-| `GOV-001` | disposition gate | inventory | every current follow-up explicitly disposed |
-| `CAP-001` | disposition gate | inventory | terminology capability decision retained |
-| `VAL-001` | disposition gate | inventory | repository/dependency gap explicitly disposed |
+| `PKG-003` | release blocker | decision frozen / pending implementation | multi-source direct upgrades proven |
+| `SAG-001` | release blocker | decision frozen / pending implementation | adapter promotion and parity contract complete |
+| `ENF-001` | release blocker | decision frozen / pending implementation | semantic enforcement and PR CI complete |
+| `TOOL-001` | release blocker | retain-runner decision / pending evidence | hosted portability and runner decision complete |
+| `LANG-001` | release blocker | hybrid-gate decision / pending remediation | approved translation batch and semantic parity complete |
+| `REL-001` | release blocker | decision frozen / pending implementation | cold-start release mechanics and terminal validation complete |
+| `HANDOFF-001` | release blocker | decision frozen / pending fixtures and implementation | fail-closed resume and native attribution contract complete |
+| `GOV-001` | disposition gate | `V050-002` in progress | every current follow-up explicitly disposed |
+| `CAP-001` | disposition gate | no-new-skill decision / pending persistence | terminology capability decision retained |
+| `VAL-001` | disposition gate | implementation selected / pending validator | repository/dependency gap explicitly disposed |
 
 ## Checkpoint Contract
 

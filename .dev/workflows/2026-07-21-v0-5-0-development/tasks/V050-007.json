@@ -1,0 +1,26 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-007",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:24:09+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "LANG-001 refreshed candidate inventory, bounded remediation, and hybrid semantic parity evidence",
+    "files": [".dev/standards/**", ".dev/specs/**", "README.md", "README.en.md", "AGENTS.md", "AGENTS.zh-TW.md", ".ai/scripts/validate-ai-context.py", ".ai/scripts/tests/**"],
+    "constraints": ["English canonical for agent rules", "zh-TW derived only where approved", "Structural parity is not semantic proof", "Retain review evidence"],
+    "non_goals": ["Translate every standard", "Use one model pass as oracle", "Create new bilingual surfaces"]
+  },
+  "execution": {
+    "steps": ["Generate current deterministic candidate inventory", "Fix the approved active-language batch", "Add exception and parity fixtures", "Run context-translator or human semantic checklist", "Validate and checkpoint"],
+    "validation": ["language-policy validator", "root structural parity", "retained semantic checklist", "zero untriaged high-priority candidates"],
+    "last_completed_step": "", "next_action": "Start after V050-002."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}

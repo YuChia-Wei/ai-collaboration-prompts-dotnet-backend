@@ -1,0 +1,26 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-008",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:24:09+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "HANDOFF-001 machine-readable receiving checkpoint, critical gate evidence, and provider-native attribution compatibility",
+    "files": [".dev/standards/**", ".ai/scripts/validate-workflow-handoff.py", ".ai/scripts/validate-git-commits.py", ".ai/scripts/tests/**", ".ai/assets/skills/**/templates/**"],
+    "constraints": ["Fail closed on red critical gate", "Preserve provider-native metadata", "Label provenance source", "Require real provider fixtures before provider-specific rules"],
+    "non_goals": ["Normalize all providers to one trailer", "Rewrite signed history", "Invent Claude identity"]
+  },
+  "execution": {
+    "steps": ["Define handoff schema and template", "Add validator and negative fixtures", "Capture real provider attribution fixtures", "Redesign commit attribution acceptance without mutation", "Exercise a fresh receiving-agent checkpoint", "Validate and checkpoint"],
+    "validation": ["handoff schema GWT", "critical gate evidence", "provider fixture regression", "commit validator read-only proof"],
+    "last_completed_step": "", "next_action": "Start after core validators and REL phase interface exist."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "Provider fixture availability may block attribution closeout.", "follow_up_needed": true}
+}

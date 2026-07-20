@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `active`
-- `current_phase`: `planning`
+- `current_phase`: `disposition`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T00:19:22+08:00`
+- `updated_at`: `2026-07-21T00:24:09+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -59,20 +59,44 @@
 - Verification assessment: pending stable assessment ID after implementation
   freezes a subject revision
 
-## Initial Stage Model
+## Frozen Decision Matrix
+
+The repository owner's directive to execute all v0.5.0 work authorizes the
+smallest evidence-backed contract within the existing roadmap scope. It does
+not authorize later-horizon work or publication. The detailed evidence and
+decision rationale are retained in
+[`evidence/v050-decision-matrix.md`](evidence/v050-decision-matrix.md).
+
+| Item | Frozen v0.5.0 direction | Execution task |
+| --- | --- | --- |
+| `GOV-001` | Reconcile only; mark satisfied or superseded markers without retrofitting legacy locators. | `V050-002` |
+| `CAP-001` | Do not create a terminology skill; retain the domain-language document pattern until repeatable action evidence exists. | `V050-002` |
+| `VAL-001` | Treat repository validation as superseded by later analyzers; implement deterministic dependency/version consistency and retire the permanent deferred placeholder. | `V050-006` |
+| `PKG-003` | Introduce migration schema 2.0 with exact multi-source selection; retain schema 1.0 read compatibility and the v0.0.1-to-v0.3.0 provenance route. | `V050-003` |
+| `SAG-001` | Keep dynamic loading as default; retain only `context-translator` as native for Codex, Claude, and Copilot unless live runtime evidence requires another adapter. | `V050-004` |
+| `ENF-001` | Add a separate governance PR workflow and deterministic semantic/path-disposition enforcement; do not merge general governance ownership into package candidate CI. | `V050-005` |
+| `TOOL-001` | Retain the current runner for v0.5.0, strengthen manifest/format tests and execute the same declared gate set on Windows Git Bash and hosted Ubuntu; macOS remains unverified. | `V050-006` |
+| `LANG-001` | Refresh the historical inventory to current truth, remediate the bounded active-language defect set, and use a hybrid deterministic plus retained semantic-review gate. | `V050-007` |
+| `HANDOFF-001` | Add a machine-readable receiving checkpoint and compatible attribution evidence union; never rewrite provider-native metadata and do not encode a provider without a real fixture. | `V050-008` |
+| `REL-001` | Add canonical placeholder templates, runbook, pre-tag validation, and local plus hosted terminal-state checks while keeping tag creation user-owned. | `V050-009` |
+
+## Execution Stage Model
 
 | Stage | Scope | Primary Owner | Status | Checkpoint |
 | --- | --- | --- | --- | --- |
-| 1 | Inventory, dependency graph, decision freeze, executable task creation | `ai-context-governance` with `dev-workflow` coordination | in progress | bootstrap and inventory commits |
-| 2 | Disposition gates and prerequisite governance decisions | owning skill per item | pending | disposition commit |
+| 1 | Inventory, dependency graph, decision freeze, executable task creation | `ai-context-governance` with `dev-workflow` coordination | completed | `62e721e` bootstrap plus inventory commit |
+| 2 | Disposition gates and prerequisite governance decisions | owning skill per item | in progress | disposition commit |
 | 3 | Package migration and runtime adapter contracts | `ai-context-governance` | pending | one commit per validated coherent slice |
 | 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | pending | task-level commits |
 | 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | pending | release-readiness commit |
 | 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | pending | assessment and closure commits |
 
-The dependency and parallelization matrix is intentionally not frozen in this
-bootstrap. `V050-001` owns repository-native inventory, sub-agent comparison,
-decision recommendations, and creation of the bounded execution tasks.
+Execution order is `V050-002`, then the independent foundation lanes
+`V050-003`, `V050-004`, `V050-006`, and `V050-007`. `V050-005` consumes their
+declared validators and CI commands. `V050-008` and `V050-009` integrate against
+the enforcement route. `V050-010` freezes and independently verifies the
+candidate. Tasks may be reordered only when their recorded dependencies and
+acceptance evidence remain satisfied.
 
 ## Validation Strategy
 
@@ -92,23 +116,20 @@ decision recommendations, and creation of the bounded execution tasks.
 
 ## Resume Checkpoint
 
-- Last completed action: created the dedicated v0.5.0 branch and bootstrapped
-  the master workflow.
-- Current task: `V050-001`
-- Exact next action: complete the evidence inventory and freeze the dependency,
-  decision, task, validation, and checkpoint matrix.
-- Validation already completed: predecessor HANDOFF planning passed the Git for
-  Windows quick gate at 21/21; this bootstrap still requires its own focused
-  artifact validation before commit.
-- Git state: branch starts from
-  `6813cf257fc3191b210e01dba483b50b184bb675`, including the unpushed roadmap
-  and HANDOFF planning ancestry.
+- Last completed action: completed `V050-001`, froze the decision and dependency
+  matrix, and created tasks `V050-002` through `V050-010`.
+- Current task: `V050-002`
+- Exact next action: reconcile and persist `GOV-001`, `CAP-001`, and the
+  implementation disposition for `VAL-001`.
+- Validation already completed: workflow/backlog lifecycle, structured-data,
+  AI-context, and diff checks for the bootstrap; the inventory checkpoint must
+  rerun focused validation before commit.
+- Git state: `62e721e` is the committed v0.5.0 bootstrap checkpoint.
 - Branch history and checkpoint handoffs: no v0.5.0 checkpoint has been pushed
   or merged.
-- Blockers or unresolved decisions: exact multi-source schema, adapter promotion
-  set, published-path dispositions, runner design, language remediation batch,
-  parity evidence form, release template interface, and final attribution
-  evidence union remain subject to `V050-001` evidence and decision freeze.
+- Blockers or unresolved decisions: provider-native Copilot/Claude/Codex
+  fixtures, hosted Ubuntu execution, and public terminal-state API evidence
+  require their later tasks and cannot be claimed by planning alone.
 
 ## Branch Lifecycle
 

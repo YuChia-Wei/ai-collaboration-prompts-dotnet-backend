@@ -1,0 +1,27 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-002",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:24:09+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "Persist GOV-001 and CAP-001 dispositions plus the VAL-001 implementation decision",
+    "files": [".dev/backlog/items/GOV-001.yaml", ".dev/backlog/items/CAP-001.yaml", ".dev/backlog/items/VAL-001.yaml", ".dev/backlog/INDEX.MD", ".dev/workflows/2026-07-21-v0-5-0-development/**"],
+    "constraints": ["Reconcile legacy evidence read-only before updating disposition", "Do not retrofit legacy workflow locators", "Do not create a terminology skill", "Keep dependency validation implementation in V050-006"],
+    "non_goals": ["Implement dependency validation", "Modify legacy completed artifacts", "Expand v0.5.0 scope"]
+  },
+  "execution": {
+    "steps": ["Reconcile each GOV marker against later work", "Record the no-new-skill CAP decision", "Split VAL into superseded repository validation and selected dependency consistency implementation", "Update backlog discovery and workflow report", "Validate and commit the disposition checkpoint"],
+    "validation": ["backlog/workflow validation", "targeted Git/reference evidence", "YAML/JSON parsing", "git diff check"],
+    "last_completed_step": "Activated after V050-001 decision freeze.",
+    "next_action": "Create the disposition evidence and update all three backlog records."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "Disposition evidence is not yet persisted.", "follow_up_needed": true}
+}

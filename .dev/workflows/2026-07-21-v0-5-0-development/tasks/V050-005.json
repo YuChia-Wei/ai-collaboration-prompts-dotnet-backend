@@ -1,0 +1,26 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-005",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:24:09+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "ENF-001 semantic governance enforcement, published-path disposition, and dedicated PR CI",
+    "files": [".ai/scripts/validate-ai-context.py", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/tests/**", ".ai/distribution/**", ".github/workflows/governance.yml", ".dev/standards/**"],
+    "constraints": ["Separate governance CI from package candidate ownership", "No path removal without migration/downstream evidence", "Consume REL validators without owning release mechanics"],
+    "non_goals": ["Publish a release", "Rewrite package CI ownership", "Remove compatibility paths speculatively"]
+  },
+  "execution": {
+    "steps": ["Add semantic wrapper/adapter enforcement", "Create and validate the v0.5 path-disposition artifact", "Add governance PR workflow and path filters", "Exercise foundation and REL validation commands", "Validate and checkpoint"],
+    "validation": ["semantic negative GWT fixtures", "path-disposition validation", "GitHub workflow contract tests", "critical/quick gate"],
+    "last_completed_step": "", "next_action": "Start after foundation validators are available."
+  },
+  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+}
