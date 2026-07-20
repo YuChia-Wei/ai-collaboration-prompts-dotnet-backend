@@ -6,9 +6,9 @@
   "task_id": "V050-004",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:56:41+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Verify current runtime adapter schemas", "Add exact target-to-path metadata", "Add negative parity and canonical-link fixtures", "Validate package inclusion", "Record all 18 role dispositions", "Validate and checkpoint"],
     "validation": ["AI-context validator GWT", "package profile tests", "runtime schema checks", "full role inventory"],
-    "last_completed_step": "", "next_action": "Start after V050-002."
+    "last_completed_step": "Activated after the validated PKG-003 multi-source upgrade checkpoint.",
+    "next_action": "Verify the current native adapter schemas and add exact role-to-target metadata plus parity fixtures."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }

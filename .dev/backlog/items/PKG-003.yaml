@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "PKG-003"
 title: "Govern Multi-Source Direct Package Upgrades"
 category: "release-packaging"
-status: "planned"
+status: "resolved"
 priority: "HIGH"
 summary: "Introduce a governed migration contract that can publish and select deterministic operations for multiple supported source versions instead of binding one release to one previous files manifest."
 created_at: "2026-07-18T22:58:51+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-21T00:56:41+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "multi-source-direct-upgrade-contract"
   gate: "release-blocker"
@@ -23,11 +23,13 @@ handoff_condition: "After v0.4.2 closes, create a dedicated v0.5.0 workflow and 
 workflow_refs:
   - ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/workflow.yaml"
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-21-v0-5-0-development/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-18-v0-4-1-downstream-upgrade-remediation/tasks/V041-004.json"
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
-resolution_ref: null
-decision_needed: "Approve the migration schema and source-selection mechanism for multiple immutable previous inventories."
+  - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-003.json"
+resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-pkg003-validation.md"
+decision_needed: "Resolved: schema 2.0 separates clean install from ordered exact sources and selects upgrades by version plus immutable files-manifest SHA-256."
 acceptance:
   - "One release can declare multiple governed automatic upgrade sources without ambiguous manifest identity or operation selection."
   - "Each supported source binds an exact immutable files manifest and deterministic operation set."
@@ -39,3 +41,5 @@ inventory_notes:
   - "Migration schema 1.0.0 represents one from identity and cannot express multiple source-specific operation sets."
   - "v0.4.1 intentionally binds only the governed v0.3.0 files manifest to remain patch-compatible."
   - "Existing v0.4.0 consumers should remain on v0.4.0 until this contract is published unless they explicitly choose manual reconciliation."
+  - "Schema 1.0 reader compatibility is retained; schema 2.0 writers publish one deterministic operation set per source."
+  - "The retained dotnet-mq-arch-lab v0.4.0 target passed in a temporary clone with declared local overrides byte-preserved."

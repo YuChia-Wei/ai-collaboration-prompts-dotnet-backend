@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 import shutil
 import sys
@@ -611,6 +612,307 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             )
             self.assertEqual("0.4.1", receipt["package_version"])
             self.assertEqual(sorted(acknowledgements), receipt["skipped_reconciliation_ids"])
+
+    def test_gwt_017_given_three_real_supported_sources_when_one_v050_candidate_is_built_then_each_upgrades_without_overwriting_target_truth(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="ai-context-real-multi-source-") as temp_value:
+            temp = Path(temp_value)
+            previous_roots: dict[str, Path] = {}
+            source_inputs: list[tuple[Path, str]] = []
+
+            # Given real extracted packages for every supported v0.5.0 source.
+            for version in ("0.3.0", "0.4.0", "0.4.1"):
+                result = PACKAGE.build_package(
+                    ROOT,
+                    f"v{version}",
+                    version,
+                    temp / f"previous-{version}",
+                )
+                extract = temp / f"previous-{version}-extracted"
+                with zipfile.ZipFile(Path(result["zip"])) as archive:
+                    archive.extractall(extract)
+                package_root = extract / f"ai-context-dotnet-backend-v{version}"
+                previous_roots[version] = package_root
+                source_inputs.append(
+                    (package_root / "metadata/files.yaml", version)
+                )
+
+            # When one immutable v0.5.0 candidate binds all three inventories.
+            candidate_result = PACKAGE.build_package(
+                ROOT,
+                "HEAD",
+                "0.5.0",
+                temp / "candidate",
+                previous_sources=source_inputs,
+            )
+            PACKAGE.validate_sidecar(Path(candidate_result["zip"]))
+            PACKAGE.validate_sidecar(Path(candidate_result["tar_gz"]))
+            self.assertEqual(
+                PACKAGE.validate_archive(Path(candidate_result["zip"])),
+                PACKAGE.validate_archive(Path(candidate_result["tar_gz"])),
+            )
+            candidate_extract = temp / "candidate-extracted"
+            with zipfile.ZipFile(Path(candidate_result["zip"])) as archive:
+                archive.extractall(candidate_extract)
+            candidate_root = candidate_extract / "ai-context-dotnet-backend-v0.5.0"
+            migration = yaml.safe_load(
+                (candidate_root / "metadata/migration.yaml").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(
+                ["0.3.0", "0.4.0", "0.4.1"],
+                [source["version"] for source in migration["sources"]],
+            )
+
+            # Then every exact source upgrades while target templates and local
+            # managed overrides remain byte-identical after acknowledgement.
+            planner = (
+                candidate_root
+                / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            )
+            for version, previous_root in previous_roots.items():
+                target = temp / f"target-{version}"
+                shutil.copytree(previous_root / "payload", target)
+                managed_override = (
+                    target / ".ai/scripts/plan-ai-context-package-apply.py"
+                )
+                target_template = target / "AGENTS.md"
+                self.assertTrue(managed_override.is_file())
+                self.assertTrue(target_template.is_file())
+                managed_bytes = f"local managed override from {version}\n".encode()
+                target_bytes = f"target-owned AGENTS from {version}\n".encode()
+                managed_override.write_bytes(managed_bytes)
+                target_template.write_bytes(target_bytes)
+                git(target, "init", "-q")
+                git(target, "config", "user.name", "Fixture")
+                git(target, "config", "user.email", "fixture@example.invalid")
+                git(target, "add", ".")
+                git(target, "commit", "-qm", f"target v{version} with local truth")
+                plan_path = temp / f"plan-{version}.yaml"
+                previous_files = previous_root / "metadata/files.yaml"
+                dry_run = subprocess.run(
+                    [
+                        sys.executable,
+                        str(planner),
+                        "--package-root",
+                        str(candidate_root),
+                        "--target-root",
+                        str(target),
+                        "--previous-version",
+                        version,
+                        "--previous-files",
+                        str(previous_files),
+                        "--plan-output",
+                        str(plan_path),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(
+                    0, dry_run.returncode, dry_run.stdout + dry_run.stderr
+                )
+                plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))
+                managed_plan = next(
+                    item
+                    for item in plan["operations"]
+                    if item["path"]
+                    == ".ai/scripts/plan-ai-context-package-apply.py"
+                )
+                self.assertEqual("reconcile", managed_plan["action"])
+                acknowledgements = [
+                    item["id"]
+                    for item in plan["operations"]
+                    if item["action"] == "reconcile"
+                ]
+                apply_arguments = [
+                    sys.executable,
+                    str(planner),
+                    "--package-root",
+                    str(candidate_root),
+                    "--target-root",
+                    str(target),
+                    "--previous-version",
+                    version,
+                    "--previous-files",
+                    str(previous_files),
+                    "--apply",
+                ]
+                for operation_id in acknowledgements:
+                    apply_arguments.extend(["--acknowledge", operation_id])
+                applied = subprocess.run(
+                    apply_arguments,
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(
+                    0, applied.returncode, applied.stdout + applied.stderr
+                )
+                self.assertEqual(managed_bytes, managed_override.read_bytes())
+                self.assertEqual(target_bytes, target_template.read_bytes())
+                receipt = yaml.safe_load(
+                    (target / ".dev/AI-CONTEXT-APPLY-PENDING.yaml").read_text(
+                        encoding="utf-8"
+                    )
+                )
+                self.assertEqual("0.5.0", receipt["package_version"])
+                self.assertEqual(
+                    sorted(acknowledgements),
+                    receipt["skipped_reconciliation_ids"],
+                )
+
+    @unittest.skipUnless(
+        os.environ.get("AI_CONTEXT_DOWNSTREAM_REPO"),
+        "set AI_CONTEXT_DOWNSTREAM_REPO for the retained downstream integration gate",
+    )
+    def test_gwt_018_given_retained_v040_downstream_when_v050_candidate_applies_then_declared_local_overrides_are_preserved(self) -> None:
+        downstream = Path(os.environ["AI_CONTEXT_DOWNSTREAM_REPO"]).resolve()
+        source_manifest = yaml.safe_load(
+            (downstream / ".dev/AI-CONTEXT-SOURCE.yaml").read_text(encoding="utf-8")
+        )
+        self.assertEqual("v0.4.0", source_manifest["source"]["version"])
+        self.assertEqual(
+            "",
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(downstream),
+                    "status",
+                    "--porcelain",
+                    "--untracked-files=all",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout,
+        )
+
+        with tempfile.TemporaryDirectory(prefix="ai-context-downstream-v050-") as temp_value:
+            temp = Path(temp_value)
+            source_inputs: list[tuple[Path, str]] = []
+            previous_roots: dict[str, Path] = {}
+            for version in ("0.3.0", "0.4.0", "0.4.1"):
+                result = PACKAGE.build_package(
+                    ROOT,
+                    f"v{version}",
+                    version,
+                    temp / f"previous-{version}",
+                )
+                extract = temp / f"previous-{version}-extracted"
+                with zipfile.ZipFile(Path(result["zip"])) as archive:
+                    archive.extractall(extract)
+                package_root = extract / f"ai-context-dotnet-backend-v{version}"
+                previous_roots[version] = package_root
+                source_inputs.append(
+                    (package_root / "metadata/files.yaml", version)
+                )
+            candidate_result = PACKAGE.build_package(
+                ROOT,
+                "HEAD",
+                "0.5.0",
+                temp / "candidate",
+                previous_sources=source_inputs,
+            )
+            candidate_extract = temp / "candidate-extracted"
+            with zipfile.ZipFile(Path(candidate_result["zip"])) as archive:
+                archive.extractall(candidate_extract)
+            candidate_root = candidate_extract / "ai-context-dotnet-backend-v0.5.0"
+            target = temp / "target"
+            subprocess.run(
+                ["git", "clone", "--local", "--quiet", str(downstream), str(target)],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            declared_paths = {
+                path
+                for override in source_manifest["local_overrides"]
+                for path in override["paths"]
+            }
+            preserved = {
+                path: (target / path).read_bytes()
+                for path in declared_paths
+                if (target / path).is_file()
+            }
+            self.assertGreater(len(preserved), 20)
+            planner = (
+                candidate_root
+                / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            )
+            plan_path = temp / "downstream-plan.yaml"
+            previous_files = (
+                previous_roots["0.4.0"] / "metadata/files.yaml"
+            )
+            dry_run = subprocess.run(
+                [
+                    sys.executable,
+                    str(planner),
+                    "--package-root",
+                    str(candidate_root),
+                    "--target-root",
+                    str(target),
+                    "--previous-version",
+                    "0.4.0",
+                    "--previous-files",
+                    str(previous_files),
+                    "--plan-output",
+                    str(plan_path),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, dry_run.returncode, dry_run.stdout + dry_run.stderr)
+            plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))
+            acknowledgements = [
+                item["id"]
+                for item in plan["operations"]
+                if item["action"] == "reconcile"
+            ]
+            apply_arguments = [
+                sys.executable,
+                str(planner),
+                "--package-root",
+                str(candidate_root),
+                "--target-root",
+                str(target),
+                "--previous-version",
+                "0.4.0",
+                "--previous-files",
+                str(previous_files),
+                "--apply",
+            ]
+            for operation_id in acknowledgements:
+                apply_arguments.extend(["--acknowledge", operation_id])
+            applied = subprocess.run(
+                apply_arguments,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, applied.returncode, applied.stdout + applied.stderr)
+            self.assertEqual(
+                [],
+                [
+                    path
+                    for path, before in preserved.items()
+                    if not (target / path).is_file()
+                    or (target / path).read_bytes() != before
+                ],
+            )
+            receipt = yaml.safe_load(
+                (target / ".dev/AI-CONTEXT-APPLY-PENDING.yaml").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual("0.5.0", receipt["package_version"])
+            self.assertEqual(
+                sorted(acknowledgements),
+                receipt["skipped_reconciliation_ids"],
+            )
 
 
 if __name__ == "__main__":

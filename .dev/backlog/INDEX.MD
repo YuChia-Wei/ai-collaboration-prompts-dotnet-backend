@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Implement PKG-003 from the frozen decision and disposition checkpoint, then continue through the remaining bounded release tasks. | 2026-07-21 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Implement SAG-001 after the validated PKG-003 multi-source upgrade checkpoint, then continue through the remaining bounded release tasks. | 2026-07-21 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -18,7 +18,6 @@ roadmap but do not replace it or a governed assessment.
 | --- | --- | --- | --- | --- | --- | --- |
 | [REL-001](items/REL-001.yaml) | HIGH | `v0.5.0` | release blocker | Make release publication executable from repository files through a runbook, templates, pre-tag gate, and terminal-state validation. | Coordinate PR CI with ENF-001 without merging ownership. | 2026-07-20 |
 | [HANDOFF-001](items/HANDOFF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add a fail-closed receiving-agent checkpoint for model, runtime, host, and fresh-session handoffs. | Approve the evidence shape; a red critical gate blocks continuation except for its explicit repair task. | 2026-07-20 |
-| [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | release blocker | Introduce a governed multi-source direct-upgrade contract and prove v0.3.0, v0.4.0, and v0.4.1 paths. | Start only after v0.4.2 completes; retain dotnet-mq-arch-lab on v0.4.0 as the direct-upgrade target. | 2026-07-19 |
 | [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.2; implement the adapter contract in v0.5.0. | 2026-07-19 |
 | [ENF-001](items/ENF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add semantic wrapper validation and governance CI, then disposition obsolete published paths with migration evidence. | Approve the new enforcement contracts and every retain/deprecate/relocate/remove decision. | 2026-07-19 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Institutionalize hosted portability evidence and resolve the runner design. | Retain or redesign the runner explicitly; do not imply unexecuted macOS coverage. | 2026-07-19 |
@@ -34,6 +33,7 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | — | Migration schema 2.0 binds ordered exact v0.3.0, v0.4.0, and v0.4.1 sources; clean install, schema 1.0 reading, real extracted upgrades, and retained downstream override preservation are verified. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [GOV-001](items/GOV-001.yaml) | MEDIUM | `v0.5.0` | — | Legacy follow-ups are reconciled as satisfied, superseded, intentionally retained, or non-requirement suggestions without rewriting historical artifacts. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [CAP-001](items/CAP-001.yaml) | LOW | `v0.5.0` | — | Terminology remains a domain-language document pattern; no repeated action evidence justifies a dedicated skill. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [R042-005](items/R042-005.yaml) | HIGH / P0 | `v0.4.2` | — | Local finalization and the authorized public Release body correction are verified; the immutable tag and four published assets were unchanged. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | 2026-07-20 |
