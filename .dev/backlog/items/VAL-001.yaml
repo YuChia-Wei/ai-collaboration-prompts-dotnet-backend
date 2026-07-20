@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "VAL-001"
 title: "Repository And Dependency Validation Gap Reassessment"
 category: "dotnet-validation"
-status: "in_progress"
+status: "resolved"
 priority: "LOW"
 summary: "Reassess the historically deferred repository and dependency/version validation gaps against later analyzer and architecture workflows before proposing new implementation."
 created_at: "2026-07-12T14:17:52+08:00"
-updated_at: "2026-07-21T00:30:34+08:00"
+updated_at: "2026-07-21T01:49:30+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "reassessment-and-disposition"
   gate: "disposition-gate"
@@ -25,8 +25,8 @@ task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
   - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-002.json"
   - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-006.json"
-resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-disposition-reconciliation.md"
-decision_needed: "Resolved for execution: repository validation is superseded; V050-006 implements deterministic offline dependency/version consistency and keeps online currency or vulnerability checks advisory."
+resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-tool001-val001-portability.md"
+decision_needed: "Resolved: repository validation is superseded; deterministic offline dependency/version consistency is required and implemented, while online currency or vulnerability checks remain advisory."
 inventory_notes:
   - "The completed analyzer and repository-pattern workflows supersede the generic repository-validation deferral."
   - "Dependency/version consistency remains objectively unresolved and is selected for implementation in V050-006."

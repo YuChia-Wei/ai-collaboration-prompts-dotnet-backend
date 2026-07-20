@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Implement TOOL-001 and the retained VAL-001 offline dependency/version gate in V050-006, then continue through the remaining bounded release tasks. | 2026-07-21 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Refresh and remediate the bounded LANG-001 translation set in V050-007, then consume the foundation validators in ENF-001. | 2026-07-21 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -19,9 +19,7 @@ roadmap but do not replace it or a governed assessment.
 | [REL-001](items/REL-001.yaml) | HIGH | `v0.5.0` | release blocker | Make release publication executable from repository files through a runbook, templates, pre-tag gate, and terminal-state validation. | Coordinate PR CI with ENF-001 without merging ownership. | 2026-07-20 |
 | [HANDOFF-001](items/HANDOFF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add a fail-closed receiving-agent checkpoint for model, runtime, host, and fresh-session handoffs. | Approve the evidence shape; a red critical gate blocks continuation except for its explicit repair task. | 2026-07-20 |
 | [ENF-001](items/ENF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add semantic wrapper validation and governance CI, then disposition obsolete published paths with migration evidence. | Approve the new enforcement contracts and every retain/deprecate/relocate/remove decision. | 2026-07-19 |
-| [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Institutionalize hosted portability evidence and resolve the runner design. | Retain or redesign the runner explicitly; do not imply unexecuted macOS coverage. | 2026-07-19 |
 | [LANG-001](items/LANG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Refresh and remediate approved translation debt, then establish semantic parity evidence. | Complete the approved batch and human, automated, or hybrid parity gate before publication. | 2026-07-19 |
-| [VAL-001](items/VAL-001.yaml) | LOW | `v0.5.0` | disposition gate | Repository validation is superseded; deterministic offline dependency/version consistency is selected for V050-006. | Implement the offline gate and remove the permanent deferred placeholder; keep online currency/vulnerability checks advisory. | 2026-07-21 |
 | [EVAL-001](items/EVAL-001.yaml) | HIGH | `v0.6.0` | activation gate | Add deterministic regression plus budgeted release-side model evaluation before taxonomy changes. | Approve the fixture corpus, oracle, model/judge, repetitions, threshold, and token ceiling. | 2026-07-19 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | release blocker | Introduce AI context lifecycle taxonomy and transition `repo-structure-sync` to `ai-context-init` with compatibility. | Complete v0.5.0 and EVAL-001 before changing identifiers or taxonomy. | 2026-07-19 |
 | [SIMPL-001](items/SIMPL-001.yaml) | MEDIUM | `v0.6.0` | disposition gate | Measure actual loaded context, disposition simplification candidates, and keep historical archive migration conditional on a separately approved v0.7.0 successor. | Do not equate corpus words with prompt tokens; preserve stable evidence until every archive precondition is proven. | 2026-07-20 |
@@ -32,6 +30,8 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | — | Retain the literal runner with fail-closed format/set parity; Windows Git Bash and hosted Ubuntu pass the same 23/23 quick gate with no deferred checks, while macOS remains unverified. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
+| [VAL-001](items/VAL-001.yaml) | LOW | `v0.5.0` | — | Repository validation is superseded; deterministic offline dependency/version consistency is required and online currency/vulnerability checks remain advisory. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | — | Dynamic loading remains the default for 17 roles; context-translator alone has exact Codex, Claude, and Copilot adapters with deterministic schema, canonical-link, path, and package validation. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | — | Migration schema 2.0 binds ordered exact v0.3.0, v0.4.0, and v0.4.1 sources; clean install, schema 1.0 reading, real extracted upgrades, and retained downstream override preservation are verified. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [GOV-001](items/GOV-001.yaml) | MEDIUM | `v0.5.0` | — | Legacy follow-ups are reconciled as satisfied, superseded, intentionally retained, or non-requirement suggestions without rewriting historical artifacts. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |

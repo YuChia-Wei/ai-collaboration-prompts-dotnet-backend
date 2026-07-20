@@ -6,9 +6,9 @@
   "task_id": "V050-007",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T01:49:30+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Generate current deterministic candidate inventory", "Fix the approved active-language batch", "Add exception and parity fixtures", "Run context-translator or human semantic checklist", "Validate and checkpoint"],
     "validation": ["language-policy validator", "root structural parity", "retained semantic checklist", "zero untriaged high-priority candidates"],
-    "last_completed_step": "", "next_action": "Start after V050-002."
+    "last_completed_step": "Activated after V050-006 completed deterministic dependency validation and two-host portability evidence.",
+    "next_action": "Recompute the active high-priority translation candidates against the current language policy before selecting the bounded remediation batch."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }
