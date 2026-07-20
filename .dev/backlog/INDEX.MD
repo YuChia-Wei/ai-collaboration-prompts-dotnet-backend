@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Implement SAG-001 after the validated PKG-003 multi-source upgrade checkpoint, then continue through the remaining bounded release tasks. | 2026-07-21 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Implement TOOL-001 and the retained VAL-001 offline dependency/version gate in V050-006, then continue through the remaining bounded release tasks. | 2026-07-21 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -18,7 +18,6 @@ roadmap but do not replace it or a governed assessment.
 | --- | --- | --- | --- | --- | --- | --- |
 | [REL-001](items/REL-001.yaml) | HIGH | `v0.5.0` | release blocker | Make release publication executable from repository files through a runbook, templates, pre-tag gate, and terminal-state validation. | Coordinate PR CI with ENF-001 without merging ownership. | 2026-07-20 |
 | [HANDOFF-001](items/HANDOFF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add a fail-closed receiving-agent checkpoint for model, runtime, host, and fresh-session handoffs. | Approve the evidence shape; a red critical gate blocks continuation except for its explicit repair task. | 2026-07-20 |
-| [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Define selective sub-agent runtime-adapter promotion and deterministic target-to-path parity. | Correct existing translator routing in v0.4.2; implement the adapter contract in v0.5.0. | 2026-07-19 |
 | [ENF-001](items/ENF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add semantic wrapper validation and governance CI, then disposition obsolete published paths with migration evidence. | Approve the new enforcement contracts and every retain/deprecate/relocate/remove decision. | 2026-07-19 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Institutionalize hosted portability evidence and resolve the runner design. | Retain or redesign the runner explicitly; do not imply unexecuted macOS coverage. | 2026-07-19 |
 | [LANG-001](items/LANG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Refresh and remediate approved translation debt, then establish semantic parity evidence. | Complete the approved batch and human, automated, or hybrid parity gate before publication. | 2026-07-19 |
@@ -33,6 +32,7 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [SAG-001](items/SAG-001.yaml) | MEDIUM | `v0.5.0` | — | Dynamic loading remains the default for 17 roles; context-translator alone has exact Codex, Claude, and Copilot adapters with deterministic schema, canonical-link, path, and package validation. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [PKG-003](items/PKG-003.yaml) | HIGH | `v0.5.0` | — | Migration schema 2.0 binds ordered exact v0.3.0, v0.4.0, and v0.4.1 sources; clean install, schema 1.0 reading, real extracted upgrades, and retained downstream override preservation are verified. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [GOV-001](items/GOV-001.yaml) | MEDIUM | `v0.5.0` | — | Legacy follow-ups are reconciled as satisfied, superseded, intentionally retained, or non-requirement suggestions without rewriting historical artifacts. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [CAP-001](items/CAP-001.yaml) | LOW | `v0.5.0` | — | Terminology remains a domain-language document pattern; no repeated action evidence justifies a dedicated skill. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |

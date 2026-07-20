@@ -6,9 +6,9 @@
   "task_id": "V050-006",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "dev-workflow",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T01:22:48+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Define dependency/version consistency policy", "Add red fixtures and deterministic validator", "Replace deferred runner entry with required validation", "Strengthen manifest/format compatibility tests", "Run Windows and arrange hosted Ubuntu evidence", "Validate and checkpoint"],
     "validation": ["dependency validator GWT", "runner fail-closed GWT", "Windows Git Bash", "hosted Ubuntu same-set evidence"],
-    "last_completed_step": "", "next_action": "Start after V050-002."
+    "last_completed_step": "Activated after the validated SAG-001 runtime adapter checkpoint.",
+    "next_action": "Define the offline dependency/version consistency policy and create red fixtures before replacing the deferred runner entry."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }

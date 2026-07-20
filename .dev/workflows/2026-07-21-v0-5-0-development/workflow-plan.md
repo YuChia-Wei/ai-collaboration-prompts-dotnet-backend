@@ -86,8 +86,8 @@ decision rationale are retained in
 | --- | --- | --- | --- | --- |
 | 1 | Inventory, dependency graph, decision freeze, executable task creation | `ai-context-governance` with `dev-workflow` coordination | completed | `62e721e` bootstrap plus `95df89d` inventory commit |
 | 2 | Disposition gates and prerequisite governance decisions | owning skill per item | completed | disposition commit |
-| 3 | Package migration and runtime adapter contracts | `ai-context-governance` | in progress | one commit per validated coherent slice |
-| 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | pending | task-level commits |
+| 3 | Package migration and runtime adapter contracts | `ai-context-governance` | completed | `49a2086`, `a87bddf`, and `6aed578` |
+| 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | in progress | task-level commits |
 | 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | pending | release-readiness commit |
 | 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | pending | assessment and closure commits |
 
@@ -116,19 +116,18 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed `V050-003`; the committed PKG core passed
-  the full packaging suite, all three real extracted-source upgrades, and the
-  retained dotnet-mq-arch-lab v0.4.0 temp-clone upgrade with override
-  preservation.
-- Current task: `V050-004`
-- Exact next action: verify current Codex, Claude, and GitHub Copilot native
-  adapter schemas, then add exact role-to-target metadata and parity fixtures.
-- Validation already completed: 18 apply GWT tests passed with one Windows
-  symlink privilege skip; the 16-test packaging suite passed; the three-source
-  real package gate and retained downstream integration gate passed; version,
-  context, workflow, structured-data, compile, and diff checks passed.
-- Git state: `49a2086` is the committed PKG core checkpoint; PKG validation and
-  backlog closure are pending their checkpoint commit.
+- Last completed action: completed `V050-004`; sub-agent schema 1.1 records 17
+  dynamic roles and one runtime-native translator with exact Codex, Claude, and
+  Copilot paths.
+- Current task: `V050-006`
+- Exact next action: define the offline dependency/version consistency policy,
+  add red fixtures, and replace the permanent deferred runner entry.
+- Validation already completed: PKG-003 real-source upgrades remain green;
+  9 wrapper metadata and 18 adapter GWT tests passed; authoritative
+  `collect_payload`, AI-context validation, archive parity, and the packaged
+  focused adapter gate passed.
+- Git state: `6aed578` is the committed SAG core checkpoint; this recorded
+  completion state is the following SAG checkpoint in branch history.
 - Branch history and checkpoint handoffs: no v0.5.0 checkpoint has been pushed
   or merged.
 - Blockers or unresolved decisions: provider-native Copilot/Claude/Codex
