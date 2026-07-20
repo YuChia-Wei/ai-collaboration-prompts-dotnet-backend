@@ -9,7 +9,7 @@
   `d5d74eae4717fc0a5cb9a008667094dbfefe9f35`
 - Published baseline:
   `v0.4.2@f474c3b058cb9f89f93929e0732fc1f276422dd9`
-- Status: implementation evidence in progress
+- Status: completed
 
 ## Published-Path Decision
 
@@ -61,7 +61,7 @@ profile they consume.
 
 ## Dedicated Governance CI
 
-Pending final validation, `.github/workflows/governance.yml` is the read-only
+`.github/workflows/governance.yml` is the read-only
 pull-request route for AI-context and portable governance surfaces. It is
 separate from package-candidate ownership and does not own `.dev/releases/**`,
 tags, or GitHub Release mutation.
@@ -80,8 +80,8 @@ Focused local validation before the core checkpoint:
 - `git diff --check` passes.
 
 The slow package suite passed cases 1 through 18 before the bounded command
-timed out; case 19 passes independently. The committed-tree aggregate quick
-gate and hosted Ubuntu runs remain pending after the core checkpoint.
+timed out; case 19 passes independently. At the core checkpoint, the
+committed-tree aggregate quick gate and hosted Ubuntu runs were still pending.
 
 The first committed-tree quick gate at `8fc982d` completed 28 required checks:
 27 passed and the package GWT gate failed in upgrade cases 16 and 17. The
@@ -93,5 +93,10 @@ manifest. The correction introduces
 stable runner, while the source registry retains the exact dated evidence
 path. The source/downstream runner fixtures, source registry validator, shell
 registry, AI-context validator, and six governance-workflow GWT cases pass.
-Affected committed-tree package fixtures and the full quick gate remain to be
-rerun after the correction checkpoint.
+Affected committed-tree package fixtures 16 and 17 pass after the correction.
+Windows Git Bash passes 28/28 with zero failed, warning, or deferred checks.
+Hosted Ubuntu portable run `29770661564` passes the same 28/28 gate, and
+dedicated governance run `29770662383` passes every read-only step at
+`83a0c1c`. Package-candidate run `29770662983` fails closed at candidate
+discovery because REL-001 has not created a v0.5.0 release record; its log
+reports `found none`, not an ENF-001 contract failure.

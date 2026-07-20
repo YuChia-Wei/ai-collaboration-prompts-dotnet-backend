@@ -6,9 +6,9 @@
   "task_id": "V050-008",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T03:08:50+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Define handoff schema and template", "Add validator and negative fixtures", "Capture real provider attribution fixtures", "Redesign commit attribution acceptance without mutation", "Exercise a fresh receiving-agent checkpoint", "Validate and checkpoint"],
     "validation": ["handoff schema GWT", "critical gate evidence", "provider fixture regression", "commit validator read-only proof"],
-    "last_completed_step": "", "next_action": "Start after core validators and REL phase interface exist."
+    "last_completed_step": "Activated after ENF-001 completed semantic enforcement, source/downstream aggregate routing, and hosted governance plus portable gates at 83a0c1c.",
+    "next_action": "Define the generic receiving-checkpoint schema, validation-evidence contract, and REL phase-check interface; preserve unavailable provider fixtures as explicit blocked evidence instead of encoding provider-specific identities."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "Provider fixture availability may block attribution closeout.", "follow_up_needed": true}
 }

@@ -116,28 +116,28 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: committed the `V050-005` core as `8fc982d`; its first
-  committed-tree quick gate passed 27/28 and exposed one portable-reference
-  defect. The dated workflow reference is now routed through a stable
-  source-only governance registry and runner, with focused fixtures passing.
-- Current task: `V050-005`
-- Exact next action: commit the portable routing correction, rerun affected
-  packaging upgrade fixtures 16 and 17 plus the aggregate quick gate against
-  the corrected commit, then push for governance and portable hosted evidence.
-- Validation already completed: 20 disposition, 15 wrapper, 18 adapter, 10
-  language, 12 dependency, 26 runner/shell, and 5 governance-workflow GWT
-  cases pass; the AI-context, shell-asset, dependency, and actual v0.5.0
-  disposition validators pass. The slow packaging suite passed cases 1-18
-  before the bounded command timed out, and case 19 passes independently.
-- Git state: `8fc982d` is the local ENF-001 core checkpoint. The stable
-  source-governance registry correction and this resume evidence are not yet
-  committed or pushed.
+- Last completed action: completed `V050-005` at `83a0c1c`; Windows Git Bash
+  and hosted Ubuntu run `29770661564` pass 28/28, dedicated governance run
+  `29770662383` passes, and the package-candidate failure is confined to the
+  intentionally absent REL-001 v0.5.0 release record.
+- Current task: `V050-008`
+- Exact next action: define the generic receiving-checkpoint schema,
+  executable validation-evidence shape, and REL phase-check interface; keep
+  unavailable provider fixtures explicitly blocked and avoid provider-specific
+  identity rules without captured evidence.
+- Validation already completed: ENF-001 focused suites, affected package
+  upgrade cases 16 and 17, Windows Git Bash 28/28, hosted Ubuntu 28/28, and
+  the separate read-only governance workflow all pass at `83a0c1c`.
+- Git state: `83a0c1c` is committed and pushed; ENF completion evidence and
+  V050-008 activation are pending this closeout checkpoint commit.
 - Branch history and checkpoint handoffs: the branch is pushed through
   `d5d74ea`; draft PR `#1` is the hosted evidence and continuing CI surface.
-- Blockers or unresolved decisions: the package-candidate PR job correctly
-  fails closed until `V050-009` creates a governed v0.5.0 release record;
-  provider-native fixtures and public terminal-state API evidence belong to
-  later tasks; macOS remains unverified.
+- Blockers or unresolved decisions: package-candidate run `29770662983`
+  correctly fails closed until `V050-009` creates a governed v0.5.0 release
+  record. Real Copilot CLI/cloud-agent and Claude attribution fixtures are not
+  present; V050-008 must retain that absence explicitly rather than inventing
+  identities. Public terminal-state API evidence belongs to V050-009; macOS
+  remains unverified.
 
 ## Branch Lifecycle
 

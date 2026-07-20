@@ -6,9 +6,9 @@
   "task_id": "V050-005",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T02:55:24+08:00",
+  "updated_at": "2026-07-21T03:08:50+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,15 +20,15 @@
   "execution": {
     "steps": ["Add semantic wrapper/adapter enforcement", "Create and validate the v0.5 path-disposition artifact", "Add governance PR workflow and path filters", "Exercise foundation and REL validation commands", "Validate and checkpoint"],
     "validation": ["semantic negative GWT fixtures", "path-disposition validation", "GitHub workflow contract tests", "critical/quick gate"],
-    "last_completed_step": "Committed ENF-001 core at 8fc982d. Its committed-tree quick gate passed 27/28 and correctly exposed that portable check-all and shell registry bytes referenced excluded dated workflow evidence. Replaced the direct reference with a stable source-only governance registry and runner; focused source/downstream and workflow contracts pass.",
-    "next_action": "Commit the portable governance routing correction, rerun packaging upgrade GWT cases 16 and 17 plus the full quick gate against the new commit, then push for hosted evidence."
+    "last_completed_step": "Completed ENF-001 at 83a0c1c: affected package upgrade cases 16 and 17 pass, Windows Git Bash and hosted Ubuntu run 29770661564 pass 28/28, dedicated governance run 29770662383 passes, and package-candidate run 29770662983 fails closed only because REL-001 has not yet created a v0.5.0 release record.",
+    "next_action": "Activate V050-008 to implement the machine-readable receiving checkpoint and provider-compatible attribution evidence union without inventing unavailable provider fixtures."
   },
   "results": {
-    "summary": "The core implementation is committed; a portable source-registry correction is implemented locally after the first committed-tree gate exposed one package-integrity failure.",
+    "summary": "Semantic wrapper enforcement, evidence-bound published-path disposition, portable source-governance routing, and dedicated read-only PR CI are complete.",
     "files_changed": [".ai/scripts/validate-ai-context.py", ".ai/scripts/validate-file-disposition-manifest.py", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", ".ai/scripts/tests/**", ".ai/distribution/profiles/dotnet-backend.yaml", ".github/workflows/governance.yml", ".agents/skills/dev-workflow/SKILL.md", ".claude/skills/**", ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md", ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml"],
-    "tests_run": ["20 file-disposition GWT", "15 wrapper-metadata GWT", "18 sub-agent-adapter GWT", "10 language/parity GWT", "12 dependency/version GWT", "26 runner/shell GWT", "5 governance-workflow GWT", "AI-context validator", "shell-asset validator", "actual v0.5.0 disposition validator"],
-    "finding_status": "implementation-complete-validation-pending",
-    "residual_risk": "The corrected immutable tree still needs the two affected packaging upgrade fixtures, aggregate quick gate, and hosted Ubuntu execution; macOS remains unverified.",
-    "follow_up_needed": true
+    "tests_run": ["20 file-disposition GWT", "15 wrapper-metadata GWT", "18 sub-agent-adapter GWT", "10 language/parity GWT", "12 dependency/version GWT", "26 runner/shell GWT", "6 governance-workflow GWT", "AI-context validator", "shell-asset validator", "source-governance registry and actual v0.5.0 disposition validator", "affected package upgrade GWT 16 and 17", "Windows Git Bash check-all.sh --quick 28/28", "hosted Ubuntu run 29770661564 check-all.sh --quick 28/28", "hosted governance run 29770662383"],
+    "finding_status": "addressed",
+    "residual_risk": "Deprecated paths remain compatibility contracts; any later relocation or removal still requires independent downstream evidence. macOS remains unverified.",
+    "follow_up_needed": false
   }
 }
