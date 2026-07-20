@@ -447,6 +447,43 @@ def load_previous_inventory(path: Path, expected_package_id: str) -> tuple[dict[
     return records, sha256_bytes(content)
 
 
+def migration_source_inputs(
+    previous_files_path: Path | None,
+    previous_version_value: str | None,
+    previous_sources: Iterable[tuple[Path, str]] | None,
+) -> list[tuple[str, Path]]:
+    if (previous_files_path is None) != (previous_version_value is None):
+        raise PackageError(
+            "previous files manifest and previous version must be supplied together"
+        )
+    candidates: list[tuple[str, Path]] = []
+    if previous_files_path is not None and previous_version_value is not None:
+        candidates.append(
+            (normalize_version(previous_version_value), previous_files_path.resolve())
+        )
+    for candidate in previous_sources or []:
+        if (
+            not isinstance(candidate, tuple)
+            or len(candidate) != 2
+            or not isinstance(candidate[0], Path)
+            or not isinstance(candidate[1], str)
+        ):
+            raise PackageError(
+                "each previous source must be a (files Path, version string) tuple"
+            )
+        files_path, version_value = candidate
+        candidates.append((normalize_version(version_value), files_path.resolve()))
+    versions: set[str] = set()
+    for version, _ in candidates:
+        if version in versions:
+            raise PackageError(f"duplicate migration source version: {version}")
+        versions.add(version)
+    return sorted(
+        candidates,
+        key=lambda item: tuple(int(part) for part in item[0].split(".")),
+    )
+
+
 def migration_operations(
     previous: dict[str, dict],
     incoming_files: Iterable[PayloadFile],
@@ -572,6 +609,7 @@ def build_package(
     profile_path: str = ".ai/distribution/profiles/dotnet-backend.yaml",
     previous_files_path: Path | None = None,
     previous_version_value: str | None = None,
+    previous_sources: Iterable[tuple[Path, str]] | None = None,
 ) -> dict[str, Path | str]:
     repo = repo.resolve()
     commit = resolve_commit(repo, ref)
@@ -608,45 +646,48 @@ def build_package(
             "file_count": len(payload_files),
             "sha256": payload_digest(payload_files),
         },
-        "compatibility": {"minimum_governed_source": "v0.1.0", "breaking_changes": True},
+        "compatibility": {
+            "minimum_governed_source": "v0.1.0",
+            "breaking_changes": True,
+        },
     }
-    if (previous_files_path is None) != (previous_version_value is None):
-        raise PackageError(
-            "previous files manifest and previous version must be supplied together"
-        )
-    previous_version = (
-        normalize_version(previous_version_value)
-        if previous_version_value is not None
-        else None
+    source_inputs = migration_source_inputs(
+        previous_files_path,
+        previous_version_value,
+        previous_sources,
     )
-    if previous_files_path is None:
-        migration_from = {"version": None, "manifest_sha256": None}
-        operations = [
-            {
-                "id": f"clean-install-{index:04d}",
-                "kind": "add",
-                "path": item.path,
-                "ownership": item.ownership,
-                "preconditions": ["destination_absent"],
-            }
-            for index, item in enumerate(payload_files, 1)
-        ]
-    else:
+    clean_install_operations = [
+        {
+            "id": f"clean-install-{index:04d}",
+            "kind": "add",
+            "path": item.path,
+            "ownership": item.ownership,
+            "preconditions": ["destination_absent"],
+        }
+        for index, item in enumerate(payload_files, 1)
+    ]
+    migration_sources: list[dict] = []
+    for previous_version, source_path in source_inputs:
         previous_package_id = name_template.format(version=previous_version)
         previous, previous_sha = load_previous_inventory(
-            previous_files_path.resolve(), previous_package_id
+            source_path, previous_package_id
         )
-        migration_from = {
-            "version": previous_version,
-            "manifest_sha256": previous_sha,
-        }
-        operations = migration_operations(previous, payload_files)
+        migration_sources.append(
+            {
+                "version": previous_version,
+                "manifest_sha256": previous_sha,
+                "operations": migration_operations(previous, payload_files),
+            }
+        )
+    package_document["compatibility"]["automatic_upgrade_sources"] = [
+        f"v{source['version']}" for source in migration_sources
+    ]
     migration_document = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "package_id": package_id,
-        "from": migration_from,
         "to": {"version": version, "manifest_sha256": files_sha},
-        "operations": operations,
+        "clean_install": {"operations": clean_install_operations},
+        "sources": migration_sources,
         "safety": {
             "dry_run_default": True,
             "clean_worktree_required": True,
@@ -724,6 +765,56 @@ def archive_files(path: Path) -> dict[str, tuple[bytes, int]]:
     return files
 
 
+def validate_migration_metadata(migration: dict, files_sha: str) -> None:
+    to_data = migration.get("to")
+    if (
+        not isinstance(to_data, dict)
+        or normalize_version(str(to_data.get("version", "")))
+        != str(to_data.get("version", ""))
+        or to_data.get("manifest_sha256") != files_sha
+    ):
+        raise PackageError("migration target identity does not match files.yaml")
+    schema_version = migration.get("schema_version")
+    if schema_version == "1.0.0":
+        if not isinstance(migration.get("from"), dict) or not isinstance(
+            migration.get("operations"), list
+        ):
+            raise PackageError("migration schema 1.0.0 requires from and operations")
+        return
+    if schema_version != "2.0.0":
+        raise PackageError(f"unsupported migration schema version: {schema_version!r}")
+    clean_install = migration.get("clean_install")
+    sources = migration.get("sources")
+    if not isinstance(clean_install, dict) or not isinstance(
+        clean_install.get("operations"), list
+    ):
+        raise PackageError("migration clean_install.operations must be a list")
+    if not isinstance(sources, list):
+        raise PackageError("migration sources must be a list")
+    identities: set[tuple[str, str]] = set()
+    versions: set[str] = set()
+    source_order: list[tuple[int, int, int]] = []
+    for source in sources:
+        if not isinstance(source, dict):
+            raise PackageError("migration sources must be mappings")
+        version = normalize_version(str(source.get("version", "")))
+        digest = source.get("manifest_sha256")
+        if source.get("version") != version:
+            raise PackageError("migration source version must omit the v prefix")
+        if not isinstance(digest, str) or not SHA256_RE.fullmatch(digest):
+            raise PackageError("migration source manifest_sha256 must be lowercase SHA-256")
+        if not isinstance(source.get("operations"), list):
+            raise PackageError("migration source operations must be a list")
+        identity = (version, digest)
+        if version in versions or identity in identities:
+            raise PackageError(f"duplicate or ambiguous migration source: {version}")
+        versions.add(version)
+        identities.add(identity)
+        source_order.append(tuple(int(part) for part in version.split(".")))
+    if source_order != sorted(source_order):
+        raise PackageError("migration sources must use semantic-version order")
+
+
 def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
     members = archive_files(path)
     roots = {PurePosixPath(name).parts[0] for name in members}
@@ -764,6 +855,10 @@ def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
         raise PackageError("package metadata roots must be mappings")
     if package.get("package_id") != root or inventory.get("package_id") != root or migration.get("package_id") != root:
         raise PackageError("package identity mismatch")
+    validate_migration_metadata(
+        migration,
+        sha256_bytes(members[f"{prefix}metadata/files.yaml"][0]),
+    )
     records = inventory.get("files")
     if not isinstance(records, list):
         raise PackageError("files.yaml files must be a list")

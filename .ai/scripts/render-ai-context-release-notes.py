@@ -185,6 +185,9 @@ def main() -> int:
                 iter(data["compatibility"].get("automatic_upgrade_sources", [])),
                 "",
             ),
+            "migration_sources": " ".join(
+                data["compatibility"].get("automatic_upgrade_sources", [])
+            ),
         }
         if args.github_output:
             append_github_outputs(args.github_output, outputs)

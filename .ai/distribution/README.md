@@ -23,6 +23,18 @@ This directory owns source-side, machine-readable contracts for building portabl
 - Template-manifest `source` paths are resolved relative to the manifest directory. Targets are repository-relative payload paths; reject absolute paths, `..`, backslashes, duplicates, and collisions. A template may exist once at its canonical managed path and once at its mapped target seed path.
 - `metadata/SHA256SUMS.txt` covers every other envelope member and excludes itself. Archive digests are external `.sha256` sidecars because an archive cannot contain its own final digest.
 - The profile's `reference_integrity` contract rejects concrete links or backtick paths from packaged text back into dated source workflows, assessment instances, release instances, or source backlog items. Generic placeholders remain allowed; package payload must not depend on excluded source lifecycle history.
+- Migration schema `2.0.0` keeps clean-install operations separate from an
+  ordered `sources` list. Each automatic source is selected by both its declared
+  version and the SHA-256 of its exact immutable `files.yaml`; missing,
+  unknown, mismatched, duplicate, or ambiguous identities fail closed.
+- Target-side planners retain read compatibility for migration schema `1.0.0`.
+  A schema `2.0.0` upgrade must pass both `--previous-version` and
+  `--previous-files`; a clean install passes neither.
+- The supported v0.5.0 automatic source set is v0.3.0, v0.4.0, and v0.4.1.
+  A target whose earliest recorded provenance is v0.0.1 must first follow the
+  governed v0.0.1-to-v0.3.0 reconciliation route, then use the direct
+  v0.3.0-to-v0.5.0 migration. v0.0.1 is not silently treated as an automatic
+  v0.5.0 source.
 
 ## Ownership Classes
 

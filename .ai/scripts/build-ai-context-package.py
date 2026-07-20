@@ -28,8 +28,23 @@ def main() -> int:
         "--previous-version",
         help="Version identity bound to --previous-files",
     )
+    parser.add_argument(
+        "--migration-source",
+        action="append",
+        nargs=2,
+        metavar=("VERSION", "FILES_YAML"),
+        default=[],
+        help=(
+            "Repeatable exact automatic-upgrade source as VERSION FILES_YAML; "
+            "legacy --previous-version/--previous-files remains accepted"
+        ),
+    )
     args = parser.parse_args()
     try:
+        migration_sources = [
+            (Path(files_path), version)
+            for version, files_path in args.migration_source
+        ]
         result = build_package(
             args.repo,
             args.ref,
@@ -38,6 +53,7 @@ def main() -> int:
             args.profile,
             args.previous_files,
             args.previous_version,
+            migration_sources,
         )
     except (OSError, PackageError) as exc:
         print(f"AI context package build failed: {exc}", file=sys.stderr)

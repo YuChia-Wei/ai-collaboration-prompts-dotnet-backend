@@ -19,7 +19,7 @@
 - `current_phase`: `implementation`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T00:30:34+08:00`
+- `updated_at`: `2026-07-21T00:45:15+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -116,16 +116,21 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed `V050-002`; resolved `GOV-001` and
-  `CAP-001`, and selected the remaining `VAL-001` implementation for
-  `V050-006`.
+- Last completed action: implemented and focused-tested the `V050-003` schema
+  2.0 builder, compatible planner, exact multi-source selection, and release
+  workflow projection.
 - Current task: `V050-003`
-- Exact next action: write failing migration schema 2.0 and exact-source
-  selection fixtures before changing package build or apply behavior.
-- Validation already completed: workflow/backlog lifecycle, structured-data,
-  AI-context, and diff checks for the inventory checkpoint; disposition
-  validation must pass before its commit.
-- Git state: `95df89d` is the committed inventory and execution-plan checkpoint.
+- Exact next action: commit the PKG core checkpoint so immutable `HEAD`
+  packages the new planner, then execute real extracted upgrades from v0.3.0,
+  v0.4.0, and v0.4.1.
+- Validation already completed: 18 apply GWT tests passed with one Windows
+  symlink privilege skip; four focused schema 2 packaging tests passed; version
+  governance, AI-context, and version registry validation passed. The full
+  packaging suite has one expected pre-commit failure because its real
+  candidate is built from immutable `HEAD`, which does not yet contain the new
+  `--previous-version` planner argument.
+- Git state: `e3ff2fe` is the committed disposition checkpoint; PKG core is
+  validated for checkpoint commit.
 - Branch history and checkpoint handoffs: no v0.5.0 checkpoint has been pushed
   or merged.
 - Blockers or unresolved decisions: provider-native Copilot/Claude/Codex

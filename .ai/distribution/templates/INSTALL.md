@@ -16,8 +16,11 @@ This package is a versioned framework payload, not a whole-repository overwrite.
    python payload/.ai/scripts/plan-ai-context-package-apply.py --package-root . --target-root <target-repository>
    ```
 
-   For an upgrade, also pass `--previous-files <previous-files.yaml>` matching
-   the `metadata/migration.yaml` source manifest identity.
+   For a migration-schema `2.0.0` upgrade, also pass
+   `--previous-version <vMAJOR.MINOR.PATCH>` and
+   `--previous-files <previous-files.yaml>`. Both values must exactly match one
+   source identity in `metadata/migration.yaml`. Schema `1.0.0` packages remain
+   readable and infer their single declared source version.
    If `--plan-output` is used, its path must be outside both the extracted envelope and the target repository so it does not invalidate package checksums or the clean-worktree gate.
 
 5. Apply only after all reconciliation items are acknowledged by operation ID.

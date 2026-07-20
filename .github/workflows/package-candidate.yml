@@ -60,30 +60,29 @@ jobs:
 
       - name: Build deterministic archives
         env:
-          MIGRATION_SOURCE: ${{ steps.release.outputs.migration_source }}
+          MIGRATION_SOURCES: ${{ steps.release.outputs.migration_sources }}
         run: |
           build_args=(
             --ref "${GITHUB_SHA}"
             --version "${{ steps.release.outputs.version }}"
             --output dist
           )
-          if [[ -n "${MIGRATION_SOURCE}" ]]; then
-            previous_version="${MIGRATION_SOURCE#v}"
-            previous_output="${RUNNER_TEMP}/previous-package"
-            previous_extract="${RUNNER_TEMP}/previous-extracted"
+          for migration_source in ${MIGRATION_SOURCES}; do
+            previous_version="${migration_source#v}"
+            previous_output="${RUNNER_TEMP}/previous-package-${previous_version}"
+            previous_extract="${RUNNER_TEMP}/previous-extracted-${previous_version}"
             python .ai/scripts/build-ai-context-package.py \
-              --ref "refs/tags/${MIGRATION_SOURCE}" \
-              --version "${MIGRATION_SOURCE}" \
+              --ref "refs/tags/${migration_source}" \
+              --version "${migration_source}" \
               --output "${previous_output}"
             python -m zipfile -e \
               "${previous_output}/ai-context-dotnet-backend-v${previous_version}.zip" \
               "${previous_extract}"
             build_args+=(
-              --previous-version "${MIGRATION_SOURCE}"
-              --previous-files \
+              --migration-source "${migration_source}" \
                 "${previous_extract}/ai-context-dotnet-backend-v${previous_version}/metadata/files.yaml"
             )
-          fi
+          done
           python .ai/scripts/build-ai-context-package.py "${build_args[@]}"
 
       - name: Validate archives and parity
