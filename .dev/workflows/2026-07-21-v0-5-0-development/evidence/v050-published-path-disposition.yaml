@@ -1,0 +1,313 @@
+schema_version: "2.0"
+manifest_id: "v050-published-path-disposition"
+target_release: "v0.5.0"
+subject_commit: "d5d74eae4717fc0a5cb9a008667094dbfefe9f35"
+
+profile:
+  id: "dotnet-backend"
+  path: ".ai/distribution/profiles/dotnet-backend.yaml"
+
+published_versions:
+  - "v0.3.0"
+  - "v0.4.0"
+  - "v0.4.1"
+  - "v0.4.2"
+
+approval:
+  authority: "repository-owner"
+  authorized_at: "2026-07-21T00:00:00+08:00"
+  scope: "Execute all v0.5.0 development work using the smallest evidence-backed disposition; removal still requires migration and downstream proof."
+
+contract:
+  allowed_decisions:
+    - "deprecate"
+    - "relocate"
+    - "remove"
+    - "retain"
+  removal_rule: "Relocate or remove only with retained downstream evidence, compatibility impact, migration guidance, and an exact replacement or exclusion result."
+  compatibility_rule: "Retain and deprecate decisions preserve the exact published path in the portable package; deprecation does not authorize later silent removal."
+
+coverage:
+  base_commit: "f474c3b058cb9f89f93929e0732fc1f276422dd9"
+  included_roots:
+    - ".ai/assets/skills/ai-context-auditor/templates/"
+    - ".ai/scripts/"
+  candidate_paths:
+    - ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-task-template.json"
+    - ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-workflow-plan-template.md"
+    - ".ai/assets/skills/ai-context-auditor/templates/workflow-locator-template.yaml"
+    - ".ai/scripts/check-data-class-annotations.sh"
+    - ".ai/scripts/check-domain-events-compliance.sh"
+    - ".ai/scripts/check-dotnet-config.sh"
+    - ".ai/scripts/check-framework-api-compliance.sh"
+    - ".ai/scripts/check-mutation-coverage.sh"
+    - ".ai/scripts/check-spec-compliance.sh"
+    - ".ai/scripts/check-test-compliance.sh"
+    - ".ai/scripts/check-test-di-compliance.sh"
+    - ".ai/scripts/code-review.sh"
+    - ".ai/scripts/test-profile-startup.sh"
+    - ".ai/scripts/validate-dual-profile-config.sh"
+
+entries:
+  - path: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-task-template.json"
+    lifecycle_before: "historical-compatibility"
+    decision: "retain"
+    lifecycle_after: "historical-compatibility"
+    distribution_after: "packaged"
+    published_bytes: "evolved"
+    destination: null
+    replacement: null
+    compatibility_impact: "The current auditor uses standalone assessments, but published consumers may still resolve the historical workflow task template."
+    migration: "No automatic target migration; keep the path as historical compatibility material."
+    consumer_refs:
+      - ".ai/distribution/profiles/dotnet-backend.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-decision-matrix.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-workflow-plan-template.md"
+    lifecycle_before: "historical-compatibility"
+    decision: "retain"
+    lifecycle_after: "historical-compatibility"
+    distribution_after: "packaged"
+    published_bytes: "evolved"
+    destination: null
+    replacement: null
+    compatibility_impact: "The current auditor uses standalone assessments, but published consumers may still resolve the historical workflow plan template."
+    migration: "No automatic target migration; keep the path as historical compatibility material."
+    consumer_refs:
+      - ".ai/distribution/profiles/dotnet-backend.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-decision-matrix.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/assets/skills/ai-context-auditor/templates/workflow-locator-template.yaml"
+    lifecycle_before: "historical-compatibility"
+    decision: "retain"
+    lifecycle_after: "historical-compatibility"
+    distribution_after: "packaged"
+    published_bytes: "evolved"
+    destination: null
+    replacement: null
+    compatibility_impact: "The current auditor uses assessment locators, but published consumers may still resolve the historical workflow locator template."
+    migration: "No automatic target migration; keep the path as historical compatibility material."
+    consumer_refs:
+      - ".ai/distribution/profiles/dotnet-backend.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-decision-matrix.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/code-review.sh"
+    lifecycle_before: "compatibility"
+    decision: "retain"
+    lifecycle_after: "compatibility"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: null
+    compatibility_impact: "Manual and downstream callers retain the existing advisory code-review entrypoint."
+    migration: "No target migration; prefer code-reviewer plus analyzer and test evidence for semantic conclusions."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-tool001-val001-portability.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-spec-compliance.sh"
+    lifecycle_before: "compatibility"
+    decision: "retain"
+    lifecycle_after: "compatibility"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: null
+    compatibility_impact: "The aggregate runner and documented manual route still invoke this compatibility entrypoint."
+    migration: "No target migration; retain the route while spec-compliance-validator and compiled evidence remain the semantic authorities."
+    consumer_refs:
+      - ".ai/scripts/check-all.sh"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-tool001-val001-portability.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-mutation-coverage.sh"
+    lifecycle_before: "compatibility"
+    decision: "retain"
+    lifecycle_after: "compatibility"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: null
+    compatibility_impact: "Manual callers keep the same advisory entrypoint while targets own their mutation configuration."
+    migration: "No automatic target migration; target repositories should adopt their own Stryker.NET configuration and thresholds."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-tool001-val001-portability.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/test-profile-startup.sh"
+    lifecycle_before: "compatibility"
+    decision: "retain"
+    lifecycle_after: "compatibility"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: null
+    compatibility_impact: "Manual callers keep the same advisory startup check while targets own profile-specific tests."
+    migration: "No automatic target migration; prefer target-owned startup or integration tests with explicit profile selection."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-tool001-val001-portability.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-data-class-annotations.sh"
+    lifecycle_before: "transitional"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: "Use a Roslyn analyzer or compiled architecture test for data-class attribute requirements."
+    compatibility_impact: "The exact path remains packaged; only its lifecycle changes to an explicit deprecation."
+    migration: "Downstream callers should replace direct grep invocation with their selected analyzer or compiled architecture test before any later removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/guides/design-guides/DATA-CLASS-STANDARDS.md"
+      - ".dev/releases/v0.4.2/release.yaml"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-domain-events-compliance.sh"
+    lifecycle_before: "transitional"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: "Use analyzer rules and executable domain-event contract tests."
+    compatibility_impact: "The exact path remains packaged; only its lifecycle changes to an explicit deprecation."
+    migration: "Downstream callers should replace direct grep invocation with analyzer and contract-test evidence before any later removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.2/release.yaml"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-tool001-val001-portability.md"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-dotnet-config.sh"
+    lifecycle_before: "transitional"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: "Use target technology selections plus compiled DotnetBackendValidation checks."
+    compatibility_impact: "The exact path remains packaged; only its lifecycle changes to an explicit deprecation."
+    migration: "Downstream callers should adopt target selection metadata and compiled configuration validation before any later removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+      - ".dev/releases/v0.4.2/release.yaml"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-framework-api-compliance.sh"
+    lifecycle_before: "transitional"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: "Use target-selected framework analyzers, architecture tests, and integration tests."
+    compatibility_impact: "The exact path remains packaged; only its lifecycle changes to an explicit deprecation."
+    migration: "Downstream callers should replace grep heuristics with framework-specific executable evidence before any later removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+      - ".dev/releases/v0.4.2/release.yaml"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-test-compliance.sh"
+    lifecycle_before: "retirement-candidate"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "evolved"
+    destination: null
+    replacement: "Use target testing selections, analyzers, and executable test architecture checks."
+    compatibility_impact: "The known root-resolution defect does not justify breaking existing callers; the exact path remains packaged but is not selected by the aggregate gate."
+    migration: "Downstream callers should stop direct invocation and adopt their selected testing stack before a separately evidenced removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/releases/v0.4.0/migration-guide.md"
+      - ".dev/releases/v0.4.2/release.yaml"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/check-test-di-compliance.sh"
+    lifecycle_before: "transitional"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: "Use analyzer rules or compiled test-architecture checks."
+    compatibility_impact: "The exact path remains packaged; only its lifecycle changes to an explicit deprecation."
+    migration: "Downstream callers should replace source grep with analyzer or compiled test-architecture evidence before any later removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/guides/implementation-guides/DOTNET-DI-TEST-GUIDE.md"
+      - ".dev/releases/v0.4.2/release.yaml"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"
+
+  - path: ".ai/scripts/validate-dual-profile-config.sh"
+    lifecycle_before: "transitional"
+    decision: "deprecate"
+    lifecycle_after: "deprecated"
+    distribution_after: "packaged"
+    published_bytes: "identical"
+    destination: null
+    replacement: "Use target profile selections and DotnetBackendValidation configuration tests."
+    compatibility_impact: "The exact path remains packaged; only its lifecycle changes to an explicit deprecation."
+    migration: "Downstream callers should adopt target profile selections and compiled validation before any later removal proposal."
+    consumer_refs:
+      - ".ai/scripts/README.md"
+      - ".ai/scripts/shell-assets.yaml"
+    evidence_refs:
+      - ".dev/standards/TECHNOLOGY-SELECTION-POLICY.md"
+      - ".dev/releases/v0.4.2/release.yaml"
+    downstream_evidence: []
+    decision_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md"

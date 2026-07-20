@@ -24,6 +24,7 @@ SOURCE_ONLY_SCRIPT_REFERENCES = frozenset(
     {
         Path(".ai/scripts/tests/test_ai_context_packaging.py"),
         Path(".ai/scripts/tests/test_ai_context_version_governance.py"),
+        Path(".ai/scripts/tests/test_governance_workflow_contract.py"),
     }
 )
 ACTIVE_RUNTIME_ROOTS = (Path(".agents/skills"), Path(".claude/skills"))
@@ -72,6 +73,22 @@ ASSET_AUDIENCES = {"agent-facing", "human-facing", "mixed"}
 ASSET_SOURCES = {"canonical", "wrapper", "generated"}
 ASSET_STATUSES = {"draft", "active", "deprecated", "historical"}
 WRAPPER_TARGETS = {"claude", "codex", "copilot"}
+SKILL_WRAPPER_CONTRACTS = {
+    "codex": {
+        "root": PurePosixPath(".agents/skills"),
+        "entry": "SKILL.md",
+        "identity": "Codex",
+        "kind_line": "This is a thin current-runtime wrapper.",
+        "use_line": "Use this wrapper only as the current runtime entry.",
+    },
+    "claude": {
+        "root": PurePosixPath(".claude/skills"),
+        "entry": "SKILL.md",
+        "identity": "Claude",
+        "kind_line": "This is a thin Claude-compatible wrapper.",
+        "use_line": "Use this wrapper only as a compatibility entry.",
+    },
+}
 PACKAGE_PROFILE = Path(".ai/distribution/profiles/dotnet-backend.yaml")
 SUB_AGENT_ADAPTER_CONTRACTS = {
     "codex": {
@@ -908,6 +925,129 @@ def validate_wrapper_metadata(
             errors.append(f"{label}.wrapper_path does not exist: {wrapper_value}")
 
 
+def wrapper_frontmatter(
+    path: Path, text: str, errors: list[str]
+) -> dict | None:
+    """Parse one Markdown YAML frontmatter mapping without prose fallbacks."""
+    if not text.startswith("---\n") or "\n---\n" not in text[4:]:
+        errors.append(f"{path}: wrapper must start with YAML frontmatter")
+        return None
+    raw, _ = text[4:].split("\n---\n", 1)
+    try:
+        data = yaml.safe_load(raw)
+    except yaml.YAMLError as exc:
+        errors.append(f"{path}: invalid wrapper frontmatter: {exc}")
+        return None
+    if not isinstance(data, dict):
+        errors.append(f"{path}: wrapper frontmatter must be a mapping")
+        return None
+    return data
+
+
+def canonical_wrapper_references(path: Path, data: dict) -> set[str]:
+    """Collect canonical paths that every runtime wrapper must cite."""
+    references = {".ai/assets/skills/README.MD", path.as_posix()}
+    for key in ("references", "examples"):
+        values = data.get(key, [])
+        if isinstance(values, list):
+            references.update(value for value in values if isinstance(value, str))
+    for key in ("human_guide", "report_template"):
+        value = data.get(key)
+        if isinstance(value, str):
+            references.add(value)
+    for key in ("workflow_templates", "report_templates", "assessment_template"):
+        values = data.get(key)
+        if isinstance(values, dict):
+            references.update(value for value in values.values() if isinstance(value, str))
+    return references
+
+
+def normalized_wrapper_projection(text: str, target: str) -> str:
+    """Normalize only declared runtime identity and compatibility boilerplate."""
+    contract = SKILL_WRAPPER_CONTRACTS[target]
+    normalized = text.replace(contract["kind_line"], "This is a thin <runtime> wrapper.")
+    normalized = normalized.replace(
+        contract["use_line"], "Use this wrapper only as the <runtime> entry."
+    )
+    return normalized.replace(contract["identity"], "<runtime>")
+
+
+def validate_skill_wrapper_semantics(
+    path: Path,
+    data: dict,
+    errors: list[str],
+    *,
+    root: Path = ROOT,
+) -> None:
+    """Validate identity, canonical citations, and cross-runtime projection parity."""
+    asset_id = data.get("asset_id")
+    targets = data.get("wrapper_targets")
+    metadata = data.get("wrapper_metadata")
+    if (
+        not isinstance(asset_id, str)
+        or not isinstance(targets, list)
+        or not isinstance(metadata, dict)
+    ):
+        return
+
+    projections: dict[str, str] = {}
+    for target in sorted(set(targets) & set(SKILL_WRAPPER_CONTRACTS)):
+        target_metadata = metadata.get(target)
+        if not isinstance(target_metadata, dict):
+            continue
+        wrapper_value = target_metadata.get("wrapper_path")
+        if not isinstance(wrapper_value, str):
+            continue
+        contract = SKILL_WRAPPER_CONTRACTS[target]
+        expected_directory = contract["root"] / asset_id
+        actual_directory = PurePosixPath(wrapper_value.rstrip("/"))
+        label = f"{path}: wrapper_metadata.{target}"
+        if actual_directory != expected_directory:
+            errors.append(
+                f"{label}.wrapper_path must be the exact {target} skill directory "
+                f"{expected_directory.as_posix()}/"
+            )
+            continue
+        entry = Path(actual_directory.as_posix()) / contract["entry"]
+        entry_path = root / entry
+        if not entry_path.is_file():
+            errors.append(f"{label}: missing wrapper entry file {entry}")
+            continue
+        text = entry_path.read_text(encoding="utf-8")
+        frontmatter = wrapper_frontmatter(entry, text, errors)
+        if frontmatter is None:
+            continue
+        if frontmatter.get("name") != asset_id:
+            errors.append(
+                f"{entry}: frontmatter name must match canonical asset_id {asset_id}"
+            )
+        description = frontmatter.get("description")
+        if not isinstance(description, str) or not description.strip():
+            errors.append(f"{entry}: frontmatter description must be non-empty")
+
+        required_references = canonical_wrapper_references(path, data)
+        cited = set(re.findall(r"`([^`\n]+)`", text))
+        missing = sorted(required_references - cited)
+        if missing:
+            errors.append(f"{entry}: missing canonical references {missing}")
+        authority_line = (
+            f"If wrapper text and canonical spec differ, follow `{path.as_posix()}`."
+        )
+        if authority_line not in text:
+            errors.append(f"{entry}: missing exact canonical authority fallback")
+        if contract["kind_line"] not in text or contract["use_line"] not in text:
+            errors.append(f"{entry}: missing exact {target} thin-wrapper identity")
+        projections[target] = normalized_wrapper_projection(text, target)
+
+    if set(projections) >= {"codex", "claude"} and (
+        projections["claude"] != projections["codex"]
+    ):
+        errors.append(
+            f"{path}: Codex and Claude wrappers differ outside declared "
+            "runtime identity boilerplate"
+        )
+
+
 def yaml_string_list(value: object) -> list[str]:
     """Normalize one YAML string-or-list field without accepting other types."""
     if isinstance(value, str):
@@ -1321,6 +1461,7 @@ def validate_canonical_assets(errors: list[str]) -> tuple[int, dict[str, dict]]:
         if path.name == "skill.yaml":
             skill_assets[asset_id] = data
             validate_wrapper_metadata(path, data, errors)
+            validate_skill_wrapper_semantics(path, data, errors)
         else:
             validate_sub_agent_adapter_metadata(path, data, errors)
         for key in ("triggers", "workflow"):

@@ -116,23 +116,23 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed `V050-007`; the historical language backlog
-  is reconciled to current policy, four active defects are fixed, deterministic
-  language/root-parity checks fail closed, and both approved bilingual pairs
-  passed retained semantic review.
+- Last completed action: implemented the `V050-005` core contract: semantic
+  thin-wrapper enforcement, exact published-path disposition with seven retain
+  and seven deprecate-in-place decisions, source/downstream-aware required
+  gates, and a separate read-only governance pull-request workflow.
 - Current task: `V050-005`
-- Exact next action: freeze the explicit retain/deprecate disposition for every
-  published-path candidate, then add missing semantic enforcement and the
-  dedicated governance PR workflow without speculative path removal.
-- Validation already completed: 10 language/parity GWT and 24 runner/registry
-  GWT tests pass; Windows Git Bash and hosted Ubuntu run `29766507514` each
-  pass 24/24 with zero failed or deferred checks at `2db0636`; the semantic
-  checklist is pinned to that same subject.
-- Git state: `2db0636` is the committed and pushed V050-007 core checkpoint;
-  the LANG completion evidence and ENF activation are pending this checkpoint
-  commit.
+- Exact next action: commit and push the ENF-001 core checkpoint, run the
+  aggregate quick gate against that committed tree, then retain the dedicated
+  governance and portable hosted run evidence before closing ENF-001.
+- Validation already completed: 20 disposition, 15 wrapper, 18 adapter, 10
+  language, 12 dependency, 26 runner/shell, and 5 governance-workflow GWT
+  cases pass; the AI-context, shell-asset, dependency, and actual v0.5.0
+  disposition validators pass. The slow packaging suite passed cases 1-18
+  before the bounded command timed out, and case 19 passes independently.
+- Git state: `d5d74ea` is the latest committed and pushed checkpoint; the
+  current ENF-001 implementation and checkpoint evidence are not yet committed.
 - Branch history and checkpoint handoffs: the branch is pushed through
-  `2db0636`; draft PR `#1` is the hosted evidence and continuing CI surface.
+  `d5d74ea`; draft PR `#1` is the hosted evidence and continuing CI surface.
 - Blockers or unresolved decisions: the package-candidate PR job correctly
   fails closed until `V050-009` creates a governed v0.5.0 release record;
   provider-native fixtures and public terminal-state API evidence belong to

@@ -215,6 +215,18 @@ class SyntheticRunnerRepo:
             newline="\n",
         )
 
+    def enable_source_governance_context(self) -> None:
+        workflow = self.root / ".github/workflows/governance.yml"
+        disposition = (
+            self.root
+            / ".dev/workflows/2026-07-21-v0-5-0-development/evidence"
+            / "v050-published-path-disposition.yaml"
+        )
+        workflow.parent.mkdir(parents=True)
+        disposition.parent.mkdir(parents=True)
+        workflow.write_text("# source-only governance workflow marker\n", encoding="utf-8")
+        disposition.write_text("# source-only disposition marker\n", encoding="utf-8")
+
     def execute(
         self,
         *arguments: str,
@@ -345,12 +357,16 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
             self.assertIn("source release context not packaged", result.stdout)
             self.assertIn("source package builder not packaged", result.stdout)
-            self.assertRegex(result.stdout, r"Not Applicable: .*4")
+            self.assertIn("source workflow evidence not packaged", result.stdout)
+            self.assertIn("source CI workflow not packaged", result.stdout)
+            self.assertRegex(result.stdout, r"Not Applicable: .*6")
             self.assertRegex(result.stdout, r"Required Failed: .*0")
             self.assertFalse(
                 any(
                     "test_ai_context_version_governance.py" in line
                     or "test_ai_context_packaging.py" in line
+                    or "v050-published-path-disposition.yaml" in line
+                    or "test_governance_workflow_contract.py" in line
                     for line in fixture.sentinel()
                 )
             )
@@ -372,6 +388,28 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
                     self.assertFalse(
                         any(line.startswith("check-spec-compliance.sh") for line in fixture.sentinel())
                     )
+        finally:
+            fixture.close()
+
+    def test_gwt_007a_given_source_governance_paths_without_release_context_then_checks_are_not_applicable(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given a downstream happens to retain the two source governance paths.
+            fixture.enable_source_governance_context()
+
+            # When the critical gate runs without source release/build identity.
+            result = fixture.execute("--critical")
+
+            # Then source-pinned Git/tag validation remains not applicable.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("source workflow evidence not packaged", result.stdout)
+            self.assertFalse(
+                any(
+                    "v050-published-path-disposition.yaml" in line
+                    or "test_governance_workflow_contract.py" in line
+                    for line in fixture.sentinel()
+                )
+            )
         finally:
             fixture.close()
 
@@ -486,6 +524,7 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
         try:
             # Given the runner can prove it is executing in the source release repository.
             fixture.enable_source_release_context()
+            fixture.enable_source_governance_context()
 
             # When the critical gate executes.
             result = fixture.execute("--critical")
@@ -498,9 +537,16 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             )
             self.assertTrue(any("test_ai_context_packaging.py -v" in line for line in commands))
             self.assertTrue(
+                any("v050-published-path-disposition.yaml" in line for line in commands)
+            )
+            self.assertTrue(
+                any("test_governance_workflow_contract.py -v" in line for line in commands)
+            )
+            self.assertTrue(
                 any("test_ai_context_package_apply.py -v" in line for line in commands)
             )
             self.assertNotIn("source release context not packaged", result.stdout)
+            self.assertNotIn("source workflow evidence not packaged", result.stdout)
         finally:
             fixture.close()
 
@@ -729,6 +775,35 @@ class ShellAssetValidationGwtTests(unittest.TestCase):
             # Then packaging retention cannot hide an unspecified replacement.
             self.assertEqual(1, result.returncode)
             self.assertIn("replacement is required for non-active lifecycle", result.stdout)
+        finally:
+            fixture.close()
+
+    def test_gwt_019_given_deprecated_helper_with_replacement_when_validated_then_passes(self) -> None:
+        fixture = SyntheticShellAssetRepo()
+        try:
+            # Given a deprecated-in-place helper with an explicit replacement.
+            script = fixture.add_shell("deprecated.sh")
+            fixture.write_manifest(retained=[script])
+            manifest_path = fixture.scripts / "shell-assets.yaml"
+            manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+            manifest["assets"][0].update(
+                {
+                    "role": "transitional-helper",
+                    "lifecycle": "deprecated",
+                    "authority": "advisory",
+                    "replacement": "Use the compiled validator.",
+                }
+            )
+            manifest_path.write_text(
+                yaml.safe_dump(manifest, sort_keys=False),
+                encoding="utf-8",
+                newline="\n",
+            )
+
+            # When lifecycle validation runs, then explicit deprecation is valid.
+            result = fixture.validate()
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertIn("'deprecated': 1", result.stdout)
         finally:
             fixture.close()
 

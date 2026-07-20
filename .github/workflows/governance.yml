@@ -1,0 +1,81 @@
+name: AI Context Governance
+
+on:
+  pull_request:
+    paths:
+      - ".ai/**"
+      - ".agents/**"
+      - ".claude/**"
+      - ".codex/**"
+      - ".dev/TEAM-GIT-FLOW-RULES.MD"
+      - ".dev/adr/ADR-TEMPLATE.md"
+      - ".dev/adr/README.md"
+      - ".dev/adr/WHEN-TO-CREATE-ADR.MD"
+      - ".dev/assessments/README.MD"
+      - ".dev/assessments/templates/**"
+      - ".dev/backlog/**"
+      - ".dev/domain-language/README.MD"
+      - ".dev/domain-language/templates/**"
+      - ".dev/guides/**"
+      - ".dev/operations/**"
+      - ".dev/problem-frames/README.MD"
+      - ".dev/problem-frames/SEMANTICS.md"
+      - ".dev/problem-frames/templates/**"
+      - ".dev/requirement/REQUIREMENT-GUIDE.MD"
+      - ".dev/specs/**"
+      - ".dev/standards/**"
+      - ".dev/workflows/README.MD"
+      - ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml"
+      - ".github/agents/**"
+      - ".github/workflows/governance.yml"
+      - "AGENTS.md"
+      - "AGENTS.zh-TW.md"
+      - "CLAUDE.md"
+      - "README.en.md"
+      - "README.md"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  governance:
+    name: Read-only governance contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the candidate tree
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned Python dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+
+      - name: Validate AI context and runtime projections
+        run: |
+          python .ai/scripts/validate-ai-context.py
+          python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v
+          python .ai/scripts/tests/test_ai_context_language_policy.py -v
+          python .ai/scripts/tests/test_ai_context_sub_agent_adapters.py -v
+
+      - name: Validate dependency and shell governance
+        run: |
+          python .ai/scripts/validate-dependency-versions.py
+          python .ai/scripts/tests/test_dependency_version_consistency.py -v
+          python .ai/scripts/validate-shell-assets.py
+
+      - name: Validate v0.5.0 path disposition
+        run: |
+          python .ai/scripts/validate-file-disposition-manifest.py --manifest .dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml
+          python .ai/scripts/tests/test_file_disposition_manifest.py -v
+
+      - name: Validate this read-only workflow contract
+        run: python .ai/scripts/tests/test_governance_workflow_contract.py -v

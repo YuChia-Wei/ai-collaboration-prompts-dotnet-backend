@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T02:10:06+08:00",
+  "updated_at": "2026-07-21T02:46:19+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,8 +20,15 @@
   "execution": {
     "steps": ["Add semantic wrapper/adapter enforcement", "Create and validate the v0.5 path-disposition artifact", "Add governance PR workflow and path filters", "Exercise foundation and REL validation commands", "Validate and checkpoint"],
     "validation": ["semantic negative GWT fixtures", "path-disposition validation", "GitHub workflow contract tests", "critical/quick gate"],
-    "last_completed_step": "Activated after PKG-003, SAG-001, TOOL-001, VAL-001, and LANG-001 completed their foundation contracts and retained evidence.",
-    "next_action": "Freeze the v0.5.0 published-path disposition manifest, then implement the missing semantic enforcement and dedicated governance PR workflow without removing compatibility paths."
+    "last_completed_step": "Implemented semantic thin-wrapper enforcement, the evidence-bound v2 published-path disposition contract, seven retain plus seven deprecate-in-place decisions, required aggregate gates, and a read-only governance pull-request workflow. Focused validator and fail-closed suites pass.",
+    "next_action": "Commit and push the ENF-001 core checkpoint, run the quick gate against the committed tree, then retain hosted governance and portable-gate evidence before closing the task."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "The implementation is complete locally; integrated committed-tree and hosted validation remain.",
+    "files_changed": [".ai/scripts/validate-ai-context.py", ".ai/scripts/validate-file-disposition-manifest.py", ".ai/scripts/validate-shell-assets.py", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml", ".ai/scripts/tests/**", ".ai/distribution/profiles/dotnet-backend.yaml", ".github/workflows/governance.yml", ".agents/skills/dev-workflow/SKILL.md", ".claude/skills/**", ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-enf001-governance.md", ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml"],
+    "tests_run": ["20 file-disposition GWT", "15 wrapper-metadata GWT", "18 sub-agent-adapter GWT", "10 language/parity GWT", "12 dependency/version GWT", "26 runner/shell GWT", "5 governance-workflow GWT", "AI-context validator", "shell-asset validator", "actual v0.5.0 disposition validator"],
+    "finding_status": "implementation-complete-validation-pending",
+    "residual_risk": "Hosted Ubuntu execution and the committed-tree aggregate quick gate remain before closure; macOS remains unverified.",
+    "follow_up_needed": true
+  }
 }

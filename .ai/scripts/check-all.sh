@@ -258,6 +258,29 @@ run_source_repository_release_checks() {
         "required" "true" "true"
 }
 
+source_governance_context_available() {
+    source_release_context_available &&
+        [ -f "$PROJECT_ROOT/.github/workflows/governance.yml" ] &&
+        [ -f "$PROJECT_ROOT/.dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml" ]
+}
+
+run_source_repository_governance_checks() {
+    if ! source_governance_context_available; then
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: v0.5.0 Published Path Disposition (source workflow evidence not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Governance Pull-Request Workflow Contract (source CI workflow not packaged)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 2))
+        return
+    fi
+
+    run_command_check "python .ai/scripts/validate-file-disposition-manifest.py --manifest .dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml" \
+        "v0.5.0 Published Path Disposition" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_governance_workflow_contract.py -v" \
+        "Governance Pull-Request Workflow Contract" \
+        "required" "true" "true"
+}
+
 # Header
 echo ""
 echo -e "${MAGENTA}╔════════════════════════════════════════╗${NC}"
@@ -315,6 +338,10 @@ run_command_check "python .ai/scripts/validate-ai-context.py" \
     "AI Context Navigation and Runtime Contracts" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v" \
+    "AI Context Wrapper Semantic Contract Fail-Closed Tests" \
+    "required" "true" "true"
+
 run_command_check "python .ai/scripts/tests/test_ai_context_language_policy.py -v" \
     "AI Context Language And Bilingual Parity Fail-Closed Tests" \
     "required" "true" "true"
@@ -340,6 +367,12 @@ run_command_check "python .ai/scripts/tests/test_dependency_version_consistency.
 run_command_check "python .ai/scripts/validate-shell-assets.py" \
     "Shell Asset Classification And Git Modes" \
     "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_file_disposition_manifest.py -v" \
+    "File Disposition Manifest Fail-Closed Tests" \
+    "required" "true" "true"
+
+run_source_repository_governance_checks
 
 run_command_check "python .ai/scripts/tests/test_fail_closed_validation.py -v" \
     "Aggregate Runner And Shell Registry Fail-Closed Tests" \

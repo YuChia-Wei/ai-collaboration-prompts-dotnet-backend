@@ -108,12 +108,15 @@ vulnerability claim. The normative boundary is
 `.dev/standards/DEPENDENCY-VERSION-CONSISTENCY-POLICY.md`.
 
 `validate-file-disposition-manifest.py` validates a supplied remediation
-file-disposition manifest against repository Git facts. It enforces exact-case repository paths,
-the `kept` / `moved-to` / `merged-into` / `retired` vocabulary, destination and
-base-presence rules, and complete coverage of distributable framework paths
-changed since the recorded remediation base commit. The manifest describes
-incoming release intent only and does not replace target-side three-way
-comparison.
+file-disposition manifest against repository Git facts. Legacy schema 1.0
+enforces exact-case repository paths, the `kept` / `moved-to` / `merged-into` /
+`retired` vocabulary, destination and base-presence rules, and complete
+coverage of distributable framework paths changed since the recorded
+remediation base commit. Schema 2.0 additionally pins the subject commit,
+published-version path and blob history, portable-profile inclusion, lifecycle
+registry agreement, evidence references, and downstream proof for relocation
+or removal. The manifest describes incoming release intent only and does not
+replace target-side three-way comparison.
 
 `validate-git-commits.py` validates an explicitly selected commit or revision
 range against `.dev/standards/GIT-COMMIT-POLICY.yaml`. It enforces the subject,
@@ -166,16 +169,21 @@ python .ai/scripts/tests/test_ai_context_version_governance.py -v
 python .ai/scripts/tests/test_ai_context_package_apply.py -v
 python .ai/scripts/tests/test_ai_context_packaging.py -v
 python .ai/scripts/tests/test_dependency_version_consistency.py -v
+python .ai/scripts/tests/test_file_disposition_manifest.py -v
+python .ai/scripts/tests/test_governance_workflow_contract.py -v
 ```
 
 `test_ai_context_version_governance.py` and
-`test_ai_context_packaging.py` are source-repository release/build tests. They
-remain required when `check-all.sh` detects source release records,
-distribution control, and the package builder, but they are intentionally
-excluded from public target packages. `test_ai_context_package_apply.py` is
-downstream-supported and remains packaged and required. A packaged
-`check-all.sh` reports the two source-only checks as not applicable instead of
-requiring unavailable release history, Git tags, or builder modules.
+`test_ai_context_packaging.py` are source-repository release/build tests.
+`test_governance_workflow_contract.py` and the concrete v0.5.0 disposition
+manifest validation are source-repository governance checks. They remain
+required when `check-all.sh` detects their exact source context, but the
+source-only test and workflow evidence are intentionally excluded from public
+target packages. `test_ai_context_package_apply.py` and the synthetic
+file-disposition fixture suite are downstream-supported and remain packaged
+and required. A packaged `check-all.sh` reports the four source-only checks as
+not applicable instead of requiring unavailable release history, Git tags,
+builder modules, workflow evidence, or source CI configuration.
 
 The shell fixture suite snapshots the real checkout before and after execution.
 The wrapper-metadata fixture invokes only the bounded validator function against
@@ -257,7 +265,7 @@ These remain packaged for current manual or downstream invocation. Their output
 is advisory or orchestration evidence and does not override the owning skill,
 target configuration, analyzers, or tests.
 
-### Transitional Helpers
+### Deprecated Compatibility Helpers
 
 - `check-test-di-compliance.sh`
 - `check-data-class-annotations.sh`
@@ -266,20 +274,16 @@ target configuration, analyzers, or tests.
 - `check-dotnet-config.sh`
 - `validate-dual-profile-config.sh`
 
-These remain packaged temporarily but are not endorsed as long-term semantic
-validators. Each registry record names its analyzer, compiled validator,
-architecture-test, target-test, or CI replacement direction.
-
-### Retirement Candidates
-
 - `check-test-compliance.sh`
 
-This helper is no longer selected by `check-all.sh`. Its repository-root
-assumption and unconditional package rules are not compatible with reusable
-target technology selections. It remains packaged for the v0.4.0 migration
-window only; downstream repositories should replace direct invocations with
+These paths are deprecated in place. They remain packaged for compatibility and
+are not endorsed as long-term semantic validators. Each registry record names
+its analyzer, compiled validator, architecture-test, target-test, or CI
+replacement direction. `check-test-compliance.sh` is no longer selected by
+`check-all.sh`; downstream repositories should replace direct invocations with
 their selected testing stack, analyzers, and executable test architecture
-checks.
+checks. Removal or relocation requires a later governed disposition with
+downstream evidence.
 
 Completed replacement:
 

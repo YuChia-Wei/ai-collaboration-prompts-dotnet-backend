@@ -245,6 +245,7 @@ exclusions:
       - .ai/scripts/validate-ai-context-package.py
       - .ai/scripts/tests/test_ai_context_packaging.py
       - .ai/scripts/tests/test_ai_context_version_governance.py
+      - .ai/scripts/tests/test_governance_workflow_contract.py
       - '**/bin/**'
       - '**/obj/**'
       - '**/__pycache__/**'
