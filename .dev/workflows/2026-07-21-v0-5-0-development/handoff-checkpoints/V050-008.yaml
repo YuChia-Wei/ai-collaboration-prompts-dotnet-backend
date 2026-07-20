@@ -1,0 +1,95 @@
+schema_version: "1.0"
+checkpoint_id: "2026-07-21-v0-5-0-development-V050-008-handoff"
+created_at: "2026-07-21T03:40:35+08:00"
+repository:
+  root: "."
+  branch: "codex/2026-07-21-v0-5-0-development"
+  validated_commit: "3d91e270770201f5181944ca4b7adee349aed2a5"
+  checkpoint_commit_source: "containing-commit"
+  dirty_state: "clean"
+  status_porcelain_sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+workflow:
+  workflow_id: "2026-07-21-v0-5-0-development"
+  task_id: "V050-008"
+resume:
+  last_completed_action: "Implemented and validated the HANDOFF-001 receiving checkpoint, critical evidence, and provider-compatible attribution union at the pinned subject commit."
+  exact_next_action: "Implement the REL-001 sanctioned release-phase contract and cold-start publication gates under V050-009."
+  hidden_context_required: false
+critical_gate:
+  command: "bash .ai/scripts/check-all.sh --critical"
+  observed_at: "2026-07-21T03:40:35+08:00"
+  exit_code: 0
+  outcome: "passed"
+  output:
+    normalization: "utf8-lf"
+    sha256: "42022f9d31a6840e59f64f0a45b2cb1ea1b59fda666530c1aa6246f7462527d1"
+    line_count: 636
+    tail:
+      - "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      - "╔════════════════════════════════════════╗"
+      - "║           Check Results Summary        ║"
+      - "╚════════════════════════════════════════╝"
+      - "Total Checks Run: 30"
+      - "Passed: 30"
+      - "Failed: 0"
+      - "Skipped By Mode: 0"
+      - "Advisory Warnings: 0"
+      - "Deferred: 0"
+      - "Not Applicable: 1"
+      - "Required Selected: 30"
+      - "Required Executed: 30"
+      - "Required Failed: 0"
+      - "Advisory Selected: 0"
+      - "Pass Rate: 100%"
+      - "Completed at 2026-07-21 03:40:35"
+      - "╔════════════════════════════════════════╗"
+      - "║    ✓ All Checks Passed Successfully!   ║"
+      - "╚════════════════════════════════════════╝"
+continuation:
+  allowed: true
+  mode: "normal"
+  reason: "The pinned clean subject commit passed every selected critical check."
+  repair_task_id: null
+  failure_ids: []
+release_handoff: false
+release_phase_check: null
+execution_provenance:
+  runtime: "OpenAI Codex"
+  model: "GPT 5.6 sol"
+  reasoning_effort: "極高"
+  model_source: "user-declared"
+  evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#execution-provenance"
+attribution:
+  preservation_required: true
+  evidence_union_version: "1.0"
+  selected_evidence:
+    kind: "repository-created-local-ai-trailer"
+    commit: "3d91e270770201f5181944ca4b7adee349aed2a5"
+    author: "YuChia <h42279@gmail.com>"
+    committer: "YuChia <h42279@gmail.com>"
+    signature_status: "unsigned"
+    session_ref: null
+    observed_trailer: "Co-Authored-By: OpenAI Codex (gpt-5.6-sol, xhigh) <noreply@openai.com>"
+    message_sha256: "722bce13cc019751377990b827b78a3802cfcb4a964d382a52ac2797b837bd92"
+    fixture_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#codex-local"
+  fixture_status:
+    - path_id: "copilot-cli"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#github-copilot-cli"
+      reason: "No provider-generated Copilot CLI commit fixture is present in this repository."
+    - path_id: "copilot-cloud-agent"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#github-copilot-cloud-agent"
+      reason: "No provider-generated Copilot cloud-agent commit fixture is present in this repository."
+    - path_id: "claude"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#claude"
+      reason: "No stable provider-generated Claude commit attribution fixture is available."
+    - path_id: "codex-local"
+      status: "captured"
+      commit: "3d91e270770201f5181944ca4b7adee349aed2a5"
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#codex-local"
+      reason: null

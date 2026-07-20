@@ -6,9 +6,9 @@
   "task_id": "V050-009",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T03:40:35+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Create placeholder-only release templates and validator", "Write exact-command runbook", "Implement pre-tag dry-run and explicit tag interface", "Implement local and hosted terminal-state validation", "Wire REL command into governance CI", "Validate and checkpoint"],
     "validation": ["template/stale-value GWT", "pre-tag negative/positive fixtures", "terminal-state local fixtures", "hosted API dry/read-only evidence"],
-    "last_completed_step": "", "next_action": "Start after foundation validators; coordinate interfaces with V050-005 and V050-008."
+    "last_completed_step": "Completed the read-only release-surface inventory and identified the v0.5.0 multi-source release-notes renderer incompatibility, v0.4.2 stale-value failure modes, and exact HANDOFF phase-contract boundary.",
+    "next_action": "Implement placeholder-only release templates, the sanctioned phase contract, read-only release-state validator, pre-tag preparation gate, and exact-command publication runbook."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }

@@ -19,7 +19,7 @@
 - `current_phase`: `implementation`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T02:10:06+08:00`
+- `updated_at`: `2026-07-21T03:40:35+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -87,8 +87,8 @@ decision rationale are retained in
 | 1 | Inventory, dependency graph, decision freeze, executable task creation | `ai-context-governance` with `dev-workflow` coordination | completed | `62e721e` bootstrap plus `95df89d` inventory commit |
 | 2 | Disposition gates and prerequisite governance decisions | owning skill per item | completed | disposition commit |
 | 3 | Package migration and runtime adapter contracts | `ai-context-governance` | completed | `49a2086`, `a87bddf`, and `6aed578` |
-| 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | in progress | task-level commits |
-| 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | pending | release-readiness commit |
+| 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | completed | task-level commits through the V050-008 checkpoint |
+| 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | in progress | release-readiness commit |
 | 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | pending | assessment and closure commits |
 
 Execution order is `V050-002`, then the independent foundation lanes
@@ -116,23 +116,22 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: implemented the HANDOFF-001 generic receiving policy,
-  machine contract, template, read-only validator, stable instance registry,
-  15 fail-closed GWT cases, aggregate/hosted routing, and four-path fixture
-  inventory without changing provider settings or the existing Git commit
-  validator.
-- Current task: `V050-008`
-- Exact next action: commit the HANDOFF core, run the real critical gate at
-  that clean subject commit, then register and repository-verify the V050-008
-  checkpoint instance before completing HANDOFF-001.
+- Last completed action: pinned the HANDOFF core at `3d91e27`, ran the real
+  clean critical gate with 30/30 required checks passing, captured the local
+  Codex attribution fixture, and registered the V050-008 receiving checkpoint.
+- Current task: `V050-009`
+- Exact next action: implement the REL-001 placeholder templates, sanctioned
+  phase contract, read-only state validator, pre-tag preparation gate, and
+  exact-command publication runbook.
 - Validation already completed: ENF-001 focused suites, affected package
   upgrade cases 16 and 17, Windows Git Bash 28/28, hosted Ubuntu 28/28, and
   the separate read-only governance workflow all pass at `83a0c1c`.
-- Git state: `7d95827` is committed and pushed; the HANDOFF core is validated
-  in the working tree and pending its task-level checkpoint commit.
+- Git state: `3d91e27` is the clean validated HANDOFF subject commit; the
+  machine-readable checkpoint instance and progress transition are pending
+  their checkpoint commit and push.
 - Branch history and checkpoint handoffs: the branch is pushed through
-  `d5d74ea`; draft PR `#1` is the hosted evidence and continuing CI surface.
-- Blockers or unresolved decisions: the REL phase interface now fails closed
+  `7d95827`; draft PR `#1` is the hosted evidence and continuing CI surface.
+- Blockers or unresolved decisions: the REL phase interface remains fail-closed
   until V050-009 supplies a real sanctioned contract. Package-candidate run `29770662983`
   correctly fails closed until `V050-009` creates a governed v0.5.0 release
   record. Real Copilot CLI/cloud-agent and Claude attribution fixtures are not
