@@ -116,21 +116,22 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: implemented the `V050-005` core contract: semantic
-  thin-wrapper enforcement, exact published-path disposition with seven retain
-  and seven deprecate-in-place decisions, source/downstream-aware required
-  gates, and a separate read-only governance pull-request workflow.
+- Last completed action: committed the `V050-005` core as `8fc982d`; its first
+  committed-tree quick gate passed 27/28 and exposed one portable-reference
+  defect. The dated workflow reference is now routed through a stable
+  source-only governance registry and runner, with focused fixtures passing.
 - Current task: `V050-005`
-- Exact next action: commit and push the ENF-001 core checkpoint, run the
-  aggregate quick gate against that committed tree, then retain the dedicated
-  governance and portable hosted run evidence before closing ENF-001.
+- Exact next action: commit the portable routing correction, rerun affected
+  packaging upgrade fixtures 16 and 17 plus the aggregate quick gate against
+  the corrected commit, then push for governance and portable hosted evidence.
 - Validation already completed: 20 disposition, 15 wrapper, 18 adapter, 10
   language, 12 dependency, 26 runner/shell, and 5 governance-workflow GWT
   cases pass; the AI-context, shell-asset, dependency, and actual v0.5.0
   disposition validators pass. The slow packaging suite passed cases 1-18
   before the bounded command timed out, and case 19 passes independently.
-- Git state: `d5d74ea` is the latest committed and pushed checkpoint; the
-  current ENF-001 implementation and checkpoint evidence are not yet committed.
+- Git state: `8fc982d` is the local ENF-001 core checkpoint. The stable
+  source-governance registry correction and this resume evidence are not yet
+  committed or pushed.
 - Branch history and checkpoint handoffs: the branch is pushed through
   `d5d74ea`; draft PR `#1` is the hosted evidence and continuing CI surface.
 - Blockers or unresolved decisions: the package-candidate PR job correctly

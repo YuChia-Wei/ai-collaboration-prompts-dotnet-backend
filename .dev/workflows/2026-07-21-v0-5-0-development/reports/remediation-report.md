@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T02:46:19+08:00`
+- `updated_at`: `2026-07-21T02:55:24+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessments`: `ASM-20260717-004`, `ASM-20260720-001`
@@ -50,6 +50,7 @@
 | `V050-007` core | Three active fullwidth punctuation defects and one root identifier drift fixed; deterministic language, exception, and bilingual structure validation plus 10 GWT fixtures added to the required runner. | `2db0636` |
 | `V050-007` verification | Current 57-file standards/specs inventory has zero untriaged violations; Windows Git Bash and hosted Ubuntu run `29766507514` pass 24/24, and two bounded reviews find no semantic mismatch in the approved root pairs at `2db0636`. | LANG completion checkpoint containing this report update |
 | `V050-005` core | Semantic thin-wrapper enforcement, evidence-bound v2 path disposition, seven retain plus seven deprecate-in-place decisions, source/downstream aggregate routing, and the read-only governance PR workflow are implemented with focused fail-closed coverage. | this checkpoint |
+| `V050-005` portable routing | The first committed-tree gate passed 27/28 and exposed a dated workflow reference in portable scripts; replace it with a stable source-only governance registry and runner before hosted validation. | correction checkpoint containing this report update |
 
 ## Checkpoint Contract
 

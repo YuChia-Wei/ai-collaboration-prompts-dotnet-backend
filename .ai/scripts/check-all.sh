@@ -261,19 +261,20 @@ run_source_repository_release_checks() {
 source_governance_context_available() {
     source_release_context_available &&
         [ -f "$PROJECT_ROOT/.github/workflows/governance.yml" ] &&
-        [ -f "$PROJECT_ROOT/.dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml" ]
+        [ -f "$PROJECT_ROOT/.ai/distribution/governance-checks.yaml" ] &&
+        [ -f "$PROJECT_ROOT/.ai/scripts/validate-source-governance.py" ]
 }
 
 run_source_repository_governance_checks() {
     if ! source_governance_context_available; then
-        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: v0.5.0 Published Path Disposition (source workflow evidence not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Source Governance Manifest Registry (source governance registry not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Governance Pull-Request Workflow Contract (source CI workflow not packaged)"
         NOT_APPLICABLE=$((NOT_APPLICABLE + 2))
         return
     fi
 
-    run_command_check "python .ai/scripts/validate-file-disposition-manifest.py --manifest .dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml" \
-        "v0.5.0 Published Path Disposition" \
+    run_command_check "python .ai/scripts/validate-source-governance.py" \
+        "Source Governance Manifest Registry" \
         "required" "true" "true"
 
     run_command_check "python .ai/scripts/tests/test_governance_workflow_contract.py -v" \

@@ -1,0 +1,4 @@
+schema_version: "1.0"
+manifests:
+  - id: "v050-published-path-disposition"
+    path: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml"

@@ -176,14 +176,17 @@ python .ai/scripts/tests/test_governance_workflow_contract.py -v
 `test_ai_context_version_governance.py` and
 `test_ai_context_packaging.py` are source-repository release/build tests.
 `test_governance_workflow_contract.py` and the concrete v0.5.0 disposition
-manifest validation are source-repository governance checks. They remain
-required when `check-all.sh` detects their exact source context, but the
-source-only test and workflow evidence are intentionally excluded from public
-target packages. `test_ai_context_package_apply.py` and the synthetic
-file-disposition fixture suite are downstream-supported and remain packaged
-and required. A packaged `check-all.sh` reports the four source-only checks as
-not applicable instead of requiring unavailable release history, Git tags,
-builder modules, workflow evidence, or source CI configuration.
+manifest validation are source-repository governance checks.
+`validate-source-governance.py` discovers those manifests through the stable
+source-only `.ai/distribution/governance-checks.yaml` registry so portable
+scripts do not depend on dated workflow history. They remain required when
+`check-all.sh` detects their exact source context, but the source-only
+validators, test, registry, and workflow evidence are intentionally excluded
+from public target packages. `test_ai_context_package_apply.py` and the
+synthetic file-disposition fixture suite are downstream-supported and remain
+packaged and required. A packaged `check-all.sh` reports the four source-only
+checks as not applicable instead of requiring unavailable release history, Git
+tags, builder modules, workflow evidence, or source CI configuration.
 
 The shell fixture suite snapshots the real checkout before and after execution.
 The wrapper-metadata fixture invokes only the bounded validator function against

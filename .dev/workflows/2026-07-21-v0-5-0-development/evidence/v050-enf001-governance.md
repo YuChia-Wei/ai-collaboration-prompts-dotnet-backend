@@ -82,3 +82,16 @@ Focused local validation before the core checkpoint:
 The slow package suite passed cases 1 through 18 before the bounded command
 timed out; case 19 passes independently. The committed-tree aggregate quick
 gate and hosted Ubuntu runs remain pending after the core checkpoint.
+
+The first committed-tree quick gate at `8fc982d` completed 28 required checks:
+27 passed and the package GWT gate failed in upgrade cases 16 and 17. The
+package integrity validator correctly rejected direct references from portable
+`check-all.sh` and `shell-assets.yaml` bytes to the excluded dated disposition
+manifest. The correction introduces
+`.ai/distribution/governance-checks.yaml` plus the source-only
+`validate-source-governance.py` runner. Portable scripts now reference only the
+stable runner, while the source registry retains the exact dated evidence
+path. The source/downstream runner fixtures, source registry validator, shell
+registry, AI-context validator, and six governance-workflow GWT cases pass.
+Affected committed-tree package fixtures and the full quick gate remain to be
+rerun after the correction checkpoint.

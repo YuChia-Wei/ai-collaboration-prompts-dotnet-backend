@@ -25,6 +25,7 @@ SOURCE_ONLY_SCRIPT_REFERENCES = frozenset(
         Path(".ai/scripts/tests/test_ai_context_packaging.py"),
         Path(".ai/scripts/tests/test_ai_context_version_governance.py"),
         Path(".ai/scripts/tests/test_governance_workflow_contract.py"),
+        Path(".ai/scripts/validate-source-governance.py"),
     }
 )
 ACTIVE_RUNTIME_ROOTS = (Path(".agents/skills"), Path(".claude/skills"))

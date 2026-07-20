@@ -12,6 +12,7 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 WORKFLOW_PATH = REPO_ROOT / ".github/workflows/governance.yml"
+REGISTRY_PATH = REPO_ROOT / ".ai/distribution/governance-checks.yaml"
 ROOT_ENTRIES = {
     "README.md",
     "README.en.md",
@@ -47,11 +48,7 @@ GOVERNED_PR_PATHS = {
     ".github/workflows/governance.yml",
     *ROOT_ENTRIES,
 }
-V050_DISPOSITION_COMMAND = (
-    "python .ai/scripts/validate-file-disposition-manifest.py "
-    "--manifest .dev/workflows/2026-07-21-v0-5-0-development/evidence/"
-    "v050-published-path-disposition.yaml"
-)
+SOURCE_GOVERNANCE_COMMAND = "python .ai/scripts/validate-source-governance.py"
 REQUIRED_COMMANDS = {
     "python .ai/scripts/validate-ai-context.py",
     "python .ai/scripts/tests/test_ai_context_wrapper_metadata.py -v",
@@ -60,7 +57,7 @@ REQUIRED_COMMANDS = {
     "python .ai/scripts/validate-dependency-versions.py",
     "python .ai/scripts/tests/test_dependency_version_consistency.py -v",
     "python .ai/scripts/validate-shell-assets.py",
-    V050_DISPOSITION_COMMAND,
+    SOURCE_GOVERNANCE_COMMAND,
     "python .ai/scripts/tests/test_file_disposition_manifest.py -v",
     "python .ai/scripts/tests/test_governance_workflow_contract.py -v",
 }
@@ -128,6 +125,22 @@ class GovernanceWorkflowContractTests(unittest.TestCase):
         self.assertIsNone(MUTATING_COMMAND.search(command_text))
         self.assertNotIn(".dev/releases/**", command_text)
         self.assertNotIn("contents: write", command_text.lower())
+
+    def test_gwt_006_given_source_registry_when_loaded_then_v050_manifest_is_exact(self) -> None:
+        registry = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8"))
+        self.assertEqual("1.0", registry["schema_version"])
+        self.assertEqual(
+            [
+                {
+                    "id": "v050-published-path-disposition",
+                    "path": (
+                        ".dev/workflows/2026-07-21-v0-5-0-development/"
+                        "evidence/v050-published-path-disposition.yaml"
+                    ),
+                }
+            ],
+            registry["manifests"],
+        )
 
 
 if __name__ == "__main__":

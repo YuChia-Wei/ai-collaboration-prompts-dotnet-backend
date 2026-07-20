@@ -217,15 +217,13 @@ class SyntheticRunnerRepo:
 
     def enable_source_governance_context(self) -> None:
         workflow = self.root / ".github/workflows/governance.yml"
-        disposition = (
-            self.root
-            / ".dev/workflows/2026-07-21-v0-5-0-development/evidence"
-            / "v050-published-path-disposition.yaml"
-        )
+        registry = self.root / ".ai/distribution/governance-checks.yaml"
+        validator = self.scripts / "validate-source-governance.py"
         workflow.parent.mkdir(parents=True)
-        disposition.parent.mkdir(parents=True)
+        registry.parent.mkdir(parents=True, exist_ok=True)
         workflow.write_text("# source-only governance workflow marker\n", encoding="utf-8")
-        disposition.write_text("# source-only disposition marker\n", encoding="utf-8")
+        registry.write_text("# source-only governance registry marker\n", encoding="utf-8")
+        validator.write_text("# source-only governance validator marker\n", encoding="utf-8")
 
     def execute(
         self,
@@ -357,7 +355,7 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
             self.assertIn("source release context not packaged", result.stdout)
             self.assertIn("source package builder not packaged", result.stdout)
-            self.assertIn("source workflow evidence not packaged", result.stdout)
+            self.assertIn("source governance registry not packaged", result.stdout)
             self.assertIn("source CI workflow not packaged", result.stdout)
             self.assertRegex(result.stdout, r"Not Applicable: .*6")
             self.assertRegex(result.stdout, r"Required Failed: .*0")
@@ -365,7 +363,7 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
                 any(
                     "test_ai_context_version_governance.py" in line
                     or "test_ai_context_packaging.py" in line
-                    or "v050-published-path-disposition.yaml" in line
+                    or "validate-source-governance.py" in line
                     or "test_governance_workflow_contract.py" in line
                     for line in fixture.sentinel()
                 )
@@ -402,10 +400,10 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
 
             # Then source-pinned Git/tag validation remains not applicable.
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
-            self.assertIn("source workflow evidence not packaged", result.stdout)
+            self.assertIn("source governance registry not packaged", result.stdout)
             self.assertFalse(
                 any(
-                    "v050-published-path-disposition.yaml" in line
+                    "validate-source-governance.py" in line
                     or "test_governance_workflow_contract.py" in line
                     for line in fixture.sentinel()
                 )
@@ -537,7 +535,7 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             )
             self.assertTrue(any("test_ai_context_packaging.py -v" in line for line in commands))
             self.assertTrue(
-                any("v050-published-path-disposition.yaml" in line for line in commands)
+                any("validate-source-governance.py" in line for line in commands)
             )
             self.assertTrue(
                 any("test_governance_workflow_contract.py -v" in line for line in commands)
@@ -546,7 +544,7 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
                 any("test_ai_context_package_apply.py -v" in line for line in commands)
             )
             self.assertNotIn("source release context not packaged", result.stdout)
-            self.assertNotIn("source workflow evidence not packaged", result.stdout)
+            self.assertNotIn("source governance registry not packaged", result.stdout)
         finally:
             fixture.close()
 
