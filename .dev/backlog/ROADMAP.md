@@ -4,9 +4,9 @@
 
 - `roadmap_id`: `post-v0.4.0`
 - `status`: `active`
-- `current_target`: `v0.4.2`
+- `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-19T12:41:16+08:00`
+- `updated_at`: `2026-07-20T22:55:15+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -26,8 +26,8 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | Version | State | Required | Objective | Activation Gate | Workflow |
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
-| `v0.4.2` | `ready_for_publication` | yes | `R042-001` through `R042-004` are resolved and independently verified; publish the governed patch candidate. | Windows Git Bash and GitHub Codespaces Ubuntu 24.04 passed 21/21 required quick checks; macOS remains explicitly unverified; publication and immutable tag evidence remain. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) |
-| `v0.5.0` | `blocked_by_v0.4.2` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, and `LANG-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Do not create the v0.5.0 implementation workflow until v0.4.2 is completed. Then approve policy, CI, validator, adapter, migration-schema, runner, language, and published-path decisions. | not created |
+| `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
+| `v0.5.0` | `ready_for_planning` | yes | Complete `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, and `HANDOFF-001` as release blockers; explicitly disposition `GOV-001`, `CAP-001`, and `VAL-001`. | Open a governed planning workflow. Release and handoff enforcement decisions remain required before implementation can claim those gates and before publication. | not created |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy implementation. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal. | Demonstrate adoption of `ai-context-init` and no remaining dependency on old prompts, wrappers, provenance values, or template paths. | not created |
 
@@ -45,8 +45,8 @@ Read this file before planning or resuming a post-v0.4.0 release.
 
 | Version | Release Blockers | Disposition Gates | Activation Dependencies |
 | --- | --- | --- | --- |
-| `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
-| `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001` | `GOV-001`, `CAP-001`, `VAL-001` | v0.4.2 is completed; its workflow, independent verification, release evidence, and final version state are reconciled. |
+| `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004`, `R042-005` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
+| `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
 | `v0.6.0` | `SKILL-001` | Any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
 
 `OBS-001` remains an independent unassigned architecture decision. It is not a
@@ -78,6 +78,13 @@ release evidence than the earlier planning source:
 7. Migration schema 1.0.0 remains single-source in v0.4.1. `PKG-003` owns the
    v0.5.0 multi-source contract, including direct v0.4.0-to-v0.5.0 validation
    against the retained `dotnet-mq-arch-lab` consumer.
+8. v0.4.2 is genuinely published from
+   `f474c3b058cb9f89f93929e0732fc1f276422dd9`. `R042-005` repaired the
+   post-publication finalization and, after explicit authorization, replaced
+   and verified the public Release body without moving the final tag or
+   changing the four published assets.
+9. `ASM-20260720-001` preserves the independent Fable 5 review and confirms
+   its release-finalization findings with repository-native evidence.
 
 ## Approved 2026-07-19 Gate Revision
 
@@ -94,6 +101,9 @@ release evidence than the earlier planning source:
 5. Model-in-the-loop evaluation is a v0.6.0 release-side activation gate.
    Routine downstream installs and upgrades remain deterministic and model-free
    by default.
+6. Cold-start release execution and cross-model or fresh-session state
+   alignment are v0.5.0 release blockers under `REL-001` and `HANDOFF-001`.
+   Form-compliant prose is not sufficient evidence of a validation run.
 
 ## Backlog Release Targets
 
@@ -102,10 +112,11 @@ versions. Current assignments:
 
 - `v0.4.1`: `PKG-001` and `PKG-002` were completed and published in
   `REL-v0.4.1`.
-- `v0.4.2`: all corrections originally assigned to v0.4.1 by the retained
-  source plan, bounded by `R042-001` through `R042-004`.
+- `v0.4.2`: corrections `R042-001` through `R042-004` are published;
+  `R042-005` owns post-tag finalization and keeps `published_in` unset because
+  the hotfix is not part of the immutable v0.4.2 tree.
 - `v0.5.0` release blockers: `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`,
-  and `LANG-001`.
+  `LANG-001`, `REL-001`, and `HANDOFF-001`.
 - `v0.5.0` disposition gates: `GOV-001`, `CAP-001`, and `VAL-001`.
 - `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
   taxonomy and compatible `repo-structure-sync` to `ai-context-init`
@@ -145,9 +156,7 @@ versions. Current assignments:
 
 ## Next Action
 
-Execute `V042-001` in the active v0.4.2 remediation workflow: reproduce every
-selected observation against `main@9b03668f`, freeze patch-impact dispositions,
-then complete `R042-001` through `R042-004`. Retain Windows Git Bash and hosted
-Ubuntu evidence, and do not activate v0.5.0 until v0.4.2 is complete. Keep
-v0.4.0 consumers on their current version until v0.5.0 unless they explicitly
-choose a manual reconciliation; `PKG-003` must prove their direct v0.5.0 path.
+Open v0.5.0 planning with `REL-001` and `HANDOFF-001` as release blockers
+alongside the existing package, runtime, enforcement, tooling, and language
+work. Keep v0.4.0 consumers on their current version until `PKG-003` proves the
+direct v0.5.0 path.

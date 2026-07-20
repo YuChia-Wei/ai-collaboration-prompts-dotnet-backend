@@ -1,0 +1,75 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "R042005-004",
+  "workflow_id": "2026-07-20-v0-4-2-release-finalization-hotfix",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-20T22:23:02+08:00",
+  "updated_at": "2026-07-20T22:43:57+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260720-001#AIC-001",
+    "ASM-20260720-001#AIC-002",
+    "ASM-20260720-001#AIC-003",
+    "ASM-20260720-001#AIC-004",
+    "ASM-20260720-001#AIC-005",
+    "ASM-20260720-001#AIC-006",
+    "ASM-20260720-001#AIC-007"
+  ],
+  "scope": {
+    "target": "Independent verification, full repository gate, finding reconciliation, and workflow closeout",
+    "files": [
+      ".dev/assessments/<verification-assessment-id>/**",
+      ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/**"
+    ],
+    "constraints": [
+      "Keep public GitHub Release body correction explicitly deferred until authorized",
+      "Do not claim lifecycle closure without an independent verification assessment",
+      "Validate workflow commits before final completion"
+    ],
+    "non_goals": [
+      "Modify product source or tests",
+      "Implement v0.5.0 backlog items"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Run ai-context-auditor post-remediation verification",
+      "Run focused validators and check-all.sh --full",
+      "Reconcile every baseline finding",
+      "Validate workflow commit range",
+      "Close or checkpoint the workflow based on the public-release authorization state"
+    ],
+    "validation": [
+      "validate-assessment-artifacts.py",
+      "validate-workflow-artifacts.py",
+      "validate-ai-context-versions.py",
+      "validate-ai-context.py",
+      "check-all.sh --full",
+      "validate-git-commits.py"
+    ],
+    "last_completed_step": "Committed the local repair, completed ASM-20260720-002, and passed the full aggregate gate.",
+    "next_action": "Hand the remaining authorized external mutation to R042005-005."
+  },
+  "results": {
+    "summary": "Independent verification confirms all local critical/high release-finalization defects are resolved except the separately authorized public Release body correction.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260720-002/**",
+      ".dev/assessments/INDEX.MD",
+      ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/**"
+    ],
+    "tests_run": [
+      ".ai/scripts/check-all.sh --full (21/21 required passed, 0 failed)",
+      "DotnetBackendAnalyzers.Tests (49 passed)",
+      "DotnetBackendValidation.Tests (2 passed)",
+      "DotnetBackendBuildingBlocks.Tests (5 passed)",
+      "ASM-20260720-002 independent finding reconciliation"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Public Release body invalid provenance and v0.5.0 mechanical release/handoff implementation remain.",
+    "follow_up_needed": true
+  }
+}

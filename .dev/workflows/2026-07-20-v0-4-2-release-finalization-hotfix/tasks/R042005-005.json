@@ -1,0 +1,64 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "R042005-005",
+  "workflow_id": "2026-07-20-v0-4-2-release-finalization-hotfix",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-20T22:43:57+08:00",
+  "updated_at": "2026-07-20T22:55:15+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260720-001#AIC-003",
+    "ASM-20260720-002#AIC-003"
+  ],
+  "scope": {
+    "target": "Public REL-v0.4.2 GitHub Release body correction and R042-005 closure",
+    "files": [],
+    "constraints": [
+      "Require explicit authorization before external mutation",
+      "Replace only the Release body from corrected authored sources",
+      "Do not move the tag or alter the four published assets",
+      "Read back and verify hosted state before claiming closure"
+    ],
+    "non_goals": [
+      "Republish package assets",
+      "Change release title, draft state, prerelease state, or tag",
+      "Implement REL-001 or HANDOFF-001"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Obtain explicit user authorization",
+      "Render the body from corrected v0.4.2 authored sources and immutable commit",
+      "Replace the public GitHub Release body",
+      "Read back the hosted release and verify body, state, tag, and asset count",
+      "Finalize R042-005, roadmap current target, workflow report, and closure commit"
+    ],
+    "validation": [
+      "invalid provenance SHA count equals 0",
+      "rendered body matches the corrected local source and contains the final published SHA",
+      "tag v0.4.2 and release ID remain unchanged",
+      "stable non-draft non-prerelease state remains",
+      "published asset count remains 4",
+      "final repository validators and workflow commit range pass"
+    ],
+    "last_completed_step": "Read-back verified the corrected hosted body, stable release state, unchanged tag, and all four original asset digests.",
+    "next_action": "None; R042-005 is closed and v0.5.0 planning may begin."
+  },
+  "results": {
+    "summary": "Used the authenticated gh CLI after explicit authorization to replace only the REL-v0.4.2 body with the repository-rendered source, then read it back and verified exact body equality without changing tag, title, release state, or assets.",
+    "files_changed": [],
+    "tests_run": [
+      "pre-change gh release view: invalid SHA count 1 and asset count 4",
+      "post-change gh release view: exact rendered-body match, automation marker count 1, provenance heading count 1, migration heading count 1, invalid SHA count 0",
+      "post-change release invariants: tag v0.4.2, title REL-v0.4.2, non-draft, non-prerelease, asset count 4, all asset digests unchanged",
+      "Git for Windows Bash .ai/scripts/check-all.sh --quick: 21/21 required checks passed with zero failures"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The current hotfix is not part of the immutable v0.4.2 tree; REL-001 and HANDOFF-001 remain required v0.5.0 prevention work.",
+    "follow_up_needed": false
+  }
+}

@@ -6,11 +6,11 @@ status: "resolved"
 priority: "HIGH"
 summary: "Correct cross-runtime wrapper identity and existing skill or sub-agent routing omissions without adding a new adapter, schema, or validation contract."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-19T15:50:00+08:00"
+updated_at: "2026-07-20T22:28:31+08:00"
 release:
   target: "v0.4.2"
   completed_in: "v0.4.2"
-  published_in: null
+  published_in: "v0.4.2"
   target_scope: "contract-preserving-wrapper-and-routing-corrections"
   gate: "release-blocker"
 origin_refs:
@@ -22,6 +22,7 @@ handoff_condition: "Open the required v0.4.2 remediation workflow and keep adapt
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
   - ".dev/workflows/2026-07-19-v0-4-2-remediation/workflow.yaml"
+  - ".dev/workflows/2026-07-19-v0-4-2-release-publication/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
   - ".dev/workflows/2026-07-19-v0-4-2-remediation/tasks/V042-002.json"

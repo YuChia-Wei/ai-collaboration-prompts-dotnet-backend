@@ -1,0 +1,74 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "R042005-003",
+  "workflow_id": "2026-07-20-v0-4-2-release-finalization-hotfix",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-20T22:23:02+08:00",
+  "updated_at": "2026-07-20T22:37:10+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260720-001#AIC-006",
+    "ASM-20260720-001#AIC-007"
+  ],
+  "scope": {
+    "target": "Roadmap, backlog, external-review intake, release runbook, and model-handoff safeguards",
+    "files": [
+      ".dev/backlog/**",
+      ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md",
+      ".dev/assessments/INDEX.MD"
+    ],
+    "constraints": [
+      "Keep v0.4.2 hotfix separate from v0.5.0 contract additions",
+      "Do not require external reviewers to use repository-owned templates",
+      "Avoid duplicating ENF-001 scope"
+    ],
+    "non_goals": [
+      "Implement REL-001 or HANDOFF-001",
+      "Execute the simplification plan",
+      "Change current runtime wrapper contracts"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Create R042-005, REL-001, and HANDOFF-001 backlog items",
+      "Reconcile v0.4.2 publication and v0.5.0 activation state",
+      "Define raw external review intake and normalization boundaries",
+      "Record REL-001, HANDOFF-001, and ENF-001 relationships"
+    ],
+    "validation": [
+      "structured YAML parsing",
+      "backlog index and roadmap relationship checks",
+      "validate-ai-context.py"
+    ],
+    "last_completed_step": "Reconciled the live roadmap/backlog and adopted the external-review intake contract.",
+    "next_action": "Verify relationships and release gates independently in R042005-004."
+  },
+  "results": {
+    "summary": "Added R042-005, REL-001, and HANDOFF-001; updated v0.4.2 and v0.5.0 gate truth; separated release mechanics from ENF-001; and made external-review normalization the receiving repository's responsibility.",
+    "files_changed": [
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/items/R042-001.yaml",
+      ".dev/backlog/items/R042-002.yaml",
+      ".dev/backlog/items/R042-003.yaml",
+      ".dev/backlog/items/R042-004.yaml",
+      ".dev/backlog/items/R042-005.yaml",
+      ".dev/backlog/items/REL-001.yaml",
+      ".dev/backlog/items/HANDOFF-001.yaml",
+      ".dev/backlog/items/ENF-001.yaml",
+      ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py (passed for 24 backlog items)",
+      "structured backlog YAML parsing (passed)",
+      "python .ai/scripts/validate-ai-context.py (passed)"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "REL-001 and HANDOFF-001 are planned v0.5.0 release blockers; their mechanical enforcement is not implemented by this hotfix.",
+    "follow_up_needed": true
+  }
+}
