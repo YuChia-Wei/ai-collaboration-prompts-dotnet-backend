@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Complete the active v0.5.0 inventory and decision freeze, then execute the bounded release tasks with checkpoint commits. | 2026-07-21 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Implement PKG-003 from the frozen decision and disposition checkpoint, then continue through the remaining bounded release tasks. | 2026-07-21 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -23,9 +23,7 @@ roadmap but do not replace it or a governed assessment.
 | [ENF-001](items/ENF-001.yaml) | HIGH | `v0.5.0` | release blocker | Add semantic wrapper validation and governance CI, then disposition obsolete published paths with migration evidence. | Approve the new enforcement contracts and every retain/deprecate/relocate/remove decision. | 2026-07-19 |
 | [TOOL-001](items/TOOL-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Institutionalize hosted portability evidence and resolve the runner design. | Retain or redesign the runner explicitly; do not imply unexecuted macOS coverage. | 2026-07-19 |
 | [LANG-001](items/LANG-001.yaml) | MEDIUM | `v0.5.0` | release blocker | Refresh and remediate approved translation debt, then establish semantic parity evidence. | Complete the approved batch and human, automated, or hybrid parity gate before publication. | 2026-07-19 |
-| [GOV-001](items/GOV-001.yaml) | MEDIUM | `v0.5.0` | disposition gate | Reconcile legacy workflow follow-ups against later completed work. | Read-only reconciliation first; explicitly retain, promote, or close each current result. | 2026-07-19 |
-| [CAP-001](items/CAP-001.yaml) | LOW | `v0.5.0` | disposition gate | Decide the ownership of technical glossary and terminology work. | Choose a skill, extend context guidance, or explicitly defer. | 2026-07-19 |
-| [VAL-001](items/VAL-001.yaml) | LOW | `v0.5.0` | disposition gate | Reassess deferred repository and dependency/version validation gaps. | Fresh inventory, then explicitly implement, defer, or close the gap. | 2026-07-19 |
+| [VAL-001](items/VAL-001.yaml) | LOW | `v0.5.0` | disposition gate | Repository validation is superseded; deterministic offline dependency/version consistency is selected for V050-006. | Implement the offline gate and remove the permanent deferred placeholder; keep online currency/vulnerability checks advisory. | 2026-07-21 |
 | [EVAL-001](items/EVAL-001.yaml) | HIGH | `v0.6.0` | activation gate | Add deterministic regression plus budgeted release-side model evaluation before taxonomy changes. | Approve the fixture corpus, oracle, model/judge, repetitions, threshold, and token ceiling. | 2026-07-19 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | release blocker | Introduce AI context lifecycle taxonomy and transition `repo-structure-sync` to `ai-context-init` with compatibility. | Complete v0.5.0 and EVAL-001 before changing identifiers or taxonomy. | 2026-07-19 |
 | [SIMPL-001](items/SIMPL-001.yaml) | MEDIUM | `v0.6.0` | disposition gate | Measure actual loaded context, disposition simplification candidates, and keep historical archive migration conditional on a separately approved v0.7.0 successor. | Do not equate corpus words with prompt tokens; preserve stable evidence until every archive precondition is proven. | 2026-07-20 |
@@ -36,6 +34,8 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [GOV-001](items/GOV-001.yaml) | MEDIUM | `v0.5.0` | — | Legacy follow-ups are reconciled as satisfied, superseded, intentionally retained, or non-requirement suggestions without rewriting historical artifacts. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
+| [CAP-001](items/CAP-001.yaml) | LOW | `v0.5.0` | — | Terminology remains a domain-language document pattern; no repeated action evidence justifies a dedicated skill. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |
 | [R042-005](items/R042-005.yaml) | HIGH / P0 | `v0.4.2` | — | Local finalization and the authorized public Release body correction are verified; the immutable tag and four published assets were unchanged. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | 2026-07-20 |
 | [R042-001](items/R042-001.yaml) | HIGH | `v0.4.2` | `v0.4.2` | Existing wrapper identity and routing corrections are independently verified without adding adapter contracts. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-20 |
 | [R042-002](items/R042-002.yaml) | HIGH | `v0.4.2` | `v0.4.2` | Handler, time, naming, and spec examples align with existing canonical doctrine. | [`2026-07-19-v0-4-2-remediation`](../workflows/2026-07-19-v0-4-2-remediation/workflow.yaml) | 2026-07-20 |

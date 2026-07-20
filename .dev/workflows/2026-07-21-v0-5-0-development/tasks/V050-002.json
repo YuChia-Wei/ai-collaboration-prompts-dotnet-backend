@@ -6,9 +6,9 @@
   "task_id": "V050-002",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:30:34+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,8 +20,30 @@
   "execution": {
     "steps": ["Reconcile each GOV marker against later work", "Record the no-new-skill CAP decision", "Split VAL into superseded repository validation and selected dependency consistency implementation", "Update backlog discovery and workflow report", "Validate and commit the disposition checkpoint"],
     "validation": ["backlog/workflow validation", "targeted Git/reference evidence", "YAML/JSON parsing", "git diff check"],
-    "last_completed_step": "Activated after V050-001 decision freeze.",
-    "next_action": "Create the disposition evidence and update all three backlog records."
+    "last_completed_step": "Reconciled GOV legacy markers, retained the CAP document-pattern decision, and selected the bounded VAL dependency/version implementation.",
+    "next_action": "Start V050-003 with failing multi-source migration fixtures."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "Disposition evidence is not yet persisted.", "follow_up_needed": true}
+  "results": {
+    "summary": "Resolved GOV-001 and CAP-001 with current evidence; split VAL-001 into superseded repository validation and an active deterministic dependency/version implementation owned by V050-006.",
+    "files_changed": [
+      ".dev/backlog/items/GOV-001.yaml",
+      ".dev/backlog/items/CAP-001.yaml",
+      ".dev/backlog/items/VAL-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-disposition-reconciliation.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v",
+      "python .ai/scripts/tests/test_backlog_release_contract.py -v",
+      "python .ai/scripts/validate-ai-context.py",
+      "targeted Git and reference evidence checks",
+      "YAML and JSON parsing",
+      "git diff --check"
+    ],
+    "finding_status": "addressed",
+    "residual_risk": "VAL-001 remains in progress until V050-006 implements and validates the offline dependency/version consistency gate.",
+    "follow_up_needed": true
+  }
 }

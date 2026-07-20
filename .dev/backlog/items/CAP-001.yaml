@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "CAP-001"
 title: "Technical Glossary And Terminology Capability Decision"
 category: "context-capability"
-status: "open"
+status: "resolved"
 priority: "LOW"
 summary: "Decide whether technical terminology needs a dedicated skill or should remain a document pattern under the existing domain-language area."
 created_at: "2026-07-12T14:17:52+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-21T00:30:34+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "decision-and-disposition"
   gate: "disposition-gate"
@@ -19,9 +19,12 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Collect concrete recurring terminology tasks before choosing a skill; keep noun-like knowledge in context unless a repeatable action workflow is demonstrated."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-21-v0-5-0-development/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
-resolution_ref: null
-decision_needed: "User decision: dedicated terminology skill, extend domain-language guidance, or decline until real usage evidence exists."
+  - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-002.json"
+resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-disposition-reconciliation.md"
+decision_needed: "Resolved: retain terminology as a domain-language document pattern; require new repeated-action evidence before proposing a dedicated skill."
 inventory_notes:
   - "This was explicitly deferred and is not required for current repository health."
+  - "The completed domain-language workflow provides the current target-truth boundary without introducing a terminology action workflow."

@@ -6,9 +6,9 @@
   "task_id": "V050-003",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T00:30:34+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Write red schema/selection fixtures", "Implement schema 2.0 builder and reader compatibility", "Implement exact source selection and ambiguity failure", "Prove three real extracted source upgrades and clean install", "Validate and checkpoint"],
     "validation": ["package and apply GWT suites", "deterministic archive parity", "real extracted upgrade fixtures", "source/downstream gates"],
-    "last_completed_step": "", "next_action": "Start after V050-002."
+    "last_completed_step": "Activated after the V050-002 disposition checkpoint.",
+    "next_action": "Write failing schema 2.0 and exact-source-selection fixtures before changing the builder or planner."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }

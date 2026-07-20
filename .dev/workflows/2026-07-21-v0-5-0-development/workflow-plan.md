@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `active`
-- `current_phase`: `disposition`
+- `current_phase`: `implementation`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T00:24:09+08:00`
+- `updated_at`: `2026-07-21T00:30:34+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -84,9 +84,9 @@ decision rationale are retained in
 
 | Stage | Scope | Primary Owner | Status | Checkpoint |
 | --- | --- | --- | --- | --- |
-| 1 | Inventory, dependency graph, decision freeze, executable task creation | `ai-context-governance` with `dev-workflow` coordination | completed | `62e721e` bootstrap plus inventory commit |
-| 2 | Disposition gates and prerequisite governance decisions | owning skill per item | in progress | disposition commit |
-| 3 | Package migration and runtime adapter contracts | `ai-context-governance` | pending | one commit per validated coherent slice |
+| 1 | Inventory, dependency graph, decision freeze, executable task creation | `ai-context-governance` with `dev-workflow` coordination | completed | `62e721e` bootstrap plus `95df89d` inventory commit |
+| 2 | Disposition gates and prerequisite governance decisions | owning skill per item | completed | disposition commit |
+| 3 | Package migration and runtime adapter contracts | `ai-context-governance` | in progress | one commit per validated coherent slice |
 | 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | pending | task-level commits |
 | 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | pending | release-readiness commit |
 | 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | pending | assessment and closure commits |
@@ -116,15 +116,16 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed `V050-001`, froze the decision and dependency
-  matrix, and created tasks `V050-002` through `V050-010`.
-- Current task: `V050-002`
-- Exact next action: reconcile and persist `GOV-001`, `CAP-001`, and the
-  implementation disposition for `VAL-001`.
+- Last completed action: completed `V050-002`; resolved `GOV-001` and
+  `CAP-001`, and selected the remaining `VAL-001` implementation for
+  `V050-006`.
+- Current task: `V050-003`
+- Exact next action: write failing migration schema 2.0 and exact-source
+  selection fixtures before changing package build or apply behavior.
 - Validation already completed: workflow/backlog lifecycle, structured-data,
-  AI-context, and diff checks for the bootstrap; the inventory checkpoint must
-  rerun focused validation before commit.
-- Git state: `62e721e` is the committed v0.5.0 bootstrap checkpoint.
+  AI-context, and diff checks for the inventory checkpoint; disposition
+  validation must pass before its commit.
+- Git state: `95df89d` is the committed inventory and execution-plan checkpoint.
 - Branch history and checkpoint handoffs: no v0.5.0 checkpoint has been pushed
   or merged.
 - Blockers or unresolved decisions: provider-native Copilot/Claude/Codex
