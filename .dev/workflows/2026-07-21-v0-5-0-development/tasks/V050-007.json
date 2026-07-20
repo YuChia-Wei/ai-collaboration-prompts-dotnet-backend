@@ -6,9 +6,9 @@
   "task_id": "V050-007",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T01:49:30+08:00",
+  "updated_at": "2026-07-21T02:10:06+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,8 +20,15 @@
   "execution": {
     "steps": ["Generate current deterministic candidate inventory", "Fix the approved active-language batch", "Add exception and parity fixtures", "Run context-translator or human semantic checklist", "Validate and checkpoint"],
     "validation": ["language-policy validator", "root structural parity", "retained semantic checklist", "zero untriaged high-priority candidates"],
-    "last_completed_step": "Activated after V050-006 completed deterministic dependency validation and two-host portability evidence.",
-    "next_action": "Recompute the active high-priority translation candidates against the current language policy before selecting the bounded remediation batch."
+    "last_completed_step": "Reconciled the stale 21-item planning count, fixed four active defects, added 10 fail-closed language/parity fixtures, passed the 24-check Windows quick gate, and retained two concurring semantic reviews at subject commit 2db0636.",
+    "next_action": "Activate V050-005 to consume the completed foundation validators in semantic governance enforcement and dedicated PR CI."
   },
-  "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
+  "results": {
+    "summary": "The current standards/specs inventory has zero untriaged language violations; four bounded defects are fixed, deterministic root parity fails closed, and both approved bilingual pairs passed retained semantic review.",
+    "files_changed": ["AGENTS.md", ".dev/standards/coding-standards.md", ".dev/standards/coding-standards/repository-standards.md", ".ai/scripts/validate-ai-context.py", ".ai/scripts/tests/test_ai_context_language_policy.py", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml"],
+    "tests_run": ["10 language/parity GWT", "24 aggregate-runner and shell-registry GWT", "Windows Git Bash check-all.sh --quick 24/24", "hosted Ubuntu run 29766507514 check-all.sh --quick 24/24", "two bounded semantic reviews at 2db0636"],
+    "finding_status": "addressed",
+    "residual_risk": "Semantic review is bounded to the two root bilingual pairs and pinned subject; future material edits require a new retained review.",
+    "follow_up_needed": false
+  }
 }

@@ -19,7 +19,7 @@
 - `current_phase`: `implementation`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T01:49:30+08:00`
+- `updated_at`: `2026-07-21T02:10:06+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -116,22 +116,23 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed `V050-006`; the runner is retained with
-  fail-closed format/set parity, the dependency deferral is replaced by an
-  offline required gate, and Windows Git Bash plus hosted Ubuntu run the same
-  quick set successfully.
-- Current task: `V050-007`
-- Exact next action: recompute the current high-priority language candidates,
-  classify stale and intentionally single-language surfaces, then freeze the
-  smallest bounded remediation batch before translation.
-- Validation already completed: 12 dependency GWT and 23 runner/registry GWT
-  tests pass; Windows Git Bash passes 23/23; hosted Ubuntu run `29764778490`
-  passes 23/23 at PR head `4cefb94`; all have zero failed or deferred checks.
-- Git state: `4cefb94` is the committed and pushed V050-006 core checkpoint;
-  the completion evidence and task transition are pending this checkpoint
+- Last completed action: completed `V050-007`; the historical language backlog
+  is reconciled to current policy, four active defects are fixed, deterministic
+  language/root-parity checks fail closed, and both approved bilingual pairs
+  passed retained semantic review.
+- Current task: `V050-005`
+- Exact next action: freeze the explicit retain/deprecate disposition for every
+  published-path candidate, then add missing semantic enforcement and the
+  dedicated governance PR workflow without speculative path removal.
+- Validation already completed: 10 language/parity GWT and 24 runner/registry
+  GWT tests pass; Windows Git Bash and hosted Ubuntu run `29766507514` each
+  pass 24/24 with zero failed or deferred checks at `2db0636`; the semantic
+  checklist is pinned to that same subject.
+- Git state: `2db0636` is the committed and pushed V050-007 core checkpoint;
+  the LANG completion evidence and ENF activation are pending this checkpoint
   commit.
 - Branch history and checkpoint handoffs: the branch is pushed through
-  `4cefb94`; draft PR `#1` is the hosted evidence and continuing CI surface.
+  `2db0636`; draft PR `#1` is the hosted evidence and continuing CI surface.
 - Blockers or unresolved decisions: the package-candidate PR job correctly
   fails closed until `V050-009` creates a governed v0.5.0 release record;
   provider-native fixtures and public terminal-state API evidence belong to

@@ -6,9 +6,9 @@
   "task_id": "V050-005",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T02:10:06+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -20,7 +20,8 @@
   "execution": {
     "steps": ["Add semantic wrapper/adapter enforcement", "Create and validate the v0.5 path-disposition artifact", "Add governance PR workflow and path filters", "Exercise foundation and REL validation commands", "Validate and checkpoint"],
     "validation": ["semantic negative GWT fixtures", "path-disposition validation", "GitHub workflow contract tests", "critical/quick gate"],
-    "last_completed_step": "", "next_action": "Start after foundation validators are available."
+    "last_completed_step": "Activated after PKG-003, SAG-001, TOOL-001, VAL-001, and LANG-001 completed their foundation contracts and retained evidence.",
+    "next_action": "Freeze the v0.5.0 published-path disposition manifest, then implement the missing semantic enforcement and dedicated governance PR workflow without removing compatibility paths."
   },
   "results": {"summary": "", "files_changed": [], "tests_run": [], "finding_status": "not-addressed", "residual_risk": "", "follow_up_needed": true}
 }
