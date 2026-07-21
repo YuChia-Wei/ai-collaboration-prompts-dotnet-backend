@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "REL-001"
 title: "Cold-Start-Safe Release Publication"
 category: "release-governance"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH"
 summary: "Make release publication executable from repository files alone through a runbook, placeholder templates, stale-value rejection, a pre-tag gate, and terminal-state validation."
 created_at: "2026-07-20T22:23:02+08:00"
-updated_at: "2026-07-22T07:20:58+08:00"
+updated_at: "2026-07-22T07:41:44+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "release-runbook-templates-pre-tag-and-terminal-state-enforcement"
   gate: "release-blocker"
@@ -25,8 +25,8 @@ workflow_refs:
 task_refs:
   - ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/tasks/R042005-003.json"
   - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-009.json"
-resolution_ref: null
-decision_needed: "No design decision remains. Complete the governed v0.5.0 candidate instance, deterministic package evidence, hosted candidate CI, and independent verification."
+resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-rel001-working-tree.md"
+decision_needed: "Resolved for v0.5.0 release readiness: repository-owned templates, phase contracts, exact commands, stale-state rejection, pre-tag preparation, terminal validation, four-source candidate artifacts, and CI routing are implemented and locally validated. V050-010 owns final immutable, hosted, and independent release-readiness evidence."
 acceptance:
   - "A canonical release-publication runbook gives each action an exact command, expected output, and fail action from candidate creation through post-publication finalization."
   - "The runbook prohibits copying a previous release instance and routes agents to placeholder templates."

@@ -5,9 +5,9 @@
 - Workflow: `2026-07-21-v0-5-0-development`
 - Task: `V050-009`
 - Backlog item: `REL-001`
-- Base commit: `74eb1663ca4ed4be84ef5960ae210b62268126e3`
-- Evidence state: working tree only; not an immutable candidate
-- Verified at: `2026-07-22T07:35:04+08:00`
+- Mechanics commit: `2ecf832637558020a1d792ceb64c5cc15add29e8`
+- Evidence state: mechanics committed; validated-candidate state pending commit
+- Verified at: `2026-07-22T07:41:44+08:00`
 
 ## Implemented Contract
 
@@ -62,11 +62,12 @@ rendered provenance heading, placeholder token, `TODO`, or `TBD`.
 
 ## Non-Claims And Resume Boundary
 
-This evidence does not claim a validated release candidate. The mechanics and
-expanded planned release sources remain uncommitted. Without a clean immutable
-subject, the candidate-state command, deterministic committed-tree build,
-hosted PR gates, and independent release-readiness assessment cannot produce
-acceptable terminal evidence.
+The mechanics and expanded planned sources are committed at `2ecf832`. Two
+independent builds from that immutable commit produced byte-identical ZIP,
+tar.gz, and sidecars and both archive pairs passed validation. The containing
+validated-candidate state commit still requires its exact clean-state gate,
+deterministic rebuild, hosted PR gates, and independent release-readiness
+assessment.
 
 Resume in this order:
 

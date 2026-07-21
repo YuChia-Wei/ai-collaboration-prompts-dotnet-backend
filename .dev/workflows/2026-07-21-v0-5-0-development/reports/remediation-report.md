@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T07:35:04+08:00`
+- `updated_at`: `2026-07-22T07:41:44+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessments`: `ASM-20260717-004`, `ASM-20260720-001`
@@ -29,7 +29,7 @@
 | `ENF-001` | release blocker | resolved by `V050-005` | semantic enforcement and PR CI complete |
 | `TOOL-001` | release blocker | resolved by `V050-006` | hosted portability and runner decision complete |
 | `LANG-001` | release blocker | resolved by `V050-007` | approved bounded remediation and retained hybrid parity evidence complete |
-| `REL-001` | release blocker | implementation in progress under `V050-009` | cold-start release mechanics and terminal validation complete |
+| `REL-001` | release blocker | resolved by `V050-009`; V050-010 owns release-candidate verification | cold-start release mechanics and terminal validation complete |
 | `HANDOFF-001` | release blocker | resolved by `V050-008` plus the V050-009 phase contract | fail-closed resume and native attribution contract complete |
 | `GOV-001` | disposition gate | resolved by `V050-002` | every current follow-up explicitly disposed |
 | `CAP-001` | disposition gate | resolved by `V050-002`; document pattern retained | terminology capability decision retained |
@@ -56,6 +56,7 @@
 | `V050-008` core | Generic receiving policy, machine contract, read-only validator, stable registry, provider-compatible attribution union, and 15 fail-closed GWT cases are implemented without changing provider settings or Git history. | `3d91e27` |
 | `V050-008` checkpoint | The clean core commit passed 30/30 required critical checks; its output digest, bounded tail, exact resume action, user-declared execution provenance, captured Codex-local fixture, and three explicitly blocked provider paths are registered for a fresh receiver. | HANDOFF checkpoint commit containing this report update |
 | `V050-009` mechanics | Placeholder-only release templates, four exact sanctioned phase commands, read-only local/hosted lifecycle validation, owner-only pre-tag output, cold-start runbook, migration schema 2.0 renderer support, and source/hosted CI routes are implemented. The planned v0.5.0 record, authored notes, and migration guide pass version, workflow, AI-context, renderer, and the complete source critical gate in the working tree. Immutable candidate, hosted, and independent evidence remain pending. | REL mechanics checkpoint pending Git metadata write access |
+| `V050-009` validated candidate | The mechanics checkpoint is `2ecf832`; all four real extracted upgrades, the 33/33 critical gate, and two byte-identical four-source builds pass. REL-001 is resolved and the validated candidate state activates V050-010. | validated-candidate state commit containing this update |
 
 ## Checkpoint Contract
 

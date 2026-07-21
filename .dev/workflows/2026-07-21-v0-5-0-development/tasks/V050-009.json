@@ -6,9 +6,9 @@
   "task_id": "V050-009",
   "workflow_id": "2026-07-21-v0-5-0-development",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-22T07:35:04+08:00",
+  "updated_at": "2026-07-22T07:41:44+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -21,14 +21,14 @@
     "steps": ["Create placeholder-only release templates and validator", "Write exact-command runbook", "Implement pre-tag dry-run and explicit tag interface", "Implement local and hosted terminal-state validation", "Wire REL command into governance CI", "Add the owner-required exact v0.4.2 automatic source and real extracted upgrade", "Validate and checkpoint"],
     "validation": ["template/stale-value GWT", "pre-tag negative/positive fixtures", "terminal-state local fixtures", "four real extracted source upgrades", "hosted API dry/read-only evidence"],
     "last_completed_step": "Implemented the release mechanics and planned v0.5.0 sources, then completed the owner-required PKG-003 expansion. All four real extracted source upgrades and the complete 33/33 source critical gate pass; the four-source candidate body renders without authored-source provenance leakage.",
-    "next_action": "Commit the REL-001 mechanics and planned four-source candidate as a coherent checkpoint. Rebuild from the immutable commit, run the exact clean-state candidate gate, push, and obtain hosted plus independent evidence."
+    "next_action": "Hand the containing validated-candidate commit to V050-010 for its exact clean-state gate, deterministic rebuild, hosted checks, and independent assessment."
   },
   "results": {
     "summary": "Cold-start release mechanics and the planned four-source v0.5.0 artifacts are implemented. The owner-required v0.4.2 automatic route, all four real extracted upgrades, and the complete 33/33 source critical gate pass in the working tree.",
     "files_changed": [".ai/assets/skills/ai-context-governance/templates/release-publication/**", ".ai/scripts/prepare-ai-context-release.py", ".ai/scripts/validate-ai-context-release-state.py", ".ai/scripts/render-ai-context-release-notes.py", ".dev/operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD", ".dev/releases/release-phase-checks.yaml", ".dev/releases/v0.5.0/**", ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-rel001-working-tree.md", ".github/workflows/**"],
     "tests_run": ["python .ai/scripts/tests/test_ai_context_release_state.py -v (15/15)", "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (4/4)", "python .ai/scripts/tests/test_release_notes_renderer.py -v (3/3)", "four-source extracted-package GWT including immutable v0.4.2 (1/1)", "Git Bash ./.ai/scripts/check-all.sh --critical (33/33 passed)"],
-    "finding_status": "partially-addressed",
-    "residual_risk": "Immutable candidate, clean-state candidate gate, deterministic committed-tree package, hosted CI, independent assessment, and terminal public-state evidence remain pending.",
-    "follow_up_needed": true
+    "finding_status": "addressed",
+    "residual_risk": "V050-010 still must prove the containing validated-candidate commit through its clean-state gate, deterministic rebuild, hosted CI, and independent assessment. Tag, publication, and terminal public-state evidence remain separately owner-authorized release work.",
+    "follow_up_needed": false
   }
 }

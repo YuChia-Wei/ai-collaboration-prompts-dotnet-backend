@@ -2,9 +2,9 @@
 
 ## Status
 
-Planned governed candidate. No tag or published commit exists. Publication
-remains owner-authorized through a user-created annotated tag after merge,
-candidate validation, hosted checks, and independent verification complete.
+Validated governed candidate source. No tag or published commit exists.
+Publication remains owner-authorized through a user-created annotated tag
+after merge, hosted checks, and independent verification complete.
 
 ## Highlights
 
@@ -44,12 +44,13 @@ through the retained manual v0.1.0 and v0.2.0 reconciliation path.
 
 ## Release Validation
 
-Implementation checkpoints have verified multi-source package behavior,
+Implementation checkpoints have verified four-source package behavior,
 runtime-adapter parity, governance enforcement, dependency consistency,
 Windows and hosted Ubuntu portability, language policy, and a real receiving
-handoff checkpoint. Final deterministic package builds, hosted candidate CI,
-and the independent release-readiness assessment remain pending while this
-record is planned.
+handoff checkpoint. The mechanics commit has two byte-identical four-source
+package builds. The containing validated-candidate commit still requires its
+exact clean-state gate, deterministic rebuild, hosted candidate CI, and the
+independent release-readiness assessment.
 
 Known limitations:
 

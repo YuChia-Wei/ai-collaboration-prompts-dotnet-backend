@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `active`
-- `current_phase`: `implementation`
+- `current_phase`: `verification`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T07:35:04+08:00`
+- `updated_at`: `2026-07-22T07:41:44+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -88,8 +88,8 @@ decision rationale are retained in
 | 2 | Disposition gates and prerequisite governance decisions | owning skill per item | completed | disposition commit |
 | 3 | Package migration and runtime adapter contracts | `ai-context-governance` | completed | `49a2086`, `a87bddf`, and `6aed578` |
 | 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | completed | task-level commits through the V050-008 checkpoint |
-| 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | in progress | release-readiness commit |
-| 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | pending | assessment and closure commits |
+| 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | completed | `2ecf832` mechanics plus validated-candidate state commit |
+| 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | in progress | assessment and closure commits |
 
 Execution order is `V050-002`, then the independent foundation lanes
 `V050-003`, `V050-004`, `V050-006`, and `V050-007`. `V050-005` consumes their
@@ -122,10 +122,10 @@ acceptance evidence remain satisfied.
   v0.4.2-to-v0.5.0 dry-run/apply. The release-state, preparation, and renderer
   suites pass with all four declared sources, and the complete source critical
   gate passes 33/33 with no failed or deferred checks.
-- Current task: `V050-009`
-- Exact next action: commit the REL mechanics and planned four-source candidate,
-  rebuild from the immutable commit, then promote the record to `validated`
-  only after its exact clean-state candidate gate passes.
+- Current task: `V050-010`
+- Exact next action: commit the validated four-source candidate state, run its
+  exact clean-state gate and deterministic double build, then push for hosted
+  verification and freeze the independent assessment subject.
 - Validation already completed: ENF-001 focused suites, affected package
   upgrade cases 16 and 17, Windows Git Bash 28/28, hosted Ubuntu 28/28, and
   the separate read-only governance workflow all pass at `83a0c1c`.

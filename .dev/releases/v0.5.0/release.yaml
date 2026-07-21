@@ -1,7 +1,7 @@
 schema_version: "1.0"
 release_id: "REL-v0.5.0"
 version: "v0.5.0"
-status: "planned"
+status: "validated"
 record_origin: "governed"
 distribution_kind: "governed-package"
 installable: true
@@ -10,7 +10,7 @@ commit: null
 tagged_at: null
 recorded_at: null
 created_at: "2026-07-21T04:10:00+08:00"
-updated_at: "2026-07-22T07:35:04+08:00"
+updated_at: "2026-07-22T07:41:44+08:00"
 planning:
   backlog_refs:
     - ".dev/backlog/items/PKG-003.yaml"
@@ -66,7 +66,7 @@ distribution:
     automation: "github-actions"
     creates_or_moves_tag: false
 validation:
-  evidence: "Implementation evidence is retained by workflow 2026-07-21-v0-5-0-development. All four exact automatic source upgrades and the 33/33 source critical gate pass against the planned working-tree sources; immutable candidate package, clean-state candidate gate, hosted CI, and independent verification evidence remain pending."
+  evidence: "Implementation evidence is retained by workflow 2026-07-21-v0-5-0-development. All four exact automatic source upgrades, the 33/33 source critical gate, and two byte-identical four-source builds from mechanics commit 2ecf832637558020a1d792ceb64c5cc15add29e8 pass. The containing validated-candidate commit is the subject for the next exact clean-state gate, deterministic rebuild, hosted CI, and independent verification."
   workflow_id: "2026-07-21-v0-5-0-development"
   related_workflows:
     - "2026-07-20-v0-4-2-release-finalization-hotfix"
@@ -74,7 +74,7 @@ validation:
   related_assessments:
     - "ASM-20260717-004"
     - "ASM-20260720-001"
-  package_status: "planned"
+  package_status: "validated"
   post_merge_status: "pending"
   failed_publication_run: null
   published_run: null
