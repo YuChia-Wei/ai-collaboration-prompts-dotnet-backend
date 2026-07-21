@@ -47,7 +47,7 @@ jobs:
           args=(
             --commit "${GITHUB_SHA}"
             --mode candidate
-            --output dist/release-body.md
+            --output "${RUNNER_TEMP}/release-body.md"
             --github-output "${GITHUB_OUTPUT}"
           )
           if [[ -n "${REQUESTED_VERSION}" ]]; then
@@ -111,4 +111,4 @@ jobs:
             dist/${{ steps.release.outputs.package_id }}.zip.sha256
             dist/${{ steps.release.outputs.package_id }}.tar.gz
             dist/${{ steps.release.outputs.package_id }}.tar.gz.sha256
-            dist/release-body.md
+            ${{ runner.temp }}/release-body.md

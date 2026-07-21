@@ -276,6 +276,9 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn("steps.release.outputs.migration_sources", text)
         self.assertIn("validate-ai-context-release-state.py", text)
         self.assertIn("--phase candidate", text)
+        self.assertIn('--output "${RUNNER_TEMP}/release-body.md"', text)
+        self.assertIn("${{ runner.temp }}/release-body.md", text)
+        self.assertNotIn("--output dist/release-body.md", text)
         self.assertNotIn("gh release", text)
         self.assertNotRegex(text, r"(?m)^\s*(?:git\s+(?:tag|push|update-ref)|gh\s+api\s+.*git/refs)\b")
 
