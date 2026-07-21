@@ -24,7 +24,7 @@ after merge, hosted checks, and independent verification complete.
 - Adds a machine-readable, fail-closed receiving checkpoint for cross-model,
   runtime, host, machine, and fresh-session continuation without rewriting
   provider-native Git attribution.
-- Adds placeholder-only release templates, exact release-phase commands,
+- Adds blank-value release templates, exact release-phase commands,
   pre-tag validation, a cold-start publication runbook, and hosted terminal
   checks so publication does not depend on hidden session context.
 
@@ -59,7 +59,7 @@ Known limitations:
   claims of the deterministic offline dependency gate;
 - Copilot CLI, Copilot cloud-agent, and Claude native attribution fixtures
   remain explicitly unavailable, so no provider-specific identity rule was
-  invented;
+  invented.
 
 ## Publication Completion
 
