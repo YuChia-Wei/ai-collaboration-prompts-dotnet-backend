@@ -58,6 +58,14 @@ jobs:
       - name: Validate release registry
         run: python .ai/scripts/validate-ai-context-versions.py --no-git
 
+      - name: Validate exact candidate state
+        run: |
+          python .ai/scripts/validate-ai-context-release-state.py \
+            --phase candidate \
+            --version "${{ steps.release.outputs.version }}" \
+            --commit "${GITHUB_SHA}" \
+            --branch "${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+
       - name: Build deterministic archives
         env:
           MIGRATION_SOURCES: ${{ steps.release.outputs.migration_sources }}

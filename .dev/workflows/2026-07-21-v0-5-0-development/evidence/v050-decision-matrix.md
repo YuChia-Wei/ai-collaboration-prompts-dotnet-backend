@@ -34,7 +34,9 @@ or publication.
   immutable source entries. Select an upgrade entry only by exact source version
   and source `files.yaml` digest; reject zero or multiple matches.
 - Keep schema `1.0.0` read compatibility and deterministic operation rules.
-- Support automatic v0.3.0, v0.4.0, and v0.4.1 sources.
+- Support automatic v0.3.0, v0.4.0, and v0.4.1 sources in the original frozen
+  matrix. Owner amendment on 2026-07-22 adds v0.4.2 as a required fourth exact
+  automatic source; V050-009 owns the added candidate and evidence update.
 - Preserve the existing v0.0.1 route: manually establish v0.3.0 provenance,
   then use the automatic v0.3.0-to-v0.5.0 path.
 

@@ -1,0 +1,81 @@
+schema_version: "1.0"
+release_id: "REL-v0.5.0"
+version: "v0.5.0"
+status: "planned"
+record_origin: "governed"
+distribution_kind: "governed-package"
+installable: true
+tag: null
+commit: null
+tagged_at: null
+recorded_at: null
+created_at: "2026-07-21T04:10:00+08:00"
+updated_at: "2026-07-22T07:35:04+08:00"
+planning:
+  backlog_refs:
+    - ".dev/backlog/items/PKG-003.yaml"
+    - ".dev/backlog/items/SAG-001.yaml"
+    - ".dev/backlog/items/ENF-001.yaml"
+    - ".dev/backlog/items/TOOL-001.yaml"
+    - ".dev/backlog/items/LANG-001.yaml"
+    - ".dev/backlog/items/HANDOFF-001.yaml"
+    - ".dev/backlog/items/REL-001.yaml"
+    - ".dev/backlog/items/GOV-001.yaml"
+    - ".dev/backlog/items/CAP-001.yaml"
+    - ".dev/backlog/items/VAL-001.yaml"
+compatibility:
+  breaking_changes: true
+  minimum_source_version: "v0.3.0"
+  reconciliation_sources:
+    - "v0.3.0"
+    - "v0.4.0"
+    - "v0.4.1"
+    - "v0.4.2"
+  automatic_upgrade_sources:
+    - "v0.3.0"
+    - "v0.4.0"
+    - "v0.4.1"
+    - "v0.4.2"
+  affected_contracts:
+    - "multi-source package migration metadata and exact source selection"
+    - "runtime-native sub-agent adapter metadata and parity"
+    - "AI context governance enforcement and release publication gates"
+    - "cross-model and fresh-session handoff evidence"
+artifacts:
+  release_notes: "release-notes.md"
+  migration_guide: "migration-guide.md"
+distribution:
+  profile_id: "dotnet-backend"
+  package_id: "ai-context-dotnet-backend-v0.5.0"
+  schema_versions:
+    package: "1.0.0"
+    files: "1.0.0"
+    migration: "2.0.0"
+  artifacts:
+    zip: "ai-context-dotnet-backend-v0.5.0.zip"
+    zip_checksum: "ai-context-dotnet-backend-v0.5.0.zip.sha256"
+    tar_gz: "ai-context-dotnet-backend-v0.5.0.tar.gz"
+    tar_gz_checksum: "ai-context-dotnet-backend-v0.5.0.tar.gz.sha256"
+  migration:
+    default_mode: "dry-run"
+    apply_requires_clean_worktree: true
+    apply_requires_acknowledged_reconciliation: true
+  publication:
+    tag_owner: "user"
+    trigger: "user-created-tag"
+    automation: "github-actions"
+    creates_or_moves_tag: false
+validation:
+  evidence: "Implementation evidence is retained by workflow 2026-07-21-v0-5-0-development. All four exact automatic source upgrades and the 33/33 source critical gate pass against the planned working-tree sources; immutable candidate package, clean-state candidate gate, hosted CI, and independent verification evidence remain pending."
+  workflow_id: "2026-07-21-v0-5-0-development"
+  related_workflows:
+    - "2026-07-20-v0-4-2-release-finalization-hotfix"
+    - "2026-07-20-native-attribution-handoff-planning"
+  related_assessments:
+    - "ASM-20260717-004"
+    - "ASM-20260720-001"
+  package_status: "planned"
+  post_merge_status: "pending"
+  failed_publication_run: null
+  published_run: null
+  public_release_url: null

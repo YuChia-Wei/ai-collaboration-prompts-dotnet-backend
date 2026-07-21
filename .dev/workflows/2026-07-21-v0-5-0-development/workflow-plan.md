@@ -19,7 +19,7 @@
 - `current_phase`: `implementation`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-21T03:40:35+08:00`
+- `updated_at`: `2026-07-22T07:35:04+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -72,7 +72,7 @@ decision rationale are retained in
 | `GOV-001` | Reconcile only; mark satisfied or superseded markers without retrofitting legacy locators. | `V050-002` |
 | `CAP-001` | Do not create a terminology skill; retain the domain-language document pattern until repeatable action evidence exists. | `V050-002` |
 | `VAL-001` | Treat repository validation as superseded by later analyzers; implement deterministic dependency/version consistency and retire the permanent deferred placeholder. | `V050-006` |
-| `PKG-003` | Introduce migration schema 2.0 with exact multi-source selection; retain schema 1.0 read compatibility and the v0.0.1-to-v0.3.0 provenance route. | `V050-003` |
+| `PKG-003` | Introduce migration schema 2.0 with exact multi-source selection; retain schema 1.0 read compatibility and the v0.0.1-to-v0.3.0 provenance route. The owner's 2026-07-22 amendment adds v0.4.2 as a required fourth exact automatic source. | `V050-003` core plus `V050-009` expansion |
 | `SAG-001` | Keep dynamic loading as default; retain only `context-translator` as native for Codex, Claude, and Copilot unless live runtime evidence requires another adapter. | `V050-004` |
 | `ENF-001` | Add a separate governance PR workflow and deterministic semantic/path-disposition enforcement; do not merge general governance ownership into package candidate CI. | `V050-005` |
 | `TOOL-001` | Retain the current runner for v0.5.0, strengthen manifest/format tests and execute the same declared gate set on Windows Git Bash and hosted Ubuntu; macOS remains unverified. | `V050-006` |
@@ -116,25 +116,32 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: pinned the HANDOFF core at `3d91e27`, ran the real
-  clean critical gate with 30/30 required checks passing, captured the local
-  Codex attribution fixture, and registered the V050-008 receiving checkpoint.
+- Last completed action: completed HANDOFF-001, implemented the REL-001
+  mechanics, instantiated the planned v0.5.0 release sources, and proved the
+  owner-required fourth automatic source through a real extracted
+  v0.4.2-to-v0.5.0 dry-run/apply. The release-state, preparation, and renderer
+  suites pass with all four declared sources, and the complete source critical
+  gate passes 33/33 with no failed or deferred checks.
 - Current task: `V050-009`
-- Exact next action: implement the REL-001 placeholder templates, sanctioned
-  phase contract, read-only state validator, pre-tag preparation gate, and
-  exact-command publication runbook.
+- Exact next action: commit the REL mechanics and planned four-source candidate,
+  rebuild from the immutable commit, then promote the record to `validated`
+  only after its exact clean-state candidate gate passes.
 - Validation already completed: ENF-001 focused suites, affected package
   upgrade cases 16 and 17, Windows Git Bash 28/28, hosted Ubuntu 28/28, and
   the separate read-only governance workflow all pass at `83a0c1c`.
-- Git state: `3d91e27` is the clean validated HANDOFF subject commit; the
-  machine-readable checkpoint instance and progress transition are pending
-  their checkpoint commit and push.
+- Git state: `74eb166` is committed, repository-verified, and pushed as the
+  HANDOFF checkpoint. REL mechanics and the expanded four-source planned
+  candidate remain in the working tree pending the next validated checkpoint.
 - Branch history and checkpoint handoffs: the branch is pushed through
-  `7d95827`; draft PR `#1` is the hosted evidence and continuing CI surface.
-- Blockers or unresolved decisions: the REL phase interface remains fail-closed
-  until V050-009 supplies a real sanctioned contract. Package-candidate run `29770662983`
-  correctly fails closed until `V050-009` creates a governed v0.5.0 release
-  record. Real Copilot CLI/cloud-agent and Claude attribution fixtures are not
+  `74eb166`; draft PR `#1` is the hosted evidence and continuing CI surface.
+- Blockers or unresolved decisions: package-candidate run `29770662983`
+  correctly failed closed before `V050-009` created a governed v0.5.0 release
+  record; the planned record now exists locally, and the next committed
+  candidate checkpoint must replace that expected absence with a validated
+  record and green hosted run. The owner has expanded and locally revalidated
+  v0.4.2 as the fourth exact automatic source; immutable candidate and hosted
+  proof remain pending. Real
+  Copilot CLI/cloud-agent and Claude attribution fixtures are not
   present; V050-008 must retain that absence explicitly rather than inventing
   identities. Public terminal-state API evidence belongs to V050-009; macOS
   remains unverified.

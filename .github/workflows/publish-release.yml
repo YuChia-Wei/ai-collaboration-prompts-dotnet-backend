@@ -59,6 +59,12 @@ jobs:
       - name: Validate release registry
         run: python .ai/scripts/validate-ai-context-versions.py
 
+      - name: Validate tagged release state
+        run: |
+          python .ai/scripts/validate-ai-context-release-state.py \
+            --phase tag \
+            --version "${GITHUB_REF_NAME}"
+
       - name: Validate candidate and render release body
         id: release
         run: |

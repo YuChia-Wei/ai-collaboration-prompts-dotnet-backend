@@ -274,6 +274,8 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn("actions/upload-artifact@", text)
         self.assertIn("--migration-source", text)
         self.assertIn("steps.release.outputs.migration_sources", text)
+        self.assertIn("validate-ai-context-release-state.py", text)
+        self.assertIn("--phase candidate", text)
         self.assertNotIn("gh release", text)
         self.assertNotRegex(text, r"(?m)^\s*(?:git\s+(?:tag|push|update-ref)|gh\s+api\s+.*git/refs)\b")
 
@@ -292,6 +294,8 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn('--ref "refs/tags/${GITHUB_REF_NAME}"', text)
         self.assertIn("--migration-source", text)
         self.assertIn("steps.release.outputs.migration_sources", text)
+        self.assertIn("validate-ai-context-release-state.py", text)
+        self.assertIn("--phase tag", text)
 
     def test_gwt_009_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
         # Given the commands used to create, verify, and publish a release.
@@ -613,14 +617,14 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             self.assertEqual("0.4.1", receipt["package_version"])
             self.assertEqual(sorted(acknowledgements), receipt["skipped_reconciliation_ids"])
 
-    def test_gwt_017_given_three_real_supported_sources_when_one_v050_candidate_is_built_then_each_upgrades_without_overwriting_target_truth(self) -> None:
+    def test_gwt_017_given_four_real_supported_sources_when_one_v050_candidate_is_built_then_each_upgrades_without_overwriting_target_truth(self) -> None:
         with tempfile.TemporaryDirectory(prefix="ai-context-real-multi-source-") as temp_value:
             temp = Path(temp_value)
             previous_roots: dict[str, Path] = {}
             source_inputs: list[tuple[Path, str]] = []
 
             # Given real extracted packages for every supported v0.5.0 source.
-            for version in ("0.3.0", "0.4.0", "0.4.1"):
+            for version in ("0.3.0", "0.4.0", "0.4.1", "0.4.2"):
                 result = PACKAGE.build_package(
                     ROOT,
                     f"v{version}",
@@ -636,7 +640,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
                     (package_root / "metadata/files.yaml", version)
                 )
 
-            # When one immutable v0.5.0 candidate binds all three inventories.
+            # When one immutable v0.5.0 candidate binds all four inventories.
             candidate_result = PACKAGE.build_package(
                 ROOT,
                 "HEAD",
@@ -660,7 +664,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
                 )
             )
             self.assertEqual(
-                ["0.3.0", "0.4.0", "0.4.1"],
+                ["0.3.0", "0.4.0", "0.4.1", "0.4.2"],
                 [source["version"] for source in migration["sources"]],
             )
 
@@ -793,7 +797,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             temp = Path(temp_value)
             source_inputs: list[tuple[Path, str]] = []
             previous_roots: dict[str, Path] = {}
-            for version in ("0.3.0", "0.4.0", "0.4.1"):
+            for version in ("0.3.0", "0.4.0", "0.4.1", "0.4.2"):
                 result = PACKAGE.build_package(
                     ROOT,
                     f"v{version}",

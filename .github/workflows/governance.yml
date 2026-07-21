@@ -22,6 +22,7 @@ on:
       - ".dev/problem-frames/SEMANTICS.md"
       - ".dev/problem-frames/templates/**"
       - ".dev/requirement/REQUIREMENT-GUIDE.MD"
+      - ".dev/releases/**"
       - ".dev/specs/**"
       - ".dev/standards/**"
       - ".dev/workflows/README.MD"
@@ -75,6 +76,17 @@ jobs:
           python .ai/scripts/validate-shell-assets.py
           python .ai/scripts/tests/test_workflow_handoff.py -v
           python .ai/scripts/validate-workflow-handoff.py --all
+
+      - name: Validate v0.5.0 release candidate contract
+        run: |
+          python .ai/scripts/tests/test_ai_context_release_state.py -v
+          python .ai/scripts/tests/test_prepare_ai_context_release.py -v
+          python .ai/scripts/tests/test_release_notes_renderer.py -v
+          python .ai/scripts/validate-ai-context-release-state.py \
+            --phase candidate \
+            --version v0.5.0 \
+            --commit "${GITHUB_SHA}" \
+            --branch "${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
 
       - name: Validate v0.5.0 path disposition
         run: |

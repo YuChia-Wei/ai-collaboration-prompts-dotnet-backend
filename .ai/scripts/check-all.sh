@@ -245,7 +245,10 @@ run_source_repository_release_checks() {
     if ! source_release_context_available; then
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Version Governance Fail-Closed Tests (source release context not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Packaging GWT Tests (source package builder not packaged)"
-        NOT_APPLICABLE=$((NOT_APPLICABLE + 2))
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Release State Fail-Closed Tests (source release context not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Release Preparation Fail-Closed Tests (source release context not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Release Renderer Fail-Closed Tests (source release context not packaged)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 5))
         return
     fi
 
@@ -255,6 +258,18 @@ run_source_repository_release_checks() {
 
     run_command_check "python .ai/scripts/tests/test_ai_context_packaging.py -v" \
         "AI Context Packaging GWT Tests" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_ai_context_release_state.py -v" \
+        "AI Context Release State Fail-Closed Tests" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_prepare_ai_context_release.py -v" \
+        "AI Context Release Preparation Fail-Closed Tests" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_release_notes_renderer.py -v" \
+        "AI Context Release Renderer Fail-Closed Tests" \
         "required" "true" "true"
 }
 

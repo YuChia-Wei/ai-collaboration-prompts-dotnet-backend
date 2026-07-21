@@ -67,6 +67,8 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `validate-ai-context-release-state.py`
+- `prepare-ai-context-release.py`
 - `validate-file-disposition-manifest.py`
 - `validate-git-commits.py`
 - `validate-workflow-handoff.py`
@@ -96,6 +98,22 @@ is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
+
+`validate-ai-context-release-state.py` applies the REL-owned, version-specific
+phase contract to one governed release. Candidate validation rejects unresolved
+placeholders, copied lifecycle fields, impossible timestamps, unrelated or open
+backlog references, dirty worktrees, package identity drift, and generated
+provenance in authored notes while allowing prior versions in compatibility and
+migration guidance. Tag validation requires an existing annotated tag and a
+validated registry skeleton in the tagged tree. Hosted publication and
+finalization use GET-only GitHub API calls to verify the successful
+tag-triggered workflow, stable Release body, title, tag, and exact asset names.
+
+`prepare-ai-context-release.py` is the pre-tag interface. It requires the merged
+`main` candidate, reruns the candidate and critical gates, verifies the
+worktree remains clean, reads exact AI provenance from the latest registered
+handoff checkpoint, and prints a complete annotated-tag command for the
+repository owner. It never executes the printed command or pushes a ref.
 
 `validate-dependency-versions.py` is a deterministic offline gate. In the source
 framework repository it enforces byte-identical pinned Python requirement
@@ -182,6 +200,9 @@ python .ai/scripts/tests/test_git_commit_policy.py -v
 python .ai/scripts/tests/test_ai_context_version_governance.py -v
 python .ai/scripts/tests/test_ai_context_package_apply.py -v
 python .ai/scripts/tests/test_ai_context_packaging.py -v
+python .ai/scripts/tests/test_ai_context_release_state.py -v
+python .ai/scripts/tests/test_prepare_ai_context_release.py -v
+python .ai/scripts/tests/test_release_notes_renderer.py -v
 python .ai/scripts/tests/test_dependency_version_consistency.py -v
 python .ai/scripts/tests/test_file_disposition_manifest.py -v
 python .ai/scripts/tests/test_governance_workflow_contract.py -v

@@ -77,6 +77,7 @@ This index owns the file and directory catalog for `.dev/`. The `.dev/README.MD`
 | `operations/MQ-TOPOLOGY-GUIDE.MD` | MQ topology authoring guide. |
 | `operations/RUNBOOK-GUIDE.MD` | Runbook authoring guide. |
 | `operations/runbooks/` | Runbook folder and runbook index. |
+| `operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD` | Cold-start governed AI context candidate, tag handoff, publication, and finalization procedure. |
 
 ## Workflow Records
 

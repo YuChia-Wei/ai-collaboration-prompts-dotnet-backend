@@ -40,6 +40,7 @@ GOVERNED_PR_PATHS = {
     ".dev/problem-frames/SEMANTICS.md",
     ".dev/problem-frames/templates/**",
     ".dev/requirement/REQUIREMENT-GUIDE.MD",
+    ".dev/releases/**",
     ".dev/specs/**",
     ".dev/standards/**",
     ".dev/workflows/README.MD",
@@ -61,6 +62,10 @@ REQUIRED_COMMANDS = {
     "python .ai/scripts/validate-shell-assets.py",
     "python .ai/scripts/tests/test_workflow_handoff.py -v",
     "python .ai/scripts/validate-workflow-handoff.py --all",
+    "python .ai/scripts/tests/test_ai_context_release_state.py -v",
+    "python .ai/scripts/tests/test_prepare_ai_context_release.py -v",
+    "python .ai/scripts/tests/test_release_notes_renderer.py -v",
+    "python .ai/scripts/validate-ai-context-release-state.py",
     SOURCE_GOVERNANCE_COMMAND,
     "python .ai/scripts/tests/test_file_disposition_manifest.py -v",
     "python .ai/scripts/tests/test_governance_workflow_contract.py -v",
@@ -99,7 +104,7 @@ class GovernanceWorkflowContractTests(unittest.TestCase):
             GOVERNED_PR_PATHS,
             set(self.workflow["on"]["pull_request"]["paths"]),
         )
-        self.assertNotIn(".dev/releases/**", self.workflow["on"]["pull_request"]["paths"])
+        self.assertIn(".dev/releases/**", self.workflow["on"]["pull_request"]["paths"])
 
     def test_gwt_002_given_governance_workflow_when_checked_then_permissions_are_read_only(self) -> None:
         self.assertEqual({}, self.workflow.get("permissions"))
@@ -127,7 +132,6 @@ class GovernanceWorkflowContractTests(unittest.TestCase):
     def test_gwt_005_given_governance_workflow_when_checked_then_release_mutation_is_absent(self) -> None:
         command_text = "\n".join(self.commands)
         self.assertIsNone(MUTATING_COMMAND.search(command_text))
-        self.assertNotIn(".dev/releases/**", command_text)
         self.assertNotIn("contents: write", command_text.lower())
 
     def test_gwt_006_given_source_registry_when_loaded_then_v050_manifest_is_exact(self) -> None:

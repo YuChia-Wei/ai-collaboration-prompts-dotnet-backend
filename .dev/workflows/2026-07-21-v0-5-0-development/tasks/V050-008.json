@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-21T00:24:09+08:00",
-  "updated_at": "2026-07-21T03:40:35+08:00",
+  "updated_at": "2026-07-21T04:07:12+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -24,7 +24,7 @@
     "next_action": "Implement the REL-001 sanctioned release-phase contract and cold-start publication gates under V050-009."
   },
   "results": {
-    "summary": "HANDOFF-001 core receiving semantics are implemented and exercised with a real clean checkpoint; the REL-specific handoff path remains fail-closed until V050-009 supplies its sanctioned commands.",
+    "summary": "HANDOFF-001 receiving semantics are implemented and exercised with a real clean checkpoint. V050-009 now supplies exact REL-owned candidate, tag, publication, and finalization commands, so release handoffs remain fail-closed without an unavailable interface.",
     "files_changed": [
       ".dev/standards/WORKFLOW-HANDOFF-POLICY.md",
       ".dev/standards/WORKFLOW-HANDOFF-POLICY.yaml",
@@ -38,8 +38,8 @@
       "python .ai/scripts/tests/test_workflow_handoff.py -v: 15/15 passed",
       "bash .ai/scripts/check-all.sh --critical: 30/30 passed, 0 failed, 0 deferred"
     ],
-    "finding_status": "partially-resolved",
-    "residual_risk": "REL phase activation is owned by V050-009. Copilot CLI, Copilot cloud-agent, and Claude provider-native fixture paths remain explicitly blocked until real commits are available; the repository does not guess their identities.",
-    "follow_up_needed": true
+    "finding_status": "resolved",
+    "residual_risk": "Copilot CLI, Copilot cloud-agent, and Claude provider-native fixture paths remain explicitly blocked until real commits are available; no provider-specific rule was added and the repository does not guess their identities.",
+    "follow_up_needed": false
   }
 }

@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "HANDOFF-001"
 title: "Cross-Model And Fresh-Session State-Alignment Gate"
 category: "governance-process"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH"
 summary: "Require a fail-closed receiving-agent checkpoint so workflow continuation does not depend on model quality or hidden session continuity."
 created_at: "2026-07-20T22:23:02+08:00"
-updated_at: "2026-07-21T03:40:35+08:00"
+updated_at: "2026-07-21T04:07:12+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "cross-model-session-resume-state-and-validation-evidence"
   gate: "release-blocker"
@@ -28,8 +28,8 @@ task_refs:
   - ".dev/workflows/2026-07-20-v0-4-2-release-finalization-hotfix/tasks/R042005-003.json"
   - ".dev/workflows/2026-07-20-native-attribution-handoff-planning/tasks/HANDOFFPLAN-001.json"
   - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-008.json"
-resolution_ref: null
-decision_needed: "During v0.5.0 implementation, approve the machine-readable resume-evidence shape, provider-native attribution evidence union, and phase-specific release checks after real Copilot, Claude, and Codex fixtures are captured."
+resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/handoff-checkpoints/V050-008.yaml"
+decision_needed: "No remaining v0.5.0 decision. Future provider-specific attribution rules remain blocked until a real provider-generated fixture exists."
 acceptance:
   - "A receiving agent pins the repository, branch, commit, workflow, current task, dirty state, and exact next action before continuing."
   - "The receiving agent runs check-all.sh --critical and records the command, exit status, and bounded output evidence in the resume checkpoint."

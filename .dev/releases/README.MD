@@ -6,4 +6,15 @@ Start with [INDEX.MD](INDEX.MD). Follow [AI-CONTEXT-VERSION-POLICY.md](../standa
 
 Each version directory owns one `release.yaml`, `release-notes.md`, and `migration-guide.md`. Published records are immutable except for clearly identified factual corrections; candidate records remain editable until publication.
 
+For a new governed release, instantiate the placeholder-only files in
+[`release-publication`](../../.ai/assets/skills/ai-context-governance/templates/release-publication/).
+Never copy a previous version directory, its run IDs, timestamps, commit SHA,
+or validation text. Use the exact phase commands in
+[`release-phase-checks.yaml`](release-phase-checks.yaml) and the publication
+runbook before asking the user to create an annotated tag.
+
+`release-notes.md` is authored source. Generated GitHub Release automation
+markers and provenance are renderer output and must not be committed to an
+authored notes file.
+
 Do not store workflow progress, assessments, or target-repository override details here.
