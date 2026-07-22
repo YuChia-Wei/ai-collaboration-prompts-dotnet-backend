@@ -27,10 +27,14 @@
 
 - Problem statement: PR #6 correctly triggered general governance for backlog
   changes, but the job invoked the v0.5.0 candidate phase after publication and
-  failed because the registry correctly reports `published`.
+  failed because the registry correctly reports `published`. After that repair,
+  a changed governance contract test also triggered Package Candidate, which
+  failed because no planned or validated release exists.
 - Authorized remediation scope: create CI-002 for comprehensive review and make
   the smallest tested change that removes concrete release-phase execution from
-  the general governance workflow while retaining release-tooling unit tests.
+  the general governance workflow while retaining release-tooling unit tests;
+  make the exact no-candidate PR state non-applicable without masking other
+  candidate rendering failures.
 - Exclusions: do not narrow `.dev/backlog/**`, redesign all workflows, change
   release records, run publication, or claim CI-002 is resolved.
 - Completion criteria: the hosted failure is reproduced locally; governance no
@@ -48,6 +52,7 @@
 | Evidence | Severity | Disposition | Task | Validation |
 | --- | --- | --- | --- | --- |
 | run `29939246189` candidate-phase failure | HIGH | short-term fix now | `CIHOTFIX-001` | local contract plus hosted rerun |
+| run `29940380505` no-candidate failure | HIGH | short-term fix now | `CIHOTFIX-001` | packaging contract plus hosted rerun |
 | all-workflow responsibility review | follow-up | defer to `CI-002` | `CIHOTFIX-001` | backlog/workflow validation |
 
 ## Stages And Checkpoints

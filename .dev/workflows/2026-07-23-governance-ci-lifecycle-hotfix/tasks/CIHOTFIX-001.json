@@ -12,16 +12,19 @@
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
-    "target": "general governance release lifecycle coupling",
+    "target": "post-publication governance and package-candidate lifecycle coupling",
     "files": [
       ".github/workflows/governance.yml",
+      ".github/workflows/package-candidate.yml",
       ".ai/scripts/tests/test_governance_workflow_contract.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
       ".dev/backlog/items/CI-002.yaml"
     ],
     "constraints": [
       "Keep .dev/backlog/** governed",
       "Retain release tooling unit tests",
-      "Remove only concrete phase-specific execution",
+      "Remove concrete phase-specific execution from general governance",
+      "Treat an absent PR candidate as not applicable while preserving fail-closed behavior for all other renderer failures",
       "Defer comprehensive review to CI-002"
     ],
     "non_goals": [
@@ -37,11 +40,13 @@
       "Trace trigger and candidate command history",
       "Create CI-002",
       "Remove candidate/finalization execution from general governance",
+      "Make package-candidate PR checks pass as not applicable when no governed candidate exists",
       "Add a workflow contract regression",
       "Validate, push, and merge after hosted success"
     ],
     "validation": [
       "python .ai/scripts/tests/test_governance_workflow_contract.py -v",
+      "python .ai/scripts/tests/test_ai_context_packaging.py -v",
       "python .ai/scripts/tests/test_ai_context_release_state.py -v",
       "python .ai/scripts/tests/test_prepare_ai_context_release.py -v",
       "python .ai/scripts/tests/test_release_notes_renderer.py -v",
@@ -53,10 +58,12 @@
     "next_action": "Push and require PR #6 hosted checks before merge."
   },
   "results": {
-    "summary": "General governance retains release tooling tests but no longer executes a hardcoded release phase for unrelated governed paths; CI-002 owns the comprehensive workflow review.",
+    "summary": "General governance no longer executes a hardcoded release phase, and package-candidate treats the exact no-candidate PR state as not applicable while failing closed on every other rendering error; CI-002 owns the comprehensive workflow review.",
     "files_changed": [
       ".github/workflows/governance.yml",
+      ".github/workflows/package-candidate.yml",
       ".ai/scripts/tests/test_governance_workflow_contract.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
       ".dev/backlog/items/CI-002.yaml",
       ".dev/backlog/INDEX.MD",
       ".dev/backlog/ROADMAP.md",

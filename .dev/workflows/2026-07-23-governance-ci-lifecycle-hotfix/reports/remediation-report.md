@@ -17,6 +17,9 @@
   v0.5.0 is published but general governance invoked candidate phase.
 - Short-term fix: retain `.dev/backlog/**` and release-tooling unit tests, but
   remove concrete candidate/finalization execution from the general job.
+- Package-candidate fix: on pull requests without an explicitly requested
+  version, treat only the exact absence of a governed candidate as not
+  applicable; every other renderer failure remains fail-closed.
 - Follow-up: CI-002 owns complete workflow trigger and lifecycle review.
 - Closure decision: completed locally; hosted merge gate required.
 
@@ -25,6 +28,7 @@
 | Problem | Status | Changed Files | Validation | Residual Risk |
 | --- | --- | --- | --- | --- |
 | hardcoded v0.5.0 candidate execution | resolved | governance workflow | contract and hosted rerun | none for general backlog PRs |
+| no governed candidate after publication | resolved | package-candidate workflow | packaging contract and hosted rerun | exact diagnostic remains coupled to renderer contract pending CI-002 |
 | regression protection | resolved | governance contract test | local GWT | workflow text remains contract-tested |
 | complete workflow review | deferred | CI-002 | backlog validation | other lifecycle/cost issues may remain |
 
