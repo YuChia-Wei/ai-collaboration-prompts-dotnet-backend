@@ -5,9 +5,9 @@
 - `report_id`: `remediation-report-2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `workflow_id`: `2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `owner_skill`: `ai-context-governance`
-- `status`: `draft`
+- `status`: `final`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T09:21:46+08:00`
+- `updated_at`: `2026-07-22T09:45:01+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 
@@ -26,23 +26,28 @@
   failed and 0 deferred at `958da6e`; all 56 .NET tests passed. Exact candidate
   `c53e1bf` repeated 33/33. Independent review found no implementation blocker;
   its one low-severity roadmap summary omission is corrected in this checkpoint.
-  Hosted and merged-main evidence remains pending.
-- Closure decision: `not-ready`.
+  Final candidate `47aa1cc` repeated 33/33 and passed hosted runs
+  `29883289326`, `29883289335`, and `29883289321`. PR #2 merged it as
+  `main@540cd029`, where the unrestricted sanctioned pre-tag command passed,
+  reported all four exact automatic sources, and created no tag.
+- Closure decision: `ready`.
 
 ## Finding Resolution Matrix
 
 | Finding | Before Severity | Status | Changed Files | Validation | Commit | Residual Risk |
 | --- | --- | --- | --- | --- | --- | --- |
-| `PTP-001` | HIGH / P0 | `partially-resolved` | pre-tag script, tests, and roadmap summary | exact candidate critical 33/33; independent audit has no blocker | pending | final reconciled candidate, merged-main pre-tag, and hosted evidence remain pending |
+| `PTP-001` | HIGH / P0 | `resolved` | pre-tag script, tests, backlog, roadmap, and workflow records | final critical 33/33; hosted triad green; merged-main pre-tag passed | `47aa1cc`, merge `540cd029` | sandboxed NuGet restore still requires approved network access; tag remains owner-authorized |
 
 ## Closure Evidence
 
-- Required validations: focused portability fixtures, two unrestricted local
-  critical runs, and independent review pass; final reconciled-candidate
-  critical, hosted gates, and real pre-tag preparation on merged `main` remain
-  pending.
-- Commit status: pending.
-- Workflow/task status: in progress.
-- Final next action: commit the independent-review reconciliation, rerun its
-  complete critical and commit-range gates, and push for hosted verification;
-  do not tag or publish.
+- Required validations: nine focused portability fixtures; adjacent release and
+  backlog suites; final candidate critical 33/33; workflow commit range 7/7;
+  independent no-blocker audit; hosted package, governance, and Ubuntu gates;
+  unrestricted merged-main pre-tag all pass.
+- Commit status: implementation `47aa1cc` merged through PR #2 as `540cd029`;
+  lifecycle closure is the closeout commit containing this update.
+- Workflow/task status: completed.
+- Final next action: await separate owner authorization before annotated tag
+  creation. If authorized, use the exact printed command and proceed through
+  governed tag, publication, and finalization phases. Do not tag or publish
+  before that authorization.

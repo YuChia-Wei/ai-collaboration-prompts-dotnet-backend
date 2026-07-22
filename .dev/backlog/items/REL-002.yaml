@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "REL-002"
 title: "Portable Pre-Tag Critical-Gate Output"
 category: "release-governance"
-status: "in_progress"
+status: "resolved"
 priority: "HIGH / P0"
 summary: "Make the sanctioned pre-tag runner select Git Bash rather than the Windows WSL launcher and decode arbitrary output deterministically, without weakening its exact command allowlist or fail-closed behavior."
 created_at: "2026-07-22T08:46:21+08:00"
-updated_at: "2026-07-22T09:21:46+08:00"
+updated_at: "2026-07-22T09:45:01+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "pre-tag-subprocess-output-portability"
   gate: "release-blocker"
@@ -23,8 +23,8 @@ workflow_refs:
   - ".dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/tasks/PRETAG-001.json"
-resolution_ref: null
-decision_needed: "No policy decision remains. This is a proven release blocker within the already authorized v0.5.0 release-mechanics scope."
+resolution_ref: ".dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/reports/remediation-report.md"
+decision_needed: "Resolved: PR #2 merged as 540cd029; the sanctioned pre-tag command passed on that clean main commit and printed, but did not execute, the separately owner-authorized tag command."
 acceptance:
   - "The runner consumes subprocess output as bytes and decodes it deterministically without a background reader-thread exception."
   - "Windows resolves the Git Bash executable from the active Git installation or standard installation roots without falling through to the WSL bash launcher."
@@ -38,3 +38,5 @@ acceptance:
 inventory_notes:
   - "The defect was observed only after merging the independently verified candidate to main and executing the owner-only pre-tag command; its invalid bytes were localized output from the Windows WSL launcher selected ahead of Git Bash."
   - "v0.4.2 remains the required fourth exact automatic source; this hotfix does not change migration compatibility."
+  - "Hosted runs 29883289326, 29883289335, and 29883289321 passed on final branch candidate 47aa1cc before PR #2 merged as 540cd02905603aae2f7c1bd623673dcda171c314."
+  - "The unrestricted merged-main pre-tag command passed and reported exact automatic sources v0.3.0, v0.4.0, v0.4.1, and v0.4.2; no v0.5.0 tag or publication exists."
