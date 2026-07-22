@@ -13,6 +13,17 @@
 - [`release-phase-checks.yaml`](../../releases/release-phase-checks.yaml) 的 command 是 handoff 可比對的 sanctioned command；不可包進 shell substitution 或任意 command。
 - 本 runbook 固定適用本次 `v0.5.0` release contract。下一個版本必須新增其 own phase contract，而不是修改本次已記錄的 command。
 
+## Host Prerequisites
+
+- Source-side Python tooling requires Python 3.11 or newer plus the exact
+  dependency in `requirements.txt`.
+- .NET validation requires SDK 10.0.300 or newer so the host satisfies
+  `global.json`; 10.0.203 is below the required feature band.
+- macOS may not provide a usable `python` command. After installing a supported
+  interpreter and dependencies, set `AI_CONTEXT_PYTHON` to that executable or
+  virtual-environment path. This is a supported execution route and must still
+  produce a fully executed required gate, not a skip.
+
 ## Cold-Start Candidate
 
 1. Instantiate the five template artifacts into the active workflow and `.dev/releases/v0.5.0/`; resolve every `<...>` placeholder with current observed values: release record, authored notes, migration guide, workflow locator, and release task.

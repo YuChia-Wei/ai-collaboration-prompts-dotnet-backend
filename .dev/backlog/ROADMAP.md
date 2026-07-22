@@ -106,6 +106,12 @@ release evidence than the earlier planning source:
 6. Cold-start release execution and cross-model or fresh-session state
    alignment are v0.5.0 release blockers under `REL-001` and `HANDOFF-001`.
    Form-compliant prose is not sufficient evidence of a validation run.
+7. On 2026-07-22 the owner-arranged Fable 5 host completed the previously
+   deferred macOS evidence at `main@9ac40bee`: native bash 3.2.57 quick and
+   critical gates both passed 33/33. `ASM-20260722-003` preserves the raw
+   report and separately reproduces its `AI_CONTEXT_PYTHON` fixture leak; the
+   receiving host must not recast the attributed run as a universal platform
+   or provider-runtime guarantee.
 
 ## Backlog Release Targets
 

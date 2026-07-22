@@ -14,6 +14,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import yaml
 
@@ -239,6 +240,7 @@ class SyntheticRunnerRepo:
         merged_environment.pop("TASK_NAME", None)
         merged_environment.pop("COMMIT_RANGE", None)
         merged_environment.pop("WORKFLOW_ID", None)
+        merged_environment.pop("AI_CONTEXT_PYTHON", None)
         if environment:
             merged_environment.update(environment)
         return subprocess.run(
@@ -582,6 +584,25 @@ class CheckAllRunnerGwtTests(unittest.TestCase):
             self.assertEqual(1, result.returncode)
             self.assertIn("Python 3.11 or newer is required", result.stderr)
             self.assertEqual([], fixture.sentinel())
+        finally:
+            fixture.close()
+
+    def test_gwt_015_given_parent_python_override_when_fixture_runs_then_path_stub_remains_authoritative(self) -> None:
+        fixture = SyntheticRunnerRepo()
+        try:
+            # Given the host exports a real interpreter for its outer gate.
+            with mock.patch.dict(
+                os.environ,
+                {"AI_CONTEXT_PYTHON": sys.executable},
+            ):
+                # When a synthetic fixture runs without its own explicit override.
+                result = fixture.execute("--quick")
+
+            # Then the fixture isolates the host override and retains its PATH stub.
+            self.assertEqual(0, result.returncode, result.stdout + result.stderr)
+            self.assertTrue(
+                any(line.startswith("python ") for line in fixture.sentinel())
+            )
         finally:
             fixture.close()
 
