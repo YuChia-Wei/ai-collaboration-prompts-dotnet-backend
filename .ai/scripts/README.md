@@ -13,6 +13,11 @@ checksum-stable dependency declared in the root `requirements.txt`:
 PyYAML==6.0.3
 ```
 
+The repository's .NET validation tools require an SDK that satisfies
+`global.json`; for v0.5.0 source work, install .NET SDK 10.0.300 or newer.
+An older 10.0 feature band such as 10.0.203 does not satisfy the declared
+10.0.300 baseline.
+
 Create and activate a virtual environment using the conventions for the host,
 then install the source dependency from the repository root:
 
@@ -26,6 +31,14 @@ On POSIX hosts the interpreter may be named `python3`. `check-all.sh` discovers
 Set `AI_CONTEXT_PYTHON` to an executable name or path when an explicit
 interpreter is required. Missing or failing required tools remain gate failures;
 interpreter discovery does not convert them to skips.
+
+Stock macOS installations may expose no `python` command and may provide a
+`python3` older than the 3.11 floor. Install a supported interpreter, create the
+environment with that interpreter, and set `AI_CONTEXT_PYTHON` to the resulting
+executable when needed. The override is part of the supported runner contract;
+synthetic fixture repositories remove inherited overrides before selecting
+their deterministic PATH stubs, while fixture-owned explicit overrides remain
+supported.
 
 The extracted release package has its own checksum-governed envelope
 `requirements.txt`; follow the package `INSTALL.md` rather than using this

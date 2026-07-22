@@ -5,7 +5,8 @@
 Release-ready governed candidate source. No tag or published commit exists.
 Publication remains owner-authorized through a user-created annotated tag
 after no-fast-forward merge and successful pre-tag preparation. Hosted checks
-and independent successor verification `ASM-20260722-002` pass.
+and independent successor verifications `ASM-20260722-002` and
+`ASM-20260722-004` pass.
 
 ## Highlights
 
@@ -19,7 +20,8 @@ and independent successor verification `ASM-20260722-002` pass.
 - Adds semantic thin-wrapper enforcement, exact published-path dispositions,
   and a dedicated read-only governance pull-request workflow.
 - Adds deterministic offline dependency/version checks and proves the declared
-  quick gate on Windows Git Bash and hosted Ubuntu. macOS remains unverified.
+  gate on Windows Git Bash, hosted Ubuntu, and an owner-arranged macOS arm64
+  host using native bash 3.2.57.
 - Adds deterministic agent-facing language-policy checks with retained
   bilingual structural parity and bounded semantic review evidence.
 - Adds a machine-readable, fail-closed receiving checkpoint for cross-model,
@@ -47,17 +49,21 @@ through the retained manual v0.1.0 and v0.2.0 reconciliation path.
 
 Implementation checkpoints have verified four-source package behavior,
 runtime-adapter parity, governance enforcement, dependency consistency,
-Windows and hosted Ubuntu portability, language policy, and receiving-handoff
-mechanics. The candidate passes its exact clean-state gate, two deterministic
+Windows, hosted Ubuntu, and attributed macOS portability, language policy, and
+receiving-handoff mechanics. The candidate passes its exact clean-state gate, two deterministic
 four-source builds, hosted candidate CI, hosted governance, and hosted Ubuntu
 quick validation. Independent assessment `ASM-20260722-001` found stale
 release discovery and resume state; the workflow corrected those surfaces,
-and successor `ASM-20260722-002` verifies every selected finding resolved with
-no new release-readiness blocker.
+successor `ASM-20260722-002` verifies every selected finding resolved, and the
+macOS portability successor `ASM-20260722-004` verifies the owner-arranged
+evidence intake and fixture isolation with no new release-readiness blocker.
 
 Known limitations:
 
-- macOS execution is unverified;
+- macOS execution was performed on the owner-arranged Fable 5 host at
+  `9ac40bee4ab3d4ac169c05c6229895d7a22265ff`; the receiving Windows host did
+  not repeat that platform run, and this evidence is not a universal support
+  guarantee;
 - online package currency and vulnerability state remain advisory rather than
   claims of the deterministic offline dependency gate;
 - Copilot CLI, Copilot cloud-agent, and Claude native attribution fixtures

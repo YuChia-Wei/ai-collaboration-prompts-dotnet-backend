@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-22T09:58:38+08:00`
+- `updated_at`: `2026-07-22T20:54:45+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -27,7 +27,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
-| `v0.5.0` | `release_ready` | yes | The four-source candidate, including exact automatic v0.4.2 upgrades, passes independent review, local and hosted gates, and repeated sanctioned pre-tag preparation after main merges. | Await separate owner authorization; immediately before tag creation, rerun pre-tag on the current clean `main` and use only that newly printed command. Publication remains a later governed phase and no tag exists yet. | [`2026-07-22-v0-5-0-pretag-portability-hotfix`](../workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml) |
+| `v0.5.0` | `release_ready` | yes | The four-source candidate, including exact automatic v0.4.2 upgrades, passes independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates, plus repeated sanctioned pre-tag preparation after main merges. | Owner authorization for publication was granted on 2026-07-22. Merge the bounded macOS correction, rerun pre-tag on current clean `main`, use only its newly printed command, then complete tag, hosted publication, and local finalization. No tag exists yet. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; measure actual loaded context; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
@@ -106,6 +106,12 @@ release evidence than the earlier planning source:
 6. Cold-start release execution and cross-model or fresh-session state
    alignment are v0.5.0 release blockers under `REL-001` and `HANDOFF-001`.
    Form-compliant prose is not sufficient evidence of a validation run.
+7. On 2026-07-22 the owner-arranged Fable 5 host completed the previously
+   deferred macOS evidence at `main@9ac40bee`: native bash 3.2.57 quick and
+   critical gates both passed 33/33. `ASM-20260722-003` preserves the raw
+   report and separately reproduces its `AI_CONTEXT_PYTHON` fixture leak; the
+   receiving host must not recast the attributed run as a universal platform
+   or provider-runtime guarantee.
 
 ## Backlog Release Targets
 

@@ -1,0 +1,56 @@
+template_metadata:
+  template_id: "assessment-locator"
+  template_version: "1.0.0"
+  template_created_at: "2026-07-13T23:04:10+08:00"
+  template_updated_at: "2026-07-13T23:04:10+08:00"
+
+schema_version: "1.0"
+assessment_id: "ASM-20260722-003"
+commit_search_id: "ASM-20260722-003"
+assessment_type: "ai-context-audit"
+title: "v0.5.0 macOS Portability External Review Intake"
+owner_skill: "ai-context-auditor"
+status: "final"
+report: "report.md"
+artifact_branch: "codex/2026-07-22-v0-5-0-macos-portability"
+base_branch: "main"
+created_at: "2026-07-22T20:35:44+08:00"
+updated_at: "2026-07-22T20:35:44+08:00"
+template_source: ".dev/assessments/templates/assessment-locator-template.yaml"
+template_version: "1.0.0"
+report_template_source: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md"
+report_template_version: "2.1.0"
+subject_ref:
+  repository: "C:/Github/YuChia/ai-collaboration-prompts-dotnet-backend"
+  branch: "main"
+  commit: "9ac40bee4ab3d4ac169c05c6229895d7a22265ff"
+scope:
+  included:
+    - ".dev/assessments/ASM-20260722-003/evidence/fable5-macos/**"
+    - ".ai/scripts/check-all.sh"
+    - ".ai/scripts/tests/test_fail_closed_validation.py"
+    - ".ai/scripts/README.md"
+    - "global.json"
+    - ".dev/releases/v0.5.0/**"
+    - ".dev/backlog current v0.5.0 portability records"
+  excluded:
+    - "src/** and product implementation trees"
+    - "tests/** outside AI-context validation surfaces"
+    - "independent rerun on a receiving-host macOS machine"
+    - "provider-native attribution fixtures"
+relations:
+  supersedes: []
+  superseded_by: []
+  related_assessments:
+    - "ASM-20260722-001"
+    - "ASM-20260722-002"
+  workflow_refs:
+    - "2026-07-22-v0-5-0-macos-portability"
+  backlog_refs:
+    - "TOOL-001"
+    - "REL-002"
+  adr_refs: []
+resume:
+  last_completed_action: "Preserved the raw Fable 5 macOS review and reproduced its AI_CONTEXT_PYTHON fixture-leak claim as eight focused test failures on main@9ac40bee4ab3d4ac169c05c6229895d7a22265ff."
+  next_action: "Remediate ASM-20260722-003#AIC-001 through AIC-003 in workflow 2026-07-22-v0-5-0-macos-portability, then create an independent verification assessment."
+  blockers: []
