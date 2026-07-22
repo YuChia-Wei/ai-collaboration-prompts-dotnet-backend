@@ -6,11 +6,11 @@ status: "resolved"
 priority: "HIGH / P0"
 summary: "Make the sanctioned pre-tag runner select Git Bash rather than the Windows WSL launcher and decode arbitrary output deterministically, without weakening its exact command allowlist or fail-closed behavior."
 created_at: "2026-07-22T08:46:21+08:00"
-updated_at: "2026-07-22T09:58:38+08:00"
+updated_at: "2026-07-22T21:13:53+08:00"
 release:
   target: "v0.5.0"
   completed_in: "v0.5.0"
-  published_in: null
+  published_in: "v0.5.0"
   target_scope: "pre-tag-subprocess-output-portability"
   gate: "release-blocker"
 origin_refs:
@@ -40,5 +40,5 @@ inventory_notes:
   - "The defect was observed only after merging the independently verified candidate to main and executing the owner-only pre-tag command; its invalid bytes were localized output from the Windows WSL launcher selected ahead of Git Bash."
   - "v0.4.2 remains the required fourth exact automatic source; this hotfix does not change migration compatibility."
   - "Hosted runs 29883289326, 29883289335, and 29883289321 passed on final branch candidate 47aa1cc before PR #2 merged as 540cd02905603aae2f7c1bd623673dcda171c314."
-  - "The unrestricted merged-main pre-tag command passed and reported exact automatic sources v0.3.0, v0.4.0, v0.4.1, and v0.4.2; no v0.5.0 tag or publication exists."
+  - "The unrestricted merged-main pre-tag command passed and reported exact automatic sources v0.3.0, v0.4.0, v0.4.1, and v0.4.2; immutable tag v0.5.0 and hosted run 29922585651 subsequently completed publication."
   - "The closeout merge changed main after the first successful preparation, so preparation was rerun successfully on 03f86ccc; the durable instruction intentionally avoids pinning that mutable checkpoint as a future tag command."

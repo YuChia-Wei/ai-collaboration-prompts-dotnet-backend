@@ -6,9 +6,9 @@
   "task_id": "MACOS-001",
   "workflow_id": "2026-07-22-v0-5-0-macos-portability",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-22T20:35:44+08:00",
-  "updated_at": "2026-07-22T20:54:45+08:00",
+  "updated_at": "2026-07-22T21:13:53+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
     "ASM-20260722-003#AIC-001",
@@ -59,8 +59,8 @@
       "python .ai/scripts/validate-ai-context-release-state.py --phase candidate --version v0.5.0",
       "bash .ai/scripts/check-all.sh --critical"
     ],
-    "last_completed_step": "All three baseline findings are remediated and independently verified at da70bb5; the complete critical gate passed 33/33.",
-    "next_action": "Push, pass hosted checks, merge, rerun current-main pre-tag, and complete the explicitly authorized publication lifecycle."
+    "last_completed_step": "Published v0.5.0 from immutable tag and reconciled the local release registry, roadmap, backlog, and workflow closure.",
+    "next_action": "Begin a separately governed v0.6.0 activation workflow."
   },
   "results": {
     "summary": "Inherited AI_CONTEXT_PYTHON is isolated from synthetic fixtures without breaking explicit overrides; exact prerequisites and bounded macOS evidence are reconciled and independently verified.",
@@ -80,10 +80,14 @@
       "critical gate: 33/33 passed, 0 failed, 0 deferred, 56 dotnet tests passed",
       "candidate release state passed at da70bb5",
       "workflow commit range main..da70bb5: 2/2 valid",
-      "ASM-20260722-004 independent verification: no blocker"
+      "ASM-20260722-004 independent verification: no blocker",
+      "PR #5 hosted package, governance, and Ubuntu checks: passed",
+      "current-main pre-tag and local tag phase: passed",
+      "publication run 29922585651 and hosted publication phase: passed",
+      "stable GitHub Release exposes four governed assets"
     ],
     "finding_status": "verified",
     "residual_risk": "macOS execution remains attributed external evidence rather than a receiving-host rerun; provider-native fixtures remain out of scope.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }

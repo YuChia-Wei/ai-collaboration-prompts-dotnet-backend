@@ -5,9 +5,9 @@
 - `report_id`: `remediation-report-2026-07-22-v0-5-0-macos-portability`
 - `workflow_id`: `2026-07-22-v0-5-0-macos-portability`
 - `owner_skill`: `ai-context-governance`
-- `status`: `draft`
+- `status`: `final`
 - `created_at`: `2026-07-22T20:35:44+08:00`
-- `updated_at`: `2026-07-22T20:54:45+08:00`
+- `updated_at`: `2026-07-22T21:13:53+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessment`: `ASM-20260722-003`
@@ -24,7 +24,7 @@
   override; candidate, assessment, workflow, AI-context, version, backlog,
   renderer, shell, and commit-range gates pass; critical gate passes 33/33 with
   56 .NET tests; `ASM-20260722-004` reports no blocker.
-- Closure decision: `ready`
+- Closure decision: `completed`
 
 ## Finding Resolution Matrix
 
@@ -51,9 +51,13 @@
 ## Closure Evidence
 
 - Required validations: local focused, structural, candidate, commit-range,
-  critical, and independent verification pass; hosted checks remain pending.
+  critical, and independent verification pass. PR #5 hosted package,
+  governance, and Ubuntu checks pass; merge commit is `1477181f`; final
+  current-main pre-tag and tag-phase checks pass; hosted publication run
+  `29922585651` and publication validation pass; the stable Release contains
+  four governed assets.
 - Commit status: baseline `0a222c7`; remediation `da70bb5`; verification
   checkpoint is the commit containing this update.
-- Workflow/task status: active / in progress until merge and publication finish.
-- Final next action: push, pass hosted checks, merge, rerun current-main pre-tag,
-  then complete tag, hosted publication, and registry finalization.
+- Workflow/task status: completed / completed; registry closeout is the commit
+  containing this update.
+- Final next action: begin a separately governed v0.6.0 activation workflow.

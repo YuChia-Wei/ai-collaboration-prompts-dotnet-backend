@@ -4,9 +4,9 @@
 
 - `roadmap_id`: `post-v0.4.0`
 - `status`: `active`
-- `current_target`: `v0.5.0`
+- `current_target`: `v0.6.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-22T20:54:45+08:00`
+- `updated_at`: `2026-07-22T21:13:53+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -27,7 +27,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
-| `v0.5.0` | `release_ready` | yes | The four-source candidate, including exact automatic v0.4.2 upgrades, passes independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates, plus repeated sanctioned pre-tag preparation after main merges. | Owner authorization for publication was granted on 2026-07-22. Merge the bounded macOS correction, rerun pre-tag on current clean `main`, use only its newly printed command, then complete tag, hosted publication, and local finalization. No tag exists yet. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
+| `v0.5.0` | `published` | yes | The four-source release, including exact automatic v0.4.2 upgrades, passed independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates. | Completed at immutable tag `v0.5.0`, peeled commit `1477181f0b43fa7ee82fcd482141758ac9e22eb6`, successful hosted publication run `29922585651`, and a stable GitHub Release with four governed assets. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; measure actual loaded context; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
@@ -123,9 +123,9 @@ versions. Current assignments:
 - `v0.4.2`: corrections `R042-001` through `R042-004` are published;
   `R042-005` owns post-tag finalization and keeps `published_in` unset because
   the hotfix is not part of the immutable v0.4.2 tree.
-- `v0.5.0` release blockers: `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`,
-  `LANG-001`, `REL-001`, `REL-002`, and `HANDOFF-001`.
-- `v0.5.0` disposition gates: `GOV-001`, `CAP-001`, and `VAL-001`.
+- `v0.5.0`: `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`,
+  `REL-001`, `REL-002`, `HANDOFF-001`, `GOV-001`, `CAP-001`, and `VAL-001`
+  were completed and published in `REL-v0.5.0`.
 - `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
   taxonomy and compatible `repo-structure-sync` to `ai-context-init`
   transition; `SIMPL-001` owns measured simplification disposition.
@@ -204,9 +204,8 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Await explicit owner authorization for the immutable `v0.5.0` annotated tag.
-If authorization is granted, first rerun sanctioned pre-tag preparation on the
-current clean `main` and use only that newly printed command; every command
-printed before a later `main` merge is expired. Then follow the governed tag,
-publication, and finalization phases. Do not create, move, publish, or otherwise
-mutate the tag or Release before that authorization.
+Begin governed v0.6.0 activation planning. Establish `EVAL-001`, measure actual
+loaded context and disposition `SIMPL-001`, then sequence `SKILL-001` only after
+its activation dependencies pass. Keep `STD-001` unassigned until the separate
+multi-agent standards deliberation is normalized and reviewed; do not silently
+fold standards simplification or historical archive migration into v0.6.0.

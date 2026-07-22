@@ -2,11 +2,10 @@
 
 ## Status
 
-Release-ready governed candidate source. No tag or published commit exists.
-Publication remains owner-authorized through a user-created annotated tag
-after no-fast-forward merge and successful pre-tag preparation. Hosted checks
-and independent successor verifications `ASM-20260722-002` and
-`ASM-20260722-004` pass.
+Published stable governed release. Annotated tag `v0.5.0` peels to merge commit
+`1477181f0b43fa7ee82fcd482141758ac9e22eb6`; hosted publication run
+`29922585651` completed successfully. Independent successor verifications
+`ASM-20260722-002` and `ASM-20260722-004` pass.
 
 ## Highlights
 
@@ -72,6 +71,8 @@ Known limitations:
 
 ## Publication Completion
 
-Publication has not occurred. Generated automation markers, public provenance,
-tag peels, run IDs, release URLs, and asset digests belong to rendered output
-or the finalized registry record, not this authored candidate source.
+Publication completed on 2026-07-22 through immutable annotated tag `v0.5.0`
+and hosted run `29922585651`. The stable public Release is
+[GitHub Release](https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend/releases/tag/v0.5.0).
+It contains the governed ZIP and tar.gz packages plus both checksum sidecars.
+The finalized registry records the tag peel, run, URL, and hosted asset digests.
