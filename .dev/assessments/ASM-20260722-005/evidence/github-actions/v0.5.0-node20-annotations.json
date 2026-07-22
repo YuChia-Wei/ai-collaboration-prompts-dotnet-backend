@@ -1,0 +1,40 @@
+{
+  "evidence_type": "github-actions-check-annotations",
+  "captured_at": "2026-07-22T21:53:50+08:00",
+  "generator": "gh api",
+  "repository": "YuChia-Wei/ai-collaboration-prompts-dotnet-backend",
+  "subject_commit": "1477181f0b43fa7ee82fcd482141758ac9e22eb6",
+  "workflow_run_id": 29922585651,
+  "workflow_run_url": "https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend/actions/runs/29922585651",
+  "scope": "Annotations for both jobs in the immutable v0.5.0 publication run",
+  "exclusions": [
+    "job logs",
+    "annotations from other runs",
+    "action release metadata"
+  ],
+  "reproduce": [
+    "gh api repos/YuChia-Wei/ai-collaboration-prompts-dotnet-backend/actions/runs/29922585651/jobs --paginate",
+    "gh api repos/YuChia-Wei/ai-collaboration-prompts-dotnet-backend/check-runs/88931509254/annotations",
+    "gh api repos/YuChia-Wei/ai-collaboration-prompts-dotnet-backend/check-runs/88931622438/annotations"
+  ],
+  "annotations": [
+    {
+      "job_id": 88931509254,
+      "job_name": "Validate tag and build release",
+      "check_run_id": 88931509254,
+      "annotation_level": "warning",
+      "path": ".github",
+      "start_line": 10,
+      "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+    },
+    {
+      "job_id": 88931622438,
+      "job_name": "Publish verified draft",
+      "check_run_id": 88931622438,
+      "annotation_level": "warning",
+      "path": ".github",
+      "start_line": 2,
+      "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/download-artifact@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+    }
+  ]
+}

@@ -26,6 +26,7 @@ scope:
     - ".dev/standards workflow and version contracts"
     - ".dev/releases/v0.5.0/migration-guide.md"
     - ".github/workflows artifact action usage and v0.5.0 publication annotations"
+    - ".dev/assessments/ASM-20260722-005/evidence/github-actions/v0.5.0-node20-annotations.json"
   excluded:
     - "WorkService repository files other than the supplied comparison report"
     - "product src/** and tests/**"
