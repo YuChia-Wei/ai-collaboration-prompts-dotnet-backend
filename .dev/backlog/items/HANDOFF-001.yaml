@@ -6,11 +6,11 @@ status: "resolved"
 priority: "HIGH"
 summary: "Require a fail-closed receiving-agent checkpoint so workflow continuation does not depend on model quality or hidden session continuity."
 created_at: "2026-07-20T22:23:02+08:00"
-updated_at: "2026-07-21T04:07:12+08:00"
+updated_at: "2026-07-22T21:13:53+08:00"
 release:
   target: "v0.5.0"
   completed_in: "v0.5.0"
-  published_in: null
+  published_in: "v0.5.0"
   target_scope: "cross-model-session-resume-state-and-validation-evidence"
   gate: "release-blocker"
 origin_refs:

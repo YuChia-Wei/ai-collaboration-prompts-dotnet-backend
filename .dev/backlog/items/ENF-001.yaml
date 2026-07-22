@@ -6,11 +6,11 @@ status: "resolved"
 priority: "HIGH"
 summary: "Institutionalize semantic wrapper validation and governance CI, then disposition obsolete published templates and scripts with migration evidence."
 created_at: "2026-07-19T12:27:12+08:00"
-updated_at: "2026-07-21T03:08:50+08:00"
+updated_at: "2026-07-22T21:13:53+08:00"
 release:
   target: "v0.5.0"
   completed_in: "v0.5.0"
-  published_in: null
+  published_in: "v0.5.0"
   target_scope: "semantic-validation-ci-and-published-path-disposition"
   gate: "release-blocker"
 origin_refs:
