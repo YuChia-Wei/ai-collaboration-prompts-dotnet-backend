@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.6.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-23T00:29:56+08:00`
+- `updated_at`: `2026-07-23T00:53:22+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -50,7 +50,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.6.0` | `CI-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
 | `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
-`CFG-001`, `DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
+`CI-002`, `CFG-001`, `DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
 decisions. None is a hidden v0.6.0 blocker. Standards or dev-workflow schema
 changes may receive a dedicated release after deliberation instead of being
 forced into an existing horizon. Actual WorkService upgrade execution belongs
@@ -76,6 +76,27 @@ The item remains `unassigned` until one evidence path is selected:
 
 ADR acceptance and release assignment are owner decisions. Planning this work
 does not silently add it to current v0.6.0 blockers or authorize v0.5.1.
+
+## GitHub Workflow Review Boundary
+
+`CI-002` records the comprehensive review of GitHub workflow triggers,
+responsibilities, lifecycle ownership, duplication, concurrency, and runner
+cost. PR #6 applies only the immediate correction: general Governance retains
+release-tooling unit tests but no longer executes a hardcoded candidate or
+finalization phase when governed documentation such as `.dev/backlog/**`
+changes.
+
+The broad backlog trigger remains intentional because a backlog change may
+also alter its index, roadmap assignment, workflow references, or release
+governance contract. Narrowing it to selected filenames would make valid new
+items easy to omit and would not correct the lifecycle-ownership defect that
+caused the failure.
+
+The full review remains `unassigned` and independent rather than becoming a
+hidden v0.6.0 blocker. Before the next release candidate, the owner should
+either combine it explicitly with `CI-001` or activate a separate workflow;
+that decision should reuse the short-term regression boundary and avoid
+duplicating the Node.js 24 action migration.
 
 ## Current Release Evidence
 
@@ -155,7 +176,9 @@ versions. Current assignments:
   must remove Node.js 20 artifact-action debt before release publication.
 - `v0.7.0`: historical archive migration remains conditional and requires a
   separately approved successor after `SIMPL-001`; it is not implied work.
-- `unassigned`: `CFG-001` owns source/downstream integration-config separation
+- `unassigned`: `CI-002` owns the complete GitHub workflow trigger and lifecycle
+  review and must be explicitly coordinated with or separated from `CI-001`;
+  `CFG-001` owns source/downstream integration-config separation
   and the v0.5.1-versus-v0.6.0 decision; `DEVWF-001` owns optional issue/timeline schema deliberation;
   `UPG-001` owns a reusable legacy-target intake and override-preservation
   packet; `STD-001` owns standards deliberation and release allocation; and
@@ -232,9 +255,11 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 ## Next Action
 
 Review Proposed `ADR-001` and classify `CFG-001` as v0.5.1 or v0.6.0 only after
-its downstream and compatibility evidence exists. Begin governed v0.6.0 activation planning by closing `CI-001` before another
-candidate or publication cycle. Establish `EVAL-001`, measure actual loaded
+its downstream and compatibility evidence exists. Before another release
+candidate, explicitly coordinate `CI-002` with `CI-001` or activate it as a
+separate review; then begin governed v0.6.0 activation planning by closing
+`CI-001` before publication. Establish `EVAL-001`, measure actual loaded
 context and disposition `SIMPL-001`, then sequence `SKILL-001` only after its
-activation dependencies pass. Keep `CFG-001`, `DEVWF-001`, `UPG-001`, and `STD-001`
+activation dependencies pass. Keep `CI-002`, `CFG-001`, `DEVWF-001`, `UPG-001`, and `STD-001`
 unassigned until their separate evidence and owner decisions exist; do not
 silently fold their implementation or historical archive migration into v0.6.0.
