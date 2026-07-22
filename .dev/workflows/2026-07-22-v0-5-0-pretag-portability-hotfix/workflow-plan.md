@@ -5,21 +5,21 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T09:21:46+08:00`
+- `updated_at`: `2026-07-22T09:45:01+08:00`
 
 ## Workflow Metadata
 
 - `workflow_id`: `2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `workflow_kind`: `ai-context-maintenance`
 - `owner_skill`: `ai-context-governance`
-- `branch`: `codex/2026-07-22-v0-5-0-pretag-portability-hotfix`
+- `branch`: `codex/2026-07-22-v0-5-0-pretag-portability-closeout`
 - `base_branch`: `main`
-- `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `post-audit`
+- `branch_segment`: `2`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T09:21:46+08:00`
+- `updated_at`: `2026-07-22T09:45:01+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -70,19 +70,20 @@
 
 ## Resume Checkpoint
 
-- Last completed action: candidate `c53e1bf` passed the repaired pre-tag runner
-  critical gate 33/33 with 0 failed and 0 deferred. Independent read-only audit
-  found no implementation blocker and one low-severity roadmap summary omission;
-  the current checkpoint adds `REL-002` to that summary.
-- Current task: `PRETAG-001`.
-- Exact next action: commit the independent-review reconciliation, rerun the
-  complete gate on that final clean candidate, validate the workflow commit
-  range, then push for hosted verification.
-- Validation already completed: the parent candidate passed critical 33/33 and
-  hosted package, governance, and Ubuntu gates before merge; the failing
-  merged-main pre-tag invocation is retained as incident evidence here.
-- Git state: clean implementation branch based on `main@3c3a66c` before these
-  workflow artifacts.
+- Last completed action: PR #2 merged final candidate `47aa1cc` as
+  `main@540cd029`; the unrestricted sanctioned pre-tag command passed there,
+  printed all four automatic sources and the user-declared model identity, and
+  did not create a tag.
+- Current task: none; `PRETAG-001` and this workflow are completed.
+- Exact next action: await separate owner authorization before annotated tag
+  creation; if authorized, use the exact printed command and resume the
+  governed tag phase.
+- Validation already completed: final candidate critical 33/33 and commit range
+  7/7; independent audit with no implementation blocker; hosted runs
+  `29883289326`, `29883289335`, and `29883289321`; unrestricted merged-main
+  pre-tag at `540cd029`.
+- Git state: continuation branch from clean `main@540cd029`; no `v0.5.0` tag
+  exists.
 - Blockers or unresolved decisions: no product or SemVer decision is open;
   publication and tag creation remain unauthorized.
 
@@ -91,3 +92,5 @@
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | independently reviewed candidate | `c53e1bf` | local | `2026-07-22T09:21:46+08:00` | Repair the proven merged-main release blocker. | Commit the only documentation reconciliation, rerun exact critical and commit-range gates, then push. |
+| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | merged checkpoint | `47aa1cc` | PR #2 / `main@540cd029` | `2026-07-22T09:33:19+08:00` | All local, independent, and hosted gates passed. | Run sanctioned pre-tag on updated `main`, then continue on a dedicated closeout branch. |
+| 2 | `codex/2026-07-22-v0-5-0-pretag-portability-closeout` | `main@540cd029` | closure | closeout commit containing this update | local | `2026-07-22T09:45:01+08:00` | Record merged-main pre-tag success without mutating the tag lifecycle. | Validate, commit, push, and merge this closeout; tag remains separately owner-authorized. |
