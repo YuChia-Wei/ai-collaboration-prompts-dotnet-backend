@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T08:56:38+08:00`
+- `updated_at`: `2026-07-22T09:05:56+08:00`
 
 ## Workflow Metadata
 
@@ -19,7 +19,7 @@
 - `current_phase`: `post-audit`
 - `artifact_root`: `.dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T08:56:38+08:00`
+- `updated_at`: `2026-07-22T09:05:56+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -70,14 +70,15 @@
 
 ## Resume Checkpoint
 
-- Last completed action: implemented Windows Git Bash selection, explicit byte
-  capture with recoverable UTF-8 decoding, and deterministic empty-output
-  failure reporting; eight focused pre-tag tests and 21 adjacent
-  release/backlog tests pass. Live resolution selects
-  `C:\Program Files\Git\bin\bash.exe`, and the child-only PATH fixture passes.
+- Last completed action: the pre-tag runner completed a full critical-gate
+  attempt without shell or decode failure. The sandbox denied NuGet restore for
+  three .NET test projects (`NU1301`); all split deterministic validators pass.
+  Failure reporting now retains both the stdout summary and stderr diagnostics,
+  and all nine focused pre-tag tests pass.
 - Current task: `PRETAG-001`.
-- Exact next action: commit the implementation checkpoint, run the complete
-  critical gate from that clean commit, then push for hosted verification.
+- Exact next action: commit the diagnostic checkpoint and rerun the complete
+  critical gate outside the network-restricted sandbox, then push for hosted
+  verification.
 - Validation already completed: the parent candidate passed critical 33/33 and
   hosted package, governance, and Ubuntu gates before merge; the failing
   merged-main pre-tag invocation is retained as incident evidence here.
@@ -90,4 +91,4 @@
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | implementation | pending | local | `2026-07-22T08:50:13+08:00` | Repair the proven merged-main release blocker. | Commit, run the critical gate, and push for hosted verification. |
+| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | validation | `a1c32f1` | local | `2026-07-22T09:05:56+08:00` | Repair the proven merged-main release blocker. | Commit combined-stream diagnostics, rerun the critical gate with NuGet access, and push. |

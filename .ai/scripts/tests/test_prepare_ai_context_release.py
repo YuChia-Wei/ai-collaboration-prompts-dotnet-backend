@@ -184,6 +184,30 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
         )
         self.assertTrue(environment["PATH"].endswith("existing-path"))
 
+    def test_gwt_009_given_failed_gate_with_both_streams_when_runner_reports_then_summary_and_diagnostics_are_retained(self):
+        result = SimpleNamespace(
+            returncode=1,
+            stdout=b"Required Failed: 1\n",
+            stderr=b"NU1301 restore denied\n",
+        )
+        with (
+            mock.patch.object(
+                PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(
+                PREPARE, "bash_environment", return_value={"PATH": "fixture"}
+            ),
+            mock.patch.object(PREPARE.subprocess, "run", return_value=result),
+        ):
+            with self.assertRaises(RuntimeError) as raised:
+                PREPARE.run(
+                    Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
+                )
+
+        message = str(raised.exception)
+        self.assertIn("stdout:\nRequired Failed: 1", message)
+        self.assertIn("stderr:\nNU1301 restore denied", message)
+
 
 if __name__ == "__main__":
     unittest.main()

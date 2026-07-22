@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-22T08:46:21+08:00",
-  "updated_at": "2026-07-22T08:56:38+08:00",
+  "updated_at": "2026-07-22T09:05:56+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PTP-001"],
   "scope": {
@@ -52,22 +52,23 @@
       "hosted package, governance, and Ubuntu gates",
       "python .ai/scripts/prepare-ai-context-release.py --version v0.5.0 on merged main"
     ],
-    "last_completed_step": "Implemented Windows Git Bash selection, child-only Git usr/bin PATH, explicit byte capture, recoverable UTF-8 decoding, and deterministic empty-output failure reporting. Eight focused pre-tag tests and 21 adjacent release/backlog tests pass; live resolution selects C:\\Program Files\\Git\\bin\\bash.exe.",
-    "next_action": "Commit the implementation checkpoint, run the complete critical gate from a clean commit, and push for hosted verification."
+    "last_completed_step": "The pre-tag runner completed the full critical-gate path without shell or decode failure. The sandbox denied NuGet restore for three .NET test projects with NU1301; split deterministic validators pass. Combined stdout/stderr reporting and its ninth focused fixture now pass.",
+    "next_action": "Commit combined-stream diagnostics and rerun the complete critical gate outside the network-restricted sandbox, then push for hosted verification."
   },
   "results": {
-    "summary": "The bounded decoder fix and deterministic regressions are implemented; full local, hosted, and merged-main evidence remains pending.",
+    "summary": "The bounded shell resolver, child environment, byte decoder, and combined-stream diagnostics are implemented; unrestricted local, hosted, and merged-main evidence remains pending.",
     "files_changed": [
       ".ai/scripts/prepare-ai-context-release.py",
       ".ai/scripts/tests/test_prepare_ai_context_release.py"
     ],
     "tests_run": [
-      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (8 passed)",
+      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (9 passed)",
       "live Windows shell resolution: C:\\Program Files\\Git\\bin\\bash.exe",
       "python .ai/scripts/tests/test_ai_context_release_state.py -v (15 passed)",
       "python .ai/scripts/tests/test_backlog_release_contract.py -v (6 passed)",
       "python .ai/scripts/validate-workflow-artifacts.py",
-      "python .ai/scripts/validate-ai-context.py"
+      "python .ai/scripts/validate-ai-context.py",
+      "sandbox critical attempt: shell and decoding passed; three dotnet test restores failed with NU1301 network denial"
     ],
     "finding_status": "partially-resolved",
     "residual_risk": "Until hosted gates and merged-main pre-tag pass, v0.5.0 is not release-ready.",

@@ -6,7 +6,7 @@ status: "in_progress"
 priority: "HIGH / P0"
 summary: "Make the sanctioned pre-tag runner select Git Bash rather than the Windows WSL launcher and decode arbitrary output deterministically, without weakening its exact command allowlist or fail-closed behavior."
 created_at: "2026-07-22T08:46:21+08:00"
-updated_at: "2026-07-22T08:56:38+08:00"
+updated_at: "2026-07-22T09:05:56+08:00"
 release:
   target: "v0.5.0"
   completed_in: null
@@ -30,6 +30,7 @@ acceptance:
   - "Windows resolves the Git Bash executable from the active Git installation or standard installation roots without falling through to the WSL bash launcher."
   - "The child-process environment prepends the selected Git installation's usr/bin only for the gate invocation, without mutating the parent environment."
   - "Invalid UTF-8 bytes are represented safely while retaining surrounding diagnostic output."
+  - "When both streams contain output, the failure retains the gate summary from stdout and detailed diagnostics from stderr."
   - "A failed command with empty or unavailable output produces a deterministic exit-code error instead of an attribute error."
   - "The exact critical-gate command allowlist remains unchanged."
   - "Focused regressions, the critical gate, and required hosted workflows pass."

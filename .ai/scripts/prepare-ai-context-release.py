@@ -81,7 +81,12 @@ def run(root: Path, args: list[str]) -> str:
     stdout = (result.stdout or b"").decode("utf-8", errors="replace")
     stderr = (result.stderr or b"").decode("utf-8", errors="replace")
     if result.returncode:
-        detail = stderr.strip() or stdout.strip()
+        details = []
+        if stdout.strip():
+            details.append(f"stdout:\n{stdout.strip()}")
+        if stderr.strip():
+            details.append(f"stderr:\n{stderr.strip()}")
+        detail = "\n\n".join(details)
         raise RuntimeError(
             detail or f"critical gate failed with exit code {result.returncode}"
         )
