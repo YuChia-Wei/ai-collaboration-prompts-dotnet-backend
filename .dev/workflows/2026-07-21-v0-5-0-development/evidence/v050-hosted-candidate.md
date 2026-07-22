@@ -39,3 +39,17 @@ checks after the correction:
 Independent assessment `ASM-20260722-001` confirms the runtime and package
 mechanics but blocks release-readiness on stale discovery, resume/handoff, and
 backlog lifecycle wording. V050-010 owns remediation and successor verification.
+
+## Assessment remediation rerun
+
+Commit `93375cb244ef4c55789f269ab71ce9d2da1fb3a7` reconciles the three
+assessment findings and passes:
+
+- exact candidate phase validation;
+- the complete 33/33 critical gate;
+- package-candidate run `29879597446` in 22 seconds;
+- governance run `29879597443` in 11 seconds;
+- Ubuntu quick-gate run `29879597439` in 1 minute 26 seconds.
+
+The registered V050-010 release checkpoint retains those observations and
+routes the next receiver only to independent successor verification.

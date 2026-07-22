@@ -1,0 +1,104 @@
+schema_version: "1.0"
+checkpoint_id: "2026-07-21-v0-5-0-development-V050-010-release-candidate"
+created_at: "2026-07-22T08:20:03+08:00"
+repository:
+  root: "."
+  branch: "codex/2026-07-21-v0-5-0-development"
+  validated_commit: "93375cb244ef4c55789f269ab71ce9d2da1fb3a7"
+  checkpoint_commit_source: "containing-commit"
+  dirty_state: "clean"
+  status_porcelain_sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+workflow:
+  workflow_id: "2026-07-21-v0-5-0-development"
+  task_id: "V050-010"
+resume:
+  last_completed_action: "Remediated ASM-20260722-001 cold-start findings at the pinned candidate; exact candidate, 33/33 critical, package-candidate, governance, and hosted Ubuntu gates pass."
+  exact_next_action: "Run an independent successor verification assessment against this V050-010 release-candidate checkpoint, then reconcile workflow release-readiness without creating a tag or publishing."
+  hidden_context_required: false
+critical_gate:
+  command: "bash .ai/scripts/check-all.sh --critical"
+  observed_at: "2026-07-22T08:17:58+08:00"
+  exit_code: 0
+  outcome: "passed"
+  output:
+    normalization: "utf8-lf"
+    sha256: "85c4df50a3b670d337367e35e3db95de68e1fb2bac2d4c3baea6537d7bd4d0c9"
+    line_count: 696
+    tail:
+      - "║           Check Results Summary        ║"
+      - "╚════════════════════════════════════════╝"
+      - "Total Checks Run: 33"
+      - "Passed: 33"
+      - "Failed: 0"
+      - "Skipped By Mode: 0"
+      - "Advisory Warnings: 0"
+      - "Deferred: 0"
+      - "Not Applicable: 1"
+      - "Required Selected: 33"
+      - "Required Executed: 33"
+      - "Required Failed: 0"
+      - "Advisory Selected: 0"
+      - "Pass Rate: 100%"
+      - "Completed at 2026-07-22 08:17:58"
+      - "╔════════════════════════════════════════╗"
+      - "║    ✓ All Checks Passed Successfully!   ║"
+      - "╚════════════════════════════════════════╝"
+continuation:
+  allowed: true
+  mode: "normal"
+  reason: "The corrected candidate passed every selected critical and hosted gate."
+  repair_task_id: null
+  failure_ids: []
+release_handoff: true
+release_phase_check:
+  phase: "candidate"
+  command: "python .ai/scripts/validate-ai-context-release-state.py --phase candidate --version v0.5.0"
+  observed_at: "2026-07-22T08:18:30+08:00"
+  exit_code: 0
+  outcome: "passed"
+  output:
+    normalization: "utf8-lf"
+    sha256: "dd6e84b7d65d4ed5a3c816dc932f463ff5c2faff06de7b6801cd3a740d47f85e"
+    line_count: 1
+    tail:
+      - "AI context release-state validation passed for v0.5.0 candidate phase at 93375cb244ef4c55789f269ab71ce9d2da1fb3a7 on codex/2026-07-21-v0-5-0-development."
+execution_provenance:
+  runtime: "OpenAI Codex"
+  model: "GPT 5.6 sol"
+  reasoning_effort: "極高"
+  model_source: "user-declared"
+  evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#execution-provenance"
+attribution:
+  preservation_required: true
+  evidence_union_version: "1.0"
+  selected_evidence:
+    kind: "repository-created-local-ai-trailer"
+    commit: "93375cb244ef4c55789f269ab71ce9d2da1fb3a7"
+    author: "YuChia <h42279@gmail.com>"
+    committer: "YuChia <h42279@gmail.com>"
+    signature_status: "unsigned"
+    session_ref: null
+    observed_trailer: "Co-Authored-By: OpenAI Codex (gpt-5.6-sol, xhigh) <noreply@openai.com>"
+    message_sha256: "8350cf5426099566b4216ac1559c7b5ef8212042b86ee573602de607c790f778"
+    fixture_ref: "git:93375cb244ef4c55789f269ab71ce9d2da1fb3a7"
+  fixture_status:
+    - path_id: "copilot-cli"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#github-copilot-cli"
+      reason: "No provider-generated Copilot CLI commit fixture is present in this repository."
+    - path_id: "copilot-cloud-agent"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#github-copilot-cloud-agent"
+      reason: "No provider-generated Copilot cloud-agent commit fixture is present in this repository."
+    - path_id: "claude"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#claude"
+      reason: "No stable provider-generated Claude commit attribution fixture is available."
+    - path_id: "codex-local"
+      status: "captured"
+      commit: "93375cb244ef4c55789f269ab71ce9d2da1fb3a7"
+      evidence_ref: "git:93375cb244ef4c55789f269ab71ce9d2da1fb3a7"
+      reason: null

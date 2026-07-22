@@ -1,3 +1,4 @@
 schema_version: "1.0"
 checkpoints:
   - ".dev/workflows/2026-07-21-v0-5-0-development/handoff-checkpoints/V050-008.yaml"
+  - ".dev/workflows/2026-07-21-v0-5-0-development/handoff-checkpoints/V050-010.yaml"

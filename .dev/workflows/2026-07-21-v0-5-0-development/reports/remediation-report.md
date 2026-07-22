@@ -14,7 +14,7 @@
 - `owner_skill`: `ai-context-governance`
 - `status`: `draft`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T08:09:41+08:00`
+- `updated_at`: `2026-07-22T08:20:03+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessments`: `ASM-20260717-004`, `ASM-20260720-001`
@@ -58,6 +58,7 @@
 | `V050-009` mechanics | Placeholder-only release templates, four exact sanctioned phase commands, read-only local/hosted lifecycle validation, owner-only pre-tag output, cold-start runbook, migration schema 2.0 renderer support, and source/hosted CI routes are implemented. The planned v0.5.0 record, authored notes, and migration guide pass version, workflow, AI-context, renderer, and the complete source critical gate in the working tree. Immutable candidate, hosted, and independent evidence remain pending. | REL mechanics checkpoint pending Git metadata write access |
 | `V050-009` validated candidate | The mechanics checkpoint is `2ecf832`; all four real extracted upgrades, the 33/33 critical gate, and two byte-identical four-source builds pass. REL-001 is resolved and the validated candidate state activates V050-010. | validated-candidate state commit containing this update |
 | `V050-010` first verification | Candidate `ef14847` passes exact local, deterministic, critical, and all three hosted gates. `ASM-20260722-001` confirms package health and identifies stale discovery, release handoff, and lifecycle wording that block release-readiness. | `a57c1ce` assessment commit |
+| `V050-010` assessment remediation | `ASM-20260722-001#AIC-001` through `AIC-003` are corrected at `93375cb`; exact candidate, 33/33 critical, and hosted runs `29879597446`, `29879597443`, and `29879597439` pass. | V050-010 checkpoint commit containing this update |
 
 ## Checkpoint Contract
 
