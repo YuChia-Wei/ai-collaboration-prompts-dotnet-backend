@@ -1,0 +1,45 @@
+schema_version: "1.0"
+backlog_id: "CFG-001"
+title: "Separate Source Repository Configuration From Downstream Templates"
+category: "distribution-governance"
+status: "open"
+priority: "HIGH"
+summary: "Separate source-only EditorConfig and Git attributes from downstream target-template seeds, then formalize cross-platform text and immutable external-evidence handling."
+created_at: "2026-07-23T00:29:56+08:00"
+updated_at: "2026-07-23T00:29:56+08:00"
+release:
+  target: "unassigned"
+  completed_in: null
+  published_in: null
+  target_scope: "source-config-and-downstream-template-ownership-separation"
+  gate: "independent"
+origin_refs:
+  - ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md"
+  - ".ai/distribution/profiles/dotnet-backend.yaml"
+  - ".ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml"
+  - ".gitattributes"
+  - ".editorconfig"
+recommended_owner_skill: "ai-context-governance"
+handoff_condition: "Open a dedicated implementation workflow only after ADR-001 is accepted and the owner classifies the work as v0.5.1 or v0.6.0."
+workflow_refs:
+  - ".dev/workflows/2026-07-23-repository-config-template-planning/workflow.yaml"
+task_refs:
+  - ".dev/workflows/2026-07-23-repository-config-template-planning/tasks/CFGPLAN-001.json"
+resolution_ref: null
+decision_needed: "Choose v0.5.1 only if a downstream portability defect is reproduced and the correction is patch-compatible with an exact v0.5.0 upgrade route; otherwise schedule it in v0.6.0."
+acceptance:
+  - "ADR-001 is accepted, revised, or rejected with explicit evidence; implementation does not treat a Proposed ADR as approval."
+  - "Root .editorconfig and .gitattributes become source-repository truth and are no longer copied directly into downstream payloads."
+  - "Dedicated repo-structure-sync public-root templates map to downstream .editorconfig and .gitattributes as target-template seed files."
+  - "Existing downstream .editorconfig and .gitattributes remain target-owned and are never automatically overwritten during upgrade."
+  - "Source configuration uses one coherent Linux, macOS, and Windows text policy with narrow validated exceptions."
+  - "Immutable external originals use one centralized source rule and evidence/external/original convention; ordinary evidence remains text-diffable."
+  - "Package tests prove source-only assessment and evidence patterns are absent from downstream template bytes."
+  - "Package projection, ZIP/tar parity, migration metadata, clean install, and exact supported-source upgrades pass for the selected horizon."
+  - "If targeted to v0.5.1, prove no new schema, required consumer contract, published-path removal, or target overwrite semantics and add exact v0.5.0 source compatibility."
+  - "If patch compatibility cannot be proven, assign the item to v0.6.0 before implementation."
+inventory_notes:
+  - "The v0.5.0 profile copies source root .editorconfig and .gitattributes directly as target-template seeds."
+  - "Source .gitattributes requests LF while source .editorconfig requests CRLF for general files."
+  - "The WorkService evidence directory contains a tactical local .gitattributes until centralized replacement can land atomically."
+  - "The existing backlog-intake branch has zero payload differences from main; implementing this item will intentionally change package input."

@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.6.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-22T21:53:50+08:00`
+- `updated_at`: `2026-07-23T00:29:56+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -50,11 +50,32 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.6.0` | `CI-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
 | `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
-`DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
+`CFG-001`, `DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
 decisions. None is a hidden v0.6.0 blocker. Standards or dev-workflow schema
 changes may receive a dedicated release after deliberation instead of being
 forced into an existing horizon. Actual WorkService upgrade execution belongs
 to its target repository rather than this source roadmap.
+
+## Repository Configuration Release Classification
+
+`CFG-001` records Proposed `ADR-001`: source-root `.editorconfig` and
+`.gitattributes` should be owned separately from downstream public-root seed
+templates, and only explicitly classified immutable external originals should
+receive byte-preserving Git treatment. The current per-evidence attribute is a
+tactical fix, not the proposed canonical placement.
+
+The item remains `unassigned` until one evidence path is selected:
+
+- `v0.5.1`: only when a downstream portability defect is reproduced and the
+  complete change remains patch-compatible, preserves target-owned files,
+  supports exact v0.5.0 upgrade provenance, and adds no new required consumer
+  schema or overwrite semantics;
+- `v0.6.0`: when no urgent consumer defect is reproduced, or when the coherent
+  solution changes broader template, validation, migration, or compatibility
+  contracts that should travel with the planned minor release.
+
+ADR acceptance and release assignment are owner decisions. Planning this work
+does not silently add it to current v0.6.0 blockers or authorize v0.5.1.
 
 ## Current Release Evidence
 
@@ -134,7 +155,8 @@ versions. Current assignments:
   must remove Node.js 20 artifact-action debt before release publication.
 - `v0.7.0`: historical archive migration remains conditional and requires a
   separately approved successor after `SIMPL-001`; it is not implied work.
-- `unassigned`: `DEVWF-001` owns optional issue/timeline schema deliberation;
+- `unassigned`: `CFG-001` owns source/downstream integration-config separation
+  and the v0.5.1-versus-v0.6.0 decision; `DEVWF-001` owns optional issue/timeline schema deliberation;
   `UPG-001` owns a reusable legacy-target intake and override-preservation
   packet; `STD-001` owns standards deliberation and release allocation; and
   `OBS-001` remains an independent architecture workflow. None is a mandatory
@@ -209,9 +231,10 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Begin governed v0.6.0 activation planning by closing `CI-001` before another
+Review Proposed `ADR-001` and classify `CFG-001` as v0.5.1 or v0.6.0 only after
+its downstream and compatibility evidence exists. Begin governed v0.6.0 activation planning by closing `CI-001` before another
 candidate or publication cycle. Establish `EVAL-001`, measure actual loaded
 context and disposition `SIMPL-001`, then sequence `SKILL-001` only after its
-activation dependencies pass. Keep `DEVWF-001`, `UPG-001`, and `STD-001`
+activation dependencies pass. Keep `CFG-001`, `DEVWF-001`, `UPG-001`, and `STD-001`
 unassigned until their separate evidence and owner decisions exist; do not
 silently fold their implementation or historical archive migration into v0.6.0.

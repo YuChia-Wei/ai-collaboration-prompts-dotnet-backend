@@ -1,0 +1,72 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "CFGPLAN-001",
+  "workflow_id": "2026-07-23-repository-config-template-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-23T00:29:56+08:00",
+  "updated_at": "2026-07-23T00:29:56+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "source configuration and downstream template ownership planning",
+    "files": [
+      ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md",
+      ".dev/backlog/items/CFG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md"
+    ],
+    "constraints": [
+      "Keep ADR-001 Proposed until owner review",
+      "Do not assign a release without compatibility evidence",
+      "Do not change package payload in this workflow",
+      "Preserve the tactical evidence rule until atomic replacement"
+    ],
+    "non_goals": [
+      "Implement package profile changes",
+      "Move source configuration into templates",
+      "Relocate archived evidence",
+      "Publish v0.5.1"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Inspect source and downstream configuration ownership",
+      "Record the proposed structural decision",
+      "Create CFG-001 with release classification gates",
+      "Reconcile roadmap and discovery indexes",
+      "Validate and close planning"
+    ],
+    "validation": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_backlog_release_contract.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-ai-context-versions.py",
+      "python -m json.tool on CFGPLAN-001.json",
+      "git diff --check"
+    ],
+    "last_completed_step": "Recorded Proposed ADR-001 and durable CFG-001 without changing package behavior.",
+    "next_action": "Review ADR-001 and reproduce downstream impact before release assignment."
+  },
+  "results": {
+    "summary": "Preserved the source-versus-downstream configuration boundary as a Proposed ADR and an unassigned backlog with patch/minor classification criteria.",
+    "files_changed": [
+      ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md",
+      ".dev/adr/INDEX.md",
+      ".dev/backlog/items/CFG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-23-repository-config-template-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "repository-native workflow, backlog, AI-context, version, JSON, and diff checks"
+    ],
+    "finding_status": "deferred",
+    "residual_risk": "The v0.5.0 downstream templates retain current source-root configuration until CFG-001 is implemented.",
+    "follow_up_needed": false
+  }
+}
