@@ -6,10 +6,6 @@
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
-# Preserve externally supplied assessment evidence byte-for-byte so recorded
-# source digests remain reproducible across checkouts.
-.dev/assessments/ASM-20260722-005/evidence/workservice/2026-07-22-dev-workflow-skill-comparison.md binary
-
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
