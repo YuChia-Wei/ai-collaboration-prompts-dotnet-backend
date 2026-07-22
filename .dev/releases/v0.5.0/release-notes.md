@@ -5,7 +5,8 @@
 Release-ready governed candidate source. No tag or published commit exists.
 Publication remains owner-authorized through a user-created annotated tag
 after no-fast-forward merge and successful pre-tag preparation. Hosted checks
-and independent successor verification `ASM-20260722-002` pass.
+and independent successor verifications `ASM-20260722-002` and
+`ASM-20260722-004` pass.
 
 ## Highlights
 
@@ -53,8 +54,9 @@ receiving-handoff mechanics. The candidate passes its exact clean-state gate, tw
 four-source builds, hosted candidate CI, hosted governance, and hosted Ubuntu
 quick validation. Independent assessment `ASM-20260722-001` found stale
 release discovery and resume state; the workflow corrected those surfaces,
-and successor `ASM-20260722-002` verifies every selected finding resolved with
-no new release-readiness blocker.
+successor `ASM-20260722-002` verifies every selected finding resolved, and the
+macOS portability successor `ASM-20260722-004` verifies the owner-arranged
+evidence intake and fixture isolation with no new release-readiness blocker.
 
 Known limitations:
 

@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-22T20:35:44+08:00",
-  "updated_at": "2026-07-22T20:35:44+08:00",
+  "updated_at": "2026-07-22T20:54:45+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
     "ASM-20260722-003#AIC-001",
@@ -59,17 +59,31 @@
       "python .ai/scripts/validate-ai-context-release-state.py --phase candidate --version v0.5.0",
       "bash .ai/scripts/check-all.sh --critical"
     ],
-    "last_completed_step": "Raw evidence preserved and the eight-failure inherited-override defect reproduced.",
-    "next_action": "Implement the bounded fixture and active documentation corrections."
+    "last_completed_step": "All three baseline findings are remediated and independently verified at da70bb5; the complete critical gate passed 33/33.",
+    "next_action": "Push, pass hosted checks, merge, rerun current-main pre-tag, and complete the explicitly authorized publication lifecycle."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [
-      "parent AI_CONTEXT_PYTHON reproduction: 26 tests ran, 8 failed as expected"
+    "summary": "Inherited AI_CONTEXT_PYTHON is isolated from synthetic fixtures without breaking explicit overrides; exact prerequisites and bounded macOS evidence are reconciled and independently verified.",
+    "files_changed": [
+      ".ai/scripts/tests/test_fail_closed_validation.py",
+      ".ai/scripts/README.md",
+      ".dev/operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD",
+      ".dev/releases/v0.5.0/release-notes.md",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/items/TOOL-001.yaml",
+      ".dev/backlog/INDEX.MD"
     ],
-    "finding_status": "not-addressed",
-    "residual_risk": "macOS execution is attributed external evidence and has not been rerun by the receiving Windows host.",
+    "tests_run": [
+      "parent AI_CONTEXT_PYTHON reproduction before fix: 26 tests ran, 8 failed as expected",
+      "normal focused suite after fix: 27/27 passed",
+      "parent AI_CONTEXT_PYTHON focused suite after fix: 27/27 passed",
+      "critical gate: 33/33 passed, 0 failed, 0 deferred, 56 dotnet tests passed",
+      "candidate release state passed at da70bb5",
+      "workflow commit range main..da70bb5: 2/2 valid",
+      "ASM-20260722-004 independent verification: no blocker"
+    ],
+    "finding_status": "verified",
+    "residual_risk": "macOS execution remains attributed external evidence rather than a receiving-host rerun; provider-native fixtures remain out of scope.",
     "follow_up_needed": true
   }
 }

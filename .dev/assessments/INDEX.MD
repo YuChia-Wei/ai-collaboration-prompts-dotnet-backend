@@ -12,6 +12,7 @@ owns its identity, current lifecycle state, subject revision, and relationships.
 
 | Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| [`ASM-20260722-004`](ASM-20260722-004/assessment.yaml) | v0.5.0 macOS Portability Remediation Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `da70bb5db5cc2bb28fca7cdae54f6f1d3fc79b02` | `2026-07-22T20:54:45+08:00` | [report](ASM-20260722-004/report.md) |
 | [`ASM-20260722-003`](ASM-20260722-003/assessment.yaml) | v0.5.0 macOS Portability External Review Intake | `ai-context-audit` | `ai-context-auditor` | `final` | `9ac40bee4ab3d4ac169c05c6229895d7a22265ff` | `2026-07-22T20:35:44+08:00` | [report](ASM-20260722-003/report.md) |
 | [`ASM-20260722-002`](ASM-20260722-002/assessment.yaml) | v0.5.0 Candidate Remediation Successor Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `d83f395e5a399f944cb53b87c1f95cd299a4c386` | `2026-07-22T08:29:59+08:00` | [report](ASM-20260722-002/report.md) |
 | [`ASM-20260722-001`](ASM-20260722-001/assessment.yaml) | v0.5.0 Four-Source Release Candidate Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `ef148472bb2e47b058693a1ab5e28dcb99e5ba32` | `2026-07-22T08:04:18+08:00` | [report](ASM-20260722-001/report.md) |

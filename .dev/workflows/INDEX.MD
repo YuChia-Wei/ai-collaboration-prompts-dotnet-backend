@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-22-v0-5-0-macos-portability`](2026-07-22-v0-5-0-macos-portability/workflow.yaml) | Adopt macOS Portability Evidence And Isolate Python Override Fixtures | `ai-context-governance` | `in_progress` | `2026-07-22T20:35:44+08:00` | [plan](2026-07-22-v0-5-0-macos-portability/workflow-plan.md) |
+| [`2026-07-22-v0-5-0-macos-portability`](2026-07-22-v0-5-0-macos-portability/workflow.yaml) | Adopt macOS Portability Evidence And Isolate Python Override Fixtures | `ai-context-governance` | `in_progress` | `2026-07-22T20:54:45+08:00` | [plan](2026-07-22-v0-5-0-macos-portability/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

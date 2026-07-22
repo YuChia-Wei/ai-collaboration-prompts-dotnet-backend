@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T20:35:44+08:00`
-- `updated_at`: `2026-07-22T20:35:44+08:00`
+- `updated_at`: `2026-07-22T20:54:45+08:00`
 
 ## Workflow Metadata
 
@@ -16,7 +16,7 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation`
+- `current_phase`: `closure`
 - `artifact_root`: `.dev/workflows/2026-07-22-v0-5-0-macos-portability`
 - `created_at`: `2026-07-22T20:35:44+08:00`
 - `updated_at`: `2026-07-22T20:35:44+08:00`
@@ -66,21 +66,23 @@
 
 ## Resume Checkpoint
 
-- Last completed action: preserved the raw report, allocated
-  `ASM-20260722-003`, and reproduced exactly eight fixture failures with an
-  inherited real `AI_CONTEXT_PYTHON`.
+- Last completed action: remediated all three `ASM-20260722-003` findings;
+  focused suites pass 27/27 normally and with a parent override, critical gate
+  passes 33/33, and independent `ASM-20260722-004` reports no blocker.
 - Current task: `MACOS-001` in progress.
-- Exact next action: remove inherited `AI_CONTEXT_PYTHON` before applying
-  fixture-owned overrides, add a regression, and update active prerequisites
-  and macOS evidence claims.
-- Validation already completed: subject SHA and raw evidence hash verified;
-  focused defect reproduction completed.
-- Git state: dedicated workflow branch from clean
-  `main@9ac40bee4ab3d4ac169c05c6229895d7a22265ff`; workflow artifacts and the
-  archived external report are uncommitted.
+- Exact next action: persist this verification checkpoint, push and merge after
+  hosted checks, rerun pre-tag on current clean `main`, then complete the
+  explicitly authorized v0.5.0 publication and registry finalization.
+- Validation already completed: raw evidence and subject verified; eight-failure
+  reproduction; 27/27 normal and parent-override suites; assessment, workflow,
+  AI-context, version, backlog, renderer, and shell validation; candidate state;
+  commit range 2/2; critical gate 33/33; independent no-blocker verification.
+- Git state: workflow branch at `da70bb5` plus uncommitted verification and
+  closure-progress records; no `v0.5.0` tag exists.
 - Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: none; owner explicitly authorized basic
-  remediation followed by v0.5.0 publication without another macOS rerun.
+- Blockers or unresolved decisions: none; hosted merge, current-main pre-tag,
+  immutable tag, hosted publication, and local finalization remain execution
+  steps under the owner's explicit authorization.
 
 ## Branch Lifecycle
 

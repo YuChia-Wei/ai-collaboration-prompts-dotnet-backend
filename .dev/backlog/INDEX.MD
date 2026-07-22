@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `release_ready` | Await separate owner authorization for the exact annotated tag; no tag or publication exists yet. | 2026-07-22 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `release_ready` | Authorization granted: merge the macOS correction, rerun current-main pre-tag, then complete the governed tag, publication, and finalization lifecycle. | 2026-07-22 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
