@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T21:53:50+08:00`
-- `updated_at`: `2026-07-22T21:53:50+08:00`
+- `updated_at`: `2026-07-22T22:06:03+08:00`
 
 ## Workflow Metadata
 
@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-22-post-v0-5-backlog-intake`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-22-post-v0-5-backlog-intake`
 - `created_at`: `2026-07-22T21:53:50+08:00`
-- `updated_at`: `2026-07-22T21:53:50+08:00`
+- `updated_at`: `2026-07-22T22:06:03+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -64,20 +64,21 @@
 
 ## Resume Checkpoint
 
-- Last completed action: archived the raw report and created baseline assessment
-  `ASM-20260722-005` with three stable findings.
-- Current task: `INTAKE-001` in progress.
-- Exact next action: create and validate `CI-001`, `DEVWF-001`, and `UPG-001`.
-- Validation already completed: raw SHA-256, current field scans, v0.5.0
-  migration/provenance review, and hosted annotation read-back.
-- Git state: workflow branch with uncommitted intake artifacts.
-- Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: WorkService itself is unavailable; its
-  project-local facts remain external evidence. Canonical changes and actual
-  target upgrade execution require later workflows.
+- Last completed action: `ASM-20260722-006` verified all three backlog mappings,
+  roadmap dispositions, hosted warning evidence, and external-file integrity.
+- Current task: none; `INTAKE-001` is completed.
+- Exact next action: activate `CI-001` before the next release workflow; discuss
+  `DEVWF-001` and activate `UPG-001` in their own authorized workflows.
+- Validation completed: assessment, workflow/backlog, backlog contract 6/6, AI
+  context, version, JSON, diff, digest, and independent verification checks.
+- Git state: closure commit is the commit containing this update.
+- Branch history and checkpoint handoffs: checkpoint commits `51b9906` and
+  `7714721` preserve the intake and evidence correction respectively.
+- Blockers or unresolved decisions: none for intake closure. WorkService remains
+  external and its actual upgrade requires target-repository authorization.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-22-post-v0-5-backlog-intake` | `main@79ac24d` | active | pending | local | `2026-07-22T21:53:50+08:00` | Normalize evidence and create durable planning records. | Complete intake, verify, and commit. |
+| 1 | `codex/2026-07-22-post-v0-5-backlog-intake` | `main@79ac24d` | closeout | `51b9906`, `7714721`, and the commit containing this update | local / remote branch | `2026-07-22T22:06:03+08:00` | Normalize evidence, create durable planning records, and verify the intake. | Activate `CI-001` before the next release workflow. |

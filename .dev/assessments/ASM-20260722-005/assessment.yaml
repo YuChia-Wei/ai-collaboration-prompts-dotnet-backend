@@ -34,7 +34,8 @@ scope:
 relations:
   supersedes: []
   superseded_by: []
-  related_assessments: []
+  related_assessments:
+    - "ASM-20260722-006"
   workflow_refs:
     - "2026-07-22-post-v0-5-backlog-intake"
   backlog_refs:

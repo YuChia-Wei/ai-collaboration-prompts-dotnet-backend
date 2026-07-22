@@ -6,9 +6,9 @@
   "task_id": "INTAKE-001",
   "workflow_id": "2026-07-22-post-v0-5-backlog-intake",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-22T21:53:50+08:00",
-  "updated_at": "2026-07-22T21:53:50+08:00",
+  "updated_at": "2026-07-22T22:06:03+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [
     "ASM-20260722-005#AIC-001",
@@ -50,15 +50,30 @@
       "python .ai/scripts/tests/test_backlog_release_contract.py",
       "python .ai/scripts/validate-ai-context.py"
     ],
-    "last_completed_step": "External evidence is preserved and normalized as ASM-20260722-005.",
-    "next_action": "Create the selected backlog records and discovery updates."
+    "last_completed_step": "Backlog mappings, roadmap scheduling, raw evidence, and independent verification are complete.",
+    "next_action": "Activate CI-001 before the next release workflow; activate DEVWF-001 and UPG-001 independently when authorized."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "",
-    "follow_up_needed": true
+    "summary": "Preserved the external comparison, reproduced current repository claims, and mapped all three findings to explicit backlog and roadmap dispositions.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260722-005/**",
+      ".dev/assessments/ASM-20260722-006/**",
+      ".dev/backlog/items/CI-001.yaml",
+      ".dev/backlog/items/DEVWF-001.yaml",
+      ".dev/backlog/items/UPG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md"
+    ],
+    "tests_run": [
+      "assessment artifact validation passed",
+      "workflow and backlog artifact validation passed",
+      "backlog release contract 6/6 passed",
+      "AI context validation passed",
+      "AI context version validation passed",
+      "ASM-20260722-006 independent verification found no intake blocker"
+    ],
+    "finding_status": "verified",
+    "residual_risk": "CI-001 remains a v0.6.0 release blocker until implemented; DEVWF-001 and UPG-001 remain explicitly unassigned; WorkService itself remains uninspected.",
+    "follow_up_needed": false
   }
 }
