@@ -2,6 +2,21 @@
 
 This index is the discovery view for framework releases. Each version's `release.yaml` is its lifecycle source of truth.
 
+## Create A Candidate
+
+Instantiate, rather than copy, the canonical
+[`release-publication`](../../.ai/assets/skills/ai-context-governance/templates/release-publication/)
+templates. Then follow the exact commands in
+[`release-phase-checks.yaml`](release-phase-checks.yaml) and the
+[publication runbook](../operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD).
+Historical `v*` directories below are records, never templates.
+
+## Candidate Releases
+
+| Release ID | Version | State | Compatibility | Notes | Migration |
+| --- | --- | --- | --- | --- | --- |
+| [`REL-v0.5.0`](v0.5.0/release.yaml) | `v0.5.0` | validated | migration schema 2.0; exact automatic sources v0.3.0, v0.4.0, v0.4.1, and v0.4.2; publication remains owner-authorized and has not occurred | [notes](v0.5.0/release-notes.md) | [guide](v0.5.0/migration-guide.md) |
+
 ## Published Releases
 
 | Release ID | Version | Published commit | Compatibility | Notes | Migration |
@@ -17,4 +32,5 @@ This index is the discovery view for framework releases. Each version's `release
 ## Related Governance
 
 - [Version policy](../standards/AI-CONTEXT-VERSION-POLICY.md)
+- [Release publication runbook](../operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD)
 - [Version-governance workflow](../workflows/2026-07-14-ai-context-version-governance/workflow.yaml)

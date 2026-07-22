@@ -242,9 +242,16 @@ exclusions:
       - .codex/config.toml
       - .ai/scripts/ai_context_package.py
       - .ai/scripts/build-ai-context-package.py
+      - .ai/scripts/prepare-ai-context-release.py
       - .ai/scripts/validate-ai-context-package.py
+      - .ai/scripts/validate-ai-context-release-state.py
+      - .ai/scripts/validate-source-governance.py
       - .ai/scripts/tests/test_ai_context_packaging.py
+      - .ai/scripts/tests/test_ai_context_release_state.py
       - .ai/scripts/tests/test_ai_context_version_governance.py
+      - .ai/scripts/tests/test_governance_workflow_contract.py
+      - .ai/scripts/tests/test_prepare_ai_context_release.py
+      - .ai/scripts/tests/test_release_notes_renderer.py
       - '**/bin/**'
       - '**/obj/**'
       - '**/__pycache__/**'

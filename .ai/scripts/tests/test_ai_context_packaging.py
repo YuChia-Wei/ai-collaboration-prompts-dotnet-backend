@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 import shutil
 import sys
@@ -271,8 +272,13 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertEqual({}, workflow["permissions"])
         self.assertEqual({"contents": "read"}, jobs["package"]["permissions"])
         self.assertIn("actions/upload-artifact@", text)
-        self.assertIn("--previous-files", text)
-        self.assertIn("steps.release.outputs.migration_source", text)
+        self.assertIn("--migration-source", text)
+        self.assertIn("steps.release.outputs.migration_sources", text)
+        self.assertIn("validate-ai-context-release-state.py", text)
+        self.assertIn("--phase candidate", text)
+        self.assertIn('--output "${RUNNER_TEMP}/release-body.md"', text)
+        self.assertIn("${{ runner.temp }}/release-body.md", text)
+        self.assertNotIn("--output dist/release-body.md", text)
         self.assertNotIn("gh release", text)
         self.assertNotRegex(text, r"(?m)^\s*(?:git\s+(?:tag|push|update-ref)|gh\s+api\s+.*git/refs)\b")
 
@@ -289,8 +295,10 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertEqual("ai-context-release", jobs["publish"]["environment"])
         self.assertIn(r"^v[0-9]+\.[0-9]+\.[0-9]+$", text)
         self.assertIn('--ref "refs/tags/${GITHUB_REF_NAME}"', text)
-        self.assertIn("--previous-files", text)
-        self.assertIn("steps.release.outputs.migration_source", text)
+        self.assertIn("--migration-source", text)
+        self.assertIn("steps.release.outputs.migration_sources", text)
+        self.assertIn("validate-ai-context-release-state.py", text)
+        self.assertIn("--phase tag", text)
 
     def test_gwt_009_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
         # Given the commands used to create, verify, and publish a release.
@@ -344,7 +352,60 @@ class PayloadReferenceIntegrityGwtTests(unittest.TestCase):
 
 
 class VersionedMigrationPackagingGwtTests(unittest.TestCase):
-    def test_gwt_012_given_governed_previous_inventory_when_built_then_versioned_operations_apply(self) -> None:
+    def test_gwt_012_given_no_prior_release_when_schema_v2_candidate_is_built_then_clean_install_is_independent(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given an incoming package with no upgrade source.
+            # When schema v2 is built for a clean installation.
+            result = fixture.build("clean-install-v2", "1.0.0")
+            root = fixture.extract(result, "clean-install-v2-extracted")
+            migration = yaml.safe_load((root / "metadata/migration.yaml").read_text(encoding="utf-8"))
+            # Then clean-install operations are first-class and no synthetic previous version is needed.
+            self.assertEqual("2.0.0", migration["schema_version"])
+            self.assertIn("clean_install", migration)
+            self.assertIsInstance(migration["clean_install"]["operations"], list)
+            self.assertEqual([], migration["sources"])
+        finally:
+            fixture.close()
+
+    def test_gwt_013_given_multiple_exact_prior_inventories_when_schema_v2_candidate_is_built_then_sources_are_ordered_and_bound(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            # Given immutable inventories for two supported prior releases.
+            v080 = fixture.build("v080", "0.8.0")
+            v080_files = fixture.extract(v080, "v080-extracted") / "metadata/files.yaml"
+            (fixture.root / "docs/rule.md").write_text("v090 rule\n", encoding="utf-8", newline="\n")
+            git(fixture.root, "add", "docs/rule.md")
+            git(fixture.root, "commit", "-qm", "v0.9.0 source")
+            v090 = fixture.build("v090", "0.9.0")
+            v090_files = fixture.extract(v090, "v090-extracted") / "metadata/files.yaml"
+            (fixture.root / "docs/rule.md").write_text("v100 rule\n", encoding="utf-8", newline="\n")
+            git(fixture.root, "add", "docs/rule.md")
+            git(fixture.root, "commit", "-qm", "v1.0.0 source")
+
+            # When the builder receives the exact version-and-inventory pairs out of order.
+            result = PACKAGE.build_package(
+                fixture.root,
+                "HEAD",
+                "1.0.0",
+                fixture.output("v2-candidate"),
+                fixture.profile,
+                previous_sources=[(v090_files, "0.9.0"), (v080_files, "0.8.0")],
+            )
+            migration = yaml.safe_load(
+                (fixture.extract(result, "v2-candidate-extracted") / "metadata/migration.yaml").read_text(encoding="utf-8")
+            )
+            # Then source selection identity is retained and serialized in ascending version order.
+            self.assertEqual(["0.8.0", "0.9.0"], [source["version"] for source in migration["sources"]])
+            self.assertEqual(
+                [PACKAGE.sha256_bytes(v080_files.read_bytes()), PACKAGE.sha256_bytes(v090_files.read_bytes())],
+                [source["manifest_sha256"] for source in migration["sources"]],
+            )
+            self.assertTrue(all(isinstance(source["operations"], list) for source in migration["sources"]))
+        finally:
+            fixture.close()
+
+    def test_gwt_014_given_governed_previous_inventory_when_built_then_versioned_operations_apply(self) -> None:
         fixture = SyntheticPackageRepo()
         try:
             # Given an extracted governed previous package and an immutable incoming commit.
@@ -372,18 +433,19 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             )
 
             # Then migration identity and every existing operation kind are deterministic.
-            self.assertEqual("0.9.0", migration["from"]["version"])
+            self.assertEqual("2.0.0", migration["schema_version"])
+            self.assertEqual("0.9.0", migration["sources"][0]["version"])
             self.assertEqual(
                 PACKAGE.sha256_bytes(previous_files.read_bytes()),
-                migration["from"]["manifest_sha256"],
+                migration["sources"][0]["manifest_sha256"],
             )
             self.assertEqual(
                 {"add", "replace", "remove", "rename"},
-                {item["kind"] for item in migration["operations"]},
+                {item["kind"] for item in migration["sources"][0]["operations"]},
             )
             self.assertEqual(
-                sorted(item["id"] for item in migration["operations"]),
-                [item["id"] for item in migration["operations"]],
+                sorted(item["id"] for item in migration["sources"][0]["operations"]),
+                [item["id"] for item in migration["sources"][0]["operations"]],
             )
 
             # And the planner from the extracted candidate upgrades the extracted base.
@@ -405,6 +467,8 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
                     str(target),
                     "--previous-files",
                     str(previous_files),
+                    "--previous-version",
+                    "0.9.0",
                     "--apply",
                 ],
                 check=False,
@@ -420,7 +484,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
-    def test_gwt_013_given_partial_previous_identity_when_built_then_it_fails_closed(self) -> None:
+    def test_gwt_015_given_partial_previous_identity_when_built_then_it_fails_closed(self) -> None:
         fixture = SyntheticPackageRepo()
         try:
             # Given only one half of the previous-release identity.
@@ -436,7 +500,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
-    def test_gwt_014_given_real_v030_package_when_candidate_is_extracted_then_upgrade_applies(self) -> None:
+    def test_gwt_016_given_real_v030_package_when_candidate_is_extracted_then_upgrade_applies(self) -> None:
         with tempfile.TemporaryDirectory(prefix="ai-context-real-upgrade-") as temp_value:
             temp = Path(temp_value)
 
@@ -485,12 +549,12 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             self.assertTrue(
                 (candidate_payload / ".ai/scripts/tests/test_ai_context_package_apply.py").is_file()
             )
-            self.assertEqual("0.3.0", migration["from"]["version"])
+            self.assertEqual("0.3.0", migration["sources"][0]["version"])
             self.assertEqual(
                 PACKAGE.sha256_bytes(previous_files.read_bytes()),
-                migration["from"]["manifest_sha256"],
+                migration["sources"][0]["manifest_sha256"],
             )
-            self.assertGreater(len(migration["operations"]), 100)
+            self.assertGreater(len(migration["sources"][0]["operations"]), 100)
 
             # Then the extracted candidate planner dry-runs and applies to a real v0.3.0 payload.
             target = temp / "target"
@@ -512,6 +576,8 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
                     str(target),
                     "--previous-files",
                     str(previous_files),
+                    "--previous-version",
+                    "0.3.0",
                     "--plan-output",
                     str(plan_path),
                 ],
@@ -533,6 +599,8 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
                 str(target),
                 "--previous-files",
                 str(previous_files),
+                "--previous-version",
+                "0.3.0",
                 "--apply",
             ]
             for operation_id in acknowledgements:
@@ -551,6 +619,330 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             )
             self.assertEqual("0.4.1", receipt["package_version"])
             self.assertEqual(sorted(acknowledgements), receipt["skipped_reconciliation_ids"])
+
+    def test_gwt_017_given_four_real_supported_sources_when_one_v050_candidate_is_built_then_each_upgrades_without_overwriting_target_truth(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="ai-context-real-multi-source-") as temp_value:
+            temp = Path(temp_value)
+            previous_roots: dict[str, Path] = {}
+            source_inputs: list[tuple[Path, str]] = []
+
+            # Given real extracted packages for every supported v0.5.0 source.
+            for version in ("0.3.0", "0.4.0", "0.4.1", "0.4.2"):
+                result = PACKAGE.build_package(
+                    ROOT,
+                    f"v{version}",
+                    version,
+                    temp / f"previous-{version}",
+                )
+                extract = temp / f"previous-{version}-extracted"
+                with zipfile.ZipFile(Path(result["zip"])) as archive:
+                    archive.extractall(extract)
+                package_root = extract / f"ai-context-dotnet-backend-v{version}"
+                previous_roots[version] = package_root
+                source_inputs.append(
+                    (package_root / "metadata/files.yaml", version)
+                )
+
+            # When one immutable v0.5.0 candidate binds all four inventories.
+            candidate_result = PACKAGE.build_package(
+                ROOT,
+                "HEAD",
+                "0.5.0",
+                temp / "candidate",
+                previous_sources=source_inputs,
+            )
+            PACKAGE.validate_sidecar(Path(candidate_result["zip"]))
+            PACKAGE.validate_sidecar(Path(candidate_result["tar_gz"]))
+            self.assertEqual(
+                PACKAGE.validate_archive(Path(candidate_result["zip"])),
+                PACKAGE.validate_archive(Path(candidate_result["tar_gz"])),
+            )
+            candidate_extract = temp / "candidate-extracted"
+            with zipfile.ZipFile(Path(candidate_result["zip"])) as archive:
+                archive.extractall(candidate_extract)
+            candidate_root = candidate_extract / "ai-context-dotnet-backend-v0.5.0"
+            migration = yaml.safe_load(
+                (candidate_root / "metadata/migration.yaml").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(
+                ["0.3.0", "0.4.0", "0.4.1", "0.4.2"],
+                [source["version"] for source in migration["sources"]],
+            )
+
+            # Then every exact source upgrades while target templates and local
+            # managed overrides remain byte-identical after acknowledgement.
+            planner = (
+                candidate_root
+                / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            )
+            for version, previous_root in previous_roots.items():
+                target = temp / f"target-{version}"
+                shutil.copytree(previous_root / "payload", target)
+                managed_override = (
+                    target / ".ai/scripts/plan-ai-context-package-apply.py"
+                )
+                target_template = target / "AGENTS.md"
+                self.assertTrue(managed_override.is_file())
+                self.assertTrue(target_template.is_file())
+                managed_bytes = f"local managed override from {version}\n".encode()
+                target_bytes = f"target-owned AGENTS from {version}\n".encode()
+                managed_override.write_bytes(managed_bytes)
+                target_template.write_bytes(target_bytes)
+                git(target, "init", "-q")
+                git(target, "config", "user.name", "Fixture")
+                git(target, "config", "user.email", "fixture@example.invalid")
+                git(target, "add", ".")
+                git(target, "commit", "-qm", f"target v{version} with local truth")
+                plan_path = temp / f"plan-{version}.yaml"
+                previous_files = previous_root / "metadata/files.yaml"
+                dry_run = subprocess.run(
+                    [
+                        sys.executable,
+                        str(planner),
+                        "--package-root",
+                        str(candidate_root),
+                        "--target-root",
+                        str(target),
+                        "--previous-version",
+                        version,
+                        "--previous-files",
+                        str(previous_files),
+                        "--plan-output",
+                        str(plan_path),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(
+                    0, dry_run.returncode, dry_run.stdout + dry_run.stderr
+                )
+                plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))
+                managed_plan = next(
+                    item
+                    for item in plan["operations"]
+                    if item["path"]
+                    == ".ai/scripts/plan-ai-context-package-apply.py"
+                )
+                self.assertEqual("reconcile", managed_plan["action"])
+                acknowledgements = [
+                    item["id"]
+                    for item in plan["operations"]
+                    if item["action"] == "reconcile"
+                ]
+                apply_arguments = [
+                    sys.executable,
+                    str(planner),
+                    "--package-root",
+                    str(candidate_root),
+                    "--target-root",
+                    str(target),
+                    "--previous-version",
+                    version,
+                    "--previous-files",
+                    str(previous_files),
+                    "--apply",
+                ]
+                for operation_id in acknowledgements:
+                    apply_arguments.extend(["--acknowledge", operation_id])
+                applied = subprocess.run(
+                    apply_arguments,
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(
+                    0, applied.returncode, applied.stdout + applied.stderr
+                )
+                self.assertEqual(managed_bytes, managed_override.read_bytes())
+                self.assertEqual(target_bytes, target_template.read_bytes())
+                receipt = yaml.safe_load(
+                    (target / ".dev/AI-CONTEXT-APPLY-PENDING.yaml").read_text(
+                        encoding="utf-8"
+                    )
+                )
+                self.assertEqual("0.5.0", receipt["package_version"])
+                self.assertEqual(
+                    sorted(acknowledgements),
+                    receipt["skipped_reconciliation_ids"],
+                )
+
+    @unittest.skipUnless(
+        os.environ.get("AI_CONTEXT_DOWNSTREAM_REPO"),
+        "set AI_CONTEXT_DOWNSTREAM_REPO for the retained downstream integration gate",
+    )
+    def test_gwt_018_given_retained_v040_downstream_when_v050_candidate_applies_then_declared_local_overrides_are_preserved(self) -> None:
+        downstream = Path(os.environ["AI_CONTEXT_DOWNSTREAM_REPO"]).resolve()
+        source_manifest = yaml.safe_load(
+            (downstream / ".dev/AI-CONTEXT-SOURCE.yaml").read_text(encoding="utf-8")
+        )
+        self.assertEqual("v0.4.0", source_manifest["source"]["version"])
+        self.assertEqual(
+            "",
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(downstream),
+                    "status",
+                    "--porcelain",
+                    "--untracked-files=all",
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout,
+        )
+
+        with tempfile.TemporaryDirectory(prefix="ai-context-downstream-v050-") as temp_value:
+            temp = Path(temp_value)
+            source_inputs: list[tuple[Path, str]] = []
+            previous_roots: dict[str, Path] = {}
+            for version in ("0.3.0", "0.4.0", "0.4.1", "0.4.2"):
+                result = PACKAGE.build_package(
+                    ROOT,
+                    f"v{version}",
+                    version,
+                    temp / f"previous-{version}",
+                )
+                extract = temp / f"previous-{version}-extracted"
+                with zipfile.ZipFile(Path(result["zip"])) as archive:
+                    archive.extractall(extract)
+                package_root = extract / f"ai-context-dotnet-backend-v{version}"
+                previous_roots[version] = package_root
+                source_inputs.append(
+                    (package_root / "metadata/files.yaml", version)
+                )
+            candidate_result = PACKAGE.build_package(
+                ROOT,
+                "HEAD",
+                "0.5.0",
+                temp / "candidate",
+                previous_sources=source_inputs,
+            )
+            candidate_extract = temp / "candidate-extracted"
+            with zipfile.ZipFile(Path(candidate_result["zip"])) as archive:
+                archive.extractall(candidate_extract)
+            candidate_root = candidate_extract / "ai-context-dotnet-backend-v0.5.0"
+            target = temp / "target"
+            subprocess.run(
+                ["git", "clone", "--local", "--quiet", str(downstream), str(target)],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            declared_paths = {
+                path
+                for override in source_manifest["local_overrides"]
+                for path in override["paths"]
+            }
+            preserved = {
+                path: (target / path).read_bytes()
+                for path in declared_paths
+                if (target / path).is_file()
+            }
+            self.assertGreater(len(preserved), 20)
+            planner = (
+                candidate_root
+                / "payload/.ai/scripts/plan-ai-context-package-apply.py"
+            )
+            plan_path = temp / "downstream-plan.yaml"
+            previous_files = (
+                previous_roots["0.4.0"] / "metadata/files.yaml"
+            )
+            dry_run = subprocess.run(
+                [
+                    sys.executable,
+                    str(planner),
+                    "--package-root",
+                    str(candidate_root),
+                    "--target-root",
+                    str(target),
+                    "--previous-version",
+                    "0.4.0",
+                    "--previous-files",
+                    str(previous_files),
+                    "--plan-output",
+                    str(plan_path),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, dry_run.returncode, dry_run.stdout + dry_run.stderr)
+            plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))
+            acknowledgements = [
+                item["id"]
+                for item in plan["operations"]
+                if item["action"] == "reconcile"
+            ]
+            apply_arguments = [
+                sys.executable,
+                str(planner),
+                "--package-root",
+                str(candidate_root),
+                "--target-root",
+                str(target),
+                "--previous-version",
+                "0.4.0",
+                "--previous-files",
+                str(previous_files),
+                "--apply",
+            ]
+            for operation_id in acknowledgements:
+                apply_arguments.extend(["--acknowledge", operation_id])
+            applied = subprocess.run(
+                apply_arguments,
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, applied.returncode, applied.stdout + applied.stderr)
+            self.assertEqual(
+                [],
+                [
+                    path
+                    for path, before in preserved.items()
+                    if not (target / path).is_file()
+                    or (target / path).read_bytes() != before
+                ],
+            )
+            receipt = yaml.safe_load(
+                (target / ".dev/AI-CONTEXT-APPLY-PENDING.yaml").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual("0.5.0", receipt["package_version"])
+            self.assertEqual(
+                sorted(acknowledgements),
+                receipt["skipped_reconciliation_ids"],
+            )
+
+    def test_gwt_019_given_current_profile_when_payload_is_collected_then_all_native_agent_adapters_are_included(self) -> None:
+        # Given the immutable current source tree and public package profile.
+        tree = PACKAGE.git_tree(ROOT, "HEAD")
+        profile = PACKAGE.load_yaml_blob(
+            ROOT,
+            tree,
+            ".ai/distribution/profiles/dotnet-backend.yaml",
+        )
+
+        # When the authoritative package engine resolves the payload.
+        payload = PACKAGE.collect_payload(ROOT, tree, profile)
+        targets = {item.path for item in payload}
+
+        # Then every promoted runtime-native adapter retains its exact path.
+        self.assertTrue(
+            {
+                ".codex/agents/context-translator.toml",
+                ".claude/agents/context-translator.md",
+                ".github/agents/context-translator.agent.md",
+            }
+            <= targets
+        )
 
 
 if __name__ == "__main__":

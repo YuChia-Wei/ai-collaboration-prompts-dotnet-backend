@@ -1,0 +1,45 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-008",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T04:07:12+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "HANDOFF-001 machine-readable receiving checkpoint, critical gate evidence, and provider-native attribution compatibility",
+    "files": [".dev/standards/**", ".ai/scripts/validate-workflow-handoff.py", ".ai/scripts/validate-git-commits.py", ".ai/scripts/tests/**", ".ai/assets/skills/**/templates/**"],
+    "constraints": ["Fail closed on red critical gate", "Preserve provider-native metadata", "Label provenance source", "Require real provider fixtures before provider-specific rules"],
+    "non_goals": ["Normalize all providers to one trailer", "Rewrite signed history", "Invent Claude identity"]
+  },
+  "execution": {
+    "steps": ["Define handoff schema and template", "Add validator and negative fixtures", "Capture real provider attribution fixtures", "Redesign commit attribution acceptance without mutation", "Exercise a fresh receiving-agent checkpoint", "Validate and checkpoint"],
+    "validation": ["handoff schema GWT", "critical gate evidence", "provider fixture regression", "commit validator read-only proof"],
+    "last_completed_step": "Pinned the clean HANDOFF core commit, captured a real 30/30 critical gate, registered a machine-readable receiving checkpoint, captured the Codex local attribution fixture, and retained explicit blocked states for unavailable provider-native fixtures.",
+    "next_action": "Implement the REL-001 sanctioned release-phase contract and cold-start publication gates under V050-009."
+  },
+  "results": {
+    "summary": "HANDOFF-001 receiving semantics are implemented and exercised with a real clean checkpoint. V050-009 now supplies exact REL-owned candidate, tag, publication, and finalization commands, so release handoffs remain fail-closed without an unavailable interface.",
+    "files_changed": [
+      ".dev/standards/WORKFLOW-HANDOFF-POLICY.md",
+      ".dev/standards/WORKFLOW-HANDOFF-POLICY.yaml",
+      ".ai/scripts/validate-workflow-handoff.py",
+      ".ai/scripts/tests/test_workflow_handoff.py",
+      ".dev/workflows/handoff-checkpoints.yaml",
+      ".dev/workflows/2026-07-21-v0-5-0-development/handoff-checkpoints/V050-008.yaml",
+      ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_workflow_handoff.py -v: 15/15 passed",
+      "bash .ai/scripts/check-all.sh --critical: 30/30 passed, 0 failed, 0 deferred"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Copilot CLI, Copilot cloud-agent, and Claude provider-native fixture paths remain explicitly blocked until real commits are available; no provider-specific rule was added and the repository does not guess their identities.",
+    "follow_up_needed": false
+  }
+}

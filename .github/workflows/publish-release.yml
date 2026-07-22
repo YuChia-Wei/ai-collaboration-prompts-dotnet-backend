@@ -25,6 +25,7 @@ jobs:
       title: ${{ steps.release.outputs.title }}
       version: ${{ steps.release.outputs.version }}
       migration_source: ${{ steps.release.outputs.migration_source }}
+      migration_sources: ${{ steps.release.outputs.migration_sources }}
     steps:
       - name: Check out tagged tree
         uses: actions/checkout@v6
@@ -39,7 +40,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install packaging dependency
-        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Verify user-created annotated tag
         id: tag
@@ -58,6 +59,12 @@ jobs:
       - name: Validate release registry
         run: python .ai/scripts/validate-ai-context-versions.py
 
+      - name: Validate tagged release state
+        run: |
+          python .ai/scripts/validate-ai-context-release-state.py \
+            --phase tag \
+            --version "${GITHUB_REF_NAME}"
+
       - name: Validate candidate and render release body
         id: release
         run: |
@@ -70,30 +77,29 @@ jobs:
 
       - name: Build deterministic archives from tag
         env:
-          MIGRATION_SOURCE: ${{ steps.release.outputs.migration_source }}
+          MIGRATION_SOURCES: ${{ steps.release.outputs.migration_sources }}
         run: |
           build_args=(
             --ref "refs/tags/${GITHUB_REF_NAME}"
             --version "${GITHUB_REF_NAME}"
             --output dist
           )
-          if [[ -n "${MIGRATION_SOURCE}" ]]; then
-            previous_version="${MIGRATION_SOURCE#v}"
-            previous_output="${RUNNER_TEMP}/previous-package"
-            previous_extract="${RUNNER_TEMP}/previous-extracted"
+          for migration_source in ${MIGRATION_SOURCES}; do
+            previous_version="${migration_source#v}"
+            previous_output="${RUNNER_TEMP}/previous-package-${previous_version}"
+            previous_extract="${RUNNER_TEMP}/previous-extracted-${previous_version}"
             python .ai/scripts/build-ai-context-package.py \
-              --ref "refs/tags/${MIGRATION_SOURCE}" \
-              --version "${MIGRATION_SOURCE}" \
+              --ref "refs/tags/${migration_source}" \
+              --version "${migration_source}" \
               --output "${previous_output}"
             python -m zipfile -e \
               "${previous_output}/ai-context-dotnet-backend-v${previous_version}.zip" \
               "${previous_extract}"
             build_args+=(
-              --previous-version "${MIGRATION_SOURCE}"
-              --previous-files \
+              --migration-source "${migration_source}" \
                 "${previous_extract}/ai-context-dotnet-backend-v${previous_version}/metadata/files.yaml"
             )
-          fi
+          done
           python .ai/scripts/build-ai-context-package.py "${build_args[@]}"
 
       - name: Validate archives and parity
@@ -145,7 +151,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install packaging dependency
-        run: python -m pip install --disable-pip-version-check PyYAML==6.0.3
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Download validated release artifact
         uses: actions/download-artifact@v5

@@ -105,9 +105,18 @@ def validate_release(root: Path, version: str, commit: str, mode: str) -> tuple[
         raise ReleaseNotesError(
             "compatibility.automatic_upgrade_sources must contain stable versions"
         )
-    if len(automatic_sources) > 1:
+    migration_schema = (
+        data.get("distribution", {})
+        if isinstance(data.get("distribution"), dict)
+        else {}
+    )
+    schema_versions = migration_schema.get("schema_versions", {})
+    migration_schema_version = (
+        schema_versions.get("migration") if isinstance(schema_versions, dict) else None
+    )
+    if len(automatic_sources) > 1 and migration_schema_version != "2.0.0":
         raise ReleaseNotesError(
-            "migration schema 1.0.0 supports at most one automatic upgrade source"
+            "multiple automatic upgrade sources require migration schema 2.0.0"
         )
     artifacts = data.get("artifacts")
     if not isinstance(artifacts, dict):
@@ -119,12 +128,15 @@ def validate_release(root: Path, version: str, commit: str, mode: str) -> tuple[
     return data, notes, migration
 
 
-def render_body(data: dict, notes: Path, migration: Path, commit: str) -> str:
+def render_body_text(
+    data: dict,
+    notes_text: str,
+    migration_text: str,
+    commit: str,
+) -> str:
     version = data["version"]
     release_id = data["release_id"]
     package_id = f"ai-context-dotnet-backend-{version}"
-    notes_text = notes.read_text(encoding="utf-8").strip()
-    migration_text = migration.read_text(encoding="utf-8").strip()
     return "\n".join(
         [
             f"<!-- ai-context-release-automation: {release_id} -->",
@@ -145,6 +157,15 @@ def render_body(data: dict, notes: Path, migration: Path, commit: str) -> str:
             migration_text,
             "",
         ]
+    )
+
+
+def render_body(data: dict, notes: Path, migration: Path, commit: str) -> str:
+    return render_body_text(
+        data,
+        notes.read_text(encoding="utf-8").strip(),
+        migration.read_text(encoding="utf-8").strip(),
+        commit,
     )
 
 
@@ -184,6 +205,9 @@ def main() -> int:
             "migration_source": next(
                 iter(data["compatibility"].get("automatic_upgrade_sources", [])),
                 "",
+            ),
+            "migration_sources": " ".join(
+                data["compatibility"].get("automatic_upgrade_sources", [])
             ),
         }
         if args.github_output:

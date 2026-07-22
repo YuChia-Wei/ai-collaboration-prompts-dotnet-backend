@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-007",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-21T00:24:09+08:00",
+  "updated_at": "2026-07-21T02:10:06+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "LANG-001 refreshed candidate inventory, bounded remediation, and hybrid semantic parity evidence",
+    "files": [".dev/standards/**", ".dev/specs/**", "README.md", "README.en.md", "AGENTS.md", "AGENTS.zh-TW.md", ".ai/scripts/validate-ai-context.py", ".ai/scripts/tests/**"],
+    "constraints": ["English canonical for agent rules", "zh-TW derived only where approved", "Structural parity is not semantic proof", "Retain review evidence"],
+    "non_goals": ["Translate every standard", "Use one model pass as oracle", "Create new bilingual surfaces"]
+  },
+  "execution": {
+    "steps": ["Generate current deterministic candidate inventory", "Fix the approved active-language batch", "Add exception and parity fixtures", "Run context-translator or human semantic checklist", "Validate and checkpoint"],
+    "validation": ["language-policy validator", "root structural parity", "retained semantic checklist", "zero untriaged high-priority candidates"],
+    "last_completed_step": "Reconciled the stale 21-item planning count, fixed four active defects, added 10 fail-closed language/parity fixtures, passed the 24-check Windows quick gate, and retained two concurring semantic reviews at subject commit 2db0636.",
+    "next_action": "Activate V050-005 to consume the completed foundation validators in semantic governance enforcement and dedicated PR CI."
+  },
+  "results": {
+    "summary": "The current standards/specs inventory has zero untriaged language violations; four bounded defects are fixed, deterministic root parity fails closed, and both approved bilingual pairs passed retained semantic review.",
+    "files_changed": ["AGENTS.md", ".dev/standards/coding-standards.md", ".dev/standards/coding-standards/repository-standards.md", ".ai/scripts/validate-ai-context.py", ".ai/scripts/tests/test_ai_context_language_policy.py", ".ai/scripts/check-all.sh", ".ai/scripts/shell-assets.yaml"],
+    "tests_run": ["10 language/parity GWT", "24 aggregate-runner and shell-registry GWT", "Windows Git Bash check-all.sh --quick 24/24", "hosted Ubuntu run 29766507514 check-all.sh --quick 24/24", "two bounded semantic reviews at 2db0636"],
+    "finding_status": "addressed",
+    "residual_risk": "Semantic review is bounded to the two root bilingual pairs and pinned subject; future material edits require a new retained review.",
+    "follow_up_needed": false
+  }
+}

@@ -1,25 +1,37 @@
-schema_version: 1.0.0
+schema_version: 2.0.0
 document: migration.yaml
 required:
   - schema_version
   - package_id
-  - from
   - to
-  - operations
+  - clean_install
+  - sources
 properties:
   schema_version: semver
   package_id: non-empty-string
-  from:
-    required: [version, manifest_sha256]
+  clean_install:
+    required: [operations]
     properties:
-      version: semver-without-v-prefix-or-null-for-clean-install
-      manifest_sha256: lowercase-sha256-or-null-for-clean-install
+      operations: operation-list
+  sources:
+    ordering: semantic-version-ascending
+    uniqueness: version-and-manifest-sha256
+    item_required: [version, manifest_sha256, operations]
+    properties:
+      version: semver-without-v-prefix
+      manifest_sha256: lowercase-sha256
+      operations: operation-list
+    selection:
+      required_inputs: [previous_version, previous_files_manifest]
+      identity: exact-version-and-sha256
+      unknown_source: fail-closed
+      ambiguous_source: fail-closed
   to:
     required: [version, manifest_sha256]
     properties:
       version: semver-without-v-prefix
       manifest_sha256: lowercase-sha256
-  operations:
+  operation-list:
     ordering: operation-id-ascending
     item_required: [id, kind, path, ownership, preconditions]
     kinds:
@@ -53,3 +65,5 @@ properties:
       - abort_on_unacknowledged_reconciliation
 additional_properties: false
 manifest_sha256_definition: sha256-of-source-files-yaml-bytes
+read_compatibility:
+  - "1.0.0"

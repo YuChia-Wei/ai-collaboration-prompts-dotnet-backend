@@ -1,0 +1,74 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "HANDOFFPLAN-001",
+  "workflow_id": "2026-07-20-native-attribution-handoff-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-20T23:55:02+08:00",
+  "updated_at": "2026-07-21T00:00:29+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "HANDOFF-001 provider-native attribution preservation and execution provenance planning",
+    "files": [
+      ".dev/backlog/items/HANDOFF-001.yaml",
+      ".dev/workflows/2026-07-20-native-attribution-handoff-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Preserve provider-native Git attribution and signatures",
+      "Separate commit attribution from execution provenance",
+      "Label runtime-reported, provider-reported, user-declared, and unavailable provenance distinctly",
+      "Require real provider-generated fixtures before policy or validator implementation"
+    ],
+    "non_goals": [
+      "Change GIT-COMMIT-POLICY or validate-git-commits.py",
+      "Edit Copilot or Claude settings",
+      "Rewrite existing commits",
+      "Invent undocumented Claude attribution behavior"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Inspect current policy and validator behavior",
+      "Research official Copilot CLI and cloud-agent attribution behavior",
+      "Inspect official Claude Code documentation without inferring an undocumented attribution contract",
+      "Confirm current Codex model and reasoning effort from runtime request metadata",
+      "Add preservation, evidence-union, provenance-source, and fixture gates to HANDOFF-001",
+      "Validate and close the planning workflow"
+    ],
+    "validation": [
+      "workflow and backlog artifact validation",
+      "YAML and JSON parsing",
+      "repository settings inventory",
+      "git diff check",
+      "AI context and version validation"
+    ],
+    "last_completed_step": "Updated and validated HANDOFF-001 plus the provider-native attribution research record.",
+    "next_action": "None in this workflow; implement only through the v0.5.0 HANDOFF-001 workflow after provider fixtures are available."
+  },
+  "results": {
+    "summary": "Made provider-native attribution preservation, supplemental execution provenance, provenance-source labeling, and real-provider golden fixtures explicit HANDOFF-001 gates.",
+    "files_changed": [
+      ".dev/backlog/items/HANDOFF-001.yaml",
+      ".dev/workflows/2026-07-20-native-attribution-handoff-planning/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v",
+      "python .ai/scripts/tests/test_backlog_release_contract.py -v",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-ai-context-versions.py",
+      "YAML and JSON parse checks",
+      "git diff --check",
+      "C:\\Program Files\\Git\\bin\\bash.exe ./.ai/scripts/check-all.sh --quick: 21/21 required checks passed"
+    ],
+    "finding_status": "addressed",
+    "residual_risk": "The current commit policy and validator remain unchanged and can reject provider-native attribution shapes; HANDOFF-001 implementation must close that gap after real provider fixtures are captured. The first bare-bash quick-gate attempt routed to unconfigured WSL and exited before checks; the explicit Git for Windows Bash rerun passed.",
+    "follow_up_needed": true
+  }
+}

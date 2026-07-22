@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "LANG-001"
 title: "AI Context Translation Backlog And Semantic Parity Gate"
 category: "language-governance"
-status: "open"
+status: "resolved"
 priority: "MEDIUM"
-summary: "Reduce the remaining high-priority standards and specs translation candidates, then decide when semantic bilingual review or language lint can become a reliable gate."
+summary: "Reconcile the stale translation inventory, remediate active language defects, and retain a hybrid deterministic plus semantic-review gate for approved bilingual entries."
 created_at: "2026-07-12T14:17:52+08:00"
-updated_at: "2026-07-19T12:27:12+08:00"
+updated_at: "2026-07-21T02:10:06+08:00"
 release:
   target: "v0.5.0"
-  completed_in: null
+  completed_in: "v0.5.0"
   published_in: null
   target_scope: "translation-remediation-and-semantic-parity-decision"
   gate: "release-blocker"
@@ -20,10 +20,12 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "After v0.4.2 closes, refresh the candidate inventory, remediate the approved v0.5.0 translation set, and record the semantic parity gate decision before publication."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-21-v0-5-0-development/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
-resolution_ref: null
-decision_needed: "After the refreshed inventory, approve the required translation batch and choose automated semantic parity, documented human review, or a bounded hybrid gate."
+  - ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-007.json"
+resolution_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-lang001-language-parity.md"
+decision_needed: "Resolved: use deterministic active-language and root structural parity checks plus a retained bounded semantic review for every material bilingual-entry change."
 acceptance:
   - "The high-priority translation candidate inventory is refreshed against the v0.5.0 baseline."
   - "The repository owner approves and the workflow completes the v0.5.0 translation remediation set."
@@ -31,6 +33,7 @@ acceptance:
   - "Semantic parity uses an approved automated, human, or hybrid gate with retained evidence; structural parity alone is not accepted as semantic proof."
   - "No v0.5.0 publication occurs with an untriaged high-priority translation candidate."
 inventory_notes:
-  - "The last remediation report recorded 21 high-priority plus several medium-priority candidates; this count must be refreshed before execution."
-  - "Current structural parity is not proof of semantic equivalence."
-  - "This item is a v0.5.0 release blocker by repository-owner decision."
+  - "The historical 21-item count was prospective translation planning before the current language policy and later cleanup; it is not an active defect count."
+  - "The refreshed subject has 57 active standards/specs language surfaces, zero untriaged violations, and one exact policy-owned mixed-language routing exception."
+  - "Three fullwidth punctuation defects and one root identifier drift were remediated; no new standard/spec translation surface was created."
+  - "Structural parity is not proof of semantic equivalence; retained semantic review remains required for material bilingual-entry changes."

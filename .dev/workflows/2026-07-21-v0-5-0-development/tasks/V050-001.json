@@ -1,0 +1,77 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V050-001",
+  "workflow_id": "2026-07-21-v0-5-0-development",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-21T00:19:22+08:00",
+  "updated_at": "2026-07-21T00:24:09+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "v0.5.0 evidence inventory, dependency and decision freeze, bounded task creation, and checkpoint strategy",
+    "files": [
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/items/*.yaml",
+      ".dev/workflows/2026-07-21-v0-5-0-development/**",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "constraints": [
+      "Use repository files and Git as authoritative evidence",
+      "Keep all v0.5.0 release blockers and disposition gates visible",
+      "Do not silently expand v0.5.0 with unassigned or later-horizon work",
+      "Create coherent commit checkpoints suitable for low-quota continuation",
+      "Main agent owns integration, decision review, and final quality"
+    ],
+    "non_goals": [
+      "Implement a release blocker before its contract is frozen",
+      "Publish or tag v0.5.0",
+      "Claim macOS execution",
+      "Merge every backlog item separately to main"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Read roadmap, backlog contracts, governing policies, and origin evidence",
+      "Run bounded low-cost sub-agent inventories for dependency, tooling, and governance surfaces",
+      "Verify material conclusions against repository-native files and Git",
+      "Freeze decisions that can be made from evidence and identify genuine owner decisions",
+      "Create bounded execution tasks, dependencies, validation, and commit checkpoints",
+      "Validate and commit the inventory checkpoint"
+    ],
+    "validation": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v",
+      "python .ai/scripts/tests/test_backlog_release_contract.py -v",
+      "python .ai/scripts/validate-ai-context.py",
+      "YAML and JSON parsing",
+      "git diff --check"
+    ],
+    "last_completed_step": "Reconciled three bounded sub-agent inventories with repository files and Git, froze the decision matrix, and created V050-002 through V050-010.",
+    "next_action": "Start V050-002 disposition reconciliation."
+  },
+  "results": {
+    "summary": "Completed the v0.5.0 inventory, dependency and decision freeze, task routing, validation strategy, and checkpoint plan.",
+    "files_changed": [
+      ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-decision-matrix.md",
+      ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-001.json",
+      ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-002.json through V050-010.json",
+      ".dev/workflows/2026-07-21-v0-5-0-development/workflow-plan.md",
+      ".dev/workflows/2026-07-21-v0-5-0-development/workflow.yaml"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_workflow_lifecycle_contract.py -v",
+      "python .ai/scripts/tests/test_backlog_release_contract.py -v",
+      "python .ai/scripts/validate-ai-context.py",
+      "YAML and JSON parsing",
+      "git diff --check"
+    ],
+    "finding_status": "addressed",
+    "residual_risk": "Live provider fixtures, hosted Ubuntu evidence, and implementation validation remain owned by later tasks.",
+    "follow_up_needed": true
+  }
+}

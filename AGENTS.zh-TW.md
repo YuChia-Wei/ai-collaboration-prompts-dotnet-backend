@@ -60,6 +60,7 @@ Workflow artifact 規則：
 - 2026-07-11 起建立的 workflow 必須記錄 `branch` 與 `base_branch`。
 - 不要把 runtime workflow 紀錄放進 canonical skill 或 runtime wrapper 目錄。
 - Workflow 尚未完成時若使用者要求 merge/push，視為 checkpoint handoff 並維持 workflow active。只有 push 時從已推送的 branch 接續；checkpoint merge 後則從更新後的 target 建立新的獨立 continuation branch。
+- 在跨 model、runtime、host、machine 或 fresh session 轉交 active workflow 前，遵循 `.dev/standards/WORKFLOW-HANDOFF-POLICY.md`；receiving checkpoint 必須能在不依賴 hidden session context 的情況下執行。
 - Workflow branch 預設使用 `--no-ff` 合併，除非使用者明確指定其他策略。
 
 ### Assessment Gate
