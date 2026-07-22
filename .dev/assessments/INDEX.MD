@@ -12,6 +12,7 @@ owns its identity, current lifecycle state, subject revision, and relationships.
 
 | Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| [`ASM-20260722-003`](ASM-20260722-003/assessment.yaml) | v0.5.0 macOS Portability External Review Intake | `ai-context-audit` | `ai-context-auditor` | `final` | `9ac40bee4ab3d4ac169c05c6229895d7a22265ff` | `2026-07-22T20:35:44+08:00` | [report](ASM-20260722-003/report.md) |
 | [`ASM-20260722-002`](ASM-20260722-002/assessment.yaml) | v0.5.0 Candidate Remediation Successor Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `d83f395e5a399f944cb53b87c1f95cd299a4c386` | `2026-07-22T08:29:59+08:00` | [report](ASM-20260722-002/report.md) |
 | [`ASM-20260722-001`](ASM-20260722-001/assessment.yaml) | v0.5.0 Four-Source Release Candidate Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `ef148472bb2e47b058693a1ab5e28dcb99e5ba32` | `2026-07-22T08:04:18+08:00` | [report](ASM-20260722-001/report.md) |
 | [`ASM-20260720-002`](ASM-20260720-002/assessment.yaml) | v0.4.2 Release Finalization Hotfix Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `895ce060b2287e6c6be6a5327496f6e763145891` | `2026-07-20T22:43:57+08:00` | [report](ASM-20260720-002/report.md) |
@@ -50,4 +51,5 @@ follow repository-owned assessment templates.
 
 | Input | Source | Received | Normalized By | Status |
 | --- | --- | --- | --- | --- |
+| [`fable5-v0.5.0-macos`](ASM-20260722-003/evidence/fable5-macos/v050-macos-portability-report.md) | Claude Fable 5 | 2026-07-22 | [`ASM-20260722-003`](ASM-20260722-003/assessment.yaml) | `normalized` |
 | [`fable5-v0.4.2`](ASM-20260720-001/evidence/fable5-v0.4.2/README.md) | Claude Fable 5 | 2026-07-20 | [`ASM-20260720-001`](ASM-20260720-001/assessment.yaml) | `normalized` |
