@@ -30,7 +30,9 @@ This directory owns source-side, machine-readable contracts for building portabl
 - Target-side planners retain read compatibility for migration schema `1.0.0`.
   A schema `2.0.0` upgrade must pass both `--previous-version` and
   `--previous-files`; a clean install passes neither.
-- The supported v0.5.0 automatic source set is v0.3.0, v0.4.0, and v0.4.1.
+- The supported v0.5.0 automatic source set is v0.3.0, v0.4.0, v0.4.1, and
+  v0.4.2. Each route requires the exact published source inventory; listing a
+  version never permits a different release's `files.yaml`.
   A target whose earliest recorded provenance is v0.0.1 must first follow the
   governed v0.0.1-to-v0.3.0 reconciliation route, then use the direct
   v0.3.0-to-v0.5.0 migration. v0.0.1 is not silently treated as an automatic

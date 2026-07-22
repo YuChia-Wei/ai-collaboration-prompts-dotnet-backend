@@ -19,7 +19,7 @@
 - `current_phase`: `verification`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T07:41:44+08:00`
+- `updated_at`: `2026-07-22T08:09:41+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -116,35 +116,28 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: completed HANDOFF-001, implemented the REL-001
-  mechanics, instantiated the planned v0.5.0 release sources, and proved the
-  owner-required fourth automatic source through a real extracted
-  v0.4.2-to-v0.5.0 dry-run/apply. The release-state, preparation, and renderer
-  suites pass with all four declared sources, and the complete source critical
-  gate passes 33/33 with no failed or deferred checks.
+- Last completed action: candidate `ef148472bb2e47b058693a1ab5e28dcb99e5ba32`
+  passed its exact candidate gate, two deterministic four-source builds, the
+  33/33 critical gate, and hosted runs `29878635973`, `29878635862`, and
+  `29878635890`. Independent assessment `ASM-20260722-001` confirmed the
+  package mechanics and identified three cold-start truth findings.
 - Current task: `V050-010`
-- Exact next action: commit the validated four-source candidate state, run its
-  exact clean-state gate and deterministic double build, then push for hosted
-  verification and freeze the independent assessment subject.
-- Validation already completed: ENF-001 focused suites, affected package
-  upgrade cases 16 and 17, Windows Git Bash 28/28, hosted Ubuntu 28/28, and
-  the separate read-only governance workflow all pass at `83a0c1c`.
-- Git state: `74eb166` is committed, repository-verified, and pushed as the
-  HANDOFF checkpoint. REL mechanics and the expanded four-source planned
-  candidate remain in the working tree pending the next validated checkpoint.
-- Branch history and checkpoint handoffs: the branch is pushed through
-  `74eb166`; draft PR `#1` is the hosted evidence and continuing CI surface.
-- Blockers or unresolved decisions: package-candidate run `29770662983`
-  correctly failed closed before `V050-009` created a governed v0.5.0 release
-  record; the planned record now exists locally, and the next committed
-  candidate checkpoint must replace that expected absence with a validated
-  record and green hosted run. The owner has expanded and locally revalidated
-  v0.4.2 as the fourth exact automatic source; immutable candidate and hosted
-  proof remain pending. Real
-  Copilot CLI/cloud-agent and Claude attribution fixtures are not
-  present; V050-008 must retain that absence explicitly rather than inventing
-  identities. Public terminal-state API evidence belongs to V050-009; macOS
-  remains unverified.
+- Exact next action: remediate `ASM-20260722-001#AIC-001` through `AIC-003`,
+  push and require the affected hosted gates, then create a V050-010
+  release-candidate handoff checkpoint and successor verification assessment.
+- Validation already completed: four real extracted upgrades, exact candidate
+  state, two deterministic package builds, Windows critical 33/33, and all
+  three same-revision hosted PR gates pass at `ef14847`.
+- Git state: `a57c1ce` contains the final read-only assessment of pushed
+  candidate `ef14847`; the assessment-only commit has not yet been pushed.
+- Branch history and checkpoint handoffs: draft PR `#1` remains the hosted
+  evidence surface. V050-008 is retained as historical HANDOFF implementation
+  evidence and must be superseded by a current V050-010 release checkpoint.
+- Blockers or unresolved decisions: `ASM-20260722-001#AIC-001` through
+  `AIC-003` block release-readiness until active discovery, resume/checkpoint,
+  and backlog lifecycle wording are reconciled and reverified. macOS and real
+  Copilot CLI/cloud-agent and Claude attribution fixtures remain explicitly
+  unverified; no identity or platform result may be invented.
 
 ## Branch Lifecycle
 

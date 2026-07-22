@@ -4,7 +4,9 @@
 
 Validated governed candidate source. No tag or published commit exists.
 Publication remains owner-authorized through a user-created annotated tag
-after merge, hosted checks, and independent verification complete.
+after merge. Hosted checks pass; independent verification
+`ASM-20260722-001` requires cold-start discovery and handoff reconciliation
+before release-readiness closure.
 
 ## Highlights
 
@@ -46,11 +48,13 @@ through the retained manual v0.1.0 and v0.2.0 reconciliation path.
 
 Implementation checkpoints have verified four-source package behavior,
 runtime-adapter parity, governance enforcement, dependency consistency,
-Windows and hosted Ubuntu portability, language policy, and a real receiving
-handoff checkpoint. The mechanics commit has two byte-identical four-source
-package builds. The containing validated-candidate commit still requires its
-exact clean-state gate, deterministic rebuild, hosted candidate CI, and the
-independent release-readiness assessment.
+Windows and hosted Ubuntu portability, language policy, and receiving-handoff
+mechanics. Candidate `ef148472bb2e47b058693a1ab5e28dcb99e5ba32` passes its
+exact clean-state gate, two deterministic four-source builds, hosted candidate
+CI, hosted governance, and hosted Ubuntu quick validation. Independent
+assessment `ASM-20260722-001` found stale release discovery and V050-008 resume
+state; the active workflow must correct and reverify those surfaces before
+claiming release readiness.
 
 Known limitations:
 

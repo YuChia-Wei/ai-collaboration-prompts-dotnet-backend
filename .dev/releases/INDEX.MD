@@ -15,7 +15,7 @@ Historical `v*` directories below are records, never templates.
 
 | Release ID | Version | State | Compatibility | Notes | Migration |
 | --- | --- | --- | --- | --- | --- |
-| [`REL-v0.5.0`](v0.5.0/release.yaml) | `v0.5.0` | planned | migration schema 2.0; automatic sources v0.3.0, v0.4.0, and v0.4.1; v0.4.2 manual reconciliation pending any scope expansion | [notes](v0.5.0/release-notes.md) | [guide](v0.5.0/migration-guide.md) |
+| [`REL-v0.5.0`](v0.5.0/release.yaml) | `v0.5.0` | validated | migration schema 2.0; exact automatic sources v0.3.0, v0.4.0, v0.4.1, and v0.4.2; publication remains owner-authorized and has not occurred | [notes](v0.5.0/release-notes.md) | [guide](v0.5.0/migration-guide.md) |
 
 ## Published Releases
 
