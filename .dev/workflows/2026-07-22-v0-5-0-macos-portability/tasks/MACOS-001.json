@@ -87,7 +87,7 @@
       "stable GitHub Release exposes four governed assets"
     ],
     "finding_status": "verified",
-    "residual_risk": "macOS execution remains attributed external evidence rather than a receiving-host rerun; provider-native fixtures remain out of scope.",
+    "residual_risk": "macOS execution remains attributed external evidence rather than a receiving-host rerun; provider-native fixtures remain out of scope; current hosted governance routes are candidate-only and cannot validate a published-registry closeout branch.",
     "follow_up_needed": false
   }
 }

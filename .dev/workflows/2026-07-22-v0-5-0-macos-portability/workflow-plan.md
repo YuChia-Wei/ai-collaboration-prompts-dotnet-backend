@@ -78,7 +78,10 @@
   commit-range validators pass; `ASM-20260722-004` reports no blocker; PR #5
   hosted package, governance, and Ubuntu checks pass; final pre-tag and tag
   phases pass; publication run `29922585651` and hosted publication validation
-  pass with a stable four-asset Release.
+  pass with a stable four-asset Release. Post-publication dispatch
+  `29924453340` passed its initial hosted governance checks but correctly could
+  not apply the candidate-only release contract to a published registry; the
+  closeout therefore uses the policy-compliant no-fast-forward branch merge.
 - Git state: closeout branch based on published `main@1477181f`; immutable tag
   `v0.5.0` peels to that commit. The registry-closeout commit is the commit
   containing this update.
@@ -91,4 +94,4 @@
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-22-v0-5-0-macos-portability` | `main@9ac40bee` | merge | `ad962f2` | PR #5 / `main@1477181f` | `2026-07-22T21:01:22+08:00` | Adopt owner-arranged macOS evidence, repair the reproduced fixture leak, and verify it independently. | Continue on a fresh closeout branch after publication. |
-| 2 | `codex/2026-07-22-v0-5-0-macos-portability-closeout` | `main@1477181f` | closeout | commit containing this update | `main` | `2026-07-22T21:13:53+08:00` | Reconcile the published registry, roadmap, backlog, and workflow after immutable-tag publication. | Begin governed v0.6.0 activation planning. |
+| 2 | `codex/2026-07-22-v0-5-0-macos-portability-closeout` | `main@1477181f` | closeout | commits containing these updates | `main` | `2026-07-22T21:13:53+08:00` | Reconcile the published registry, roadmap, backlog, and workflow after immutable-tag publication. | Begin governed v0.6.0 activation planning. |

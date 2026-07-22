@@ -47,6 +47,7 @@
 | Finding | Reason | Owner | Next Action |
 | --- | --- | --- | --- |
 | provider-native fixtures | outside macOS portability scope | future workflow | retain explicit limitation |
+| published-registry closeout CI | PR and governance workflows currently enforce the candidate-only v0.5.0 contract; dispatch `29924453340` proves the lifecycle mismatch after initial hosted checks pass | future release-governance workflow | design a phase-aware closeout CI route without weakening malformed-candidate failure |
 
 ## Closure Evidence
 
@@ -55,7 +56,10 @@
   governance, and Ubuntu checks pass; merge commit is `1477181f`; final
   current-main pre-tag and tag-phase checks pass; hosted publication run
   `29922585651` and publication validation pass; the stable Release contains
-  four governed assets.
+  four governed assets. Post-publication governance dispatch `29924453340`
+  passed initial checks and then rejected the published registry at its
+  candidate-only contract, so it is retained as a future CI lifecycle gap and
+  is not misreported as a release failure.
 - Commit status: baseline `0a222c7`; remediation `da70bb5`; verification
   checkpoint is the commit containing this update.
 - Workflow/task status: completed / completed; registry closeout is the commit
