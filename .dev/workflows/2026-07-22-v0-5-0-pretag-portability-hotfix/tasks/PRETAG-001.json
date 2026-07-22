@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-22T08:46:21+08:00",
-  "updated_at": "2026-07-22T08:46:21+08:00",
+  "updated_at": "2026-07-22T08:50:13+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PTP-001"],
   "scope": {
@@ -48,15 +48,24 @@
       "hosted package, governance, and Ubuntu gates",
       "python .ai/scripts/prepare-ai-context-release.py --version v0.5.0 on merged main"
     ],
-    "last_completed_step": "Registered PTP-001 after reproducing the Windows decode crash on merged main@3c3a66c.",
-    "next_action": "Implement deterministic byte decoding and focused regression fixtures."
+    "last_completed_step": "Implemented explicit byte capture, recoverable UTF-8 decoding, and deterministic empty-output failure reporting. Six focused pre-tag tests and 21 adjacent release/backlog tests pass.",
+    "next_action": "Commit the implementation checkpoint, run the complete critical gate from a clean commit, and push for hosted verification."
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "Until merged-main pre-tag passes, v0.5.0 is not release-ready.",
+    "summary": "The bounded decoder fix and deterministic regressions are implemented; full local, hosted, and merged-main evidence remains pending.",
+    "files_changed": [
+      ".ai/scripts/prepare-ai-context-release.py",
+      ".ai/scripts/tests/test_prepare_ai_context_release.py"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (6 passed)",
+      "python .ai/scripts/tests/test_ai_context_release_state.py -v (15 passed)",
+      "python .ai/scripts/tests/test_backlog_release_contract.py -v (6 passed)",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context.py"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Until hosted gates and merged-main pre-tag pass, v0.5.0 is not release-ready.",
     "follow_up_needed": true
   }
 }

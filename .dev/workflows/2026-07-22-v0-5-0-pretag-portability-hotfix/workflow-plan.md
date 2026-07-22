@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T08:46:21+08:00`
+- `updated_at`: `2026-07-22T08:50:13+08:00`
 
 ## Workflow Metadata
 
@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation`
+- `current_phase`: `post-audit`
 - `artifact_root`: `.dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T08:46:21+08:00`
+- `updated_at`: `2026-07-22T08:50:13+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -67,10 +67,12 @@
 
 ## Resume Checkpoint
 
-- Last completed action: merged the previously validated v0.5.0 development
-  branch to `main@3c3a66c` and reproduced the Windows output-decoding crash.
+- Last completed action: implemented explicit byte capture with recoverable
+  UTF-8 decoding and deterministic empty-output failure reporting; six focused
+  pre-tag tests and 21 adjacent release/backlog tests pass.
 - Current task: `PRETAG-001`.
-- Exact next action: implement the byte-decoding fix and focused regressions.
+- Exact next action: commit the implementation checkpoint, run the complete
+  critical gate from that clean commit, then push for hosted verification.
 - Validation already completed: the parent candidate passed critical 33/33 and
   hosted package, governance, and Ubuntu gates before merge; the failing
   merged-main pre-tag invocation is retained as incident evidence here.
@@ -83,4 +85,4 @@
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | started | pending | local | `2026-07-22T08:46:21+08:00` | Repair the proven merged-main release blocker. | Implement and validate `PRETAG-001`. |
+| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | implementation | pending | local | `2026-07-22T08:50:13+08:00` | Repair the proven merged-main release blocker. | Commit, run the critical gate, and push for hosted verification. |

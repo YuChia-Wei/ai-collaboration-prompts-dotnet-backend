@@ -22,10 +22,15 @@ STATE_SPEC.loader.exec_module(release_state)
 def run(root: Path, args: list[str]) -> str:
     if args != ["bash", ".ai/scripts/check-all.sh", "--critical"]:
         raise RuntimeError("pre-tag preparation may execute only the critical gate")
-    result = subprocess.run(args, cwd=root, check=False, capture_output=True, text=True)
+    result = subprocess.run(args, cwd=root, check=False, capture_output=True)
+    stdout = (result.stdout or b"").decode("utf-8", errors="replace")
+    stderr = (result.stderr or b"").decode("utf-8", errors="replace")
     if result.returncode:
-        raise RuntimeError((result.stderr or result.stdout).strip())
-    return result.stdout
+        detail = stderr.strip() or stdout.strip()
+        raise RuntimeError(
+            detail or f"critical gate failed with exit code {result.returncode}"
+        )
+    return stdout
 
 
 def single_line_tag_value(value: str, label: str) -> str:

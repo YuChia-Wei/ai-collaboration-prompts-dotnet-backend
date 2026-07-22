@@ -6,6 +6,8 @@ from __future__ import annotations
 import importlib.util
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -101,6 +103,35 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
     def test_gwt_004_given_noncritical_command_when_runner_called_then_it_is_rejected(self):
         with self.assertRaisesRegex(RuntimeError, "only the critical gate"):
             PREPARE.run(Path("."), ["git", "tag", "-a", "v0.5.0"])
+
+    def test_gwt_005_given_non_utf8_gate_output_when_runner_succeeds_then_diagnostics_are_recoverable(self):
+        result = SimpleNamespace(
+            returncode=0,
+            stdout=b"critical gate \xfb passed\n",
+            stderr=b"",
+        )
+        with mock.patch.object(PREPARE.subprocess, "run", return_value=result) as run:
+            output = PREPARE.run(
+                Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
+            )
+
+        self.assertEqual("critical gate \ufffd passed\n", output)
+        run.assert_called_once_with(
+            ["bash", ".ai/scripts/check-all.sh", "--critical"],
+            cwd=Path("."),
+            check=False,
+            capture_output=True,
+        )
+
+    def test_gwt_006_given_failed_gate_without_output_when_runner_runs_then_exit_code_is_reported(self):
+        result = SimpleNamespace(returncode=17, stdout=None, stderr=None)
+        with mock.patch.object(PREPARE.subprocess, "run", return_value=result):
+            with self.assertRaisesRegex(
+                RuntimeError, "critical gate failed with exit code 17"
+            ):
+                PREPARE.run(
+                    Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
+                )
 
 
 if __name__ == "__main__":
