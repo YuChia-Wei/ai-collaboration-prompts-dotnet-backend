@@ -1,0 +1,62 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "PRETAG-001",
+  "workflow_id": "2026-07-22-v0-5-0-pretag-portability-hotfix",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-22T08:46:21+08:00",
+  "updated_at": "2026-07-22T08:46:21+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["PTP-001"],
+  "scope": {
+    "target": "Portable, fail-closed execution of the sanctioned v0.5.0 pre-tag critical gate",
+    "files": [
+      ".ai/scripts/prepare-ai-context-release.py",
+      ".ai/scripts/tests/test_prepare_ai_context_release.py",
+      ".dev/backlog/items/REL-002.yaml",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/**"
+    ],
+    "constraints": [
+      "Keep the critical command allowlist exact",
+      "Decode subprocess bytes deterministically without reader-thread failures",
+      "Return deterministic failure details even when streams are empty",
+      "Keep v0.4.2 as an exact automatic upgrade source",
+      "Do not create or publish a tag"
+    ],
+    "non_goals": [
+      "Redesign the critical runner",
+      "Change release compatibility or migration semantics",
+      "Claim unexecuted macOS evidence"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Register the release blocker",
+      "Implement byte-safe output decoding",
+      "Add non-UTF-8 and empty-stream regressions",
+      "Run local and hosted gates",
+      "Merge and prove the real pre-tag command on main",
+      "Close lifecycle records on a continuation branch"
+    ],
+    "validation": [
+      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v",
+      "bash .ai/scripts/check-all.sh --critical",
+      "hosted package, governance, and Ubuntu gates",
+      "python .ai/scripts/prepare-ai-context-release.py --version v0.5.0 on merged main"
+    ],
+    "last_completed_step": "Registered PTP-001 after reproducing the Windows decode crash on merged main@3c3a66c.",
+    "next_action": "Implement deterministic byte decoding and focused regression fixtures."
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Until merged-main pre-tag passes, v0.5.0 is not release-ready.",
+    "follow_up_needed": true
+  }
+}

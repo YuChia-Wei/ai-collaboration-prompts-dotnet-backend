@@ -1,0 +1,37 @@
+schema_version: "1.0"
+backlog_id: "REL-002"
+title: "Portable Pre-Tag Critical-Gate Output"
+category: "release-governance"
+status: "in_progress"
+priority: "HIGH / P0"
+summary: "Make the sanctioned pre-tag runner deterministic when Windows Bash emits bytes that are not valid UTF-8, without weakening its exact command allowlist or fail-closed behavior."
+created_at: "2026-07-22T08:46:21+08:00"
+updated_at: "2026-07-22T08:46:21+08:00"
+release:
+  target: "v0.5.0"
+  completed_in: null
+  published_in: null
+  target_scope: "pre-tag-subprocess-output-portability"
+  gate: "release-blocker"
+origin_refs:
+  - ".ai/scripts/prepare-ai-context-release.py"
+  - ".dev/backlog/items/REL-001.yaml"
+  - ".dev/workflows/2026-07-21-v0-5-0-development/workflow.yaml"
+recommended_owner_skill: "ai-context-governance"
+handoff_condition: "Repair and merge the bounded output-decoding defect, prove the sanctioned command on updated main, then close through a dedicated continuation branch."
+workflow_refs:
+  - ".dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml"
+task_refs:
+  - ".dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/tasks/PRETAG-001.json"
+resolution_ref: null
+decision_needed: "No policy decision remains. This is a proven release blocker within the already authorized v0.5.0 release-mechanics scope."
+acceptance:
+  - "The runner consumes subprocess output as bytes and decodes it deterministically without a background reader-thread exception."
+  - "Invalid UTF-8 bytes are represented safely while retaining surrounding diagnostic output."
+  - "A failed command with empty or unavailable output produces a deterministic exit-code error instead of an attribute error."
+  - "The exact critical-gate command allowlist remains unchanged."
+  - "Focused regressions, the critical gate, and required hosted workflows pass."
+  - "The sanctioned v0.5.0 pre-tag command passes on merged main without creating a tag."
+inventory_notes:
+  - "The defect was observed only after merging the independently verified candidate to main and executing the owner-only pre-tag command."
+  - "v0.4.2 remains the required fourth exact automatic source; this hotfix does not change migration compatibility."
