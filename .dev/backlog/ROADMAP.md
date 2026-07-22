@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.6.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-22T21:13:53+08:00`
+- `updated_at`: `2026-07-22T21:53:50+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -28,7 +28,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
 | `v0.5.0` | `published` | yes | The four-source release, including exact automatic v0.4.2 upgrades, passed independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates. | Completed at immutable tag `v0.5.0`, peeled commit `1477181f0b43fa7ee82fcd482141758ac9e22eb6`, successful hosted publication run `29922585651`, and a stable GitHub Release with four governed assets. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
-| `v0.6.0` | `planned` | yes | Establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; measure actual loaded context; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
+| `v0.6.0` | `planned` | yes | Remove Node.js 20 release-automation debt through `CI-001`; establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Preserve v0.5.0 artifact and publication semantics while moving to native Node.js 24 actions; then measure actual loaded context and pass deterministic regression fixtures plus the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
 ## Release Gate Semantics
@@ -47,12 +47,14 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- |
 | `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004`, `R042-005` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
 | `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `REL-002`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
-| `v0.6.0` | `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
+| `v0.6.0` | `CI-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
 | `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
-`STD-001` and `OBS-001` remain independent unassigned decisions. Neither is a
-hidden v0.5.0 or v0.6.0 blocker. Standards may receive a dedicated release
-after deliberation instead of being forced into an existing horizon.
+`DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
+decisions. None is a hidden v0.6.0 blocker. Standards or dev-workflow schema
+changes may receive a dedicated release after deliberation instead of being
+forced into an existing horizon. Actual WorkService upgrade execution belongs
+to its target repository rather than this source roadmap.
 
 ## Current Release Evidence
 
@@ -128,12 +130,15 @@ versions. Current assignments:
   were completed and published in `REL-v0.5.0`.
 - `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
   taxonomy and compatible `repo-structure-sync` to `ai-context-init`
-  transition; `SIMPL-001` owns measured simplification disposition.
+  transition; `SIMPL-001` owns measured simplification disposition; `CI-001`
+  must remove Node.js 20 artifact-action debt before release publication.
 - `v0.7.0`: historical archive migration remains conditional and requires a
   separately approved successor after `SIMPL-001`; it is not implied work.
-- `unassigned`: `STD-001` owns standards deliberation and release allocation;
-  `OBS-001` remains an independent architecture workflow. Neither is a
-  mandatory closeout gate for an assigned release.
+- `unassigned`: `DEVWF-001` owns optional issue/timeline schema deliberation;
+  `UPG-001` owns a reusable legacy-target intake and override-preservation
+  packet; `STD-001` owns standards deliberation and release allocation; and
+  `OBS-001` remains an independent architecture workflow. None is a mandatory
+  closeout gate for an assigned release.
 - Resolved `AIC-007` and `CTX-001` through `CTX-003` were first completed and
   published in `v0.1.0`, verified by Git tag ancestry.
 
@@ -204,8 +209,9 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Begin governed v0.6.0 activation planning. Establish `EVAL-001`, measure actual
-loaded context and disposition `SIMPL-001`, then sequence `SKILL-001` only after
-its activation dependencies pass. Keep `STD-001` unassigned until the separate
-multi-agent standards deliberation is normalized and reviewed; do not silently
-fold standards simplification or historical archive migration into v0.6.0.
+Begin governed v0.6.0 activation planning by closing `CI-001` before another
+candidate or publication cycle. Establish `EVAL-001`, measure actual loaded
+context and disposition `SIMPL-001`, then sequence `SKILL-001` only after its
+activation dependencies pass. Keep `DEVWF-001`, `UPG-001`, and `STD-001`
+unassigned until their separate evidence and owner decisions exist; do not
+silently fold their implementation or historical archive migration into v0.6.0.

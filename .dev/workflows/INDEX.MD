@@ -6,7 +6,9 @@ task-level progress.
 
 ## Active Post-Adoption Workflows
 
-_None._
+| Workflow | Title | Owner | Status | Updated | Entry Point |
+| --- | --- | --- | --- | --- | --- |
+| [`2026-07-22-post-v0-5-backlog-intake`](2026-07-22-post-v0-5-backlog-intake/workflow.yaml) | Intake dev-workflow Comparison And Schedule Post-v0.5 Follow-ups | `ai-context-governance` | `in_progress` | `2026-07-22T21:53:50+08:00` | [plan](2026-07-22-post-v0-5-backlog-intake/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
