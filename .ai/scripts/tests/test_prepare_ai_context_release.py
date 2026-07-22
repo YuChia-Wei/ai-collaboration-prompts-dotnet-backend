@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -110,14 +111,19 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
             stdout=b"critical gate \xfb passed\n",
             stderr=b"",
         )
-        with mock.patch.object(PREPARE.subprocess, "run", return_value=result) as run:
+        with (
+            mock.patch.object(
+                PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(PREPARE.subprocess, "run", return_value=result) as run,
+        ):
             output = PREPARE.run(
                 Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
             )
 
         self.assertEqual("critical gate \ufffd passed\n", output)
         run.assert_called_once_with(
-            ["bash", ".ai/scripts/check-all.sh", "--critical"],
+            ["git-bash", ".ai/scripts/check-all.sh", "--critical"],
             cwd=Path("."),
             check=False,
             capture_output=True,
@@ -125,13 +131,34 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
 
     def test_gwt_006_given_failed_gate_without_output_when_runner_runs_then_exit_code_is_reported(self):
         result = SimpleNamespace(returncode=17, stdout=None, stderr=None)
-        with mock.patch.object(PREPARE.subprocess, "run", return_value=result):
+        with (
+            mock.patch.object(
+                PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(PREPARE.subprocess, "run", return_value=result),
+        ):
             with self.assertRaisesRegex(
                 RuntimeError, "critical gate failed with exit code 17"
             ):
                 PREPARE.run(
                     Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
                 )
+
+    def test_gwt_007_given_windows_git_on_a_custom_path_when_bash_is_resolved_then_its_sibling_git_bash_is_used(self):
+        with tempfile.TemporaryDirectory(prefix="pretag-git-bash-") as temporary:
+            git_root = Path(temporary) / "PortableGit"
+            git = git_root / "cmd/git.exe"
+            bash = git_root / "bin/bash.exe"
+            git.parent.mkdir(parents=True)
+            bash.parent.mkdir(parents=True)
+            git.write_bytes(b"")
+            bash.write_bytes(b"")
+
+            resolved = PREPARE.bash_executable(
+                "nt", lambda name: str(git) if name == "git" else None
+            )
+
+        self.assertEqual(str(bash.resolve()), resolved)
 
 
 if __name__ == "__main__":
