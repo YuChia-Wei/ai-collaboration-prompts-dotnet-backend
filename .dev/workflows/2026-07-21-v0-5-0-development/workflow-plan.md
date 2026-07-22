@@ -19,7 +19,7 @@
 - `current_phase`: `verification`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T08:20:03+08:00`
+- `updated_at`: `2026-07-22T08:26:17+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -116,24 +116,26 @@ acceptance evidence remain satisfied.
 
 ## Resume Checkpoint
 
-- Last completed action: remediated `ASM-20260722-001#AIC-001` through
-  `AIC-003` at `93375cb244ef4c55789f269ab71ce9d2da1fb3a7`. The corrected candidate
-  passes its exact phase gate, 33/33 critical gate, package-candidate run
-  `29879597446`, governance run `29879597443`, and Ubuntu run `29879597439`.
+- Last completed action: committed and repository-verified the V050-010 release
+  checkpoint at `de7805b`. A read-only successor preflight confirmed AIC-001
+  and AIC-003 resolved and found only that this plan/task still named the
+  already completed checkpoint commit; this containing refresh removes that
+  final AIC-002 resume lag.
 - Current task: `V050-010`
-- Exact next action: commit the registered V050-010 release-candidate handoff,
-  verify it from the containing commit, then run an independent successor
-  assessment before release-readiness reconciliation.
+- Exact next action: run and persist the independent successor assessment
+  against this refreshed checkpoint commit, then perform final workflow and
+  release-readiness reconciliation without tagging or publishing.
 - Validation already completed: four real extracted upgrades, exact candidate
   state, two deterministic package builds, Windows critical 33/33, and all
   three same-revision hosted PR gates pass at `ef14847`.
-- Git state: `93375cb` is clean, pushed, and fully validated. The V050-010
-  checkpoint pins that commit and is pending its containing checkpoint commit.
+- Git state: `de7805b` is clean, pushed, and passes exact candidate, repository
+  handoff, registry, lifecycle, and all three hosted PR gates. This checkpoint
+  refresh is pending its containing commit.
 - Branch history and checkpoint handoffs: draft PR `#1` remains the hosted
   evidence surface. V050-008 is retained as historical HANDOFF implementation
   evidence and must be superseded by a current V050-010 release checkpoint.
-- Blockers or unresolved decisions: independent successor verification and
-  final workflow reconciliation still block release-readiness. macOS and real
+- Blockers or unresolved decisions: persisted successor verification and final
+  workflow reconciliation still block release-readiness. macOS and real
   Copilot CLI/cloud-agent and Claude attribution fixtures remain explicitly
   unverified; no identity or platform result may be invented.
 

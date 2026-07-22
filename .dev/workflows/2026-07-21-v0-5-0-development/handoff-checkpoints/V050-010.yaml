@@ -1,6 +1,6 @@
 schema_version: "1.0"
 checkpoint_id: "2026-07-21-v0-5-0-development-V050-010-release-candidate"
-created_at: "2026-07-22T08:20:03+08:00"
+created_at: "2026-07-22T08:26:17+08:00"
 repository:
   root: "."
   branch: "codex/2026-07-21-v0-5-0-development"
@@ -12,8 +12,8 @@ workflow:
   workflow_id: "2026-07-21-v0-5-0-development"
   task_id: "V050-010"
 resume:
-  last_completed_action: "Remediated ASM-20260722-001 cold-start findings at the pinned candidate; exact candidate, 33/33 critical, package-candidate, governance, and hosted Ubuntu gates pass."
-  exact_next_action: "Run an independent successor verification assessment against this V050-010 release-candidate checkpoint, then reconcile workflow release-readiness without creating a tag or publishing."
+  last_completed_action: "Committed and repository-verified the V050-010 release checkpoint; successor preflight confirmed AIC-001 and AIC-003 resolved and this containing checkpoint refresh removes the last workflow-level resume lag for AIC-002."
+  exact_next_action: "Run and persist the independent successor verification assessment against this containing commit, then perform final workflow reconciliation without creating a tag or publishing."
   hidden_context_required: false
 critical_gate:
   command: "bash .ai/scripts/check-all.sh --critical"

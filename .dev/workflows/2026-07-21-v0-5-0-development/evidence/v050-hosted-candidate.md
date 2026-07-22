@@ -53,3 +53,9 @@ assessment findings and passes:
 
 The registered V050-010 release checkpoint retains those observations and
 routes the next receiver only to independent successor verification.
+
+The first successor preflight at checkpoint commit `de7805b` resolved AIC-001
+and AIC-003 and verified the handoff contract itself. It found one remaining
+workflow-level resume sentence that still named the now-completed checkpoint
+commit. The refreshed containing checkpoint removes that lag before the
+persisted successor assessment is created.
