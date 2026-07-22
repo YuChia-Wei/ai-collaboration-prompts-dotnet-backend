@@ -77,16 +77,11 @@ jobs:
           python .ai/scripts/tests/test_workflow_handoff.py -v
           python .ai/scripts/validate-workflow-handoff.py --all
 
-      - name: Validate v0.5.0 release candidate contract
+      - name: Validate release governance tooling
         run: |
           python .ai/scripts/tests/test_ai_context_release_state.py -v
           python .ai/scripts/tests/test_prepare_ai_context_release.py -v
           python .ai/scripts/tests/test_release_notes_renderer.py -v
-          python .ai/scripts/validate-ai-context-release-state.py \
-            --phase candidate \
-            --version v0.5.0 \
-            --commit "${GITHUB_SHA}" \
-            --branch "${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
 
       - name: Validate v0.5.0 path disposition
         run: |

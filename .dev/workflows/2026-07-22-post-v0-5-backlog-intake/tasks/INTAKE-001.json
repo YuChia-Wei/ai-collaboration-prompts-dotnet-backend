@@ -1,0 +1,79 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "INTAKE-001",
+  "workflow_id": "2026-07-22-post-v0-5-backlog-intake",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-22T21:53:50+08:00",
+  "updated_at": "2026-07-22T22:06:03+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [
+    "ASM-20260722-005#AIC-001",
+    "ASM-20260722-005#AIC-002",
+    "ASM-20260722-005#AIC-003"
+  ],
+  "scope": {
+    "target": "post-v0.5 backlog scheduling and legacy target customization-preservation planning",
+    "files": [
+      ".dev/backlog/items/CI-001.yaml",
+      ".dev/backlog/items/DEVWF-001.yaml",
+      ".dev/backlog/items/UPG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md"
+    ],
+    "constraints": [
+      "Do not edit canonical dev-workflow or upgrader behavior in this intake",
+      "Keep issue tracking optional or profile-controlled",
+      "Preserve target-owned truth and local overrides",
+      "Do not claim WorkService repository validation"
+    ],
+    "non_goals": [
+      "Execute the WorkService upgrade",
+      "Change v0.5.0 publication artifacts",
+      "Implement Node.js action upgrades"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Preserve and normalize external evidence",
+      "Verify current framework and hosted action claims",
+      "Create three backlog items",
+      "Reconcile roadmap and indexes",
+      "Run independent verification"
+    ],
+    "validation": [
+      "python .ai/scripts/validate-assessment-artifacts.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/tests/test_backlog_release_contract.py",
+      "python .ai/scripts/validate-ai-context.py"
+    ],
+    "last_completed_step": "Backlog mappings, roadmap scheduling, raw evidence, and independent verification are complete.",
+    "next_action": "Activate CI-001 before the next release workflow; activate DEVWF-001 and UPG-001 independently when authorized."
+  },
+  "results": {
+    "summary": "Preserved the external comparison, reproduced current repository claims, and mapped all three findings to explicit backlog and roadmap dispositions.",
+    "files_changed": [
+      ".dev/assessments/ASM-20260722-005/**",
+      ".dev/assessments/ASM-20260722-006/**",
+      ".dev/backlog/items/CI-001.yaml",
+      ".dev/backlog/items/DEVWF-001.yaml",
+      ".dev/backlog/items/UPG-001.yaml",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/ROADMAP.md"
+    ],
+    "tests_run": [
+      "assessment artifact validation passed",
+      "workflow and backlog artifact validation passed",
+      "backlog release contract 6/6 passed",
+      "AI context validation passed",
+      "AI context version validation passed",
+      "ASM-20260722-006 independent verification found no intake blocker"
+    ],
+    "finding_status": "verified",
+    "residual_risk": "CI-001 remains a v0.6.0 release blocker until implemented; DEVWF-001 and UPG-001 remain explicitly unassigned; WorkService itself remains uninspected.",
+    "follow_up_needed": false
+  }
+}

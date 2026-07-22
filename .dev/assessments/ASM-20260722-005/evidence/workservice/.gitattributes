@@ -1,0 +1,3 @@
+# Preserve the externally supplied report byte-for-byte. Unset the inherited
+# repository LF rule so checkout and staging retain its original line endings.
+2026-07-22-dev-workflow-skill-comparison.md binary -eol

@@ -65,7 +65,6 @@ REQUIRED_COMMANDS = {
     "python .ai/scripts/tests/test_ai_context_release_state.py -v",
     "python .ai/scripts/tests/test_prepare_ai_context_release.py -v",
     "python .ai/scripts/tests/test_release_notes_renderer.py -v",
-    "python .ai/scripts/validate-ai-context-release-state.py",
     SOURCE_GOVERNANCE_COMMAND,
     "python .ai/scripts/tests/test_file_disposition_manifest.py -v",
     "python .ai/scripts/tests/test_governance_workflow_contract.py -v",
@@ -134,7 +133,16 @@ class GovernanceWorkflowContractTests(unittest.TestCase):
         self.assertIsNone(MUTATING_COMMAND.search(command_text))
         self.assertNotIn("contents: write", command_text.lower())
 
-    def test_gwt_006_given_source_registry_when_loaded_then_v050_manifest_is_exact(self) -> None:
+    def test_gwt_006_given_general_governance_when_checked_then_release_phase_execution_is_absent(self) -> None:
+        command_text = "\n".join(self.commands)
+        self.assertNotIn(
+            "python .ai/scripts/validate-ai-context-release-state.py",
+            command_text,
+        )
+        self.assertNotIn("--phase candidate", command_text)
+        self.assertNotIn("--phase finalization", command_text)
+
+    def test_gwt_007_given_source_registry_when_loaded_then_v050_manifest_is_exact(self) -> None:
         registry = yaml.safe_load(REGISTRY_PATH.read_text(encoding="utf-8"))
         self.assertEqual("1.0", registry["schema_version"])
         self.assertEqual(

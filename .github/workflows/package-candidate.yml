@@ -44,6 +44,7 @@ jobs:
         env:
           REQUESTED_VERSION: ${{ inputs.version }}
         run: |
+          set +e
           args=(
             --commit "${GITHUB_SHA}"
             --mode candidate
@@ -53,12 +54,29 @@ jobs:
           if [[ -n "${REQUESTED_VERSION}" ]]; then
             args+=(--version "${REQUESTED_VERSION}")
           fi
-          python .ai/scripts/render-ai-context-release-notes.py "${args[@]}"
+          render_output="$(python .ai/scripts/render-ai-context-release-notes.py "${args[@]}" 2>&1)"
+          render_status=$?
+          set -e
+          if [[ ${render_status} -ne 0 ]]; then
+            if [[ "${GITHUB_EVENT_NAME}" == "pull_request" \
+              && -z "${REQUESTED_VERSION}" \
+              && "${render_output}" == *"candidate discovery requires exactly one governed planned or validated release; found none"* ]]; then
+              echo "available=false" >> "${GITHUB_OUTPUT}"
+              echo "::notice::No governed release candidate exists; packaging is not applicable to this pull request."
+              exit 0
+            fi
+            printf '%s\n' "${render_output}" >&2
+            exit "${render_status}"
+          fi
+          printf '%s\n' "${render_output}"
+          echo "available=true" >> "${GITHUB_OUTPUT}"
 
       - name: Validate release registry
+        if: steps.release.outputs.available == 'true'
         run: python .ai/scripts/validate-ai-context-versions.py --no-git
 
       - name: Validate exact candidate state
+        if: steps.release.outputs.available == 'true'
         run: |
           python .ai/scripts/validate-ai-context-release-state.py \
             --phase candidate \
@@ -67,6 +85,7 @@ jobs:
             --branch "${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
 
       - name: Build deterministic archives
+        if: steps.release.outputs.available == 'true'
         env:
           MIGRATION_SOURCES: ${{ steps.release.outputs.migration_sources }}
         run: |
@@ -94,12 +113,14 @@ jobs:
           python .ai/scripts/build-ai-context-package.py "${build_args[@]}"
 
       - name: Validate archives and parity
+        if: steps.release.outputs.available == 'true'
         run: |
           python .ai/scripts/validate-ai-context-package.py \
             "dist/${{ steps.release.outputs.package_id }}.zip" \
             "dist/${{ steps.release.outputs.package_id }}.tar.gz"
 
       - name: Upload candidate artifact
+        if: steps.release.outputs.available == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.release.outputs.package_id }}-${{ github.sha }}

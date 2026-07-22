@@ -1,0 +1,49 @@
+schema_version: "1.0"
+assessment_id: "ASM-20260722-005"
+commit_search_id: "ASM-20260722-005"
+assessment_type: "ai-context-audit"
+title: "dev-workflow Comparison And Post-v0.5 Backlog Intake"
+owner_skill: "ai-context-auditor"
+status: "final"
+report: "report.md"
+artifact_branch: "codex/2026-07-22-post-v0-5-backlog-intake"
+base_branch: "main"
+created_at: "2026-07-22T21:53:50+08:00"
+updated_at: "2026-07-22T21:53:50+08:00"
+template_source: ".dev/assessments/templates/assessment-locator-template.yaml"
+template_version: "1.0.0"
+report_template_source: ".ai/assets/skills/ai-context-auditor/templates/ai-context-audit-report-template.md"
+report_template_version: "2.1.0"
+subject_ref:
+  repository: "YuChia-Wei/ai-collaboration-prompts-dotnet-backend"
+  branch: "main"
+  commit: "79ac24dbd8be4b2385b9517fe35e727112fe007a"
+scope:
+  included:
+    - "external WorkService dev-workflow comparison package"
+    - ".ai/assets/skills/dev-workflow/**"
+    - ".ai/assets/skills/ai-context-upgrader/**"
+    - ".dev/standards workflow and version contracts"
+    - ".dev/releases/v0.5.0/migration-guide.md"
+    - ".github/workflows artifact action usage and v0.5.0 publication annotations"
+    - ".dev/assessments/ASM-20260722-005/evidence/github-actions/v0.5.0-node20-annotations.json"
+  excluded:
+    - "WorkService repository files other than the supplied comparison report"
+    - "product src/** and tests/**"
+    - "implementation of backlog items"
+relations:
+  supersedes: []
+  superseded_by: []
+  related_assessments:
+    - "ASM-20260722-006"
+  workflow_refs:
+    - "2026-07-22-post-v0-5-backlog-intake"
+  backlog_refs:
+    - "CI-001"
+    - "DEVWF-001"
+    - "UPG-001"
+  adr_refs: []
+resume:
+  last_completed_action: "Normalized the external comparison, verified current-repository claims, and assigned stable findings."
+  next_action: ""
+  blockers: []

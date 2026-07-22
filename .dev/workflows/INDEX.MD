@@ -6,12 +6,16 @@ task-level progress.
 
 ## Active Post-Adoption Workflows
 
-_None._
+| Workflow | Title | Owner | Status | Updated | Entry Point |
+| --- | --- | --- | --- | --- | --- |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-23-governance-ci-lifecycle-hotfix`](2026-07-23-governance-ci-lifecycle-hotfix/workflow.yaml) | Repair General Governance Release Lifecycle Coupling | `ai-context-governance` | `completed` | `2026-07-23T00:53:22+08:00` | [plan](2026-07-23-governance-ci-lifecycle-hotfix/workflow-plan.md) |
+| [`2026-07-23-repository-config-template-planning`](2026-07-23-repository-config-template-planning/workflow.yaml) | Plan Source Configuration And Downstream Template Separation | `ai-context-governance` | `completed` | `2026-07-23T00:29:56+08:00` | [plan](2026-07-23-repository-config-template-planning/workflow-plan.md) |
+| [`2026-07-22-post-v0-5-backlog-intake`](2026-07-22-post-v0-5-backlog-intake/workflow.yaml) | Intake dev-workflow Comparison And Schedule Post-v0.5 Follow-ups | `ai-context-governance` | `completed` | `2026-07-22T22:06:03+08:00` | [plan](2026-07-22-post-v0-5-backlog-intake/workflow-plan.md) |
 | [`2026-07-22-v0-5-0-macos-portability`](2026-07-22-v0-5-0-macos-portability/workflow.yaml) | Adopt macOS Portability Evidence And Isolate Python Override Fixtures | `ai-context-governance` | `completed` | `2026-07-22T21:13:53+08:00` | [plan](2026-07-22-v0-5-0-macos-portability/workflow-plan.md) |
 | [`2026-07-22-v0-5-0-pretag-portability-hotfix`](2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml) | Repair v0.5.0 Pre-Tag Output Portability | `ai-context-governance` | `completed` | `2026-07-22T09:58:38+08:00` | [plan](2026-07-22-v0-5-0-pretag-portability-hotfix/workflow-plan.md) |
 | [`2026-07-21-v0-5-0-development`](2026-07-21-v0-5-0-development/workflow.yaml) | Develop v0.5.0 To Release Readiness | `ai-context-governance` | `completed` | `2026-07-22T08:32:21+08:00` | [plan](2026-07-21-v0-5-0-development/workflow-plan.md) |
