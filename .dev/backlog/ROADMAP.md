@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-22T08:46:21+08:00`
+- `updated_at`: `2026-07-22T09:21:46+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -118,7 +118,7 @@ versions. Current assignments:
   `R042-005` owns post-tag finalization and keeps `published_in` unset because
   the hotfix is not part of the immutable v0.4.2 tree.
 - `v0.5.0` release blockers: `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`,
-  `LANG-001`, `REL-001`, and `HANDOFF-001`.
+  `LANG-001`, `REL-001`, `REL-002`, and `HANDOFF-001`.
 - `v0.5.0` disposition gates: `GOV-001`, `CAP-001`, and `VAL-001`.
 - `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
   taxonomy and compatible `repo-structure-sync` to `ai-context-init`

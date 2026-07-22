@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T09:13:38+08:00`
+- `updated_at`: `2026-07-22T09:21:46+08:00`
 
 ## Workflow Metadata
 
@@ -19,7 +19,7 @@
 - `current_phase`: `post-audit`
 - `artifact_root`: `.dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T09:13:38+08:00`
+- `updated_at`: `2026-07-22T09:21:46+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -70,13 +70,14 @@
 
 ## Resume Checkpoint
 
-- Last completed action: the repaired pre-tag runner completed the unrestricted
-  critical gate at `958da6e`: 33/33 passed, 0 failed, 0 deferred, and all 56
-  .NET tests passed. Nine focused portability tests also pass.
+- Last completed action: candidate `c53e1bf` passed the repaired pre-tag runner
+  critical gate 33/33 with 0 failed and 0 deferred. Independent read-only audit
+  found no implementation blocker and one low-severity roadmap summary omission;
+  the current checkpoint adds `REL-002` to that summary.
 - Current task: `PRETAG-001`.
-- Exact next action: commit this local-gate evidence, rerun the complete gate on
-  the final clean candidate commit, validate the workflow commit range, then
-  push for hosted verification.
+- Exact next action: commit the independent-review reconciliation, rerun the
+  complete gate on that final clean candidate, validate the workflow commit
+  range, then push for hosted verification.
 - Validation already completed: the parent candidate passed critical 33/33 and
   hosted package, governance, and Ubuntu gates before merge; the failing
   merged-main pre-tag invocation is retained as incident evidence here.
@@ -89,4 +90,4 @@
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | validated implementation | `958da6e` | local | `2026-07-22T09:13:38+08:00` | Repair the proven merged-main release blocker. | Freeze final candidate docs, rerun exact critical and commit-range gates, then push. |
+| 1 | `codex/2026-07-22-v0-5-0-pretag-portability-hotfix` | `main@3c3a66c` | independently reviewed candidate | `c53e1bf` | local | `2026-07-22T09:21:46+08:00` | Repair the proven merged-main release blocker. | Commit the only documentation reconciliation, rerun exact critical and commit-range gates, then push. |
