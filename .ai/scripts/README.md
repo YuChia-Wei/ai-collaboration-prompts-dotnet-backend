@@ -113,7 +113,10 @@ tag-triggered workflow, stable Release body, title, tag, and exact asset names.
 `main` candidate, reruns the candidate and critical gates, verifies the
 worktree remains clean, reads exact AI provenance from the latest registered
 handoff checkpoint, and prints a complete annotated-tag command for the
-repository owner. It never executes the printed command or pushes a ref.
+repository owner. It never executes the printed command or pushes a ref. The
+printed command is valid only for the current `main` HEAD; any later merge to
+`main`, including lifecycle-only closeout, requires rerunning preparation and
+discarding every older printed command.
 
 `validate-dependency-versions.py` is a deterministic offline gate. In the source
 framework repository it enforces byte-identical pinned Python requirement

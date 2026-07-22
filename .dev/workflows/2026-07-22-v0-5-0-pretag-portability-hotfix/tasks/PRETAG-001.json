@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-22T08:46:21+08:00",
-  "updated_at": "2026-07-22T09:45:01+08:00",
+  "updated_at": "2026-07-22T09:58:38+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PTP-001"],
   "scope": {
@@ -52,8 +52,8 @@
       "hosted package, governance, and Ubuntu gates",
       "python .ai/scripts/prepare-ai-context-release.py --version v0.5.0 on merged main"
     ],
-    "last_completed_step": "PR #2 merged final candidate 47aa1cc as main@540cd029. The unrestricted sanctioned pre-tag command passed there, reported exact automatic sources v0.3.0, v0.4.0, v0.4.1, and v0.4.2 plus the user-declared model identity, and did not create a tag.",
-    "next_action": "Await separate owner authorization before annotated tag creation; if authorized, resume the governed tag phase with the exact command printed on main@540cd029."
+    "last_completed_step": "PR #3 merged closeout as main@03f86ccc. Sanctioned pre-tag was rerun successfully there and superseded the output printed before that merge. The current instruction makes this invalidation rule durable.",
+    "next_action": "Await separate owner authorization before annotated tag creation. If authorized, rerun pre-tag on the then-current clean main, discard every older printed command, and use only the newly printed command to resume the governed tag phase."
   },
   "results": {
     "summary": "The bounded shell resolver, child environment, byte decoder, and combined-stream diagnostics are implemented and verified locally, hosted, independently, and through the real merged-main pre-tag command.",
@@ -62,7 +62,7 @@
       ".ai/scripts/tests/test_prepare_ai_context_release.py"
     ],
     "tests_run": [
-      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (9 passed)",
+      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (10 passed)",
       "live Windows shell resolution: C:\\Program Files\\Git\\bin\\bash.exe",
       "python .ai/scripts/tests/test_ai_context_release_state.py -v (15 passed)",
       "python .ai/scripts/tests/test_backlog_release_contract.py -v (6 passed)",
@@ -75,7 +75,8 @@
       "final candidate 47aa1cc critical gate: 33/33 passed, 0 failed, 0 deferred",
       "workflow commit range main..47aa1cc: 7/7 valid",
       "hosted package run 29883289326, governance run 29883289335, and Ubuntu run 29883289321 passed",
-      "unrestricted sanctioned pre-tag on main@540cd029 passed; no tag was created"
+      "unrestricted sanctioned pre-tag on main@540cd029 passed; no tag was created",
+      "post-closeout sanctioned pre-tag on main@03f86ccc passed; its output superseded the command printed before PR #3 merged"
     ],
     "finding_status": "verified",
     "residual_risk": "The sandbox cannot reach NuGet repository-signature endpoints, so local full gates that require restore must run with approved network access. Tag creation and publication remain separately owner-authorized lifecycle phases, not residual defects in REL-002.",
