@@ -4,8 +4,11 @@
 from __future__ import annotations
 
 import importlib.util
+import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -101,6 +104,109 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
     def test_gwt_004_given_noncritical_command_when_runner_called_then_it_is_rejected(self):
         with self.assertRaisesRegex(RuntimeError, "only the critical gate"):
             PREPARE.run(Path("."), ["git", "tag", "-a", "v0.5.0"])
+
+    def test_gwt_005_given_non_utf8_gate_output_when_runner_succeeds_then_diagnostics_are_recoverable(self):
+        result = SimpleNamespace(
+            returncode=0,
+            stdout=b"critical gate \xfb passed\n",
+            stderr=b"",
+        )
+        with (
+            mock.patch.object(
+                PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(
+                PREPARE, "bash_environment", return_value={"PATH": "fixture"}
+            ),
+            mock.patch.object(PREPARE.subprocess, "run", return_value=result) as run,
+        ):
+            output = PREPARE.run(
+                Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
+            )
+
+        self.assertEqual("critical gate \ufffd passed\n", output)
+        run.assert_called_once_with(
+            ["git-bash", ".ai/scripts/check-all.sh", "--critical"],
+            cwd=Path("."),
+            check=False,
+            capture_output=True,
+            env={"PATH": "fixture"},
+        )
+
+    def test_gwt_006_given_failed_gate_without_output_when_runner_runs_then_exit_code_is_reported(self):
+        result = SimpleNamespace(returncode=17, stdout=None, stderr=None)
+        with (
+            mock.patch.object(
+                PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(
+                PREPARE, "bash_environment", return_value={"PATH": "fixture"}
+            ),
+            mock.patch.object(PREPARE.subprocess, "run", return_value=result),
+        ):
+            with self.assertRaisesRegex(
+                RuntimeError, "critical gate failed with exit code 17"
+            ):
+                PREPARE.run(
+                    Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
+                )
+
+    def test_gwt_007_given_windows_git_on_a_custom_path_when_bash_is_resolved_then_its_sibling_git_bash_is_used(self):
+        with tempfile.TemporaryDirectory(prefix="pretag-git-bash-") as temporary:
+            git_root = Path(temporary) / "PortableGit"
+            git = git_root / "cmd/git.exe"
+            bash = git_root / "bin/bash.exe"
+            git.parent.mkdir(parents=True)
+            bash.parent.mkdir(parents=True)
+            git.write_bytes(b"")
+            bash.write_bytes(b"")
+
+            resolved = PREPARE.bash_executable(
+                "nt", lambda name: str(git) if name == "git" else None
+            )
+
+        self.assertEqual(str(bash.resolve()), resolved)
+
+    def test_gwt_008_given_git_bash_on_windows_when_environment_is_built_then_git_usr_bin_is_prepended_locally(self):
+        with tempfile.TemporaryDirectory(prefix="pretag-git-env-") as temporary:
+            bash = Path(temporary) / "PortableGit/bin/bash.exe"
+            bash.parent.mkdir(parents=True)
+            bash.write_bytes(b"")
+
+            environment = PREPARE.bash_environment(
+                str(bash), "nt", {"PATH": "existing-path", "KEEP": "value"}
+            )
+
+        self.assertEqual("value", environment["KEEP"])
+        self.assertEqual(
+            str(bash.resolve().parent.parent / "usr/bin"),
+            environment["PATH"].split(PREPARE.os.pathsep)[0],
+        )
+        self.assertTrue(environment["PATH"].endswith("existing-path"))
+
+    def test_gwt_009_given_failed_gate_with_both_streams_when_runner_reports_then_summary_and_diagnostics_are_retained(self):
+        result = SimpleNamespace(
+            returncode=1,
+            stdout=b"Required Failed: 1\n",
+            stderr=b"NU1301 restore denied\n",
+        )
+        with (
+            mock.patch.object(
+                PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(
+                PREPARE, "bash_environment", return_value={"PATH": "fixture"}
+            ),
+            mock.patch.object(PREPARE.subprocess, "run", return_value=result),
+        ):
+            with self.assertRaises(RuntimeError) as raised:
+                PREPARE.run(
+                    Path("."), ["bash", ".ai/scripts/check-all.sh", "--critical"]
+                )
+
+        message = str(raised.exception)
+        self.assertIn("stdout:\nRequired Failed: 1", message)
+        self.assertIn("stderr:\nNU1301 restore denied", message)
 
 
 if __name__ == "__main__":

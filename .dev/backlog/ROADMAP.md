@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.5.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-22T08:32:21+08:00`
+- `updated_at`: `2026-07-22T09:21:46+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -27,7 +27,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- | --- | --- |
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
-| `v0.5.0` | `release_ready` | yes | The four-source candidate, including exact automatic v0.4.2 upgrades, passes local and hosted gates, current release handoff verification, and healthy successor assessment `ASM-20260722-002`. | Merge with `--no-ff`, run owner-only pre-tag preparation on updated `main`, and require separate authorization before tag creation or publication. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) |
+| `v0.5.0` | `in_progress` | yes | Preserve the verified four-source candidate, including exact automatic v0.4.2 upgrades, while repairing the Windows pre-tag subprocess-output defect recorded as `REL-002`. | Merge the bounded portability hotfix, prove owner-only pre-tag preparation on updated `main`, close lifecycle records on a continuation branch, and require separate authorization before tag creation or publication. | [`2026-07-22-v0-5-0-pretag-portability-hotfix`](../workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml) |
 | `v0.6.0` | `planned` | yes | Establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Stabilize v0.5.0 governance and adapter contracts; measure actual loaded context; pass deterministic regression fixtures and the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
@@ -46,7 +46,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | Version | Release Blockers | Disposition Gates | Activation Dependencies |
 | --- | --- | --- | --- |
 | `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004`, `R042-005` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
-| `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
+| `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `REL-002`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
 | `v0.6.0` | `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
 | `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
@@ -118,7 +118,7 @@ versions. Current assignments:
   `R042-005` owns post-tag finalization and keeps `published_in` unset because
   the hotfix is not part of the immutable v0.4.2 tree.
 - `v0.5.0` release blockers: `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`,
-  `LANG-001`, `REL-001`, and `HANDOFF-001`.
+  `LANG-001`, `REL-001`, `REL-002`, and `HANDOFF-001`.
 - `v0.5.0` disposition gates: `GOV-001`, `CAP-001`, and `VAL-001`.
 - `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
   taxonomy and compatible `repo-structure-sync` to `ai-context-init`
@@ -198,8 +198,8 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Complete `V050-009` by proving the owner-required v0.4.2 automatic source,
-checkpointing the release mechanics and planned four-source v0.5.0 candidate,
-then rebuilding and validating the deterministic package from the immutable
-candidate commit. Obtain green hosted candidate gates and the `V050-010`
-independent assessment before claiming release readiness.
+Complete `REL-002` on the dedicated hotfix branch, obtain green local and
+hosted evidence, merge it to `main`, and run the sanctioned owner-only pre-tag
+preparation there. Record that merged-main evidence through a dedicated
+continuation branch before restoring `release_ready`. Do not create the
+immutable tag or publish without separate owner authorization.

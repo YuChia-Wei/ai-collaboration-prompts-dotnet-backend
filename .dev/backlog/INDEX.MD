@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `release_ready` | Merge with `--no-ff`, then run owner-only pre-tag preparation on updated `main`; tag and publication require separate authorization. | 2026-07-22 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `in_progress` | Resolve `REL-002`, merge the hotfix, and prove owner-only pre-tag preparation on updated `main`; tag and publication require separate authorization. | 2026-07-22 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -16,6 +16,7 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Gate | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [REL-002](items/REL-002.yaml) | HIGH / P0 | `v0.5.0` | release blocker | Make pre-tag critical-gate output decoding portable and fail closed on non-UTF-8 or empty subprocess streams. | Merge the bounded hotfix, prove the sanctioned command on updated `main`, then close via a continuation branch. | 2026-07-22 |
 | [EVAL-001](items/EVAL-001.yaml) | HIGH | `v0.6.0` | activation gate | Add deterministic regression plus budgeted release-side model evaluation before taxonomy changes. | Approve the fixture corpus, oracle, model/judge, repetitions, threshold, and token ceiling. | 2026-07-19 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | release blocker | Introduce AI context lifecycle taxonomy and transition `repo-structure-sync` to `ai-context-init` with compatibility. | Complete v0.5.0 and EVAL-001 before changing identifiers or taxonomy. | 2026-07-19 |
 | [SIMPL-001](items/SIMPL-001.yaml) | MEDIUM | `v0.6.0` | disposition gate | Measure actual loaded context, disposition simplification candidates, and keep historical archive migration conditional on a separately approved v0.7.0 successor. | Do not equate corpus words with prompt tokens; preserve stable evidence until every archive precondition is proven. | 2026-07-20 |

@@ -8,6 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-22-v0-5-0-pretag-portability-hotfix`](2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml) | Repair v0.5.0 Pre-Tag Output Portability | `ai-context-governance` | `in_progress` | `2026-07-22T09:21:46+08:00` | [plan](2026-07-22-v0-5-0-pretag-portability-hotfix/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

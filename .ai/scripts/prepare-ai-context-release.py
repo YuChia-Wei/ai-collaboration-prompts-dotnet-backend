@@ -5,6 +5,8 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -19,13 +21,76 @@ release_state = importlib.util.module_from_spec(STATE_SPEC)
 STATE_SPEC.loader.exec_module(release_state)
 
 
+def bash_executable(
+    platform_name: str | None = None,
+    which=shutil.which,
+) -> str:
+    """Resolve Bash without mistaking the Windows WSL launcher for Git Bash."""
+    platform_name = platform_name or os.name
+    if platform_name != "nt":
+        bash = which("bash")
+        if bash:
+            return bash
+        raise RuntimeError("bash is required to run the critical gate")
+
+    candidates: list[Path] = []
+    git = which("git")
+    if git:
+        candidates.append(Path(git).resolve().parent.parent / "bin/bash.exe")
+    candidates.append(
+        Path(os.environ.get("ProgramFiles", "C:/Program Files"))
+        / "Git/bin/bash.exe"
+    )
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        candidates.append(Path(local_app_data) / "Programs/Git/bin/bash.exe")
+    for candidate in candidates:
+        if candidate.is_file():
+            return str(candidate)
+    raise RuntimeError(
+        "Git Bash is required on Windows to run the critical gate; "
+        "the WSL bash launcher is not supported"
+    )
+
+
+def bash_environment(
+    executable: str,
+    platform_name: str | None = None,
+    base: dict[str, str] | None = None,
+) -> dict[str, str]:
+    """Supply Git Bash utilities without mutating the parent environment."""
+    environment = dict(os.environ if base is None else base)
+    if (platform_name or os.name) == "nt":
+        git_usr_bin = Path(executable).resolve().parent.parent / "usr/bin"
+        current_path = environment.get("PATH", "")
+        environment["PATH"] = str(git_usr_bin) + os.pathsep + current_path
+    return environment
+
+
 def run(root: Path, args: list[str]) -> str:
     if args != ["bash", ".ai/scripts/check-all.sh", "--critical"]:
         raise RuntimeError("pre-tag preparation may execute only the critical gate")
-    result = subprocess.run(args, cwd=root, check=False, capture_output=True, text=True)
+    command = [bash_executable(), *args[1:]]
+    result = subprocess.run(
+        command,
+        cwd=root,
+        check=False,
+        capture_output=True,
+        env=bash_environment(command[0]),
+    )
+    stdout = (result.stdout or b"").decode("utf-8", errors="replace")
+    stderr = (result.stderr or b"").decode("utf-8", errors="replace")
     if result.returncode:
-        raise RuntimeError((result.stderr or result.stdout).strip())
-    return result.stdout
+        details = []
+        if stdout.strip():
+            details.append(f"stdout:\n{stdout.strip()}")
+        if stderr.strip():
+            details.append(f"stderr:\n{stderr.strip()}")
+        detail = "\n\n".join(details)
+        raise RuntimeError(
+            detail or f"critical gate failed with exit code {result.returncode}"
+        )
+    return stdout
 
 
 def single_line_tag_value(value: str, label: str) -> str:
