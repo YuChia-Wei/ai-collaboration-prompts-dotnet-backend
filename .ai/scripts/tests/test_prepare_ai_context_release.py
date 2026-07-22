@@ -208,6 +208,16 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
         self.assertIn("stdout:\nRequired Failed: 1", message)
         self.assertIn("stderr:\nNU1301 restore denied", message)
 
+    def test_gwt_010_given_a_later_main_merge_when_runbook_is_read_then_older_tag_commands_are_expired(self):
+        runbook = (
+            ROOT
+            / ".dev/operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn("### Current-Main Command Invalidation", runbook)
+        self.assertIn("都會使先前印出的 tag command 過期", runbook)
+        self.assertIn("不得重用指向舊 SHA 的輸出", runbook)
+
 
 if __name__ == "__main__":
     unittest.main()

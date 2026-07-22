@@ -51,6 +51,13 @@
 
    Fail action: do not request a tag. Repair the indicated registry, candidate, branch, or gate problem; make a new reviewed checkpoint and repeat from the candidate phase.
 
+### Current-Main Command Invalidation
+
+任何在 pre-tag 成功後合併至 `main` 的 commit（包括只更新 lifecycle
+closeout 文件的 merge commit）都會使先前印出的 tag command 過期。建立 tag
+前必須在當前 clean `main` 重新執行同一條 pre-tag command，並且只使用該次
+新印出的完整 command；不得重用指向舊 SHA 的輸出。
+
 ## Owner-Created Annotated Tag
 
 The repository owner—not an agent, script, or GitHub workflow—creates and pushes
