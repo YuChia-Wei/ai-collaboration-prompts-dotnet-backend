@@ -10,7 +10,7 @@ commit: null
 tagged_at: null
 recorded_at: null
 created_at: "2026-07-21T04:10:00+08:00"
-updated_at: "2026-07-22T08:09:41+08:00"
+updated_at: "2026-07-22T08:32:21+08:00"
 planning:
   backlog_refs:
     - ".dev/backlog/items/PKG-003.yaml"
@@ -66,7 +66,7 @@ distribution:
     automation: "github-actions"
     creates_or_moves_tag: false
 validation:
-  evidence: "Implementation evidence is retained by workflow 2026-07-21-v0-5-0-development. Candidate ef148472bb2e47b058693a1ab5e28dcb99e5ba32 passes all four exact automatic source upgrades, two byte-identical builds, the 33/33 critical gate, hosted package candidate run 29878635973, hosted governance run 29878635862, and hosted Ubuntu run 29878635890. ASM-20260722-001 requires cold-start discovery and handoff reconciliation before release-readiness closure."
+  evidence: "Implementation evidence is retained by completed workflow 2026-07-21-v0-5-0-development. All four exact automatic source upgrades, two byte-identical builds, the 33/33 critical gate, current hosted package/governance/Ubuntu gates, repository-verifiable release handoff, and healthy successor assessment ASM-20260722-002 pass. Merge and owner-only pre-tag preparation remain pending; no tag or publication exists."
   workflow_id: "2026-07-21-v0-5-0-development"
   related_workflows:
     - "2026-07-20-v0-4-2-release-finalization-hotfix"
@@ -75,6 +75,7 @@ validation:
     - "ASM-20260717-004"
     - "ASM-20260720-001"
     - "ASM-20260722-001"
+    - "ASM-20260722-002"
   package_status: "validated"
   post_merge_status: "pending"
   failed_publication_run: null

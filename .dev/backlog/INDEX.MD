@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `active` | Remediate `ASM-20260722-001` cold-start findings, register the current release handoff, and independently verify the corrected four-source candidate. | 2026-07-22 |
+| [ROADMAP.md](ROADMAP.md) | `v0.5.0` | `release_ready` | Merge with `--no-ff`, then run owner-only pre-tag preparation on updated `main`; tag and publication require separate authorization. | 2026-07-22 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.

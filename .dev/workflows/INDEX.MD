@@ -8,12 +8,12 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-21-v0-5-0-development`](2026-07-21-v0-5-0-development/workflow.yaml) | Develop v0.5.0 To Release Readiness | `ai-context-governance` | `in_progress` | `2026-07-22T08:26:17+08:00` | [plan](2026-07-21-v0-5-0-development/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-21-v0-5-0-development`](2026-07-21-v0-5-0-development/workflow.yaml) | Develop v0.5.0 To Release Readiness | `ai-context-governance` | `completed` | `2026-07-22T08:32:21+08:00` | [plan](2026-07-21-v0-5-0-development/workflow-plan.md) |
 | [`2026-07-20-native-attribution-handoff-planning`](2026-07-20-native-attribution-handoff-planning/workflow.yaml) | Preserve Provider-Native Attribution In HANDOFF-001 | `ai-context-governance` | `completed` | `2026-07-21T00:00:29+08:00` | [plan](2026-07-20-native-attribution-handoff-planning/workflow-plan.md) |
 | [`2026-07-20-simplification-roadmap-intake`](2026-07-20-simplification-roadmap-intake/workflow.yaml) | Plan Measured Simplification, Archive Disposition, And Standards Deliberation | `ai-context-governance` | `completed` | `2026-07-20T23:30:28+08:00` | [plan](2026-07-20-simplification-roadmap-intake/workflow-plan.md) |
 | [`2026-07-20-v0-4-2-release-finalization-hotfix`](2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) | Repair v0.4.2 Release Finalization And Cold-Start Handoff Gaps | `ai-context-governance` | `completed` | `2026-07-20T22:55:15+08:00` | [plan](2026-07-20-v0-4-2-release-finalization-hotfix/workflow-plan.md) |

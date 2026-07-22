@@ -12,24 +12,24 @@
 - `report_id`: `remediation-report-2026-07-21-v0-5-0-development`
 - `workflow_id`: `2026-07-21-v0-5-0-development`
 - `owner_skill`: `ai-context-governance`
-- `status`: `draft`
+- `status`: `final`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T08:26:17+08:00`
+- `updated_at`: `2026-07-22T08:32:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-remediation-report-template.md`
 - `template_version`: `2.0.0`
 - `baseline_assessments`: `ASM-20260717-004`, `ASM-20260720-001`
-- `verification_assessment`: `ASM-20260722-001` (remediation required; successor pending)
+- `verification_assessment`: `ASM-20260722-002` (healthy successor verification)
 
 ## Current Scope
 
 | Backlog Item | Gate | Current Workflow State | Required Outcome |
 | --- | --- | --- | --- |
-| `PKG-003` | release blocker | resolved by `V050-003` plus the owner-required v0.4.2 expansion under `V050-009` | four exact automatic upgrades proven; checkpoint commit pending |
+| `PKG-003` | release blocker | implementation-resolved by `V050-003` plus the owner-required v0.4.2 expansion under `V050-009`; release gate verified by `V050-010` | four exact automatic upgrades proven and independently verified |
 | `SAG-001` | release blocker | resolved by `V050-004` | adapter promotion and parity contract complete |
 | `ENF-001` | release blocker | resolved by `V050-005` | semantic enforcement and PR CI complete |
 | `TOOL-001` | release blocker | resolved by `V050-006` | hosted portability and runner decision complete |
 | `LANG-001` | release blocker | resolved by `V050-007` | approved bounded remediation and retained hybrid parity evidence complete |
-| `REL-001` | release blocker | resolved by `V050-009`; V050-010 owns release-candidate verification | cold-start release mechanics and terminal validation complete |
+| `REL-001` | release blocker | implementation-resolved by `V050-009`; candidate gate verified and closed by `V050-010` | cold-start release mechanics, candidate validation, and handoff complete; publication remains later owner-authorized work |
 | `HANDOFF-001` | release blocker | resolved by `V050-008` plus the V050-009 phase contract | fail-closed resume and native attribution contract complete |
 | `GOV-001` | disposition gate | resolved by `V050-002` | every current follow-up explicitly disposed |
 | `CAP-001` | disposition gate | resolved by `V050-002`; document pattern retained | terminology capability decision retained |
@@ -60,6 +60,18 @@
 | `V050-010` first verification | Candidate `ef14847` passes exact local, deterministic, critical, and all three hosted gates. `ASM-20260722-001` confirms package health and identifies stale discovery, release handoff, and lifecycle wording that block release-readiness. | `a57c1ce` assessment commit |
 | `V050-010` assessment remediation | `ASM-20260722-001#AIC-001` through `AIC-003` are corrected at `93375cb`; exact candidate, 33/33 critical, and hosted runs `29879597446`, `29879597443`, and `29879597439` pass. | V050-010 checkpoint commit containing this update |
 | `V050-010` successor preflight | AIC-001 and AIC-003 are resolved; V050-010 checkpoint verification passes. The checkpoint containing refresh corrects the only remaining AIC-002 plan/task resume lag before persisted successor verification. | checkpoint refresh commit containing this update |
+| `V050-010` successor verification | `ASM-20260722-002` verifies AIC-001 through AIC-003 resolved, no new release-readiness blocker, and current hosted runs `29880307922`, `29880307921`, and `29880307914` green. | `fa4f6de` assessment commit |
+
+## Final Outcome
+
+- The v0.5.0 governed candidate is release-ready but unpublished.
+- v0.3.0, v0.4.0, v0.4.1, and v0.4.2 are exact automatic upgrade sources.
+- The current release handoff is executable without hidden session context.
+- `ASM-20260722-002` verifies every selected finding resolved.
+- macOS and unavailable provider-native fixtures remain explicit non-blocking
+  limitations.
+- Merge and owner-only pre-tag preparation are next. No tag or publication was
+  authorized or performed by this workflow.
 
 ## Checkpoint Contract
 

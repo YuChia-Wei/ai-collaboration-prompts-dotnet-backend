@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-21-v0-5-0-development`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `active`
-- `current_phase`: `verification`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-21-v0-5-0-development`
 - `created_at`: `2026-07-21T00:19:22+08:00`
-- `updated_at`: `2026-07-22T08:26:17+08:00`
+- `updated_at`: `2026-07-22T08:32:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -89,7 +89,7 @@ decision rationale are retained in
 | 3 | Package migration and runtime adapter contracts | `ai-context-governance` | completed | `49a2086`, `a87bddf`, and `6aed578` |
 | 4 | Enforcement, tooling, handoff, and language parity | `ai-context-governance` / `dev-workflow` | completed | task-level commits through the V050-008 checkpoint |
 | 5 | Cold-start release mechanics and integrated candidate validation | `ai-context-governance` | completed | `2ecf832` mechanics plus validated-candidate state commit |
-| 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | in progress | assessment and closure commits |
+| 6 | Independent assessment and release-candidate closure | `ai-context-auditor` plus main-agent reconciliation | completed | `ASM-20260722-001`, remediation commits, and healthy successor `ASM-20260722-002` |
 
 Execution order is `V050-002`, then the independent foundation lanes
 `V050-003`, `V050-004`, `V050-006`, and `V050-007`. `V050-005` consumes their
@@ -114,30 +114,24 @@ acceptance evidence remain satisfied.
 - Freeze a subject commit and obtain a separate read-only verification
   assessment before claiming release readiness.
 
-## Resume Checkpoint
+## Closure State
 
-- Last completed action: committed and repository-verified the V050-010 release
-  checkpoint at `de7805b`. A read-only successor preflight confirmed AIC-001
-  and AIC-003 resolved and found only that this plan/task still named the
-  already completed checkpoint commit; this containing refresh removes that
-  final AIC-002 resume lag.
-- Current task: `V050-010`
-- Exact next action: run and persist the independent successor assessment
-  against this refreshed checkpoint commit, then perform final workflow and
-  release-readiness reconciliation without tagging or publishing.
-- Validation already completed: four real extracted upgrades, exact candidate
-  state, two deterministic package builds, Windows critical 33/33, and all
-  three same-revision hosted PR gates pass at `ef14847`.
-- Git state: `de7805b` is clean, pushed, and passes exact candidate, repository
-  handoff, registry, lifecycle, and all three hosted PR gates. This checkpoint
-  refresh is pending its containing commit.
-- Branch history and checkpoint handoffs: draft PR `#1` remains the hosted
-  evidence surface. V050-008 is retained as historical HANDOFF implementation
-  evidence and must be superseded by a current V050-010 release checkpoint.
-- Blockers or unresolved decisions: persisted successor verification and final
-  workflow reconciliation still block release-readiness. macOS and real
-  Copilot CLI/cloud-agent and Claude attribution fixtures remain explicitly
-  unverified; no identity or platform result may be invented.
+- Last completed action: `ASM-20260722-002` independently verified
+  `ASM-20260722-001#AIC-001` through `AIC-003` resolved at `d83f395`; no new
+  release-readiness blocker remains.
+- Current task: none; `V050-010` and the workflow are completed.
+- Exact next action: merge the fully validated branch with `--no-ff`, then run
+  owner-only pre-tag preparation on updated `main`. Do not create a tag or
+  publish without separate owner authorization.
+- Validation completed: four real extracted upgrades, exact candidate state,
+  deterministic double builds, critical 33/33, repository-verifiable release
+  handoff, two independent assessments, and current hosted package,
+  governance, and Ubuntu gates.
+- Release state: release-ready governed candidate; no tag, published commit,
+  GitHub Release, or terminal publication evidence exists.
+- Residual limitations: macOS and real Copilot CLI/cloud-agent and Claude
+  attribution fixtures remain explicitly unverified; no identity or platform
+  result is inferred.
 
 ## Branch Lifecycle
 
