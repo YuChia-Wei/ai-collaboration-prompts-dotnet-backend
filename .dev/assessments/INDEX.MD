@@ -12,6 +12,7 @@ owns its identity, current lifecycle state, subject revision, and relationships.
 
 | Assessment | Title | Type | Owner | Status | Subject Commit | Updated | Report |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| [`ASM-20260722-002`](ASM-20260722-002/assessment.yaml) | v0.5.0 Candidate Remediation Successor Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `d83f395e5a399f944cb53b87c1f95cd299a4c386` | `2026-07-22T08:29:59+08:00` | [report](ASM-20260722-002/report.md) |
 | [`ASM-20260722-001`](ASM-20260722-001/assessment.yaml) | v0.5.0 Four-Source Release Candidate Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `ef148472bb2e47b058693a1ab5e28dcb99e5ba32` | `2026-07-22T08:04:18+08:00` | [report](ASM-20260722-001/report.md) |
 | [`ASM-20260720-002`](ASM-20260720-002/assessment.yaml) | v0.4.2 Release Finalization Hotfix Verification | `ai-context-verification` | `ai-context-auditor` | `final` | `895ce060b2287e6c6be6a5327496f6e763145891` | `2026-07-20T22:43:57+08:00` | [report](ASM-20260720-002/report.md) |
 | [`ASM-20260720-001`](ASM-20260720-001/assessment.yaml) | v0.4.2 Publication Incident External Review Intake | `ai-context-audit` | `ai-context-auditor` | `final` | `71c41dbd9c4f2b65105a616d15b7f1cc9db2a338` | `2026-07-20T22:43:57+08:00` | [report](ASM-20260720-001/report.md) |
