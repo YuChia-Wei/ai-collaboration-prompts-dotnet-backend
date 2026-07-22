@@ -115,6 +115,9 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
             mock.patch.object(
                 PREPARE, "bash_executable", return_value="git-bash"
             ),
+            mock.patch.object(
+                PREPARE, "bash_environment", return_value={"PATH": "fixture"}
+            ),
             mock.patch.object(PREPARE.subprocess, "run", return_value=result) as run,
         ):
             output = PREPARE.run(
@@ -127,6 +130,7 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
             cwd=Path("."),
             check=False,
             capture_output=True,
+            env={"PATH": "fixture"},
         )
 
     def test_gwt_006_given_failed_gate_without_output_when_runner_runs_then_exit_code_is_reported(self):
@@ -134,6 +138,9 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
         with (
             mock.patch.object(
                 PREPARE, "bash_executable", return_value="git-bash"
+            ),
+            mock.patch.object(
+                PREPARE, "bash_environment", return_value={"PATH": "fixture"}
             ),
             mock.patch.object(PREPARE.subprocess, "run", return_value=result),
         ):
@@ -159,6 +166,23 @@ class PrepareAiContextReleaseGwtTests(unittest.TestCase):
             )
 
         self.assertEqual(str(bash.resolve()), resolved)
+
+    def test_gwt_008_given_git_bash_on_windows_when_environment_is_built_then_git_usr_bin_is_prepended_locally(self):
+        with tempfile.TemporaryDirectory(prefix="pretag-git-env-") as temporary:
+            bash = Path(temporary) / "PortableGit/bin/bash.exe"
+            bash.parent.mkdir(parents=True)
+            bash.write_bytes(b"")
+
+            environment = PREPARE.bash_environment(
+                str(bash), "nt", {"PATH": "existing-path", "KEEP": "value"}
+            )
+
+        self.assertEqual("value", environment["KEEP"])
+        self.assertEqual(
+            str(bash.resolve().parent.parent / "usr/bin"),
+            environment["PATH"].split(PREPARE.os.pathsep)[0],
+        )
+        self.assertTrue(environment["PATH"].endswith("existing-path"))
 
 
 if __name__ == "__main__":

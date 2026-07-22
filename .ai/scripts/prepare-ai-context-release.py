@@ -53,11 +53,31 @@ def bash_executable(
     )
 
 
+def bash_environment(
+    executable: str,
+    platform_name: str | None = None,
+    base: dict[str, str] | None = None,
+) -> dict[str, str]:
+    """Supply Git Bash utilities without mutating the parent environment."""
+    environment = dict(os.environ if base is None else base)
+    if (platform_name or os.name) == "nt":
+        git_usr_bin = Path(executable).resolve().parent.parent / "usr/bin"
+        current_path = environment.get("PATH", "")
+        environment["PATH"] = str(git_usr_bin) + os.pathsep + current_path
+    return environment
+
+
 def run(root: Path, args: list[str]) -> str:
     if args != ["bash", ".ai/scripts/check-all.sh", "--critical"]:
         raise RuntimeError("pre-tag preparation may execute only the critical gate")
     command = [bash_executable(), *args[1:]]
-    result = subprocess.run(command, cwd=root, check=False, capture_output=True)
+    result = subprocess.run(
+        command,
+        cwd=root,
+        check=False,
+        capture_output=True,
+        env=bash_environment(command[0]),
+    )
     stdout = (result.stdout or b"").decode("utf-8", errors="replace")
     stderr = (result.stderr or b"").decode("utf-8", errors="replace")
     if result.returncode:

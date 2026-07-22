@@ -5,7 +5,7 @@
 - `template_id`: `ai-context-governance-maintenance-workflow-plan`
 - `template_version`: `1.2.0`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T08:53:52+08:00`
+- `updated_at`: `2026-07-22T08:56:38+08:00`
 
 ## Workflow Metadata
 
@@ -19,7 +19,7 @@
 - `current_phase`: `post-audit`
 - `artifact_root`: `.dev/workflows/2026-07-22-v0-5-0-pretag-portability-hotfix`
 - `created_at`: `2026-07-22T08:46:21+08:00`
-- `updated_at`: `2026-07-22T08:53:52+08:00`
+- `updated_at`: `2026-07-22T08:56:38+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -31,7 +31,7 @@
   launcher as UTF-8. The reader-thread failure then produced a misleading
   `None.strip()` exception and concealed that Git Bash was not selected.
 - Authorized remediation scope: make the allowlisted critical-gate runner
-  select Git Bash on Windows, decode arbitrary subprocess bytes
+  select Git Bash and supply its `usr/bin` tools on Windows, decode arbitrary subprocess bytes
   deterministically, retain useful failure output, and add fail-closed
   regression coverage.
 - Exclusions: do not change the command allowlist, critical-gate contents,
@@ -58,8 +58,9 @@
 ## Stages And Checkpoints
 
 1. Register the unexpected release blocker and reopen v0.5.0 execution state.
-2. Resolve Git Bash without accepting the Windows WSL launcher, then implement
-   deterministic replacement-safe decoding and robust empty-output handling.
+2. Resolve Git Bash without accepting the Windows WSL launcher, prepend its
+   `usr/bin` only to the child process, then implement deterministic
+   replacement-safe decoding and robust empty-output handling.
 3. Run focused, workflow, critical, and hosted validation; obtain a bounded
    independent review of the frozen hotfix candidate.
 4. Merge the implementation branch, run the real pre-tag command on `main`,
@@ -71,9 +72,9 @@
 
 - Last completed action: implemented Windows Git Bash selection, explicit byte
   capture with recoverable UTF-8 decoding, and deterministic empty-output
-  failure reporting; seven focused pre-tag tests and 21 adjacent
+  failure reporting; eight focused pre-tag tests and 21 adjacent
   release/backlog tests pass. Live resolution selects
-  `C:\Program Files\Git\bin\bash.exe`.
+  `C:\Program Files\Git\bin\bash.exe`, and the child-only PATH fixture passes.
 - Current task: `PRETAG-001`.
 - Exact next action: commit the implementation checkpoint, run the complete
   critical gate from that clean commit, then push for hosted verification.

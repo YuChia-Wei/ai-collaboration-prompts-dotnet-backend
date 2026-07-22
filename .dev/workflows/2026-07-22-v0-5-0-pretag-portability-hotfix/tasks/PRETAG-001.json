@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-22T08:46:21+08:00",
-  "updated_at": "2026-07-22T08:53:52+08:00",
+  "updated_at": "2026-07-22T08:56:38+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["PTP-001"],
   "scope": {
@@ -23,6 +23,7 @@
     "constraints": [
       "Keep the critical command allowlist exact",
       "Resolve Git Bash on Windows without selecting the WSL launcher",
+      "Provide Git usr/bin only to the child process without mutating the parent environment",
       "Decode subprocess bytes deterministically without reader-thread failures",
       "Return deterministic failure details even when streams are empty",
       "Keep v0.4.2 as an exact automatic upgrade source",
@@ -39,6 +40,7 @@
       "Register the release blocker",
       "Implement byte-safe output decoding",
       "Resolve the active Windows Git installation to its Git Bash executable",
+      "Prepend the selected Git installation's usr/bin to the child environment",
       "Add non-UTF-8 and empty-stream regressions",
       "Run local and hosted gates",
       "Merge and prove the real pre-tag command on main",
@@ -50,7 +52,7 @@
       "hosted package, governance, and Ubuntu gates",
       "python .ai/scripts/prepare-ai-context-release.py --version v0.5.0 on merged main"
     ],
-    "last_completed_step": "Implemented Windows Git Bash selection, explicit byte capture, recoverable UTF-8 decoding, and deterministic empty-output failure reporting. Seven focused pre-tag tests and 21 adjacent release/backlog tests pass; live resolution selects C:\\Program Files\\Git\\bin\\bash.exe.",
+    "last_completed_step": "Implemented Windows Git Bash selection, child-only Git usr/bin PATH, explicit byte capture, recoverable UTF-8 decoding, and deterministic empty-output failure reporting. Eight focused pre-tag tests and 21 adjacent release/backlog tests pass; live resolution selects C:\\Program Files\\Git\\bin\\bash.exe.",
     "next_action": "Commit the implementation checkpoint, run the complete critical gate from a clean commit, and push for hosted verification."
   },
   "results": {
@@ -60,7 +62,7 @@
       ".ai/scripts/tests/test_prepare_ai_context_release.py"
     ],
     "tests_run": [
-      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (7 passed)",
+      "python .ai/scripts/tests/test_prepare_ai_context_release.py -v (8 passed)",
       "live Windows shell resolution: C:\\Program Files\\Git\\bin\\bash.exe",
       "python .ai/scripts/tests/test_ai_context_release_state.py -v (15 passed)",
       "python .ai/scripts/tests/test_backlog_release_contract.py -v (6 passed)",
