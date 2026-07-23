@@ -6,13 +6,13 @@ status: "open"
 priority: "HIGH"
 summary: "Review every GitHub workflow for path scope, responsibility, release-phase ownership, duplication, concurrency, and post-publication behavior."
 created_at: "2026-07-23T00:53:22+08:00"
-updated_at: "2026-07-23T00:53:22+08:00"
+updated_at: "2026-07-23T23:12:50+08:00"
 release:
-  target: "unassigned"
+  target: "v0.6.0"
   completed_in: null
   published_in: null
   target_scope: "github-workflow-trigger-and-release-lifecycle-review"
-  gate: "independent"
+  gate: "release-blocker"
 origin_refs:
   - ".github/workflows/governance.yml"
   - ".github/workflows/portable-gates.yml"
@@ -25,7 +25,7 @@ workflow_refs:
 task_refs:
   - ".dev/workflows/2026-07-23-governance-ci-lifecycle-hotfix/tasks/CIHOTFIX-001.json"
 resolution_ref: null
-decision_needed: "Decide whether the comprehensive review is an independent pre-v0.6 activity or part of CI-001, then assign a release without making it a hidden blocker."
+decision_needed: "Owner decision recorded on 2026-07-23: execute the comprehensive review together with CI-001 as one v0.6.0 release-engineering workstream."
 acceptance:
   - "Inventory every active workflow trigger, path filter, manual dispatch, permission, concurrency rule, job responsibility, and mutation boundary."
   - "Classify each executable check as general governance, portable validation, candidate build, tag validation, publication, or finalization."
