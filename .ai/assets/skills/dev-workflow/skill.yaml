@@ -2,7 +2,7 @@ asset_id: "dev-workflow"
 schema_version: "1.0"
 asset_type: "skill-spec"
 title: "Development Workflow"
-purpose: "Coordinate the multi-stage software and product development lifecycle by deciding direct mode versus workflow mode, creating development workflow artifacts, mapping stages to development capability slots, using local profiles when available, and enforcing validation and commit checkpoints."
+purpose: "Activate from high-level software or product development intent, coordinate the multi-stage lifecycle without requiring skill names, decide direct mode versus workflow mode, create development workflow artifacts, map stages to development capability slots, use local profiles when available, and enforce approval, validation, test, compliance, commit, and closeout checkpoints."
 portability: "repo-portable"
 audience: "agent-facing"
 source_of_truth: "canonical"
@@ -15,6 +15,8 @@ governance_references:
   - ".dev/TEAM-GIT-FLOW-RULES.MD"
   - ".ai/assets/skills/README.MD"
 triggers:
+  - "a high-level software or product outcome that requires multiple lifecycle stages, even when no skill is named"
+  - "plan, design, implement, test, review, and close this software change"
   - "dev workflow"
   - "development workflow"
   - "software development workflow"
@@ -31,6 +33,8 @@ inputs:
   - "canonical skill registry and relevant skill specs"
   - "available downstream skill metadata or runtime wrapper descriptions"
   - "issue number, required branch policy, validation expectations, and handoff requirements"
+  - "target-owned test commands, working directory, prerequisites, credential requirements or environment boundaries, and test policy when test execution is selected; never secret values"
+  - "approval state for requirements, design, specification, implementation, specialized tests, and compliance gates"
 outputs:
   - "direct-mode or workflow-mode decision"
   - "capability-slot routing plan"
@@ -41,7 +45,9 @@ outputs:
   - "handoff packet for downstream skills or sub-agents"
   - "runtime coordination prompt when the user wants Codex Goal or Claude workflow integration"
   - "fallback checklist when no matching downstream skill or profile is available"
-  - "final execution summary with validation evidence and remaining decisions"
+  - "target-selected test execution record with provider, level, command context, and exact outcome"
+  - "selectable spec-compliance result: not-applicable when unselected or a 100% fail-closed gate when selected"
+  - "final execution summary with separate requirement/spec approval, implementation, test, compliance, review, validation, task, commit, and handoff evidence"
 constraints:
   - "Do not claim standalone fallback output has the same quality as a matching downstream specialist skill or project-specific standard."
   - "Do not replace downstream development skills; delegate requirement, specification, problem framing, architecture, test design, implementation, review, and compliance work to the matching local skill when the profile provides one."
@@ -54,10 +60,18 @@ constraints:
   - "Preserve user decisions, explicit constraints, branch rules, commit policy, and validation expectations."
   - "Create or switch to a dedicated workflow branch before creating development workflow artifacts or making material workflow edits; never use main as the active workflow branch."
   - "Treat a requested pre-completion push or merge as a checkpoint and keep pending workflow state active; use --no-ff for merges unless the user explicitly selects another strategy."
+  - "Activate from high-level software-development intent; do not require the user to name this skill or downstream skills, and do not derive lifecycle stages from skill names alone."
+  - "When a requirement, design, or specification discussion awaits approval, pause before creating or executing implementation work; record the pending decision and resume only after explicit authorization."
+  - "Treat test-execution as an optional, unmapped capability contract. Resolve target-profile commands first, then a separately evaluated external skill, then the fallback contract; do not create or assume a dedicated test skill."
+  - "For test execution, use target-owned commands, working directory, prerequisites, and policy. Do not invent credentials, bypass controls, or escalate privileges implicitly."
+  - "Select unit and integration tests by default. Select E2E, browser, Playwright, and other environment-dependent tests only when target policy, requirements, an approved plan, or the owner requires them."
+  - "Record each selected test level as passed, failed, blocked-by-environment, not-applicable, or deferred-with-owner. Blocked-by-environment is never passed, and mandatory selected tests keep closeout open until target policy accepts the outcome."
+  - "Treat spec compliance as unselected and not-applicable by default. Once a target profile, problem-frame workflow, requirement, or owner decision selects it, incomplete configuration or coverage below 100% fails closed."
+  - "Commit one validated durable stage or coherent bounded batch rather than one commit per skill invocation. Compress only unshared, unpushed history and preserve approval, evidence, review, checkpoint, and handoff boundaries."
   - "Ask the user only for direction decisions that cannot be safely inferred from repository evidence or existing policies."
 workflow:
   - step: 1
-    description: "Intake the software or product development goal, current repo state, active branch, explicit constraints, and any issue number or commit expectations."
+    description: "Activate from the high-level software or product development goal without requiring skill names; intake current repo state, active branch, explicit constraints, approval state, and any issue number or commit expectations."
   - step: 2
     description: "Apply the workflow gate to choose direct mode or workflow mode."
   - step: 3
@@ -65,9 +79,9 @@ workflow:
   - step: 4
     description: "Map each stage to a generic capability slot, then use the active capability profile or skill discovery playbook to route to a local skill or use a fallback playbook."
   - step: 5
-    description: "Coordinate stage execution, status updates, validation checkpoints, and commit timing."
+    description: "Coordinate approval pauses, stage execution, target-aware test execution, selectable spec compliance, status updates, validation checkpoints, and one commit per validated durable stage or coherent bounded batch."
   - step: 6
-    description: "Before the final response, verify branch and checkpoint state plus the workflow closing checklist, including whether the commit policy requires a commit; then close with evidence: branch, changed files, validation, commits, merge/checkpoint state, open decisions, and recommended next action."
+    description: "Before the final response, verify branch and checkpoint state plus the workflow closing checklist, including whether the commit policy requires a commit; then close with separate evidence for approved requirements/specs, implementation, required tests, selected compliance, review, validation, task state, commits, merge/checkpoint state, open decisions, and recommended next action."
 references:
   - ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
   - ".ai/assets/skills/dev-workflow/references/skill-discovery-playbook.md"

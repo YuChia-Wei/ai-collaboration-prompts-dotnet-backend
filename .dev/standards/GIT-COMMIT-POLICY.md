@@ -177,7 +177,10 @@ Do not commit when:
 
 ## Workflow Commit Rule
 
-For workflow mode, commit at these boundaries:
+For workflow mode, the default density is one validated commit per durable
+stage or coherent bounded task batch. A skill invocation is not a commit
+boundary by itself. Commit at these boundaries when they form a durable,
+validated unit:
 
 1. workflow bootstrap;
 2. inventory completed;
@@ -187,6 +190,22 @@ For workflow mode, commit at these boundaries:
 6. final validation completed.
 
 If several small policy tasks are completed together and validated together, they may share one commit.
+
+### Safe History Compression
+
+Fixup, squash, or equivalent compression is allowed only when all affected
+commits are unshared and unpushed and the active repository policy permits the
+rewrite. Compression must not destroy or blur:
+
+- an approved source-of-truth baseline;
+- an externally referenced review, assessment, or validation evidence commit;
+- shared or pushed history;
+- an explicit checkpoint or handoff commit;
+- a boundary that another person or automation is expected to review or resume.
+
+Do not rewrite shared or pushed history merely to reduce commit count. If the
+history is already shared, add the next coherent corrective commit and preserve
+the existing evidence trail.
 
 ## Workflow Branch And Merge Rule
 

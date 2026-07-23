@@ -1,6 +1,6 @@
 ---
 name: dev-workflow
-description: Coordinate multi-stage software and product development lifecycles by deciding direct mode versus workflow mode, creating development artifacts, routing development stages to specialist skills, and managing validation and commit checkpoints.
+description: Coordinate high-level multi-stage software and product development intent without requiring skill names by deciding direct versus workflow mode, routing capabilities, honoring approval pauses, and managing target-aware tests, validation, and durable commit checkpoints.
 ---
 
 # Dev Workflow

@@ -4,6 +4,11 @@
 
 `dev-workflow` 的重點不是自己做架構設計、實作或 review，而是把產品與程式開發工作切成可追蹤的 stage，先對應到開發 capability slot，再透過本 repo 的 capability profile 派給對應 skill。AI context 自檢、context 文件治理、純文件整理與 repo init 不屬於此 skill 的 routing profile。
 
+使用者不必說出 `dev-workflow` 或任何 downstream skill 名稱。只要提出的
+high-level software-development intent 需要多階段規劃、核准、實作、測試、
+review 或 durable tracking，Agent 就應依 intent、既有 artifacts 與 repository
+policy 啟動此協調契約；不能只從 skill 名稱反推 lifecycle。
+
 若沒有對應的下游 skill 或 project standard，`dev-workflow` 只能降級為 fallback-mode：產出最低限度 checklist、handoff prompt 與風險說明。這種輸出不能宣稱與專職 skill 的品質相同。
 
 ## 這個 Skill 可以做什麼
@@ -18,6 +23,10 @@
 - 在沒有 profile 對應時，依 skill discovery playbook 檢查可用 skill 並標示 confidence
 - 在缺少對應 skill 時切換 fallback-mode
 - 設定 validation checkpoint 與 commit checkpoint
+- 依 target-owned command 與 policy 執行 unit/integration tests，並在有明確
+  selection source 時執行 E2E、browser、Playwright 或其他環境相依測試
+- 將 spec compliance 維持為可選 gate：未選時為 `not-applicable`，選定後
+  必須 100% 且 fail closed
 - 整理交棒給 sub-agent 或其他 skill 的 source packet
 - 在 workflow 結束時回報 validation、commit、尚未決策事項與後續建議
 - 在 final response 前執行 workflow closing checklist，確認 commit policy 是否要求 commit；若要求，必須先 commit 才能宣稱完成
@@ -33,6 +42,10 @@
 - 協調 AI context 自檢、AI context 修正或純文件治理 workflow
 - 取代 `bdd-gwt-test-designer` 做 GWT scenario 與 assertion design
 - 直接跳過 requirement / spec / review，只因為已經有 workflow plan
+- 在 requirement、design 或 specification 尚待核准時，先建立或執行
+  implementation work
+- 自行創造 test credentials、繞過企業控制，或未經同意提升權限
+- 把 `blocked-by-environment` 當成 test passed
 - 在沒有下游 skill 的情況下宣稱已完成同等品質的架構、review、test design 或 implementation 判斷
 
 ## 最適合什麼時候用
@@ -69,6 +82,54 @@
 | Fallback mode | 找不到對應 skill 或標準時，使用最低限度 checklist | 只能作為臨時風險控管與交棒，不等同專職 skill |
 
 目前本 repo 預設使用 Profile mode。
+
+### Intent-Based Activation 與 Approval Pause
+
+對於「把這個需求規劃、實作、測試並完成 review」這類高階請求，Agent 應
+直接啟動 orchestration，不要求使用者補上 skill 名稱。Agent 先從目標、
+repository evidence 與現有 requirement/spec/workflow 判斷 entry point，再將
+intent 對應到 capability slots。
+
+如果 requirement、design 或 specification 討論需要 owner 核准，Agent 可以
+保存目前 stage 與待決策事項，但在明確授權前不得建立或執行 implementation
+work。Artifact 已存在不代表已核准；authorization source 必須可追溯。
+
+### Test Execution Capability
+
+`test-execution` 是 optional capability contract，不是 required slot，也不在
+v0.6.0 新增或對應到專用 test skill。Provider resolution 順序固定為：
+
+1. target-profile commands；
+2. 經過獨立評估的 external skill；
+3. fallback contract。
+
+目標 repository 擁有 command、working directory、prerequisites、credential
+requirements、environment access boundary 與 test policy。Agent 必須記錄實際
+採用的 target-owned contract，但不得保存 secret values，也不能臆造 credentials、
+繞過 controls 或默認提升權限。
+
+Unit 與 integration 是預設 test levels。E2E、browser、Playwright 與
+environment-dependent tests 只有在 target policy、requirement、approved plan
+或 owner decision 選定時才執行。每個 selected level 必須得到以下其中一個
+精確 outcome：
+
+- `passed`
+- `failed`
+- `blocked-by-environment`
+- `not-applicable`
+- `deferred-with-owner`
+
+`blocked-by-environment` 是 blocked，不是 passed。Mandatory selected test
+不能用 `not-applicable` 代替成功；`deferred-with-owner` 必須記錄 owner 與
+follow-up，且只有 target policy 明確允許時才能 defer。Mandatory test 尚無
+可接受 outcome 時，closeout 必須暫停。
+
+### Selectable Spec Compliance
+
+Spec compliance 預設未選，結果為 `not-applicable`。Target profile、
+problem-frame workflow、requirement 或 owner decision 可以明確選定它。選定
+後，設定不完整、沒有 execution evidence 或 coverage 低於 100% 都必須 fail
+closed；不能把部分成功視為完成。
 
 ### Implementation Task Contract
 
@@ -111,7 +172,7 @@ Rules:
 - Create or update .dev/workflows/<workflow-id>/ when workflow mode applies.
 - Resolve stages through capability slots, local profile, or skill discovery.
 - Use fallback-mode only when no downstream skill or reliable standard exists.
-- Commit after coherent validated stages.
+- Commit after each validated durable stage or coherent bounded batch.
 - Keep working until the goal is complete or a direction decision is required from me.
 
 Return:
@@ -175,7 +236,7 @@ Rules:
 - Detect the earliest missing capability.
 - Continue with architecture, test-design, implementation, review, and validation as needed.
 - Create or update workflow artifacts if workflow mode applies.
-- Commit after coherent validated stages.
+- Commit after each validated durable stage or coherent bounded batch.
 ```
 
 ## 建議輸出
@@ -198,9 +259,23 @@ Rules:
 
 - workflow plan 與 task artifacts 已反映 completed 或 deferred 狀態
 - 必要 validation 已通過，或已明確記錄 skipped validation 與原因
+- approved requirements/specs、implementation completion、每個 required test
+  outcome、selected compliance gates、review disposition、task state 與
+  branch/handoff state 已分開核對
 - 已檢查 `.dev/standards/GIT-COMMIT-POLICY.md` 是否要求 commit
 - 若 commit policy 要求 commit，必須先完成 commit 才能宣稱 workflow completed
 - 若沒有 commit，final response 必須引用適用的 policy exception
+
+### Commit Density
+
+預設是一個 validated durable stage 或 coherent bounded batch 建立一個 commit，
+不是每次 skill invocation 都建立 commit。一起完成且一起驗證的小型 tasks 可以
+共用一個 commit。
+
+Fixup 或 squash 只允許用在尚未分享、尚未 push 的 history，且必須符合 active
+repository policy。不得壓縮或破壞 approved source-of-truth baseline、
+externally referenced evidence commit、shared/pushed history、review boundary，
+以及 checkpoint/handoff commit。
 
 ## 怎麼下 Prompt
 
@@ -216,7 +291,7 @@ Constraints:
 - create a branch first
 - create workflow artifacts when required
 - route each stage to the right skill
-- commit after coherent validated stages
+- commit after each validated durable stage or coherent bounded batch
 - ask me only when a direction decision is required
 
 Return:
@@ -227,6 +302,30 @@ Return:
 5. validation and commits
 6. inferred skill mappings and confidence
 7. fallback-mode stages, if any
+```
+
+### 範本 1A：只描述開發意圖，不指定 skill
+
+```text
+Plan, implement, test, review, and close this software change.
+
+Goal:
+- <描述目標>
+
+Constraints:
+- pause for my approval after requirement/design/specification discussion
+- use target-owned unit and integration test commands
+- run specialized tests only when repository policy or requirements select them
+- treat spec compliance as not applicable unless explicitly selected
+- commit each validated durable stage or coherent bounded batch
+
+Return:
+1. selected workflow mode and lifecycle entry point
+2. capability routing
+3. approval pauses
+4. exact test outcomes
+5. selected compliance gates
+6. closeout evidence
 ```
 
 ### 範本 2：只規劃，不先執行
@@ -280,6 +379,7 @@ Check:
 | architecture direction | `ddd-ca-hex-architect` |
 | GWT scenario / assertion design | `bdd-gwt-test-designer` |
 | bounded implementation | 對應的 implementer skill |
+| target-aware test execution | optional `test-execution` capability contract；不新增專用 skill |
 | code review | `code-reviewer` |
 | problem-frame compliance gate | `spec-compliance-validator` |
 
@@ -291,6 +391,11 @@ Check:
 - 本 repo 的 skill 對應應放在 capability profile。
 - 下游 skill 若要被穩定自動辨識，應宣告 `capability_slots`；沒有宣告時只能推論並標示 confidence。
 - fallback playbook 必須明確標示品質限制，不能包裝成專職 skill 結果。
+- `test-execution` 保持 optional/unmapped；只有經過獨立評估並獲採用的 external
+  skill 才能成為 provider。
 - 若 routing 規則改變，先更新 `.ai/assets/skills/dev-workflow/skill.yaml` 與 references，再同步 wrapper 與 guide。
 - development artifact 格式由 `dev-workflow` 自有 templates 管理；shared locator 與最低互通規則仍以 repository workflow policy 為準。
 - 每次 development workflow 都使用獨立 branch；checkpoint merge 與 workflow completion 必須分開判斷，workflow merge 預設 `--no-ff`。
+- Closeout 必須保留 approved requirement/spec、implementation、test、
+  compliance、review、validation、task、commit 與 handoff 的個別 evidence，
+  讓 fresh session 能從 Git 與 artifacts 接續，而不依賴 hidden conversation。

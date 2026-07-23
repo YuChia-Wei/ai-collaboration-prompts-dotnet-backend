@@ -80,6 +80,9 @@ Workflow artifact rules:
 2. Use `<type>(#<issue-number>|<scope>): <summary>` when an issue number exists.
 3. Use `<type>(<scope>): <summary>` when no issue number exists.
 4. For workflow-stage commits, include `Why`, `What`, `Validation`, and `Workflow` body sections.
+5. Commit one validated durable stage or coherent bounded batch, not each skill
+   invocation. Rewrite only unshared, unpushed history, and preserve approval,
+   review, evidence, checkpoint, and handoff boundaries.
 
 ### AI Context Governance
 
@@ -107,9 +110,20 @@ Use `ai-context-auditor` for read-only AI context health and drift analysis. A c
 
 ### Development Workflow Orchestration
 
-Use `dev-workflow` when software-development work needs multi-stage planning, development skill routing, sub-agent coordination, validation checkpoints, or commit checkpoints.
+Use `dev-workflow` when software-development work needs multi-stage planning, development skill routing, sub-agent coordination, approval pauses, target-aware test execution, validation checkpoints, or commit checkpoints. Activate it from high-level software-development intent even when the user does not name `dev-workflow` or downstream skills; derive stages from the requested outcome, current artifacts, and repository policy rather than skill names.
 
 The skill may coordinate downstream skills, but it must not replace their domain responsibilities.
+
+Pause before creating or executing implementation work while requirement,
+design, or specification approval is pending. Record the authorization source
+before continuing.
+
+Treat `test-execution` as an optional, unmapped capability contract rather than
+a new required skill. Prefer target-owned commands, then a separately evaluated
+external skill, then the fallback contract. Unit and integration are default;
+E2E, browser, Playwright, and environment-dependent tests are conditional.
+Record exact outcomes as `passed`, `failed`, `blocked-by-environment`,
+`not-applicable`, or `deferred-with-owner`; blocked is never passed.
 
 Do not route general AI-context audit, documentation governance, or repository initialization through `dev-workflow`; use their owning skills and skill-specific workflow templates.
 
@@ -152,11 +166,15 @@ When code review applies:
 
 ### Spec Compliance
 
-When using problem-frame workflows:
+Spec compliance is selectable. When it is not explicitly selected by a target
+profile, problem-frame workflow, requirement, or owner decision, record it as
+`not-applicable`. Once selected:
 
 1. Run `spec-compliance-validator`.
 2. Gate: coverage must be 100%.
-3. If coverage is not 100%, return to implementation or test generation before claiming completion.
+3. Fail closed on partial configuration, missing execution evidence, or
+   coverage below 100%; return to implementation or test generation before
+   claiming completion.
 
 ## Skill Routing
 
@@ -185,6 +203,10 @@ Use these boundaries:
 | Problem frame authoring | `problem-frame-author` |
 | Bounded implementation slice | `slice-implementer` |
 | Local technical code change | `local-change-implementer` |
+
+`test-execution` intentionally has no required skill mapping. Resolve it from
+target-owned commands, a separately evaluated external provider, or the
+fallback contract.
 
 ## File & Directory Index
 

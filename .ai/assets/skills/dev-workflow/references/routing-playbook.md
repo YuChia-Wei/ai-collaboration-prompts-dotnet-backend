@@ -2,6 +2,14 @@
 
 Use this playbook after the workflow gate confirms that software or product development work needs stage planning, development skill orchestration, or durable task tracking.
 
+## Intent-Based Activation
+
+Activate this orchestration contract from the user's high-level
+software-development intent. The user does not need to name `dev-workflow` or
+any downstream skill. Derive stages from the requested outcome, current
+artifacts, repository policy, and approval state; do not infer the lifecycle
+from skill names alone.
+
 ## Routing Model
 
 Route in two steps:
@@ -23,6 +31,7 @@ If the active profile has no matching downstream skill, use `skill-discovery-pla
 | GWT scenario and assertion design | `test-design` | Scenarios, assertion points, test level recommendation. |
 | Bounded slice implementation | `implementation` | Code or document changes for a bounded slice, narrow validation. |
 | Local technical change | `local-change` | Local class, object, method, symbol, SQL/ORM, or direct-call-site changes and narrow validation. |
+| Execute target-selected tests | `test-execution` | Target-owned commands, exact outcomes, and environment or deferral evidence. |
 | Code or artifact review | `review` | Findings, severity, evidence, residual risk. |
 | Compliance or coverage gate | `compliance-validation` | Coverage result, missing evidence, pass/fail gate. |
 
@@ -46,6 +55,13 @@ The current local profile maps slots to these concrete skills:
 | `review` | `code-reviewer` |
 | `compliance-validation` | `spec-compliance-validator` |
 
+`test-execution` is intentionally absent from the mapping table. It is an
+optional capability contract, not a required dedicated skill. Resolve its
+provider in the machine-readable order declared by `capability-profile.yaml`:
+target-profile commands, a separately evaluated external skill, then the
+fallback contract. Unit and integration are default levels; E2E, browser,
+Playwright, and environment-dependent tests remain conditional.
+
 ## Skill Discovery Resolution
 
 When no explicit profile exists, or when the profile does not cover a capability slot:
@@ -61,6 +77,15 @@ When no explicit profile exists, or when the profile does not cover a capability
 
 - `dev-workflow` may decide the stage sequence, update workflow task status, and request the next skill.
 - `dev-workflow` must not invent downstream skill findings or claim a domain result without running or applying the downstream workflow.
+- Pause before creating or executing implementation work when a requirement,
+  design, or specification discussion is awaiting approval. Record the pending
+  direction and resume only after explicit authorization.
+- For `test-execution`, use target-owned commands, working directory,
+  prerequisites, and policy. Record one exact supported outcome per selected
+  level; never count `blocked-by-environment` as passed.
+- Treat spec compliance as unselected and `not-applicable` unless a target
+  profile, problem-frame workflow, requirement, or owner decision selects it.
+  Once selected, incomplete configuration or coverage below 100% fails closed.
 - AI context auditing, AI context governance, documentation-only cleanup, and repository initialization are outside this orchestration profile. Route them directly to their owning skill instead of representing them as development capability slots.
 - When two capability slots could apply, route by the source of truth being changed:
   - product or code architecture truth: `architecture`
@@ -80,4 +105,7 @@ When handing a stage to another skill or sub-agent, include:
 3. source files and policies already read;
 4. user constraints and open decisions;
 5. expected output files or output sections;
-6. validation expected before returning.
+6. target-owned test command, working directory, prerequisites, and policy when
+   test execution is selected;
+7. validation expected before returning;
+8. approval state and the decision that would pause or resume execution.

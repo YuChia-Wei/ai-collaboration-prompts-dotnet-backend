@@ -26,10 +26,11 @@ The workflow plan should capture:
 - metadata: plan id, owner skill, status, creation and update timestamps, and template source/version;
 - problem statement and current scope;
 - target direction and constraints;
+- approval state and authorization sources for stage transitions;
 - stages, goals, scope, risks, and recommended implementers;
-- validation strategy;
+- validation strategy, target-owned test execution, and selectable compliance;
 - open questions and dependencies;
-- completion summary when closed.
+- completion summary with separately verified closeout evidence when closed.
 
 ## Task JSON
 
@@ -44,6 +45,7 @@ Each task JSON should capture:
 - scope target, files, dependency radius, constraints, and non-goals;
 - inputs and user constraints;
 - execution steps, validation, and deferred items;
+- approval state, test execution records, and selected compliance state;
 - results after completion.
 
 When `execution.capability_slot` is `implementation`, replace the template's
@@ -69,6 +71,50 @@ null `implementation_contract` with:
 - Do not use deprecated `mode`, `source_truth`, or `source_findings` fields.
 - Leave `implementation_contract` null for non-implementation tasks.
 
+When `execution.capability_slot` is `test-execution`, replace the template's
+null `test_execution_contract` with:
+
+```json
+{
+  "provider": "target-profile-commands",
+  "target_owned": {
+    "working_directory": "<repository-relative path>",
+    "commands": [
+      {
+        "level": "unit",
+        "command": "<exact target-owned command>"
+      },
+      {
+        "level": "integration",
+        "command": "<exact target-owned command>"
+      }
+    ],
+    "prerequisites": [],
+    "environment_boundary": [],
+    "policy": []
+  },
+  "selected_levels": ["unit", "integration"],
+  "conditional_selection_sources": [],
+  "outcomes": [
+    {
+      "level": "unit",
+      "outcome": "<passed | failed | blocked-by-environment | not-applicable | deferred-with-owner>",
+      "evidence": [],
+      "deferral_owner": "",
+      "follow_up": ""
+    }
+  ]
+}
+```
+
+- Provider order is `target-profile-commands`,
+  `evaluated-external-skill`, then `fallback-contract`.
+- Unit and integration are selected by default. Add E2E, browser, Playwright,
+  or environment-dependent levels only with a recorded selection source.
+- Record commands and environment requirements, not secrets. Never invent
+  credentials, bypass controls, or escalate privileges implicitly.
+- Leave `test_execution_contract` null for other capability slots.
+
 Use these statuses:
 
 ```text
@@ -80,11 +126,32 @@ Use `deferred` only when the work is intentionally postponed and the task or pla
 ## Stage Update Rules
 
 - Mark a task `in_progress` before making material edits for that task.
+- Keep implementation pending while requirement, design, or specification
+  approval is unresolved. Record the authorization source before creating or
+  executing implementation work.
 - Keep `created_at` immutable and update `updated_at` whenever material content or status changes. Use an ISO 8601 timestamp with an explicit UTC offset.
 - Mark a task `completed` only after the task output exists and the narrow validation has passed.
 - Record skipped validation when it would normally apply.
+- For test execution, record the provider, selected level, target-owned command,
+  working directory, prerequisites, policy, and exactly one supported outcome.
+  `blocked-by-environment` remains blocked and is never counted as passed.
+- Record spec compliance as `not-applicable` when unselected. Once selected,
+  require complete configuration and 100% coverage or fail closed.
 - Keep task results factual: changed files, commands run, and follow-up state.
 - Do not close the workflow plan until final validation has passed.
+
+## Commit And Closeout Rules
+
+- Use one validated commit per durable stage or coherent bounded batch, not one
+  commit per skill invocation.
+- Small tasks completed and validated together may share a commit.
+- Fixup or squash only unshared, unpushed history under repository policy.
+  Preserve approval baselines, review or evidence commits, pushed history, and
+  checkpoint or handoff commits.
+- Before closeout, verify approved requirements and specs, implementation
+  completion, required test outcomes, selected compliance gates, review
+  disposition, validation evidence, task state, commit evidence, and branch or
+  handoff state separately.
 
 ## Skill-Owned Templates
 

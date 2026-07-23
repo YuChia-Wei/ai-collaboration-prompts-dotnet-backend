@@ -9,6 +9,24 @@ Runtime features and `dev-workflow` operate at different layers:
 - `dev-workflow` defines the repository/team software-development lifecycle orchestration policy;
 - downstream skills perform specialist work.
 
+## Intent-Based Runtime Activation
+
+A runtime should select this contract from a high-level multi-stage
+software-development request even when the user does not write
+`$dev-workflow`, `dev-workflow`, or downstream skill names. A named command may
+remain a convenience, but the activation signal is the requested outcome,
+current lifecycle artifacts, mutation scope, and need for approval or durable
+tracking.
+
+After activation:
+
+- map intent to generic capability slots before resolving providers;
+- pause before implementation while requirement, design, or specification
+  approval is pending;
+- use repository and target policy as process truth;
+- do not treat runtime completion, a skill invocation, a push, or a merge as
+  product closeout.
+
 ## Layer Model
 
 | Layer | Responsibility | Typical examples |
@@ -35,7 +53,9 @@ Rules:
 - Create or update workflow artifacts when workflow mode applies.
 - Route stages through capability slots, local profile, or skill discovery.
 - Use fallback-mode only when no downstream skill or reliable standard is available.
-- Commit after coherent validated stages.
+- Execute target-owned unit and integration tests by default; run specialized tests only when selected.
+- Treat unselected spec compliance as not applicable and selected compliance as a 100% fail-closed gate.
+- Commit after a validated durable stage or coherent bounded batch.
 - Keep working until the goal is complete or a direction decision is required.
 ```
 
@@ -60,6 +80,8 @@ Execution:
 - Plan stages with capability slots.
 - Resolve skills from the active profile or discovery playbook.
 - Create or update .dev/workflows/<workflow-id>/ when workflow mode applies.
+- Honor approval pauses before implementation.
+- Record exact target-owned test outcomes and selected compliance gates.
 - Execute stages until done, blocked, or a user direction decision is required.
 
 Return:
@@ -83,6 +105,10 @@ Return:
 | Workflow task artifacts exist | current task status |
 | Implementation exists | `review` or `compliance-validation` |
 
+An artifact's existence does not prove approval. Before moving from requirement,
+design, or specification work into implementation, verify and record the
+authorization source.
+
 ## Runtime-Agnostic Prompt Contract
 
 When writing prompts for any runtime, include:
@@ -93,6 +119,8 @@ When writing prompts for any runtime, include:
 4. `dev-workflow` orchestration rules;
 5. validation expectations;
 6. commit or handoff expectations;
-7. when to ask the user for a direction decision.
+7. target-owned test commands, prerequisites, policy, and selected levels;
+8. whether spec compliance is selected;
+9. when to ask the user for a direction decision.
 
 Do not make runtime workflows the source of truth for repository process rules. Runtime workflows should invoke `dev-workflow`; `dev-workflow` should point to repository policies and downstream skills.

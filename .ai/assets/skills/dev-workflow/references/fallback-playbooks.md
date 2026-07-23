@@ -66,6 +66,27 @@ Minimum checklist:
 - Keep changes bounded to the task.
 - Do not redesign architecture while implementing.
 
+### `test-execution`
+
+Use this fallback only after target-profile commands and any separately
+evaluated external skill are unavailable.
+
+Minimum contract:
+
+- Read target-owned commands, working directory, prerequisites, and policy from
+  repository evidence or an explicit owner decision.
+- Do not invent credentials, bypass enterprise controls, or escalate privileges
+  implicitly.
+- Select unit and integration by default; select E2E, browser, Playwright, or
+  environment-dependent levels only when target policy, requirements, an
+  approved plan, or the owner requires them.
+- Record exactly one outcome per selected level: `passed`, `failed`,
+  `blocked-by-environment`, `not-applicable`, or `deferred-with-owner`.
+- Treat `blocked-by-environment` as blocked, never passed. A mandatory selected
+  test keeps closeout open until target policy accepts the recorded outcome.
+- Use `deferred-with-owner` only with the responsible owner and follow-up
+  condition recorded.
+
 ### `refactoring`
 
 Minimum checklist:
@@ -91,4 +112,7 @@ Minimum checklist:
 - Identify the governing spec or problem frame.
 - Map implementation/test evidence to each required behavior.
 - Mark pass/fail explicitly.
-- Do not claim 100% coverage without direct evidence.
+- When spec compliance is not explicitly selected, report `not-applicable`
+  rather than pass.
+- Once selected, require complete configuration and direct evidence of 100%
+  coverage; partial configuration or lower coverage fails closed.

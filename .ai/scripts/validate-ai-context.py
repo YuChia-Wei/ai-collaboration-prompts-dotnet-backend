@@ -1515,8 +1515,9 @@ def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]
     profile = load_yaml_mapping(CAPABILITY_PROFILE, errors)
     if profile is None:
         return 0
-    if profile.get("schema_version") != "1.0":
-        errors.append(f"{CAPABILITY_PROFILE}: schema_version must be 1.0")
+    schema_version = profile.get("schema_version")
+    if schema_version not in {"1.0", "1.1"}:
+        errors.append(f"{CAPABILITY_PROFILE}: schema_version must be 1.0 or 1.1")
     if not isinstance(profile.get("profile_id"), str) or not profile.get("profile_id"):
         errors.append(f"{CAPABILITY_PROFILE}: profile_id must be a non-empty string")
     if profile.get("status") != "active":
@@ -1541,6 +1542,47 @@ def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]
         errors.append(f"{CAPABILITY_PROFILE}: unknown mapped slots {unknown}")
     if missing:
         errors.append(f"{CAPABILITY_PROFILE}: missing required mappings {missing}")
+    contracts = profile.get("capability_contracts", {})
+    if schema_version == "1.1":
+        if not isinstance(contracts, dict):
+            errors.append(f"{CAPABILITY_PROFILE}: capability_contracts must be a mapping")
+        else:
+            test_execution = contracts.get("test-execution")
+            expected_contract = {
+                "provider_order": [
+                    "target-profile-commands",
+                    "evaluated-external-skill",
+                    "fallback-contract",
+                ],
+                "default_levels": ["unit", "integration"],
+                "conditional_levels": [
+                    "e2e",
+                    "browser",
+                    "playwright",
+                    "environment-dependent",
+                ],
+                "outcomes": [
+                    "passed",
+                    "failed",
+                    "blocked-by-environment",
+                    "not-applicable",
+                    "deferred-with-owner",
+                ],
+            }
+            if not isinstance(test_execution, dict):
+                errors.append(f"{CAPABILITY_PROFILE}: test-execution contract is required")
+            else:
+                for field, expected_values in expected_contract.items():
+                    if test_execution.get(field) != expected_values:
+                        errors.append(
+                            f"{CAPABILITY_PROFILE}: test-execution.{field} must equal {expected_values}"
+                        )
+            if "test-execution" not in allowed:
+                errors.append(f"{CAPABILITY_PROFILE}: test-execution must be an allowed slot")
+            if "test-execution" in required:
+                errors.append(f"{CAPABILITY_PROFILE}: test-execution must remain optional")
+            if "test-execution" in mappings:
+                errors.append(f"{CAPABILITY_PROFILE}: test-execution must not map to an unevaluated skill")
     for slot, skill_id in mappings.items():
         if not isinstance(skill_id, str) or skill_id not in skill_assets:
             errors.append(f"{CAPABILITY_PROFILE}: {slot} maps missing skill {skill_id!r}")

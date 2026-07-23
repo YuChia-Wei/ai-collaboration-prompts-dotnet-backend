@@ -6,9 +6,9 @@
   "task_id": "V060IMP-003",
   "workflow_id": "2026-07-23-v0-6-product-contract-planning",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-24T00:50:47+08:00",
-  "updated_at": "2026-07-24T00:50:47+08:00",
+  "updated_at": "2026-07-24T01:20:25+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -53,15 +53,32 @@
       "fresh-session workflow resume fixture",
       "AI context and workflow validators"
     ],
-    "last_completed_step": "Implementation task created from approved DEVWF-002 contract",
-    "next_action": "Begin in parallel with schema implementation after inventory review"
+    "last_completed_step": "Implemented intent activation, approval pauses, pluggable target-aware test execution, selectable spec compliance, sustainable commit density, and closeout evidence contracts",
+    "next_action": "Add deterministic high-level activation and fresh-session resume acceptance fixtures before closing DEVWF-002"
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "Active documentation still conflicts on universal spec compliance and has no generic test-execution slot.",
+    "summary": "The current dev-workflow contract now activates from high-level intent without skill names, pauses at approval boundaries, resolves an optional unmapped test-execution capability, and treats spec compliance as selectable and fail-closed after activation.",
+    "files_changed": [
+      ".ai/assets/skills/dev-workflow/**",
+      ".agents/skills/dev-workflow/**",
+      ".claude/skills/dev-workflow/**",
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      "AGENTS.md",
+      "AGENTS.zh-TW.md",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/test_dev_workflow_capability_contract.py"
+    ],
+    "tests_run": [
+      "4 development capability contract tests passed",
+      "AI context validation passed",
+      "10 bilingual parity checks passed",
+      "JSON and YAML parsing passed",
+      "scoped git diff --check passed with expected CFG-001 line-ending warnings"
+    ],
+    "finding_status": "partially-resolved",
+    "residual_risk": "Deterministic high-level activation and fresh-session resume acceptance fixtures are not yet implemented.",
     "follow_up_needed": true
   }
 }

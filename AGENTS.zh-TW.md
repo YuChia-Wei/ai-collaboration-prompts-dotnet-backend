@@ -76,6 +76,9 @@ Workflow artifact 規則：
 2. 有 issue number 時使用 `<type>(#<issue-number>|<scope>): <summary>`。
 3. 沒有 issue number 時使用 `<type>(<scope>): <summary>`。
 4. workflow-stage commits 需包含 `Why`、`What`、`Validation` 與 `Workflow` body sections。
+5. 每個 validated durable stage 或 coherent bounded batch 建立一個 commit，
+   而不是每次 skill invocation 都 commit。只能改寫尚未 shared、尚未 pushed
+   的 history，且須保留 approval、review、evidence、checkpoint 與 handoff 邊界。
 
 ### AI Context Governance
 
@@ -103,9 +106,19 @@ Workflow artifact 規則：
 
 ### Development Workflow Orchestration
 
-當軟體開發工作需要多階段規劃、開發 skill routing、sub-agent coordination、validation checkpoint 或 commit checkpoint 時，使用 `dev-workflow`。
+當軟體開發工作需要多階段規劃、開發 skill routing、sub-agent coordination、approval pause、target-aware test execution、validation checkpoint 或 commit checkpoint 時，使用 `dev-workflow`。即使使用者沒有說出 `dev-workflow` 或 downstream skill 名稱，只要 high-level software-development intent 符合上述範圍就應啟動；依 requested outcome、current artifacts 與 repository policy 推導 stages，不要只從 skill 名稱判斷。
 
 該 skill 可以協調 downstream skills，但不應取代它們各自的專業責任。
+
+Requirement、design 或 specification 尚待核准時，先暫停，不要建立或執行
+implementation work；繼續前必須記錄 authorization source。
+
+`test-execution` 是 optional、unmapped capability contract，不是新的 required
+skill。依序使用 target-owned commands、經過獨立評估的 external skill、fallback
+contract。Unit 與 integration 是預設；E2E、browser、Playwright 與
+environment-dependent tests 是 conditional。Outcome 只能記錄為 `passed`、
+`failed`、`blocked-by-environment`、`not-applicable` 或
+`deferred-with-owner`；blocked 絕不等於 passed。
 
 一般 AI context audit、文件治理或 repository initialization 不交給 `dev-workflow`；改由對應 owner skill 與其自有 workflow template 處理。
 
@@ -148,11 +161,13 @@ Workflow artifact 規則：
 
 ### Spec Compliance
 
-使用 problem-frame workflows 時：
+Spec compliance 是 selectable gate。若 target profile、problem-frame workflow、
+requirement 或 owner decision 都未明確選定，記錄為 `not-applicable`。選定後：
 
 1. 執行 `spec-compliance-validator`。
 2. Gate：coverage 必須是 100%。
-3. 若 coverage 不是 100%，回到 implementation 或 test generation 後再宣稱完成。
+3. Partial configuration、缺少 execution evidence 或 coverage 低於 100% 時
+   fail closed；回到 implementation 或 test generation 後再宣稱完成。
 
 ## Skill Routing
 
@@ -181,6 +196,9 @@ Workflow artifact 規則：
 | Problem frame authoring | `problem-frame-author` |
 | Bounded implementation slice | `slice-implementer` |
 | 局部技術程式變更 | `local-change-implementer` |
+
+`test-execution` 刻意不建立 required skill mapping。依 target-owned commands、
+經過獨立評估的 external provider 或 fallback contract 執行。
 
 ## 檔案與目錄索引
 

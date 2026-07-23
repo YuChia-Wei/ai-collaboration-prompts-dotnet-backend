@@ -12,6 +12,13 @@ This policy defines when an agent should create workflow artifacts proactively i
 
 Mode is determined by intent, mutation, and execution tracking, not by the number of analysis steps alone. A transient read-only analysis may use multiple passes or sub-agents in direct mode when it does not write a repository report, mutate repository files, or perform remediation. A user request for a "report" means a durable repository artifact only when the user asks to save, persist, land, or otherwise retain it in the repository. Persistence by itself selects assessment mode, not workflow mode.
 
+For software-development work, activation is intent-based. A high-level request
+that spans planning, requirements, design, implementation, testing, review, or
+closeout may activate the repository's development orchestration without the
+user naming `dev-workflow` or any downstream skill. Determine stages from the
+requested outcome, current artifacts, repository policy, and approval state,
+not from skill names alone.
+
 ## Must Create a Workflow
 
 Create a durable workflow and its discovery locator when any of these are true:
@@ -96,7 +103,12 @@ Use `deferred` only when the task is intentionally postponed and the workflow pl
 
 ## Commit Rule
 
-Workflow stages should follow `.dev/standards/GIT-COMMIT-POLICY.md`. Commit after a stage or coherent task batch completes and validation has passed.
+Workflow stages should follow `.dev/standards/GIT-COMMIT-POLICY.md`. Commit one
+validated durable stage or coherent bounded task batch, not each skill
+invocation. Small tasks completed and validated together may share a commit.
+History compression is limited to unshared, unpushed commits under the active
+repository policy and must preserve approval, review, evidence, checkpoint,
+handoff, and shared-history boundaries.
 
 Merging or pushing an incomplete workflow is a checkpoint handoff, not workflow completion. Keep the workflow and unfinished tasks active. Resume a push-only handoff from the pushed branch; after a checkpoint merge, create the next continuation branch from the updated target as defined by `.dev/TEAM-GIT-FLOW-RULES.MD`.
 
@@ -104,12 +116,49 @@ When continuation also crosses a model, runtime, host, machine, or fresh
 session, follow `.dev/standards/WORKFLOW-HANDOFF-POLICY.md` and create its
 machine-readable receiving checkpoint before transfer.
 
+## Software-Development Approval And Validation Gate
+
+For a software-development workflow:
+
+- pause before creating or executing implementation work while a requirement,
+  design, or specification discussion is awaiting approval;
+- record the authorization source before the implementation transition;
+- resolve optional `test-execution` through target-profile commands, a
+  separately evaluated external skill, or the fallback contract, in that order;
+- use target-owned test commands, working directory, prerequisites, environment
+  boundary, credential requirements, and policy without storing secret values,
+  inventing credentials, bypassing controls, or escalating privileges
+  implicitly;
+- select unit and integration tests by default; select E2E, browser, Playwright,
+  and environment-dependent tests only when target policy, requirements, an
+  approved plan, or an owner decision requires them;
+- record each selected test level as `passed`, `failed`,
+  `blocked-by-environment`, `not-applicable`, or `deferred-with-owner`;
+  `blocked-by-environment` is blocked and never passed;
+- treat spec compliance as unselected and `not-applicable` by default. When a
+  target profile, problem-frame workflow, requirement, or owner decision
+  selects it, incomplete configuration or coverage below 100% fails closed.
+
+A mandatory selected specialized test keeps closeout open until its outcome is
+acceptable under target policy. `deferred-with-owner` requires the responsible
+owner and follow-up condition; it is not implicit success.
+
 ## Workflow Closing Checklist
 
 Before sending a final response in workflow mode, the agent must verify all of the following:
 
 - workflow plan and task artifacts reflect the completed or deferred state;
+- approval sources for requirement/design/specification transitions are
+  recorded before implementation;
 - required validation has passed, or skipped validation is explicitly recorded with a reason;
+- each required test level has its exact target-owned command context, outcome,
+  and evidence; blocked tests are not counted as passed;
+- unselected spec compliance is recorded as `not-applicable`, while selected
+  spec compliance has complete configuration and direct evidence of 100%
+  coverage;
+- approved requirements and specs, implementation completion, required tests,
+  selected compliance, review disposition, validation evidence, task state,
+  commit evidence, and branch/handoff state were checked separately;
 - `.dev/standards/GIT-COMMIT-POLICY.md` has been checked for commit requirements;
 - when the commit policy requires a commit, the commit has been created before claiming completion;
 - when no commit is created, the final response cites the exact policy exception that applies.

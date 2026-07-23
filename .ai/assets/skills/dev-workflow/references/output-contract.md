@@ -11,6 +11,9 @@ Workflow Mode:
 Reason:
 - <why the mode applies>
 
+Activation:
+- <high-level intent and repository evidence; no skill name required>
+
 Selected Skills:
 - <skill>: <why>
 
@@ -19,6 +22,10 @@ Artifacts:
 
 Stages:
 - <stage id>: <goal, owner skill, validation>
+
+Approval State:
+- approved | awaiting-approval
+- <decision boundary or none>
 
 Open Decisions:
 - <decision needed from user, or none>
@@ -44,6 +51,16 @@ Expected Output:
 
 Validation:
 - <checks required before return>
+
+Test Execution:
+- Level: <unit | integration | e2e | browser | playwright | environment-dependent>
+- Provider: <target-profile-commands | evaluated-external-skill | fallback-contract>
+- Command / Working Directory / Prerequisites / Policy: <target-owned values>
+- Outcome: <passed | failed | blocked-by-environment | not-applicable | deferred-with-owner>
+
+Spec Compliance:
+- Selected: <yes | no>
+- Outcome: <100-percent-pass | failed-closed | not-applicable>
 ```
 
 ## Final Output
@@ -58,9 +75,26 @@ Changed:
 Validation:
 - <commands/checks run>
 
+Test Outcomes:
+- <level>: <exact outcome and evidence>
+
+Spec Compliance:
+- <not-applicable when unselected, or selected 100-percent gate evidence>
+
+Review And Task State:
+- <review disposition, workflow status, and unfinished/deferred items>
+
 Commits:
-- <commit hash and title, if committed>
+- <durable stage or coherent-batch commit hash and title, if committed>
+
+Branch / Handoff:
+- <active branch, merge/checkpoint state, and continuation evidence>
 
 Open Decisions:
 - <remaining decisions, or none>
 ```
+
+Do not collapse closeout into one generic success flag. Verify approved
+requirements and specs, implementation completion, each required test outcome,
+selected compliance gates, review disposition, validation evidence, workflow
+task state, commit evidence, and branch or handoff state separately.

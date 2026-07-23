@@ -3,9 +3,9 @@
 ## Template Metadata
 
 - `template_id`: `dev-workflow/development-workflow-plan`
-- `template_version`: `1.1.0`
+- `template_version`: `1.2.0`
 - `template_created_at`: `2026-07-10T18:25:11+08:00`
-- `template_updated_at`: `2026-07-11T00:22:30+08:00`
+- `template_updated_at`: `2026-07-24T01:03:37+08:00`
 
 ## Workflow Metadata
 
@@ -19,7 +19,7 @@
 - `created_at`: `<ISO-8601 timestamp with UTC offset>`
 - `updated_at`: `<ISO-8601 timestamp with UTC offset>`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
-- `template_version`: `1.1.0`
+- `template_version`: `1.2.0`
 - `workflow_locator`: `.dev/workflows/<workflow-id>/workflow.yaml`
 - `artifact_root`: `<repository-relative artifact root; default .dev/workflows/<workflow-id>/>`
 
@@ -51,12 +51,43 @@
 - Validation:
 - Commit checkpoint:
 
+## Approval Gates
+
+| Transition | Status | Authorization Source | Pending Decision |
+| --- | --- | --- | --- |
+| requirement/design/specification -> implementation | `awaiting-approval | approved | not-required` |  |  |
+
+Do not create or execute implementation work while the applicable transition
+is `awaiting-approval`.
+
 ## Validation Strategy
 
 - Requirement/spec traceability:
 - Architecture validation:
 - Test and implementation validation:
 - Review/compliance gates:
+
+## Test Execution Contract
+
+- Provider: `target-profile-commands | evaluated-external-skill | fallback-contract`
+- Target-owned working directory:
+- Target-owned commands:
+- Prerequisites and environment boundary:
+- Target policy:
+- Default selected levels: `unit`, `integration`
+- Conditional selected levels and activation source:
+
+| Level | Outcome | Evidence | Deferral Owner / Follow-up |
+| --- | --- | --- | --- |
+| unit | `passed | failed | blocked-by-environment | not-applicable | deferred-with-owner` |  |  |
+| integration | `passed | failed | blocked-by-environment | not-applicable | deferred-with-owner` |  |  |
+
+## Spec Compliance Selection
+
+- Selected: `yes | no`
+- Activation source:
+- Outcome: `100-percent-pass | failed-closed | not-applicable`
+- Coverage and evidence:
 
 ## Progress And Handoff
 
@@ -77,6 +108,13 @@
 
 - Outcome:
 - Changed artifacts:
+- Approved requirement/specification evidence:
+- Implementation completion evidence:
+- Required test outcomes:
+- Selected compliance evidence:
+- Review disposition:
 - Validation evidence:
+- Workflow task state:
 - Commits:
+- Branch / checkpoint / handoff evidence:
 - Residual risks:

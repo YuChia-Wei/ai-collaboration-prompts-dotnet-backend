@@ -14,6 +14,12 @@ Discovery is allowed to infer candidates, but routing should prefer explicit dec
 6. Route automatically only when confidence is high or medium with no competing candidate.
 7. Ask for user confirmation or use fallback-mode when confidence is low, conflicting, or absent.
 
+`test-execution` is a provider contract rather than a normal skill mapping.
+Prefer target-profile commands. Consider an external test skill only after it
+has been separately evaluated for the target; otherwise use the fallback
+contract. Do not add an unevaluated test skill to the profile merely because
+its name matches.
+
 ## Metadata Contract
 
 Downstream skills should declare capability slots when possible:
@@ -56,6 +62,7 @@ Use these hints only when structured metadata is unavailable.
 | BDD, GWT, Given-When-Then, scenario, assertion | `test-design` |
 | implement, command handler, query handler, reactor, use case | `implementation` |
 | refactor, staged change, extract, rename, local cleanup | `refactoring` |
+| unit test, integration test, E2E, browser, Playwright, test runner | `test-execution` provider candidate; separate evaluation required |
 | review, findings, severity, risk, checklist | `review` |
 | compliance, coverage gate, validator, pass/fail | `compliance-validation` |
 
@@ -66,6 +73,9 @@ Use these hints only when structured metadata is unavailable.
 - If one skill claims many slots and another claims one exact slot, prefer the exact-slot skill for that stage.
 - If the selected skill is a review or validation skill, do not use it as an implementation skill.
 - If the selected skill is a workflow skill, do not use it as a domain specialist.
+- If discovery finds a possible `test-execution` skill, do not route to it
+  until separate evaluation records the target commands, environment boundary,
+  and outcome semantics.
 - If the requested work is AI context maintenance, documentation-only governance, or repository initialization, stop dev-workflow discovery and route to the owning non-development skill.
 
 ## Discovery Output
