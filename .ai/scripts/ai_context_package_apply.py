@@ -418,7 +418,12 @@ def build_plan(
         path = safe_path(raw.get("path"), "migration path")
         from_path = safe_path(raw.get("from_path"), "migration from_path") if kind == "rename" else None
         for candidate in [path, from_path]:
-            if candidate in {".dev/AI-CONTEXT-SOURCE.yaml", ".dev/AI-CONTEXT-APPLY-PENDING.yaml"}:
+            if candidate in {
+                ".dev/AI-CONTEXT-SOURCE.yaml",
+                ".dev/AI-CONTEXT-APPLY-PENDING.yaml",
+                ".dev/ai-context/provenance.yaml",
+                ".dev/ai-context/customizations.yaml",
+            }:
                 raise ApplyError(f"migration cannot manage provenance or pending receipt: {candidate}")
             if candidate is not None:
                 owner = touched_paths.get(candidate)

@@ -86,6 +86,72 @@ class AiContextVersionGovernanceGwtTests(unittest.TestCase):
             # Then the target manifest is sufficient and source release records are not required
             self.assertEqual([], errors)
 
+    def test_gwt_004a_given_schema_2_provenance_and_empty_ledger_when_validated_then_target_passes(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            context = root / ".dev" / "ai-context"
+            context.mkdir(parents=True)
+            provenance = {
+                "schema_version": "2.0",
+                "source": {"repository": "owner/repo", "release_id": "REL-v0.6.0", "version": "v0.6.0", "tag": "v0.6.0", "commit": "9abc75b543ae201865c1e119d29fac2bcd2f4542"},
+                "installation": {"initialized_by": "ai-context-init", "imported_at": "2026-07-24T00:00:00+08:00", "last_upgraded_at": None},
+                "selection": {
+                    "release_model": "single-versioned-componentized-release",
+                    "mandatory_components": ["software-development-core", "ai-context-lifecycle-core"],
+                    "profiles": ["dotnet-backend"],
+                    "providers": {"repo-backlog": {"enabled": False, "preservation": "preserve-existing-if-recorded"}},
+                },
+                "customizations": {"ledger": ".dev/ai-context/customizations.yaml", "schema_version": "1.0"},
+                "previous_source": None,
+                "reconciliation": {"unresolved": []},
+                "last_migration": {"status": "completed", "from_version": "v0.5.0", "to_version": "v0.6.0", "completed_at": "2026-07-24T00:00:00+08:00", "evidence": "check-all"},
+            }
+            (context / "provenance.yaml").write_text(yaml.safe_dump(provenance, sort_keys=False), encoding="utf-8")
+            (context / "customizations.yaml").write_text("schema_version: '1.0'\ncustomizations: []\n", encoding="utf-8")
+            self.assertEqual([], VALIDATE.validate(root))
+
+    def test_gwt_004b_given_semantic_customization_without_decision_evidence_when_validated_then_it_fails(self):
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "customizations.yaml"
+            path.write_text(yaml.safe_dump({
+                "schema_version": "1.0",
+                "customizations": [{
+                    "id": "CUST-001",
+                    "subject": {"kind": "capability", "id": "test-execution"},
+                    "relationship": "deviates",
+                    "paths": [".dev/operations/test-policy.md"],
+                    "owner": "team",
+                    "reason": "enterprise policy",
+                    "decision_evidence": {"requirements": [], "adrs": [], "workflows": []},
+                    "incoming": {"status": "partial"},
+                    "disposition": "retain",
+                    "validation": ["manual review"],
+                }],
+            }, sort_keys=False), encoding="utf-8")
+            errors: list[str] = []
+            VALIDATE.validate_customizations(path, errors)
+            self.assertTrue(any("decision_evidence" in error for error in errors))
+
+    def test_gwt_004c_given_both_provenance_authorities_when_validated_then_it_fails_closed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / ".dev" / "ai-context").mkdir(parents=True)
+            (root / ".dev" / "ai-context" / "provenance.yaml").write_text("{}\n", encoding="utf-8")
+            (root / ".dev" / "AI-CONTEXT-SOURCE.yaml").write_text("{}\n", encoding="utf-8")
+            errors = VALIDATE.validate(root)
+            self.assertTrue(any("cannot both be active" in error for error in errors))
+
+    def test_gwt_004d_given_both_authorities_and_explicit_manifest_when_validated_then_it_still_fails_closed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            context = root / ".dev" / "ai-context"
+            context.mkdir(parents=True)
+            provenance = context / "provenance.yaml"
+            provenance.write_text("{}\n", encoding="utf-8")
+            (root / ".dev" / "AI-CONTEXT-SOURCE.yaml").write_text("{}\n", encoding="utf-8")
+            errors = VALIDATE.validate(root, provenance, verify_git=False)
+            self.assertTrue(any("cannot both be active" in error for error in errors))
+
     def test_gwt_005_given_unchanged_reusable_target_path_when_compared_then_it_is_automatic_candidate(self):
         # Given a reusable target file that is byte-identical to the base
         with tempfile.TemporaryDirectory() as temp:

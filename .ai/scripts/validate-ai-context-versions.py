@@ -252,10 +252,12 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
         errors.append(f"{path}: installation.imported_at must use ISO 8601 with an offset")
     if not isinstance(migration, dict) or migration.get("status") != "completed" or migration.get("to_version") != version:
         errors.append(f"{path}: completed last_migration.to_version must equal source.version")
-    overrides = data.get("local_overrides")
-    if not isinstance(overrides, list):
-        errors.append(f"{path}: local_overrides must be a list")
-    else:
+    schema_version = data.get("schema_version")
+    if schema_version == "1.0":
+        overrides = data.get("local_overrides")
+        if not isinstance(overrides, list):
+            errors.append(f"{path}: local_overrides must be a list")
+            return
         ids: set[str] = set()
         for index, item in enumerate(overrides):
             if not isinstance(item, dict):
@@ -271,6 +273,115 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
             for field in ("reason", "owner", "disposition"):
                 if not isinstance(item.get(field), str) or not item[field].strip():
                     errors.append(f"{path}: local_overrides[{index}].{field} is required")
+        return
+    if schema_version != "2.0":
+        errors.append(f"{path}: schema_version must be 1.0 or 2.0")
+        return
+    selection = data.get("selection")
+    if not isinstance(selection, dict):
+        errors.append(f"{path}: selection must be a mapping")
+    else:
+        if selection.get("release_model") != "single-versioned-componentized-release":
+            errors.append(f"{path}: selection.release_model is invalid")
+        components = selection.get("mandatory_components")
+        required_components = {"software-development-core", "ai-context-lifecycle-core"}
+        if not isinstance(components, list) or set(components) != required_components:
+            errors.append(f"{path}: selection.mandatory_components must contain both mandatory cores")
+        profiles = selection.get("profiles")
+        if (
+            not isinstance(profiles, list)
+            or not profiles
+            or len(profiles) != len(set(profiles))
+            or not all(isinstance(item, str) and item for item in profiles)
+        ):
+            errors.append(f"{path}: selection.profiles must be a non-empty string list")
+        providers = selection.get("providers")
+        if not isinstance(providers, dict):
+            errors.append(f"{path}: selection.providers must be a mapping")
+        else:
+            backlog = providers.get("repo-backlog")
+            if not isinstance(backlog, dict):
+                errors.append(f"{path}: selection.providers.repo-backlog must be a mapping")
+            else:
+                if not isinstance(backlog.get("enabled"), bool):
+                    errors.append(f"{path}: selection.providers.repo-backlog.enabled must be boolean")
+                if backlog.get("preservation") not in {
+                    "preserve-existing-if-recorded",
+                    "explicit-reconciliation-required",
+                }:
+                    errors.append(f"{path}: selection.providers.repo-backlog.preservation is invalid")
+    customizations = data.get("customizations")
+    if not isinstance(customizations, dict):
+        errors.append(f"{path}: customizations must be a mapping")
+    else:
+        if customizations.get("ledger") != ".dev/ai-context/customizations.yaml":
+            errors.append(f"{path}: customizations.ledger must be .dev/ai-context/customizations.yaml")
+        if customizations.get("schema_version") != "1.0":
+            errors.append(f"{path}: customizations.schema_version must be 1.0")
+
+
+def validate_customizations(path: Path, errors: list[str]) -> None:
+    data = load_mapping(path, errors)
+    if data is None:
+        return
+    if data.get("schema_version") != "1.0":
+        errors.append(f"{path}: schema_version must be 1.0")
+    entries = data.get("customizations")
+    if not isinstance(entries, list):
+        errors.append(f"{path}: customizations must be a list")
+        return
+    ids: set[str] = set()
+    relationships = {"extends", "replaces", "deviates", "target-only"}
+    equivalence = {"absent", "partial", "equivalent-candidate", "conflicting"}
+    dispositions = {"retain", "merge", "supersede", "retire", "unresolved"}
+    for index, item in enumerate(entries):
+        label = f"{path}: customizations[{index}]"
+        if not isinstance(item, dict):
+            errors.append(f"{label} must be a mapping")
+            continue
+        customization_id = item.get("id")
+        if not isinstance(customization_id, str) or not customization_id or customization_id in ids:
+            errors.append(f"{label}.id must be unique and non-empty")
+        else:
+            ids.add(customization_id)
+        subject = item.get("subject")
+        if not isinstance(subject, dict) or subject.get("kind") not in {"capability", "rule", "contract"} or not isinstance(subject.get("id"), str) or not subject["id"].strip():
+            errors.append(f"{label}.subject must identify a capability, rule, or contract")
+        if item.get("relationship") not in relationships:
+            errors.append(f"{label}.relationship is invalid")
+        paths = item.get("paths")
+        if (
+            not isinstance(paths, list)
+            or not paths
+            or not all(isinstance(value, str) and value.strip() for value in paths)
+        ):
+            errors.append(f"{label}.paths must be non-empty")
+        for field in ("owner", "reason"):
+            if not isinstance(item.get(field), str) or not item[field].strip():
+                errors.append(f"{label}.{field} is required")
+        evidence = item.get("decision_evidence")
+        evidence_values: list[object] = []
+        if isinstance(evidence, dict):
+            for field in ("requirements", "adrs", "workflows"):
+                values = evidence.get(field)
+                if isinstance(values, list):
+                    evidence_values.extend(values)
+        if not evidence_values or not all(isinstance(value, str) and value for value in evidence_values):
+            errors.append(f"{label}.decision_evidence requires a requirement, ADR, or workflow reference")
+        incoming = item.get("incoming")
+        if not isinstance(incoming, dict) or incoming.get("status") not in equivalence:
+            errors.append(f"{label}.incoming.status is invalid")
+        elif not isinstance(incoming.get("evidence"), str) or not incoming["evidence"].strip():
+            errors.append(f"{label}.incoming.evidence is required")
+        if item.get("disposition") not in dispositions:
+            errors.append(f"{label}.disposition is invalid")
+        validation = item.get("validation")
+        if (
+            not isinstance(validation, list)
+            or not validation
+            or not all(isinstance(value, str) and value.strip() for value in validation)
+        ):
+            errors.append(f"{label}.validation must be non-empty")
 
 
 def validate(root: Path, manifest: Path | None = None, verify_git: bool = True) -> list[str]:
@@ -279,13 +390,24 @@ def validate(root: Path, manifest: Path | None = None, verify_git: bool = True) 
     for path in release_files:
         validate_release(path, root, errors, verify_git)
     effective_manifest = manifest
-    default_manifest = root / ".dev" / "AI-CONTEXT-SOURCE.yaml"
-    if effective_manifest is None and default_manifest.is_file():
-        effective_manifest = default_manifest
+    provenance = root / ".dev" / "ai-context" / "provenance.yaml"
+    legacy_manifest = root / ".dev" / "AI-CONTEXT-SOURCE.yaml"
+    if provenance.is_file() and legacy_manifest.is_file():
+        errors.append(f"{root}: provenance.yaml and AI-CONTEXT-SOURCE.yaml cannot both be active")
+    if effective_manifest is None and provenance.is_file():
+        effective_manifest = provenance
+    if effective_manifest is None and legacy_manifest.is_file():
+        effective_manifest = legacy_manifest
     if effective_manifest is not None:
         validate_manifest(effective_manifest, errors)
+        if effective_manifest.resolve() == provenance.resolve():
+            ledger = root / ".dev" / "ai-context" / "customizations.yaml"
+            if not ledger.is_file():
+                errors.append(f"{root}: provenance schema 2 requires .dev/ai-context/customizations.yaml")
+            else:
+                validate_customizations(ledger, errors)
     if not release_files and effective_manifest is None:
-        errors.append(f"{root}: expected source release records or target .dev/AI-CONTEXT-SOURCE.yaml")
+        errors.append(f"{root}: expected source release records or target provenance")
     return errors
 
 
@@ -302,7 +424,9 @@ def main() -> int:
             print(f"- {error}")
         return 1
     count = len(list((args.root / ".dev" / "releases").glob("v*/release.yaml")))
-    manifest = args.manifest or (args.root / ".dev" / "AI-CONTEXT-SOURCE.yaml")
+    manifest = args.manifest or (args.root / ".dev" / "ai-context" / "provenance.yaml")
+    if not manifest.is_file():
+        manifest = args.root / ".dev" / "AI-CONTEXT-SOURCE.yaml"
     suffix = f" and target manifest {manifest}" if manifest.is_file() else ""
     print(f"AI context version validation passed for {count} release record(s){suffix}.")
     return 0

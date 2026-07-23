@@ -533,6 +533,23 @@ class AiContextPackageApplyGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
+    def test_gwt_011a_given_migration_targets_schema_2_context_state_when_planning_then_reserved_paths_fail_closed(self) -> None:
+        for path in (
+            ".dev/ai-context/provenance.yaml",
+            ".dev/ai-context/customizations.yaml",
+        ):
+            with self.subTest(path=path):
+                fixture = PackageApplyFixture()
+                try:
+                    fixture.make_package(
+                        {path: (b"target-owned: true\n", "framework-managed", "0644")},
+                        [operation("001-forged", "add", path)],
+                    )
+                    with self.assertRaisesRegex(APPLY.ApplyError, "cannot manage provenance"):
+                        fixture.plan()
+                finally:
+                    fixture.close()
+
     def test_gwt_012_given_previous_bytes_match_but_git_mode_differs_when_planned_then_it_reconciles(self) -> None:
         fixture = PackageApplyFixture()
         try:

@@ -1,0 +1,31 @@
+template_metadata:
+  template_id: "ai-context-customizations"
+  template_version: "1.0.0"
+  created_at: "2026-07-24T00:50:47+08:00"
+  updated_at: "2026-07-24T00:50:47+08:00"
+
+schema_version: "1.0"
+customizations: []
+
+# Entry shape:
+# - id: "CUST-<stable-target-id>"
+#   subject:
+#     kind: "capability | rule | contract"
+#     id: "<stable-framework-or-target-identity>"
+#   relationship: "extends | replaces | deviates | target-only"
+#   paths: ["<repository-relative-path>"]
+#   base:
+#     framework_version: "v0.0.0"
+#     evidence: "<commit-or-artifact>"
+#   owner: "<team-or-role>"
+#   reason: "<authorized-reason>"
+#   dependencies: []
+#   decision_evidence:
+#     requirements: []
+#     adrs: []
+#     workflows: ["<repository-relative-workflow-reference>"]
+#   incoming:
+#     status: "absent | partial | equivalent-candidate | conflicting"
+#     evidence: "<comparison-artifact>"
+#   disposition: "retain | merge | supersede | retire | unresolved"
+#   validation: ["<command-or-artifact>"]
