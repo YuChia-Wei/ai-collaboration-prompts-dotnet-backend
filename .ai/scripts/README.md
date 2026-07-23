@@ -185,14 +185,23 @@ target payload.
 `plan-ai-context-package-apply.py` is the dry-run-first target-side package
 entrypoint. It runs from the extracted envelope's `payload/.ai/scripts/`
 directory, requires a clean committed target, and binds the package manifest,
-target HEAD, and observed path hashes and modes into the plan. Existing target
+target HEAD, effective component selection, selection authority evidence, and
+observed path hashes and modes into the plan. Clean installation uses the
+package default and accepts an explicit `--enable-provider repo-backlog`;
+upgrades preserve component-aware provenance or derive the legacy backlog
+provider only from a schema-1 previous inventory. Schema-2 previous inventory
+without component-aware provenance and dual provenance authorities fail
+closed. Incoming, previous, and operation sets are filtered together so a
+disabled provider never generates removal work. Existing target
 templates and locally changed managed files become reconciliation items.
 Acknowledging such an item skips it; acknowledgement never grants overwrite or
 delete permission. `--apply` rechecks the complete binding, applies only safe
 operations transactionally, and writes
 `.dev/AI-CONTEXT-APPLY-PENDING.yaml`. It never updates validated source
-provenance; `repo-structure-sync` or `ai-context-upgrader` owns validation and
-provenance finalization.
+provenance; the receipt records the resolved/default selection, authority
+evidence, and applied/skipped counts by component. Apply revalidates that
+authority before mutation. `repo-structure-sync` or `ai-context-upgrader` owns
+validation and provenance finalization.
 
 `render-ai-context-release-notes.py` validates a governed release candidate and
 renders the GitHub Release body from its canonical release notes, migration

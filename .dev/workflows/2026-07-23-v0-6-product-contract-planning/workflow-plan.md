@@ -19,7 +19,7 @@
 - `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-23-v0-6-product-contract-planning`
 - `created_at`: `2026-07-23T22:52:32+08:00`
-- `updated_at`: `2026-07-24T00:50:47+08:00`
+- `updated_at`: `2026-07-24T07:42:30+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 

@@ -50,6 +50,11 @@ class SyntheticPackageRepo:
         (self.root / "docs/old-name.md").write_text("renamed bytes\n", encoding="utf-8", newline="\n")
         for script in ("ai_context_package_apply.py", "plan-ai-context-package-apply.py"):
             (self.root / ".ai/scripts" / script).write_bytes((SCRIPTS / script).read_bytes())
+        (self.root / ".ai/scripts/render-ai-context-release-notes.py").write_text(
+            "raise SystemExit('source-only renderer')\n",
+            encoding="utf-8",
+            newline="\n",
+        )
         profile = {
             "schema_version": "2.0.0",
             "profile": {
@@ -130,7 +135,16 @@ class SyntheticPackageRepo:
                     "install_behavior": "managed",
                 }
             ],
-            "exclusions": [],
+            "exclusions": [
+                {
+                    "id": "source-release-renderer",
+                    "classification": "source-only",
+                    "patterns": [
+                        ".ai/scripts/render-ai-context-release-notes.py"
+                    ],
+                    "reason": "Release publication rendering is source-only.",
+                }
+            ],
         }
         (self.root / ".ai/distribution/profiles/fixture.yaml").write_text(
             yaml.safe_dump(profile, sort_keys=False), encoding="utf-8", newline="\n"
@@ -184,6 +198,24 @@ def rewrite_zip_member(source: Path, target: Path, suffix: str, replacement: byt
 
 
 class DeterministicPackageGwtTests(unittest.TestCase):
+    def test_gwt_000_given_source_release_renderer_when_payload_is_projected_then_downstream_excludes_it(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            tree = PACKAGE.git_tree(fixture.root, "HEAD")
+            profile = PACKAGE.load_yaml_blob(fixture.root, tree, fixture.profile)
+            targets = {
+                item.path
+                for item in PACKAGE.collect_payload(fixture.root, tree, profile)
+            }
+            self.assertNotIn(
+                ".ai/scripts/render-ai-context-release-notes.py", targets
+            )
+            self.assertIn(
+                ".ai/scripts/plan-ai-context-package-apply.py", targets
+            )
+        finally:
+            fixture.close()
+
     def test_gwt_001_given_one_immutable_commit_when_built_twice_then_archives_are_byte_identical(self) -> None:
         fixture = SyntheticPackageRepo()
         try:
@@ -547,6 +579,31 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             # And the planner from the extracted candidate upgrades the extracted base.
             target = fixture.output("upgrade-target")
             shutil.copytree(previous_root / "payload", target)
+            provenance = target / ".dev/ai-context/provenance.yaml"
+            provenance.parent.mkdir(parents=True, exist_ok=True)
+            provenance.write_text(
+                yaml.safe_dump(
+                    {
+                        "selection": {
+                            "release_model": "single-versioned-componentized-release",
+                            "mandatory_components": [
+                                "software-development-core",
+                                "ai-context-lifecycle-core",
+                            ],
+                            "profiles": ["dotnet-backend"],
+                            "providers": {
+                                "repo-backlog": {
+                                    "enabled": False,
+                                    "preservation": "preserve-existing-if-recorded",
+                                }
+                            },
+                        }
+                    },
+                    sort_keys=False,
+                ),
+                encoding="utf-8",
+                newline="\n",
+            )
             git(target, "init", "-q")
             git(target, "config", "user.name", "Fixture")
             git(target, "config", "user.email", "fixture@example.invalid")

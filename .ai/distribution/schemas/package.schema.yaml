@@ -18,6 +18,10 @@ properties:
   version: semver-without-v-prefix
   release_id: REL-vMAJOR.MINOR.PATCH
   selection:
+    semantics:
+      scope: clean-install-default
+      archive_inventory: all-declared-component-bytes
+      effective_selection: resolved-by-target-planner
     required:
       - release_model
       - mandatory_components

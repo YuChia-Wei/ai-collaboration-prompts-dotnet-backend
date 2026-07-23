@@ -16,11 +16,21 @@ This package is a versioned framework payload, not a whole-repository overwrite.
    python payload/.ai/scripts/plan-ai-context-package-apply.py --package-root . --target-root <target-repository>
    ```
 
-   For a migration-schema `2.0.0` upgrade, also pass
+   Clean installations use the package's default component selection. The
+   optional backlog provider is disabled by default; enable it explicitly with
+   `--enable-provider repo-backlog`. Provider flags are clean-install choices
+   and cannot override an upgrade's recorded selection.
+
+   For a migration-schema `2.0.0` or `3.0.0` upgrade, also pass
    `--previous-version <vMAJOR.MINOR.PATCH>` and
    `--previous-files <previous-files.yaml>`. Both values must exactly match one
    source identity in `metadata/migration.yaml`. Schema `1.0.0` packages remain
    readable and infer their single declared source version.
+   A component-aware upgrade reads its effective selection from
+   `.dev/ai-context/provenance.yaml`. A legacy schema-1 inventory derives
+   backlog preservation only from its recorded `.dev/backlog/**` entries.
+   Schema-2 inventory without component-aware provenance, or simultaneous
+   legacy and new provenance authorities, fails closed.
    If `--plan-output` is used, its path must be outside both the extracted envelope and the target repository so it does not invalidate package checksums or the clean-worktree gate.
 
 5. Apply only after all reconciliation items are acknowledged by operation ID.
@@ -31,10 +41,13 @@ This package is a versioned framework payload, not a whole-repository overwrite.
    python payload/.ai/scripts/plan-ai-context-package-apply.py --package-root . --target-root <target-repository> --apply --acknowledge <operation-id>
    ```
 
-6. Review `.dev/AI-CONTEXT-APPLY-PENDING.yaml`, then run
+6. Review `.dev/AI-CONTEXT-APPLY-PENDING.yaml`, including its default and
+   resolved selection, resolution evidence, and applied/skipped component
+   operation counts. Then run
    `repo-structure-sync` after a clean installation or `ai-context-upgrader`
    for a versioned upgrade. The package tool does not update validated
-   `.dev/AI-CONTEXT-SOURCE.yaml` provenance.
+   `.dev/ai-context/provenance.yaml` provenance. Legacy
+   `.dev/AI-CONTEXT-SOURCE.yaml` remains read-compatible only.
 7. Commit target-specific synchronization separately from the framework application when practical.
 
 Framework-managed content may be replaced or removed only when its current hash matches the previous released hash. Target templates and target-owned truth are never silently overwritten or deleted.

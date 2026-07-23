@@ -11,6 +11,14 @@ properties:
   schema_version: semver
   package_id: non-empty-string
   selection:
+    semantics:
+      scope: clean-install-default
+      upgrade_authority_order:
+        - target-component-aware-provenance
+        - legacy-schema-1-inventory
+      schema-2-without-component-aware-provenance: fail-closed
+      dual-provenance-authority: fail-closed
+      disabled-component-removal: forbidden
     required:
       - release_model
       - mandatory_components
@@ -90,6 +98,19 @@ properties:
       - clean_worktree_required
       - starting_commit_required
       - abort_on_unacknowledged_reconciliation
+planner_projection:
+  filter_together:
+    - incoming-inventory
+    - previous-inventory
+    - migration-operations
+  plan_records:
+    - selection-default
+    - resolved-selection
+    - resolution-source-and-evidence
+    - component-operation-counts
+  apply_revalidates:
+    - selection-authority
+    - resolution-evidence
 additional_properties: false
 manifest_sha256_definition: sha256-of-source-files-yaml-bytes
 read_compatibility:

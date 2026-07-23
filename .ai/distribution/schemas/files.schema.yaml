@@ -30,6 +30,9 @@ file_entry:
   additional_properties: false
 ordering: path-utf8-bytewise-ascending
 path_safety: reject-absolute-dot-dot-backslash-and-output-collisions
+inventory_semantics:
+  scope: all-declared-component-bytes
+  install_filter: component-id-against-effective-selection
 additional_properties: false
 read_compatibility:
   - "1.0.0"

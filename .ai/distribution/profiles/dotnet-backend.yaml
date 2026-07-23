@@ -42,6 +42,11 @@ selection_defaults:
       enabled: false
       preservation: preserve-existing-if-recorded
 
+selection_semantics:
+  archive_inventory: all-declared-component-bytes
+  package_and_migration_selection: clean-install-default
+  effective_selection: target-planner-resolution
+
 package:
   source_repository: https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend
   name_template: ai-context-dotnet-backend-v{version}
@@ -308,15 +313,18 @@ exclusions:
       - .ai/scripts/ai_context_package.py
       - .ai/scripts/build-ai-context-package.py
       - .ai/scripts/prepare-ai-context-release.py
+      - .ai/scripts/render-ai-context-release-notes.py
       - .ai/scripts/validate-ai-context-package.py
       - .ai/scripts/validate-ai-context-release-state.py
       - .ai/scripts/validate-source-governance.py
+      - .ai/scripts/tests/test_backlog_release_contract.py
       - .ai/scripts/tests/test_ai_context_packaging.py
       - .ai/scripts/tests/test_ai_context_release_state.py
       - .ai/scripts/tests/test_ai_context_version_governance.py
       - .ai/scripts/tests/test_governance_workflow_contract.py
       - .ai/scripts/tests/test_prepare_ai_context_release.py
       - .ai/scripts/tests/test_release_notes_renderer.py
+      - .ai/assets/skills/ai-context-governance/templates/release-publication/**
       - '**/bin/**'
       - '**/obj/**'
       - '**/__pycache__/**'

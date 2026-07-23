@@ -473,10 +473,12 @@ def validate_component_selection(selection: object, label: str) -> dict:
         raise PackageError(f"{label}.profiles must select dotnet-backend")
     providers = selection.get("providers")
     backlog = providers.get("repo-backlog") if isinstance(providers, dict) else None
-    if not isinstance(backlog, dict) or backlog != {
-        "enabled": False,
-        "preservation": "preserve-existing-if-recorded",
-    }:
+    if (
+        not isinstance(backlog, dict)
+        or not isinstance(backlog.get("enabled"), bool)
+        or backlog.get("preservation") != "preserve-existing-if-recorded"
+        or set(backlog) != {"enabled", "preservation"}
+    ):
         raise PackageError(f"{label}.repo-backlog contract is invalid")
     return selection
 

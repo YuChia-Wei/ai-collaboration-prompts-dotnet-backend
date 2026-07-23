@@ -211,6 +211,45 @@ def validate_backlog(repo: Path, errors: list[str]) -> int:
     return len(item_paths)
 
 
+def backlog_provider_enabled(repo: Path, errors: list[str]) -> bool:
+    """Resolve backlog applicability from source identity or governed provenance."""
+    if (repo / ".ai/distribution/profiles/dotnet-backend.yaml").is_file():
+        return True
+
+    provenance_path = repo / ".dev/ai-context/provenance.yaml"
+    legacy_path = repo / ".dev/AI-CONTEXT-SOURCE.yaml"
+    if provenance_path.is_file() and legacy_path.is_file():
+        errors.append(
+            ".dev/ai-context: legacy and component-aware provenance authorities cannot coexist"
+        )
+        return False
+    if provenance_path.is_file():
+        provenance = parse_yaml_mapping(
+            provenance_path,
+            ".dev/ai-context/provenance.yaml",
+            errors,
+        )
+        if provenance is None:
+            return False
+        selection = provenance.get("selection")
+        providers = selection.get("providers") if isinstance(selection, dict) else None
+        backlog = providers.get("repo-backlog") if isinstance(providers, dict) else None
+        if (
+            not isinstance(backlog, dict)
+            or not isinstance(backlog.get("enabled"), bool)
+            or backlog.get("preservation") != "preserve-existing-if-recorded"
+        ):
+            errors.append(
+                ".dev/ai-context/provenance.yaml: invalid repo-backlog provider selection"
+            )
+            return False
+        return backlog["enabled"]
+
+    # Legacy targets predate explicit provider selection. Validate a retained
+    # provider only when the legacy provenance and provider root both exist.
+    return legacy_path.is_file() and (repo / ".dev/backlog").is_dir()
+
+
 def validate_workflow_index(repo: Path, discovery_root: Path, errors: list[str]) -> int:
     index_path = discovery_root / "INDEX.MD"
     if not index_path.is_file():
@@ -517,7 +556,11 @@ def main() -> int:
         )
 
     indexed_workflows = validate_workflow_index(repo, discovery_root, errors)
-    backlog_items = validate_backlog(repo, errors)
+    backlog_items = (
+        validate_backlog(repo, errors)
+        if backlog_provider_enabled(repo, errors)
+        else 0
+    )
 
     if errors:
         print("Workflow artifact validation failed:")
