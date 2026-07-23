@@ -1,4 +1,4 @@
-schema_version: 1.0.0
+schema_version: 2.0.0
 template_set: repo-structure-sync-public-seeds
 source_root: .
 ownership: target-template
@@ -6,23 +6,34 @@ install_behavior: seed
 mappings:
   - source: public-root/AGENTS.md
     target: AGENTS.md
+    component_id: ai-context-lifecycle-core
   - source: public-root/CLAUDE.md
     target: CLAUDE.md
+    component_id: ai-context-lifecycle-core
   - source: public-root/README.md
     target: README.md
+    component_id: ai-context-lifecycle-core
   - source: public-catalogs/dev/README.MD
     target: .dev/README.MD
+    component_id: ai-context-lifecycle-core
   - source: public-catalogs/dev/INDEX.md
     target: .dev/INDEX.md
+    component_id: ai-context-lifecycle-core
   - source: public-catalogs/dev/adr/INDEX.md
     target: .dev/adr/INDEX.md
+    component_id: software-development-core
   - source: public-catalogs/dev/assessments/INDEX.MD
     target: .dev/assessments/INDEX.MD
+    component_id: ai-context-lifecycle-core
   - source: public-catalogs/dev/backlog/INDEX.MD
     target: .dev/backlog/INDEX.MD
+    component_id: repo-backlog
   - source: public-catalogs/dev/specs/INDEX.MD
     target: .dev/specs/INDEX.MD
+    component_id: software-development-core
   - source: public-catalogs/dev/problem-frames/INDEX.md
     target: .dev/problem-frames/INDEX.md
+    component_id: software-development-core
   - source: public-catalogs/dev/workflows/INDEX.MD
     target: .dev/workflows/INDEX.MD
+    component_id: software-development-core

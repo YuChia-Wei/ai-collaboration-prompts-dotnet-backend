@@ -51,8 +51,54 @@ class SyntheticPackageRepo:
         for script in ("ai_context_package_apply.py", "plan-ai-context-package-apply.py"):
             (self.root / ".ai/scripts" / script).write_bytes((SCRIPTS / script).read_bytes())
         profile = {
-            "schema_version": "1.0.0",
-            "profile": {"id": "fixture"},
+            "schema_version": "2.0.0",
+            "profile": {
+                "id": "fixture",
+                "component_id": "dotnet-backend",
+                "requires": ["software-development-core"],
+            },
+            "release_model": "single-versioned-componentized-release",
+            "components": [
+                {
+                    "component_id": "software-development-core",
+                    "classification": "mandatory-core",
+                    "required": True,
+                    "requires": [],
+                },
+                {
+                    "component_id": "ai-context-lifecycle-core",
+                    "classification": "mandatory-core",
+                    "required": True,
+                    "requires": [],
+                },
+                {
+                    "component_id": "dotnet-backend",
+                    "classification": "technology-profile",
+                    "required": False,
+                    "requires": ["software-development-core"],
+                },
+                {
+                    "component_id": "repo-backlog",
+                    "classification": "optional-provider",
+                    "required": False,
+                    "default_enabled": False,
+                    "requires": ["software-development-core"],
+                },
+            ],
+            "selection_defaults": {
+                "release_model": "single-versioned-componentized-release",
+                "mandatory_components": [
+                    "software-development-core",
+                    "ai-context-lifecycle-core",
+                ],
+                "profiles": ["dotnet-backend"],
+                "providers": {
+                    "repo-backlog": {
+                        "enabled": False,
+                        "preservation": "preserve-existing-if-recorded",
+                    }
+                },
+            },
             "package": {
                 "source_repository": "fixture/repository",
                 "name_template": "fixture-v{version}",
@@ -69,6 +115,7 @@ class SyntheticPackageRepo:
             "entries": [
                 {
                     "id": "fixture-docs",
+                    "component_id": "software-development-core",
                     "source": "docs/**",
                     "target": "preserve-relative-path",
                     "ownership": "framework-managed",
@@ -76,6 +123,7 @@ class SyntheticPackageRepo:
                 },
                 {
                     "id": "fixture-apply-scripts",
+                    "component_id": "software-development-core",
                     "source": ".ai/scripts/**",
                     "target": "preserve-relative-path",
                     "ownership": "framework-managed",
@@ -204,6 +252,40 @@ class DeterministicPackageGwtTests(unittest.TestCase):
             tar_members = PACKAGE.validate_archive(Path(result["tar_gz"]))
             # Then every member byte and normalized mode is identical by path.
             self.assertEqual(zip_members, tar_members)
+        finally:
+            fixture.close()
+
+    def test_gwt_005a_given_component_profile_when_built_then_metadata_carries_one_selection_and_component_identity(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            result = fixture.build("component-metadata")
+            root = fixture.extract(result, "component-metadata-extracted")
+            package = yaml.safe_load(
+                (root / "metadata/package.yaml").read_text(encoding="utf-8")
+            )
+            inventory = yaml.safe_load(
+                (root / "metadata/files.yaml").read_text(encoding="utf-8")
+            )
+            migration = yaml.safe_load(
+                (root / "metadata/migration.yaml").read_text(encoding="utf-8")
+            )
+
+            self.assertEqual("2.0.0", package["schema_version"])
+            self.assertEqual("2.0.0", inventory["schema_version"])
+            self.assertEqual("3.0.0", migration["schema_version"])
+            self.assertEqual(package["selection"], migration["selection"])
+            self.assertTrue(
+                all(
+                    record["component_id"] == "software-development-core"
+                    for record in inventory["files"]
+                )
+            )
+            self.assertTrue(
+                all(
+                    operation["component_id"] == "software-development-core"
+                    for operation in migration["clean_install"]["operations"]
+                )
+            )
         finally:
             fixture.close()
 
@@ -365,7 +447,17 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             root = fixture.extract(result, "clean-install-v2-extracted")
             migration = yaml.safe_load((root / "metadata/migration.yaml").read_text(encoding="utf-8"))
             # Then clean-install operations are first-class and no synthetic previous version is needed.
-            self.assertEqual("2.0.0", migration["schema_version"])
+            self.assertEqual("3.0.0", migration["schema_version"])
+            self.assertEqual(
+                "single-versioned-componentized-release",
+                migration["selection"]["release_model"],
+            )
+            self.assertTrue(
+                all(
+                    operation["component_id"] == "software-development-core"
+                    for operation in migration["clean_install"]["operations"]
+                )
+            )
             self.assertIn("clean_install", migration)
             self.assertIsInstance(migration["clean_install"]["operations"], list)
             self.assertEqual([], migration["sources"])
@@ -437,7 +529,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             )
 
             # Then migration identity and every existing operation kind are deterministic.
-            self.assertEqual("2.0.0", migration["schema_version"])
+            self.assertEqual("3.0.0", migration["schema_version"])
             self.assertEqual("0.9.0", migration["sources"][0]["version"])
             self.assertEqual(
                 PACKAGE.sha256_bytes(previous_files.read_bytes()),

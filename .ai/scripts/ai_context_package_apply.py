@@ -142,6 +142,9 @@ def existing_case_map(root: Path) -> dict[str, str]:
 
 
 def inventory_records(document: dict, label: str) -> tuple[dict[str, dict], list[str]]:
+    schema_version = document.get("schema_version")
+    if schema_version not in {"1.0.0", "2.0.0"}:
+        raise ApplyError(f"{label} uses unsupported files schema: {schema_version!r}")
     records = document.get("files")
     if not isinstance(records, list):
         raise ApplyError(f"{label} files must be a list")
@@ -166,6 +169,11 @@ def inventory_records(document: dict, label: str) -> tuple[dict[str, dict], list
             raise ApplyError(f"invalid {label} sha256: {path}")
         if mode not in {"0644", "0755"}:
             raise ApplyError(f"invalid {label} mode: {path}")
+        if schema_version == "2.0.0" and (
+            not isinstance(raw.get("component_id"), str)
+            or not raw["component_id"]
+        ):
+            raise ApplyError(f"missing {label} component_id: {path}")
         output[path] = raw
         order.append(path)
     if order != sorted(order, key=lambda item: item.encode("utf-8")):
@@ -224,6 +232,17 @@ def validate_package_root(package_root: Path) -> tuple[dict, dict[str, dict], di
         raise ApplyError("package.yaml package_id is required")
     if inventory.get("package_id") != package_id or migration.get("package_id") != package_id:
         raise ApplyError("package identity mismatch")
+    package_schema = package.get("schema_version")
+    if package_schema not in {"1.0.0", "2.0.0"}:
+        raise ApplyError(f"unsupported package schema version: {package_schema!r}")
+    if package_schema == "2.0.0":
+        selection = package.get("selection")
+        if not isinstance(selection, dict):
+            raise ApplyError("package selection must be a mapping")
+        if migration.get("schema_version") == "3.0.0" and migration.get(
+            "selection"
+        ) != selection:
+            raise ApplyError("package and migration selections must match")
     records, _ = inventory_records(inventory, "incoming inventory")
     for relative, record in records.items():
         payload = package_root / "payload" / Path(*PurePosixPath(relative).parts)
@@ -361,6 +380,10 @@ def migration_selection(
         return schema_2_migration_selection(
             path, previous_version_value, migration
         )
+    if schema_version == "3.0.0":
+        return schema_2_migration_selection(
+            path, previous_version_value, migration
+        )
     raise ApplyError(f"unsupported migration schema version: {schema_version!r}")
 
 
@@ -400,9 +423,16 @@ def build_plan(
         if not isinstance(raw, dict):
             raise ApplyError("migration operations must be mappings")
         operation_id, kind, ownership = raw.get("id"), raw.get("kind"), raw.get("ownership")
+        component_id = raw.get("component_id")
         if not isinstance(operation_id, str) or not operation_id or operation_id in ids:
             raise ApplyError("migration operation IDs must be unique non-empty strings")
         ids.add(operation_id)
+        if migration.get("schema_version") == "3.0.0" and (
+            not isinstance(component_id, str) or not component_id
+        ):
+            raise ApplyError(
+                f"schema 3 migration operation requires component_id: {operation_id}"
+            )
         if kind not in {"add", "replace", "remove", "rename", "reconcile"}:
             raise ApplyError(f"unsupported migration operation kind: {kind}")
         required_preconditions = {
@@ -446,7 +476,16 @@ def build_plan(
                 existing = case_map.get(prefix.casefold())
                 if existing is not None and existing != prefix:
                     raise ApplyError(f"case-fold collision for operation path: {existing} and {prefix}")
-        normalized.append({"id": operation_id, "kind": kind, "path": path, "from_path": from_path, "ownership": ownership})
+        normalized.append(
+            {
+                "id": operation_id,
+                "kind": kind,
+                "path": path,
+                "from_path": from_path,
+                "ownership": ownership,
+                "component_id": component_id,
+            }
+        )
     if [item["id"] for item in normalized] != sorted(item["id"] for item in normalized):
         raise ApplyError("migration operations must be ordered by ID")
     destination_paths = {item["path"] for item in normalized if item["kind"] in {"add", "replace", "rename", "reconcile"}}
@@ -519,6 +558,7 @@ def build_plan(
         "target_starting_commit": head,
         "previous_files": str(previous_files_path.resolve()) if previous_files_path else None,
         "previous_version": selected_version,
+        "selection": package.get("selection"),
         "observed": observed,
         "operations": planned,
     }
@@ -599,6 +639,7 @@ def apply_plan(plan: dict, acknowledgements: set[str] | None = None) -> dict:
             "target_starting_commit": plan["target_starting_commit"],
             "applied_operation_ids": [item["id"] for item in active],
             "skipped_reconciliation_ids": sorted(reconciles),
+            "selection": package.get("selection"),
             "provenance_updated": False,
         }
         receipt_path.write_text(yaml.safe_dump(receipt, sort_keys=False), encoding="utf-8", newline="\n")

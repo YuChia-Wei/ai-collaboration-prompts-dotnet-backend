@@ -1,4 +1,4 @@
-schema_version: 1.0.0
+schema_version: 2.0.0
 document: package.yaml
 required:
   - schema_version
@@ -6,6 +6,7 @@ required:
   - profile_id
   - version
   - release_id
+  - selection
   - source
   - created_at
   - source_date_epoch
@@ -16,6 +17,30 @@ properties:
   profile_id: non-empty-string
   version: semver-without-v-prefix
   release_id: REL-vMAJOR.MINOR.PATCH
+  selection:
+    required:
+      - release_model
+      - mandatory_components
+      - profiles
+      - providers
+    properties:
+      release_model:
+        const: single-versioned-componentized-release
+      mandatory_components:
+        exact_set:
+          - software-development-core
+          - ai-context-lifecycle-core
+      profiles:
+        type: unique-non-empty-component-id-list
+      providers:
+        type: component-provider-selection-mapping
+        properties:
+          repo-backlog:
+            required: [enabled, preservation]
+            properties:
+              enabled: boolean
+              preservation:
+                enum: [preserve-existing-if-recorded]
   source:
     required: [repository, ref, commit]
     properties:
@@ -34,3 +59,5 @@ properties:
   compatibility:
     required: [minimum_governed_source, breaking_changes]
 additional_properties: false
+read_compatibility:
+  - "1.0.0"

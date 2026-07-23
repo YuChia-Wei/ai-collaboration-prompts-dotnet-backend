@@ -1,8 +1,46 @@
-schema_version: 1.0.0
+schema_version: 2.0.0
 profile:
   id: dotnet-backend
-  version: 1.0.0
+  version: 2.0.0
   description: Complete portable AI collaboration context with the retained .NET backend capability.
+  component_id: dotnet-backend
+  requires:
+    - software-development-core
+
+release_model: single-versioned-componentized-release
+
+components:
+  - component_id: software-development-core
+    classification: mandatory-core
+    required: true
+    requires: []
+  - component_id: ai-context-lifecycle-core
+    classification: mandatory-core
+    required: true
+    requires: []
+  - component_id: dotnet-backend
+    classification: technology-profile
+    required: false
+    requires:
+      - software-development-core
+  - component_id: repo-backlog
+    classification: optional-provider
+    required: false
+    default_enabled: false
+    requires:
+      - software-development-core
+
+selection_defaults:
+  release_model: single-versioned-componentized-release
+  mandatory_components:
+    - software-development-core
+    - ai-context-lifecycle-core
+  profiles:
+    - dotnet-backend
+  providers:
+    repo-backlog:
+      enabled: false
+      preservation: preserve-existing-if-recorded
 
 package:
   source_repository: https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend
@@ -47,11 +85,13 @@ ownership_classes:
 
 entries:
   - id: canonical-ai-assets
+    component_id: software-development-core
     source: .ai/assets/**
     target: .ai/assets/
     ownership: framework-managed
     install_behavior: managed
   - id: ai-entry-documents
+    component_id: ai-context-lifecycle-core
     source:
       - .ai/README.MD
       - .ai/INDEX.MD
@@ -61,36 +101,43 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: ai-runtime-scripts
+    component_id: software-development-core
     source: .ai/scripts/**
     target: .ai/scripts/
     ownership: framework-managed
     install_behavior: managed
   - id: codex-skill-wrappers
+    component_id: software-development-core
     source: .agents/skills/**
     target: .agents/skills/
     ownership: framework-managed
     install_behavior: managed
   - id: claude-skill-wrappers
+    component_id: software-development-core
     source: .claude/skills/**
     target: .claude/skills/
     ownership: framework-managed
     install_behavior: managed
   - id: codex-agent-adapters
+    component_id: software-development-core
     source: .codex/agents/**
     target: .codex/agents/
     ownership: framework-managed
     install_behavior: managed
   - id: claude-agent-adapters
+    component_id: software-development-core
     source: .claude/agents/**
     target: .claude/agents/
     ownership: framework-managed
     install_behavior: managed
   - id: copilot-agent-adapters
+    component_id: software-development-core
     source: .github/agents/**
     target: .github/agents/
     ownership: framework-managed
     install_behavior: managed
   - id: governance-standards
+    component_id: software-development-core
     source:
       - .dev/standards/**
       - .dev/TEAM-GIT-FLOW-RULES.MD
@@ -98,11 +145,13 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: reusable-guides
+    component_id: software-development-core
     source: .dev/guides/**
     target: .dev/guides/
     ownership: framework-managed
     install_behavior: managed
   - id: domain-language-templates
+    component_id: software-development-core
     source:
       - .dev/domain-language/README.MD
       - .dev/domain-language/templates/**
@@ -110,6 +159,7 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: problem-frame-assets
+    component_id: software-development-core
     source:
       - .dev/problem-frames/README.MD
       - .dev/problem-frames/SEMANTICS.md
@@ -118,6 +168,7 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: specification-authoring-guides
+    component_id: software-development-core
     source:
       - .dev/specs/README.MD
       - .dev/specs/SPEC-GUIDE.MD
@@ -131,11 +182,13 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: requirement-authoring-guide
+    component_id: software-development-core
     source: .dev/requirement/REQUIREMENT-GUIDE.MD
     target: .dev/requirement/REQUIREMENT-GUIDE.MD
     ownership: framework-managed
     install_behavior: managed
   - id: operations-authoring-guides
+    component_id: software-development-core
     source:
       - .dev/operations/README.MD
       - .dev/operations/*-GUIDE.MD
@@ -144,6 +197,7 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: adr-governance
+    component_id: software-development-core
     source:
       - .dev/adr/README.md
       - .dev/adr/ADR-TEMPLATE.md
@@ -152,6 +206,7 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: assessment-governance
+    component_id: ai-context-lifecycle-core
     source:
       - .dev/assessments/README.MD
       - .dev/assessments/templates/**
@@ -159,21 +214,25 @@ entries:
     ownership: framework-managed
     install_behavior: managed
   - id: backlog-governance
+    component_id: repo-backlog
     source: .dev/backlog/README.MD
     target: .dev/backlog/README.MD
     ownership: framework-managed
     install_behavior: managed
   - id: workflow-governance
+    component_id: software-development-core
     source: .dev/workflows/README.MD
     target: .dev/workflows/README.MD
     ownership: framework-managed
     install_behavior: managed
   - id: dotnet-validation-tools
+    component_id: dotnet-backend
     source: tools/**
     target: tools/
     ownership: framework-managed
     install_behavior: managed
   - id: public-root-and-catalog-seeds
+    component_id: ai-context-lifecycle-core
     source:
       - .ai/assets/skills/repo-structure-sync/templates/public-root/**
       - .ai/assets/skills/repo-structure-sync/templates/public-catalogs/**
@@ -183,6 +242,7 @@ entries:
     ownership: target-template
     install_behavior: seed
   - id: repository-integration-seeds
+    component_id: software-development-core
     source:
       - .editorconfig
       - .gitattributes
@@ -194,6 +254,7 @@ entries:
 
 exclusions:
   - id: source-root-truth
+    classification: source-only
     patterns:
       - AGENTS.md
       - AGENTS.zh-TW.md
@@ -203,6 +264,7 @@ exclusions:
       - README.en.md
     reason: Active source-repository identity is not a public target template.
   - id: source-project-truth
+    classification: source-only
     patterns:
       - .dev/ARCHITECTURE.md
       - .dev/INDEX.md
@@ -223,6 +285,7 @@ exclusions:
       - .dev/requirement/REQUIREMENT-GUIDE.MD
     reason: These paths contain source-repository facts or mutable catalogs.
   - id: execution-history
+    classification: source-only
     patterns:
       - .dev/workflows/*/**
       - .dev/assessments/*/**
@@ -230,12 +293,14 @@ exclusions:
       - .dev/assessments/templates/**
     reason: Dated workflow and assessment instances are source runtime history.
   - id: product-placeholders
+    classification: source-only
     patterns:
       - src/**
       - tests/**
       - docker-compose/**
     reason: Product implementation trees and source placeholders are outside AI context distribution.
   - id: repository-and-local-runtime-state
+    classification: source-only
     patterns:
       - .git/**
       - .gitignore
@@ -258,6 +323,7 @@ exclusions:
       - '**/.pytest_cache/**'
     reason: Git state, source release/build tests, local runtime policy, and caches are never portable framework truth.
   - id: source-distribution-control
+    classification: source-only
     patterns:
       - .ai/distribution/**
     reason: Build contracts generate envelope metadata but are not target payload.

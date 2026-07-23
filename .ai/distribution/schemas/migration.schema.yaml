@@ -1,14 +1,39 @@
-schema_version: 2.0.0
+schema_version: 3.0.0
 document: migration.yaml
 required:
   - schema_version
   - package_id
+  - selection
   - to
   - clean_install
   - sources
 properties:
   schema_version: semver
   package_id: non-empty-string
+  selection:
+    required:
+      - release_model
+      - mandatory_components
+      - profiles
+      - providers
+    properties:
+      release_model:
+        const: single-versioned-componentized-release
+      mandatory_components:
+        exact_set:
+          - software-development-core
+          - ai-context-lifecycle-core
+      profiles:
+        type: unique-non-empty-component-id-list
+      providers:
+        type: component-provider-selection-mapping
+        properties:
+          repo-backlog:
+            required: [enabled, preservation]
+            properties:
+              enabled: boolean
+              preservation:
+                enum: [preserve-existing-if-recorded]
   clean_install:
     required: [operations]
     properties:
@@ -33,7 +58,9 @@ properties:
       manifest_sha256: lowercase-sha256
   operation-list:
     ordering: operation-id-ascending
-    item_required: [id, kind, path, ownership, preconditions]
+    item_required: [id, kind, path, ownership, preconditions, component_id]
+    properties:
+      component_id: profile-component-id
     kinds:
       add:
         required_preconditions: [destination_absent]
@@ -67,3 +94,4 @@ additional_properties: false
 manifest_sha256_definition: sha256-of-source-files-yaml-bytes
 read_compatibility:
   - "1.0.0"
+  - "2.0.0"

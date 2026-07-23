@@ -6,9 +6,9 @@
   "task_id": "V060IMP-001",
   "workflow_id": "2026-07-23-v0-6-product-contract-planning",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-24T00:50:47+08:00",
-  "updated_at": "2026-07-24T01:20:25+08:00",
+  "updated_at": "2026-07-24T01:42:30+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -50,11 +50,11 @@
       "extracted downstream profile fixtures",
       "AI context and workflow validators"
     ],
-    "last_completed_step": "Implemented schema-2 target provenance templates, legacy read compatibility, duplicate-authority rejection, and reserved target-state paths",
-    "next_action": "Integrate component/profile/provider identity into distribution metadata and package planning"
+    "last_completed_step": "Implemented schema-2 package/files metadata, schema-3 migration metadata, component identity, source-only classification, and compatible package/apply readers",
+    "next_action": "Implement provider selection, v0.5 repo-backlog preservation, provider-aware workflow validation, and receipt reconciliation evidence"
   },
   "results": {
-    "summary": "The target provenance authority is modeled at .dev/ai-context/provenance.yaml with explicit component/profile/provider selection and a referenced semantic customization ledger; legacy schema 1 remains readable without allowing dual authority.",
+    "summary": "The target provenance authority and distribution metadata now share one component/profile/provider selection shape. New packages emit package/files schema 2 and migration schema 3 with component identity, while older package/files schema 1 and migration schema 1/2 remain readable.",
     "files_changed": [
       ".ai/assets/skills/ai-context-upgrader/templates/provenance-template.yaml",
       ".ai/assets/skills/ai-context-upgrader/templates/customizations-template.yaml",
@@ -62,16 +62,24 @@
       ".ai/assets/skills/ai-context-upgrader/**",
       ".ai/scripts/validate-ai-context-versions.py",
       ".ai/scripts/compare-ai-context-versions.py",
-      ".ai/scripts/ai_context_package_apply.py"
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/ai_context_package_apply.py",
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/distribution/schemas/*.yaml",
+      ".ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml",
+      ".ai/scripts/tests/test_ai_context_packaging.py"
     ],
     "tests_run": [
       "18 AI context version governance tests passed",
       "19 package apply tests passed with 1 platform-permission skip",
+      "3 focused component-package tests passed",
+      "20 full package and historical upgrade tests passed with 1 retained-downstream integration skip",
+      "quick gate passed 33 of 33 required checks; 2 contract-defined checks were not applicable",
       "AI context validation passed",
       "git diff --check passed with expected CFG-001 line-ending warnings"
     ],
     "finding_status": "partially-resolved",
-    "residual_risk": "Component-aware package metadata, apply selection, legacy v0.5 provider preservation, and source-only projection remain unimplemented.",
+    "residual_risk": "Provider-aware operation selection, legacy v0.5 repo-backlog preservation, workflow-validator provider absence, receipt reconciliation evidence, and source-only projection remain unimplemented.",
     "follow_up_needed": true
   }
 }
