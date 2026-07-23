@@ -1,0 +1,73 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V060PLAN-001",
+  "workflow_id": "2026-07-23-v0-6-product-contract-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-23T22:52:32+08:00",
+  "updated_at": "2026-07-23T22:55:14+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "v0.6.0 product, distribution, customization, software-delivery, and naming decisions",
+    "files": [
+      ".dev/workflows/2026-07-23-v0-6-product-contract-planning/**",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/items/*.yaml",
+      ".ai/distribution/**",
+      ".ai/assets/skills/**"
+    ],
+    "constraints": [
+      "Preserve confirmed owner decisions",
+      "Do not allocate proposed backlog IDs before approval",
+      "Do not treat planning persistence as implementation authorization",
+      "Keep backlog optional and software-delivery workflows core",
+      "Keep target-facing governance, auditor, and upgrader customization safety core"
+    ],
+    "non_goals": [
+      "Change package bytes during the planning checkpoint",
+      "Rename a skill before compatibility and evaluation decisions",
+      "Move AI-CONTEXT-SOURCE.yaml without an approved migration",
+      "Implement CI, CFG, taxonomy, evaluation, or simplification work"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Preserve current decisions and evidence",
+      "Deliberate DIST-001 product and package composition",
+      "Deliberate semantic customization records and provenance placement",
+      "Deliberate software-delivery end-to-end acceptance",
+      "Disposition dev-workflow naming",
+      "Normalize only approved decisions into backlog and roadmap",
+      "Validate the completed planning artifacts"
+    ],
+    "validation": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-source-governance.py"
+    ],
+    "last_completed_step": "Preserved current decisions and evidence",
+    "next_action": "Discuss DIST-001 product layers and package composition with the repository owner"
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [
+      ".dev/workflows/INDEX.MD",
+      ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml",
+      ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow-plan.md",
+      ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060PLAN-001.json"
+    ],
+    "tests_run": [
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-source-governance.py",
+      "git diff --check"
+    ],
+    "finding_status": "not-addressed",
+    "residual_risk": "Context compaction no longer loses the current planning state, but product and compatibility decisions remain unresolved.",
+    "follow_up_needed": true
+  }
+}
