@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-23T22:52:32+08:00",
-  "updated_at": "2026-07-23T23:38:18+08:00",
+  "updated_at": "2026-07-24T00:31:35+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -49,17 +49,19 @@
       "python .ai/scripts/validate-ai-context.py",
       "python .ai/scripts/validate-source-governance.py"
     ],
-    "last_completed_step": "Approved the DIST-001 component model, .dev/ai-context/provenance.yaml, software-development-orchestrator, and the future development-to-delivery boundary",
-    "next_action": "Deliberate the semantic customization ledger and software-development end-to-end acceptance gate before allocating their detailed backlog items"
+    "last_completed_step": "Allocated CUST-001 and DEVWF-002 from the approved semantic customization, historical dev-workflow, test execution, selectable spec compliance, and commit-density decisions",
+    "next_action": "Design the exact DIST-001, CUST-001, and DEVWF-002 implementation workflows and downstream fixtures before changing package bytes or active skill contracts"
   },
   "results": {
-    "summary": "",
+    "summary": "The v0.6.0 product plan now has explicit release blockers for one target-owned semantic customization ledger and software-development end-to-end acceptance. DEVWF-002 records v0.0.2/v0.0.3 history, intent-based activation, approval pauses, stage-batched commits, pluggable unit/integration test execution without a new skill, conditional specialized tests, and selectable spec compliance.",
     "files_changed": [
       ".dev/workflows/INDEX.MD",
       ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml",
       ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow-plan.md",
       ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060PLAN-001.json",
       ".dev/backlog/items/DIST-001.yaml",
+      ".dev/backlog/items/CUST-001.yaml",
+      ".dev/backlog/items/DEVWF-002.yaml",
       ".dev/backlog/items/CI-002.yaml",
       ".dev/backlog/items/CFG-001.yaml",
       ".dev/backlog/items/SKILL-001.yaml",
@@ -72,8 +74,8 @@
       "python .ai/scripts/validate-source-governance.py",
       "git diff --check"
     ],
-    "finding_status": "not-addressed",
-    "residual_risk": "The main product, path, component, and skill-name decisions are preserved, but semantic customization and end-to-end acceptance item scopes remain unresolved.",
+    "finding_status": "partially-resolved",
+    "residual_risk": "Owner decisions and detailed backlog contracts are preserved, but schemas, active-context normalization, package projection, migration, and downstream fixtures remain unimplemented. The workplace-specific dev-workflow lineage and any external test skill require later evidence.",
     "follow_up_needed": true
   }
 }

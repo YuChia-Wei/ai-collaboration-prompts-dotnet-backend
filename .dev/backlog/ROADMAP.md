@@ -6,7 +6,7 @@
 - `status`: `active`
 - `current_target`: `v0.6.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-23T23:38:18+08:00`
+- `updated_at`: `2026-07-24T00:31:35+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -29,7 +29,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
 | `v0.5.0` | `published` | yes | The four-source release, including exact automatic v0.4.2 upgrades, passed independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates. | Completed at immutable tag `v0.5.0`, peeled commit `1477181f0b43fa7ee82fcd482141758ac9e22eb6`, successful hosted publication run `29922585651`, and a stable GitHub Release with four governed assets. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
-| `v0.6.0` | `planned` | yes | Define the downstream product and component contract through `DIST-001`; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001`; and disposition measured active-context simplification through `SIMPL-001`. | Lock the mandatory software-development and AI-context lifecycle cores, optional-provider and source-only boundaries, and component validation matrix before package closure; preserve v0.5.0 upgrade truth while migrating target provenance into `.dev/ai-context/`, moving to native Node.js 24 actions, and validating coordinated compatible skill transitions. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) |
+| `v0.6.0` | `planned` | yes | Define the downstream product and component contract through `DIST-001`, semantic customization through `CUST-001`, and software-development product acceptance through `DEVWF-002`; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001`; and disposition measured active-context simplification through `SIMPL-001`. | Lock both mandatory cores, the target-owned provenance/customization contract, high-level orchestrator activation, selectable spec compliance, target-aware test execution, optional-provider and source-only boundaries, and the component validation matrix before package closure. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
 ## Release Gate Semantics
@@ -48,7 +48,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- |
 | `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004`, `R042-005` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
 | `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `REL-002`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
-| `v0.6.0` | `DIST-001`, `CI-001`, `CI-002`, `CFG-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001`, v0.5.0 completion, `.dev/ai-context/provenance.yaml`, and the approved `software-development-orchestrator` plus `ai-context-init` compatibility transitions. |
+| `v0.6.0` | `DIST-001`, `CUST-001`, `DEVWF-002`, `CI-001`, `CI-002`, `CFG-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001`, v0.5.0 completion, `.dev/ai-context/provenance.yaml`, `.dev/ai-context/customizations.yaml`, and the approved `software-development-orchestrator` plus `ai-context-init` compatibility transitions. |
 | `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
 `DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
@@ -67,7 +67,8 @@ The current approved product direction has four layers:
 
 1. a mandatory software-development core covering requirements, specifications,
    problem framing, DDD and architecture, test design, implementation, review,
-   compliance, and `.dev/workflows/` lifecycle records;
+   target-aware unit/integration test execution, selectable compliance
+   validation, and `.dev/workflows/` lifecycle records;
 2. a mandatory AI-context lifecycle core covering initialization, audit,
    target-facing governance, upgrade, provenance, customization reconciliation,
    and post-upgrade verification;
@@ -80,8 +81,10 @@ The current approved product direction has four layers:
 The approved model is one versioned componentized release. New installations
 do not enable the repository-backlog provider unless selected; existing targets
 preserve it and record the selection. Installed component identity belongs in
-`.dev/ai-context/provenance.yaml`. Exact schemas, migrations, and downstream
-fixtures remain implementation design work. Future publication as a Python CLI
+`.dev/ai-context/provenance.yaml`; semantic customization identity belongs in
+the referenced `.dev/ai-context/customizations.yaml` ledger. Exact schemas,
+migrations, and downstream fixtures remain implementation design work. Future
+publication as a Python CLI
 or package-registry tool is retained as deferred exploration and is not a
 v0.6.0 gate.
 
@@ -191,6 +194,10 @@ versions. Current assignments:
   `REL-001`, `REL-002`, `HANDOFF-001`, `GOV-001`, `CAP-001`, and `VAL-001`
   were completed and published in `REL-v0.5.0`.
 - `v0.6.0`: `DIST-001` owns the release product and component definition;
+  `CUST-001` owns the semantic customization ledger and four-skill lifecycle;
+  `DEVWF-002` owns high-level orchestrator activation, approval pauses,
+  stage-batched commit evidence, target-aware test execution, selectable spec
+  compliance, conditional specialized tests, and end-to-end closeout;
   `EVAL-001` is the activation gate for `SKILL-001`, which owns coordinated
   compatible transitions from `repo-structure-sync` to `ai-context-init` and
   from `dev-workflow` to `software-development-orchestrator`;
@@ -274,8 +281,9 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Design the exact `DIST-001` component schema, `.dev/ai-context/provenance.yaml`
-migration, and downstream validation matrix, then establish the `EVAL-001`
+Design the exact `DIST-001` component schema, the `CUST-001`
+`.dev/ai-context/provenance.yaml` plus `customizations.yaml` migration, and the
+`DEVWF-002` downstream acceptance fixtures, then establish the `EVAL-001`
 deterministic baseline before coordinated `CFG-001` and `SKILL-001`
 implementation. Execute `CI-001` and `CI-002` as one release-engineering
 workstream, measure and disposition `SIMPL-001`, and keep `DEVWF-001`,

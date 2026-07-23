@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.6.0` | `planned` | Close the `DIST-001` release definition; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001` and disposition `SIMPL-001`. Independent `DEVWF-001`, `UPG-001`, and `STD-001` remain separately gated. | 2026-07-23 |
+| [ROADMAP.md](ROADMAP.md) | `v0.6.0` | `planned` | Close `DIST-001`, `CUST-001`, and `DEVWF-002`; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001` and disposition `SIMPL-001`. Independent `DEVWF-001`, `UPG-001`, and `STD-001` remain separately gated. | 2026-07-24 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -17,6 +17,8 @@ roadmap but do not replace it or a governed assessment.
 | Item | Priority | Target Release | Gate | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
 | [DIST-001](items/DIST-001.yaml) | HIGH | `v0.6.0` | release blocker | Define mandatory software-development and AI-context lifecycle cores, optional providers, source-only operations, and the component validation matrix. | Implement the approved single-version component model with repo backlog off by default for new installs and preserved for existing targets. | 2026-07-23 |
+| [CUST-001](items/CUST-001.yaml) | HIGH | `v0.6.0` | release blocker | Define one target-owned semantic customization ledger beside provenance. | Identify capability, rule, or contract semantics first; keep target truth outside the ledger unless it changes framework behavior. | 2026-07-24 |
+| [DEVWF-002](items/DEVWF-002.yaml) | HIGH | `v0.6.0` | release blocker | Prove software-development orchestration, approval pauses, sustainable commit checkpoints, target-aware tests, and closeout end to end. | Add the test-execution capability contract without creating a new skill; keep spec compliance selectable and E2E conditional. | 2026-07-24 |
 | [CI-001](items/CI-001.yaml) | HIGH | `v0.6.0` | release blocker | Move candidate and publication artifact actions from deprecated Node.js 20 majors to native Node.js 24 releases. | Preserve artifact and release semantics; require warning-free hosted evidence before v0.6.0 publication. | 2026-07-22 |
 | [EVAL-001](items/EVAL-001.yaml) | HIGH | `v0.6.0` | activation gate | Add deterministic regression plus budgeted release-side model evaluation before taxonomy changes. | Approve the fixture corpus, oracle, model/judge, repetitions, threshold, and token ceiling. | 2026-07-19 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | release blocker | Introduce AI-context and software-development families and coordinate transitions to `ai-context-init` and `software-development-orchestrator`. | Define both deprecated compatibility entries; complete DIST-001 and EVAL-001 before changing identifiers or taxonomy. | 2026-07-23 |

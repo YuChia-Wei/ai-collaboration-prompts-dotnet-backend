@@ -6,7 +6,7 @@ status: "planned"
 priority: "HIGH"
 summary: "Define the mandatory software-development and AI-context lifecycle cores, optional provider model, source-only boundary, component selection, and release validation matrix before v0.6.0 packaging or simplification closes."
 created_at: "2026-07-23T23:12:50+08:00"
-updated_at: "2026-07-23T23:38:18+08:00"
+updated_at: "2026-07-24T00:31:35+08:00"
 release:
   target: "v0.6.0"
   completed_in: null
@@ -43,7 +43,7 @@ component_model:
   selection_provenance: ".dev/ai-context/provenance.yaml"
 product_layers:
   mandatory_software_development:
-    - "requirements, specifications, problem framing, DDD and architecture, test design, implementation, review, compliance, and workflow closeout"
+    - "requirements, specifications, problem framing, DDD and architecture, test design, implementation, review, target-aware test execution, selectable compliance validation, and workflow closeout"
     - ".dev/workflows/ governance and target execution artifacts"
   mandatory_ai_context_lifecycle:
     - "initialization, audit, target-facing governance, upgrade, provenance, customization reconciliation, and post-upgrade verification"
@@ -56,7 +56,9 @@ product_layers:
     - "source workflow, assessment, backlog, and release instances"
 acceptance:
   - "A canonical capability matrix classifies every distributed surface as mandatory core, selected technology profile, optional provider, target-owned seed, or source-only."
-  - "The mandatory software-development core preserves requirements, specification, problem framing, DDD and architecture, test design, implementation, review, compliance validation, and .dev/workflows/ lifecycle capability."
+  - "The mandatory software-development core preserves requirements, specification, problem framing, DDD and architecture, test design, implementation, review, target-aware test execution, selectable compliance validation, and .dev/workflows/ lifecycle capability."
+  - "Spec compliance capability is distributed but not universally activated; an explicit target profile, problem-frame workflow, requirement, or owner decision selects its 100 percent fail-closed gate."
+  - "The test-execution contract supports unit and integration tests by default and conditional specialized test capabilities without requiring a new v0.6.0 test skill."
   - "The mandatory AI-context lifecycle core preserves initialization, auditor, target-facing governance, upgrader, provenance, customization reconciliation, and independent post-upgrade verification."
   - "Repository backlog storage is an optional provider; software-development workflows remain valid when Azure DevOps, Jira, GitHub Issues/Projects, another tracker, or no durable backlog provider is selected."
   - "The selected component model declares dependency direction: an optional backlog provider may reference workflow identities, while workflow execution does not depend on repository backlog installation."
@@ -64,6 +66,8 @@ acceptance:
   - "Existing v0.5.0 targets preserve target-owned backlog and workflow data; reclassification never grants automatic deletion authority."
   - "The package and migration schemas record enough component identity to reproduce, validate, and upgrade an installation without treating optional providers as implicit."
   - "The target installation and component selection source of truth is `.dev/ai-context/provenance.yaml`; v0.6.0 migrates the legacy `.dev/AI-CONTEXT-SOURCE.yaml` path without creating dual authority."
+  - "The target semantic customization source of truth is one `.dev/ai-context/customizations.yaml` ledger referenced by provenance and governed by CUST-001."
+  - "DEVWF-002 proves the software-development core from high-level intent through approval pauses, implementation, selected tests and compliance, commit evidence, and closeout."
   - "Downstream fixtures prove each supported core/profile/provider combination and exclude source-only release operations."
   - "CI-001 and CI-002 enforce the approved release and component matrix without coupling general governance checks to a concrete release phase."
   - "SIMPL-001 measures the approved product surfaces and cannot remove either mandatory core pillar merely because recent source work emphasized self-governance."
