@@ -19,7 +19,7 @@
 - `current_phase`: `remediation-planning`
 - `artifact_root`: `.dev/workflows/2026-07-23-v0-6-product-contract-planning`
 - `created_at`: `2026-07-23T22:52:32+08:00`
-- `updated_at`: `2026-07-23T23:12:50+08:00`
+- `updated_at`: `2026-07-23T23:38:18+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -27,7 +27,7 @@
 
 - Problem statement: The repository has mature release and self-governance
   machinery, but v0.6.0 needs an explicit product contract that identifies what
-  a downstream user receives, preserves software-delivery workflow capability
+  a downstream user receives, preserves software-development workflow capability
   as a primary value, makes backlog tracking optional, and gives customized AI
   context a governed upgrade lifecycle.
 - Authorized remediation scope: Preserve the current planning decisions,
@@ -43,7 +43,7 @@
 - Completion criteria:
   - Product layers and distribution boundaries are explicitly approved.
   - The owner decides the target customization record boundary.
-  - The owner decides whether the software-delivery end-to-end gate is a new
+  - The owner decides whether the software-development end-to-end gate is a new
     backlog item and whether `dev-workflow` enters rename deliberation.
   - Approved decisions are normalized into backlog and roadmap artifacts with
     validation evidence.
@@ -63,14 +63,14 @@
 5. `.dev/workflows/` remains a core downstream capability. It records the
    execution plan, decisions, stage handoffs, validation, and closure evidence
    for software development; it is not a replacement issue tracker.
-6. The core product must retain the software-delivery lifecycle: requirements,
+6. The core product must retain the software-development lifecycle: requirements,
    specifications, problem framing, DDD and architecture design, test design,
    implementation, review, compliance validation, and workflow closeout.
 7. Target-facing `ai-context-governance` and `ai-context-auditor` remain core
    lifecycle capabilities. They must support governed customized context so
    upgrades do not rediscover or overwrite target intent.
 8. `SIMPL-001` remains measurement and disposition work. It must not remove
-   software-delivery or customization-safety capabilities merely because recent
+   software-development or customization-safety capabilities merely because recent
    source-repository activity emphasized self-governance.
 9. `DIST-001` is an allocated v0.6.0 release blocker and release-definition
    gate.
@@ -82,12 +82,21 @@
     validation campaign while retaining separate lifecycle responsibilities.
 12. Package-registry or installable CLI distribution is a future exploration,
     not a v0.6.0 release blocker.
+13. The provenance destination is `.dev/ai-context/provenance.yaml`.
+14. `dev-workflow` transitions to `software-development-orchestrator`.
+15. `DIST-001` uses one versioned componentized release. New installations
+    default the repository-backlog provider off; existing targets preserve it
+    and record the selection.
+16. A future software-delivery capability remains separate from the current
+    software-development orchestrator and requires evidence from real
+    development, PR, runbook, maintenance-window, deployment-approval,
+    production-verification, and rollback usage.
 
 ## Approved Product Layers And Remaining DIST-001 Deliberation
 
 | Layer | Candidate contents | Current disposition |
 | --- | --- | --- |
-| Core: software delivery | `dev-workflow`, requirement/spec/problem-frame/architecture/test-design/implementation/review/compliance skills, `.dev/workflows/` governance and target workflow artifacts | Direction agreed; exact package acceptance gate remains open |
+| Core: software development | `dev-workflow`, requirement/spec/problem-frame/architecture/test-design/implementation/review/compliance skills, `.dev/workflows/` governance and target workflow artifacts | Direction agreed; exact package acceptance gate remains open |
 | Core: AI context lifecycle | initialization, auditor, target-facing governance, upgrader, provenance, customization reconciliation, post-upgrade verification | Direction agreed; customization record schema remains open |
 | Optional providers | repository backlog, GitHub Issues/Projects, Azure DevOps, Jira, and future tracker adapters | Repository backlog confirmed optional; provider contract remains open |
 | Source-only operations | package builders, publication/finalization tooling, source release registry, source workflow/assessment/backlog instances, release CI fixtures | Direction agreed; exact projection inventory remains open |
@@ -96,7 +105,7 @@
 defines capability composition and package acceptance before CI enforces the
 resulting matrix or `SIMPL-001` measures what can be reduced.
 
-## Software-Delivery Product Evidence
+## Software-Development Product Evidence
 
 The current framework still declares deterministic capability routing for:
 
@@ -160,8 +169,7 @@ Approved storage direction with one remaining naming decision:
   beside and referenced by the provenance manifest.
 - Use workflow and assessment artifacts as decision and verification evidence,
   not as the current customization source of truth.
-- Select the exact destination name before implementation; current candidates
-  are `.dev/ai-context/source.yaml` and `.dev/ai-context/provenance.yaml`.
+- Use `.dev/ai-context/provenance.yaml` as the single authoritative destination.
 
 ## Why AI-CONTEXT-SOURCE.yaml Is Currently Under .dev
 
@@ -180,11 +188,12 @@ source framework and must survive replacement of framework-managed `.ai/`
 content. Its current `.dev/` location therefore protects the ownership
 boundary, even though agents are its primary reader.
 
-Owner decision: v0.6.0 introduces the grouped `.dev/ai-context/` target-owned
-area through an explicit migration. Low current adoption makes the one-time
-path transition materially cheaper than leaving a permanent organization debt.
-The migration must preserve target data, support exact v0.5.0 input, update all
-readers and validators atomically, and leave only one authoritative manifest.
+Owner decision: v0.6.0 introduces
+`.dev/ai-context/provenance.yaml` through an explicit migration. Low current
+adoption makes the one-time path transition materially cheaper than leaving a
+permanent organization debt. The migration must preserve target data, support
+exact v0.5.0 input, update all readers and validators atomically, and leave only
+one authoritative manifest.
 
 ## dev-workflow Naming Deliberation
 
@@ -197,11 +206,10 @@ implementation, validation, and closeout rather than only writing code.
 However, the current skill does not own deployment or release publication, so
 "delivery" may overstate its boundary and collide with release engineering.
 
-Revised candidate direction:
+Approved direction:
 
 - Prefer a name based on responsibility rather than storage mechanism.
-- Leading candidate: `software-development-orchestrator`.
-- Other candidate: `development-lifecycle-orchestrator`.
+- Active v0.6.0 name: `software-development-orchestrator`.
 - Avoid another name whose primary distinguishing word is `workflow`.
 
 If a rename is approved:
@@ -217,9 +225,37 @@ If a rename is approved:
   scenarios before activation;
 - do not silently fold removal of the old identifier into v0.6.0.
 
-Owner decision: perform this rename inside the `SKILL-001` taxonomy and
+Owner decision: perform the `dev-workflow` to
+`software-development-orchestrator` rename inside the `SKILL-001` taxonomy and
 compatibility workstream together with `repo-structure-sync` to
-`ai-context-init`. The exact new identifier remains open.
+`ai-context-init`.
+
+## Software Development And Future Delivery Boundary
+
+`software-development-orchestrator` owns the deliberative software-development
+lifecycle. Requirements, architecture, design, and specifications may remain
+in long-running discussion and approval states before implementation tasks are
+created. The orchestrator must not assume a request authorizes uninterrupted
+execution from idea through deployment.
+
+Its current terminal boundary is an approved development closeout or PR-ready
+handoff. Whether it should later author a PR description or create a PR remains
+an evidence-driven extension decision.
+
+Potential supporting capabilities have different ownership:
+
+- a user-story writer belongs to requirement or optional work-tracking
+  authoring rather than production delivery;
+- a PR-description writer may be a development-closeout specialist;
+- GitHub or on-premises Azure DevOps PR creation is a provider adapter with an
+  explicit external-mutation approval boundary;
+- runbooks, maintenance windows, deployment approval, production verification,
+  and rollback belong to a future software-delivery lifecycle.
+
+If repeated target usage proves the need, a future
+`software-delivery-orchestrator` may begin from an approved development
+handoff and coordinate those operational stages. It is not created or assigned
+to v0.6.0 by this plan.
 
 ## Future Package-Registry Distribution Wish
 
@@ -248,9 +284,9 @@ or v0.6.0 acceptance requirement.
 2. Approve the customization ledger and four-skill lifecycle contract; keep
    `UPG-001` as a real legacy-target acceptance case rather than the sole owner
    of the cross-lifecycle schema.
-3. Establish a software-delivery end-to-end product gate separate from the
+3. Establish a software-development end-to-end product gate separate from the
    optional metadata work in `DEVWF-001`.
-4. Implement `EVAL-001` deterministic fixtures for both software-delivery and
+4. Implement `EVAL-001` deterministic fixtures for both software-development and
    AI-context lifecycle scenarios.
 5. Execute `CFG-001` and `SKILL-001` as one coordinated package/taxonomy
    workstream after their activation decisions pass.
@@ -267,13 +303,14 @@ or v0.6.0 acceptance requirement.
 | ID | Decision | Recommendation | Why it matters |
 | --- | --- | --- | --- |
 | D-001 | Approve `DIST-001` as a new backlog item and v0.6.0 release-definition gate | Approved and normalized | CI and simplification need a defined product surface |
-| D-002 | Choose package composition: one package with selectable capabilities, multiple profiles, or core plus optional add-ons | Discuss before selection | Determines manifests, install/upgrade behavior, and CI matrix |
-| D-003 | Keep `.dev/AI-CONTEXT-SOURCE.yaml` at its published path or migrate to a grouped target-owned area | Approved: migrate into `.dev/ai-context/`; exact filename remains open | Accept one low-adoption migration now instead of permanent organization debt |
+| D-002 | Choose package composition: one package with selectable capabilities, multiple profiles, or core plus optional add-ons | Approved: one versioned componentized release; repo backlog off by default for new installs and preserved for existing targets | Determines manifests, install/upgrade behavior, and CI matrix |
+| D-003 | Keep `.dev/AI-CONTEXT-SOURCE.yaml` at its published path or migrate to a grouped target-owned area | Approved: migrate to `.dev/ai-context/provenance.yaml` | Accept one low-adoption migration now instead of permanent organization debt |
 | D-004 | Approve a separate semantic customization ledger referenced by provenance | Approve | Path-only overrides cannot express capability equivalence |
-| D-005 | Create `DEVWF-002` for software-delivery end-to-end acceptance | Approve | `DEVWF-001` has a different optional-metadata scope |
+| D-005 | Create `DEVWF-002` for software-development end-to-end acceptance | Approve | `DEVWF-001` has a different optional-metadata scope |
 | D-006 | Route `dev-workflow` rename through `SKILL-001`, a new low-priority item, or defer it | Approved: execute in `SKILL-001` with the init rename | One compatibility campaign lowers downstream transition overhead |
-| D-007 | Choose the replacement skill name | Recommend `software-development-orchestrator` | It keeps the development boundary and avoids generic workflow terminology |
+| D-007 | Choose the replacement skill name | Approved: `software-development-orchestrator` | It keeps the development boundary and avoids generic workflow terminology |
 | D-008 | Allocate package-registry CLI distribution to a release | Deferred wish only | Stabilize component and migration contracts before choosing PyPI, npm, or NuGet distribution |
+| D-009 | Extend development closeout into PR authoring/creation or create a delivery orchestrator | Defer pending real team usage | External mutation and operational delivery require distinct approval evidence |
 
 ## Artifact Contract
 
@@ -297,28 +334,28 @@ or v0.6.0 acceptance requirement.
 1. Preserve current owner decisions and current-state evidence.
 2. Deliberate `DIST-001` product layers and package composition.
 3. Deliberate provenance/customization storage and lifecycle.
-4. Deliberate software-delivery acceptance and skill naming.
+4. Deliberate software-development acceptance and skill naming.
 5. Create only the owner-approved backlog and roadmap changes.
 6. Validate workflow, backlog, package, and AI-context contracts before closure.
 
 ## Resume Checkpoint
 
-- Last completed action: Created and scheduled `DIST-001`, assigned `CI-002` and
-  `CFG-001` to their approved v0.6.0 paired workstreams, recorded the
-  `.dev/ai-context/` migration decision, and expanded `SKILL-001` to coordinate
-  both compatible skill transitions.
+- Last completed action: Approved the `DIST-001` component model,
+  `.dev/ai-context/provenance.yaml`, and
+  `software-development-orchestrator`, and recorded the future
+  development-to-delivery boundary.
 - Current task: `V060PLAN-001`
-- Exact next action: Decide `D-002`, the exact provenance filename under
-  `.dev/ai-context/`, and `D-007`, the replacement identifier for
-  `dev-workflow`.
+- Exact next action: Deliberate the semantic customization ledger (`D-004`) and
+  software-development end-to-end acceptance gate (`D-005`) before allocating
+  their detailed backlog items.
 - Validation already completed: Git preflight confirmed clean synchronized
   `main` at `97bcf2f8c657a9af3af7512453c6cac686a9ffab` before branch creation.
 - Git state: the validated workflow bootstrap is committed on
   `codex/2026-07-23-v0-6-product-contract-planning`; no push or merge has been
   requested.
 - Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: `D-002`, the filename portion of `D-003`,
-  detailed allocation for `D-004` and `D-005`, and `D-007`.
+- Blockers or unresolved decisions: detailed allocation for `D-004` and
+  `D-005`; `D-008` and `D-009` remain explicitly deferred.
 
 ## Branch Lifecycle
 

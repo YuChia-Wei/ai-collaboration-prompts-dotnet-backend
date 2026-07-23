@@ -4,9 +4,9 @@ title: "Define Downstream Product And Component Distribution Contract"
 category: "distribution-governance"
 status: "planned"
 priority: "HIGH"
-summary: "Define the mandatory software-delivery and AI-context lifecycle cores, optional provider model, source-only boundary, component selection, and release validation matrix before v0.6.0 packaging or simplification closes."
+summary: "Define the mandatory software-development and AI-context lifecycle cores, optional provider model, source-only boundary, component selection, and release validation matrix before v0.6.0 packaging or simplification closes."
 created_at: "2026-07-23T23:12:50+08:00"
-updated_at: "2026-07-23T23:12:50+08:00"
+updated_at: "2026-07-23T23:38:18+08:00"
 release:
   target: "v0.6.0"
   completed_in: null
@@ -19,15 +19,30 @@ origin_refs:
   - ".ai/distribution/profiles/dotnet-backend.yaml"
   - "README.md"
 recommended_owner_skill: "ai-context-governance"
-handoff_condition: "Complete the owner decisions for package composition, clean-install defaults, installed-component provenance, and exact downstream acceptance fixtures before changing package bytes or closing the v0.6.0 candidate."
+handoff_condition: "Implement the approved component model only after the exact schema, migration, and downstream acceptance fixtures are designed; do not change package bytes or close the v0.6.0 candidate from the planning decision alone."
 workflow_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060PLAN-001.json"
 resolution_ref: null
-decision_needed: "Choose the v0.6.0 component model and defaults: one versioned componentized release is recommended, with mandatory software-delivery and AI-context lifecycle cores, a dotnet-backend profile, and an optional repository-backlog provider."
+decision_needed: "Owner decision recorded on 2026-07-23: use one versioned componentized release with mandatory software-development and AI-context lifecycle cores, a dotnet-backend profile, and an optional repository-backlog provider; new installs default the provider off and existing targets preserve and record it."
+component_model:
+  release_identity: "single-versioned-componentized-release"
+  mandatory_components:
+    - "software-development-core"
+    - "ai-context-lifecycle-core"
+  selected_profile:
+    - "dotnet-backend"
+  optional_providers:
+    - "repo-backlog"
+  clean_install_defaults:
+    repo_backlog: "disabled-unless-selected"
+  upgrade_behavior:
+    existing_repo_backlog: "preserve-and-record-selection"
+    removal_authority: "explicit-reconciliation-only"
+  selection_provenance: ".dev/ai-context/provenance.yaml"
 product_layers:
-  mandatory_software_delivery:
+  mandatory_software_development:
     - "requirements, specifications, problem framing, DDD and architecture, test design, implementation, review, compliance, and workflow closeout"
     - ".dev/workflows/ governance and target execution artifacts"
   mandatory_ai_context_lifecycle:
@@ -41,13 +56,14 @@ product_layers:
     - "source workflow, assessment, backlog, and release instances"
 acceptance:
   - "A canonical capability matrix classifies every distributed surface as mandatory core, selected technology profile, optional provider, target-owned seed, or source-only."
-  - "The mandatory software-delivery core preserves requirements, specification, problem framing, DDD and architecture, test design, implementation, review, compliance validation, and .dev/workflows/ lifecycle capability."
+  - "The mandatory software-development core preserves requirements, specification, problem framing, DDD and architecture, test design, implementation, review, compliance validation, and .dev/workflows/ lifecycle capability."
   - "The mandatory AI-context lifecycle core preserves initialization, auditor, target-facing governance, upgrader, provenance, customization reconciliation, and independent post-upgrade verification."
   - "Repository backlog storage is an optional provider; software-development workflows remain valid when Azure DevOps, Jira, GitHub Issues/Projects, another tracker, or no durable backlog provider is selected."
   - "The selected component model declares dependency direction: an optional backlog provider may reference workflow identities, while workflow execution does not depend on repository backlog installation."
   - "Clean-install defaults, target selection records, upgrade preservation, acknowledgement semantics, and removal behavior are explicit and deterministic."
   - "Existing v0.5.0 targets preserve target-owned backlog and workflow data; reclassification never grants automatic deletion authority."
   - "The package and migration schemas record enough component identity to reproduce, validate, and upgrade an installation without treating optional providers as implicit."
+  - "The target installation and component selection source of truth is `.dev/ai-context/provenance.yaml`; v0.6.0 migrates the legacy `.dev/AI-CONTEXT-SOURCE.yaml` path without creating dual authority."
   - "Downstream fixtures prove each supported core/profile/provider combination and exclude source-only release operations."
   - "CI-001 and CI-002 enforce the approved release and component matrix without coupling general governance checks to a concrete release phase."
   - "SIMPL-001 measures the approved product surfaces and cannot remove either mandatory core pillar merely because recent source work emphasized self-governance."

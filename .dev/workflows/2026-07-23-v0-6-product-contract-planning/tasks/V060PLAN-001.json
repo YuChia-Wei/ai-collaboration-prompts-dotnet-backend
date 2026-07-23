@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-23T22:52:32+08:00",
-  "updated_at": "2026-07-23T23:12:50+08:00",
+  "updated_at": "2026-07-23T23:38:18+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -49,8 +49,8 @@
       "python .ai/scripts/validate-ai-context.py",
       "python .ai/scripts/validate-source-governance.py"
     ],
-    "last_completed_step": "Allocated DIST-001 and normalized the approved v0.6.0 release, provenance-placement, and coordinated skill-transition decisions",
-    "next_action": "Decide the component model, exact .dev/ai-context provenance filename, and replacement dev-workflow identifier"
+    "last_completed_step": "Approved the DIST-001 component model, .dev/ai-context/provenance.yaml, software-development-orchestrator, and the future development-to-delivery boundary",
+    "next_action": "Deliberate the semantic customization ledger and software-development end-to-end acceptance gate before allocating their detailed backlog items"
   },
   "results": {
     "summary": "",
@@ -73,7 +73,7 @@
       "git diff --check"
     ],
     "finding_status": "not-addressed",
-    "residual_risk": "Context compaction no longer loses the current planning state, but product and compatibility decisions remain unresolved.",
+    "residual_risk": "The main product, path, component, and skill-name decisions are preserved, but semantic customization and end-to-end acceptance item scopes remain unresolved.",
     "follow_up_needed": true
   }
 }

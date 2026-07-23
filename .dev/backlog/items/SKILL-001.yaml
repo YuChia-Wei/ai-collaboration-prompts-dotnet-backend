@@ -6,7 +6,7 @@ status: "planned"
 priority: "MEDIUM"
 summary: "Introduce explicit AI-context and software-development skill families, transition repo-structure-sync to ai-context-init, and transition dev-workflow to an owner-approved development-orchestrator name through coordinated deprecated compatibility entries."
 created_at: "2026-07-18T14:53:16+08:00"
-updated_at: "2026-07-23T23:12:50+08:00"
+updated_at: "2026-07-23T23:38:18+08:00"
 release:
   target: "v0.6.0"
   completed_in: null
@@ -25,14 +25,15 @@ task_refs:
   - ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/tasks/ROADMAP-003.json"
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
 resolution_ref: null
-decision_needed: "Select the replacement identifier for dev-workflow and approve the shared v0.6.0 compatibility window; later retirement of either legacy identifier still requires downstream migration evidence."
+decision_needed: "Owner decision recorded on 2026-07-23: transition dev-workflow to software-development-orchestrator in the same v0.6.0 compatibility batch as repo-structure-sync to ai-context-init; implementation must define deprecation metadata and validation before activation."
 compatibility_boundaries:
   - "v0.6.0 introduces ai-context-init as the active name and retains repo-structure-sync as a thin deprecated compatibility entry."
-  - "v0.6.0 transitions dev-workflow in the same compatibility batch and retains dev-workflow as a thin deprecated compatibility entry."
+  - "v0.6.0 introduces software-development-orchestrator as the active name and retains dev-workflow as a thin deprecated compatibility entry in the same compatibility batch."
   - "Historical initialized_by, generatedBy, workflow, assessment, and release provenance remains unchanged."
   - "Historical owner_skill, task, workflow, assessment, and release identifiers remain unchanged."
   - "Removal of either legacy identifier is conditional on downstream migration evidence and is not pre-committed to v0.7.0."
   - "Both transitions share one taxonomy, wrapper, distribution, migration, validator, and evaluation campaign without implying that the two skills have the same lifecycle responsibility."
+  - "software-development-orchestrator ends at an approved development closeout or PR-ready handoff; production delivery, maintenance-window, deployment-approval, production-verification, and rollback orchestration remain outside its current scope."
 activation_dependencies:
   - "v0.5.0 is completed and its governance and adapter contracts are stable."
   - "EVAL-001 deterministic regression baseline and approved release-side model evaluation are complete."
