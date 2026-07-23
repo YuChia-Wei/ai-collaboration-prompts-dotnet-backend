@@ -1,0 +1,67 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V060IMP-003",
+  "workflow_id": "2026-07-23-v0-6-product-contract-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-24T00:50:47+08:00",
+  "updated_at": "2026-07-24T00:50:47+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "DEVWF-002 software-development end-to-end orchestration and acceptance contract",
+    "files": [
+      ".ai/assets/skills/dev-workflow/**",
+      ".agents/skills/dev-workflow/**",
+      ".claude/skills/dev-workflow/**",
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".ai/assets/skills/spec-compliance-validator/**",
+      ".ai/scripts/tests/**"
+    ],
+    "constraints": [
+      "Activate from high-level multi-stage development intent without requiring skill names",
+      "Define test-execution as a pluggable capability without creating a new skill",
+      "Default unit and integration tests; keep specialized tests conditional",
+      "Make spec compliance unselected by default and 100 percent fail-closed after explicit activation",
+      "Commit durable validated stages or coherent batches rather than skill invocations"
+    ],
+    "non_goals": [
+      "Rename dev-workflow before SKILL-001 activation",
+      "Adopt an unevaluated external test skill",
+      "Force E2E or Playwright into every development workflow",
+      "Rewrite shared or pushed Git history"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Normalize activation and capability routing contracts",
+      "Add the pluggable test-execution capability and outcomes",
+      "Make spec compliance selection explicit",
+      "Define approval pauses, commit density, and closeout evidence",
+      "Add downstream end-to-end fixtures and migration notes"
+    ],
+    "validation": [
+      "high-level intent activation fixtures",
+      "capability profile and fallback fixtures",
+      "test execution outcome fixtures",
+      "optional and selected compliance fixtures",
+      "fresh-session workflow resume fixture",
+      "AI context and workflow validators"
+    ],
+    "last_completed_step": "Implementation task created from approved DEVWF-002 contract",
+    "next_action": "Begin in parallel with schema implementation after inventory review"
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Active documentation still conflicts on universal spec compliance and has no generic test-execution slot.",
+    "follow_up_needed": true
+  }
+}

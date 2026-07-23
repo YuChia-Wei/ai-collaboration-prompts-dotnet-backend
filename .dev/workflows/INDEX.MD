@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-23-v0-6-product-contract-planning`](2026-07-23-v0-6-product-contract-planning/workflow.yaml) | Define v0.6.0 Product, Distribution, And Lifecycle Contracts | `ai-context-governance` | `in_progress` | `2026-07-24T00:31:35+08:00` | [plan](2026-07-23-v0-6-product-contract-planning/workflow-plan.md) |
+| [`2026-07-23-v0-6-product-contract-planning`](2026-07-23-v0-6-product-contract-planning/workflow.yaml) | Define And Implement v0.6.0 Product, Distribution, And Lifecycle Contracts | `ai-context-governance` | `in_progress` | `2026-07-24T00:50:47+08:00` | [plan](2026-07-23-v0-6-product-contract-planning/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

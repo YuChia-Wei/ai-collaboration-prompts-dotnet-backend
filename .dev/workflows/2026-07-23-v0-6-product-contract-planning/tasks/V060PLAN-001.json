@@ -6,9 +6,9 @@
   "task_id": "V060PLAN-001",
   "workflow_id": "2026-07-23-v0-6-product-contract-planning",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-23T22:52:32+08:00",
-  "updated_at": "2026-07-24T00:31:35+08:00",
+  "updated_at": "2026-07-24T00:50:47+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -50,7 +50,7 @@
       "python .ai/scripts/validate-source-governance.py"
     ],
     "last_completed_step": "Allocated CUST-001 and DEVWF-002 from the approved semantic customization, historical dev-workflow, test execution, selectable spec compliance, and commit-density decisions",
-    "next_action": "Design the exact DIST-001, CUST-001, and DEVWF-002 implementation workflows and downstream fixtures before changing package bytes or active skill contracts"
+    "next_action": "Continue with V060IMP-001, V060IMP-002, and V060IMP-003 in this workflow"
   },
   "results": {
     "summary": "The v0.6.0 product plan now has explicit release blockers for one target-owned semantic customization ledger and software-development end-to-end acceptance. DEVWF-002 records v0.0.2/v0.0.3 history, intent-based activation, approval pauses, stage-batched commits, pluggable unit/integration test execution without a new skill, conditional specialized tests, and selectable spec compliance.",
@@ -74,8 +74,8 @@
       "python .ai/scripts/validate-source-governance.py",
       "git diff --check"
     ],
-    "finding_status": "partially-resolved",
-    "residual_risk": "Owner decisions and detailed backlog contracts are preserved, but schemas, active-context normalization, package projection, migration, and downstream fixtures remain unimplemented. The workplace-specific dev-workflow lineage and any external test skill require later evidence.",
-    "follow_up_needed": true
+    "finding_status": "planned",
+    "residual_risk": "Implementation remains in V060IMP-001 through V060IMP-003. The workplace-specific dev-workflow lineage and any external test skill require later evidence.",
+    "follow_up_needed": false
   }
 }

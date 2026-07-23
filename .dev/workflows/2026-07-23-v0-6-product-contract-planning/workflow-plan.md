@@ -1,4 +1,4 @@
-# v0.6.0 Product, Distribution, And Lifecycle Contract Planning
+# v0.6.0 Product, Distribution, And Lifecycle Contract Implementation
 
 ## Template Metadata
 
@@ -16,10 +16,10 @@
 - `base_branch`: `main`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation-planning`
+- `current_phase`: `remediation`
 - `artifact_root`: `.dev/workflows/2026-07-23-v0-6-product-contract-planning`
 - `created_at`: `2026-07-23T22:52:32+08:00`
-- `updated_at`: `2026-07-24T00:31:35+08:00`
+- `updated_at`: `2026-07-24T00:50:47+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -30,15 +30,15 @@
   a downstream user receives, preserves software-development workflow capability
   as a primary value, makes backlog tracking optional, and gives customized AI
   context a governed upgrade lifecycle.
-- Authorized remediation scope: Preserve the current planning decisions,
-  create and schedule the approved `DIST-001`, `CUST-001`, and `DEVWF-002`
-  release-definition gates, normalize approved v0.6.0 workstream pairings, and
-  record additional owner decisions required before implementation.
+- Authorized remediation scope: Preserve the approved product decisions and
+  implement the exact `DIST-001`, `CUST-001`, and `DEVWF-002` schemas,
+  contracts, migrations, validators, and downstream acceptance fixtures.
 - Exclusions:
   - Do not create or assign additional proposed backlog items before owner approval.
-  - Do not implement the package profile, provenance/customization schemas,
-    canonical skill IDs, runtime wrappers, active spec-compliance rules, or CI
-    workflows in this planning checkpoint.
+  - Do not implement CI-001, CI-002, CFG-001, or the SKILL-001 identifier
+    transitions in this workflow.
+  - Do not create a dedicated test-execution skill or adopt an external test
+    skill without later evidence and owner review.
 - Completion criteria:
   - Product layers and distribution boundaries are explicitly approved.
   - The owner decides the target customization record boundary.
@@ -382,28 +382,30 @@ or v0.6.0 acceptance requirement.
 2. Deliberate `DIST-001` product layers and package composition.
 3. Deliberate provenance/customization storage and lifecycle.
 4. Deliberate software-development acceptance and skill naming.
-5. Create only the owner-approved backlog and roadmap changes.
-6. Validate workflow, backlog, package, and AI-context contracts before closure.
+5. Implement component, provenance, and semantic customization schemas.
+6. Implement software-development activation, test execution, selectable
+   compliance, and closeout contracts.
+7. Validate downstream fixtures, migration compatibility, package projection,
+   workflow artifacts, and AI context before closure.
 
 ## Resume Checkpoint
 
-- Last completed action: Allocated the approved semantic customization contract
-  to `CUST-001` and software-development end-to-end acceptance contract to
-  `DEVWF-002`, including historical tags, test execution, selectable spec
-  compliance, and commit-density decisions.
-- Current task: `V060PLAN-001`
-- Exact next action: Design the exact `DIST-001`, `CUST-001`, and `DEVWF-002`
-  implementation workflows and downstream fixtures before changing package
-  bytes, canonical skills, or active compliance rules.
+- Last completed action: Completed `V060PLAN-001`, corrected the runtime-reported
+  commit attribution to `gpt-5.6-sol`, and created the three bounded
+  implementation tasks.
+- Current task: `V060IMP-001`
+- Exact next action: Finalize the component, provider-selection, and provenance
+  schema, then execute `V060IMP-002` and `V060IMP-003` at their shared
+  integration points.
 - Validation already completed: Git preflight confirmed clean synchronized
   `main` at `97bcf2f8c657a9af3af7512453c6cac686a9ffab` before branch creation.
 - Git state: the validated workflow bootstrap is committed on
   `codex/2026-07-23-v0-6-product-contract-planning`; no push or merge has been
   requested.
 - Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: detailed schemas and implementation evidence
-  remain future workflow work; the exact external test skill choice is
-  intentionally deferred; `D-008` and `D-009` remain explicitly deferred.
+- Blockers or unresolved decisions: no owner decision currently blocks schema
+  implementation. The exact external test skill choice is intentionally
+  deferred; `D-008` and `D-009` remain explicitly deferred.
 
 ## Branch Lifecycle
 

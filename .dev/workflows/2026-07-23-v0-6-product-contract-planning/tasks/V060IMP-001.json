@@ -1,0 +1,64 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V060IMP-001",
+  "workflow_id": "2026-07-23-v0-6-product-contract-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-24T00:50:47+08:00",
+  "updated_at": "2026-07-24T00:50:47+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "DIST-001 componentized distribution and target provenance schema",
+    "files": [
+      ".ai/distribution/**",
+      ".ai/scripts/ai_context_package*.py",
+      ".ai/scripts/build-ai-context-package.py",
+      ".ai/scripts/validate-ai-context*.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
+      ".ai/scripts/tests/test_ai_context_package_apply.py",
+      ".ai/assets/skills/ai-context-upgrader/**",
+      ".ai/assets/skills/repo-structure-sync/**"
+    ],
+    "constraints": [
+      "Preserve one release identity with explicit component, profile, and provider selection",
+      "Default repo-backlog off for clean installs and preserve recorded existing selections",
+      "Migrate provenance authority to .dev/ai-context/provenance.yaml without dual authority",
+      "Keep source-only release operations out of downstream payload"
+    ],
+    "non_goals": [
+      "Publish v0.6.0",
+      "Implement CI-001 or CI-002",
+      "Rename skills under SKILL-001",
+      "Delete target-owned backlog or workflow data"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define component and selection schemas",
+      "Update package profile and metadata generation",
+      "Migrate target provenance template and readers",
+      "Add compatibility and projection fixtures",
+      "Validate deterministic package output and upgrade planning"
+    ],
+    "validation": [
+      "focused package schema and apply tests",
+      "deterministic double package build",
+      "extracted downstream profile fixtures",
+      "AI context and workflow validators"
+    ],
+    "last_completed_step": "Implementation task created from approved DIST-001 contract",
+    "next_action": "Finalize the component, provider-selection, and provenance schema from repository evidence"
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Exact existing-target migration and source-only projection behavior remain unimplemented.",
+    "follow_up_needed": true
+  }
+}
