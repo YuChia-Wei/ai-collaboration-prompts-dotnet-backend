@@ -8,6 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-24-v0-6-config-skill-transition`](2026-07-24-v0-6-config-skill-transition/workflow.yaml) | Separate Repository Configuration And Prepare Compatible Skill Transitions | `ai-context-governance` | `in_progress` | `2026-07-24T10:52:55+08:00` | [plan](2026-07-24-v0-6-config-skill-transition/workflow-plan.md) |
 | [`2026-07-24-v0-6-ci-lifecycle`](2026-07-24-v0-6-ci-lifecycle/workflow.yaml) | Complete v0.6.0 GitHub Workflow And Release Lifecycle Contracts | `ai-context-governance` | `in_progress` | `2026-07-24T10:15:00+08:00` | [plan](2026-07-24-v0-6-ci-lifecycle/workflow-plan.md) |
 | [`2026-07-24-v0-6-eval-deterministic`](2026-07-24-v0-6-eval-deterministic/workflow.yaml) | Establish The v0.6.0 Deterministic AI Behavior Evaluation Baseline | `ai-context-governance` | `completed` | `2026-07-24T09:56:21+08:00` | [plan](2026-07-24-v0-6-eval-deterministic/workflow-plan.md) |
 

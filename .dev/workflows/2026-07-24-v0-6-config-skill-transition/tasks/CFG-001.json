@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "CFG-001",
+  "workflow_id": "2026-07-24-v0-6-config-skill-transition",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-24T10:52:55+08:00",
+  "updated_at": "2026-07-24T10:52:55+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["CFG-001"],
+  "scope": {
+    "target": "Source repository configuration, downstream target templates, and immutable evidence convention",
+    "files": [".editorconfig", ".gitattributes", ".ai/assets/skills/repo-structure-sync/templates/**", ".ai/distribution/profiles/dotnet-backend.yaml", ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md", ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md", ".ai/scripts/**"],
+    "constraints": ["Existing target configuration remains target-owned", "Use LF by default with narrow platform exceptions", "Preserve only explicitly classified immutable originals byte-for-byte"],
+    "non_goals": ["Overwrite target-owned configuration during upgrade", "Treat all external evidence as binary", "Activate gated skill identifiers"]
+  },
+  "execution": {
+    "steps": ["Separate source and target-template configuration", "Centralize immutable original evidence policy", "Add fail-closed validator and tests", "Prove deterministic package and exact upgrades", "Accept ADR-001 and close CFG-001"],
+    "validation": ["repository config contract", "package projection and migration tests", "clean install and upgrade preservation", "aggregate validator parity"],
+    "last_completed_step": "Created the coordinated configuration and skill transition workflow",
+    "next_action": "Implement source/downstream configuration separation and validator coverage"
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Changing text policy may expose pre-existing worktree line-ending drift; validation must distinguish index truth from target-owned files.",
+    "follow_up_needed": true
+  }
+}

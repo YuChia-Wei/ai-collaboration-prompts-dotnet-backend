@@ -21,9 +21,11 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "After v0.5.0 governance contracts stabilize, create a dedicated workflow that defines deprecation metadata and validation before changing canonical identifiers, wrappers, paths, distribution, or provenance behavior."
 workflow_refs:
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-config-skill-transition/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-18-post-v0-4-roadmap-planning/tasks/ROADMAP-003.json"
   - ".dev/workflows/2026-07-19-roadmap-gate-revision/tasks/RGR-001.json"
+  - ".dev/workflows/2026-07-24-v0-6-config-skill-transition/tasks/SKILL-001.json"
 resolution_ref: null
 decision_needed: "Owner decision recorded on 2026-07-23: transition dev-workflow to software-development-orchestrator in the same v0.6.0 compatibility batch as repo-structure-sync to ai-context-init; implementation must define deprecation metadata and validation before activation."
 compatibility_boundaries:

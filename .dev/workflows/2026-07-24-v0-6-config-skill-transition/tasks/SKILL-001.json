@@ -1,0 +1,34 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "SKILL-001",
+  "workflow_id": "2026-07-24-v0-6-config-skill-transition",
+  "owner_skill": "ai-context-governance",
+  "status": "pending",
+  "created_at": "2026-07-24T10:52:55+08:00",
+  "updated_at": "2026-07-24T10:52:55+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": ["SKILL-001"],
+  "scope": {
+    "target": "Compatible transitions to ai-context-init and software-development-orchestrator",
+    "files": [".ai/assets/skills/**", ".agents/skills/**", ".claude/skills/**", ".ai/distribution/**", ".ai/evaluation/**", ".ai/scripts/**"],
+    "constraints": ["Keep historical identifiers unchanged", "Retain thin deprecated compatibility entries", "Do not activate candidates before complete EVAL-001"],
+    "non_goals": ["Create a delivery orchestrator", "Retire legacy identifiers in v0.6.0", "Rename historical workflow ownership"]
+  },
+  "execution": {
+    "steps": ["Define taxonomy and deprecation metadata", "Prepare candidate canonical and wrapper surfaces", "Add compatibility and migration validation", "Run deterministic and approved model evaluation", "Activate both transitions atomically"],
+    "validation": ["skill contract fixtures", "wrapper and distribution parity", "deterministic EVAL", "owner-approved model-in-loop EVAL"],
+    "last_completed_step": "Recorded the owner-approved target identifiers and activation boundary",
+    "next_action": "Prepare non-active compatibility metadata after CFG-001 implementation"
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Activation remains blocked until the release-side model evaluation is approved and passes.",
+    "follow_up_needed": true
+  }
+}

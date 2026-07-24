@@ -23,8 +23,10 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Execute in the coordinated v0.6.0 configuration and skill-transition workstream after ADR-001 is accepted, revised, or rejected with explicit evidence."
 workflow_refs:
   - ".dev/workflows/2026-07-23-repository-config-template-planning/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-config-skill-transition/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-repository-config-template-planning/tasks/CFGPLAN-001.json"
+  - ".dev/workflows/2026-07-24-v0-6-config-skill-transition/tasks/CFG-001.json"
 resolution_ref: null
 decision_needed: "Owner decision recorded on 2026-07-23: schedule CFG-001 in v0.6.0 together with SKILL-001; ADR-001 disposition remains required before implementation."
 acceptance:
