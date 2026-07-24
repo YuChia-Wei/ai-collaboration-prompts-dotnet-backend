@@ -6,9 +6,9 @@
   "task_id": "SIMPL-001",
   "workflow_id": "2026-07-24-v0-6-context-load-simplification",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T10:20:00+08:00",
-  "updated_at": "2026-07-24T10:20:00+08:00",
+  "updated_at": "2026-07-24T10:50:34+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["SIMPL-001"],
   "scope": {
@@ -20,15 +20,31 @@
   "execution": {
     "steps": ["Pin clean subject commit", "Collect five controlled traces", "Implement and test measurement gate", "Disposition seven candidates", "Trim duplicate root directory tables", "Verify and close"],
     "validation": ["measurement fail-closed tests", "root bilingual parity", "AI-context and workflow validators", "package source-only exclusion"],
-    "last_completed_step": "Completed read-only candidate and measurement inventory",
-    "next_action": "Commit the workflow bootstrap and collect controlled traces"
+    "last_completed_step": "Independently verified controlled traces, arithmetic, Git blob identities, dispositions, root trim, and retained historical evidence",
+    "next_action": "None; any historical archive migration requires a separately approved v0.7.0 successor"
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
+    "summary": "Measured five representative repository-load families at a clean pinned commit, dispositioned all seven candidates, and safely trimmed duplicate root directory inventories without archiving history.",
+    "files_changed": [
+      ".ai/evaluation/context-load/README.md",
+      ".ai/scripts/measure-ai-context-load.py",
+      ".ai/scripts/tests/test_ai_context_load_measurement.py",
+      "AGENTS.md",
+      "AGENTS.zh-TW.md",
+      ".dev/workflows/2026-07-24-v0-6-context-load-simplification/evidence/**",
+      ".dev/workflows/2026-07-24-v0-6-context-load-simplification/reports/measurement-report.md"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_ai_context_load_measurement.py -v (10 passed)",
+      "python .ai/scripts/tests/test_ai_context_language_policy.py -v (10 passed)",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/validate-workflow-artifacts.py",
+      "python .ai/scripts/validate-shell-assets.py",
+      "git diff --check",
+      "independent exact Git-tree arithmetic and blob verification (READY)"
+    ],
+    "finding_status": "addressed",
     "residual_risk": "Provider total prompt tokens may remain unavailable and must be recorded as null rather than estimated.",
-    "follow_up_needed": true
+    "follow_up_needed": false
   }
 }

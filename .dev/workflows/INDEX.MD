@@ -8,7 +8,6 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-24-v0-6-context-load-simplification`](2026-07-24-v0-6-context-load-simplification/workflow.yaml) | Measure And Disposition v0.6.0 Active Context Simplification | `ai-context-governance` | `in_progress` | `2026-07-24T10:20:00+08:00` | [plan](2026-07-24-v0-6-context-load-simplification/workflow-plan.md) |
 | [`2026-07-24-v0-6-ci-lifecycle`](2026-07-24-v0-6-ci-lifecycle/workflow.yaml) | Complete v0.6.0 GitHub Workflow And Release Lifecycle Contracts | `ai-context-governance` | `in_progress` | `2026-07-24T10:15:00+08:00` | [plan](2026-07-24-v0-6-ci-lifecycle/workflow-plan.md) |
 | [`2026-07-24-v0-6-eval-deterministic`](2026-07-24-v0-6-eval-deterministic/workflow.yaml) | Establish The v0.6.0 Deterministic AI Behavior Evaluation Baseline | `ai-context-governance` | `completed` | `2026-07-24T09:56:21+08:00` | [plan](2026-07-24-v0-6-eval-deterministic/workflow-plan.md) |
 
@@ -16,6 +15,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
+| [`2026-07-24-v0-6-context-load-simplification`](2026-07-24-v0-6-context-load-simplification/workflow.yaml) | Measure And Disposition v0.6.0 Active Context Simplification | `ai-context-governance` | `completed` | `2026-07-24T10:50:34+08:00` | [plan](2026-07-24-v0-6-context-load-simplification/workflow-plan.md) |
 | [`2026-07-23-v0-6-product-contract-planning`](2026-07-23-v0-6-product-contract-planning/workflow.yaml) | Define And Implement v0.6.0 Product, Distribution, And Lifecycle Contracts | `ai-context-governance` | `completed` | `2026-07-24T09:24:13+08:00` | [plan](2026-07-23-v0-6-product-contract-planning/workflow-plan.md) |
 | [`2026-07-23-governance-ci-lifecycle-hotfix`](2026-07-23-governance-ci-lifecycle-hotfix/workflow.yaml) | Repair General Governance Release Lifecycle Coupling | `ai-context-governance` | `completed` | `2026-07-23T00:53:22+08:00` | [plan](2026-07-23-governance-ci-lifecycle-hotfix/workflow-plan.md) |
 | [`2026-07-23-repository-config-template-planning`](2026-07-23-repository-config-template-planning/workflow.yaml) | Plan Source Configuration And Downstream Template Separation | `ai-context-governance` | `completed` | `2026-07-23T00:29:56+08:00` | [plan](2026-07-23-repository-config-template-planning/workflow-plan.md) |

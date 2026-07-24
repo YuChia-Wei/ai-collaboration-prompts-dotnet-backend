@@ -7,11 +7,11 @@
 - `owner_skill`: `ai-context-governance`
 - `branch`: `codex/2026-07-24-v0-6-context-load-simplification`
 - `base_branch`: `codex/2026-07-24-v0-6-ci-lifecycle`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-24-v0-6-context-load-simplification`
 - `created_at`: `2026-07-24T10:20:00+08:00`
-- `updated_at`: `2026-07-24T10:20:00+08:00`
+- `updated_at`: `2026-07-24T10:50:34+08:00`
 
 ## Objective And Scope
 
@@ -36,9 +36,15 @@
   parity after the bounded directory-table trim.
 - `SIMPL-001` closes without authorizing a historical archive migration.
 
-## Resume Checkpoint
+## Closure Checkpoint
 
-- Current task: `SIMPL-001`.
-- Exact next action: pin a clean bootstrap commit, collect controlled traces,
-  implement the measurement contract, and disposition all candidates.
-- Git state: local stacked branch; no push or merge requested.
+- Current task: none; `SIMPL-001` is complete.
+- Last completed action: independently verified the exact corpus, 38 load
+  events, five families, seven dispositions, root-entry trim, bilingual
+  structure, and absence of historical evidence deletion.
+- Validation: 10 measurement fail-closed tests, 10 language/structure tests,
+  AI-context, workflow, shell-asset, and diff checks passed.
+- Residual boundary: provider total prompt tokens were unavailable and remain
+  `null`; historical archive migration still requires a separately approved
+  v0.7.0 successor.
+- Git state: completed local stacked branch; no push or merge requested.
