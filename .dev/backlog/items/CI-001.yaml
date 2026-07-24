@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "CI-001"
 title: "Migrate Artifact Actions To Native Node.js 24 Runtimes"
 category: "release-automation"
-status: "planned"
+status: "resolved"
 priority: "HIGH"
 summary: "Replace Node.js 20 artifact-action majors in candidate and publication workflows before GitHub removes the compatibility runtime."
 created_at: "2026-07-22T21:53:50+08:00"
-updated_at: "2026-07-22T21:53:50+08:00"
+updated_at: "2026-07-24T13:35:00+08:00"
 release:
   target: "v0.6.0"
-  completed_in: null
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "node24-native-artifact-actions-and-warning-free-hosted-release-gates"
   gate: "release-blocker"
@@ -28,8 +28,8 @@ workflow_refs:
 task_refs:
   - ".dev/workflows/2026-07-22-post-v0-5-backlog-intake/tasks/INTAKE-001.json"
   - ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/tasks/CIENG-001.json"
-resolution_ref: null
-decision_needed: "Confirm the Node.js 24-native artifact-action majors and runner floor from official action releases at implementation time; do not pin a stale workaround or enable insecure Node.js 20 compatibility."
+resolution_ref: ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/reports/hosted-evidence-and-closure.md"
+decision_needed: "Resolved: official upload-artifact v7 and download-artifact v8 releases were selected, static fail-closed contracts pass, and candidate/publication execution remains an owned release-phase gate."
 acceptance:
   - "Every active candidate and publication workflow uses Node.js 24-native artifact actions; no active call remains on actions/upload-artifact@v4 or actions/download-artifact@v5."
   - "The selected action releases are verified from their official repositories at implementation time; the current expected majors are upload-artifact v7 and download-artifact v8."
@@ -39,6 +39,7 @@ acceptance:
   - "A pull-request candidate run and a non-production publication-path fixture or authorized release rehearsal complete without Node.js 20 deprecation annotations."
   - "Workflow contract tests fail closed if an active action regresses to a deprecated runtime major."
 inventory_notes:
+  - "Resolved for v0.6.0 implementation. PR #7 proved the accepted trigger, concurrency, and governance boundaries; the v0.6.0 candidate PR must execute upload-artifact v7, and the tag-owned publication run must execute download-artifact v8 before release finalization."
   - "Official releases were refreshed on 2026-07-24: upload-artifact v7 and download-artifact v8 are the selected majors; the static migration is committed locally at b18833f, while hosted execution evidence remains required."
   - "v0.5.0 publication run 29922585651 succeeded because GitHub forced Node.js 24, but its two jobs emitted warnings for upload-artifact@v4 and download-artifact@v5."
   - "GitHub's 2026 guidance says Node.js 20 actions are deprecated and runners began defaulting to Node.js 24 on 2026-06-16."

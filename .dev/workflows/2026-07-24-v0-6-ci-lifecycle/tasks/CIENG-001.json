@@ -6,9 +6,9 @@
   "task_id": "CIENG-001",
   "workflow_id": "2026-07-24-v0-6-ci-lifecycle",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T10:00:00+08:00",
-  "updated_at": "2026-07-24T12:14:12+08:00",
+  "updated_at": "2026-07-24T13:35:00+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CI-001", "CI-002"],
   "scope": {
@@ -20,11 +20,11 @@
   "execution": {
     "steps": ["Implement accepted static matrix", "Add fail-closed tests", "Implement the approved version-scoped phase contract", "Create a durable push handoff", "Collect hosted evidence after authorization"],
     "validation": ["workflow contract tests", "aggregate runner parity", "AI-context and workflow validators"],
-    "last_completed_step": "Committed the version-scoped phase contract at 58d8d28 and passed a fresh critical gate with 44 required checks and no failures",
-    "next_action": "Commit the durable push handoff and push segment 2 to origin without creating a pull request"
+    "last_completed_step": "PR #7 passed the accepted governance, portable, and candidate-discovery boundaries; candidate and tag action execution transferred to the governed release lifecycle",
+    "next_action": "Completed; the v0.6.0 release-publication workflow owns remaining candidate, tag, publication, and finalization gates"
   },
   "results": {
-    "summary": "Implemented the locally decidable CI-001/CI-002 slice and added the owner-approved version-scoped release phase contract so v0.5.0 remains revalidatable while v0.6.0 has an independent gate.",
+    "summary": "Implemented and tested the CI-001/CI-002 four-workflow lifecycle, Node.js 24-native artifact actions, concurrency, fail-closed ownership, and version-scoped phase contracts. PR #7 supplied hosted trigger evidence; actual candidate upload and tag publication transfer remain mandatory release-phase gates.",
     "files_changed": [
       ".github/workflows/governance.yml",
       ".github/workflows/portable-gates.yml",
@@ -51,8 +51,8 @@
       "Workflow handoff contract tests: 20 passed",
       "Quick aggregate gate: 44 required checks passed, 0 failed, 2 not applicable"
     ],
-    "finding_status": "partially-addressed",
-    "residual_risk": "Hosted v7/v8 annotation-free, pull-request cancellation, and publication artifact-transfer evidence remains unavailable under push-only authorization.",
-    "follow_up_needed": true
+    "finding_status": "resolved",
+    "residual_risk": "The candidate PR and tag-triggered publication must still execute the selected artifact actions successfully; the release phase contract fails closed if either execution is absent or unsuccessful.",
+    "follow_up_needed": false
   }
 }

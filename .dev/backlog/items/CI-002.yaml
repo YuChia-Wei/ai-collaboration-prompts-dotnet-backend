@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "CI-002"
 title: "Review GitHub Workflow Trigger And Lifecycle Boundaries"
 category: "release-automation"
-status: "open"
+status: "resolved"
 priority: "HIGH"
 summary: "Review every GitHub workflow for path scope, responsibility, release-phase ownership, duplication, concurrency, and post-publication behavior."
 created_at: "2026-07-23T00:53:22+08:00"
-updated_at: "2026-07-23T23:12:50+08:00"
+updated_at: "2026-07-24T13:35:00+08:00"
 release:
   target: "v0.6.0"
-  completed_in: null
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "github-workflow-trigger-and-release-lifecycle-review"
   gate: "release-blocker"
@@ -26,8 +26,8 @@ workflow_refs:
 task_refs:
   - ".dev/workflows/2026-07-23-governance-ci-lifecycle-hotfix/tasks/CIHOTFIX-001.json"
   - ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/tasks/CIENG-001.json"
-resolution_ref: null
-decision_needed: "Owner decision recorded on 2026-07-23: execute the comprehensive review together with CI-001 as one v0.6.0 release-engineering workstream."
+resolution_ref: ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/reports/hosted-evidence-and-closure.md"
+decision_needed: "Resolved: the owner-approved combined CI-001/CI-002 workstream implemented and tested the four-workflow lifecycle matrix; remaining candidate and tag execution evidence belongs to the governed release phases."
 acceptance:
   - "Inventory every active workflow trigger, path filter, manual dispatch, permission, concurrency rule, job responsibility, and mutation boundary."
   - "Classify each executable check as general governance, portable validation, candidate build, tag validation, publication, or finalization."
@@ -38,6 +38,7 @@ acceptance:
   - "Workflow contract tests enforce the accepted trigger and ownership matrix and fail on phase-specific regression."
   - "The review reconciles CI-001 Node.js 24 action migration so related workflow edits are not duplicated."
 inventory_notes:
+  - "Resolved for v0.6.0 implementation. PR #7 passed governance, portable, and candidate-discovery checks with the accepted responsibility and concurrency matrix; the governed candidate and tag runs remain release gates."
   - "The static four-workflow lifecycle matrix is implemented locally at b18833f. A newly discovered v0.6 blocker remains: the version-specific release phase validator and singleton contract only accept v0.5.0."
   - "PR #6 proved that .dev/backlog/** correctly triggered governance but the same job still executed a v0.5.0 candidate-only command after v0.5.0 was published."
   - "The short-term repair removes concrete release-phase execution from general governance while retaining release tooling unit tests."

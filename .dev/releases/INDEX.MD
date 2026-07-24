@@ -13,15 +13,13 @@ Historical `v*` directories below are records, never templates.
 
 ## Candidate Releases
 
-_None._
+| Release ID | Version | Status | Compatibility | Notes | Migration |
+| --- | --- | --- | --- | --- | --- |
+| [`REL-v0.6.0`](v0.6.0/release.yaml) | `v0.6.0` | `validated candidate` | schema 2 package/files; schema 3 migration; exact automatic source v0.5.0 | [notes](v0.6.0/release-notes.md) | [guide](v0.6.0/migration-guide.md) |
 
 ## Planned Phase Contracts
 
-- [`v0.6.0`](v0.6.0/release-phase-checks.yaml) owns the sanctioned phase
-  commands for the planned release. The presence of a phase contract does not
-  create or validate a release candidate; candidate status begins only when the
-  governed release record and authored artifacts are instantiated and pass the
-  candidate gate.
+_None. The v0.6.0 phase contract is now owned by its governed candidate._
 
 ## Published Releases
 
