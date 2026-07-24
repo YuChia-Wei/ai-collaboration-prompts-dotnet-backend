@@ -1,0 +1,47 @@
+schema_version: "1.0"
+measurement_id: "SIMPL-001-final-controlled-traces"
+subject_commit: "2e3c055050dbf2b2920ba80bc741c43799b359b6"
+trace_manifest: ".dev/workflows/2026-07-24-v0-6-context-load-simplification/evidence/context-load-traces.yaml"
+measurement_sha256: "dd9133634439731d7a7b8e2b11b23a02b7fb07c65b4d72e0b93c6044ea34f80b"
+repository_corpus:
+  scope: "regular-tracked-utf8-files-at-subject-commit"
+  file_count: 1170
+  skipped_non_utf8_file_count: 0
+  bytes: 4783210
+  whitespace_words: 476339
+repository_loaded:
+  scope: "declared-repository-backed-load-events-only"
+  family_count: 5
+  event_count: 38
+  bytes: 219279
+  whitespace_words: 25481
+  families:
+    - family: "runtime"
+      event_count: 1
+      bytes: 14060
+      whitespace_words: 1801
+    - family: "skill-routing"
+      event_count: 5
+      bytes: 28334
+      whitespace_words: 3522
+    - family: "release"
+      event_count: 15
+      bytes: 78798
+      whitespace_words: 9162
+    - family: "handoff"
+      event_count: 10
+      bytes: 51746
+      whitespace_words: 5503
+    - family: "development"
+      event_count: 7
+      bytes: 46341
+      whitespace_words: 5493
+prompt_accounting:
+  total_prompt_tokens: null
+  total_prompt_tokens_source: null
+  repository_corpus_is_prompt: false
+  repository_token_heuristic:
+    method: "ceil-utf8-bytes-divided-by-four"
+    scope: "repository_loaded"
+    approximate_tokens: 54820
+    is_total_prompt_tokens: false
