@@ -81,6 +81,19 @@ def load_yaml(path: Path) -> dict[str, Any]:
     return data
 
 
+def materialize_workflow_id(value: Any, workflow_id: str) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: materialize_workflow_id(item, workflow_id)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [materialize_workflow_id(item, workflow_id) for item in value]
+    if isinstance(value, str):
+        return value.replace("<workflow-id>", workflow_id)
+    return value
+
+
 def build_test_task(blueprint: dict[str, Any]) -> dict[str, Any]:
     workflow = blueprint["workflow"]
     test_state = copy.deepcopy(blueprint["test_state"])
@@ -487,7 +500,18 @@ class DevWorkflowAcceptanceTests(unittest.TestCase):
         )
 
     def test_gwt_003_given_complete_fresh_session_checkpoint_when_repository_is_verified_then_pins_provenance_and_test_state_pass(self) -> None:
-        blueprint = load_yaml(FRESH_BLUEPRINT)
+        template = load_yaml(FRESH_BLUEPRINT)
+        self.assertEqual("<workflow-id>", template["workflow"]["workflow_id"])
+        self.assertTrue(
+            all(
+                "<workflow-id>" in template["workflow"][field]
+                for field in ("checkpoint_path", "locator_path", "task_path")
+            )
+        )
+        blueprint = materialize_workflow_id(
+            template,
+            "2026-07-24-devwf-fresh-session-acceptance",
+        )
         with tempfile.TemporaryDirectory(
             prefix="devwf-fresh-session-"
         ) as temporary:

@@ -8,11 +8,11 @@ repository:
   checkpoint_commit_subject: "test(dev-workflow): add receiving checkpoint"
   observed_trailer: "Co-Authored-By: OpenAI Codex (gpt-5.6-sol, xhigh) <noreply@openai.com>"
 workflow:
-  workflow_id: "2026-07-24-devwf-fresh-session-acceptance"
+  workflow_id: "<workflow-id>"
   task_id: "DEVWF-ACC-TEST"
-  checkpoint_path: ".dev/workflows/2026-07-24-devwf-fresh-session-acceptance/handoff.yaml"
-  locator_path: ".dev/workflows/2026-07-24-devwf-fresh-session-acceptance/workflow.yaml"
-  task_path: ".dev/workflows/2026-07-24-devwf-fresh-session-acceptance/tasks/DEVWF-ACC-TEST.json"
+  checkpoint_path: ".dev/workflows/<workflow-id>/handoff.yaml"
+  locator_path: ".dev/workflows/<workflow-id>/workflow.yaml"
+  task_path: ".dev/workflows/<workflow-id>/tasks/DEVWF-ACC-TEST.json"
   target_policy_path: ".dev/standards/DEV-WORKFLOW-ACCEPTANCE-TEST-POLICY.md"
 resume:
   last_completed_action: "Executed the target-owned unit acceptance command and recorded its result."
