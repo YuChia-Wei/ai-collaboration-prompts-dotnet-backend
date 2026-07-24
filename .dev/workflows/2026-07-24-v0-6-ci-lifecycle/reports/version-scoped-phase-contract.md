@@ -28,8 +28,10 @@ The owner approved one immutable phase contract per stable release:
   applicable. The retained downstream integration fixture and Windows symlink
   fixture were skipped by their declared environment conditions.
 
-The push handoff will separately record a fresh critical-gate observation after
-the implementation commit.
+The push handoff records the fresh critical-gate observation from clean
+implementation commit `58d8d28`: 44 required checks passed, 0 failed, and 1
+check was not applicable. Its complete normalized output is retained outside
+the repository and identified by SHA-256 in the checkpoint.
 
 ## Hosted Boundary
 

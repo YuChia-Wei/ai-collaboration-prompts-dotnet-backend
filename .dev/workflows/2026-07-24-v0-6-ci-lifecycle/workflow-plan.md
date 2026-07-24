@@ -9,10 +9,10 @@
 - `base_branch`: `codex/2026-07-24-v0-6-config-skill-transition`
 - `branch_segment`: `2`
 - `status`: `in_progress`
-- `current_phase`: `implementation-commit`
+- `current_phase`: `push-handoff`
 - `artifact_root`: `.dev/workflows/2026-07-24-v0-6-ci-lifecycle`
 - `created_at`: `2026-07-24T10:00:00+08:00`
-- `updated_at`: `2026-07-24T12:02:54+08:00`
+- `updated_at`: `2026-07-24T12:14:12+08:00`
 
 ## Objective And Scope
 
@@ -54,9 +54,10 @@ request and an authorized publication rehearsal or real release.
 ## Resume Checkpoint
 
 - Current task: `CIENG-001`.
-- Exact next action: commit the validated version-scoped contract, create a
-  push handoff checkpoint, and push segment 2.
+- Exact next action: push segment 2 to `origin`, then inspect only the
+  push-triggered hosted checks without creating a pull request, tag, or release.
 - Blockers: hosted pull-request concurrency and publication execution remain
   outside the current push-only authorization.
-- Git state: the static slice is committed at `b82ad4c`; segment 2 starts from
-  `d64b909`.
+- Git state: the static slice is committed at `b82ad4c`; the version-scoped
+  phase contract is committed at `58d8d28`; the containing push checkpoint is
+  the next commit.
