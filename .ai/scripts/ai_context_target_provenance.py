@@ -281,6 +281,8 @@ def validate_customizations(
             errors.append(f"{label}.subject must identify a capability, rule, or contract")
         if item.get("relationship") not in RELATIONSHIPS:
             errors.append(f"{label}.relationship is invalid")
+        if not isinstance(item.get("reason"), str) or not item["reason"].strip():
+            errors.append(f"{label}.reason must be a non-empty string")
         validate_string_references(
             item.get("paths"), f"{label}.paths", errors, allow_empty=False
         )

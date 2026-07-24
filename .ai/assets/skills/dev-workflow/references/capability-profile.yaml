@@ -1,4 +1,4 @@
-schema_version: "1.1"
+schema_version: "1.2"
 profile_id: "ai-collaboration-prompts-dotnet-backend"
 status: "active"
 allowed_slots: [workflow-orchestration, requirements, specification, problem-framing, architecture, test-design, implementation, local-change, test-execution, review, compliance-validation]
@@ -20,3 +20,34 @@ capability_contracts:
     default_levels: [unit, integration]
     conditional_levels: [e2e, browser, playwright, environment-dependent]
     outcomes: [passed, failed, blocked-by-environment, not-applicable, deferred-with-owner]
+orchestration_contract:
+  activation:
+    intent_class: high-level-multi-stage-software-development
+    skill_name_required: false
+    routing_basis: [requested-outcome, current-artifacts, repository-policy, approval-state]
+  approval:
+    gated_transition: requirement-design-specification-to-implementation
+    pending_outcome: pause-before-implementation
+    authorization_source_required: true
+  spec_compliance:
+    default_selected: false
+    unselected_outcome: not-applicable
+    selected_gate: 100-percent-fail-closed-with-evidence
+  commit:
+    checkpoint_unit: validated-durable-stage-or-coherent-bounded-batch
+    per_skill_invocation_commits: prohibited
+    history_compression: unshared-unpushed-only
+    preserve: [approval, evidence, review, checkpoint, handoff]
+  fresh_session:
+    evidence_sources: [git, workflow-locator, current-task, target-policy, registered-handoff-checkpoint]
+    hidden_context_required: false
+  closeout_evidence:
+    - approved-requirements-and-specifications
+    - implementation
+    - required-tests
+    - selected-compliance
+    - review
+    - validation
+    - task-state
+    - commits
+    - branch-and-handoff

@@ -18,6 +18,12 @@ remain a convenience, but the activation signal is the requested outcome,
 current lifecycle artifacts, mutation scope, and need for approval or durable
 tracking.
 
+This is a model-in-loop runtime responsibility. The deterministic acceptance
+oracle begins only after the runtime or evaluator produces a preclassified
+envelope with normalized stage intents. It does not parse arbitrary prose or
+prove natural-language classifier quality; those claims remain in `EVAL`.
+See `acceptance-oracle.md`.
+
 After activation:
 
 - map intent to generic capability slots before resolving providers;
@@ -26,6 +32,16 @@ After activation:
 - use repository and target policy as process truth;
 - do not treat runtime completion, a skill invocation, a push, or a merge as
   product closeout.
+
+For a fresh session, resume from the registered repository handoff checkpoint,
+pinned Git state, workflow locator, current task, target policy, recorded test
+state, and exact next action with `hidden_context_required: false`. Do not
+reconstruct required state from prior chat context.
+
+The DEVWF acceptance fixture invokes
+`validate-workflow-handoff.py --verify-repository` against a complete temporary
+Git repository, then validates locator/task continuity and exact recorded test
+outcomes. A partial checkpoint-shape check is not fresh-session acceptance.
 
 ## Layer Model
 

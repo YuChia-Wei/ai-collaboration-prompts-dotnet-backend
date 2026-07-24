@@ -44,6 +44,7 @@ def valid_customization() -> dict:
         "id": "CUST-TEAM-001",
         "subject": {"kind": "contract", "id": "enterprise-test-execution"},
         "relationship": "deviates",
+        "reason": "Enterprise execution controls change the framework test contract.",
         "paths": [".dev/operations/test-policy.md"],
         "base_framework": {
             "version": "v0.6.0",
@@ -298,6 +299,25 @@ class SemanticCustomizationLifecycleTests(unittest.TestCase):
                     for error in errors
                 )
             )
+
+    def test_gwt_007_given_customization_reason_is_missing_when_validated_then_it_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="customization-reason-") as value:
+            path = Path(value) / "customizations.yaml"
+            customization = valid_customization()
+            del customization["reason"]
+            path.write_text(
+                __import__("yaml").safe_dump(
+                    {
+                        "schema_version": "1.0",
+                        "customizations": [customization],
+                    },
+                    sort_keys=False,
+                ),
+                encoding="utf-8",
+            )
+            errors: list[str] = []
+            TARGET.validate_customizations(path, errors)
+            self.assertTrue(any(".reason must be a non-empty string" in error for error in errors))
 
 
 if __name__ == "__main__":

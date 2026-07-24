@@ -230,6 +230,37 @@ def infer_legacy_component(entry_id: str, target_path: str | None = None) -> str
     return "software-development-core"
 
 
+def resolve_entry_component(
+    entry: dict,
+    source_path: str,
+    default_component: str,
+    component_ids: set[str],
+) -> str:
+    overrides = entry.get("component_overrides", [])
+    if not isinstance(overrides, list):
+        raise PackageError(f"{entry.get('id')}: component_overrides must be a list")
+    matched: list[str] = []
+    for index, override in enumerate(overrides):
+        if not isinstance(override, dict):
+            raise PackageError(
+                f"{entry.get('id')}: component_overrides[{index}] must be a mapping"
+            )
+        override_patterns = patterns(override.get("patterns"))
+        component_id = override.get("component_id")
+        if not isinstance(component_id, str) or component_id not in component_ids:
+            raise PackageError(
+                f"{entry.get('id')}: component_overrides[{index}] has unknown "
+                f"component_id {component_id!r}"
+            )
+        if any(matches(source_path, pattern) for pattern in override_patterns):
+            matched.append(component_id)
+    if len(matched) > 1:
+        raise PackageError(
+            f"{entry.get('id')}: ambiguous component overrides for {source_path}"
+        )
+    return matched[0] if matched else default_component
+
+
 def collect_payload(
     repo: Path,
     tree: dict[str, GitEntry],
@@ -340,7 +371,12 @@ def collect_payload(
                         ownership,
                         behavior,
                         entry_id,
-                        component_id,
+                        resolve_entry_component(
+                            entry,
+                            source_path,
+                            component_id,
+                            component_ids,
+                        ),
                     ),
                 )
                 matched += 1

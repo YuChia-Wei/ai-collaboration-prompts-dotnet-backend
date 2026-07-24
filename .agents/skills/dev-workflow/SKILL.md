@@ -11,6 +11,7 @@ This is a thin current-runtime wrapper.
 
 - Registry: `.ai/assets/skills/README.MD`
 - Spec: `.ai/assets/skills/dev-workflow/skill.yaml`
+- Handoff Policy: `.dev/standards/WORKFLOW-HANDOFF-POLICY.md`
 - Human Guide: `.dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md`
 - References:
   - `.ai/assets/skills/dev-workflow/references/routing-playbook.md`
@@ -21,6 +22,7 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/dev-workflow/references/runtime-coordination.md`
   - `.ai/assets/skills/dev-workflow/references/workflow-artifact-playbook.md`
   - `.ai/assets/skills/dev-workflow/references/output-contract.md`
+  - `.ai/assets/skills/dev-workflow/references/acceptance-oracle.md`
 - Templates:
   - `.ai/assets/skills/dev-workflow/templates/workflow-locator-template.yaml`
   - `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`

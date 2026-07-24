@@ -216,6 +216,94 @@ class DeterministicPackageGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
+    def test_gwt_000a_given_real_component_matrix_when_payload_is_projected_then_both_mandatory_cores_keep_their_capabilities(self) -> None:
+        tree = PACKAGE.git_tree(ROOT, "HEAD")
+        profile = yaml.safe_load(
+            (
+                ROOT / ".ai/distribution/profiles/dotnet-backend.yaml"
+            ).read_text(encoding="utf-8")
+        )
+        payload = {
+            item.path: item.component_id
+            for item in PACKAGE.collect_payload(ROOT, tree, profile)
+        }
+        lifecycle_paths = [
+            ".ai/assets/skills/ai-context-auditor/skill.yaml",
+            ".ai/assets/skills/ai-context-governance/skill.yaml",
+            ".ai/assets/skills/ai-context-upgrader/skill.yaml",
+            ".ai/assets/skills/repo-structure-sync/skill.yaml",
+            ".agents/skills/ai-context-auditor/SKILL.md",
+            ".agents/skills/ai-context-governance/SKILL.md",
+            ".agents/skills/ai-context-upgrader/SKILL.md",
+            ".agents/skills/repo-structure-sync/SKILL.md",
+            ".ai/scripts/ai_context_target_provenance.py",
+            ".ai/scripts/validate-ai-context-target.py",
+        ]
+        self.assertTrue(
+            all(
+                payload[path] == "ai-context-lifecycle-core"
+                for path in lifecycle_paths
+            )
+        )
+        self.assertEqual(
+            "software-development-core",
+            payload[".ai/assets/skills/dev-workflow/skill.yaml"],
+        )
+        self.assertEqual(
+            "software-development-core",
+            payload[".dev/workflows/README.MD"],
+        )
+        self.assertEqual(
+            "repo-backlog",
+            payload[".dev/backlog/README.MD"],
+        )
+        self.assertEqual(
+            "dotnet-backend",
+            payload["tools/DotnetBackendAnalyzers/DotnetBackendAnalyzers.csproj"],
+        )
+
+    def test_gwt_000b_given_overlapping_component_overrides_when_one_path_matches_both_then_projection_fails_closed(self) -> None:
+        entry = {
+            "id": "ambiguous-component-fixture",
+            "component_overrides": [
+                {
+                    "component_id": "software-development-core",
+                    "patterns": [".ai/assets/**"],
+                },
+                {
+                    "component_id": "ai-context-lifecycle-core",
+                    "patterns": [".ai/assets/skills/**"],
+                },
+            ],
+        }
+        with self.assertRaisesRegex(
+            PACKAGE.PackageError, "ambiguous component overrides"
+        ):
+            PACKAGE.resolve_entry_component(
+                entry,
+                ".ai/assets/skills/ai-context-governance/skill.yaml",
+                "software-development-core",
+                {"software-development-core", "ai-context-lifecycle-core"},
+            )
+
+    def test_gwt_000c_given_unknown_component_override_when_profile_is_resolved_then_projection_fails_closed(self) -> None:
+        entry = {
+            "id": "unknown-component-fixture",
+            "component_overrides": [
+                {
+                    "component_id": "unknown-core",
+                    "patterns": [".ai/assets/**"],
+                }
+            ],
+        }
+        with self.assertRaisesRegex(PACKAGE.PackageError, "unknown component_id"):
+            PACKAGE.resolve_entry_component(
+                entry,
+                ".ai/assets/skills/dev-workflow/skill.yaml",
+                "software-development-core",
+                {"software-development-core", "ai-context-lifecycle-core"},
+            )
+
     def test_gwt_001_given_one_immutable_commit_when_built_twice_then_archives_are_byte_identical(self) -> None:
         fixture = SyntheticPackageRepo()
         try:

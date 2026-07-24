@@ -8,6 +8,7 @@ customization:
     - id
     - subject
     - relationship
+    - reason
     - paths
     - base_framework
     - dependencies
@@ -26,6 +27,8 @@ customization:
       required: [kind, id]
       kind: [capability, rule, contract]
     relationship: [extends, replaces, deviates, target-only]
+    reason:
+      type: non-empty-string
     paths:
       type: unique-repository-relative-posix-path-list
     base_framework:

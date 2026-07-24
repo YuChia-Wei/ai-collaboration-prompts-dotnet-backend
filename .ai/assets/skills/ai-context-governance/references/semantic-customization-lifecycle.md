@@ -25,8 +25,9 @@ The machine-readable ledger schema is
    version, tag, full commit, selection, and import timestamp. With incomplete
    evidence, return unresolved provenance and write neither authority.
 2. **Record**: `ai-context-governance` assigns a stable customization ID,
-   identifies a capability/rule/contract before paths, records base framework
-   evidence and dependencies, links decision evidence, and obtains an owner
+   identifies a capability/rule/contract before paths, records why the target
+   behavior differs or extends the framework, records base framework evidence
+   and dependencies, links decision evidence, and obtains an owner
    reconciliation decision.
 3. **Baseline**: `ai-context-auditor` verifies that the active context implements
    the recorded semantics and records an independent assessment reference.

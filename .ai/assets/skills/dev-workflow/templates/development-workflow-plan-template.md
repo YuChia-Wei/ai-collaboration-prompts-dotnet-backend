@@ -3,9 +3,9 @@
 ## Template Metadata
 
 - `template_id`: `dev-workflow/development-workflow-plan`
-- `template_version`: `1.2.0`
+- `template_version`: `1.3.0`
 - `template_created_at`: `2026-07-10T18:25:11+08:00`
-- `template_updated_at`: `2026-07-24T01:03:37+08:00`
+- `template_updated_at`: `2026-07-24T08:10:00+08:00`
 
 ## Workflow Metadata
 
@@ -19,7 +19,7 @@
 - `created_at`: `<ISO-8601 timestamp with UTC offset>`
 - `updated_at`: `<ISO-8601 timestamp with UTC offset>`
 - `template_source`: `.ai/assets/skills/dev-workflow/templates/development-workflow-plan-template.md`
-- `template_version`: `1.2.0`
+- `template_version`: `1.3.0`
 - `workflow_locator`: `.dev/workflows/<workflow-id>/workflow.yaml`
 - `artifact_root`: `<repository-relative artifact root; default .dev/workflows/<workflow-id>/>`
 
@@ -96,6 +96,8 @@ is `awaiting-approval`.
 - Deferred stages and reasons:
 - Open decisions:
 - Continuation instructions:
+- Target policy references:
+- Registered handoff checkpoint:
 - Branch history and checkpoint handoffs:
 
 ## Branch Lifecycle

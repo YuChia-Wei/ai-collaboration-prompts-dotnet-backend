@@ -64,6 +64,10 @@ requires an identified owner and the target policy's explicit permission to
 defer. Closeout pauses while any mandatory selected test lacks an acceptable
 target-policy outcome.
 
+Each task records `required_for_closeout` as a subset of `selected_levels`.
+Unit and integration remain the default selected levels; every conditional
+level needs a recorded selection source.
+
 ## Selectable Spec Compliance
 
 Spec compliance is unselected by default and reports `not-applicable`. A target
@@ -85,6 +89,16 @@ spec-compliance gate itself remains selectable.
 - Fallback-mode output is suitable for planning, handoff, and minimum viable checklist coverage. It is not equivalent to a specialist skill result.
 
 ## Profile Update Rules
+
+Schema `1.2` also records deterministic orchestration invariants for
+intent-class activation, approval pauses, selectable compliance, coherent
+commit batches, fresh-session evidence, and separate closeout evidence.
+
+Deterministic activation acceptance starts from the preclassified envelope
+defined in `acceptance-oracle.md`. Natural-language classification remains a
+model-in-loop EVAL concern. Fresh-session acceptance requires the complete
+repository-verified checkpoint fixture from that reference, not only a local
+continuation mapping.
 
 - Add or change mappings in `capability-profile.yaml`, then synchronize this explanatory table before changing runtime wrappers or root routing tables.
 - Keep capability names generic.

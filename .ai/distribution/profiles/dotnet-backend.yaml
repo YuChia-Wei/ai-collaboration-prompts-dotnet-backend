@@ -47,6 +47,12 @@ selection_semantics:
   package_and_migration_selection: clean-install-default
   effective_selection: target-planner-resolution
 
+component_identity:
+  default: entry-component-id
+  overrides: source-path-pattern-to-single-component
+  ambiguity: fail-closed
+  ownership: exactly-one-component-per-distributed-path
+
 package:
   source_repository: https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend
   name_template: ai-context-dotnet-backend-v{version}
@@ -92,6 +98,15 @@ entries:
   - id: canonical-ai-assets
     component_id: software-development-core
     source: .ai/assets/**
+    component_overrides:
+      - component_id: ai-context-lifecycle-core
+        patterns:
+          - .ai/assets/skills/README.MD
+          - .ai/assets/skills/ai-context-auditor/**
+          - .ai/assets/skills/ai-context-governance/**
+          - .ai/assets/skills/ai-context-upgrader/**
+          - .ai/assets/skills/repo-structure-sync/**
+          - .ai/assets/sub-agent-role-prompts/context-translator/**
     target: .ai/assets/
     ownership: framework-managed
     install_behavior: managed
@@ -108,18 +123,48 @@ entries:
   - id: ai-runtime-scripts
     component_id: software-development-core
     source: .ai/scripts/**
+    component_overrides:
+      - component_id: ai-context-lifecycle-core
+        patterns:
+          - .ai/scripts/README.md
+          - .ai/scripts/ai_context_package_apply.py
+          - .ai/scripts/ai_context_target_provenance.py
+          - .ai/scripts/plan-ai-context-package-apply.py
+          - .ai/scripts/validate-ai-context.py
+          - .ai/scripts/validate-ai-context-target.py
+          - .ai/scripts/tests/test_ai_context_package_apply.py
+          - .ai/scripts/tests/test_ai_context_root_entries.py
+          - .ai/scripts/tests/test_ai_context_wrapper_metadata.py
+          - .ai/scripts/tests/test_semantic_customization_lifecycle.py
+          - .ai/scripts/tests/test_semantic_customization_skill_contract.py
     target: .ai/scripts/
     ownership: framework-managed
     install_behavior: managed
   - id: codex-skill-wrappers
     component_id: software-development-core
     source: .agents/skills/**
+    component_overrides:
+      - component_id: ai-context-lifecycle-core
+        patterns:
+          - .agents/skills/README.md
+          - .agents/skills/ai-context-auditor/**
+          - .agents/skills/ai-context-governance/**
+          - .agents/skills/ai-context-upgrader/**
+          - .agents/skills/repo-structure-sync/**
     target: .agents/skills/
     ownership: framework-managed
     install_behavior: managed
   - id: claude-skill-wrappers
     component_id: software-development-core
     source: .claude/skills/**
+    component_overrides:
+      - component_id: ai-context-lifecycle-core
+        patterns:
+          - .claude/skills/README.md
+          - .claude/skills/ai-context-auditor/**
+          - .claude/skills/ai-context-governance/**
+          - .claude/skills/ai-context-upgrader/**
+          - .claude/skills/repo-structure-sync/**
     target: .claude/skills/
     ownership: framework-managed
     install_behavior: managed
@@ -146,12 +191,24 @@ entries:
     source:
       - .dev/standards/**
       - .dev/TEAM-GIT-FLOW-RULES.MD
+    component_overrides:
+      - component_id: ai-context-lifecycle-core
+        patterns:
+          - .dev/standards/AI-CONTEXT-*.md
+          - .dev/standards/ASSESSMENT-ARTIFACT-POLICY.md
     target: preserve-relative-path
     ownership: framework-managed
     install_behavior: managed
   - id: reusable-guides
     component_id: software-development-core
     source: .dev/guides/**
+    component_overrides:
+      - component_id: ai-context-lifecycle-core
+        patterns:
+          - .dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md
+          - .dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md
+          - .dev/guides/ai-collaboration-guides/AI-CONTEXT-UPGRADER-SKILL-GUIDE.md
+          - .dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md
     target: .dev/guides/
     ownership: framework-managed
     install_behavior: managed

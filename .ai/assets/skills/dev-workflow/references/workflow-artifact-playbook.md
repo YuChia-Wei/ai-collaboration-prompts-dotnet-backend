@@ -94,6 +94,7 @@ null `test_execution_contract` with:
     "policy": []
   },
   "selected_levels": ["unit", "integration"],
+  "required_for_closeout": ["unit", "integration"],
   "conditional_selection_sources": [],
   "outcomes": [
     {
@@ -111,6 +112,12 @@ null `test_execution_contract` with:
   `evaluated-external-skill`, then `fallback-contract`.
 - Unit and integration are selected by default. Add E2E, browser, Playwright,
   or environment-dependent levels only with a recorded selection source.
+- `required_for_closeout` is a subset of `selected_levels`. A required level
+  must pass, or have a target-policy-backed `deferred-with-owner` outcome with
+  an owner and follow-up, before the task can complete.
+- A selected `not-applicable` level records why the target has no applicable
+  command and is omitted from `required_for_closeout`; do not invent a command
+  merely to satisfy the record shape.
 - Record commands and environment requirements, not secrets. Never invent
   credentials, bypass controls, or escalate privileges implicitly.
 - Leave `test_execution_contract` null for other capability slots.
@@ -152,6 +159,18 @@ Use `deferred` only when the work is intentionally postponed and the task or pla
   completion, required test outcomes, selected compliance gates, review
   disposition, validation evidence, task state, commit evidence, and branch or
   handoff state separately.
+
+## Fresh-Session Resume
+
+For a fresh-session continuation, populate the locator `continuation` block
+with the current task, target-policy references, and the registered handoff
+checkpoint. The checkpoint owns the exact next action and must set
+`hidden_context_required: false`. Resume from Git, the locator, current task,
+target policy, recorded test state, and the validated checkpoint; hidden chat
+state is never an input.
+
+Run the repository handoff validator before continuation. A missing,
+unregistered, stale, or mismatched checkpoint blocks the handoff.
 
 ## Skill-Owned Templates
 

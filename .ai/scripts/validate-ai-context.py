@@ -1516,8 +1516,8 @@ def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]
     if profile is None:
         return 0
     schema_version = profile.get("schema_version")
-    if schema_version not in {"1.0", "1.1"}:
-        errors.append(f"{CAPABILITY_PROFILE}: schema_version must be 1.0 or 1.1")
+    if schema_version not in {"1.0", "1.1", "1.2"}:
+        errors.append(f"{CAPABILITY_PROFILE}: schema_version must be 1.0, 1.1, or 1.2")
     if not isinstance(profile.get("profile_id"), str) or not profile.get("profile_id"):
         errors.append(f"{CAPABILITY_PROFILE}: profile_id must be a non-empty string")
     if profile.get("status") != "active":
@@ -1543,7 +1543,7 @@ def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]
     if missing:
         errors.append(f"{CAPABILITY_PROFILE}: missing required mappings {missing}")
     contracts = profile.get("capability_contracts", {})
-    if schema_version == "1.1":
+    if schema_version in {"1.1", "1.2"}:
         if not isinstance(contracts, dict):
             errors.append(f"{CAPABILITY_PROFILE}: capability_contracts must be a mapping")
         else:
@@ -1583,6 +1583,61 @@ def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]
                 errors.append(f"{CAPABILITY_PROFILE}: test-execution must remain optional")
             if "test-execution" in mappings:
                 errors.append(f"{CAPABILITY_PROFILE}: test-execution must not map to an unevaluated skill")
+    if schema_version == "1.2":
+        expected_orchestration = {
+            "activation": {
+                "intent_class": "high-level-multi-stage-software-development",
+                "skill_name_required": False,
+                "routing_basis": [
+                    "requested-outcome",
+                    "current-artifacts",
+                    "repository-policy",
+                    "approval-state",
+                ],
+            },
+            "approval": {
+                "gated_transition": "requirement-design-specification-to-implementation",
+                "pending_outcome": "pause-before-implementation",
+                "authorization_source_required": True,
+            },
+            "spec_compliance": {
+                "default_selected": False,
+                "unselected_outcome": "not-applicable",
+                "selected_gate": "100-percent-fail-closed-with-evidence",
+            },
+            "commit": {
+                "checkpoint_unit": "validated-durable-stage-or-coherent-bounded-batch",
+                "per_skill_invocation_commits": "prohibited",
+                "history_compression": "unshared-unpushed-only",
+                "preserve": ["approval", "evidence", "review", "checkpoint", "handoff"],
+            },
+            "fresh_session": {
+                "evidence_sources": [
+                    "git",
+                    "workflow-locator",
+                    "current-task",
+                    "target-policy",
+                    "registered-handoff-checkpoint",
+                ],
+                "hidden_context_required": False,
+            },
+            "closeout_evidence": [
+                "approved-requirements-and-specifications",
+                "implementation",
+                "required-tests",
+                "selected-compliance",
+                "review",
+                "validation",
+                "task-state",
+                "commits",
+                "branch-and-handoff",
+            ],
+        }
+        if profile.get("orchestration_contract") != expected_orchestration:
+            errors.append(
+                f"{CAPABILITY_PROFILE}: orchestration_contract must match the "
+                "v1.2 deterministic acceptance contract"
+            )
     for slot, skill_id in mappings.items():
         if not isinstance(skill_id, str) or skill_id not in skill_assets:
             errors.append(f"{CAPABILITY_PROFILE}: {slot} maps missing skill {skill_id!r}")

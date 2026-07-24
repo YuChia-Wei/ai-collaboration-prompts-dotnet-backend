@@ -190,6 +190,11 @@ unsafe paths, output collisions, unsupported Git entry types, and existing
 output files. These source-side packaging tools are excluded from the installed
 target payload.
 
+The distribution profile assigns every projected path to exactly one component.
+Broad entries may use non-overlapping `component_overrides` to classify
+AI-context lifecycle skills, wrappers, target validators, and human guides
+without duplicating package paths. Multiple matching overrides fail closed.
+
 `plan-ai-context-package-apply.py` is the dry-run-first target-side package
 entrypoint. It runs from the extracted envelope's `payload/.ai/scripts/`
 directory, requires a clean committed target, and binds the package manifest,
