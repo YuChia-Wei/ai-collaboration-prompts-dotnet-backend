@@ -368,6 +368,14 @@ run_command_check "python .ai/scripts/tests/test_dev_workflow_acceptance.py -v" 
     "Development Workflow Deterministic Acceptance" \
     "required" "true" "true"
 
+run_command_check "python .ai/scripts/tests/test_semantic_customization_lifecycle.py -v" \
+    "Semantic Customization Lifecycle" \
+    "required" "true" "true"
+
+run_command_check "python .ai/scripts/tests/test_semantic_customization_skill_contract.py -v" \
+    "Semantic Customization Skill Contract" \
+    "required" "true" "true"
+
 if [ -n "${COMMIT_RANGE:-}" ]; then
     COMMIT_VALIDATION_COMMAND="python .ai/scripts/validate-git-commits.py --range '$COMMIT_RANGE'"
     if [ -n "${WORKFLOW_ID:-}" ]; then

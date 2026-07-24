@@ -64,6 +64,19 @@ class SemanticCustomizationSkillContractTests(unittest.TestCase):
         )
         required = schema["customization"]["required"]
         self.assertLess(required.index("subject"), required.index("paths"))
+        self.assertIn("reason", required)
+        self.assertEqual(
+            "non-empty-string",
+            schema["customization"]["properties"]["reason"]["type"],
+        )
+        template = (
+            ROOT
+            / ".ai/assets/skills/ai-context-upgrader/templates/customizations-template.yaml"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            '#   reason: "<why-target-behavior-differs-from-or-extends-framework>"',
+            template,
+        )
         self.assertEqual(
             "verified",
             schema["finalization"]["retire_or_supersede_requires"][
