@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "CUST-001"
 title: "Define Semantic AI Context Customization Ledger"
 category: "ai-context-lifecycle-governance"
-status: "planned"
+status: "resolved"
 priority: "HIGH"
 summary: "Introduce one target-owned semantic customization ledger beside provenance so governance, auditor, and upgrader can reconcile capability, rule, and contract customizations without treating path differences as sufficient meaning."
 created_at: "2026-07-24T00:31:35+08:00"
-updated_at: "2026-07-24T00:31:35+08:00"
+updated_at: "2026-07-24T09:24:13+08:00"
 release:
   target: "v0.6.0"
-  completed_in: null
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "semantic-customization-ledger-and-cross-lifecycle-reconciliation"
   gate: "release-blocker"
@@ -23,7 +23,8 @@ workflow_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060PLAN-001.json"
-resolution_ref: null
+  - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060IMP-002.json"
+resolution_ref: ".dev/workflows/2026-07-23-v0-6-product-contract-planning/reports/remediation-report.md"
 decision_needed: "Owner decision recorded on 2026-07-24: use one .dev/ai-context/customizations.yaml ledger; identify entries primarily by capability, rule, or contract; retain requirement, ADR, and workflow evidence; keep enterprise test and permission policy as target-owned truth unless it changes framework behavior."
 storage_contract:
   path: ".dev/ai-context/customizations.yaml"

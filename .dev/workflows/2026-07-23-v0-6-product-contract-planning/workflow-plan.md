@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-23-v0-6-product-contract-planning`
 - `base_branch`: `main`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-23-v0-6-product-contract-planning`
 - `created_at`: `2026-07-23T22:52:32+08:00`
-- `updated_at`: `2026-07-24T08:04:17+08:00`
+- `updated_at`: `2026-07-24T09:24:13+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -359,22 +359,24 @@ or v0.6.0 acceptance requirement.
 
 ## Artifact Contract
 
-- Baseline assessment: not required for the planning checkpoint
-- Remediation report: not created until implementation or roadmap normalization
-  is authorized
-- Verification assessment: not required for the planning checkpoint
+- Baseline assessment: not applicable; implementation was authorized from
+  owner decisions and backlog acceptance criteria.
+- Remediation report:
+  `.dev/workflows/2026-07-23-v0-6-product-contract-planning/reports/remediation-report.md`
+- Verification assessment: not applicable; two bounded transient
+  `ai-context-auditor` passes verified the implemented surfaces.
 - Tasks: `.dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/`
 
 ## Finding Triage
 
 | Finding | Severity | Owner | Disposition | Task | Validation |
 | --- | --- | --- | --- | --- | --- |
-| Product composition is implicit in one broad package profile | high | repository owner + governance | decision-required | `V060PLAN-001` | owner-approved product layer and package matrix |
-| Customized context is protected by paths but lacks a semantic capability ledger | high | governance + auditor + upgrader | planned as `CUST-001` | `V060PLAN-001` | owner-approved single-file schema and lifecycle |
-| Software-development skills exist but lack a downstream end-to-end release gate | high | dev-workflow + governance | planned as `DEVWF-002` | `V060PLAN-001` | owner-approved acceptance scenarios |
-| Spec compliance is described as universally mandatory in active context while the runner treats absent inputs as not applicable | high | dev-workflow + governance + spec-compliance-validator | planned in `DEVWF-002` | `V060PLAN-001` | selectable capability; 100 percent fail-closed only after activation |
-| Per-stage commits need sustainable density in shared repositories | medium | dev-workflow + governance | planned in `DEVWF-002` | `V060PLAN-001` | durable stage/batch commits plus safe unshared-history compression |
-| `dev-workflow` may collide conceptually with native workflow terminology | low | governance | deliberate or defer | `V060PLAN-001` | explicit owner disposition |
+| Product composition is implicit in one broad package profile | high | repository owner + governance | resolved | `V060IMP-001` | immutable component package matrix |
+| Customized context is protected by paths but lacks a semantic capability ledger | high | governance + auditor + upgrader | resolved | `V060IMP-002` | schema, lifecycle fixtures, aggregate gate, independent verification |
+| Software-development skills exist but lack a downstream end-to-end release gate | high | dev-workflow + governance | resolved | `V060IMP-003` | activation and repository-verified fresh-session acceptance |
+| Spec compliance is described as universally mandatory in active context while the runner treats absent inputs as not applicable | high | dev-workflow + governance + spec-compliance-validator | resolved | `V060IMP-003` | selectable capability; 100 percent fail-closed only after activation |
+| Per-stage commits need sustainable density in shared repositories | medium | dev-workflow + governance | resolved | `V060IMP-003` | durable stage/batch commits plus safe unshared-history compression |
+| `dev-workflow` may collide conceptually with native workflow terminology | low | governance | deferred to `SKILL-001` after `EVAL-001` | `V060PLAN-001` | explicit owner-approved compatibility transition |
 
 ## Stages And Checkpoints
 
@@ -390,25 +392,25 @@ or v0.6.0 acceptance requirement.
 
 ## Resume Checkpoint
 
-- Last completed action: Completed `V060PLAN-001`, corrected the runtime-reported
-  commit attribution to `gpt-5.6-sol`, and created the three bounded
-  implementation tasks.
-- Current task: `V060IMP-001`
-- Exact next action: Finalize the component, provider-selection, and provenance
-  schema, then execute `V060IMP-002` and `V060IMP-003` at their shared
-  integration points.
-- Validation already completed: Git preflight confirmed clean synchronized
-  `main` at `97bcf2f8c657a9af3af7512453c6cac686a9ffab` before branch creation.
-- Git state: the validated workflow bootstrap is committed on
-  `codex/2026-07-23-v0-6-product-contract-planning`; no push or merge has been
-  requested.
+- Last completed action: Closed `DIST-001`, `CUST-001`, and `DEVWF-002` after
+  final immutable packaging and independent auditor verification.
+- Current task: none; all four workflow tasks are completed.
+- Exact next action: activate the separately governed EVAL-001 deterministic
+  workstream, then proceed with the remaining v0.6.0 workstreams.
+- Validation already completed: final immutable-HEAD packaging passed 24 tests
+  with one retained-downstream environment skip; focused lifecycle, DEVWF,
+  handoff, aggregate, shell, AI-context, and workflow validators passed.
+- Git state: implementation and verification checkpoints are committed on
+  `codex/2026-07-23-v0-6-product-contract-planning`; closeout is the next
+  commit. No push or merge has been requested.
 - Branch history and checkpoint handoffs: none.
-- Blockers or unresolved decisions: no owner decision currently blocks schema
-  implementation. The exact external test skill choice is intentionally
-  deferred; `D-008` and `D-009` remain explicitly deferred.
+- Blockers or unresolved decisions: none inside this workflow. Model-in-loop
+  EVAL configuration, external test-skill adoption, and identifier activation
+  remain separately governed.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-23-v0-6-product-contract-planning` | `main@97bcf2f` | active bootstrap | current branch bootstrap commit | local | `2026-07-23T22:55:14+08:00` | Preserve planning before further deliberation | Continue `V060PLAN-001` on this branch |
+| 1 | `codex/2026-07-23-v0-6-product-contract-planning` | `main@97bcf2f` | validated closeout | `02527e2` plus containing closeout commit | local | `2026-07-24T09:24:13+08:00` | All in-scope contracts and verification gates passed | Start the next dedicated v0.6.0 workstream; do not continue unrelated scope here |

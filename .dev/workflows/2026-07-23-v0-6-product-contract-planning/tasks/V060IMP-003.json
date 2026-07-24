@@ -6,9 +6,9 @@
   "task_id": "V060IMP-003",
   "workflow_id": "2026-07-23-v0-6-product-contract-planning",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T00:50:47+08:00",
-  "updated_at": "2026-07-24T08:04:17+08:00",
+  "updated_at": "2026-07-24T09:24:13+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -53,11 +53,11 @@
       "fresh-session workflow resume fixture",
       "AI context and workflow validators"
     ],
-    "last_completed_step": "Implemented intent activation, approval pauses, pluggable target-aware test execution, selectable spec compliance, sustainable commit density, and closeout evidence contracts",
-    "next_action": "Add deterministic high-level activation and fresh-session resume acceptance fixtures before closing DEVWF-002"
+    "last_completed_step": "Implemented and independently verified the deterministic preclassified activation oracle and repository-verified fresh-session acceptance fixture",
+    "next_action": "Completed; preserve arbitrary natural-language classification for the separately governed EVAL-001 model-in-loop boundary"
   },
   "results": {
-    "summary": "The current dev-workflow contract now activates from high-level intent without skill names, pauses at approval boundaries, resolves an optional unmapped test-execution capability, and treats spec compliance as selectable and fail-closed after activation.",
+    "summary": "The current dev-workflow contract activates from preclassified high-level intent without skill names, pauses at approval boundaries, resolves optional target-aware test execution, treats spec compliance as selectable, and resumes from a complete repository-verified handoff without hidden conversation state.",
     "files_changed": [
       ".ai/assets/skills/dev-workflow/**",
       ".agents/skills/dev-workflow/**",
@@ -68,17 +68,27 @@
       "AGENTS.md",
       "AGENTS.zh-TW.md",
       ".ai/scripts/validate-ai-context.py",
-      ".ai/scripts/tests/test_dev_workflow_capability_contract.py"
+      ".ai/scripts/tests/test_dev_workflow_capability_contract.py",
+      ".ai/assets/skills/dev-workflow/fixtures/acceptance/**",
+      ".ai/assets/skills/dev-workflow/references/acceptance-oracle.md",
+      ".ai/scripts/validate-dev-workflow-acceptance.py",
+      ".ai/scripts/tests/test_dev_workflow_acceptance.py",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml"
     ],
     "tests_run": [
-      "4 development capability contract tests passed",
+      "13 development capability contract tests passed",
+      "3 deterministic acceptance tests passed",
+      "15 workflow handoff tests passed and the fresh-session fixture invoked validate-workflow-handoff.py --verify-repository",
       "AI context validation passed",
       "10 bilingual parity checks passed",
       "JSON and YAML parsing passed",
-      "scoped git diff --check passed with expected CFG-001 line-ending warnings"
+      "scoped git diff --check passed with expected CFG-001 line-ending warnings",
+      "skill-creator quick validation passed for Agents and Claude runtime wrappers",
+      "independent transient auditor verification confirmed the honest deterministic/model boundary and complete handoff evidence"
     ],
-    "finding_status": "partially-resolved",
-    "residual_risk": "Deterministic high-level activation and fresh-session resume acceptance fixtures are not yet implemented.",
-    "follow_up_needed": true
+    "finding_status": "resolved",
+    "residual_risk": "Arbitrary natural-language classification quality remains EVAL-001 model-in-loop work; environment-dependent target tests remain target-owned evidence.",
+    "follow_up_needed": false
   }
 }

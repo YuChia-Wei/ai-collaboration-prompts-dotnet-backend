@@ -8,7 +8,7 @@
   "owner_skill": "ai-context-governance",
   "status": "completed",
   "created_at": "2026-07-24T00:50:47+08:00",
-  "updated_at": "2026-07-24T07:42:30+08:00",
+  "updated_at": "2026-07-24T09:24:13+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -51,7 +51,7 @@
       "AI context and workflow validators"
     ],
     "last_completed_step": "Implemented and tested effective provider selection, v0.5 repo-backlog preservation, provider-aware workflow validation, receipt reconciliation evidence, and source-only release projection",
-    "next_action": "Continue the shared provenance surface in V060IMP-002; close DIST-001 after the workflow-wide downstream projection gate confirms the final target validator split"
+    "next_action": "Completed; continue with the separately governed v0.6.0 release-engineering workstream"
   },
   "results": {
     "summary": "The target provenance authority and distribution metadata now share one component/profile/provider selection shape. Clean installs default repo-backlog off, explicit clean-install enablement is supported, v0.5 schema-1 inventories preserve recorded backlog, component-aware upgrades require target provenance, and plans and receipts retain selection authority and per-component operation evidence.",
@@ -85,10 +85,12 @@
       "4 optional backlog provider workflow tests passed",
       "source-only release renderer projection test passed",
       "workflow artifact validation passed for 35 workflows, 55 indexed workflow directories, and 35 backlog items",
-      "full 21-test packaging matrix initially exposed one stale schema-2 fixture without required target provenance; the corrected focused upgrade case passed"
+      "full 21-test packaging matrix initially exposed one stale schema-2 fixture without required target provenance; the corrected focused upgrade case passed",
+      "final immutable-HEAD packaging matrix passed 24 tests with 1 retained-downstream environment skip",
+      "independent transient auditor verification confirmed the real component boundary and fail-closed override contract"
     ],
     "finding_status": "resolved",
-    "residual_risk": "The workflow-wide downstream projection gate must be rerun after CUST-001 splits source release version validation from the downstream target provenance validator. The full packaging matrix requires one final rerun after that committed projection is visible to Git-backed package builds.",
+    "residual_risk": "The retained real-downstream integration fixture remains release-candidate evidence and was skipped because AI_CONTEXT_DOWNSTREAM_REPO was not supplied.",
     "follow_up_needed": false
   }
 }

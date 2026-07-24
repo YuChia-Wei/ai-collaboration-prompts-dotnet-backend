@@ -281,12 +281,10 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Design the exact `DIST-001` component schema, the `CUST-001`
-`.dev/ai-context/provenance.yaml` plus `customizations.yaml` migration, and the
-`DEVWF-002` downstream acceptance fixtures, then establish the `EVAL-001`
-deterministic baseline before coordinated `CFG-001` and `SKILL-001`
-implementation. Execute `CI-001` and `CI-002` as one release-engineering
-workstream, measure and disposition `SIMPL-001`, and keep `DEVWF-001`,
-`UPG-001`, and `STD-001` independently gated. Do not silently include a future
-software-delivery orchestrator, historical archive migration, or legacy
-identifier retirement in v0.6.0.
+`DIST-001`, `CUST-001`, and `DEVWF-002` are implemented and independently
+verified. Establish the `EVAL-001` deterministic baseline before coordinated
+`CFG-001` and `SKILL-001` implementation. Execute `CI-001` and `CI-002` as one
+release-engineering workstream, measure and disposition `SIMPL-001`, and keep
+`DEVWF-001`, `UPG-001`, and `STD-001` independently gated. Do not silently
+include a future software-delivery orchestrator, historical archive migration,
+or legacy identifier retirement in v0.6.0.

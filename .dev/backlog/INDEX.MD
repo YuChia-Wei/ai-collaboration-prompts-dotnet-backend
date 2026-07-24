@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.6.0` | `planned` | Close `DIST-001`, `CUST-001`, and `DEVWF-002`; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001` and disposition `SIMPL-001`. Independent `DEVWF-001`, `UPG-001`, and `STD-001` remain separately gated. | 2026-07-24 |
+| [ROADMAP.md](ROADMAP.md) | `v0.6.0` | `planned` | Product, customization, and development acceptance are complete; execute `EVAL-001`, `CI-001` with `CI-002`, `CFG-001` with `SKILL-001`, and disposition `SIMPL-001`. Independent `DEVWF-001`, `UPG-001`, and `STD-001` remain separately gated. | 2026-07-24 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -16,9 +16,6 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Target Release | Gate | Summary | Decision / Handoff | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
-| [DIST-001](items/DIST-001.yaml) | HIGH | `v0.6.0` | release blocker | Define mandatory software-development and AI-context lifecycle cores, optional providers, source-only operations, and the component validation matrix. | Implement the approved single-version component model with repo backlog off by default for new installs and preserved for existing targets. | 2026-07-23 |
-| [CUST-001](items/CUST-001.yaml) | HIGH | `v0.6.0` | release blocker | Define one target-owned semantic customization ledger beside provenance. | Identify capability, rule, or contract semantics first; keep target truth outside the ledger unless it changes framework behavior. | 2026-07-24 |
-| [DEVWF-002](items/DEVWF-002.yaml) | HIGH | `v0.6.0` | release blocker | Prove software-development orchestration, approval pauses, sustainable commit checkpoints, target-aware tests, and closeout end to end. | Add the test-execution capability contract without creating a new skill; keep spec compliance selectable and E2E conditional. | 2026-07-24 |
 | [CI-001](items/CI-001.yaml) | HIGH | `v0.6.0` | release blocker | Move candidate and publication artifact actions from deprecated Node.js 20 majors to native Node.js 24 releases. | Preserve artifact and release semantics; require warning-free hosted evidence before v0.6.0 publication. | 2026-07-22 |
 | [EVAL-001](items/EVAL-001.yaml) | HIGH | `v0.6.0` | activation gate | Add deterministic regression plus budgeted release-side model evaluation before taxonomy changes. | Approve the fixture corpus, oracle, model/judge, repetitions, threshold, and token ceiling. | 2026-07-19 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | release blocker | Introduce AI-context and software-development families and coordinate transitions to `ai-context-init` and `software-development-orchestrator`. | Define both deprecated compatibility entries; complete DIST-001 and EVAL-001 before changing identifiers or taxonomy. | 2026-07-23 |
@@ -34,6 +31,9 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [DIST-001](items/DIST-001.yaml) | HIGH | `v0.6.0` | — | Componentized release metadata, optional backlog selection, source-only projection, and deterministic clean/upgrade behavior pass the immutable package matrix. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) | 2026-07-24 |
+| [CUST-001](items/CUST-001.yaml) | HIGH | `v0.6.0` | — | One target-owned semantic customization ledger, four-skill lifecycle, fail-closed validation, and aggregate regressions are independently verified. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) | 2026-07-24 |
+| [DEVWF-002](items/DEVWF-002.yaml) | HIGH | `v0.6.0` | — | Preclassified high-level activation, approval pause, target-aware tests, selectable compliance, commit batching, and repository-verified fresh-session acceptance pass. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) | 2026-07-24 |
 | [REL-002](items/REL-002.yaml) | HIGH / P0 | `v0.5.0` | `v0.5.0` | Git Bash selection, child PATH, byte decoding, and complete failure diagnostics passed local and hosted gates before immutable tag publication. | [`2026-07-22-v0-5-0-pretag-portability-hotfix`](../workflows/2026-07-22-v0-5-0-pretag-portability-hotfix/workflow.yaml) | 2026-07-22 |
 | [REL-001](items/REL-001.yaml) | HIGH | `v0.5.0` | `v0.5.0` | Repository-owned release mechanics, hosted publication, and terminal finalization completed for REL-v0.5.0. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-22 |
 | [HANDOFF-001](items/HANDOFF-001.yaml) | HIGH | `v0.5.0` | `v0.5.0` | The registered receiving checkpoint fails closed across model/runtime/host/session boundaries, preserves native attribution, and passes the repository critical gate. | [`2026-07-21-v0-5-0-development`](../workflows/2026-07-21-v0-5-0-development/workflow.yaml) | 2026-07-21 |

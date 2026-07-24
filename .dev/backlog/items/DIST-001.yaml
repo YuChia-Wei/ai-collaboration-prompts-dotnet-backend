@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "DIST-001"
 title: "Define Downstream Product And Component Distribution Contract"
 category: "distribution-governance"
-status: "planned"
+status: "resolved"
 priority: "HIGH"
 summary: "Define the mandatory software-development and AI-context lifecycle cores, optional provider model, source-only boundary, component selection, and release validation matrix before v0.6.0 packaging or simplification closes."
 created_at: "2026-07-23T23:12:50+08:00"
-updated_at: "2026-07-24T00:31:35+08:00"
+updated_at: "2026-07-24T09:24:13+08:00"
 release:
   target: "v0.6.0"
-  completed_in: null
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "downstream-product-layers-componentized-distribution-and-release-definition"
   gate: "release-blocker"
@@ -24,7 +24,8 @@ workflow_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060PLAN-001.json"
-resolution_ref: null
+  - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060IMP-001.json"
+resolution_ref: ".dev/workflows/2026-07-23-v0-6-product-contract-planning/reports/remediation-report.md"
 decision_needed: "Owner decision recorded on 2026-07-23: use one versioned componentized release with mandatory software-development and AI-context lifecycle cores, a dotnet-backend profile, and an optional repository-backlog provider; new installs default the provider off and existing targets preserve and record it."
 component_model:
   release_identity: "single-versioned-componentized-release"

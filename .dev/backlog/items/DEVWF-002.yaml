@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "DEVWF-002"
 title: "Establish Software Development End-To-End Acceptance"
 category: "development-workflow-governance"
-status: "planned"
+status: "resolved"
 priority: "HIGH"
 summary: "Prove that the software-development core activates from high-level intent, routes stages through capabilities without requiring skill names, respects approval pauses, records validated stage commits at sustainable density, executes target-selected tests, and closes without false success."
 created_at: "2026-07-24T00:31:35+08:00"
-updated_at: "2026-07-24T00:31:35+08:00"
+updated_at: "2026-07-24T09:24:13+08:00"
 release:
   target: "v0.6.0"
-  completed_in: null
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "software-development-orchestrator-end-to-end-acceptance"
   gate: "release-blocker"
@@ -23,7 +23,8 @@ workflow_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060PLAN-001.json"
-resolution_ref: null
+  - ".dev/workflows/2026-07-23-v0-6-product-contract-planning/tasks/V060IMP-003.json"
+resolution_ref: ".dev/workflows/2026-07-23-v0-6-product-contract-planning/reports/remediation-report.md"
 decision_needed: "Owner decision recorded on 2026-07-24: retain the existing Git commit policy with stage-level commit batching; define target-aware unit and integration test execution without introducing a new skill yet; keep E2E conditional; make spec compliance selectable and fail-closed only after explicit activation."
 historical_baseline:
   v0_0_2:
