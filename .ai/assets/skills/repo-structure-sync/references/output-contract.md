@@ -1,6 +1,12 @@
 # Output Contract
 
-When credible import evidence identifies a published framework tag and full commit, create `.dev/AI-CONTEXT-SOURCE.yaml` from `.ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml` after initialization validation succeeds. If the copied framework source cannot be proven, report unresolved provenance and do not invent a version or commit.
+When credible import evidence identifies the framework repository, release ID,
+version, tag, full commit, component selection, and import time, atomically
+create `.dev/ai-context/provenance.yaml` and
+`.dev/ai-context/customizations.yaml` from the canonical templates after target
+validation succeeds. If the copied source cannot be proven, report unresolved
+provenance and write neither authority. Never retain
+`.dev/AI-CONTEXT-SOURCE.yaml` beside schema-2 provenance.
 
 ## Phase 1 Output
 

@@ -273,6 +273,21 @@ run_source_repository_release_checks() {
         "required" "true" "true"
 }
 
+run_ai_context_version_check() {
+    if source_release_context_available; then
+        run_command_check "python .ai/scripts/validate-ai-context-versions.py" \
+            "AI Context Release And Version Contracts" \
+            "required" "true" "true"
+    elif [ -f "$PROJECT_ROOT/.dev/ai-context/provenance.yaml" ]; then
+        run_command_check "python .ai/scripts/validate-ai-context-target.py" \
+            "AI Context Target Provenance And Customization Contracts" \
+            "required" "true" "true"
+    else
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Target Provenance And Customization Contracts (target provenance not initialized)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 1))
+    fi
+}
+
 source_governance_context_available() {
     source_release_context_available &&
         [ -f "$PROJECT_ROOT/.github/workflows/governance.yml" ] &&
@@ -370,9 +385,7 @@ run_command_check "python .ai/scripts/tests/test_ai_context_language_policy.py -
     "AI Context Language And Bilingual Parity Fail-Closed Tests" \
     "required" "true" "true"
 
-run_command_check "python .ai/scripts/validate-ai-context-versions.py" \
-    "AI Context Release And Version Contracts" \
-    "required" "true" "true"
+run_ai_context_version_check
 
 run_source_repository_release_checks
 

@@ -15,7 +15,12 @@
 - 盤點 solution、`*.csproj`、shared libraries、test projects、deploy folders
 - 把複製過去後已過時的 root README、`.dev/`、`.ai/`、`AGENTS.md` 架構區塊改成新 repo 版本
 - 依 repo evidence 產生或更新 `.dev/project-config.yaml`
+- 只有在 repository、release、version、tag、full commit、selection 與 import time 都有可信證據時，才原子建立 `.dev/ai-context/provenance.yaml` 與 `customizations.yaml`；證據不足時不寫入並回報 unresolved
 - 區分哪些內容應保留為 reusable collaboration rules，哪些必須改寫成新專案真相
+
+初始化的共同契約見
+`.ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md`；
+legacy 與 schema-2 provenance 不得同時存在。
 
 ## 這個 Skill 不應該做什麼
 
@@ -51,7 +56,13 @@
 
 `repo-structure-sync` 是 `.dev/project-config.yaml` 的產生與同步入口。
 
-它也是目標 repo 第一次建立 `.dev/AI-CONTEXT-SOURCE.yaml` 的入口，但只有在匯入來源的 published tag 與 full commit 有可信證據時才可建立。若來源不明，必須記錄 unresolved provenance，不能猜測版本；後續已初始化 repo 的版本升級交給 `ai-context-upgrader`。
+它也是目標 repo 第一次原子建立 `.dev/ai-context/provenance.yaml` 與
+`.dev/ai-context/customizations.yaml` 的入口，但只有在匯入來源的
+published tag、full commit、component selection 與匯入時間都有可信證據時
+才可建立。若來源不明，必須回報 unresolved provenance 且不寫入這兩個
+authority，不能猜測版本；後續已初始化 repo 的版本升級交給
+`ai-context-upgrader`。舊 `.dev/AI-CONTEXT-SOURCE.yaml` 只作為 legacy
+reconciliation 輸入，不能與 schema-2 provenance 同時存在。
 
 - canonical shape：`.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
 - 先完成 inventory，再填入有檔案證據或使用者確認的欄位。

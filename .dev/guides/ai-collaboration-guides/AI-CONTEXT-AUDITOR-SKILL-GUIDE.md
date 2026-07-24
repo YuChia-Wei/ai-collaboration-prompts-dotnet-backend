@@ -11,6 +11,10 @@
 - 檢查 `.ai`、`.dev`、`.agents`、`.claude` 是否漂移；
 - 比較「一般知識獨立分析」與「套用 repo skill／policy 分析」的差異；
 - 追蹤前一次 audit finding 是否仍然存在。
+- 對 schema-2 customization ledger 執行唯讀 active-context baseline 與獨立 post-upgrade verification。
+
+Auditor 不修改 ledger，也不能用升級前 baseline 取代升級後驗證；共同契約見
+`.ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md`。
 
 ## 預設掃描邊界
 

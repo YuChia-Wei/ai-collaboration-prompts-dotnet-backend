@@ -13,7 +13,12 @@
 - 建立 AI 文件整理 workflow
 - 接手自檢 findings，管理 audit → remediation → post-remediation audit → closure 的完整生命週期
 - 建立 remediation tasks、修正報告、續作 checkpoint 與結案證據
+- 以 capability／rule／contract 為主體維護 `.dev/ai-context/customizations.yaml`，取得 owner reconciliation，並協調升級後驗證
 - 避免把純 AI 文件整理誤交給 BDD、code review、或 production implementer skill
+
+語意客製的共同生命週期以
+`.ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md`
+為準；路徑只是證據，不能取代語意識別。
 
 ## 不應該做什麼
 

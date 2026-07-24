@@ -1,6 +1,6 @@
 ---
 name: repo-structure-sync
-description: Initialize a target repository after this AI context framework is copied in by scanning repo facts and refreshing repo-specific README, `.dev/`, `.ai/`, and `AGENTS.md` sections without rewriting framework-level collaboration rules.
+description: Initialize a target repository after this AI context framework is copied in by scanning repo facts, refreshing repo-specific context, and atomically creating provenance plus the customization ledger only from credible source evidence.
 ---
 
 # Repo Structure Sync
@@ -19,11 +19,14 @@ This is a thin current-runtime wrapper.
   - `.ai/assets/skills/repo-structure-sync/references/delegation-rules.md`
   - `.ai/assets/skills/repo-structure-sync/references/document-targets.md`
   - `.ai/assets/skills/repo-structure-sync/references/output-contract.md`
+  - `.ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md`
+  - `.ai/assets/skills/ai-context-governance/templates/customizations.schema.yaml`
   - `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`
   - `.ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml`
   - `.ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml`
   - `.ai/assets/sub-agent-role-prompts/context-translator/sub-agent.yaml`
-  - `.ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml`
+  - `.ai/assets/skills/ai-context-upgrader/templates/provenance-template.yaml`
+  - `.ai/assets/skills/ai-context-upgrader/templates/customizations-template.yaml`
 
 ## Wrapper Rules
 

@@ -80,6 +80,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context.py`
 - `validate-assessment-artifacts.py`
 - `validate-ai-context-versions.py`
+- `validate-ai-context-target.py`
 - `validate-ai-context-release-state.py`
 - `prepare-ai-context-release.py`
 - `validate-file-disposition-manifest.py`
@@ -102,11 +103,18 @@ Git revision metadata, branch and timestamp contracts, lifecycle sections,
 resume safety, and assessment relationship integrity. It does not evaluate
 report prose or replace the producing skill's evidence review.
 
-`validate-ai-context-versions.py` validates governed release identity, SemVer,
-immutable published tag-to-commit mappings, compatibility declarations, and an
-optional target `.dev/AI-CONTEXT-SOURCE.yaml`. It automatically uses source mode
-when release records exist and target mode when only the installed provenance
-manifest exists. `compare-ai-context-versions.py`
+`validate-ai-context-versions.py` is the source-side release-registry validator:
+it validates governed release identity, SemVer, immutable published
+tag-to-commit mappings, and compatibility declarations. It delegates
+component-aware target provenance and semantic customization checks to the
+shared downstream library.
+
+`validate-ai-context-target.py` validates only downstream
+`.dev/ai-context/provenance.yaml` and `customizations.yaml`. It requires stable
+semantic identities, safe paths, base and decision evidence, owner
+reconciliation, active-context baseline audit, post-upgrade audit, and
+fail-closed finalization without requiring source release records, Git tags, or
+publication workflows. `compare-ai-context-versions.py`
 is a read-only Git-tree comparison helper; it proposes an automatic candidate
 only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or

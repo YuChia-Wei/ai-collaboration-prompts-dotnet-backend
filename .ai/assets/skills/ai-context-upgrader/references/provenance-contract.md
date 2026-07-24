@@ -24,19 +24,23 @@ retain both files as active authorities.
 
 ## Mutation Rules
 
-- `ai-context-init` creates initial provenance and an empty customization ledger
-  after target initialization validates. The deprecated `repo-structure-sync`
-  compatibility entry follows the same contract during its transition.
-- `ai-context-upgrader` reads it during planning and updates it after upgrade validation.
+- `ai-context-init` atomically creates initial provenance and an empty
+  customization ledger only from credible source and selection evidence. The
+  deprecated `repo-structure-sync` compatibility entry follows the same
+  contract during its transition. Incomplete evidence produces an unresolved
+  no-write result.
+- `ai-context-upgrader` reads it during planning and atomically finalizes it
+  only after owner reconciliation, independent post-upgrade audit, and target
+  validation.
 - Do not delete customizations merely because incoming framework paths changed;
   reconcile capability, rule, or contract equivalence and disposition.
 - Do not change the source version to describe a partially applied or failed upgrade. Record such work under `reconciliation.unresolved` while retaining the last validated source.
 - The framework source repository stores the template only; it must not carry a self-referential target instance.
 
-The semantic customization ledger identifies a capability, rule, or contract
-before paths. Each entry records an `extends`, `replaces`, `deviates`, or
-`target-only` relationship plus owner, reason, base evidence, decision evidence,
-incoming equivalence, disposition, and validation.
+The governance-owned
+`../../ai-context-governance/references/semantic-customization-lifecycle.md`
+defines the ledger fields and four-skill lifecycle. The machine-readable schema
+is `../../ai-context-governance/templates/customizations.schema.yaml`.
 
 Ordinary target-only requirements, ADRs, workflows, runbooks, maintenance
 windows, test commands, enterprise network rules, and permission policies are

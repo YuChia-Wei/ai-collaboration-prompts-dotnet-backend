@@ -12,6 +12,11 @@ from pathlib import Path
 
 import yaml
 
+SCRIPT_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_ROOT))
+
+import ai_context_target_provenance as target_provenance
+
 
 VERSION_RE = re.compile(r"^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SEMVER_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
@@ -230,6 +235,9 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
     data = load_mapping(path, errors)
     if data is None:
         return
+    if data.get("schema_version") == "2.0":
+        target_provenance.validate_manifest(path, errors)
+        return
     source = data.get("source")
     installation = data.get("installation")
     migration = data.get("last_migration")
@@ -321,67 +329,7 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
 
 
 def validate_customizations(path: Path, errors: list[str]) -> None:
-    data = load_mapping(path, errors)
-    if data is None:
-        return
-    if data.get("schema_version") != "1.0":
-        errors.append(f"{path}: schema_version must be 1.0")
-    entries = data.get("customizations")
-    if not isinstance(entries, list):
-        errors.append(f"{path}: customizations must be a list")
-        return
-    ids: set[str] = set()
-    relationships = {"extends", "replaces", "deviates", "target-only"}
-    equivalence = {"absent", "partial", "equivalent-candidate", "conflicting"}
-    dispositions = {"retain", "merge", "supersede", "retire", "unresolved"}
-    for index, item in enumerate(entries):
-        label = f"{path}: customizations[{index}]"
-        if not isinstance(item, dict):
-            errors.append(f"{label} must be a mapping")
-            continue
-        customization_id = item.get("id")
-        if not isinstance(customization_id, str) or not customization_id or customization_id in ids:
-            errors.append(f"{label}.id must be unique and non-empty")
-        else:
-            ids.add(customization_id)
-        subject = item.get("subject")
-        if not isinstance(subject, dict) or subject.get("kind") not in {"capability", "rule", "contract"} or not isinstance(subject.get("id"), str) or not subject["id"].strip():
-            errors.append(f"{label}.subject must identify a capability, rule, or contract")
-        if item.get("relationship") not in relationships:
-            errors.append(f"{label}.relationship is invalid")
-        paths = item.get("paths")
-        if (
-            not isinstance(paths, list)
-            or not paths
-            or not all(isinstance(value, str) and value.strip() for value in paths)
-        ):
-            errors.append(f"{label}.paths must be non-empty")
-        for field in ("owner", "reason"):
-            if not isinstance(item.get(field), str) or not item[field].strip():
-                errors.append(f"{label}.{field} is required")
-        evidence = item.get("decision_evidence")
-        evidence_values: list[object] = []
-        if isinstance(evidence, dict):
-            for field in ("requirements", "adrs", "workflows"):
-                values = evidence.get(field)
-                if isinstance(values, list):
-                    evidence_values.extend(values)
-        if not evidence_values or not all(isinstance(value, str) and value for value in evidence_values):
-            errors.append(f"{label}.decision_evidence requires a requirement, ADR, or workflow reference")
-        incoming = item.get("incoming")
-        if not isinstance(incoming, dict) or incoming.get("status") not in equivalence:
-            errors.append(f"{label}.incoming.status is invalid")
-        elif not isinstance(incoming.get("evidence"), str) or not incoming["evidence"].strip():
-            errors.append(f"{label}.incoming.evidence is required")
-        if item.get("disposition") not in dispositions:
-            errors.append(f"{label}.disposition is invalid")
-        validation = item.get("validation")
-        if (
-            not isinstance(validation, list)
-            or not validation
-            or not all(isinstance(value, str) and value.strip() for value in validation)
-        ):
-            errors.append(f"{label}.validation must be non-empty")
+    target_provenance.validate_customizations(path, errors, require_finalized=True)
 
 
 def validate(root: Path, manifest: Path | None = None, verify_git: bool = True) -> list[str]:

@@ -145,7 +145,16 @@ Treat `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`
 
 Use `ai-context-upgrader` after an initialized target repository needs to move between published framework versions.
 
-- Require `.dev/AI-CONTEXT-SOURCE.yaml` or an explicit unresolved-provenance reconciliation.
+- Require `.dev/ai-context/provenance.yaml` plus
+  `.dev/ai-context/customizations.yaml`, or perform explicit unresolved
+  provenance reconciliation. Treat `.dev/AI-CONTEXT-SOURCE.yaml` as legacy
+  read compatibility and never retain both authorities.
+- Follow the governance-owned semantic customization lifecycle; require owner
+  reconciliation and an independent post-upgrade audit before provenance
+  finalization.
+- Use `.ai/scripts/validate-ai-context-target.py` in downstream repositories;
+  source release-registry and publication validation are not downstream
+  prerequisites.
 - Compare the recorded framework version, requested framework version, and current target state before writing.
 - Preserve target-owned collaboration, requirement, spec, ADR, architecture, operations, and project configuration truth.
 - Treat `automatic-candidate` entries as proposals, not write authorization; update provenance only after successful validation.

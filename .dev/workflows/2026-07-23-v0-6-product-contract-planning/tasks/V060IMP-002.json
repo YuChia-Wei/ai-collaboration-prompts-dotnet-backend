@@ -6,9 +6,9 @@
   "task_id": "V060IMP-002",
   "workflow_id": "2026-07-23-v0-6-product-contract-planning",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T00:50:47+08:00",
-  "updated_at": "2026-07-24T07:42:30+08:00",
+  "updated_at": "2026-07-24T08:04:17+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -50,24 +50,43 @@
       "post-upgrade lifecycle fixture",
       "AI context and workflow validators"
     ],
-    "last_completed_step": "Implemented the first semantic customization template, validation rules, provenance reference, and upgrader reconciliation contract",
-    "next_action": "Synchronize governance, auditor, initialization, human guides, and legacy migration fixtures"
+    "last_completed_step": "Implemented and validated the governance-owned customization lifecycle, atomic initialization, auditor verification, upgrader reconciliation, source/target validator split, and legacy unresolved conversion",
+    "next_action": "Use the completed lifecycle contract in the workflow-wide downstream package and final validation gates"
   },
   "results": {
-    "summary": "The v0.6 customization ledger now identifies capability, rule, or contract semantics before paths and requires owner, reason, decision evidence, incoming equivalence, disposition, and validation.",
+    "summary": "The v0.6 customization ledger now identifies capability, rule, or contract semantics before paths and requires base evidence, dependencies, owner reconciliation, decision evidence, baseline audit, incoming equivalence, post-upgrade audit, disposition, and validation. Governance owns the ledger, the auditor verifies active context, initialization writes both authorities atomically only from credible evidence, and the upgrader finalizes only after validation.",
     "files_changed": [
       ".ai/assets/skills/ai-context-upgrader/templates/customizations-template.yaml",
       ".ai/assets/skills/ai-context-upgrader/references/provenance-contract.md",
       ".ai/assets/skills/ai-context-upgrader/references/upgrade-playbook.md",
       ".ai/scripts/validate-ai-context-versions.py",
-      ".ai/scripts/tests/test_ai_context_version_governance.py"
+      ".ai/scripts/tests/test_ai_context_version_governance.py",
+      ".ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md",
+      ".ai/assets/skills/ai-context-governance/templates/customizations.schema.yaml",
+      ".ai/scripts/ai_context_target_provenance.py",
+      ".ai/scripts/validate-ai-context-target.py",
+      ".ai/scripts/tests/test_semantic_customization_lifecycle.py",
+      ".ai/scripts/tests/test_semantic_customization_skill_contract.py",
+      ".agents/skills/{ai-context-governance,ai-context-auditor,ai-context-upgrader,repo-structure-sync}/SKILL.md",
+      ".claude/skills/{ai-context-governance,ai-context-auditor,ai-context-upgrader,repo-structure-sync}/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/{AI-CONTEXT-GOVERNANCE,AI-CONTEXT-AUDITOR,AI-CONTEXT-UPGRADER,REPO-STRUCTURE-SYNC}-SKILL-GUIDE.md",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/distribution/profiles/dotnet-backend.yaml"
     ],
     "tests_run": [
-      "18 AI context version governance tests passed",
-      "AI context validation passed"
+      "19 AI context version governance tests passed",
+      "6 semantic customization lifecycle tests passed",
+      "5 four-skill and source/target projection contract tests passed",
+      "6 root-entry tests passed",
+      "27 fail-closed validation tests passed",
+      "AI context validation passed for 24 indexes, 14 canonical skills, 307 language-policy files, and 32 manifests",
+      "shell asset validation passed and check-all.sh syntax passed under Git Bash",
+      "skill-creator quick validation passed for all four Agents runtime wrappers",
+      "Python compilation and git diff --check passed with expected CFG-001 line-ending warnings"
     ],
-    "finding_status": "partially-resolved",
-    "residual_risk": "Governance, auditor, initialization, and full legacy-to-semantic lifecycle fixtures remain to be synchronized.",
-    "follow_up_needed": true
+    "finding_status": "resolved",
+    "residual_risk": "A disposable lifecycle fixture proves the contract and rollback boundary, but a real downstream repository upgrade remains a release-candidate validation responsibility.",
+    "follow_up_needed": false
   }
 }
