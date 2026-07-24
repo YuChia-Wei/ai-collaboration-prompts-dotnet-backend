@@ -8,4 +8,4 @@ details:
     - "src/Payments/Payment.cs"
   reject_source_truth:
     - ".dev/requirement/source-repository-release.md"
-    - ".dev/workflows/2026-01-01-source-release/workflow.yaml"
+    - ".dev/workflows/<workflow-id>/workflow.yaml"

@@ -88,6 +88,10 @@ def evaluate_repository(
             raise EvaluationError(
                 f"{case_id}: copied-template case requires target and source truth"
             )
+        if facts.get("source_truth_disposition") != "reject":
+            raise EvaluationError(
+                f"{case_id}: copied source truth must be rejected, never preserved"
+            )
         decision = "adapt-and-remove-source-truth"
     else:
         raise EvaluationError(f"{case_id}: unsupported repository state {state!r}")

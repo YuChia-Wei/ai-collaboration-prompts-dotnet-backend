@@ -71,9 +71,9 @@ class AiBehaviorEvaluationTests(unittest.TestCase):
         with self.assertRaises(EVAL.EvaluationError):
             EVAL.run_corpus(overrides={"software-development": facts})
 
-    def test_given_copied_truth_not_classified_when_run_then_it_fails_closed(self):
+    def test_given_copied_truth_preservation_when_run_then_it_fails_closed(self):
         facts = fixture("copied-template-repository")
-        facts["copied_source_truth"] = []
+        facts["source_truth_disposition"] = "preserve"
         with self.assertRaises(EVAL.EvaluationError):
             EVAL.run_corpus(overrides={"copied-template-repository": facts})
 
