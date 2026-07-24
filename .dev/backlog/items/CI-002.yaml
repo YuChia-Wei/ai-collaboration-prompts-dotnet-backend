@@ -22,8 +22,10 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Open a dedicated workflow review before the next release candidate or combine it explicitly with CI-001. Preserve the PR #6 short-term repair as a tested boundary, not the complete review."
 workflow_refs:
   - ".dev/workflows/2026-07-23-governance-ci-lifecycle-hotfix/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-governance-ci-lifecycle-hotfix/tasks/CIHOTFIX-001.json"
+  - ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/tasks/CIENG-001.json"
 resolution_ref: null
 decision_needed: "Owner decision recorded on 2026-07-23: execute the comprehensive review together with CI-001 as one v0.6.0 release-engineering workstream."
 acceptance:

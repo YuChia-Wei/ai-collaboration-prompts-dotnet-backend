@@ -24,8 +24,10 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Create a bounded release-automation workflow before the first v0.6.0 candidate. Preserve artifact names, retention, compression, checksums, inter-job download, and fail-closed publication semantics."
 workflow_refs:
   - ".dev/workflows/2026-07-22-post-v0-5-backlog-intake/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-22-post-v0-5-backlog-intake/tasks/INTAKE-001.json"
+  - ".dev/workflows/2026-07-24-v0-6-ci-lifecycle/tasks/CIENG-001.json"
 resolution_ref: null
 decision_needed: "Confirm the Node.js 24-native artifact-action majors and runner floor from official action releases at implementation time; do not pin a stale workaround or enable insecure Node.js 20 compatibility."
 acceptance:
