@@ -1,0 +1,65 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "EVALDET-001",
+  "workflow_id": "2026-07-24-v0-6-eval-deterministic",
+  "owner_skill": "ai-context-governance",
+  "status": "in_progress",
+  "created_at": "2026-07-24T09:30:25+08:00",
+  "updated_at": "2026-07-24T09:30:25+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "EVAL-001 deterministic corpus, oracle, comparison, and aggregate gate",
+    "files": [
+      ".ai/evaluation/**",
+      ".ai/scripts/validate-ai-behavior-evaluation.py",
+      ".ai/scripts/tests/test_ai_behavior_evaluation.py",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".dev/backlog/items/EVAL-001.yaml"
+    ],
+    "constraints": [
+      "Run without model calls or network access",
+      "Cover empty, existing, copied-template, software-development, customization, and identifier-compatibility families",
+      "Compare baseline and candidate deterministically",
+      "Fail closed on structural or semantic drift",
+      "Keep release-side model evaluation separately approved"
+    ],
+    "non_goals": [
+      "Select or call a model or judge",
+      "Activate taxonomy or skill identifier transitions",
+      "Run a real downstream upgrade",
+      "Add stochastic evaluation to routine downstream gates"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define the corpus manifest and normalized result schema",
+      "Add checked-in inputs and exact expected outputs",
+      "Implement the model-free runner and negative mutations",
+      "Implement deterministic baseline/candidate comparison",
+      "Register the suite in aggregate validation",
+      "Run independent verification"
+    ],
+    "validation": [
+      "deterministic evaluation unit and mutation tests",
+      "full corpus execution",
+      "baseline/candidate comparison",
+      "aggregate runner and manifest parity",
+      "AI-context and workflow validators"
+    ],
+    "last_completed_step": "Created the bounded deterministic EVAL workflow and task",
+    "next_action": "Implement the EVAL-owned deterministic corpus and oracle"
+  },
+  "results": {
+    "summary": "",
+    "files_changed": [],
+    "tests_run": [],
+    "finding_status": "not-addressed",
+    "residual_risk": "Model-in-the-loop release evaluation remains unapproved and must not be inferred from deterministic results.",
+    "follow_up_needed": true
+  }
+}
