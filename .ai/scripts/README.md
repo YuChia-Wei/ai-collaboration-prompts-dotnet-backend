@@ -91,6 +91,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `plan-ai-context-package-apply.py`
 - `render-ai-context-release-notes.py`
 - `validate-ai-behavior-evaluation.py`
+- `measure-ai-context-load.py`
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
@@ -224,6 +225,18 @@ governed candidate; publish mode fails unless the tagged-tree record is
 `validated`. The tag-triggered Action owns tag selection and Release mutation;
 the renderer never creates or changes Git refs or remote releases.
 
+`measure-ai-context-load.py` is the source-only deterministic measurement
+interface for representative repository-backed context traces. It requires a
+clean repository at the full declared `HEAD`, exactly the `runtime`,
+`skill-routing`, `release`, `handoff`, and `development` trace families, safe
+unique repository-relative paths within each family, and exact Git blob, byte,
+and whitespace-word evidence for every `runtime` or `full-file` load event. Its
+normalized result keeps the tracked UTF-8 `repository_corpus` separate from
+the actual `repository_loaded` events. A provider may report
+`total_prompt_tokens`; otherwise that value is null. The deterministic
+bytes-divided-by-four value is marked as a repository-loaded heuristic and is
+never treated as total prompt usage.
+
 Fail-closed validation and packaging regression tests use Given-When-Then
 naming and comments and run entirely in disposable Git repositories:
 
@@ -243,6 +256,7 @@ python .ai/scripts/tests/test_ai_context_release_state.py -v
 python .ai/scripts/tests/test_prepare_ai_context_release.py -v
 python .ai/scripts/tests/test_release_notes_renderer.py -v
 python .ai/scripts/tests/test_ai_behavior_evaluation.py -v
+python .ai/scripts/tests/test_ai_context_load_measurement.py -v
 python .ai/scripts/tests/test_dependency_version_consistency.py -v
 python .ai/scripts/tests/test_file_disposition_manifest.py -v
 python .ai/scripts/tests/test_governance_workflow_contract.py -v
@@ -253,6 +267,9 @@ python .ai/scripts/tests/test_governance_workflow_contract.py -v
 `test_ai_behavior_evaluation.py` is the source-release deterministic behavior
 gate. It consumes only preclassified fixtures, performs no model or network
 calls, and compares exact normalized output with the checked-in baseline.
+`test_ai_context_load_measurement.py` proves the source-only context-load
+measurement contract in disposable synthetic Git repositories; it creates no
+official trace or release evidence.
 `test_governance_workflow_contract.py` and the concrete v0.5.0 disposition
 manifest validation are source-repository governance checks.
 `validate-source-governance.py` discovers those manifests through the stable

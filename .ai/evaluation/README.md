@@ -37,3 +37,32 @@ Model-in-the-loop evaluation remains a separately approved release-side
 activity. Model and judge selection, repetitions, sampling, thresholds, token
 budgets, and stochastic result retention are intentionally outside this
 deterministic contract.
+
+## Repository Context Load Measurement
+
+`context-load/` is reserved for source-release trace manifests and normalized
+measurement results. It intentionally contains no trace or result until a
+representative trace is approved and recorded; synthetic fixtures belong in
+the validator test suite, not in this evidence directory.
+
+Use the source-only measurement interface with a clean repository and a trace
+manifest pinned to the full current `HEAD`:
+
+```text
+python .ai/scripts/measure-ai-context-load.py \
+  --traces <trace-manifest.yaml> \
+  --output <normalized-result.yaml>
+```
+
+A trace must contain exactly the `runtime`, `skill-routing`, `release`,
+`handoff`, and `development` families. Every `runtime` or `full-file` event
+pins a safe repository-relative path to its Git blob, byte count, and
+whitespace-word count. The result separates the tracked UTF-8
+`repository_corpus` from
+the actual `repository_loaded` events.
+
+`total_prompt_tokens` is recorded only when a provider reports it; otherwise it
+is null. The deterministic bytes-divided-by-four heuristic is explicitly a
+repository-loaded estimate and must never be described as total prompt tokens.
+The source-only test suite uses disposable Git repositories and does not create
+release evidence.

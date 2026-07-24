@@ -249,7 +249,8 @@ run_source_repository_release_checks() {
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Release Preparation Fail-Closed Tests (source release context not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Release Renderer Fail-Closed Tests (source release context not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Behavior Deterministic Evaluation (source release context not packaged)"
-        NOT_APPLICABLE=$((NOT_APPLICABLE + 6))
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Load Measurement Contract (source release context not packaged)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 7))
         return
     fi
 
@@ -275,6 +276,10 @@ run_source_repository_release_checks() {
 
     run_command_check "python .ai/scripts/tests/test_ai_behavior_evaluation.py -v" \
         "AI Behavior Deterministic Evaluation" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_ai_context_load_measurement.py -v" \
+        "AI Context Load Measurement Contract" \
         "required" "true" "true"
 }
 

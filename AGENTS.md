@@ -229,49 +229,10 @@ fallback contract.
 | `CLAUDE.md` | Thin Claude Code project-memory entry that imports `AGENTS.md` |
 | `AGENTS.zh-TW.md` | Traditional Chinese (Taiwan) translation of the root collaboration guide |
 
-### AI Assets (`.ai/`)
-
-| Path | Description |
-| :--- | :--- |
-| `.ai/INDEX.MD` | Agent-facing AI asset index |
-| `.ai/README.MD` | `.ai/` purpose and boundary guide |
-| `.ai/assets/` | Canonical reusable AI assets |
-| `.ai/assets/shared/` | Universal shared AI context |
-| `.ai/assets/tech-stacks/dotnet-backend/` | .NET backend-specific context |
-| `.ai/assets/tech-stacks/dotnet-backend/references/CODE-REVIEW-INDEX.MD` | .NET backend code review entry |
-| `.ai/assets/tech-stacks/dotnet-backend/references/BUILDING-BLOCKS-CLASS-INDEX.MD` | .NET backend building block reference |
-| `.ai/assets/skills/` | Canonical skill specs |
-| `.ai/assets/sub-agent-role-prompts/` | Canonical sub-agent role prompts |
-| `.ai/distribution/` | Source-side portable package profiles and metadata schemas |
-| `.ai/scripts/` | Transitional AI workflow scripts, context governance checks, and local tool orchestration helpers |
-
-### Project Knowledge and Governance (`.dev/`)
-
-| Path | Description |
-| :--- | :--- |
-| `.dev/README.MD` | Human-facing project knowledge purpose and boundary guide |
-| `.dev/INDEX.md` | Project knowledge and governance catalog |
-| `.dev/standards/` | Governance, context, workflow, coding, review, and structure standards |
-| `.dev/guides/` | Human-facing guides |
-| `.dev/adr/` | ADR governance and retained decisions |
-| `.dev/requirement/` | Requirements and requirement authoring materials |
-| `.dev/domain-language/` | Domain ubiquitous language templates and target-repo vocabulary area |
-| `.dev/specs/` | Specification organization and retained specs |
-| `.dev/operations/` | Operations docs and operations document guides |
-| `.dev/assessments/` | Durable audits, large code reviews, and other read-only assessment artifacts |
-| `.dev/workflows/` | Workflow artifacts |
-
-### Runtime Adapters
-
-| Path | Description |
-| :--- | :--- |
-| `.agents/skills/README.md` | Current runtime wrapper index |
-| `.agents/skills/<skill>/` | Current runtime skill wrapper |
-| `.claude/skills/README.md` | Claude-compatible wrapper index |
-| `.claude/skills/<skill>/` | Claude-compatible skill wrapper |
-| `.codex/agents/` | Codex project sub-agent adapters |
-| `.claude/agents/` | Claude Code project sub-agent adapters |
-| `.github/agents/` | GitHub Copilot custom agent adapters |
+Use `.ai/INDEX.MD` for canonical AI assets, `.dev/INDEX.md` for project
+knowledge and governance, and the runtime wrapper registries named under
+**Skill Routing** for adapter inventories. Keep detailed directory catalogs in
+those owned indexes rather than duplicating them in this always-loaded guide.
 
 ## Language Rules
 
