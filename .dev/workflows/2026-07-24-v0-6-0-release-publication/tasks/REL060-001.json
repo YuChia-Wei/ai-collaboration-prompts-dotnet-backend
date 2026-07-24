@@ -3,9 +3,9 @@
   "workflow_id": "2026-07-24-v0-6-0-release-publication",
   "owner_skill": "ai-context-governance",
   "title": "Prepare REL-v0.6.0 publication",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T13:35:00+08:00",
-  "updated_at": "2026-07-24T13:35:00+08:00",
+  "updated_at": "2026-07-24T15:15:15+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/release-publication/release-publication-task.json",
   "template_version": "1.0.0",
   "scope": {
@@ -21,5 +21,37 @@
     "Run the sanctioned candidate and pre-tag commands from the release runbook.",
     "Record only observed evidence and hand off tag creation to the user."
   ],
-  "results": null
+  "results": {
+    "summary": "REL-v0.6.0 passed candidate, current-main pre-tag, tag, hosted publication, and finalization evidence collection without moving or recreating the immutable tag.",
+    "files_changed": [
+      ".dev/releases/v0.6.0/release.yaml",
+      ".dev/releases/v0.6.0/release-notes.md",
+      ".dev/releases/INDEX.MD",
+      ".dev/backlog/ROADMAP.md",
+      ".dev/backlog/INDEX.MD",
+      ".dev/backlog/items/DIST-001.yaml",
+      ".dev/backlog/items/CUST-001.yaml",
+      ".dev/backlog/items/DEVWF-002.yaml",
+      ".dev/backlog/items/CI-001.yaml",
+      ".dev/backlog/items/CI-002.yaml",
+      ".dev/backlog/items/CFG-001.yaml",
+      ".dev/backlog/items/SKILL-001.yaml",
+      ".dev/backlog/items/EVAL-001.yaml",
+      ".dev/backlog/items/SIMPL-001.yaml",
+      ".dev/workflows/2026-07-24-v0-6-0-release-publication/workflow.yaml",
+      ".dev/workflows/2026-07-24-v0-6-0-release-publication/tasks/REL060-001.json",
+      ".dev/workflows/2026-07-24-v0-6-0-release-publication/reports/finalization-report.md",
+      ".dev/workflows/INDEX.MD"
+    ],
+    "tests_run": [
+      "PR #8 Governance, Ubuntu quick, and Package Candidate jobs passed",
+      "current-main pre-tag critical gate passed 44/44",
+      "local tag-phase validation passed for annotated tag v0.6.0",
+      "publication run 30074558122 completed successfully",
+      "hosted publication validation passed with one stable Release and four governed assets"
+    ],
+    "finding_status": "verified",
+    "residual_risk": "The next roadmap target remains intentionally unassigned pending owner discussion; v0.7.0 remains conditional.",
+    "follow_up_needed": false
+  }
 }

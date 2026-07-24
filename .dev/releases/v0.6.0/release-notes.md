@@ -2,7 +2,7 @@
 
 ## Status
 
-Validated candidate.
+Published.
 
 ## Highlights
 
@@ -36,10 +36,13 @@ All v0.6.0 roadmap blockers, activation work, and simplification disposition
 are resolved. Deterministic and target reconciliation suites passed, the
 owner-selected Terra evaluation passed 8/8 critical and 8/8 full outcomes, and
 PR #7 passed its hosted governance, Ubuntu, and candidate-discovery jobs before
-merging to `main`. The independent candidate, current-main pre-tag, tag,
-publication, and finalization gates remain mandatory.
+merging to `main`. PR #8 then passed governance, Ubuntu quick, and the actual
+package-candidate build and archive-parity job before merging the candidate to
+`main`. The current-main pre-tag and tag gates also passed.
 
 ## Publication Completion
 
-Pending the user-created `v0.6.0` annotated tag and successful hosted
-publication.
+Published from immutable annotated tag `v0.6.0`, peeled commit
+`8b98b5f917513f2d143f42a322050a1162bb63f9`, through successful hosted run
+`30074558122`. The stable GitHub Release exposes the governed ZIP, tar.gz, and
+both checksum sidecars.
