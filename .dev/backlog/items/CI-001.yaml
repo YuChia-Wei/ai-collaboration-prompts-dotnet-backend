@@ -39,6 +39,7 @@ acceptance:
   - "A pull-request candidate run and a non-production publication-path fixture or authorized release rehearsal complete without Node.js 20 deprecation annotations."
   - "Workflow contract tests fail closed if an active action regresses to a deprecated runtime major."
 inventory_notes:
+  - "Official releases were refreshed on 2026-07-24: upload-artifact v7 and download-artifact v8 are the selected majors; the static migration is committed locally at b18833f, while hosted execution evidence remains required."
   - "v0.5.0 publication run 29922585651 succeeded because GitHub forced Node.js 24, but its two jobs emitted warnings for upload-artifact@v4 and download-artifact@v5."
   - "GitHub's 2026 guidance says Node.js 20 actions are deprecated and runners began defaulting to Node.js 24 on 2026-06-16."
   - "Official artifact-action releases are time-sensitive and must be refreshed during implementation rather than treated as permanent planning truth."

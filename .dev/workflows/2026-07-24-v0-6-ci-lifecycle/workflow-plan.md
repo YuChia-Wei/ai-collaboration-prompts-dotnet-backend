@@ -9,10 +9,10 @@
 - `base_branch`: `codex/2026-07-24-v0-6-eval-deterministic`
 - `branch_segment`: `1`
 - `status`: `in_progress`
-- `current_phase`: `remediation`
+- `current_phase`: `awaiting-owner-decision`
 - `artifact_root`: `.dev/workflows/2026-07-24-v0-6-ci-lifecycle`
 - `created_at`: `2026-07-24T10:00:00+08:00`
-- `updated_at`: `2026-07-24T10:00:00+08:00`
+- `updated_at`: `2026-07-24T10:15:00+08:00`
 
 ## Objective And Scope
 
@@ -45,6 +45,8 @@ requires a pushed PR and an authorized publication rehearsal or real release.
 ## Resume Checkpoint
 
 - Current task: `CIENG-001`.
-- Exact next action: implement the static workflow lifecycle matrix and tests.
+- Exact next action: obtain the owner phase-contract decision, then implement
+  the approved version storage and collect hosted evidence after authorization.
 - Blockers: version-specific phase-contract owner decision and hosted execution.
-- Git state: clean local stacked branch; no push or merge requested.
+- Git state: local static slice committed at `b18833f`; no push or merge
+  requested.
