@@ -6,9 +6,9 @@
   "task_id": "EVALDET-001",
   "workflow_id": "2026-07-24-v0-6-eval-deterministic",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T09:30:25+08:00",
-  "updated_at": "2026-07-24T09:30:25+08:00",
+  "updated_at": "2026-07-24T09:56:21+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": [],
   "scope": {
@@ -51,14 +51,28 @@
       "aggregate runner and manifest parity",
       "AI-context and workflow validators"
     ],
-    "last_completed_step": "Created the bounded deterministic EVAL workflow and task",
-    "next_action": "Implement the EVAL-owned deterministic corpus and oracle"
+    "last_completed_step": "Verified the exact six-family baseline, mutation suite, aggregate gate, and source-only package boundary",
+    "next_action": "Obtain owner approval for the separate model-in-the-loop release evaluation"
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
+    "summary": "Implemented the EVAL-owned model-free corpus, exact normalized baseline, fail-closed mutation suite, candidate comparison, and source-only aggregate gate.",
+    "files_changed": [
+      ".ai/evaluation/**",
+      ".ai/scripts/validate-ai-behavior-evaluation.py",
+      ".ai/scripts/tests/test_ai_behavior_evaluation.py",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/distribution/profiles/dotnet-backend.yaml"
+    ],
+    "tests_run": [
+      "python .ai/scripts/tests/test_ai_behavior_evaluation.py -v (10 passed)",
+      "python .ai/scripts/validate-ai-behavior-evaluation.py validate (6 cases, zero model calls)",
+      "python .ai/scripts/validate-shell-assets.py",
+      "python .ai/scripts/validate-ai-context.py",
+      "python .ai/scripts/tests/test_fail_closed_validation.py -v (27 passed)",
+      "immutable ZIP/tar.gz build and validate; zero EVAL source-only entries"
+    ],
+    "finding_status": "addressed",
     "residual_risk": "Model-in-the-loop release evaluation remains unapproved and must not be inferred from deterministic results.",
     "follow_up_needed": true
   }

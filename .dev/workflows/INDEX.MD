@@ -8,7 +8,7 @@ task-level progress.
 
 | Workflow | Title | Owner | Status | Updated | Entry Point |
 | --- | --- | --- | --- | --- | --- |
-| [`2026-07-24-v0-6-eval-deterministic`](2026-07-24-v0-6-eval-deterministic/workflow.yaml) | Establish The v0.6.0 Deterministic AI Behavior Evaluation Baseline | `ai-context-governance` | `in_progress` | `2026-07-24T09:30:25+08:00` | [plan](2026-07-24-v0-6-eval-deterministic/workflow-plan.md) |
+| [`2026-07-24-v0-6-eval-deterministic`](2026-07-24-v0-6-eval-deterministic/workflow.yaml) | Establish The v0.6.0 Deterministic AI Behavior Evaluation Baseline | `ai-context-governance` | `completed` | `2026-07-24T09:56:21+08:00` | [plan](2026-07-24-v0-6-eval-deterministic/workflow-plan.md) |
 
 ## Completed Post-Adoption Workflows
 

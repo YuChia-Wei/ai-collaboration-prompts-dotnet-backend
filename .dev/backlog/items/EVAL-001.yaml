@@ -34,5 +34,6 @@ acceptance:
   - "Taxonomy or ai-context-init changes cannot proceed when deterministic regression fails or the approved model-evaluation threshold is not met."
   - "Baseline and candidate results are comparable without treating one stochastic run as conclusive."
 inventory_notes:
+  - "The deterministic six-family baseline and exact comparison gate were completed locally in workflow 2026-07-24-v0-6-eval-deterministic; EVAL-001 remains planned because the separately approved model evaluation has not run."
   - "Token cost belongs to framework release validation, not to the default downstream upgrade path."
   - "Full model evaluation may use representative sampling after deterministic coverage establishes the complete structural baseline."

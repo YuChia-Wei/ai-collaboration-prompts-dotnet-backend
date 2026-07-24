@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-24-v0-6-eval-deterministic`
 - `base_branch`: `codex/2026-07-23-v0-6-product-contract-planning`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `remediation`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-24-v0-6-eval-deterministic`
 - `created_at`: `2026-07-24T09:30:25+08:00`
-- `updated_at`: `2026-07-24T09:30:25+08:00`
+- `updated_at`: `2026-07-24T09:56:21+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -72,23 +72,25 @@
 4. Run independent verification and close this bounded workflow.
 5. Request owner decisions for the release-side model evaluation.
 
-## Resume Checkpoint
+## Closure Checkpoint
 
-- Last completed action: Closed the v0.6.0 product, customization, and
-  software-development contract workflow at `9120b21`.
-- Current task: `EVALDET-001`.
-- Exact next action: implement the EVAL-owned corpus, model-free oracle, result
-  schema, comparison runner, and required aggregate tests.
-- Validation already completed: final product-contract immutable package matrix
-  and independent auditor verification passed.
+- Last completed action: implemented and independently reviewed the deterministic
+  EVAL baseline through `9807a77`.
+- Current task: none; `EVALDET-001` is complete.
+- Exact next action: obtain owner approval for the separately scoped
+  model-in-the-loop release evaluation before activating `SKILL-001`.
+- Validation completed: 10 deterministic and mutation tests, exact six-case
+  corpus, aggregate runner parity, AI-context validation, 27 fail-closed runner
+  tests, and an immutable package proof that source-only EVAL files are absent.
 - Git state: clean stacked branch from the completed product-contract branch;
-  no push or merge requested.
+  no push or merge was requested.
 - Branch history and checkpoint handoffs: one local stacked branch.
-- Blockers or unresolved decisions: model/judge configuration is intentionally
-  excluded and does not block deterministic engineering.
+- Blockers or unresolved decisions: model/judge configuration remains the
+  explicit EVAL-001 and SKILL-001 activation decision boundary.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-24-v0-6-eval-deterministic` | `codex/2026-07-23-v0-6-product-contract-planning@9120b21` | active bootstrap | containing bootstrap commit | local | `2026-07-24T09:30:25+08:00` | Keep EVAL deterministic work outside the completed product workflow | Continue `EVALDET-001` |
+| 1 | `codex/2026-07-24-v0-6-eval-deterministic` | `codex/2026-07-23-v0-6-product-contract-planning@9120b21` | completed local workflow | `9807a77` | local | `2026-07-24T09:56:21+08:00` | Deterministic EVAL baseline verified without model calls | Await the separately approved release-side model evaluation |
