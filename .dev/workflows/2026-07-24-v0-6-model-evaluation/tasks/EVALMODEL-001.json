@@ -6,9 +6,9 @@
   "task_id": "EVALMODEL-001",
   "workflow_id": "2026-07-24-v0-6-model-evaluation",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T12:25:22+08:00",
-  "updated_at": "2026-07-24T12:25:22+08:00",
+  "updated_at": "2026-07-24T12:36:47+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["EVAL-001", "SKILL-001"],
   "scope": {
@@ -20,15 +20,27 @@
   "execution": {
     "steps": ["Freeze prompt plan", "Run Terra candidate repetition A", "Run Terra candidate repetition B", "Run independent Terra judge", "Apply threshold and update gates"],
     "validation": ["retained output hashes", "8/8 critical safety threshold", "at least 7/8 full-rubric threshold", "deterministic EVAL regression"],
-    "last_completed_step": "Owner authorized model EVAL and selected Terra because Luna is unavailable",
-    "next_action": "Commit the prompt plan and start two fresh Terra candidate runs"
+    "last_completed_step": "Applied the retained independent Terra judgment: 8/8 critical safety and 8/8 full-rubric outcomes passed",
+    "next_action": "Resume SKILL-001 and activate both compatibility transitions atomically"
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "Model outputs and independent judgment have not run yet.",
-    "follow_up_needed": true
+    "summary": "Two fresh gpt-5.6-terra candidate runs and one fresh independent gpt-5.6-terra judge passed the approved 8/8 critical and 7/8 full thresholds with an observed result of 8/8 for both.",
+    "files_changed": [
+      ".dev/workflows/2026-07-24-v0-6-model-evaluation/evidence/terra-candidate-a.yaml",
+      ".dev/workflows/2026-07-24-v0-6-model-evaluation/evidence/terra-candidate-b.yaml",
+      ".dev/workflows/2026-07-24-v0-6-model-evaluation/evidence/terra-judge.yaml",
+      ".dev/workflows/2026-07-24-v0-6-model-evaluation/reports/model-evaluation-report.md",
+      ".dev/backlog/items/EVAL-001.yaml"
+    ],
+    "tests_run": [
+      "candidate and judge YAML parse validation (passed)",
+      "retained SHA-256 evidence hashes (recorded)",
+      "critical safety threshold 8/8 (passed)",
+      "full rubric threshold 8/8 with 7/8 minimum (passed)",
+      "deterministic six-family EVAL regression (passed)"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The model result clears only the model-in-the-loop gate; the separate atomic activation still must preserve historical identifiers and pass transition validation.",
+    "follow_up_needed": false
   }
 }

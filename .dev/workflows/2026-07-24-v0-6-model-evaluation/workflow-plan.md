@@ -15,11 +15,11 @@
 - `branch`: `codex/2026-07-24-v0-6-model-eval-terra`
 - `base_branch`: `codex/2026-07-24-v0-6-ci-phase-contract`
 - `branch_segment`: `1`
-- `status`: `in_progress`
-- `current_phase`: `evaluation-plan`
+- `status`: `completed`
+- `current_phase`: `completed`
 - `artifact_root`: `.dev/workflows/2026-07-24-v0-6-model-evaluation`
 - `created_at`: `2026-07-24T12:25:22+08:00`
-- `updated_at`: `2026-07-24T12:25:22+08:00`
+- `updated_at`: `2026-07-24T12:36:47+08:00`
 - `template_source`: `.ai/assets/skills/ai-context-governance/templates/ai-context-maintenance-workflow-plan-template.md`
 - `template_version`: `1.2.0`
 
@@ -95,21 +95,28 @@
 5. Validate and commit the result without activating skills unless the gate
    passes.
 
+All five stages completed. The retained Terra judgment records 8/8 critical
+safety outcomes and 8/8 full-rubric outcomes, so the model-in-the-loop gate
+passes and the separate atomic skill activation may proceed.
+
 ## Resume Checkpoint
 
-- Last completed action: owner authorized model EVAL and selected Terra instead
-  of Sol.
-- Current task: `EVALMODEL-001`.
-- Exact next action: commit the evaluation plan, then start two fresh read-only
-  Terra candidate runs.
-- Validation already completed: deterministic six-family EVAL baseline.
+- Last completed action: retained two independent Terra candidate outputs and
+  one independent Terra judgment, then applied the approved threshold.
+- Current task: none; `EVALMODEL-001` is completed.
+- Exact next action: resume SKILL-001 and activate both compatible transitions
+  atomically.
+- Validation already completed: deterministic six-family EVAL baseline; 8/8
+  critical safety outcomes; 8/8 full-rubric outcomes; evidence YAML parsing;
+  retained SHA-256 hashes.
 - Git state: new dedicated branch from pushed CI phase-contract checkpoint.
 - Branch history and checkpoint handoffs: one local segment; no push requested.
-- Blockers or unresolved decisions: Luna is unavailable in this runtime; Terra
-  is the selected candidate and judge.
+- Blockers or unresolved decisions: none for EVAL-001. Luna was unavailable in
+  this runtime, so the owner-selected Terra configuration was used.
 
 ## Branch Lifecycle
 
 | Segment | Branch | Base | Checkpoint Type | Commit | Remote / Target | Recorded At | Reason | Resume Branch / Action |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | `codex/2026-07-24-v0-6-model-eval-terra` | `codex/2026-07-24-v0-6-ci-phase-contract@9ba1865` | active bootstrap | containing plan commit | local | `2026-07-24T12:25:22+08:00` | Run owner-approved model EVAL without changing the pushed CI branch | Start two fresh Terra candidate runs |
+| 1 | `codex/2026-07-24-v0-6-model-eval-terra` | `codex/2026-07-24-v0-6-ci-phase-contract@9ba1865` | completed local checkpoint | containing result commit | local | `2026-07-24T12:36:47+08:00` | Terra threshold passed and retained evidence is complete | Resume SKILL-001 atomic activation on this branch |
