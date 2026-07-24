@@ -90,6 +90,7 @@ Shell or PowerShell scripts should be retired or replaced when they:
 - `validate-ai-context-package.py`
 - `plan-ai-context-package-apply.py`
 - `render-ai-context-release-notes.py`
+- `validate-ai-behavior-evaluation.py`
 
 These scripts inspect AI context, markdown, prompt portability, or repository hygiene. They are not substitutes for dotnet C# validation.
 
@@ -241,6 +242,7 @@ python .ai/scripts/tests/test_ai_context_packaging.py -v
 python .ai/scripts/tests/test_ai_context_release_state.py -v
 python .ai/scripts/tests/test_prepare_ai_context_release.py -v
 python .ai/scripts/tests/test_release_notes_renderer.py -v
+python .ai/scripts/tests/test_ai_behavior_evaluation.py -v
 python .ai/scripts/tests/test_dependency_version_consistency.py -v
 python .ai/scripts/tests/test_file_disposition_manifest.py -v
 python .ai/scripts/tests/test_governance_workflow_contract.py -v
@@ -248,6 +250,9 @@ python .ai/scripts/tests/test_governance_workflow_contract.py -v
 
 `test_ai_context_version_governance.py` and
 `test_ai_context_packaging.py` are source-repository release/build tests.
+`test_ai_behavior_evaluation.py` is the source-release deterministic behavior
+gate. It consumes only preclassified fixtures, performs no model or network
+calls, and compares exact normalized output with the checked-in baseline.
 `test_governance_workflow_contract.py` and the concrete v0.5.0 disposition
 manifest validation are source-repository governance checks.
 `validate-source-governance.py` discovers those manifests through the stable

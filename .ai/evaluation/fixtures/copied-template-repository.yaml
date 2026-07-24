@@ -1,0 +1,8 @@
+schema_version: "1.0"
+repository_state: "copied-template"
+requested_capability: "initialize-ai-context"
+target_owned_files:
+  - "src/Payments/Payment.cs"
+copied_source_truth:
+  - ".dev/requirement/source-repository-release.md"
+  - ".dev/workflows/2026-01-01-source-release/workflow.yaml"

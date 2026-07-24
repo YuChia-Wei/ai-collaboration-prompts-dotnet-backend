@@ -1,0 +1,11 @@
+schema_version: "1.0"
+case_id: "copied-template-repository"
+family: "copied-template"
+route: "ai-context-init"
+decision: "adapt-and-remove-source-truth"
+details:
+  preserve_target_owned:
+    - "src/Payments/Payment.cs"
+  reject_source_truth:
+    - ".dev/requirement/source-repository-release.md"
+    - ".dev/workflows/2026-01-01-source-release/workflow.yaml"
