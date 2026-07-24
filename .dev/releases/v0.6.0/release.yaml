@@ -1,16 +1,16 @@
 schema_version: "1.0"
 release_id: "REL-v0.6.0"
 version: "v0.6.0"
-status: "validated"
+status: "published"
 record_origin: "governed"
 distribution_kind: "governed-package"
 installable: true
-tag: null
-commit: null
-tagged_at: null
-recorded_at: null
+tag: "v0.6.0"
+commit: "8b98b5f917513f2d143f42a322050a1162bb63f9"
+tagged_at: "2026-07-24T15:09:19+08:00"
+recorded_at: "2026-07-24T15:14:42+08:00"
 created_at: "2026-07-24T13:35:00+08:00"
-updated_at: "2026-07-24T13:35:00+08:00"
+updated_at: "2026-07-24T15:15:15+08:00"
 planning:
   backlog_refs:
     - ".dev/backlog/items/DIST-001.yaml"
@@ -60,7 +60,7 @@ distribution:
     automation: "github-actions"
     creates_or_moves_tag: false
 validation:
-  evidence: "All nine v0.6.0 roadmap items are resolved. Deterministic package and target reconciliation suites, the Terra 8/8 critical and 8/8 full model evaluation, and the configuration and skill-transition gates passed before integration. PR #7 passed read-only governance, Ubuntu quick, and candidate-discovery checks and merged to main as 0cd4298d96948dcc0d1bef54b1b04488338442cf. The independent candidate, current-main pre-tag, tag, publication, and finalization gates remain mandatory."
+  evidence: "All nine v0.6.0 roadmap items are resolved. Deterministic package and target reconciliation suites, the Terra 8/8 critical and 8/8 full model evaluation, and the configuration and skill-transition gates passed before integration. PR #7 passed read-only governance, Ubuntu quick, and candidate-discovery checks and merged to main as 0cd4298d96948dcc0d1bef54b1b04488338442cf. PR #8 passed governance, Ubuntu quick, and the actual package-candidate build and archive-parity job before merging as 8b98b5f917513f2d143f42a322050a1162bb63f9. The current-main pre-tag and tag-phase gates passed. Immutable annotated tag v0.6.0 triggered successful publication run 30074558122. The stable GitHub Release exposes the governed ZIP, tar.gz, and both checksum sidecars, and hosted publication validation passed."
   workflow_id: "2026-07-24-v0-6-0-release-publication"
   related_workflows:
     - "2026-07-23-v0-6-product-contract-planning"
@@ -71,7 +71,7 @@ validation:
     - "2026-07-24-v0-6-ci-lifecycle"
   related_assessments: []
   package_status: "validated"
-  post_merge_status: "pending"
+  post_merge_status: "passed"
   failed_publication_run: null
-  published_run: null
-  public_release_url: null
+  published_run: "30074558122"
+  public_release_url: "https://github.com/YuChia-Wei/ai-collaboration-prompts-dotnet-backend/releases/tag/v0.6.0"

@@ -6,11 +6,11 @@ status: "resolved"
 priority: "HIGH"
 summary: "Replace Node.js 20 artifact-action majors in candidate and publication workflows before GitHub removes the compatibility runtime."
 created_at: "2026-07-22T21:53:50+08:00"
-updated_at: "2026-07-24T13:35:00+08:00"
+updated_at: "2026-07-24T15:15:15+08:00"
 release:
   target: "v0.6.0"
   completed_in: "v0.6.0"
-  published_in: null
+  published_in: "v0.6.0"
   target_scope: "node24-native-artifact-actions-and-warning-free-hosted-release-gates"
   gate: "release-blocker"
 origin_refs:

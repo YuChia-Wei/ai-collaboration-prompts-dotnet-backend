@@ -4,9 +4,9 @@
 
 - `roadmap_id`: `post-v0.4.0`
 - `status`: `active`
-- `current_target`: `v0.6.0`
+- `current_target`: `unassigned`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-24T00:31:35+08:00`
+- `updated_at`: `2026-07-24T15:15:15+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
@@ -29,7 +29,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
 | `v0.5.0` | `published` | yes | The four-source release, including exact automatic v0.4.2 upgrades, passed independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates. | Completed at immutable tag `v0.5.0`, peeled commit `1477181f0b43fa7ee82fcd482141758ac9e22eb6`, successful hosted publication run `29922585651`, and a stable GitHub Release with four governed assets. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
-| `v0.6.0` | `planned` | yes | Define the downstream product and component contract through `DIST-001`, semantic customization through `CUST-001`, and software-development product acceptance through `DEVWF-002`; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001`; and disposition measured active-context simplification through `SIMPL-001`. | Lock both mandatory cores, the target-owned provenance/customization contract, high-level orchestrator activation, selectable spec compliance, target-aware test execution, optional-provider and source-only boundaries, and the component validation matrix before package closure. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) |
+| `v0.6.0` | `published` | yes | The componentized downstream product, semantic customization lifecycle, software-development orchestration acceptance, coordinated CI/configuration/skill transitions, Terra evaluation, and measured simplification disposition are complete. | Completed at immutable annotated tag `v0.6.0`, peeled commit `8b98b5f917513f2d143f42a322050a1162bb63f9`, successful hosted publication run `30074558122`, and a stable GitHub Release with four governed assets. | [`2026-07-24-v0-6-0-release-publication`](../workflows/2026-07-24-v0-6-0-release-publication/workflow.yaml) |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
 ## Release Gate Semantics
@@ -281,10 +281,9 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-`DIST-001`, `CUST-001`, and `DEVWF-002` are implemented and independently
-verified. Establish the `EVAL-001` deterministic baseline before coordinated
-`CFG-001` and `SKILL-001` implementation. Execute `CI-001` and `CI-002` as one
-release-engineering workstream, measure and disposition `SIMPL-001`, and keep
-`DEVWF-001`, `UPG-001`, and `STD-001` independently gated. Do not silently
+v0.6.0 is published and no successor release is automatically active. Hold an
+owner roadmap discussion before assigning a new `current_target`. Keep v0.7.0
+conditional, and keep `DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001`
+independently gated unless an explicit decision assigns them. Do not silently
 include a future software-delivery orchestrator, historical archive migration,
-or legacy identifier retirement in v0.6.0.
+or legacy identifier retirement in a successor release.
