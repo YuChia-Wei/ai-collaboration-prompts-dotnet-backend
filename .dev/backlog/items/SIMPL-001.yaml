@@ -20,8 +20,10 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Begin disposition only after v0.5.0 release, handoff, enforcement, tooling, and language safeguards are stable. Do not simplify standards through this item; route that work to STD-001."
 workflow_refs:
   - ".dev/workflows/2026-07-20-simplification-roadmap-intake/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-context-load-simplification/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-20-simplification-roadmap-intake/tasks/SIMPLPLAN-001.json"
+  - ".dev/workflows/2026-07-24-v0-6-context-load-simplification/tasks/SIMPL-001.json"
 resolution_ref: null
 decision_needed: "At v0.6.0 planning, approve the representative context-load measurements and disposition every simplification candidate. Any historical archive implementation requires a separately approved v0.7.0 successor item."
 acceptance:
