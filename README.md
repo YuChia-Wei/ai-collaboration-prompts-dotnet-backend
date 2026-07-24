@@ -6,7 +6,7 @@
 
 這個 repository 用來萃取、整理並演化我的軟體開發知識，以及可被 AI Agents 重複使用的 context、skills、sub-agent prompts 與協作 workflow。
 
-它不是產品專案本身，而是一個可攜式的 AI 協作框架。當這套 context 被帶到既有專案或全新空專案時，應先使用 `repo-structure-sync` 進行 repo init，讓目標專案的真實結構取代本 repo 中的 template 或歷史專案資訊。
+它不是產品專案本身，而是一個可攜式的 AI 協作框架。當這套 context 被帶到既有專案或全新空專案時，應先使用 `ai-context-init` 進行 repo init，讓目標專案的真實結構取代本 repo 中的 template 或歷史專案資訊。
 
 ## 目標
 
@@ -60,13 +60,13 @@
 
 ## 重要 Skills
 
-- `dev-workflow`
+- `software-development-orchestrator`
   - 用於 software/product development lifecycle 協調，涵蓋 requirement、spec、architecture、test、implementation、review 與 compliance；負責開發 workflow mode 判斷、skill routing、validation checkpoint 與 commit checkpoint，不負責 AI context 或 repo init workflow。
 - `ai-context-governance`
   - 用於 context 分層、語言政策、skill routing、wrapper sync、AI 文件治理與搬移。
 - `ai-context-auditor`
   - 用於唯讀 AI context 健康度與漂移自檢，預設排除產品程式碼，並比較獨立分析與 repo-aware 分析。結果可僅保留在對話中；只有需要保存正式報告時才建立 audit workflow 並將報告落地。
-- `repo-structure-sync`
+- `ai-context-init`
   - 用於 repo init。當這套 AI context 被複製到既有或全新目標 repo 後，第一個應使用此 skill 盤點目標 repo 並刷新 `AGENTS.md`、`.dev/` 與必要 `.ai/` 入口文件。
 - `ddd-ca-hex-architect`
   - 用於 .NET backend 的 DDD / Clean Architecture / Hexagonal / CQRS 架構設計。
@@ -89,12 +89,12 @@
 當這套 context 被帶到其他 repository：
 
 1. 複製必要的 `.ai/`、`.dev/`、`.agents/`、`.claude/` 與 agent entry files。
-2. 立即執行 `repo-structure-sync`。
+2. 立即執行 `ai-context-init`。
 3. 依目標 repo 的檔案、solution、project、package、infra config 與既有文件重建 repo-specific truth。
 4. 移除或重寫與來源 repo 綁定的 requirement、spec、operation、workflow 與 ADR。
 5. 保留通用 framework-level rules，除非目標 repo 明確需要調整。
 
-詳細邊界請見 `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md`。
+詳細邊界請見 `.ai/assets/skills/ai-context-init/references/migration-boundaries.md`。
 
 ## 目前整理方向
 
@@ -103,6 +103,6 @@
 後續新增內容必須維持以下邊界：
 
 - reusable .NET backend context 放在 `.ai/assets/tech-stacks/dotnet-backend/`；
-- target-repository truth 由 `repo-structure-sync` 依目標 repo evidence 建立；
+- target-repository truth 由 `ai-context-init` 依目標 repo evidence 建立；
 - 歷史決策只保留在明確標示的 workflow / migration artifacts；
 - frontend 與其他語言目前只保留 context placement exploration，不視為 active profile。

@@ -27,7 +27,7 @@
 - `AI-REFACTORING-SKILL-CONTRACTS.md`
 - Workflow templates are owned by the canonical skill that creates that workflow kind.
 - Shared discovery and metadata rules are defined by `../../standards/WORKFLOW-ARTIFACT-POLICY.md`.
-- Development templates are under `.ai/assets/skills/dev-workflow/templates/`.
+- Development templates are under `.ai/assets/skills/software-development-orchestrator/templates/`.
 - AI context maintenance and audit templates are under their respective canonical skill directories.
 
 ## Feature And Use Case Requests
@@ -35,7 +35,7 @@
 The retired legacy standards prompt examples are not prompt sources. Use the
 current capability routes instead:
 
-- multi-stage product work: `dev-workflow`;
+- multi-stage product work: `software-development-orchestrator`;
 - bounded-context, Aggregate, port, or use-case design:
   `ddd-ca-hex-architect`;
 - one accepted command/query/reactor/documentation slice:

@@ -15,7 +15,7 @@ Mode is determined by intent, mutation, and execution tracking, not by the numbe
 For software-development work, activation is intent-based. A high-level request
 that spans planning, requirements, design, implementation, testing, review, or
 closeout may activate the repository's development orchestration without the
-user naming `dev-workflow` or any downstream skill. Determine stages from the
+user naming `software-development-orchestrator` or any downstream skill. Determine stages from the
 requested outcome, current artifacts, repository policy, and approval state,
 not from skill names alone.
 

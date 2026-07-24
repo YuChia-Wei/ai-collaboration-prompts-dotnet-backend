@@ -1,5 +1,5 @@
 schema_version: "1.0"
-activation_fixture: ".ai/assets/skills/dev-workflow/fixtures/acceptance/activation-high-level-pending-approval.yaml"
+activation_fixture: ".ai/assets/skills/software-development-orchestrator/fixtures/acceptance/activation-high-level-pending-approval.yaml"
 test_execution:
   selected_levels:
     - "unit"

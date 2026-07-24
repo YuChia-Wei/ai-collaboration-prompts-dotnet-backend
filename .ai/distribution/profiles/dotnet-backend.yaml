@@ -105,7 +105,9 @@ entries:
           - .ai/assets/skills/ai-context-auditor/**
           - .ai/assets/skills/ai-context-governance/**
           - .ai/assets/skills/ai-context-upgrader/**
+          - .ai/assets/skills/ai-context-init/**
           - .ai/assets/skills/repo-structure-sync/**
+          - .ai/assets/skills/transitions/**
           - .ai/assets/sub-agent-role-prompts/context-translator/**
     target: .ai/assets/
     ownership: framework-managed
@@ -150,6 +152,7 @@ entries:
           - .agents/skills/ai-context-auditor/**
           - .agents/skills/ai-context-governance/**
           - .agents/skills/ai-context-upgrader/**
+          - .agents/skills/ai-context-init/**
           - .agents/skills/repo-structure-sync/**
     target: .agents/skills/
     ownership: framework-managed
@@ -164,6 +167,7 @@ entries:
           - .claude/skills/ai-context-auditor/**
           - .claude/skills/ai-context-governance/**
           - .claude/skills/ai-context-upgrader/**
+          - .claude/skills/ai-context-init/**
           - .claude/skills/repo-structure-sync/**
     target: .claude/skills/
     ownership: framework-managed
@@ -208,7 +212,7 @@ entries:
           - .dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md
           - .dev/guides/ai-collaboration-guides/AI-CONTEXT-GOVERNANCE-SKILL-GUIDE.md
           - .dev/guides/ai-collaboration-guides/AI-CONTEXT-UPGRADER-SKILL-GUIDE.md
-          - .dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md
+          - .dev/guides/ai-collaboration-guides/AI-CONTEXT-INIT-SKILL-GUIDE.md
     target: .dev/guides/
     ownership: framework-managed
     install_behavior: managed
@@ -296,10 +300,10 @@ entries:
   - id: public-root-and-catalog-seeds
     component_id: ai-context-lifecycle-core
     source:
-      - .ai/assets/skills/repo-structure-sync/templates/public-root/**
-      - .ai/assets/skills/repo-structure-sync/templates/public-catalogs/**
+      - .ai/assets/skills/ai-context-init/templates/public-root/**
+      - .ai/assets/skills/ai-context-init/templates/public-catalogs/**
     target: mapping-declared-by-template-manifest
-    template_manifest: .ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml
+    template_manifest: .ai/assets/skills/ai-context-init/templates/public-template-manifest.yaml
     template_source_resolution: manifest-directory-relative
     ownership: target-template
     install_behavior: seed

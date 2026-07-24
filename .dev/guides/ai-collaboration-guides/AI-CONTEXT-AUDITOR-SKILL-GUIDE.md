@@ -86,6 +86,6 @@ Auditor 永遠對被稽核的 context 保持唯讀，不會直接修正 findings
 - AI context ownership、language、wrapper 或 routing → `ai-context-governance`；
 - findings 分流、多階段 AI context 整改、複檢協調與結案 → `ai-context-governance`；
 - 產品 source code → `code-reviewer`；
-- framework 複製後的 target repo truth 重建 → `repo-structure-sync`。
+- framework 複製後的 target repo truth 重建 → `ai-context-init`。
 
 Auditor 對被稽核的 context 始終保持唯讀；它只能更新自己負責的 assessment locator、report、evidence 與 assessment index，這不構成修正授權。

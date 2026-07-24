@@ -3,7 +3,7 @@
 This document is a reusable target-repository profile, not the observed directory
 structure of this AI context framework. Apply its physical layout and naming only
 when repository evidence or an explicit team decision adopts them. Run
-`repo-structure-sync` first when this framework is copied into a target repository;
+`ai-context-init` first when this framework is copied into a target repository;
 unconfirmed paths and project names must remain unresolved.
 
 The normative invariants are DDD and Clean Architecture dependency direction,

@@ -4,7 +4,7 @@
 
 `ai-context-upgrader` 用於已經匯入並初始化這套 AI context 的目標 repo。它會比對舊 framework 版本、新 framework 版本與目標 repo 現況，先產生分類與衝突清單，再依授權套用變更。
 
-第一次把 framework 複製到專案時，請使用 `repo-structure-sync`；不要把 upgrader 當成初始化工具。
+第一次把 framework 複製到專案時，請使用 `ai-context-init`；不要把 upgrader 當成初始化工具。
 
 ## 何時使用
 

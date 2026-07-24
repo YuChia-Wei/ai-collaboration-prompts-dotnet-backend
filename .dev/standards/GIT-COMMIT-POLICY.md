@@ -58,7 +58,7 @@ The scope should name the affected boundary, not the file extension. Prefer:
 - `ai-context`
 - `governance`
 - `dotnet-backend`
-- `repo-structure-sync`
+- `ai-context-init`
 - `skills`
 - `workflow`
 - `testing`

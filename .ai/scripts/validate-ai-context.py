@@ -90,6 +90,12 @@ SKILL_WRAPPER_CONTRACTS = {
         "use_line": "Use this wrapper only as a compatibility entry.",
     },
 }
+DEPRECATED_WRAPPER_KIND_LINE = (
+    "This identifier is a deprecated compatibility wrapper."
+)
+DEPRECATED_WRAPPER_USE_LINE = (
+    "Use this wrapper only as a deprecated compatibility entry."
+)
 PACKAGE_PROFILE = Path(".ai/distribution/profiles/dotnet-backend.yaml")
 SUB_AGENT_ADAPTER_CONTRACTS = {
     "codex": {
@@ -109,13 +115,13 @@ SUB_AGENT_ADAPTER_CONTRACTS = {
     },
 }
 CAPABILITY_PROFILE = Path(
-    ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
+    ".ai/assets/skills/software-development-orchestrator/references/capability-profile.yaml"
 )
 PROJECT_CONFIG_TEMPLATE = Path(
-    ".ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml"
+    ".ai/assets/skills/ai-context-init/templates/project-config.template.yaml"
 )
 TECHNOLOGY_SELECTION_SCHEMA = Path(
-    ".ai/assets/skills/repo-structure-sync/templates/technology-selection.schema.yaml"
+    ".ai/assets/skills/ai-context-init/templates/technology-selection.schema.yaml"
 )
 EXAMPLE_EVIDENCE_SCHEMA = Path(".dev/standards/examples/evidence-schema.yaml")
 EXAMPLE_EVIDENCE_MANIFEST = Path(".dev/standards/examples/evidence-manifest.yaml")
@@ -963,13 +969,27 @@ def canonical_wrapper_references(path: Path, data: dict) -> set[str]:
     return references
 
 
-def normalized_wrapper_projection(text: str, target: str) -> str:
+def normalized_wrapper_projection(
+    text: str, target: str, *, deprecated: bool = False
+) -> str:
     """Normalize only declared runtime identity and compatibility boilerplate."""
     contract = SKILL_WRAPPER_CONTRACTS[target]
-    normalized = text.replace(contract["kind_line"], "This is a thin <runtime> wrapper.")
-    normalized = normalized.replace(
-        contract["use_line"], "Use this wrapper only as the <runtime> entry."
-    )
+    if deprecated:
+        normalized = text.replace(
+            DEPRECATED_WRAPPER_KIND_LINE,
+            "This identifier is a deprecated compatibility wrapper.",
+        )
+        normalized = normalized.replace(
+            DEPRECATED_WRAPPER_USE_LINE,
+            "Use this wrapper only as a deprecated compatibility entry.",
+        )
+    else:
+        normalized = text.replace(
+            contract["kind_line"], "This is a thin <runtime> wrapper."
+        )
+        normalized = normalized.replace(
+            contract["use_line"], "Use this wrapper only as the <runtime> entry."
+        )
     return normalized.replace(contract["identity"], "<runtime>")
 
 
@@ -992,6 +1012,7 @@ def validate_skill_wrapper_semantics(
         return
 
     projections: dict[str, str] = {}
+    deprecated = data.get("status") == "deprecated"
     for target in sorted(set(targets) & set(SKILL_WRAPPER_CONTRACTS)):
         target_metadata = metadata.get(target)
         if not isinstance(target_metadata, dict):
@@ -1036,9 +1057,21 @@ def validate_skill_wrapper_semantics(
         )
         if authority_line not in text:
             errors.append(f"{entry}: missing exact canonical authority fallback")
-        if contract["kind_line"] not in text or contract["use_line"] not in text:
+        kind_line = (
+            DEPRECATED_WRAPPER_KIND_LINE
+            if deprecated
+            else contract["kind_line"]
+        )
+        use_line = (
+            DEPRECATED_WRAPPER_USE_LINE
+            if deprecated
+            else contract["use_line"]
+        )
+        if kind_line not in text or use_line not in text:
             errors.append(f"{entry}: missing exact {target} thin-wrapper identity")
-        projections[target] = normalized_wrapper_projection(text, target)
+        projections[target] = normalized_wrapper_projection(
+            text, target, deprecated=deprecated
+        )
 
     if set(projections) >= {"codex", "claude"} and (
         projections["claude"] != projections["codex"]
@@ -1650,8 +1683,8 @@ def validate_capability_profile(skill_assets: dict[str, dict], errors: list[str]
             errors.append(f"{CAPABILITY_PROFILE}: {skill_id} does not declare slot {slot}")
     expected = {str(slot): str(skill) for slot, skill in mappings.items()}
     for markdown_path, heading in (
-        (Path(".ai/assets/skills/dev-workflow/references/capability-profile.md"), "## Capability Mapping"),
-        (Path(".ai/assets/skills/dev-workflow/references/routing-playbook.md"), "## Local Profile Resolution"),
+        (Path(".ai/assets/skills/software-development-orchestrator/references/capability-profile.md"), "## Capability Mapping"),
+        (Path(".ai/assets/skills/software-development-orchestrator/references/routing-playbook.md"), "## Local Profile Resolution"),
     ):
         text = (ROOT / markdown_path).read_text(encoding="utf-8")
         section = text.split(heading, 1)[1].split("\n## ", 1)[0] if heading in text else ""

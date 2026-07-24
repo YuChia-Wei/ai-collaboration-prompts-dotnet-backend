@@ -14,7 +14,7 @@ import yaml
 DEFAULT_ROOT = Path(__file__).resolve().parents[2]
 PROFILE = Path(".ai/distribution/profiles/dotnet-backend.yaml")
 TEMPLATE_ROOT = Path(
-    ".ai/assets/skills/repo-structure-sync/templates/public-root"
+    ".ai/assets/skills/ai-context-init/templates/public-root"
 )
 TEMPLATE_MANIFEST = TEMPLATE_ROOT.parent / "public-template-manifest.yaml"
 ASSESSMENT_POLICY = Path(".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md")
@@ -224,7 +224,7 @@ def validate_profile(root: Path, errors: list[str]) -> None:
     public = find_by_id(entries, "public-root-and-catalog-seeds")
     public_sources = public.get("source", [])
     if not isinstance(public_sources, list) or (
-        ".ai/assets/skills/repo-structure-sync/templates/public-root/**"
+        ".ai/assets/skills/ai-context-init/templates/public-root/**"
         not in public_sources
     ):
         errors.append(f"{PROFILE.as_posix()}: public-root seed allowlist is missing")

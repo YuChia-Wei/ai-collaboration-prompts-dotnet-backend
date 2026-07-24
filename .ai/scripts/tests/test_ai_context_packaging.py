@@ -231,11 +231,11 @@ class DeterministicPackageGwtTests(unittest.TestCase):
             ".ai/assets/skills/ai-context-auditor/skill.yaml",
             ".ai/assets/skills/ai-context-governance/skill.yaml",
             ".ai/assets/skills/ai-context-upgrader/skill.yaml",
-            ".ai/assets/skills/repo-structure-sync/skill.yaml",
+            ".ai/assets/skills/ai-context-init/skill.yaml",
             ".agents/skills/ai-context-auditor/SKILL.md",
             ".agents/skills/ai-context-governance/SKILL.md",
             ".agents/skills/ai-context-upgrader/SKILL.md",
-            ".agents/skills/repo-structure-sync/SKILL.md",
+            ".agents/skills/ai-context-init/SKILL.md",
             ".ai/scripts/ai_context_target_provenance.py",
             ".ai/scripts/validate-ai-context-target.py",
         ]
@@ -247,7 +247,7 @@ class DeterministicPackageGwtTests(unittest.TestCase):
         )
         self.assertEqual(
             "software-development-core",
-            payload[".ai/assets/skills/dev-workflow/skill.yaml"],
+            payload[".ai/assets/skills/software-development-orchestrator/skill.yaml"],
         )
         self.assertEqual(
             "software-development-core",
@@ -276,11 +276,11 @@ class DeterministicPackageGwtTests(unittest.TestCase):
 
         expected_sources = {
             ".editorconfig": (
-                ".ai/assets/skills/repo-structure-sync/templates/"
+                ".ai/assets/skills/ai-context-init/templates/"
                 "public-root/.editorconfig"
             ),
             ".gitattributes": (
-                ".ai/assets/skills/repo-structure-sync/templates/"
+                ".ai/assets/skills/ai-context-init/templates/"
                 "public-root/.gitattributes"
             ),
         }
@@ -340,7 +340,7 @@ class DeterministicPackageGwtTests(unittest.TestCase):
         with self.assertRaisesRegex(PACKAGE.PackageError, "unknown component_id"):
             PACKAGE.resolve_entry_component(
                 entry,
-                ".ai/assets/skills/dev-workflow/skill.yaml",
+                ".ai/assets/skills/software-development-orchestrator/skill.yaml",
                 "software-development-core",
                 {"software-development-core", "ai-context-lifecycle-core"},
             )

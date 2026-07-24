@@ -6,7 +6,7 @@ This file is the English translation of the canonical Traditional Chinese (Taiwa
 
 This repository extracts, organizes, and evolves my software development knowledge together with reusable AI Agent context, skills, sub-agent prompts, and collaboration workflows.
 
-It is not a product repository. It is a portable AI collaboration framework. When this context is copied into an existing repository or an empty new repository, run `repo-structure-sync` first as the repo initialization skill so target-repository facts replace template or historical source-project facts.
+It is not a product repository. It is a portable AI collaboration framework. When this context is copied into an existing repository or an empty new repository, run `ai-context-init` first as the repo initialization skill so target-repository facts replace template or historical source-project facts.
 
 ## Goals
 
@@ -60,13 +60,13 @@ GitHub Copilot repo-level wrappers are not currently provided. Their runtime pat
 
 ## Important Skills
 
-- `dev-workflow`
+- `software-development-orchestrator`
   - Coordinates the software and product development lifecycle across requirements, specifications, architecture, tests, implementation, review, and compliance; owns development workflow-mode decisions, skill routing, validation checkpoints, and commit checkpoints, but not AI context or repo-initialization workflows.
 - `ai-context-governance`
   - Governs context boundaries, language policy, skill routing, wrapper sync, AI documentation cleanup, and context moves.
 - `ai-context-auditor`
   - Performs read-only AI context health and drift audits, excludes product code by default, and compares independent and repository-aware analysis. Results may remain transient in the conversation; create an audit workflow and persist a durable report only when repository storage is required.
-- `repo-structure-sync`
+- `ai-context-init`
   - Performs repo initialization. After this AI context is copied into an existing or empty target repository, use this skill first to inventory the target repo and refresh `AGENTS.md`, `.dev/`, and required `.ai/` entry docs.
 - `ddd-ca-hex-architect`
   - Designs .NET backend DDD / Clean Architecture / Hexagonal / CQRS architecture.
@@ -89,12 +89,12 @@ The canonical skill registry is `.ai/assets/skills/README.MD`.
 When this context is copied into another repository:
 
 1. Copy the needed `.ai/`, `.dev/`, `.agents/`, `.claude/`, and agent entry files.
-2. Run `repo-structure-sync` immediately.
+2. Run `ai-context-init` immediately.
 3. Rebuild repo-specific truth from the target repo's files, solution, projects, packages, infrastructure config, and existing docs.
 4. Remove or rewrite source-repo-specific requirements, specs, operations docs, workflow artifacts, and ADRs.
 5. Preserve framework-level rules unless the target repo clearly requires a change.
 
-See `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` for the detailed boundary.
+See `.ai/assets/skills/ai-context-init/references/migration-boundaries.md` for the detailed boundary.
 
 ## Current Cleanup Direction
 
@@ -103,6 +103,6 @@ Product-specific requirements, specs, operations truth, problem frames, project 
 New content must preserve these boundaries:
 
 - reusable .NET backend context belongs under `.ai/assets/tech-stacks/dotnet-backend/`;
-- target-repository truth is created by `repo-structure-sync` from target evidence;
+- target-repository truth is created by `ai-context-init` from target evidence;
 - historical decisions remain only in explicitly labeled workflow or migration artifacts;
 - frontend and other languages remain context-placement exploration, not active profiles.

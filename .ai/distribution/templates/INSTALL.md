@@ -44,7 +44,7 @@ This package is a versioned framework payload, not a whole-repository overwrite.
 6. Review `.dev/AI-CONTEXT-APPLY-PENDING.yaml`, including its default and
    resolved selection, resolution evidence, and applied/skipped component
    operation counts. Then run
-   `repo-structure-sync` after a clean installation or `ai-context-upgrader`
+   `ai-context-init` after a clean installation or `ai-context-upgrader`
    for a versioned upgrade. The package tool does not update validated
    `.dev/ai-context/provenance.yaml` provenance. Legacy
    `.dev/AI-CONTEXT-SOURCE.yaml` remains read-compatible only.

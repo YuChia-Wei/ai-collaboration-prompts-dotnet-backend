@@ -10,7 +10,7 @@ Use `.dev/` for durable project knowledge and governance that humans and agents 
 
 Start with `.dev/INDEX.md` when you need to find a specific file or directory. Use this README only to understand the role of `.dev/` and when content belongs here.
 
-When this framework is copied into a target repository, run `repo-structure-sync` before treating target-specific requirements, specs, domain language, or operations files as current project truth.
+When this framework is copied into a target repository, run `ai-context-init` before treating target-specific requirements, specs, domain language, or operations files as current project truth.
 
 ## Boundary
 

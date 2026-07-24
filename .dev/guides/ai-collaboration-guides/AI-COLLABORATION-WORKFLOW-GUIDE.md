@@ -9,7 +9,7 @@
 - 何時需要 workflow mode
 - 何時適合引入 subagent
 
-若任務本身是「規劃並驅動多階段 software/product development」，使用 `dev-workflow`。它負責 development direct/workflow mode、開發 skill routing、validation 與 commit checkpoint。其他多階段作業由其 domain owner skill 建立並管理 workflow；例如 AI context lifecycle 使用 `ai-context-governance`，不再經由 `dev-workflow` 統籌。
+若任務本身是「規劃並驅動多階段 software/product development」，使用 `software-development-orchestrator`。它負責 development direct/workflow mode、開發 skill routing、validation 與 commit checkpoint。其他多階段作業由其 domain owner skill 建立並管理 workflow；例如 AI context lifecycle 使用 `ai-context-governance`，不再經由 `software-development-orchestrator` 統籌。
 
 ## 核心原則
 
@@ -256,10 +256,10 @@
 
 Locator 固定記錄 owner skill、status、artifact root、entrypoint、`created_at` 與 `updated_at`。真正 artifact layout 與 template 由建立該類 workflow 的 skill 管理：
 
-- software/product development lifecycle → `dev-workflow`
+- software/product development lifecycle → `software-development-orchestrator`
 - AI context 自檢 → `ai-context-auditor`
 - AI context 文件治理、整改與複檢結案 → `ai-context-governance`
-- framework 複製後的 repo 初始化 → `repo-structure-sync`
+- framework 複製後的 repo 初始化 → `ai-context-init`
 
 artifact 預設放在 locator 同目錄；owner skill 也可宣告其他 repository-relative `artifact_root`。不要假設所有 workflow 都具有下列同名檔案。Development workflow 通常使用：
 
@@ -337,7 +337,7 @@ subagent 不應：
 ## 相關文件
 
 - `REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md`
-- `DEV-WORKFLOW-SKILL-GUIDE.md`
+- `SOFTWARE-DEVELOPMENT-ORCHESTRATOR-SKILL-GUIDE.md`
 - `BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md`
 - `BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md`
 - `AI-REFACTORING-SKILL-BOUNDARY-GUIDE.md`

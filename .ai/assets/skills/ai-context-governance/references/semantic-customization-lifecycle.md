@@ -20,7 +20,7 @@ The machine-readable ledger schema is
 
 ## Lifecycle
 
-1. **Initialize**: `repo-structure-sync` creates provenance and the empty ledger
+1. **Initialize**: `ai-context-init` creates provenance and the empty ledger
    as one atomic change only from a credible release repository, release ID,
    version, tag, full commit, selection, and import timestamp. With incomplete
    evidence, return unresolved provenance and write neither authority.
@@ -63,7 +63,7 @@ The machine-readable ledger schema is
 
 ## Skill Boundaries
 
-- `repo-structure-sync`: initialization and credible source evidence.
+- `ai-context-init`: initialization and credible source evidence.
 - `ai-context-governance`: ledger ownership and owner reconciliation.
 - `ai-context-auditor`: read-only baseline and post-upgrade verification.
 - `ai-context-upgrader`: three-way comparison, reconciliation table, validated

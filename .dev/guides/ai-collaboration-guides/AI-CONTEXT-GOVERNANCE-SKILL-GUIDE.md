@@ -100,7 +100,7 @@ Create finding-level remediation tasks, keep the baseline immutable, request an 
   - 只處理 BDD/Gherkin scenario 與 assertion 設計。
 - `ddd-ca-hex-architect`
   - 處理 domain / architecture design；可協助重大 context 邊界決策。
-- `repo-structure-sync`
+- `ai-context-init`
   - 用於 template 複製到 target repo 後，依 target repo facts 重建架構入口文件。
 - `slice-implementer`
   - 用於已決定的 bounded implementation slice；若是 AI context governance，應先由本 skill 定義邊界。

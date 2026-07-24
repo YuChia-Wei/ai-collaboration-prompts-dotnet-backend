@@ -26,7 +26,7 @@ outputs:
   - "updated target provenance after successful validation"
   - "semantic reconciliation table keyed by customization ID and subject"
 constraints:
-  - "Use `repo-structure-sync` instead when the target has not been initialized"
+  - "Use `ai-context-init` instead when the target has not been initialized"
   - "Do not overwrite target-owned collaboration, requirement, spec, ADR, architecture, operations, or project configuration truth without explicit reconciliation"
   - "Do not copy source-repository workflow records, assessment instances, backlog, Git metadata, caches, or release history into a target; reusable assessment governance files remain normal candidates"
   - "Do not scan product `src/` or `tests/`; route source review to `code-reviewer`"

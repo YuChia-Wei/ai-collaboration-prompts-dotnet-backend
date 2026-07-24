@@ -217,7 +217,7 @@ operations transactionally, and writes
 `.dev/AI-CONTEXT-APPLY-PENDING.yaml`. It never updates validated source
 provenance; the receipt records the resolved/default selection, authority
 evidence, and applied/skipped counts by component. Apply revalidates that
-authority before mutation. `repo-structure-sync` or `ai-context-upgrader` owns
+authority before mutation. `ai-context-init` or `ai-context-upgrader` owns
 validation and provenance finalization.
 
 `render-ai-context-release-notes.py` validates a governed release candidate and

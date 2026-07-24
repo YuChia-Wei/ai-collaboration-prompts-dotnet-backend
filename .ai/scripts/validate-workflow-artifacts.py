@@ -19,8 +19,12 @@ IMPLEMENTATION_CONTRACT_DATE = date(2026, 7, 14)
 DEVELOPMENT_ACCEPTANCE_CONTRACT_AT = datetime.fromisoformat(
     "2026-07-24T08:10:00+08:00"
 )
-DEV_TASK_TEMPLATE = ".ai/assets/skills/dev-workflow/templates/development-workflow-task-template.json"
-DEV_LOCATOR_TEMPLATE = ".ai/assets/skills/dev-workflow/templates/workflow-locator-template.yaml"
+DEV_TASK_TEMPLATE = ".ai/assets/skills/software-development-orchestrator/templates/development-workflow-task-template.json"
+DEV_LOCATOR_TEMPLATE = ".ai/assets/skills/software-development-orchestrator/templates/workflow-locator-template.yaml"
+LEGACY_SKILL_REFERENCE_PREFIXES = {
+    ".ai/assets/skills/repo-structure-sync/": ".ai/assets/skills/ai-context-init/",
+    ".ai/assets/skills/dev-workflow/": ".ai/assets/skills/software-development-orchestrator/",
+}
 EXECUTION_MODES = {"command", "query", "reactor", "generic"}
 IMPLEMENTATION_INTENTS = {
     "feature",
@@ -129,6 +133,19 @@ def reference_path(repo: Path, value: str) -> Path:
     return repo / value.split("#", 1)[0]
 
 
+def reference_exists_with_compatibility(repo: Path, value: str) -> bool:
+    if reference_path(repo, value).exists():
+        return True
+    path_value, _, fragment = value.partition("#")
+    for legacy, active in LEGACY_SKILL_REFERENCE_PREFIXES.items():
+        if path_value.startswith(legacy):
+            replacement = active + path_value[len(legacy) :]
+            if fragment:
+                replacement = f"{replacement}#{fragment}"
+            return reference_path(repo, replacement).exists()
+    return False
+
+
 def validate_backlog_release(
     release: object,
     backlog_status: str,
@@ -222,7 +239,7 @@ def validate_backlog(repo: Path, errors: list[str]) -> int:
                 errors.append(f"{label}: {key} must be a list of non-empty strings")
                 continue
             for value in values:
-                if not reference_path(repo, value).exists():
+                if not reference_exists_with_compatibility(repo, value):
                     errors.append(f"{label}: missing {key} path {value}")
         resolution = item["resolution_ref"]
         if resolution is not None and (

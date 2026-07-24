@@ -16,9 +16,9 @@ VALIDATOR = REPO_ROOT / ".ai/scripts/validate-repository-config-contract.py"
 FIXTURE_PATHS = (
     ".editorconfig",
     ".gitattributes",
-    ".ai/assets/skills/repo-structure-sync/templates/public-root/.editorconfig",
-    ".ai/assets/skills/repo-structure-sync/templates/public-root/.gitattributes",
-    ".ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml",
+    ".ai/assets/skills/ai-context-init/templates/public-root/.editorconfig",
+    ".ai/assets/skills/ai-context-init/templates/public-root/.gitattributes",
+    ".ai/assets/skills/ai-context-init/templates/public-template-manifest.yaml",
     ".ai/distribution/profiles/dotnet-backend.yaml",
     ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md",
     ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md",
@@ -96,7 +96,7 @@ class RepositoryConfigContractTests(unittest.TestCase):
     def test_gwt_006_given_source_path_leaks_into_downstream_seed_when_validated_then_it_fails(self) -> None:
         path = (
             self.root
-            / ".ai/assets/skills/repo-structure-sync/templates/public-root/.gitattributes"
+            / ".ai/assets/skills/ai-context-init/templates/public-root/.gitattributes"
         )
         path.write_text(
             path.read_text(encoding="utf-8")
@@ -108,7 +108,7 @@ class RepositoryConfigContractTests(unittest.TestCase):
 
     def test_gwt_007_given_template_mapping_removed_when_validated_then_it_fails(self) -> None:
         self.replace(
-            ".ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml",
+            ".ai/assets/skills/ai-context-init/templates/public-template-manifest.yaml",
             "  - source: public-root/.editorconfig\n"
             "    target: .editorconfig\n"
             "    component_id: software-development-core\n",

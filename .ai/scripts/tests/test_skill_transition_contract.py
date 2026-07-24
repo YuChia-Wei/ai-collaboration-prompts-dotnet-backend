@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed tests for the staged v0.6 skill transition."""
+"""Fail-closed tests for the activated v0.6 skill transition."""
 
 from __future__ import annotations
 
@@ -38,14 +38,55 @@ class SkillTransitionContractTests(unittest.TestCase):
             target = self.root / path
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(ROOT / path, target)
-        for current in VALIDATOR.EXPECTED_TRANSITIONS:
+        evidence_paths = [VALIDATOR.MODEL_REPORT, *VALIDATOR.MODEL_EVIDENCE.values()]
+        for evidence in evidence_paths:
+            target = self.root / evidence
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text("fixture\n", encoding="utf-8")
+        manifest = self.manifest()
+        model = manifest["activation_gate"]["model_in_loop_evaluation"]
+        model["report_sha256"] = VALIDATOR.sha256_file(
+            self.root / VALIDATOR.MODEL_REPORT
+        )
+        model["retained_evidence_sha256"] = {
+            name: VALIDATOR.sha256_file(self.root / path)
+            for name, path in VALIDATOR.MODEL_EVIDENCE.items()
+        }
+        self.write_manifest(manifest)
+        for current, (candidate, _) in VALIDATOR.EXPECTED_TRANSITIONS.items():
             canonical = self.root / ".ai/assets/skills" / current / "skill.yaml"
             canonical.parent.mkdir(parents=True, exist_ok=True)
-            canonical.write_text("name: fixture\n", encoding="utf-8")
+            canonical.write_text(
+                yaml.safe_dump(
+                    {
+                        "asset_id": current,
+                        "status": "deprecated",
+                        "replacement": candidate,
+                        "removal_target": None,
+                    },
+                    sort_keys=False,
+                ),
+                encoding="utf-8",
+            )
             for runtime in VALIDATOR.RUNTIME_ROOTS:
                 wrapper = self.root / runtime / current / "SKILL.md"
                 wrapper.parent.mkdir(parents=True, exist_ok=True)
-                wrapper.write_text("# Fixture\n", encoding="utf-8")
+                wrapper.write_text(
+                    "# deprecated compatibility fixture\n", encoding="utf-8"
+                )
+            active = self.root / ".ai/assets/skills" / candidate / "skill.yaml"
+            active.parent.mkdir(parents=True, exist_ok=True)
+            active.write_text(
+                yaml.safe_dump(
+                    {"asset_id": candidate, "status": "active"},
+                    sort_keys=False,
+                ),
+                encoding="utf-8",
+            )
+            for runtime in VALIDATOR.RUNTIME_ROOTS:
+                wrapper = self.root / runtime / candidate / "SKILL.md"
+                wrapper.parent.mkdir(parents=True, exist_ok=True)
+                wrapper.write_text("# Active fixture\n", encoding="utf-8")
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
@@ -59,14 +100,14 @@ class SkillTransitionContractTests(unittest.TestCase):
             encoding="utf-8",
         )
 
-    def test_given_staged_transition_when_validated_then_it_passes(self) -> None:
+    def test_given_activated_transition_when_validated_then_it_passes(self) -> None:
         self.assertEqual([], VALIDATOR.validate(self.root))
 
-    def test_given_candidate_directory_before_model_approval_when_validated_then_it_fails(self) -> None:
-        candidate = self.root / ".ai/assets/skills/ai-context-init"
-        candidate.mkdir(parents=True)
+    def test_given_missing_active_candidate_when_validated_then_it_fails(self) -> None:
+        candidate = self.root / ".ai/assets/skills/ai-context-init/skill.yaml"
+        candidate.unlink()
         self.assertTrue(
-            any("inactive candidate canonical directory" in item for item in VALIDATOR.validate(self.root))
+            any("active canonical skill is missing" in item for item in VALIDATOR.validate(self.root))
         )
 
     def test_given_non_atomic_activation_when_validated_then_it_fails(self) -> None:
@@ -105,14 +146,10 @@ class SkillTransitionContractTests(unittest.TestCase):
             any("must not authorize historical rewrites" in item for item in VALIDATOR.validate(self.root))
         )
 
-    def test_given_missing_model_decision_when_validated_then_it_fails(self) -> None:
-        manifest = self.manifest()
-        manifest["activation_gate"]["model_in_loop_evaluation"]["required_decisions"].remove(
-            "token-ceiling"
-        )
-        self.write_manifest(manifest)
+    def test_given_missing_model_evidence_when_validated_then_it_fails(self) -> None:
+        (self.root / VALIDATOR.MODEL_EVIDENCE["terra-judge.yaml"]).unlink()
         self.assertTrue(
-            any("model evaluation decisions are incomplete" in item for item in VALIDATOR.validate(self.root))
+            any("retained evidence must resolve" in item for item in VALIDATOR.validate(self.root))
         )
 
 

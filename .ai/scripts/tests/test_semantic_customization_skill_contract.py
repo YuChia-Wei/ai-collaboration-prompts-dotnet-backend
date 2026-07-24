@@ -18,7 +18,7 @@ SKILLS = (
     "ai-context-governance",
     "ai-context-auditor",
     "ai-context-upgrader",
-    "repo-structure-sync",
+    "ai-context-init",
 )
 
 

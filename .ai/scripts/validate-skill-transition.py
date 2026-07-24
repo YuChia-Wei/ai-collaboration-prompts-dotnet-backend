@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Validate the staged v0.6 skill taxonomy and atomic compatibility transition."""
+"""Validate the activated v0.6 skill taxonomy and atomic compatibility transition."""
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 from pathlib import Path
 import sys
 from typing import Any
@@ -25,18 +26,25 @@ EXPECTED_TRANSITIONS = {
         "software-development",
     ),
 }
-REQUIRED_DECISIONS = {
-    "model",
-    "judge",
-    "repetitions",
-    "prompt-and-context-inputs",
-    "sampling-policy",
-    "token-ceiling",
-    "pass-threshold",
-    "result-retention",
-    "failure-disposition",
-}
 RUNTIME_ROOTS = (".agents/skills", ".claude/skills")
+MODEL_REPORT = Path(
+    ".dev/workflows/2026-07-24-v0-6-model-evaluation/"
+    "reports/model-evaluation-report.md"
+)
+MODEL_EVIDENCE = {
+    "terra-candidate-a.yaml": Path(
+        ".dev/workflows/2026-07-24-v0-6-model-evaluation/"
+        "evidence/terra-candidate-a.yaml"
+    ),
+    "terra-candidate-b.yaml": Path(
+        ".dev/workflows/2026-07-24-v0-6-model-evaluation/"
+        "evidence/terra-candidate-b.yaml"
+    ),
+    "terra-judge.yaml": Path(
+        ".dev/workflows/2026-07-24-v0-6-model-evaluation/"
+        "evidence/terra-judge.yaml"
+    ),
+}
 
 
 def mapping(value: Any, label: str, errors: list[str]) -> dict[str, Any]:
@@ -66,11 +74,15 @@ def load_yaml(root: Path, path: Path, errors: list[str]) -> dict[str, Any]:
     return mapping(value, path.as_posix(), errors)
 
 
+def sha256_file(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def validate_registry(
     root: Path,
     path: Path,
-    current: set[str],
-    candidates: set[str],
+    active: set[str],
+    compatibility: set[str],
     errors: list[str],
 ) -> None:
     try:
@@ -78,16 +90,21 @@ def validate_registry(
     except (OSError, UnicodeDecodeError) as exc:
         errors.append(f"{path.as_posix()}: cannot read registry: {exc}")
         return
-    for identifier in sorted(current):
-        if f"`{identifier}`" not in text:
+    for identifier in sorted(active):
+        if f"- `{identifier}`" not in text:
             errors.append(
                 f"{path.as_posix()}: active identifier is missing: {identifier}"
             )
-    for identifier in sorted(candidates):
+    for identifier in sorted(compatibility):
+        if f"`{identifier}`" not in text:
+            errors.append(
+                f"{path.as_posix()}: deprecated compatibility identifier is missing: "
+                f"{identifier}"
+            )
         if f"- `{identifier}`" in text:
             errors.append(
-                f"{path.as_posix()}: inactive candidate is listed as active: "
-                f"{identifier}"
+                f"{path.as_posix()}: deprecated compatibility identifier is "
+                f"listed as active: {identifier}"
             )
 
 
@@ -100,10 +117,8 @@ def validate(root: Path) -> list[str]:
         errors.append(f"{MANIFEST}: schema_version must be 1.0")
     if manifest.get("transition_id") != "SKILL-001-v0.6.0":
         errors.append(f"{MANIFEST}: transition_id must be SKILL-001-v0.6.0")
-    if manifest.get("state") != "awaiting-model-evaluation":
-        errors.append(
-            f"{MANIFEST}: state must remain awaiting-model-evaluation before approval"
-        )
+    if manifest.get("state") != "activated":
+        errors.append(f"{MANIFEST}: state must be activated")
     if manifest.get("activation_mode") != "atomic":
         errors.append(f"{MANIFEST}: activation_mode must be atomic")
 
@@ -125,10 +140,10 @@ def validate(root: Path) -> list[str]:
         if current in actual:
             errors.append(f"{MANIFEST}: duplicate current identifier: {current}")
         actual[current] = (candidate, family)
-        if item.get("current_lifecycle") != "active":
-            errors.append(f"{MANIFEST}: {current} must remain active before activation")
-        if item.get("candidate_lifecycle") != "inactive-candidate":
-            errors.append(f"{MANIFEST}: {candidate} must remain an inactive candidate")
+        if item.get("current_lifecycle") != "deprecated":
+            errors.append(f"{MANIFEST}: {current} must be deprecated after activation")
+        if item.get("candidate_lifecycle") != "active":
+            errors.append(f"{MANIFEST}: {candidate} must be active after activation")
         if item.get("compatibility_lifecycle_after_activation") != "deprecated":
             errors.append(
                 f"{MANIFEST}: {current} must become deprecated after activation"
@@ -196,37 +211,82 @@ def validate(root: Path) -> list[str]:
         f"{MANIFEST}: activation_gate.model_in_loop_evaluation",
         errors,
     )
-    if model.get("status") != "pending-owner-approval":
-        errors.append(f"{MANIFEST}: model evaluation must remain pending approval")
-    decisions = set(
-        string_list(
-            model.get("required_decisions"),
-            f"{MANIFEST}: model_in_loop_evaluation.required_decisions",
-            errors,
-        )
+    if model.get("status") != "passed":
+        errors.append(f"{MANIFEST}: model evaluation must be passed")
+    if model.get("candidate_model") != "gpt-5.6-terra":
+        errors.append(f"{MANIFEST}: candidate model must be gpt-5.6-terra")
+    if model.get("judge_model") != "gpt-5.6-terra":
+        errors.append(f"{MANIFEST}: judge model must be gpt-5.6-terra")
+    if model.get("critical_safety_result") != "8/8":
+        errors.append(f"{MANIFEST}: critical safety result must be 8/8")
+    if model.get("full_rubric_result") != "8/8":
+        errors.append(f"{MANIFEST}: full rubric result must be 8/8")
+    report = root / MODEL_REPORT
+    if not report.is_file():
+        errors.append(f"{MANIFEST}: model evaluation report must resolve")
+    elif model.get("report_sha256") != sha256_file(report):
+        errors.append(f"{MANIFEST}: model evaluation report SHA-256 drifted")
+    retained = mapping(
+        model.get("retained_evidence_sha256"),
+        f"{MANIFEST}: model_in_loop_evaluation.retained_evidence_sha256",
+        errors,
     )
-    if decisions != REQUIRED_DECISIONS:
-        errors.append(f"{MANIFEST}: model evaluation decisions are incomplete")
+    if set(retained) != set(MODEL_EVIDENCE):
+        errors.append(f"{MANIFEST}: retained evidence identity set drifted")
+    for name, path in MODEL_EVIDENCE.items():
+        resolved = root / path
+        if not resolved.is_file():
+            errors.append(f"{MANIFEST}: retained evidence must resolve: {path}")
+        elif retained.get(name) != sha256_file(resolved):
+            errors.append(f"{MANIFEST}: retained evidence SHA-256 drifted: {name}")
 
     current = set(EXPECTED_TRANSITIONS)
     candidates = {candidate for candidate, _ in EXPECTED_TRANSITIONS.values()}
-    for identifier in current:
-        if not (root / ".ai/assets/skills" / identifier / "skill.yaml").is_file():
+    for identifier, (candidate, _) in EXPECTED_TRANSITIONS.items():
+        compatibility_spec = root / ".ai/assets/skills" / identifier / "skill.yaml"
+        if not compatibility_spec.is_file():
+            errors.append(f"deprecated canonical compatibility entry is missing: {identifier}")
+        else:
+            compatibility = load_yaml(
+                root,
+                Path(".ai/assets/skills") / identifier / "skill.yaml",
+                errors,
+            )
+            if compatibility.get("status") != "deprecated":
+                errors.append(f"deprecated canonical entry has wrong status: {identifier}")
+            if compatibility.get("replacement") != candidate:
+                errors.append(f"deprecated canonical entry has wrong replacement: {identifier}")
+            if compatibility.get("removal_target") is not None:
+                errors.append(f"deprecated canonical entry scheduled removal: {identifier}")
+        for runtime_root in RUNTIME_ROOTS:
+            wrapper = root / runtime_root / identifier / "SKILL.md"
+            if not wrapper.is_file():
+                errors.append(
+                    f"deprecated runtime wrapper is missing: {runtime_root}/{identifier}"
+                )
+            elif "deprecated compatibility" not in wrapper.read_text(
+                encoding="utf-8"
+            ):
+                errors.append(
+                    f"deprecated runtime wrapper lacks compatibility marker: "
+                    f"{runtime_root}/{identifier}"
+                )
+    for identifier in candidates:
+        active_spec = root / ".ai/assets/skills" / identifier / "skill.yaml"
+        if not active_spec.is_file():
             errors.append(f"active canonical skill is missing: {identifier}")
+        else:
+            active = load_yaml(
+                root,
+                Path(".ai/assets/skills") / identifier / "skill.yaml",
+                errors,
+            )
+            if active.get("status") != "active":
+                errors.append(f"active canonical skill has wrong status: {identifier}")
         for runtime_root in RUNTIME_ROOTS:
             if not (root / runtime_root / identifier / "SKILL.md").is_file():
                 errors.append(
-                    f"active runtime wrapper is missing: {runtime_root}/{identifier}"
-                )
-    for identifier in candidates:
-        if (root / ".ai/assets/skills" / identifier).exists():
-            errors.append(
-                f"inactive candidate canonical directory already exists: {identifier}"
-            )
-        for runtime_root in RUNTIME_ROOTS:
-            if (root / runtime_root / identifier).exists():
-                errors.append(
-                    f"inactive candidate runtime directory already exists: "
+                    f"active runtime wrapper is missing: "
                     f"{runtime_root}/{identifier}"
                 )
 
@@ -243,7 +303,7 @@ def validate(root: Path) -> list[str]:
         errors.append(f"{FIXTURE}: historical identifier set drifted")
 
     for registry in (CANONICAL_REGISTRY, AGENTS_REGISTRY, CLAUDE_REGISTRY):
-        validate_registry(root, registry, current, candidates, errors)
+        validate_registry(root, registry, candidates, current, errors)
     return errors
 
 
@@ -258,8 +318,9 @@ def main() -> int:
             print(f"- {error}")
         return 1
     print(
-        "Skill transition validation passed: two inactive candidates, two active "
-        "identifiers, atomic deprecated compatibility, and pending model approval."
+        "Skill transition validation passed: two active identifiers, two "
+        "deprecated compatibility entries, atomic activation, and retained "
+        "Terra model evidence."
     )
     return 0
 

@@ -78,6 +78,32 @@ class WorkflowBacklogProviderTests(unittest.TestCase):
             self.assertFalse(VALIDATOR.backlog_provider_enabled(root, errors))
             self.assertTrue(any("cannot coexist" in error for error in errors))
 
+    def test_gwt_005_given_historical_skill_reference_when_active_target_exists_then_reference_remains_valid(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="workflow-legacy-reference-") as value:
+            root = Path(value)
+            target = (
+                root
+                / ".ai/assets/skills/software-development-orchestrator/templates"
+                / "development-workflow-task-template.json"
+            )
+            target.parent.mkdir(parents=True)
+            target.write_text("{}\n", encoding="utf-8")
+            self.assertTrue(
+                VALIDATOR.reference_exists_with_compatibility(
+                    root,
+                    ".ai/assets/skills/dev-workflow/templates/"
+                    "development-workflow-task-template.json",
+                )
+            )
+
+    def test_gwt_006_given_unknown_missing_reference_when_checked_then_it_still_fails_closed(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="workflow-missing-reference-") as value:
+            self.assertFalse(
+                VALIDATOR.reference_exists_with_compatibility(
+                    Path(value), ".ai/assets/skills/unknown/missing.yaml"
+                )
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

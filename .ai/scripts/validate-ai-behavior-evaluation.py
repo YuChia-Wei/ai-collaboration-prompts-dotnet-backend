@@ -17,9 +17,9 @@ import yaml
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = ROOT / ".ai/evaluation/corpus-manifest.yaml"
 BASELINE_PATH = ROOT / ".ai/evaluation/baselines/v1.yaml"
-DEVWF_RUNNER = ROOT / ".ai/scripts/validate-dev-workflow-acceptance.py"
+DEVWF_RUNNER = ROOT / ".ai/scripts/validate-software-development-orchestrator-acceptance.py"
 DEVWF_PROFILE = (
-    ROOT / ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
+    ROOT / ".ai/assets/skills/software-development-orchestrator/references/capability-profile.yaml"
 )
 REQUIRED_FAMILIES = {
     "empty",

@@ -110,7 +110,7 @@ Use `ai-context-auditor` for read-only AI context health and drift analysis. A c
 
 ### Development Workflow Orchestration
 
-Use `dev-workflow` when software-development work needs multi-stage planning, development skill routing, sub-agent coordination, approval pauses, target-aware test execution, validation checkpoints, or commit checkpoints. Activate it from high-level software-development intent even when the user does not name `dev-workflow` or downstream skills; derive stages from the requested outcome, current artifacts, and repository policy rather than skill names.
+Use `software-development-orchestrator` when software-development work needs multi-stage planning, development skill routing, sub-agent coordination, approval pauses, target-aware test execution, validation checkpoints, or commit checkpoints. Activate it from high-level software-development intent even when the user does not name `software-development-orchestrator` or downstream skills; derive stages from the requested outcome, current artifacts, and repository policy rather than skill names.
 
 The skill may coordinate downstream skills, but it must not replace their domain responsibilities.
 
@@ -125,11 +125,11 @@ E2E, browser, Playwright, and environment-dependent tests are conditional.
 Record exact outcomes as `passed`, `failed`, `blocked-by-environment`,
 `not-applicable`, or `deferred-with-owner`; blocked is never passed.
 
-Do not route general AI-context audit, documentation governance, or repository initialization through `dev-workflow`; use their owning skills and skill-specific workflow templates.
+Do not route general AI-context audit, documentation governance, or repository initialization through `software-development-orchestrator`; use their owning skills and skill-specific workflow templates.
 
 ### Repo Init / Template Adaptation
 
-Use `repo-structure-sync` as the first skill after this framework is copied into an existing or empty target repository.
+Use `ai-context-init` as the first skill after this framework is copied into an existing or empty target repository.
 
 The skill must:
 
@@ -139,7 +139,7 @@ The skill must:
 4. preserve framework-level collaboration rules unless the target repo clearly invalidates them;
 5. remove or rewrite source-repo-specific requirements, specs, operations docs, workflow artifacts, and ADRs.
 
-Treat `.ai/assets/skills/repo-structure-sync/references/migration-boundaries.md` as the authoritative migration boundary.
+Treat `.ai/assets/skills/ai-context-init/references/migration-boundaries.md` as the authoritative migration boundary.
 
 ### AI Context Version Upgrade
 
@@ -198,10 +198,10 @@ Use these boundaries:
 
 | Need | Skill |
 | --- | --- |
-| Multi-stage software-development workflow orchestration, development skill routing, validation and commit checkpoints | `dev-workflow` |
+| Multi-stage software-development workflow orchestration, development skill routing, validation and commit checkpoints | `software-development-orchestrator` |
 | Read-only AI context health, drift, and structure analysis with conversational or persisted output | `ai-context-auditor` |
 | AI context cleanup, prompt boundary, language policy, wrapper sync | `ai-context-governance` |
-| First sync after copying this framework into a target repo | `repo-structure-sync` |
+| First sync after copying this framework into a target repo | `ai-context-init` |
 | Upgrade an initialized target between published framework versions | `ai-context-upgrader` |
 | .NET backend architecture design | `ddd-ca-hex-architect` |
 | GWT scenario and assertion design | `bdd-gwt-test-designer` |

@@ -14,27 +14,27 @@ The canonical skill registry currently includes:
 
 - `ai-context-governance`
 - `ai-context-auditor`
+- `ai-context-init`
 - `ai-context-upgrader`
 - `bdd-gwt-test-designer`
 - `code-reviewer`
-- `dev-workflow`
 - `ddd-ca-hex-architect`
 - `local-change-implementer`
 - `problem-frame-author`
-- `repo-structure-sync`
 - `requirement-author`
 - `slice-implementer`
+- `software-development-orchestrator`
 - `spec-author`
 - `spec-compliance-validator`
 
-## Candidate Transitions
+## Deprecated Compatibility Entries
 
 [`transitions/v0.6.0.yaml`](transitions/v0.6.0.yaml) records the approved
 `repo-structure-sync` to `ai-context-init` and `dev-workflow` to
-`software-development-orchestrator` target mappings. Both candidate identifiers
-remain inactive until the complete `EVAL-001` activation gate passes. Until
-then, the canonical registry and runtime wrappers continue to use the current
-identifiers; the manifest is transition metadata, not an active skill entry.
+`software-development-orchestrator` mappings. Both target identifiers are
+active. The historical identifiers remain thin deprecated compatibility
+entries with no scheduled removal release; do not rewrite historical workflow,
+task, assessment, release, or provenance values.
 
 ## Boundary
 

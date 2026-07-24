@@ -395,11 +395,11 @@ run_command_check "python .ai/scripts/validate-workflow-handoff.py --all" \
     "Registered Workflow Handoff Checkpoints" \
     "required" "true" "true"
 
-run_command_check "python .ai/scripts/tests/test_dev_workflow_capability_contract.py -v" \
+run_command_check "python .ai/scripts/tests/test_software_development_orchestrator_capability_contract.py -v" \
     "Development Workflow Capability Contract" \
     "required" "true" "true"
 
-run_command_check "python .ai/scripts/tests/test_dev_workflow_acceptance.py -v" \
+run_command_check "python .ai/scripts/tests/test_software_development_orchestrator_acceptance.py -v" \
     "Development Workflow Deterministic Acceptance" \
     "required" "true" "true"
 

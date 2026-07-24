@@ -27,7 +27,7 @@ rules:
     derived_consumers:
       - .ai/assets/skills/ai-context-auditor/references/audit-playbook.md
       - .ai/assets/skills/ai-context-governance/references/context-boundary-playbook.md
-      - .ai/assets/skills/repo-structure-sync/references/scan-playbook.md
+      - .ai/assets/skills/ai-context-init/references/scan-playbook.md
     status: active
   - rule_id: TEST-GWT-001
     domain: testing
@@ -67,8 +67,8 @@ rules:
     override_policy: forbidden
     decision_evidence: null
     derived_consumers:
-      - .ai/assets/skills/repo-structure-sync/references/scan-playbook.md
-      - .ai/assets/skills/repo-structure-sync/references/document-targets.md
+      - .ai/assets/skills/ai-context-init/references/scan-playbook.md
+      - .ai/assets/skills/ai-context-init/references/document-targets.md
     status: active
   - rule_id: TEST-MOCK-001
     domain: testing
