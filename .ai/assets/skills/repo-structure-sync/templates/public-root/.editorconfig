@@ -1,5 +1,5 @@
-# Source-repository configuration. Downstream projects receive the dedicated
-# repo-structure-sync public-root seed instead of this file.
+# Downstream seed: target-owned after initialization.
+# Keep target-specific code-style changes in the target repository.
 # ref: https://github.com/dotnet/roslyn/blob/main/.editorconfig
 # ref: https://github.com/dotnet/roslyn-analyzers/blob/main/.editorconfig
 # ref: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
@@ -410,3 +410,5 @@ dotnet_diagnostic.CA1305.severity = suggestion
 
 # CA1851: Possible multiple enumerations of 'IEnumerable' collection - https://github.com/dotnet/roslyn-analyzers/issues/6379
 dotnet_diagnostic.CA1851.severity = suggestion
+
+

@@ -4,6 +4,12 @@ source_root: .
 ownership: target-template
 install_behavior: seed
 mappings:
+  - source: public-root/.editorconfig
+    target: .editorconfig
+    component_id: software-development-core
+  - source: public-root/.gitattributes
+    target: .gitattributes
+    component_id: software-development-core
   - source: public-root/AGENTS.md
     target: AGENTS.md
     component_id: ai-context-lifecycle-core

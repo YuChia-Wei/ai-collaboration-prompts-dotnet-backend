@@ -27,6 +27,15 @@ The canonical skill registry currently includes:
 - `spec-author`
 - `spec-compliance-validator`
 
+## Candidate Transitions
+
+[`transitions/v0.6.0.yaml`](transitions/v0.6.0.yaml) records the approved
+`repo-structure-sync` to `ai-context-init` and `dev-workflow` to
+`software-development-orchestrator` target mappings. Both candidate identifiers
+remain inactive until the complete `EVAL-001` activation gate passes. Until
+then, the canonical registry and runtime wrappers continue to use the current
+identifiers; the manifest is transition metadata, not an active skill entry.
+
 ## Boundary
 
 Do not put runtime-specific metadata, full wrapper instructions, or human-facing tutorial content here. Put runtime wrappers under their runtime directories and human-facing guides under `.dev/guides/`.

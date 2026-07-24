@@ -262,6 +262,47 @@ class DeterministicPackageGwtTests(unittest.TestCase):
             payload["tools/DotnetBackendAnalyzers/DotnetBackendAnalyzers.csproj"],
         )
 
+    def test_gwt_000aa_given_repository_configuration_when_payload_is_projected_then_dedicated_target_seeds_replace_source_truth(self) -> None:
+        tree = PACKAGE.git_tree(ROOT, "HEAD")
+        profile = PACKAGE.load_yaml_blob(
+            ROOT,
+            tree,
+            ".ai/distribution/profiles/dotnet-backend.yaml",
+        )
+        payload = {
+            item.path: item
+            for item in PACKAGE.collect_payload(ROOT, tree, profile)
+        }
+
+        expected_sources = {
+            ".editorconfig": (
+                ".ai/assets/skills/repo-structure-sync/templates/"
+                "public-root/.editorconfig"
+            ),
+            ".gitattributes": (
+                ".ai/assets/skills/repo-structure-sync/templates/"
+                "public-root/.gitattributes"
+            ),
+        }
+        for target, source in expected_sources.items():
+            item = payload[target]
+            self.assertEqual(source, item.source_path)
+            self.assertEqual("target-template", item.ownership)
+            self.assertEqual("seed", item.install_behavior)
+            self.assertEqual("software-development-core", item.component_id)
+            self.assertNotIn(b".dev/assessments", item.content)
+            self.assertNotIn(b"evidence/external/original", item.content)
+
+        source_only = next(
+            item
+            for item in profile["exclusions"]
+            if item["id"] == "source-root-truth"
+        )
+        self.assertTrue(
+            {".editorconfig", ".gitattributes"}
+            <= set(source_only["patterns"])
+        )
+
     def test_gwt_000b_given_overlapping_component_overrides_when_one_path_matches_both_then_projection_fails_closed(self) -> None:
         entry = {
             "id": "ambiguous-component-fixture",

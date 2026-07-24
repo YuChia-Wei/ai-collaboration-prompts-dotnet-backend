@@ -46,6 +46,28 @@ workflow directories, ignored paths, generated output, or external caches.
 Evidence files must remain bounded to the assessment and must not duplicate
 large repository content.
 
+### External Evidence Byte Preservation
+
+Ordinary assessment evidence is repository text: keep it normalized, diffable,
+and reviewable. External origin alone does not authorize binary treatment.
+
+When exact source bytes are material evidence, store the unchanged original
+under:
+
+```text
+.dev/assessments/<assessment-id>/evidence/external/original/<source-id>/<file>
+```
+
+The source root `.gitattributes` centrally classifies that convention as
+`binary`, so Git preserves the committed bytes without line-ending
+normalization. Record the origin and SHA-256 in the assessment report or
+evidence catalog, and place any normalized, excerpted, or annotated derivative
+outside `external/original/` so it remains text-diffable.
+
+Do not add per-assessment `.gitattributes` files or new path-specific root
+exceptions. The exact legacy WorkService report retained by ADR-001 is the only
+compatibility exception; new immutable originals must use the convention.
+
 ## Assessment Identity
 
 Use:
@@ -178,8 +200,10 @@ evidence, the receiving agent must:
 
 1. create a repo-native assessment on the applicable assessment or active
    governance workflow branch;
-2. preserve the raw external package without rewriting it under
-   `.dev/assessments/<assessment-id>/evidence/<source-id>/`;
+2. preserve a raw external package without rewriting it under
+   `.dev/assessments/<assessment-id>/evidence/external/original/<source-id>/`
+   when exact bytes are material evidence; otherwise retain bounded, attributed
+   ordinary evidence as text;
 3. pin the repository subject commit and reproduce every material claim with
    repository-native evidence;
 4. record confirmed, added, downgraded, and overturned claims in `report.md`;

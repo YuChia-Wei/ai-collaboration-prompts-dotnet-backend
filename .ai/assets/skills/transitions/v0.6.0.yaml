@@ -1,0 +1,76 @@
+schema_version: "1.0"
+transition_id: "SKILL-001-v0.6.0"
+release_target: "v0.6.0"
+state: "awaiting-model-evaluation"
+activation_mode: "atomic"
+owner_skill: "ai-context-governance"
+workflow_ref: ".dev/workflows/<workflow-id>/workflow.yaml"
+
+taxonomy:
+  ai-context-lifecycle:
+    target_members:
+      - "ai-context-auditor"
+      - "ai-context-governance"
+      - "ai-context-init"
+      - "ai-context-upgrader"
+    compatibility_members:
+      - "repo-structure-sync"
+  software-development:
+    target_members:
+      - "bdd-gwt-test-designer"
+      - "code-reviewer"
+      - "ddd-ca-hex-architect"
+      - "local-change-implementer"
+      - "problem-frame-author"
+      - "requirement-author"
+      - "slice-implementer"
+      - "software-development-orchestrator"
+      - "spec-author"
+      - "spec-compliance-validator"
+    compatibility_members:
+      - "dev-workflow"
+
+transitions:
+  - current_identifier: "repo-structure-sync"
+    candidate_identifier: "ai-context-init"
+    family: "ai-context-lifecycle"
+    current_lifecycle: "active"
+    candidate_lifecycle: "inactive-candidate"
+    compatibility_lifecycle_after_activation: "deprecated"
+    removal_target: null
+    historical_identifier_rewrite: false
+  - current_identifier: "dev-workflow"
+    candidate_identifier: "software-development-orchestrator"
+    family: "software-development"
+    current_lifecycle: "active"
+    candidate_lifecycle: "inactive-candidate"
+    compatibility_lifecycle_after_activation: "deprecated"
+    removal_target: null
+    historical_identifier_rewrite: false
+
+activation_gate:
+  deterministic_evaluation:
+    status: "passed"
+    corpus: ".ai/evaluation/corpus-manifest.yaml"
+    baseline: ".ai/evaluation/baselines/v1.yaml"
+    compatibility_fixture: ".ai/evaluation/fixtures/identifier-compatibility.yaml"
+  model_in_loop_evaluation:
+    status: "pending-owner-approval"
+    required_decisions:
+      - "model"
+      - "judge"
+      - "repetitions"
+      - "prompt-and-context-inputs"
+      - "sampling-policy"
+      - "token-ceiling"
+      - "pass-threshold"
+      - "result-retention"
+      - "failure-disposition"
+
+activation_contract:
+  - "Both candidate identifiers activate in one governed change after every activation gate passes."
+  - "The current identifiers remain active and candidate canonical/runtime directories remain absent while state is awaiting-model-evaluation."
+  - "After activation, each current identifier becomes a thin deprecated compatibility entry pointing to its candidate identifier."
+  - "Historical owner_skill, initialized_by, generatedBy, workflow, task, assessment, release, and provenance values remain unchanged."
+  - "Neither compatibility identifier has a scheduled removal release."
+  - "software-development-orchestrator ends at approved development closeout or PR-ready handoff; delivery, deployment, maintenance-window, production verification, and rollback orchestration remain outside its scope."

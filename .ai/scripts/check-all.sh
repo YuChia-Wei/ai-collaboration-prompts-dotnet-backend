@@ -250,7 +250,11 @@ run_source_repository_release_checks() {
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Release Renderer Fail-Closed Tests (source release context not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Behavior Deterministic Evaluation (source release context not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: AI Context Load Measurement Contract (source release context not packaged)"
-        NOT_APPLICABLE=$((NOT_APPLICABLE + 7))
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Repository Configuration Ownership Contract (source release context not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Repository Configuration Ownership Fail-Closed Tests (source release context not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Skill Transition Compatibility Contract (source release context not packaged)"
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Skill Transition Compatibility Fail-Closed Tests (source release context not packaged)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 11))
         return
     fi
 
@@ -280,6 +284,22 @@ run_source_repository_release_checks() {
 
     run_command_check "python .ai/scripts/tests/test_ai_context_load_measurement.py -v" \
         "AI Context Load Measurement Contract" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/validate-repository-config-contract.py" \
+        "Repository Configuration Ownership Contract" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_repository_config_contract.py -v" \
+        "Repository Configuration Ownership Fail-Closed Tests" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/validate-skill-transition.py" \
+        "Skill Transition Compatibility Contract" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_skill_transition_contract.py -v" \
+        "Skill Transition Compatibility Fail-Closed Tests" \
         "required" "true" "true"
 }
 
