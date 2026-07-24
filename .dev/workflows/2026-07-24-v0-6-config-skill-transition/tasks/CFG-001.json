@@ -6,9 +6,9 @@
   "task_id": "CFG-001",
   "workflow_id": "2026-07-24-v0-6-config-skill-transition",
   "owner_skill": "ai-context-governance",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-07-24T10:52:55+08:00",
-  "updated_at": "2026-07-24T10:52:55+08:00",
+  "updated_at": "2026-07-24T11:22:45+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CFG-001"],
   "scope": {
@@ -20,15 +20,35 @@
   "execution": {
     "steps": ["Separate source and target-template configuration", "Centralize immutable original evidence policy", "Add fail-closed validator and tests", "Prove deterministic package and exact upgrades", "Accept ADR-001 and close CFG-001"],
     "validation": ["repository config contract", "package projection and migration tests", "clean install and upgrade preservation", "aggregate validator parity"],
-    "last_completed_step": "Created the coordinated configuration and skill transition workflow",
-    "next_action": "Implement source/downstream configuration separation and validator coverage"
+    "last_completed_step": "Verified source/downstream ownership, centralized evidence policy, immutable packages, clean installation, exact supported upgrades, and target-owned preservation",
+    "next_action": "None; CFG-001 is complete"
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
-    "residual_risk": "Changing text policy may expose pre-existing worktree line-ending drift; validation must distinguish index truth from target-owned files.",
-    "follow_up_needed": true
+    "summary": "Accepted ADR-001, separated source root configuration from dedicated downstream target-template seeds, centralized immutable-original handling, and proved package and upgrade behavior.",
+    "files_changed": [
+      ".editorconfig",
+      ".gitattributes",
+      ".ai/assets/skills/repo-structure-sync/templates/public-root/.editorconfig",
+      ".ai/assets/skills/repo-structure-sync/templates/public-root/.gitattributes",
+      ".ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml",
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/scripts/validate-repository-config-contract.py",
+      ".ai/scripts/tests/test_repository_config_contract.py",
+      ".dev/standards/ASSESSMENT-ARTIFACT-POLICY.md",
+      ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md"
+    ],
+    "tests_run": [
+      "repository configuration fail-closed tests (13 passed)",
+      "package projection test (passed)",
+      "real v0.3.0 upgrade (passed)",
+      "four exact supported-source upgrades and target preservation (passed)",
+      "package apply suite (24 passed, 1 Windows symlink skipped)",
+      "aggregate fail-closed runner regressions (27 passed)",
+      "AI-context, workflow, shell-asset, compile, and diff validators (passed)",
+      "independent bounded CFG/SKILL verification (READY)"
+    ],
+    "finding_status": "addressed",
+    "residual_risk": "The one exact legacy WorkService evidence exception remains intentionally centralized until a separately authorized stable-path migration exists.",
+    "follow_up_needed": false
   }
 }

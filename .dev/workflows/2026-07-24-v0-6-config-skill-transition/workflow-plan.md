@@ -8,10 +8,10 @@
 - `branch`: `codex/2026-07-24-v0-6-config-skill-transition`
 - `base_branch`: `codex/2026-07-24-v0-6-context-load-simplification`
 - `status`: `in_progress`
-- `current_phase`: `remediation`
+- `current_phase`: `awaiting-owner-decision`
 - `artifact_root`: `.dev/workflows/2026-07-24-v0-6-config-skill-transition`
 - `created_at`: `2026-07-24T10:52:55+08:00`
-- `updated_at`: `2026-07-24T10:52:55+08:00`
+- `updated_at`: `2026-07-24T11:22:45+08:00`
 
 ## Objective And Scope
 
@@ -53,8 +53,14 @@ identifiers remain immutable.
 
 ## Resume Checkpoint
 
-- Current task: `CFG-001`.
-- Exact next action: implement and verify the configuration ownership split.
+- Completed task: `CFG-001`.
+- Current task: `SKILL-001`.
+- Last completed action: accepted ADR-001 and verified source/downstream
+  configuration ownership, text policy, immutable evidence, package projection,
+  deterministic archives, clean install, exact supported upgrades, and
+  target-owned seed preservation.
+- Exact next action: approve and execute the release-side model evaluation, then
+  activate both skill transitions atomically only if its threshold passes.
 - Git state: local stacked branch; no push or merge requested.
-- Blocker: only the active identifier transition requires owner-approved
-  model-in-loop EVAL; CFG implementation is not blocked.
+- Blocker: model, judge, repetitions, prompt/context inputs, sampling, token
+  ceiling, threshold, retention, and failure disposition require owner approval.

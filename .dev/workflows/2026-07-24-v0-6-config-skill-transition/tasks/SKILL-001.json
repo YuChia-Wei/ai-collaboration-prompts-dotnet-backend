@@ -6,9 +6,9 @@
   "task_id": "SKILL-001",
   "workflow_id": "2026-07-24-v0-6-config-skill-transition",
   "owner_skill": "ai-context-governance",
-  "status": "pending",
+  "status": "in_progress",
   "created_at": "2026-07-24T10:52:55+08:00",
-  "updated_at": "2026-07-24T10:52:55+08:00",
+  "updated_at": "2026-07-24T11:22:45+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["SKILL-001"],
   "scope": {
@@ -20,14 +20,25 @@
   "execution": {
     "steps": ["Define taxonomy and deprecation metadata", "Prepare candidate canonical and wrapper surfaces", "Add compatibility and migration validation", "Run deterministic and approved model evaluation", "Activate both transitions atomically"],
     "validation": ["skill contract fixtures", "wrapper and distribution parity", "deterministic EVAL", "owner-approved model-in-loop EVAL"],
-    "last_completed_step": "Recorded the owner-approved target identifiers and activation boundary",
-    "next_action": "Prepare non-active compatibility metadata after CFG-001 implementation"
+    "last_completed_step": "Defined and verified inactive candidate taxonomy, atomic compatibility mapping, historical identity preservation, and no-removal contract",
+    "next_action": "Obtain owner approval for model-in-loop EVAL, execute it, and activate atomically only if the threshold passes"
   },
   "results": {
-    "summary": "",
-    "files_changed": [],
-    "tests_run": [],
-    "finding_status": "not-addressed",
+    "summary": "Prepared a source-owned inactive transition manifest and fail-closed validator without creating candidate canonical or runtime directories.",
+    "files_changed": [
+      ".ai/assets/skills/transitions/v0.6.0.yaml",
+      ".ai/assets/skills/README.MD",
+      ".ai/scripts/validate-skill-transition.py",
+      ".ai/scripts/tests/test_skill_transition_contract.py",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml"
+    ],
+    "tests_run": [
+      "staged skill transition validator (passed)",
+      "staged skill transition fail-closed tests (7 passed)",
+      "deterministic EVAL baseline remains passed"
+    ],
+    "finding_status": "partially-addressed",
     "residual_risk": "Activation remains blocked until the release-side model evaluation is approved and passes.",
     "follow_up_needed": true
   }

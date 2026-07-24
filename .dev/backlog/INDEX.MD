@@ -7,7 +7,7 @@ artifact directories. See [README.MD](README.MD) for ownership and lifecycle.
 
 | Roadmap | Current Target | Status | Next Gate | Updated |
 | --- | --- | --- | --- | --- |
-| [ROADMAP.md](ROADMAP.md) | `v0.6.0` | `planned` | Product, customization, development acceptance, and `SIMPL-001` disposition are complete; finish `EVAL-001`, `CI-001` with `CI-002`, and `CFG-001` with `SKILL-001`. Independent `DEVWF-001`, `UPG-001`, and `STD-001` remain separately gated. | 2026-07-24 |
+| [ROADMAP.md](ROADMAP.md) | `v0.6.0` | `planned` | Product, customization, development acceptance, `SIMPL-001`, and `CFG-001` are complete; finish model-side `EVAL-001`, activate `SKILL-001`, and close `CI-001` with `CI-002`. Independent `DEVWF-001`, `UPG-001`, and `STD-001` remain separately gated. | 2026-07-24 |
 
 Source planning records are retained under [`plans/`](plans/); they inform the
 roadmap but do not replace it or a governed assessment.
@@ -20,7 +20,6 @@ roadmap but do not replace it or a governed assessment.
 | [EVAL-001](items/EVAL-001.yaml) | HIGH | `v0.6.0` | activation gate | Add deterministic regression plus budgeted release-side model evaluation before taxonomy changes. | Approve the fixture corpus, oracle, model/judge, repetitions, threshold, and token ceiling. | 2026-07-19 |
 | [SKILL-001](items/SKILL-001.yaml) | MEDIUM | `v0.6.0` | release blocker | Introduce AI-context and software-development families and coordinate transitions to `ai-context-init` and `software-development-orchestrator`. | Define both deprecated compatibility entries; complete DIST-001 and EVAL-001 before changing identifiers or taxonomy. | 2026-07-23 |
 | [CI-002](items/CI-002.yaml) | HIGH | `v0.6.0` | release blocker | Review every GitHub workflow trigger, responsibility, release phase, duplication, concurrency, and cost boundary. | Execute with CI-001 as one release-engineering workstream and preserve the PR #6 short-term boundary. | 2026-07-23 |
-| [CFG-001](items/CFG-001.yaml) | HIGH | `v0.6.0` | release blocker | Separate source repository EditorConfig/Git attributes from downstream target-template seeds. | Disposition ADR-001, then execute with SKILL-001 as one configuration and taxonomy workstream. | 2026-07-23 |
 | [UPG-001](items/UPG-001.yaml) | HIGH | `unassigned` | independent | Make manual provenance bootstrap and customization inventory executable for pre-governed targets. | Use a real legacy target; preserve target truth through Base/Incoming/Target reconciliation before assigning a release. | 2026-07-22 |
 | [DEVWF-001](items/DEVWF-001.yaml) | MEDIUM | `unassigned` | independent | Evaluate optional issue traceability and richer task lifecycle timestamps from WorkService. | Keep the portable core tracker-neutral; decide schema placement and compatibility before implementation. | 2026-07-22 |
 | [STD-001](items/STD-001.yaml) | HIGH | `unassigned` | independent | Run bounded standards discussions across ChatGPT, Fable 5, and repository agents before assigning implementation to a release. | Normalize external feedback through assessments; permit a dedicated standards release after owner review. | 2026-07-20 |
@@ -30,6 +29,7 @@ roadmap but do not replace it or a governed assessment.
 
 | Item | Priority | Completed In | Published In | Resolution | Workflow | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| [CFG-001](items/CFG-001.yaml) | HIGH | `v0.6.0` | — | ADR-001 is accepted; source configuration, dedicated downstream seeds, centralized immutable evidence, exact upgrades, and target-owned preservation are verified. | [`2026-07-24-v0-6-config-skill-transition`](../workflows/2026-07-24-v0-6-config-skill-transition/workflow.yaml) | 2026-07-24 |
 | [SIMPL-001](items/SIMPL-001.yaml) | MEDIUM | `v0.6.0` | — | Five controlled session families and seven candidate dispositions were independently verified; the root entry shrank 12.9% without deleting history, and archive migration remains a separately approved v0.7.0 concern. | [`2026-07-24-v0-6-context-load-simplification`](../workflows/2026-07-24-v0-6-context-load-simplification/workflow.yaml) | 2026-07-24 |
 | [DIST-001](items/DIST-001.yaml) | HIGH | `v0.6.0` | — | Componentized release metadata, optional backlog selection, source-only projection, and deterministic clean/upgrade behavior pass the immutable package matrix. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) | 2026-07-24 |
 | [CUST-001](items/CUST-001.yaml) | HIGH | `v0.6.0` | — | One target-owned semantic customization ledger, four-skill lifecycle, fail-closed validation, and aggregate regressions are independently verified. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) | 2026-07-24 |
