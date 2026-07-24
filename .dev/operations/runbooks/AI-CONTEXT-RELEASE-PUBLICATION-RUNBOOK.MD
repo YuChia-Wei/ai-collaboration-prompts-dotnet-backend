@@ -10,8 +10,8 @@
 
 - 新版本一律從 [canonical release-publication templates](../../../.ai/assets/skills/ai-context-governance/templates/release-publication/) instantiate；不得複製 `.dev/releases/v*` instance。
 - `release.yaml`、`release-notes.md`、`migration-guide.md` 是 candidate 的 source of truth。`release-notes.md` 不得包含 renderer 的 automation marker 或 provenance block。
-- [`release-phase-checks.yaml`](../../releases/release-phase-checks.yaml) 的 command 是 handoff 可比對的 sanctioned command；不可包進 shell substitution 或任意 command。
-- 本 runbook 固定適用本次 `v0.5.0` release contract。下一個版本必須新增其 own phase contract，而不是修改本次已記錄的 command。
+- 每個 `.dev/releases/<version>/release-phase-checks.yaml` 的 command 是 handoff 可比對的 sanctioned command；不可包進 shell substitution 或任意 command。
+- 每個版本必須從 canonical template 建立自己的 phase contract。不可修改或重用另一版已記錄的 command；下方 `<version>` 必須先展開成同一個 stable `vMAJOR.MINOR.PATCH` literal，checkpoint 內也必須保存展開後的完整 command。
 
 ## Host Prerequisites
 
@@ -45,12 +45,12 @@ environment-protected publication job receives `contents: write`.
 
 ## Cold-Start Candidate
 
-1. Instantiate the five template artifacts into the active workflow and `.dev/releases/v0.5.0/`; resolve every `<...>` placeholder with current observed values: release record, authored notes, migration guide, workflow locator, and release task.
+1. Instantiate the six template artifacts into the active workflow and `.dev/releases/<version>/`; resolve every `<...>` placeholder with current observed values: release record, authored notes, migration guide, version-owned phase contract, workflow locator, and release task.
 
 2. Run:
 
    ```powershell
-   python .ai/scripts/validate-ai-context-release-state.py --phase candidate --version v0.5.0
+   python .ai/scripts/validate-ai-context-release-state.py --phase candidate --version <version>
    ```
 
    Expected result: exit `0`, a governed `validated` candidate, complete authored artifacts, and no stale copied values.
@@ -74,7 +74,7 @@ environment-protected publication job receives `contents: write`.
 2. Run:
 
    ```powershell
-   python .ai/scripts/prepare-ai-context-release.py --version v0.5.0
+   python .ai/scripts/prepare-ai-context-release.py --version <version>
    ```
 
    Expected result: exit `0`, clean worktree, exact validated candidate identity, and the critical gate evidence required for user tag creation.
@@ -91,7 +91,7 @@ closeout 文件的 merge commit）都會使先前印出的 tag command 過期。
 ## Owner-Created Annotated Tag
 
 The repository owner—not an agent, script, or GitHub workflow—creates and pushes
-the annotated `v0.5.0` tag only after the pre-tag preparation command passes.
+the annotated `<version>` tag only after the pre-tag preparation command passes.
 Use the complete command printed by `prepare-ai-context-release.py`; it pins the
 validated commit, summarizes compatibility, and takes the `AI-Model` value from
 the latest registered handoff checkpoint.
@@ -99,7 +99,7 @@ the latest registered handoff checkpoint.
 After the owner has created and pushed the tag, first run:
 
 ```powershell
-python .ai/scripts/validate-ai-context-release-state.py --phase tag --version v0.5.0
+python .ai/scripts/validate-ai-context-release-state.py --phase tag --version <version>
 ```
 
 Expected result: exit `0`; the tag is annotated, peels to the current validated
@@ -111,7 +111,7 @@ evidence and escalate the mismatch to the owner.
 Then run:
 
 ```powershell
-python .ai/scripts/validate-ai-context-release-state.py --phase publication --version v0.5.0 --hosted
+python .ai/scripts/validate-ai-context-release-state.py --phase publication --version <version> --hosted
 ```
 
 Expected result: exit `0`; the public release, exact rendered body, four governed
@@ -134,7 +134,7 @@ After hosted publication evidence is available, record only observed tag, commit
 Run:
 
 ```powershell
-python .ai/scripts/validate-ai-context-release-state.py --phase finalization --version v0.5.0 --hosted
+python .ai/scripts/validate-ai-context-release-state.py --phase finalization --version <version> --hosted
 ```
 
 Expected result: exit `0`; the published registry record equals the immutable tag peel, authored notes remain renderer-free, and required terminal evidence is present.
@@ -146,7 +146,7 @@ Fail action: do not alter the tag. Correct a factual registry omission through t
 Run these read-only checks before declaring the release closed:
 
 ```powershell
-python .ai/scripts/validate-ai-context-release-state.py --phase finalization --version v0.5.0 --hosted
+python .ai/scripts/validate-ai-context-release-state.py --phase finalization --version <version> --hosted
 python .ai/scripts/validate-ai-context-versions.py
 git status --short
 ```

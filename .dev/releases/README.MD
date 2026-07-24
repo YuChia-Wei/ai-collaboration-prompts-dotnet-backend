@@ -9,9 +9,11 @@ Each version directory owns one `release.yaml`, `release-notes.md`, and `migrati
 For a new governed release, instantiate the placeholder-only files in
 [`release-publication`](../../.ai/assets/skills/ai-context-governance/templates/release-publication/).
 Never copy a previous version directory, its run IDs, timestamps, commit SHA,
-or validation text. Use the exact phase commands in
-[`release-phase-checks.yaml`](release-phase-checks.yaml) and the publication
-runbook before asking the user to create an annotated tag.
+or validation text. Each version directory owns its
+`release-phase-checks.yaml`; use its exact commands and the publication runbook
+before asking the user to create an annotated tag. Historical contracts remain
+with their release so their original gates can be revalidated without changing
+the next release.
 
 `release-notes.md` is authored source. Generated GitHub Release automation
 markers and provenance are renderer output and must not be committed to an

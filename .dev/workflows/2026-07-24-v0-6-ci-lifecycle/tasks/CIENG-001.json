@@ -8,23 +8,23 @@
   "owner_skill": "ai-context-governance",
   "status": "in_progress",
   "created_at": "2026-07-24T10:00:00+08:00",
-  "updated_at": "2026-07-24T10:15:00+08:00",
+  "updated_at": "2026-07-24T12:02:54+08:00",
   "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
   "finding_ids": ["CI-001", "CI-002"],
   "scope": {
     "target": "GitHub Actions trigger, lifecycle, concurrency, permission, artifact, and mutation contracts",
     "files": [".github/workflows/**", ".ai/scripts/tests/**", ".ai/scripts/check-all.sh", ".dev/operations/runbooks/**"],
     "constraints": ["Preserve artifact transfer semantics", "Keep release mutation behind the owned tag workflow", "Do not claim hosted evidence from local YAML"],
-    "non_goals": ["Push a branch", "Create a tag", "Publish or rehearse a release without owner authorization"]
+    "non_goals": ["Create a pull request", "Create a tag", "Publish or rehearse a release without owner authorization"]
   },
   "execution": {
-    "steps": ["Implement accepted static matrix", "Add fail-closed tests", "Record phase-contract decision boundary", "Collect hosted evidence after authorization"],
+    "steps": ["Implement accepted static matrix", "Add fail-closed tests", "Implement the approved version-scoped phase contract", "Create a durable push handoff", "Collect hosted evidence after authorization"],
     "validation": ["workflow contract tests", "aggregate runner parity", "AI-context and workflow validators"],
-    "last_completed_step": "Implemented and locally verified the static workflow matrix and Node.js 24 artifact action migration at b18833f",
-    "next_action": "Obtain owner approval for version-scoped phase contracts, then implement them and collect hosted evidence"
+    "last_completed_step": "Implemented and locally validated .dev/releases/<version>/release-phase-checks.yaml with historical v0.5.0 and planned v0.6.0 contracts",
+    "next_action": "Commit the validated version-scoped contract, create a durable push handoff, and push segment 2"
   },
   "results": {
-    "summary": "Implemented the locally decidable CI-001/CI-002 slice: artifact action majors, conditional PR concurrency, complete workflow matrix, assessment trigger coverage, stale trigger removal, source-only contract tests, and runner guidance.",
+    "summary": "Implemented the locally decidable CI-001/CI-002 slice and added the owner-approved version-scoped release phase contract so v0.5.0 remains revalidatable while v0.6.0 has an independent gate.",
     "files_changed": [
       ".github/workflows/governance.yml",
       ".github/workflows/portable-gates.yml",
@@ -35,17 +35,24 @@
       ".ai/scripts/tests/test_ai_context_packaging.py",
       ".ai/scripts/check-all.sh",
       ".ai/scripts/shell-assets.yaml",
-      ".dev/operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD"
+      ".dev/operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD",
+      ".dev/releases/v0.5.0/release-phase-checks.yaml",
+      ".dev/releases/v0.6.0/release-phase-checks.yaml",
+      ".dev/standards/WORKFLOW-HANDOFF-POLICY.yaml",
+      ".ai/assets/skills/ai-context-governance/templates/release-publication/release-phase-checks.yaml"
     ],
     "tests_run": [
       "GitHub workflow contract: 5 passed",
       "Governance workflow contract: 7 passed",
       "Packaging release-workflow contract: 3 passed",
       "Aggregate runner regression: 27 passed",
-      "Shell asset and AI-context validators: passed"
+      "Shell asset and AI-context validators: passed",
+      "Release-state phase contract tests: 18 passed",
+      "Workflow handoff contract tests: 20 passed",
+      "Quick aggregate gate: 44 required checks passed, 0 failed, 2 not applicable"
     ],
     "finding_status": "partially-addressed",
-    "residual_risk": "The current validator cannot accept v0.6.0 because the singleton phase contract is v0.5.0-specific. Hosted v7/v8 annotation-free and cancellation evidence also remains unavailable before an authorized push and publication path.",
+    "residual_risk": "Hosted v7/v8 annotation-free, pull-request cancellation, and publication artifact-transfer evidence remains unavailable under push-only authorization.",
     "follow_up_needed": true
   }
 }

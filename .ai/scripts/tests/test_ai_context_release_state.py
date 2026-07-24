@@ -97,10 +97,10 @@ def write_fixture(
         "release": VERSION,
         "phases": {
             phase: {"command": command}
-            for phase, command in STATE.SANCTIONED_COMMANDS.items()
+            for phase, command in STATE.sanctioned_commands(VERSION).items()
         },
     }
-    (root / ".dev" / "releases" / "release-phase-checks.yaml").write_text(
+    (release / "release-phase-checks.yaml").write_text(
         yaml.safe_dump(contract, sort_keys=False),
         encoding="utf-8",
     )
@@ -337,7 +337,9 @@ class AiContextReleaseStateGwtTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             write_fixture(root)
-            contract_path = root / ".dev/releases/release-phase-checks.yaml"
+            contract_path = (
+                root / f".dev/releases/{VERSION}/release-phase-checks.yaml"
+            )
             contract = yaml.safe_load(contract_path.read_text(encoding="utf-8"))
             contract["phases"]["candidate"]["command"] = "bash -c arbitrary"
             contract_path.write_text(
@@ -411,7 +413,7 @@ class AiContextReleaseStateGwtTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             write_fixture(root)
-            (root / ".dev/releases/release-phase-checks.yaml").unlink()
+            (root / f".dev/releases/{VERSION}/release-phase-checks.yaml").unlink()
             with self.assertRaisesRegex(STATE.ReleaseStateError, "cannot read"):
                 STATE.validate(root, "candidate", VERSION, runner=fake_runner())
 
@@ -422,6 +424,66 @@ class AiContextReleaseStateGwtTests(unittest.TestCase):
                     Path(temp),
                     ["git", "tag", "-a", VERSION],
                     fake_runner(),
+                )
+
+    def test_gwt_016_given_v060_contract_when_required_then_versioned_commands_pass(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            version = "v0.6.0"
+            release = root / ".dev" / "releases" / version
+            release.mkdir(parents=True)
+            contract = {
+                "schema_version": "1.0",
+                "release": version,
+                "phases": {
+                    phase: {"command": command}
+                    for phase, command in STATE.sanctioned_commands(version).items()
+                },
+            }
+            (release / "release-phase-checks.yaml").write_text(
+                yaml.safe_dump(contract, sort_keys=False),
+                encoding="utf-8",
+            )
+
+            entry = STATE.require_phase_contract(root, "publication", version)
+
+            self.assertIn("--version v0.6.0 --hosted", entry["command"])
+
+    def test_gwt_017_given_only_legacy_singleton_when_required_then_it_is_not_accepted(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            singleton = root / ".dev" / "releases" / "release-phase-checks.yaml"
+            singleton.parent.mkdir(parents=True)
+            singleton.write_text(
+                yaml.safe_dump(
+                    {
+                        "schema_version": "1.0",
+                        "release": VERSION,
+                        "phases": {
+                            phase: {"command": command}
+                            for phase, command in STATE.sanctioned_commands(
+                                VERSION
+                            ).items()
+                        },
+                    },
+                    sort_keys=False,
+                ),
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(STATE.ReleaseStateError, VERSION):
+                STATE.require_phase_contract(root, "candidate", VERSION)
+
+    def test_gwt_018_given_unsafe_version_when_required_then_it_fails_before_path_lookup(self):
+        with tempfile.TemporaryDirectory() as temp:
+            with self.assertRaisesRegex(
+                STATE.ReleaseStateError,
+                "stable vMAJOR.MINOR.PATCH",
+            ):
+                STATE.require_phase_contract(
+                    Path(temp),
+                    "candidate",
+                    "../v0.6.0",
                 )
 
 

@@ -122,8 +122,10 @@ only when a supplied target file is byte-identical to the recorded base. Target
 truth, deletions, absent evidence, and source history remain reconciliation or
 exclusion items.
 
-`validate-ai-context-release-state.py` applies the REL-owned, version-specific
-phase contract to one governed release. Candidate validation rejects unresolved
+`validate-ai-context-release-state.py` applies the REL-owned
+`.dev/releases/<version>/release-phase-checks.yaml` contract to one governed
+release. The requested stable version selects the contract and each sanctioned
+command embeds that same literal version. Candidate validation rejects unresolved
 placeholders, copied lifecycle fields, impossible timestamps, unrelated or open
 backlog references, dirty worktrees, package identity drift, and generated
 provenance in authored notes while allowing prior versions in compatibility and

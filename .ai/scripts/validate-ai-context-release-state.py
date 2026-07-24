@@ -28,18 +28,27 @@ PLACEHOLDER_RE = re.compile(r"\{\{.+?\}\}|<[^\n>]+>|\b(?:TODO|TBD|PLACEHOLDER)\b
 FORBIDDEN_AUTHORED_RE = re.compile(
     r"ai-context-release-automation:|^## Release provenance\s*$", re.I | re.M
 )
-SANCTIONED_COMMANDS = {
-    "candidate": "python .ai/scripts/validate-ai-context-release-state.py --phase candidate --version v0.5.0",
-    "tag": "python .ai/scripts/validate-ai-context-release-state.py --phase tag --version v0.5.0",
-    "publication": "python .ai/scripts/validate-ai-context-release-state.py --phase publication --version v0.5.0 --hosted",
-    "finalization": "python .ai/scripts/validate-ai-context-release-state.py --phase finalization --version v0.5.0 --hosted",
-}
 RENDERER_PATH = ".ai/scripts/render-ai-context-release-notes.py"
 PUBLISH_WORKFLOW_PATH = ".github/workflows/publish-release.yml"
 
 
 class ReleaseStateError(ValueError):
     """Raised for invalid release-state inputs."""
+
+
+def sanctioned_commands(version: str) -> dict[str, str]:
+    if not VERSION_RE.fullmatch(version):
+        raise ReleaseStateError("version must use stable vMAJOR.MINOR.PATCH form")
+    base = (
+        "python .ai/scripts/validate-ai-context-release-state.py "
+        f"--phase {{phase}} --version {version}"
+    )
+    return {
+        "candidate": base.format(phase="candidate"),
+        "tag": base.format(phase="tag"),
+        "publication": base.format(phase="publication") + " --hosted",
+        "finalization": base.format(phase="finalization") + " --hosted",
+    }
 
 
 def load_mapping(path: Path) -> dict:
@@ -98,7 +107,8 @@ def run_read_only(root: Path, args: list[str], runner=subprocess.run) -> str:
 
 
 def require_phase_contract(root: Path, phase: str, version: str) -> dict:
-    path = root / ".dev" / "releases" / "release-phase-checks.yaml"
+    commands = sanctioned_commands(version)
+    path = root / ".dev" / "releases" / version / "release-phase-checks.yaml"
     data = load_mapping(path)
     if data.get("schema_version") != "1.0":
         raise ReleaseStateError(f"{path}: schema_version must be 1.0")
@@ -113,8 +123,8 @@ def require_phase_contract(root: Path, phase: str, version: str) -> dict:
     entry = phases.get(phase)
     if not isinstance(entry, dict):
         raise ReleaseStateError(f"{path}: phases.{phase} must be a mapping")
-    expected = SANCTIONED_COMMANDS.get(phase)
-    if version != "v0.5.0" or entry.get("command") != expected:
+    expected = commands.get(phase)
+    if entry.get("command") != expected:
         raise ReleaseStateError(
             f"{path}: phases.{phase}.command is not the sanctioned {version} command"
         )
