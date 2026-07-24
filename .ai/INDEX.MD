@@ -11,6 +11,7 @@ This index owns the file and directory catalog for `.ai/`. The `.ai/README.MD` f
 | `DIRECTORY-RULES.MD` | Operational placement rules that point to canonical boundary and language policies. |
 | `SUB-AGENT-SYSTEM.MD` | Active sub-agent routing and artifact handoff rules. |
 | `distribution/` | Source-side package profiles, ownership rules, and generated metadata schemas. |
+| `evaluation/` | Source-side deterministic behavior corpus, exact baseline, and result schemas. |
 
 ## Canonical Assets
 
@@ -42,6 +43,6 @@ This index owns the file and directory catalog for `.ai/`. The `.ai/README.MD` f
 | `../.dev/guides/README.MD` | Human-facing guide root. |
 | `../.dev/guides/ai-collaboration-guides/INDEX.MD` | AI collaboration guide index. |
 | `../.dev/guides/ai-collaboration-guides/AI-ASSET-LOCATION-STRATEGY.md` | Human-facing strategy for AI asset placement. |
-| `../.dev/guides/ai-collaboration-guides/REPO-STRUCTURE-SYNC-SKILL-GUIDE.md` | Repo initialization and context sync guide. |
+| `../.dev/guides/ai-collaboration-guides/AI-CONTEXT-INIT-SKILL-GUIDE.md` | Repo initialization and context sync guide. |
 | `../.dev/standards/AI-CONTEXT-BOUNDARY.md` | Canonical context boundary policy. |
 | `../.dev/standards/AI-CONTEXT-LANGUAGE-POLICY.md` | Canonical language policy. |

@@ -12,6 +12,11 @@ from pathlib import Path
 
 import yaml
 
+SCRIPT_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_ROOT))
+
+import ai_context_target_provenance as target_provenance
+
 
 VERSION_RE = re.compile(r"^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
 SEMVER_RE = re.compile(r"^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$")
@@ -230,6 +235,9 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
     data = load_mapping(path, errors)
     if data is None:
         return
+    if data.get("schema_version") == "2.0":
+        target_provenance.validate_manifest(path, errors)
+        return
     source = data.get("source")
     installation = data.get("installation")
     migration = data.get("last_migration")
@@ -252,10 +260,12 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
         errors.append(f"{path}: installation.imported_at must use ISO 8601 with an offset")
     if not isinstance(migration, dict) or migration.get("status") != "completed" or migration.get("to_version") != version:
         errors.append(f"{path}: completed last_migration.to_version must equal source.version")
-    overrides = data.get("local_overrides")
-    if not isinstance(overrides, list):
-        errors.append(f"{path}: local_overrides must be a list")
-    else:
+    schema_version = data.get("schema_version")
+    if schema_version == "1.0":
+        overrides = data.get("local_overrides")
+        if not isinstance(overrides, list):
+            errors.append(f"{path}: local_overrides must be a list")
+            return
         ids: set[str] = set()
         for index, item in enumerate(overrides):
             if not isinstance(item, dict):
@@ -271,6 +281,55 @@ def validate_manifest(path: Path, errors: list[str]) -> None:
             for field in ("reason", "owner", "disposition"):
                 if not isinstance(item.get(field), str) or not item[field].strip():
                     errors.append(f"{path}: local_overrides[{index}].{field} is required")
+        return
+    if schema_version != "2.0":
+        errors.append(f"{path}: schema_version must be 1.0 or 2.0")
+        return
+    selection = data.get("selection")
+    if not isinstance(selection, dict):
+        errors.append(f"{path}: selection must be a mapping")
+    else:
+        if selection.get("release_model") != "single-versioned-componentized-release":
+            errors.append(f"{path}: selection.release_model is invalid")
+        components = selection.get("mandatory_components")
+        required_components = {"software-development-core", "ai-context-lifecycle-core"}
+        if not isinstance(components, list) or set(components) != required_components:
+            errors.append(f"{path}: selection.mandatory_components must contain both mandatory cores")
+        profiles = selection.get("profiles")
+        if (
+            not isinstance(profiles, list)
+            or not profiles
+            or len(profiles) != len(set(profiles))
+            or not all(isinstance(item, str) and item for item in profiles)
+        ):
+            errors.append(f"{path}: selection.profiles must be a non-empty string list")
+        providers = selection.get("providers")
+        if not isinstance(providers, dict):
+            errors.append(f"{path}: selection.providers must be a mapping")
+        else:
+            backlog = providers.get("repo-backlog")
+            if not isinstance(backlog, dict):
+                errors.append(f"{path}: selection.providers.repo-backlog must be a mapping")
+            else:
+                if not isinstance(backlog.get("enabled"), bool):
+                    errors.append(f"{path}: selection.providers.repo-backlog.enabled must be boolean")
+                if backlog.get("preservation") not in {
+                    "preserve-existing-if-recorded",
+                    "explicit-reconciliation-required",
+                }:
+                    errors.append(f"{path}: selection.providers.repo-backlog.preservation is invalid")
+    customizations = data.get("customizations")
+    if not isinstance(customizations, dict):
+        errors.append(f"{path}: customizations must be a mapping")
+    else:
+        if customizations.get("ledger") != ".dev/ai-context/customizations.yaml":
+            errors.append(f"{path}: customizations.ledger must be .dev/ai-context/customizations.yaml")
+        if customizations.get("schema_version") != "1.0":
+            errors.append(f"{path}: customizations.schema_version must be 1.0")
+
+
+def validate_customizations(path: Path, errors: list[str]) -> None:
+    target_provenance.validate_customizations(path, errors, require_finalized=True)
 
 
 def validate(root: Path, manifest: Path | None = None, verify_git: bool = True) -> list[str]:
@@ -279,13 +338,24 @@ def validate(root: Path, manifest: Path | None = None, verify_git: bool = True) 
     for path in release_files:
         validate_release(path, root, errors, verify_git)
     effective_manifest = manifest
-    default_manifest = root / ".dev" / "AI-CONTEXT-SOURCE.yaml"
-    if effective_manifest is None and default_manifest.is_file():
-        effective_manifest = default_manifest
+    provenance = root / ".dev" / "ai-context" / "provenance.yaml"
+    legacy_manifest = root / ".dev" / "AI-CONTEXT-SOURCE.yaml"
+    if provenance.is_file() and legacy_manifest.is_file():
+        errors.append(f"{root}: provenance.yaml and AI-CONTEXT-SOURCE.yaml cannot both be active")
+    if effective_manifest is None and provenance.is_file():
+        effective_manifest = provenance
+    if effective_manifest is None and legacy_manifest.is_file():
+        effective_manifest = legacy_manifest
     if effective_manifest is not None:
         validate_manifest(effective_manifest, errors)
+        if effective_manifest.resolve() == provenance.resolve():
+            ledger = root / ".dev" / "ai-context" / "customizations.yaml"
+            if not ledger.is_file():
+                errors.append(f"{root}: provenance schema 2 requires .dev/ai-context/customizations.yaml")
+            else:
+                validate_customizations(ledger, errors)
     if not release_files and effective_manifest is None:
-        errors.append(f"{root}: expected source release records or target .dev/AI-CONTEXT-SOURCE.yaml")
+        errors.append(f"{root}: expected source release records or target provenance")
     return errors
 
 
@@ -302,7 +372,9 @@ def main() -> int:
             print(f"- {error}")
         return 1
     count = len(list((args.root / ".dev" / "releases").glob("v*/release.yaml")))
-    manifest = args.manifest or (args.root / ".dev" / "AI-CONTEXT-SOURCE.yaml")
+    manifest = args.manifest or (args.root / ".dev" / "ai-context" / "provenance.yaml")
+    if not manifest.is_file():
+        manifest = args.root / ".dev" / "AI-CONTEXT-SOURCE.yaml"
     suffix = f" and target manifest {manifest}" if manifest.is_file() else ""
     print(f"AI context version validation passed for {count} release record(s){suffix}.")
     return 0

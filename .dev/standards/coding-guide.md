@@ -5,7 +5,7 @@
 > This document preserves an earlier Todo/.NET backend profile for historical
 > reference. Do not infer that a target repository uses WolverineFx, EF Core,
 > Event Sourcing, PostgreSQL, BDDfy, or the topology below. Establish target
-> facts with `repo-structure-sync`, then follow the generated repository context
+> facts with `ai-context-init`, then follow the generated repository context
 > and the applicable `.ai/assets/tech-stacks/dotnet-backend/` references.
 > Architecture and package choices require target-repository evidence or an
 > explicit decision.

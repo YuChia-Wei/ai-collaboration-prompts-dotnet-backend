@@ -1,3 +1,6 @@
+# Source-repository configuration. Downstream projects receive the dedicated
+# repo-structure-sync public-root seed instead of this file.
+
 ###############################################################################
 # Normalize repository text to LF in both the index and working tree.
 ###############################################################################
@@ -5,6 +8,14 @@
 *.sh text eol=lf
 *.bat text eol=crlf
 *.cmd text eol=crlf
+
+# Preserve explicitly classified immutable external originals byte-for-byte.
+# Ordinary assessment evidence remains text-normalized and diffable.
+.dev/assessments/**/evidence/external/original/** binary
+
+# Retained historical compatibility: this finalized external report predates
+# the external/original convention. Do not add new path-specific exceptions.
+.dev/assessments/ASM-20260722-005/evidence/workservice/2026-07-22-dev-workflow-skill-comparison.md binary
 
 ###############################################################################
 # Set default behavior for command prompt diff.

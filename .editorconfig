@@ -1,3 +1,5 @@
+# Source-repository configuration. Downstream projects receive the dedicated
+# repo-structure-sync public-root seed instead of this file.
 # ref: https://github.com/dotnet/roslyn/blob/main/.editorconfig
 # ref: https://github.com/dotnet/roslyn-analyzers/blob/main/.editorconfig
 # ref: https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options
@@ -19,8 +21,8 @@ spelling_exclusion_path = SpellingExclusions.dic
 
 # 檔案儲存
 charset = utf-8
-end_of_line = crlf
-insert_final_newline = false
+end_of_line = lf
+insert_final_newline = true
 
 # 單行字數
 max_line_length = 150
@@ -48,6 +50,9 @@ indent_size = 2
 [*.sh]
 end_of_line = lf
 indent_size = 2
+
+[*.{bat,cmd}]
+end_of_line = crlf
 
 [*.{yaml,yml}]
 indent_size = 2

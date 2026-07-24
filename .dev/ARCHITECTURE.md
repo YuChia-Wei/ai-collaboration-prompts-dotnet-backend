@@ -45,6 +45,6 @@ Terminology and responsibility boundaries:
 
 This framework repository does not retain a product-specific `.dev/project-config.yaml`.
 
-When the framework is introduced into a target repository, first use `repo-structure-sync` to scan repository evidence, then generate `.dev/project-config.yaml` from `.ai/assets/skills/repo-structure-sync/templates/project-config.template.yaml`. Unconfirmed architecture, database, messaging, frontend, or deployment facts must remain blank.
+When the framework is introduced into a target repository, first use `ai-context-init` to scan repository evidence, then generate `.dev/project-config.yaml` from `.ai/assets/skills/ai-context-init/templates/project-config.template.yaml`. Unconfirmed architecture, database, messaging, frontend, or deployment facts must remain blank.
 
 The EF Core, Dapper, Npgsql, WolverineFx, RabbitMQ, and Kafka documents in this framework are conditional/reference guidance and must not automatically become mandatory truth for a target repository.

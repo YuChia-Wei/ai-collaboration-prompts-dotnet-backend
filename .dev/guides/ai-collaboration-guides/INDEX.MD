@@ -13,13 +13,13 @@
 | `BDD-GWT-TEST-DESIGNER-PAIR-GUIDE.md` | Test-design and implementation pairing. |
 | `BDD-GWT-TEST-DESIGNER-SKILL-GUIDE.md` | Given-When-Then test-design usage. |
 | `DDD-CA-HEX-ARCHITECT-SKILL-GUIDE.md` | Architecture design and refactoring usage. |
-| `DEV-WORKFLOW-SKILL-GUIDE.md` | Development workflow orchestration usage. |
+| `SOFTWARE-DEVELOPMENT-ORCHESTRATOR-SKILL-GUIDE.md` | Development workflow orchestration usage. |
 | `EXTERNAL-AI-DISCUSSION-ROUNDTRIP-GUIDE.md` | Bounded discussion packets and feedback intake for ChatGPT, Fable 5, and other external AI reviewers. |
 | `LOCAL-CHANGE-IMPLEMENTER-SKILL-GUIDE.md` | Local technical change usage. |
 | `LOCAL-RUNTIME-WRAPPER-GUIDE.md` | Runtime wrapper setup and boundaries. |
 | `OPTIONAL-MINIMAL-WORKFLOW-MODE.md` | Minimal workflow mode. |
 | `PROBLEM-FRAME-AUTHORING-GUIDE.md` | Problem-frame drafting usage. |
-| `REPO-STRUCTURE-SYNC-SKILL-GUIDE.md` | Initial target repository synchronization. |
+| `AI-CONTEXT-INIT-SKILL-GUIDE.md` | Initial target repository synchronization. |
 | `REQUIREMENT-AND-SPEC-DESIGNER-STRATEGY.md` | Requirement/spec capability strategy. |
 | `REQUIREMENT-DESIGNER-PROMPT-GUIDE.md` | Requirement-authoring invocation examples. |
 | `SKILL-AND-SUB-AGENT-TAXONOMY-GUIDE.md` | Skill and delegated-role taxonomy. |

@@ -17,7 +17,7 @@ This directory owns source-side, machine-readable contracts for building portabl
 - Builders read Git blob bytes and Git tree modes, not checkout bytes; this prevents `autocrlf` or local mode settings from changing package output. Symlinks, submodules, and non-regular Git entries are rejected.
 - Generated metadata belongs under the package envelope's `metadata/` directory and is not installed as target project truth.
 - `requirements.txt` is checksum-governed envelope metadata for the packaged target-side tooling. Install it with Python 3.11 or newer before invoking the planner.
-- Root entries and empty target catalogs come from public templates owned by `repo-structure-sync`; active source-repository root documents and catalogs are not templates.
+- Root entries and empty target catalogs come from public templates owned by `ai-context-init`; active source-repository root documents and catalogs are not templates.
 - External indexes or knowledge graphs may accelerate discovery but cannot prove package completeness.
 - A profile entry marked `allow_empty_until` is a workflow bootstrap exception. A release candidate validator must reject every remaining empty entry.
 - Template-manifest `source` paths are resolved relative to the manifest directory. Targets are repository-relative payload paths; reject absolute paths, `..`, backslashes, duplicates, and collisions. A template may exist once at its canonical managed path and once at its mapped target seed path.

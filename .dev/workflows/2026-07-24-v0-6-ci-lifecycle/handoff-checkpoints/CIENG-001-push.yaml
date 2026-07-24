@@ -1,0 +1,92 @@
+schema_version: "1.0"
+checkpoint_id: "2026-07-24-v0-6-ci-lifecycle-CIENG-001-push"
+created_at: "2026-07-24T12:14:12+08:00"
+repository:
+  root: "."
+  branch: "codex/2026-07-24-v0-6-ci-phase-contract"
+  validated_commit: "58d8d280025dd65fa00a8df7274493dd05b8c617"
+  checkpoint_commit_source: "containing-commit"
+  dirty_state: "clean"
+  status_porcelain_sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+workflow:
+  workflow_id: "2026-07-24-v0-6-ci-lifecycle"
+  task_id: "CIENG-001"
+resume:
+  last_completed_action: "Committed and critically validated the version-scoped release phase contract at 58d8d28; 44 required checks passed with no failures."
+  exact_next_action: "Push codex/2026-07-24-v0-6-ci-phase-contract to origin, then inspect only push-triggered hosted checks without creating a pull request, tag, or release."
+  hidden_context_required: false
+critical_gate:
+  command: '"C:\Program Files\Git\bin\bash.exe" .ai/scripts/check-all.sh --critical'
+  observed_at: "2026-07-24T12:12:37+08:00"
+  exit_code: 0
+  outcome: "passed"
+  output:
+    normalization: "utf8-lf"
+    sha256: "67de368f2a035e9819b664f6fc57e374720edf2d853920369ccbb6b89d81454d"
+    line_count: 914
+    tail:
+      - "╚════════════════════════════════════════╝"
+      - "Total Checks Run: 44"
+      - "Passed: 44"
+      - "Failed: 0"
+      - "Skipped By Mode: 0"
+      - "Advisory Warnings: 0"
+      - "Deferred: 0"
+      - "Not Applicable: 1"
+      - "Required Selected: 44"
+      - "Required Executed: 44"
+      - "Required Failed: 0"
+      - "Advisory Selected: 0"
+      - "Pass Rate: 100%"
+      - "Completed at 2026-07-24 12:12:37"
+      - "╔════════════════════════════════════════╗"
+      - "║    ✓ All Checks Passed Successfully!   ║"
+      - "╚════════════════════════════════════════╝"
+continuation:
+  allowed: true
+  mode: "normal"
+  reason: "The clean implementation commit passed every selected critical check."
+  repair_task_id: null
+  failure_ids: []
+release_handoff: false
+release_phase_check: null
+execution_provenance:
+  runtime: "OpenAI Codex"
+  model: null
+  reasoning_effort: null
+  model_source: "unavailable"
+  evidence_ref: "The active runtime does not expose a verifiable model-and-reasoning-effort pair; the repository-created commit trailer separately records model attribution."
+attribution:
+  preservation_required: true
+  evidence_union_version: "1.0"
+  selected_evidence:
+    kind: "repository-created-local-ai-trailer"
+    commit: "58d8d280025dd65fa00a8df7274493dd05b8c617"
+    author: "YuChia <h42279@gmail.com>"
+    committer: "YuChia <h42279@gmail.com>"
+    signature_status: "unsigned"
+    session_ref: null
+    observed_trailer: "Co-Authored-By: OpenAI Codex (gpt-5.6-sol) <noreply@openai.com>"
+    message_sha256: "57421920e1f45e66008d84493595f0bb7fe46f138fe06ad5162de2a772763021"
+    fixture_ref: "git:58d8d280025dd65fa00a8df7274493dd05b8c617"
+  fixture_status:
+    - path_id: "copilot-cli"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#github-copilot-cli"
+      reason: "No provider-generated Copilot CLI commit fixture is present in this repository."
+    - path_id: "copilot-cloud-agent"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#github-copilot-cloud-agent"
+      reason: "No provider-generated Copilot cloud-agent commit fixture is present in this repository."
+    - path_id: "claude"
+      status: "blocked"
+      commit: null
+      evidence_ref: ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-handoff-attribution-fixtures.md#claude"
+      reason: "No stable provider-generated Claude commit attribution fixture is available."
+    - path_id: "codex-local"
+      status: "captured"
+      commit: "58d8d280025dd65fa00a8df7274493dd05b8c617"
+      evidence_ref: "git:58d8d280025dd65fa00a8df7274493dd05b8c617"
+      reason: null

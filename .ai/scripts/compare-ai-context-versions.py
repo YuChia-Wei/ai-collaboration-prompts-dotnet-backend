@@ -19,6 +19,7 @@ EXCLUDED_PREFIXES = (
     "tests/",
 )
 TARGET_OWNED_PREFIXES = (
+    ".dev/ai-context/",
     ".dev/adr/",
     ".dev/domain-language/",
     ".dev/operations/",

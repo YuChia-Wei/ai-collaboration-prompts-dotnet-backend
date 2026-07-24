@@ -6,11 +6,12 @@
 - `status`: `active`
 - `current_target`: `v0.6.0`
 - `created_at`: `2026-07-18T14:19:06+08:00`
-- `updated_at`: `2026-07-23T00:53:22+08:00`
+- `updated_at`: `2026-07-24T00:31:35+08:00`
 - `source_assessment`: `.dev/assessments/ASM-20260717-004/assessment.yaml`
 - `source_plan`: `.dev/backlog/plans/post-v0.4.0-improvement-plan.md`
 - `planning_workflow`: `.dev/workflows/2026-07-18-post-v0-4-roadmap-planning/workflow.yaml`
 - `gate_revision_workflow`: `.dev/workflows/2026-07-19-roadmap-gate-revision/workflow.yaml`
+- `product_contract_workflow`: `.dev/workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml`
 
 ## Usage Contract
 
@@ -28,7 +29,7 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | `v0.4.1` | `published` | yes | Restore only the published package upgrade and downstream-validation contracts through `PKG-001` and `PKG-002`. | Completed at immutable tag `v0.4.1`; hosted run `29650583394` and downloaded assets passed validation. | [`2026-07-18-v0-4-1-release-publication`](../workflows/2026-07-18-v0-4-1-release-publication/workflow.yaml) |
 | `v0.4.2` | `published` | yes | The immutable package, local release registry, workflow evidence, roadmap state, migration guidance, and authorized public Release body correction are complete. | Completed without moving `v0.4.2` or changing the four published assets. | [`2026-07-20-v0-4-2-release-finalization-hotfix`](../workflows/2026-07-20-v0-4-2-release-finalization-hotfix/workflow.yaml) |
 | `v0.5.0` | `published` | yes | The four-source release, including exact automatic v0.4.2 upgrades, passed independent review, Windows, hosted Ubuntu, and owner-arranged macOS gates. | Completed at immutable tag `v0.5.0`, peeled commit `1477181f0b43fa7ee82fcd482141758ac9e22eb6`, successful hosted publication run `29922585651`, and a stable GitHub Release with four governed assets. | [`2026-07-22-v0-5-0-macos-portability`](../workflows/2026-07-22-v0-5-0-macos-portability/workflow.yaml) |
-| `v0.6.0` | `planned` | yes | Remove Node.js 20 release-automation debt through `CI-001`; establish `EVAL-001`, disposition measured active-context simplification through `SIMPL-001`, then introduce skill-family taxonomy and transition `repo-structure-sync` to `ai-context-init` with a deprecated compatibility entry through `SKILL-001`. | Preserve v0.5.0 artifact and publication semantics while moving to native Node.js 24 actions; then measure actual loaded context and pass deterministic regression fixtures plus the approved budgeted release-side model evaluation before taxonomy or context reduction. Standards implementation is not presumed. | not created |
+| `v0.6.0` | `planned` | yes | Define the downstream product and component contract through `DIST-001`, semantic customization through `CUST-001`, and software-development product acceptance through `DEVWF-002`; execute `CI-001` with `CI-002` and `CFG-001` with `SKILL-001`; establish `EVAL-001`; and disposition measured active-context simplification through `SIMPL-001`. | Lock both mandatory cores, the target-owned provenance/customization contract, high-level orchestrator activation, selectable spec compliance, target-aware test execution, optional-provider and source-only boundaries, and the component validation matrix before package closure. | [`2026-07-23-v0-6-product-contract-planning`](../workflows/2026-07-23-v0-6-product-contract-planning/workflow.yaml) |
 | `v0.7.0` | `conditional` | no | Retire legacy skill identifiers only when downstream migration evidence supports removal, and consider historical-evidence archive migration only through a separately approved successor to `SIMPL-001`. | Demonstrate adoption of `ai-context-init`; satisfy the archive evidence, retention, manifest, redirect, validator, and migration preconditions; prove that indexes and routing alone cannot deliver the measured benefit. | not created |
 
 ## Release Gate Semantics
@@ -47,35 +48,58 @@ Read this file before planning or resuming a post-v0.4.0 release.
 | --- | --- | --- | --- |
 | `v0.4.2` | `R042-001`, `R042-002`, `R042-003`, `R042-004`, `R042-005` | Any selected correction that would add a schema, required validation or CI route, remove a published path, or intentionally change pass/fail semantics must stop and move to an explicit v0.5.0 item. | v0.4.1 publication and registry closeout are complete. |
 | `v0.5.0` | `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`, `REL-001`, `REL-002`, `HANDOFF-001` | `GOV-001`, `CAP-001`, `VAL-001` | R042-005 is closed; v0.4.2 workflow, independent verification, local release evidence, public Release body, and final version state are reconciled. |
-| `v0.6.0` | `CI-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001` and v0.5.0 completion. |
+| `v0.6.0` | `DIST-001`, `CUST-001`, `DEVWF-002`, `CI-001`, `CI-002`, `CFG-001`, `SKILL-001` | `SIMPL-001`; any legacy identifier retirement remains conditional and cannot be silently included. | `EVAL-001`, v0.5.0 completion, `.dev/ai-context/provenance.yaml`, `.dev/ai-context/customizations.yaml`, and the approved `software-development-orchestrator` plus `ai-context-init` compatibility transitions. |
 | `v0.7.0` | none assigned | A historical archive migration and legacy identifier retirement each require explicit successor work rather than silent inclusion. | Completed `SIMPL-001` disposition, measured benefit, archive preconditions, and downstream compatibility evidence. |
 
-`CI-002`, `CFG-001`, `DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
+`DEVWF-001`, `UPG-001`, `STD-001`, and `OBS-001` remain independent unassigned
 decisions. None is a hidden v0.6.0 blocker. Standards or dev-workflow schema
 changes may receive a dedicated release after deliberation instead of being
 forced into an existing horizon. Actual WorkService upgrade execution belongs
 to its target repository rather than this source roadmap.
 
+## v0.6.0 Product And Distribution Definition
+
+`DIST-001` is a v0.6.0 release blocker by owner decision on 2026-07-23. It
+defines what the release delivers before package bytes, CI gates, or
+simplification are treated as complete.
+
+The current approved product direction has four layers:
+
+1. a mandatory software-development core covering requirements, specifications,
+   problem framing, DDD and architecture, test design, implementation, review,
+   target-aware unit/integration test execution, selectable compliance
+   validation, and `.dev/workflows/` lifecycle records;
+2. a mandatory AI-context lifecycle core covering initialization, audit,
+   target-facing governance, upgrade, provenance, customization reconciliation,
+   and post-upgrade verification;
+3. optional providers, beginning with repository backlog storage while allowing
+   Azure DevOps, Jira, GitHub Issues/Projects, another tracker, or no repository
+   backlog provider; and
+4. source-only package build, publication, finalization, registry, test, and
+   historical instance surfaces.
+
+The approved model is one versioned componentized release. New installations
+do not enable the repository-backlog provider unless selected; existing targets
+preserve it and record the selection. Installed component identity belongs in
+`.dev/ai-context/provenance.yaml`; semantic customization identity belongs in
+the referenced `.dev/ai-context/customizations.yaml` ledger. Exact schemas,
+migrations, and downstream fixtures remain implementation design work. Future
+publication as a Python CLI
+or package-registry tool is retained as deferred exploration and is not a
+v0.6.0 gate.
+
 ## Repository Configuration Release Classification
 
-`CFG-001` records Proposed `ADR-001`: source-root `.editorconfig` and
+`CFG-001` is assigned to v0.6.0 and will execute with `SKILL-001`. It records
+Proposed `ADR-001`: source-root `.editorconfig` and
 `.gitattributes` should be owned separately from downstream public-root seed
 templates, and only explicitly classified immutable external originals should
 receive byte-preserving Git treatment. The current per-evidence attribute is a
 tactical fix, not the proposed canonical placement.
 
-The item remains `unassigned` until one evidence path is selected:
-
-- `v0.5.1`: only when a downstream portability defect is reproduced and the
-  complete change remains patch-compatible, preserves target-owned files,
-  supports exact v0.5.0 upgrade provenance, and adds no new required consumer
-  schema or overwrite semantics;
-- `v0.6.0`: when no urgent consumer defect is reproduced, or when the coherent
-  solution changes broader template, validation, migration, or compatibility
-  contracts that should travel with the planned minor release.
-
-ADR acceptance and release assignment are owner decisions. Planning this work
-does not silently add it to current v0.6.0 blockers or authorize v0.5.1.
+ADR acceptance, revision, or rejection remains an explicit implementation gate.
+The release assignment does not pre-approve the Proposed ADR, but it closes the
+former v0.5.1-versus-v0.6.0 decision.
 
 ## GitHub Workflow Review Boundary
 
@@ -92,11 +116,10 @@ governance contract. Narrowing it to selected filenames would make valid new
 items easy to omit and would not correct the lifecycle-ownership defect that
 caused the failure.
 
-The full review remains `unassigned` and independent rather than becoming a
-hidden v0.6.0 blocker. Before the next release candidate, the owner should
-either combine it explicitly with `CI-001` or activate a separate workflow;
-that decision should reuse the short-term regression boundary and avoid
-duplicating the Node.js 24 action migration.
+The full review is assigned to v0.6.0 and combines with `CI-001` as one
+release-engineering workstream by owner decision. It must reuse the short-term
+regression boundary, avoid duplicating the Node.js 24 action migration, and
+enforce the `DIST-001` component and release lifecycle matrix.
 
 ## Current Release Evidence
 
@@ -170,16 +193,20 @@ versions. Current assignments:
 - `v0.5.0`: `PKG-003`, `SAG-001`, `ENF-001`, `TOOL-001`, `LANG-001`,
   `REL-001`, `REL-002`, `HANDOFF-001`, `GOV-001`, `CAP-001`, and `VAL-001`
   were completed and published in `REL-v0.5.0`.
-- `v0.6.0`: `EVAL-001` is the activation gate for `SKILL-001`, which owns the
-  taxonomy and compatible `repo-structure-sync` to `ai-context-init`
-  transition; `SIMPL-001` owns measured simplification disposition; `CI-001`
-  must remove Node.js 20 artifact-action debt before release publication.
+- `v0.6.0`: `DIST-001` owns the release product and component definition;
+  `CUST-001` owns the semantic customization ledger and four-skill lifecycle;
+  `DEVWF-002` owns high-level orchestrator activation, approval pauses,
+  stage-batched commit evidence, target-aware test execution, selectable spec
+  compliance, conditional specialized tests, and end-to-end closeout;
+  `EVAL-001` is the activation gate for `SKILL-001`, which owns coordinated
+  compatible transitions from `repo-structure-sync` to `ai-context-init` and
+  from `dev-workflow` to `software-development-orchestrator`;
+  `CFG-001` executes with that taxonomy/configuration workstream; `SIMPL-001`
+  owns measured simplification disposition; and `CI-001` plus `CI-002` own the
+  complete release-automation migration and lifecycle review.
 - `v0.7.0`: historical archive migration remains conditional and requires a
   separately approved successor after `SIMPL-001`; it is not implied work.
-- `unassigned`: `CI-002` owns the complete GitHub workflow trigger and lifecycle
-  review and must be explicitly coordinated with or separated from `CI-001`;
-  `CFG-001` owns source/downstream integration-config separation
-  and the v0.5.1-versus-v0.6.0 decision; `DEVWF-001` owns optional issue/timeline schema deliberation;
+- `unassigned`: `DEVWF-001` owns optional issue/timeline schema deliberation;
   `UPG-001` owns a reusable legacy-target intake and override-preservation
   packet; `STD-001` owns standards deliberation and release allocation; and
   `OBS-001` remains an independent architecture workflow. None is a mandatory
@@ -254,12 +281,10 @@ assign it to v0.6.0, v0.7.0, or a dedicated release.
 
 ## Next Action
 
-Review Proposed `ADR-001` and classify `CFG-001` as v0.5.1 or v0.6.0 only after
-its downstream and compatibility evidence exists. Before another release
-candidate, explicitly coordinate `CI-002` with `CI-001` or activate it as a
-separate review; then begin governed v0.6.0 activation planning by closing
-`CI-001` before publication. Establish `EVAL-001`, measure actual loaded
-context and disposition `SIMPL-001`, then sequence `SKILL-001` only after its
-activation dependencies pass. Keep `CI-002`, `CFG-001`, `DEVWF-001`, `UPG-001`, and `STD-001`
-unassigned until their separate evidence and owner decisions exist; do not
-silently fold their implementation or historical archive migration into v0.6.0.
+`DIST-001`, `CUST-001`, and `DEVWF-002` are implemented and independently
+verified. Establish the `EVAL-001` deterministic baseline before coordinated
+`CFG-001` and `SKILL-001` implementation. Execute `CI-001` and `CI-002` as one
+release-engineering workstream, measure and disposition `SIMPL-001`, and keep
+`DEVWF-001`, `UPG-001`, and `STD-001` independently gated. Do not silently
+include a future software-delivery orchestrator, historical archive migration,
+or legacy identifier retirement in v0.6.0.

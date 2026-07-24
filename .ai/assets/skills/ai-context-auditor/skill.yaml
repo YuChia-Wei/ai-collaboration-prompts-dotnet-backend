@@ -29,6 +29,7 @@ outputs:
   - "durable baseline or post-remediation verification assessment under .dev/assessments/<assessment-id>/report.md"
   - "code-review handoff when product source or test code is requested"
   - "conversation-only assessment when persistence is not requested"
+  - "read-only semantic customization baseline or post-upgrade verification"
 constraints:
   - "Operate read-only with respect to audited context; when remediation is authorized, hand it to ai-context-governance instead of expanding this skill."
   - "Default to an allowlist of AI context and governance surfaces instead of scanning the entire repository."
@@ -48,13 +49,14 @@ constraints:
   - "For standalone durable audits, commit only assessment-owned locator, report, evidence, and assessment index updates; do not create a workflow solely for persistence or include changes to audited context."
   - "Use ASM-YYYYMMDD-NNN assessment identities and the repository assessment locator contract; preserve finding IDs through downstream backlog, workflow, remediation, and verification references."
   - "Treat optional indexes, code graphs, MCP servers, IDE indexes, and semantic search only as discovery accelerators; verify material findings with repository-native evidence under AICTX-EVIDENCE-001."
+  - "Read the shared semantic customization lifecycle when provenance schema 2 is active; verify active-context semantics and post-upgrade results without editing the ledger."
 workflow:
   - step: 1
     description: "Read the active repository instructions, confirm whether the requested output is transient or a durable assessment, establish an AI-context allowlist, record exclusions, apply the code-review handoff gate, and establish the correct assessment or active workflow branch before durable artifacts."
   - step: 2
     description: "Perform an independent baseline pass using general AI context, knowledge-base, documentation, and runtime-governance engineering principles without using repository governance claims as the scoring rubric."
   - step: 3
-    description: "Perform a repository-aware pass using applicable context governance, workflow, language, routing, wrapper, and validation policies or skills."
+    description: "Perform a repository-aware pass using applicable context governance, workflow, language, routing, wrapper, semantic customization, and validation policies."
   - step: 4
     description: "For large repositories, delegate bounded structure, content, and runtime audits when sub-agents are available, while keeping synthesis and evidence verification with the main agent."
   - step: 5
@@ -66,6 +68,7 @@ references:
   - ".ai/assets/skills/ai-context-auditor/references/scope-and-routing.md"
   - ".ai/assets/skills/ai-context-auditor/references/audit-playbook.md"
   - ".ai/assets/skills/ai-context-auditor/references/output-contract.md"
+  - ".ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md"
 examples:
   - ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md"
 human_guide: ".dev/guides/ai-collaboration-guides/AI-CONTEXT-AUDITOR-SKILL-GUIDE.md"

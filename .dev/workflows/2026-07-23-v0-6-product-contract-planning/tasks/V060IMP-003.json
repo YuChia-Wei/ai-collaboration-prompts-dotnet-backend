@@ -1,0 +1,94 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V060IMP-003",
+  "workflow_id": "2026-07-23-v0-6-product-contract-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-24T00:50:47+08:00",
+  "updated_at": "2026-07-24T09:24:13+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "DEVWF-002 software-development end-to-end orchestration and acceptance contract",
+    "files": [
+      ".ai/assets/skills/dev-workflow/**",
+      ".agents/skills/dev-workflow/**",
+      ".claude/skills/dev-workflow/**",
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      ".ai/assets/skills/spec-compliance-validator/**",
+      ".ai/scripts/tests/**"
+    ],
+    "constraints": [
+      "Activate from high-level multi-stage development intent without requiring skill names",
+      "Define test-execution as a pluggable capability without creating a new skill",
+      "Default unit and integration tests; keep specialized tests conditional",
+      "Make spec compliance unselected by default and 100 percent fail-closed after explicit activation",
+      "Commit durable validated stages or coherent batches rather than skill invocations"
+    ],
+    "non_goals": [
+      "Rename dev-workflow before SKILL-001 activation",
+      "Adopt an unevaluated external test skill",
+      "Force E2E or Playwright into every development workflow",
+      "Rewrite shared or pushed Git history"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Normalize activation and capability routing contracts",
+      "Add the pluggable test-execution capability and outcomes",
+      "Make spec compliance selection explicit",
+      "Define approval pauses, commit density, and closeout evidence",
+      "Add downstream end-to-end fixtures and migration notes"
+    ],
+    "validation": [
+      "high-level intent activation fixtures",
+      "capability profile and fallback fixtures",
+      "test execution outcome fixtures",
+      "optional and selected compliance fixtures",
+      "fresh-session workflow resume fixture",
+      "AI context and workflow validators"
+    ],
+    "last_completed_step": "Implemented and independently verified the deterministic preclassified activation oracle and repository-verified fresh-session acceptance fixture",
+    "next_action": "Completed; preserve arbitrary natural-language classification for the separately governed EVAL-001 model-in-loop boundary"
+  },
+  "results": {
+    "summary": "The current dev-workflow contract activates from preclassified high-level intent without skill names, pauses at approval boundaries, resolves optional target-aware test execution, treats spec compliance as selectable, and resumes from a complete repository-verified handoff without hidden conversation state.",
+    "files_changed": [
+      ".ai/assets/skills/dev-workflow/**",
+      ".agents/skills/dev-workflow/**",
+      ".claude/skills/dev-workflow/**",
+      ".dev/guides/ai-collaboration-guides/DEV-WORKFLOW-SKILL-GUIDE.md",
+      ".dev/standards/WORKFLOW-GATE-POLICY.md",
+      ".dev/standards/GIT-COMMIT-POLICY.md",
+      "AGENTS.md",
+      "AGENTS.zh-TW.md",
+      ".ai/scripts/validate-ai-context.py",
+      ".ai/scripts/tests/test_dev_workflow_capability_contract.py",
+      ".ai/assets/skills/dev-workflow/fixtures/acceptance/**",
+      ".ai/assets/skills/dev-workflow/references/acceptance-oracle.md",
+      ".ai/scripts/validate-dev-workflow-acceptance.py",
+      ".ai/scripts/tests/test_dev_workflow_acceptance.py",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml"
+    ],
+    "tests_run": [
+      "13 development capability contract tests passed",
+      "3 deterministic acceptance tests passed",
+      "15 workflow handoff tests passed and the fresh-session fixture invoked validate-workflow-handoff.py --verify-repository",
+      "AI context validation passed",
+      "10 bilingual parity checks passed",
+      "JSON and YAML parsing passed",
+      "scoped git diff --check passed with expected CFG-001 line-ending warnings",
+      "skill-creator quick validation passed for Agents and Claude runtime wrappers",
+      "independent transient auditor verification confirmed the honest deterministic/model boundary and complete handoff evidence"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "Arbitrary natural-language classification quality remains EVAL-001 model-in-loop work; environment-dependent target tests remain target-owned evidence.",
+    "follow_up_needed": false
+  }
+}

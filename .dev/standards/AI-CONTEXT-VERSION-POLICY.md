@@ -57,7 +57,7 @@ An initialized target repository records its installed framework source in `.dev
 - target-owned overrides with paths, reasons, and disposition;
 - the last completed migration and any unresolved reconciliation items.
 
-The source framework repository stores the template, not a self-referential target manifest. `repo-structure-sync` creates initial target provenance; `ai-context-upgrader` updates it only after a successful upgrade.
+The source framework repository stores the template, not a self-referential target manifest. `ai-context-init` creates initial target provenance; `ai-context-upgrader` updates it only after a successful upgrade.
 
 ## Upgrade Safety
 

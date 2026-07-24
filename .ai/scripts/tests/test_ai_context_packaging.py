@@ -50,9 +50,60 @@ class SyntheticPackageRepo:
         (self.root / "docs/old-name.md").write_text("renamed bytes\n", encoding="utf-8", newline="\n")
         for script in ("ai_context_package_apply.py", "plan-ai-context-package-apply.py"):
             (self.root / ".ai/scripts" / script).write_bytes((SCRIPTS / script).read_bytes())
+        (self.root / ".ai/scripts/render-ai-context-release-notes.py").write_text(
+            "raise SystemExit('source-only renderer')\n",
+            encoding="utf-8",
+            newline="\n",
+        )
         profile = {
-            "schema_version": "1.0.0",
-            "profile": {"id": "fixture"},
+            "schema_version": "2.0.0",
+            "profile": {
+                "id": "fixture",
+                "component_id": "dotnet-backend",
+                "requires": ["software-development-core"],
+            },
+            "release_model": "single-versioned-componentized-release",
+            "components": [
+                {
+                    "component_id": "software-development-core",
+                    "classification": "mandatory-core",
+                    "required": True,
+                    "requires": [],
+                },
+                {
+                    "component_id": "ai-context-lifecycle-core",
+                    "classification": "mandatory-core",
+                    "required": True,
+                    "requires": [],
+                },
+                {
+                    "component_id": "dotnet-backend",
+                    "classification": "technology-profile",
+                    "required": False,
+                    "requires": ["software-development-core"],
+                },
+                {
+                    "component_id": "repo-backlog",
+                    "classification": "optional-provider",
+                    "required": False,
+                    "default_enabled": False,
+                    "requires": ["software-development-core"],
+                },
+            ],
+            "selection_defaults": {
+                "release_model": "single-versioned-componentized-release",
+                "mandatory_components": [
+                    "software-development-core",
+                    "ai-context-lifecycle-core",
+                ],
+                "profiles": ["dotnet-backend"],
+                "providers": {
+                    "repo-backlog": {
+                        "enabled": False,
+                        "preservation": "preserve-existing-if-recorded",
+                    }
+                },
+            },
             "package": {
                 "source_repository": "fixture/repository",
                 "name_template": "fixture-v{version}",
@@ -69,6 +120,7 @@ class SyntheticPackageRepo:
             "entries": [
                 {
                     "id": "fixture-docs",
+                    "component_id": "software-development-core",
                     "source": "docs/**",
                     "target": "preserve-relative-path",
                     "ownership": "framework-managed",
@@ -76,13 +128,23 @@ class SyntheticPackageRepo:
                 },
                 {
                     "id": "fixture-apply-scripts",
+                    "component_id": "software-development-core",
                     "source": ".ai/scripts/**",
                     "target": "preserve-relative-path",
                     "ownership": "framework-managed",
                     "install_behavior": "managed",
                 }
             ],
-            "exclusions": [],
+            "exclusions": [
+                {
+                    "id": "source-release-renderer",
+                    "classification": "source-only",
+                    "patterns": [
+                        ".ai/scripts/render-ai-context-release-notes.py"
+                    ],
+                    "reason": "Release publication rendering is source-only.",
+                }
+            ],
         }
         (self.root / ".ai/distribution/profiles/fixture.yaml").write_text(
             yaml.safe_dump(profile, sort_keys=False), encoding="utf-8", newline="\n"
@@ -136,6 +198,153 @@ def rewrite_zip_member(source: Path, target: Path, suffix: str, replacement: byt
 
 
 class DeterministicPackageGwtTests(unittest.TestCase):
+    def test_gwt_000_given_source_release_renderer_when_payload_is_projected_then_downstream_excludes_it(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            tree = PACKAGE.git_tree(fixture.root, "HEAD")
+            profile = PACKAGE.load_yaml_blob(fixture.root, tree, fixture.profile)
+            targets = {
+                item.path
+                for item in PACKAGE.collect_payload(fixture.root, tree, profile)
+            }
+            self.assertNotIn(
+                ".ai/scripts/render-ai-context-release-notes.py", targets
+            )
+            self.assertIn(
+                ".ai/scripts/plan-ai-context-package-apply.py", targets
+            )
+        finally:
+            fixture.close()
+
+    def test_gwt_000a_given_real_component_matrix_when_payload_is_projected_then_both_mandatory_cores_keep_their_capabilities(self) -> None:
+        tree = PACKAGE.git_tree(ROOT, "HEAD")
+        profile = yaml.safe_load(
+            (
+                ROOT / ".ai/distribution/profiles/dotnet-backend.yaml"
+            ).read_text(encoding="utf-8")
+        )
+        payload = {
+            item.path: item.component_id
+            for item in PACKAGE.collect_payload(ROOT, tree, profile)
+        }
+        lifecycle_paths = [
+            ".ai/assets/skills/ai-context-auditor/skill.yaml",
+            ".ai/assets/skills/ai-context-governance/skill.yaml",
+            ".ai/assets/skills/ai-context-upgrader/skill.yaml",
+            ".ai/assets/skills/ai-context-init/skill.yaml",
+            ".agents/skills/ai-context-auditor/SKILL.md",
+            ".agents/skills/ai-context-governance/SKILL.md",
+            ".agents/skills/ai-context-upgrader/SKILL.md",
+            ".agents/skills/ai-context-init/SKILL.md",
+            ".ai/scripts/ai_context_target_provenance.py",
+            ".ai/scripts/validate-ai-context-target.py",
+        ]
+        self.assertTrue(
+            all(
+                payload[path] == "ai-context-lifecycle-core"
+                for path in lifecycle_paths
+            )
+        )
+        self.assertEqual(
+            "software-development-core",
+            payload[".ai/assets/skills/software-development-orchestrator/skill.yaml"],
+        )
+        self.assertEqual(
+            "software-development-core",
+            payload[".dev/workflows/README.MD"],
+        )
+        self.assertEqual(
+            "repo-backlog",
+            payload[".dev/backlog/README.MD"],
+        )
+        self.assertEqual(
+            "dotnet-backend",
+            payload["tools/DotnetBackendAnalyzers/DotnetBackendAnalyzers.csproj"],
+        )
+
+    def test_gwt_000aa_given_repository_configuration_when_payload_is_projected_then_dedicated_target_seeds_replace_source_truth(self) -> None:
+        tree = PACKAGE.git_tree(ROOT, "HEAD")
+        profile = PACKAGE.load_yaml_blob(
+            ROOT,
+            tree,
+            ".ai/distribution/profiles/dotnet-backend.yaml",
+        )
+        payload = {
+            item.path: item
+            for item in PACKAGE.collect_payload(ROOT, tree, profile)
+        }
+
+        expected_sources = {
+            ".editorconfig": (
+                ".ai/assets/skills/ai-context-init/templates/"
+                "public-root/.editorconfig"
+            ),
+            ".gitattributes": (
+                ".ai/assets/skills/ai-context-init/templates/"
+                "public-root/.gitattributes"
+            ),
+        }
+        for target, source in expected_sources.items():
+            item = payload[target]
+            self.assertEqual(source, item.source_path)
+            self.assertEqual("target-template", item.ownership)
+            self.assertEqual("seed", item.install_behavior)
+            self.assertEqual("software-development-core", item.component_id)
+            self.assertNotIn(b".dev/assessments", item.content)
+            self.assertNotIn(b"evidence/external/original", item.content)
+
+        source_only = next(
+            item
+            for item in profile["exclusions"]
+            if item["id"] == "source-root-truth"
+        )
+        self.assertTrue(
+            {".editorconfig", ".gitattributes"}
+            <= set(source_only["patterns"])
+        )
+
+    def test_gwt_000b_given_overlapping_component_overrides_when_one_path_matches_both_then_projection_fails_closed(self) -> None:
+        entry = {
+            "id": "ambiguous-component-fixture",
+            "component_overrides": [
+                {
+                    "component_id": "software-development-core",
+                    "patterns": [".ai/assets/**"],
+                },
+                {
+                    "component_id": "ai-context-lifecycle-core",
+                    "patterns": [".ai/assets/skills/**"],
+                },
+            ],
+        }
+        with self.assertRaisesRegex(
+            PACKAGE.PackageError, "ambiguous component overrides"
+        ):
+            PACKAGE.resolve_entry_component(
+                entry,
+                ".ai/assets/skills/ai-context-governance/skill.yaml",
+                "software-development-core",
+                {"software-development-core", "ai-context-lifecycle-core"},
+            )
+
+    def test_gwt_000c_given_unknown_component_override_when_profile_is_resolved_then_projection_fails_closed(self) -> None:
+        entry = {
+            "id": "unknown-component-fixture",
+            "component_overrides": [
+                {
+                    "component_id": "unknown-core",
+                    "patterns": [".ai/assets/**"],
+                }
+            ],
+        }
+        with self.assertRaisesRegex(PACKAGE.PackageError, "unknown component_id"):
+            PACKAGE.resolve_entry_component(
+                entry,
+                ".ai/assets/skills/software-development-orchestrator/skill.yaml",
+                "software-development-core",
+                {"software-development-core", "ai-context-lifecycle-core"},
+            )
+
     def test_gwt_001_given_one_immutable_commit_when_built_twice_then_archives_are_byte_identical(self) -> None:
         fixture = SyntheticPackageRepo()
         try:
@@ -207,6 +416,40 @@ class DeterministicPackageGwtTests(unittest.TestCase):
         finally:
             fixture.close()
 
+    def test_gwt_005a_given_component_profile_when_built_then_metadata_carries_one_selection_and_component_identity(self) -> None:
+        fixture = SyntheticPackageRepo()
+        try:
+            result = fixture.build("component-metadata")
+            root = fixture.extract(result, "component-metadata-extracted")
+            package = yaml.safe_load(
+                (root / "metadata/package.yaml").read_text(encoding="utf-8")
+            )
+            inventory = yaml.safe_load(
+                (root / "metadata/files.yaml").read_text(encoding="utf-8")
+            )
+            migration = yaml.safe_load(
+                (root / "metadata/migration.yaml").read_text(encoding="utf-8")
+            )
+
+            self.assertEqual("2.0.0", package["schema_version"])
+            self.assertEqual("2.0.0", inventory["schema_version"])
+            self.assertEqual("3.0.0", migration["schema_version"])
+            self.assertEqual(package["selection"], migration["selection"])
+            self.assertTrue(
+                all(
+                    record["component_id"] == "software-development-core"
+                    for record in inventory["files"]
+                )
+            )
+            self.assertTrue(
+                all(
+                    operation["component_id"] == "software-development-core"
+                    for operation in migration["clean_install"]["operations"]
+                )
+            )
+        finally:
+            fixture.close()
+
     def test_gwt_006_given_extracted_envelope_when_packaged_planner_runs_then_bytecode_does_not_break_checksums(self) -> None:
         fixture = SyntheticPackageRepo()
         try:
@@ -271,7 +514,8 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertEqual({"pull_request", "workflow_dispatch"}, set(triggers))
         self.assertEqual({}, workflow["permissions"])
         self.assertEqual({"contents": "read"}, jobs["package"]["permissions"])
-        self.assertIn("actions/upload-artifact@", text)
+        self.assertIn("actions/upload-artifact@v7", text)
+        self.assertNotIn("actions/upload-artifact@v4", text)
         self.assertIn("--migration-source", text)
         self.assertIn("steps.release.outputs.migration_sources", text)
         self.assertIn("validate-ai-context-release-state.py", text)
@@ -303,6 +547,10 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn("steps.release.outputs.migration_sources", text)
         self.assertIn("validate-ai-context-release-state.py", text)
         self.assertIn("--phase tag", text)
+        self.assertIn("actions/upload-artifact@v7", text)
+        self.assertIn("actions/download-artifact@v8", text)
+        self.assertNotIn("actions/upload-artifact@v4", text)
+        self.assertNotIn("actions/download-artifact@v5", text)
 
     def test_gwt_009_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
         # Given the commands used to create, verify, and publish a release.
@@ -365,7 +613,17 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             root = fixture.extract(result, "clean-install-v2-extracted")
             migration = yaml.safe_load((root / "metadata/migration.yaml").read_text(encoding="utf-8"))
             # Then clean-install operations are first-class and no synthetic previous version is needed.
-            self.assertEqual("2.0.0", migration["schema_version"])
+            self.assertEqual("3.0.0", migration["schema_version"])
+            self.assertEqual(
+                "single-versioned-componentized-release",
+                migration["selection"]["release_model"],
+            )
+            self.assertTrue(
+                all(
+                    operation["component_id"] == "software-development-core"
+                    for operation in migration["clean_install"]["operations"]
+                )
+            )
             self.assertIn("clean_install", migration)
             self.assertIsInstance(migration["clean_install"]["operations"], list)
             self.assertEqual([], migration["sources"])
@@ -437,7 +695,7 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             )
 
             # Then migration identity and every existing operation kind are deterministic.
-            self.assertEqual("2.0.0", migration["schema_version"])
+            self.assertEqual("3.0.0", migration["schema_version"])
             self.assertEqual("0.9.0", migration["sources"][0]["version"])
             self.assertEqual(
                 PACKAGE.sha256_bytes(previous_files.read_bytes()),
@@ -455,6 +713,31 @@ class VersionedMigrationPackagingGwtTests(unittest.TestCase):
             # And the planner from the extracted candidate upgrades the extracted base.
             target = fixture.output("upgrade-target")
             shutil.copytree(previous_root / "payload", target)
+            provenance = target / ".dev/ai-context/provenance.yaml"
+            provenance.parent.mkdir(parents=True, exist_ok=True)
+            provenance.write_text(
+                yaml.safe_dump(
+                    {
+                        "selection": {
+                            "release_model": "single-versioned-componentized-release",
+                            "mandatory_components": [
+                                "software-development-core",
+                                "ai-context-lifecycle-core",
+                            ],
+                            "profiles": ["dotnet-backend"],
+                            "providers": {
+                                "repo-backlog": {
+                                    "enabled": False,
+                                    "preservation": "preserve-existing-if-recorded",
+                                }
+                            },
+                        }
+                    },
+                    sort_keys=False,
+                ),
+                encoding="utf-8",
+                newline="\n",
+            )
             git(target, "init", "-q")
             git(target, "config", "user.name", "Fixture")
             git(target, "config", "user.email", "fixture@example.invalid")

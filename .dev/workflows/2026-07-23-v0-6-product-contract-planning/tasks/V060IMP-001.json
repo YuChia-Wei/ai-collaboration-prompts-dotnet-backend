@@ -1,0 +1,96 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V060IMP-001",
+  "workflow_id": "2026-07-23-v0-6-product-contract-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-24T00:50:47+08:00",
+  "updated_at": "2026-07-24T09:24:13+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "DIST-001 componentized distribution and target provenance schema",
+    "files": [
+      ".ai/distribution/**",
+      ".ai/scripts/ai_context_package*.py",
+      ".ai/scripts/build-ai-context-package.py",
+      ".ai/scripts/validate-ai-context*.py",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
+      ".ai/scripts/tests/test_ai_context_package_apply.py",
+      ".ai/assets/skills/ai-context-upgrader/**",
+      ".ai/assets/skills/repo-structure-sync/**"
+    ],
+    "constraints": [
+      "Preserve one release identity with explicit component, profile, and provider selection",
+      "Default repo-backlog off for clean installs and preserve recorded existing selections",
+      "Migrate provenance authority to .dev/ai-context/provenance.yaml without dual authority",
+      "Keep source-only release operations out of downstream payload"
+    ],
+    "non_goals": [
+      "Publish v0.6.0",
+      "Implement CI-001 or CI-002",
+      "Rename skills under SKILL-001",
+      "Delete target-owned backlog or workflow data"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define component and selection schemas",
+      "Update package profile and metadata generation",
+      "Migrate target provenance template and readers",
+      "Add compatibility and projection fixtures",
+      "Validate deterministic package output and upgrade planning"
+    ],
+    "validation": [
+      "focused package schema and apply tests",
+      "deterministic double package build",
+      "extracted downstream profile fixtures",
+      "AI context and workflow validators"
+    ],
+    "last_completed_step": "Implemented and tested effective provider selection, v0.5 repo-backlog preservation, provider-aware workflow validation, receipt reconciliation evidence, and source-only release projection",
+    "next_action": "Completed; continue with the separately governed v0.6.0 release-engineering workstream"
+  },
+  "results": {
+    "summary": "The target provenance authority and distribution metadata now share one component/profile/provider selection shape. Clean installs default repo-backlog off, explicit clean-install enablement is supported, v0.5 schema-1 inventories preserve recorded backlog, component-aware upgrades require target provenance, and plans and receipts retain selection authority and per-component operation evidence.",
+    "files_changed": [
+      ".ai/assets/skills/ai-context-upgrader/templates/provenance-template.yaml",
+      ".ai/assets/skills/ai-context-upgrader/templates/customizations-template.yaml",
+      ".ai/assets/skills/ai-context-upgrader/templates/ai-context-source-template.yaml",
+      ".ai/assets/skills/ai-context-upgrader/**",
+      ".ai/scripts/validate-ai-context-versions.py",
+      ".ai/scripts/compare-ai-context-versions.py",
+      ".ai/scripts/ai_context_package.py",
+      ".ai/scripts/ai_context_package_apply.py",
+      ".ai/distribution/profiles/dotnet-backend.yaml",
+      ".ai/distribution/schemas/*.yaml",
+      ".ai/assets/skills/repo-structure-sync/templates/public-template-manifest.yaml",
+      ".ai/scripts/tests/test_ai_context_packaging.py",
+      ".ai/scripts/tests/test_workflow_backlog_provider.py",
+      ".ai/scripts/validate-workflow-artifacts.py",
+      ".ai/distribution/templates/INSTALL.md",
+      ".ai/scripts/README.md"
+    ],
+    "tests_run": [
+      "18 AI context version governance tests passed",
+      "19 package apply tests passed with 1 platform-permission skip",
+      "3 focused component-package tests passed",
+      "20 full package and historical upgrade tests passed with 1 retained-downstream integration skip",
+      "quick gate passed 33 of 33 required checks; 2 contract-defined checks were not applicable",
+      "AI context validation passed",
+      "git diff --check passed with expected CFG-001 line-ending warnings",
+      "24 package apply tests passed with 1 Windows symlink skip",
+      "4 optional backlog provider workflow tests passed",
+      "source-only release renderer projection test passed",
+      "workflow artifact validation passed for 35 workflows, 55 indexed workflow directories, and 35 backlog items",
+      "full 21-test packaging matrix initially exposed one stale schema-2 fixture without required target provenance; the corrected focused upgrade case passed",
+      "final immutable-HEAD packaging matrix passed 24 tests with 1 retained-downstream environment skip",
+      "independent transient auditor verification confirmed the real component boundary and fail-closed override contract"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "The retained real-downstream integration fixture remains release-candidate evidence and was skipped because AI_CONTEXT_DOWNSTREAM_REPO was not supplied.",
+    "follow_up_needed": false
+  }
+}

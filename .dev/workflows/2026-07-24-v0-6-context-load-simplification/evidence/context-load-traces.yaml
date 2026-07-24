@@ -1,0 +1,217 @@
+schema_version: "1.0"
+measurement_id: "SIMPL-001-final-controlled-traces"
+subject_commit: "2e3c055050dbf2b2920ba80bc741c43799b359b6"
+capture_contract:
+  method: "five-fresh-controlled-agent-sessions"
+  repository_load_only: true
+  broad_search: false
+  provider_total_prompt_tokens_available: false
+prompt_accounting:
+  total_prompt_tokens: null
+  total_prompt_tokens_source: null
+  repository_corpus_is_prompt: false
+  repository_token_heuristic:
+    method: "ceil-utf8-bytes-divided-by-four"
+    scope: "repository_loaded"
+    is_total_prompt_tokens: false
+traces:
+  - family: "runtime"
+    events:
+      - event_kind: "runtime"
+        path: "AGENTS.md"
+        git_blob: "d56d8fc02e592113aac56a0ae1780fbfa554cd76"
+        bytes: 14060
+        whitespace_words: 1801
+  - family: "skill-routing"
+    events:
+      - event_kind: "runtime"
+        path: "AGENTS.md"
+        git_blob: "d56d8fc02e592113aac56a0ae1780fbfa554cd76"
+        bytes: 14060
+        whitespace_words: 1801
+      - event_kind: "full-file"
+        path: ".agents/skills/ai-context-auditor/SKILL.md"
+        git_blob: "edf11ac8df9effad420ed85c61bb6d594c57672a"
+        bytes: 1570
+        whitespace_words: 131
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-auditor/skill.yaml"
+        git_blob: "d5a55198a81ee33b7b2dce0117e76389ac785852"
+        bytes: 6871
+        whitespace_words: 805
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-auditor/references/scope-and-routing.md"
+        git_blob: "2bc0478517dfe3b02afd8249fbe1334882e3ee4a"
+        bytes: 3075
+        whitespace_words: 429
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-auditor/references/output-contract.md"
+        git_blob: "b5efe1ba1835bebcc485fe5e2397c9584ee93bd2"
+        bytes: 2758
+        whitespace_words: 356
+  - family: "release"
+    events:
+      - event_kind: "runtime"
+        path: "AGENTS.md"
+        git_blob: "d56d8fc02e592113aac56a0ae1780fbfa554cd76"
+        bytes: 14060
+        whitespace_words: 1801
+      - event_kind: "full-file"
+        path: ".agents/skills/ai-context-governance/SKILL.md"
+        git_blob: "1954cde535438bce7fda851f3354b65d0fb4bae3"
+        bytes: 2234
+        whitespace_words: 142
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/skill.yaml"
+        git_blob: "05c4b1d3bf7597c183824040012c2f93b77bcabe"
+        bytes: 5962
+        whitespace_words: 598
+      - event_kind: "full-file"
+        path: "README.md"
+        git_blob: "af5b4c97982f5464074d58231e79a34ac47db38c"
+        bytes: 5833
+        whitespace_words: 492
+      - event_kind: "full-file"
+        path: ".dev/standards/WORKFLOW-GATE-POLICY.md"
+        git_blob: "6c61c54d7a17ec02d56f9192dbaf175db591ce56"
+        bytes: 9050
+        whitespace_words: 1261
+      - event_kind: "full-file"
+        path: ".dev/backlog/ROADMAP.md"
+        git_blob: "9575e3d2fa4e270622b8e7efa993acd799bb89c5"
+        bytes: 19140
+        whitespace_words: 2344
+      - event_kind: "full-file"
+        path: ".dev/releases/INDEX.MD"
+        git_blob: "0d283ec3f33dad8ef25635d90e345b4651f60b53"
+        bytes: 2901
+        whitespace_words: 259
+      - event_kind: "full-file"
+        path: ".dev/standards/AI-CONTEXT-VERSION-POLICY.md"
+        git_blob: "c2b917d6ffebefe0d330535de8c8cc69699b6e9a"
+        bytes: 6633
+        whitespace_words: 913
+      - event_kind: "full-file"
+        path: ".dev/releases/release-phase-checks.yaml"
+        git_blob: "6ca6a0f8d741f4a4d50f8abf21cac304ea9280a6"
+        bytes: 961
+        whitespace_words: 87
+      - event_kind: "full-file"
+        path: ".dev/operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD"
+        git_blob: "670d9fd844e9f132628b9c185675659e7e247c6f"
+        bytes: 7996
+        whitespace_words: 975
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/templates/release-publication/migration-guide.md"
+        git_blob: "865cd26899966a5ac94f2bebf516d1e487a2135e"
+        bytes: 350
+        whitespace_words: 30
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/templates/release-publication/release-notes.md"
+        git_blob: "4dbed9b71ab3e9ff8deb8a8a8a62839677eca7c3"
+        bytes: 538
+        whitespace_words: 55
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/templates/release-publication/release-publication-task.json"
+        git_blob: "d1faa87f5016d76bccf5558ec8908aff751899e4"
+        bytes: 742
+        whitespace_words: 72
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/templates/release-publication/release-workflow-locator.yaml"
+        git_blob: "1a3a45ad31ccf700efbcc90e3e54df4e5213f926"
+        bytes: 487
+        whitespace_words: 28
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/templates/release-publication/release.yaml"
+        git_blob: "ecdb4d77926c4810b17a444ac2a68bd526f68bef"
+        bytes: 1911
+        whitespace_words: 105
+  - family: "handoff"
+    events:
+      - event_kind: "runtime"
+        path: "AGENTS.md"
+        git_blob: "d56d8fc02e592113aac56a0ae1780fbfa554cd76"
+        bytes: 14060
+        whitespace_words: 1801
+      - event_kind: "full-file"
+        path: ".agents/skills/dev-workflow/SKILL.md"
+        git_blob: "d1f2ff40c44bf629b944c184a57454880ae15866"
+        bytes: 1888
+        whitespace_words: 127
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/dev-workflow/skill.yaml"
+        git_blob: "9c657aa159134b63327498ec005a97e7a6dd0e1e"
+        bytes: 11045
+        whitespace_words: 1208
+      - event_kind: "full-file"
+        path: ".dev/standards/WORKFLOW-HANDOFF-POLICY.md"
+        git_blob: "65a336fdac6329947024cc49b32b98423f881377"
+        bytes: 6987
+        whitespace_words: 932
+      - event_kind: "full-file"
+        path: ".dev/workflows/handoff-checkpoints.yaml"
+        git_blob: "9e0cc2c0e599aeba32edac3ea4a969b0c8ee1b6c"
+        bytes: 205
+        whitespace_words: 7
+      - event_kind: "full-file"
+        path: ".dev/workflows/2026-07-21-v0-5-0-development/handoff-checkpoints/V050-010.yaml"
+        git_blob: "d0c9143fc2ac54faa3ac500d35db9cd73a027007"
+        bytes: 4895
+        whitespace_words: 348
+      - event_kind: "full-file"
+        path: ".dev/workflows/2026-07-21-v0-5-0-development/workflow.yaml"
+        git_blob: "5758c258f9b36f56b2dd2576ccfd893ab90d4de5"
+        bytes: 1259
+        whitespace_words: 68
+      - event_kind: "full-file"
+        path: ".agents/skills/ai-context-governance/SKILL.md"
+        git_blob: "1954cde535438bce7fda851f3354b65d0fb4bae3"
+        bytes: 2234
+        whitespace_words: 142
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/ai-context-governance/skill.yaml"
+        git_blob: "05c4b1d3bf7597c183824040012c2f93b77bcabe"
+        bytes: 5962
+        whitespace_words: 598
+      - event_kind: "full-file"
+        path: ".dev/workflows/2026-07-21-v0-5-0-development/tasks/V050-010.json"
+        git_blob: "0ea0b422b62fa694a5435494a440eac8312f412f"
+        bytes: 3211
+        whitespace_words: 272
+  - family: "development"
+    events:
+      - event_kind: "runtime"
+        path: "AGENTS.md"
+        git_blob: "d56d8fc02e592113aac56a0ae1780fbfa554cd76"
+        bytes: 14060
+        whitespace_words: 1801
+      - event_kind: "full-file"
+        path: ".agents/skills/dev-workflow/SKILL.md"
+        git_blob: "d1f2ff40c44bf629b944c184a57454880ae15866"
+        bytes: 1888
+        whitespace_words: 127
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/dev-workflow/skill.yaml"
+        git_blob: "9c657aa159134b63327498ec005a97e7a6dd0e1e"
+        bytes: 11045
+        whitespace_words: 1208
+      - event_kind: "full-file"
+        path: ".dev/standards/WORKFLOW-GATE-POLICY.md"
+        git_blob: "6c61c54d7a17ec02d56f9192dbaf175db591ce56"
+        bytes: 9050
+        whitespace_words: 1261
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/dev-workflow/references/routing-playbook.md"
+        git_blob: "03c833c89e23b5ba78b6406fc4663ae3d320e6ac"
+        bytes: 6189
+        whitespace_words: 845
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/dev-workflow/references/capability-profile.yaml"
+        git_blob: "487086ffbb953de096b8d131bd9fd0dac6653289"
+        bytes: 2333
+        whitespace_words: 136
+      - event_kind: "full-file"
+        path: ".ai/assets/skills/dev-workflow/fixtures/acceptance/activation-high-level-pending-approval.expected.yaml"
+        git_blob: "6b6f8bebf8310077a3eed73580151af35ccf8b6c"
+        bytes: 1776
+        whitespace_words: 115

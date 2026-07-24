@@ -7,13 +7,21 @@ This index is the discovery view for framework releases. Each version's `release
 Instantiate, rather than copy, the canonical
 [`release-publication`](../../.ai/assets/skills/ai-context-governance/templates/release-publication/)
 templates. Then follow the exact commands in
-[`release-phase-checks.yaml`](release-phase-checks.yaml) and the
+`.dev/releases/<version>/release-phase-checks.yaml` and the
 [publication runbook](../operations/runbooks/AI-CONTEXT-RELEASE-PUBLICATION-RUNBOOK.MD).
 Historical `v*` directories below are records, never templates.
 
 ## Candidate Releases
 
 _None._
+
+## Planned Phase Contracts
+
+- [`v0.6.0`](v0.6.0/release-phase-checks.yaml) owns the sanctioned phase
+  commands for the planned release. The presence of a phase contract does not
+  create or validate a release candidate; candidate status begins only when the
+  governed release record and authored artifacts are instantiated and pass the
+  candidate gate.
 
 ## Published Releases
 

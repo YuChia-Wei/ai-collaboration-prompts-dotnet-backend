@@ -1,0 +1,242 @@
+#!/usr/bin/env python3
+"""Exact lifecycle contracts for the repository's four GitHub workflows."""
+
+from __future__ import annotations
+
+import re
+import unittest
+from pathlib import Path
+
+import yaml
+
+
+REPO_ROOT = Path(__file__).resolve().parents[3]
+WORKFLOW_DIR = REPO_ROOT / ".github/workflows"
+WORKFLOW_NAMES = {
+    "governance.yml",
+    "portable-gates.yml",
+    "package-candidate.yml",
+    "publish-release.yml",
+}
+PR_CONCURRENCY = {
+    "group": "${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}",
+    "cancel-in-progress": "${{ github.event_name == 'pull_request' }}",
+}
+PUBLISH_CONCURRENCY = {
+    "group": "ai-context-release-${{ github.ref_name }}",
+    "cancel-in-progress": "false",
+}
+EXPECTED_TRIGGERS = {
+    "governance.yml": {"pull_request", "workflow_dispatch"},
+    "portable-gates.yml": {"pull_request", "workflow_dispatch"},
+    "package-candidate.yml": {"pull_request", "workflow_dispatch"},
+    "publish-release.yml": {"push"},
+}
+EXPECTED_PR_PATHS = {
+    "portable-gates.yml": {
+        ".ai/**",
+        ".agents/**",
+        ".claude/**",
+        ".codex/**",
+        ".dev/assessments/**",
+        ".dev/backlog/**",
+        ".dev/standards/**",
+        ".dev/workflows/**",
+        ".github/agents/**",
+        ".github/workflows/**",
+        "tools/**",
+        "global.json",
+        "requirements.txt",
+    },
+    "package-candidate.yml": {
+        ".ai/distribution/**",
+        ".ai/scripts/**",
+        ".dev/releases/**",
+        ".github/workflows/package-candidate.yml",
+        ".github/workflows/publish-release.yml",
+    },
+}
+EXPECTED_ARTIFACT_ACTIONS = {
+    "governance.yml": [],
+    "portable-gates.yml": [],
+    "package-candidate.yml": ["actions/upload-artifact@v7"],
+    "publish-release.yml": [
+        "actions/upload-artifact@v7",
+        "actions/download-artifact@v8",
+    ],
+}
+MUTATING_COMMAND = re.compile(
+    r"(?:\bgh\s+release\b|\bgit\s+(?:push|commit)\b|"
+    r"\bgit\s+tag\s+(?:--(?:annotate|delete)|-[ad])\b)",
+    re.IGNORECASE,
+)
+
+
+def load_workflow(name: str) -> dict:
+    """Load YAML without coercing GitHub's ``on`` key to a boolean."""
+    path = WORKFLOW_DIR / name
+    return yaml.load(path.read_text(encoding="utf-8"), Loader=yaml.BaseLoader)
+
+
+def steps(workflow: dict) -> list[dict]:
+    return [
+        step
+        for job in workflow["jobs"].values()
+        for step in job.get("steps", [])
+        if isinstance(step, dict)
+    ]
+
+
+class GitHubWorkflowContractTests(unittest.TestCase):
+    def setUp(self) -> None:
+        actual_names = {path.name for path in WORKFLOW_DIR.glob("*.yml")}
+        self.assertEqual(WORKFLOW_NAMES, actual_names)
+        self.workflows = {
+            name: load_workflow(name)
+            for name in sorted(WORKFLOW_NAMES)
+        }
+
+    def test_gwt_001_given_four_workflows_when_loaded_then_triggers_are_exact(self) -> None:
+        for name, workflow in self.workflows.items():
+            with self.subTest(workflow=name):
+                self.assertEqual(EXPECTED_TRIGGERS[name], set(workflow["on"]))
+
+        self.assertEqual(
+            ["v*"],
+            self.workflows["publish-release.yml"]["on"]["push"]["tags"],
+        )
+        self.assertIn(
+            ".dev/assessments/**",
+            self.workflows["portable-gates.yml"]["on"]["pull_request"]["paths"],
+        )
+        for name, expected_paths in EXPECTED_PR_PATHS.items():
+            with self.subTest(workflow=name):
+                self.assertEqual(
+                    expected_paths,
+                    set(self.workflows[name]["on"]["pull_request"]["paths"]),
+                )
+        governance_paths = self.workflows["governance.yml"]["on"]["pull_request"]["paths"]
+        self.assertFalse(
+            any("v0-5-0-development" in path for path in governance_paths),
+            "General governance triggers must not encode a concrete release workflow",
+        )
+
+    def test_gwt_002_given_overlapping_pr_checks_when_superseded_then_only_latest_run_continues(self) -> None:
+        for name in (
+            "governance.yml",
+            "portable-gates.yml",
+            "package-candidate.yml",
+        ):
+            with self.subTest(workflow=name):
+                self.assertEqual(PR_CONCURRENCY, self.workflows[name].get("concurrency"))
+
+        self.assertEqual(
+            PUBLISH_CONCURRENCY,
+            self.workflows["publish-release.yml"].get("concurrency"),
+        )
+
+    def test_gwt_003_given_workflow_jobs_when_permissions_checked_then_only_publish_mutates(self) -> None:
+        for name, workflow in self.workflows.items():
+            self.assertEqual({}, workflow.get("permissions"), name)
+            for job_name, job in workflow["jobs"].items():
+                with self.subTest(workflow=name, job=job_name):
+                    expected = (
+                        {"contents": "write"}
+                        if name == "publish-release.yml" and job_name == "publish"
+                        else {"contents": "read"}
+                    )
+                    self.assertEqual(expected, job.get("permissions"))
+
+        for name in WORKFLOW_NAMES - {"publish-release.yml"}:
+            command_text = "\n".join(
+                step["run"] for step in steps(self.workflows[name]) if "run" in step
+            )
+            self.assertIsNone(MUTATING_COMMAND.search(command_text), name)
+
+    def test_gwt_004_given_artifact_handoff_when_actions_checked_then_node24_versions_are_exact(self) -> None:
+        for name, workflow in self.workflows.items():
+            artifact_actions = [
+                step["uses"]
+                for step in steps(workflow)
+                if step.get("uses", "").startswith(
+                    ("actions/upload-artifact@", "actions/download-artifact@")
+                )
+            ]
+            with self.subTest(workflow=name):
+                self.assertEqual(EXPECTED_ARTIFACT_ACTIONS[name], artifact_actions)
+
+        candidate_upload = next(
+            step
+            for step in steps(self.workflows["package-candidate.yml"])
+            if step.get("uses") == "actions/upload-artifact@v7"
+        )
+        self.assertEqual(
+            {
+                "name": "${{ steps.release.outputs.package_id }}-${{ github.sha }}",
+                "retention-days": "14",
+                "compression-level": "0",
+                "if-no-files-found": "error",
+                "path": (
+                    "dist/${{ steps.release.outputs.package_id }}.zip\n"
+                    "dist/${{ steps.release.outputs.package_id }}.zip.sha256\n"
+                    "dist/${{ steps.release.outputs.package_id }}.tar.gz\n"
+                    "dist/${{ steps.release.outputs.package_id }}.tar.gz.sha256\n"
+                    "${{ runner.temp }}/release-body.md\n"
+                ),
+            },
+            candidate_upload["with"],
+        )
+
+        publish_steps = steps(self.workflows["publish-release.yml"])
+        publish_upload = next(
+            step
+            for step in publish_steps
+            if step.get("uses") == "actions/upload-artifact@v7"
+        )
+        self.assertEqual("7", publish_upload["with"]["retention-days"])
+        self.assertEqual("0", publish_upload["with"]["compression-level"])
+        self.assertEqual("error", publish_upload["with"]["if-no-files-found"])
+        self.assertEqual(
+            "release-${{ steps.release.outputs.package_id }}-${{ steps.tag.outputs.commit }}",
+            publish_upload["with"]["name"],
+        )
+        publish_download = next(
+            step
+            for step in publish_steps
+            if step.get("uses") == "actions/download-artifact@v8"
+        )
+        self.assertEqual(
+            {
+                "name": (
+                    "release-${{ needs.build.outputs.package_id }}-"
+                    "${{ needs.build.outputs.commit }}"
+                ),
+                "path": "dist",
+            },
+            publish_download["with"],
+        )
+
+    def test_gwt_005_given_jobs_when_cost_and_responsibility_checked_then_matrix_is_exact(self) -> None:
+        expected_jobs = {
+            "governance.yml": {"governance": ("15", "ubuntu-latest")},
+            "portable-gates.yml": {"quick": ("30", "ubuntu-latest")},
+            "package-candidate.yml": {"package": ("15", "ubuntu-latest")},
+            "publish-release.yml": {
+                "build": ("15", "ubuntu-latest"),
+                "publish": ("15", "ubuntu-latest"),
+            },
+        }
+        for name, jobs in expected_jobs.items():
+            self.assertEqual(set(jobs), set(self.workflows[name]["jobs"]), name)
+            for job_name, (timeout, runner) in jobs.items():
+                job = self.workflows[name]["jobs"][job_name]
+                self.assertEqual(timeout, job["timeout-minutes"])
+                self.assertEqual(runner, job["runs-on"])
+        self.assertEqual(
+            "ai-context-release",
+            self.workflows["publish-release.yml"]["jobs"]["publish"]["environment"],
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()

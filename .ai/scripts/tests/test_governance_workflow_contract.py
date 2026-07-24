@@ -46,7 +46,6 @@ GOVERNED_PR_PATHS = {
     ".dev/workflows/README.MD",
     ".dev/workflows/handoff-checkpoints.yaml",
     ".dev/workflows/**/handoff-checkpoints/**",
-    ".dev/workflows/2026-07-21-v0-5-0-development/evidence/v050-published-path-disposition.yaml",
     ".github/agents/**",
     ".github/workflows/governance.yml",
     *ROOT_ENTRIES,
@@ -127,6 +126,13 @@ class GovernanceWorkflowContractTests(unittest.TestCase):
         for command in REQUIRED_COMMANDS:
             with self.subTest(command=command):
                 self.assertIn(command, command_text)
+        step_names = {
+            step.get("name")
+            for job in self.workflow["jobs"].values()
+            for step in job["steps"]
+        }
+        self.assertIn("Validate registered source governance manifests", step_names)
+        self.assertNotIn("Validate v0.5.0 path disposition", step_names)
 
     def test_gwt_005_given_governance_workflow_when_checked_then_release_mutation_is_absent(self) -> None:
         command_text = "\n".join(self.commands)

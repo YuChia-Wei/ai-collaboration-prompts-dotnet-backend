@@ -2,14 +2,14 @@ schema_version: "1.0"
 backlog_id: "SIMPL-001"
 title: "Measured Active-Context Simplification And Archive Disposition"
 category: "context-simplification"
-status: "planned"
+status: "resolved"
 priority: "MEDIUM"
 summary: "Measure actual loaded context, disposition Fable 5's simplification candidates, and separate safe active-context reduction from conditional historical-evidence archiving."
 created_at: "2026-07-20T23:24:59+08:00"
-updated_at: "2026-07-20T23:24:59+08:00"
+updated_at: "2026-07-24T10:50:34+08:00"
 release:
   target: "v0.6.0"
-  completed_in: null
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "measured-active-context-simplification-and-v0-7-archive-disposition"
   gate: "disposition-gate"
@@ -20,10 +20,12 @@ recommended_owner_skill: "ai-context-governance"
 handoff_condition: "Begin disposition only after v0.5.0 release, handoff, enforcement, tooling, and language safeguards are stable. Do not simplify standards through this item; route that work to STD-001."
 workflow_refs:
   - ".dev/workflows/2026-07-20-simplification-roadmap-intake/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-context-load-simplification/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-20-simplification-roadmap-intake/tasks/SIMPLPLAN-001.json"
-resolution_ref: null
-decision_needed: "At v0.6.0 planning, approve the representative context-load measurements and disposition every simplification candidate. Any historical archive implementation requires a separately approved v0.7.0 successor item."
+  - ".dev/workflows/2026-07-24-v0-6-context-load-simplification/tasks/SIMPL-001.json"
+resolution_ref: ".dev/workflows/2026-07-24-v0-6-context-load-simplification/reports/measurement-report.md"
+decision_needed: "Resolved: five representative session families and all seven candidates were independently verified. Any historical archive implementation still requires a separately approved v0.7.0 successor item."
 acceptance:
   - "Measure context actually loaded by representative runtime, skill-routing, release, handoff, and development sessions; repository word count alone is not treated as token cost."
   - "Disposition every Fable 5 simplification candidate as implement, merge into an owning item, defer to a named horizon, retain, or reject."
@@ -55,3 +57,6 @@ inventory_notes:
   - "v0.5.0 owns safety prerequisites and does not implement broad simplification."
   - "v0.6.0 owns measurement and active-context disposition, not automatic deletion."
   - "A separately approved v0.7.0 item must own any historical archive migration."
+  - "The clean subject commit measured 1,170 tracked UTF-8 files in the corpus and 38 repository-backed load events across five session families; provider total prompt tokens remained unavailable and were not estimated."
+  - "The root AGENTS.md entry was reduced from 2,067 to 1,801 words while retaining safety, routing, approval, upgrade, and validation contracts."
+  - "Independent verification found exact Git blob identity and arithmetic parity and no historical workflow, assessment, or evidence deletion."

@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Date
 
@@ -51,9 +51,9 @@ Propose separate ownership for repository integration configuration:
 - Normalized assessments, ordinary external references, and repository-native
   JSON or logs remain text-normalized and diffable.
 
-This decision remains Proposed until `CFG-001` proves package, migration,
-cross-platform, and evidence-policy consequences and the owner selects either a
-v0.5.1 patch or v0.6.0 implementation horizon.
+The owner accepted this boundary for the coordinated v0.6.0 `CFG-001` and
+`SKILL-001` workstream. `CFG-001` must prove package, migration,
+cross-platform, and evidence-policy consequences before release.
 
 ## Consequences
 
@@ -72,22 +72,22 @@ v0.5.1 patch or v0.6.0 implementation horizon.
 - Source and downstream configurations become two intentionally separate files.
 - Moving a target-template source changes package inventory and migration
   evidence even when the installed target path remains the same.
-- A v0.5.1 implementation needs exact v0.5.0 upgrade and patch-compatibility
-  proof; otherwise the work waits for v0.6.0.
+- The v0.6.0 package inventory intentionally changes even when installed target
+  paths remain `.editorconfig` and `.gitattributes`.
 - Binary originals do not receive normal line diffs or automatic text merging.
 
 ### Follow-up
 
-- Use `.dev/backlog/items/CFG-001.yaml` to classify v0.5.1 versus v0.6.0.
-- If accepted, update the package profile, public-root template manifest,
-  package/migration tests, and cross-platform text fixtures together.
-- Add the accepted evidence classification rule to
+- Use `.dev/backlog/items/CFG-001.yaml` to track v0.6.0 implementation evidence.
+- Update the package profile, public-root template manifest, package/migration
+  tests, and cross-platform text fixtures together.
+- Keep the accepted evidence classification rule in
   `.dev/standards/ASSESSMENT-ARTIFACT-POLICY.md`; do not leave it only here.
-- Replace the current tactical `.gitattributes` only after the centralized
-  source rule and downstream-template separation land atomically.
+- Retain the finalized WorkService raw report at its stable historical path with
+  one exact root compatibility rule; new immutable originals use
+  `evidence/external/original/`.
 
 ## Notes
 
-- This ADR records a proposed structural boundary, not implementation approval.
-- The current branch's package projection remains unchanged; `CFG-001`
-  implementation is outside the backlog-intake change set.
+- The owner approved implementation for v0.6.0 after the initial planning
+  record; acceptance does not waive `CFG-001` validation gates.

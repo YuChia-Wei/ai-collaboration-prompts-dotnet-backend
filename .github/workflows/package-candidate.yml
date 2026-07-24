@@ -17,6 +17,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   package:
     name: Build and validate candidate
@@ -121,7 +125,7 @@ jobs:
 
       - name: Upload candidate artifact
         if: steps.release.outputs.available == 'true'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.release.outputs.package_id }}-${{ github.sha }}
           retention-days: 14

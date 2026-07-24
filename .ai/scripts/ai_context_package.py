@@ -27,6 +27,26 @@ REPOSITORY_PATH_RE = re.compile(
     r"(?<![A-Za-z0-9_.-])(?:\.dev|\.ai|\.agents|\.claude|\.codex|\.github)/"
     r"[A-Za-z0-9._*/{}<>-]+(?:/[A-Za-z0-9._*/{}<>-]+)*/?"
 )
+DEFAULT_SELECTION = {
+    "release_model": "single-versioned-componentized-release",
+    "mandatory_components": [
+        "software-development-core",
+        "ai-context-lifecycle-core",
+    ],
+    "profiles": ["dotnet-backend"],
+    "providers": {
+        "repo-backlog": {
+            "enabled": False,
+            "preservation": "preserve-existing-if-recorded",
+        }
+    },
+}
+DEFAULT_COMPONENT_IDS = {
+    "software-development-core",
+    "ai-context-lifecycle-core",
+    "dotnet-backend",
+    "repo-backlog",
+}
 
 
 class PackageError(ValueError):
@@ -50,6 +70,7 @@ class PayloadFile:
     ownership: str
     install_behavior: str
     entry_id: str
+    component_id: str
 
     @property
     def sha256(self) -> str:
@@ -193,6 +214,53 @@ def add_payload_file(files: dict[str, PayloadFile], candidate: PayloadFile) -> N
     files[target] = candidate
 
 
+def infer_legacy_component(entry_id: str, target_path: str | None = None) -> str:
+    if entry_id == "backlog-governance" or (
+        isinstance(target_path, str) and target_path.startswith(".dev/backlog/")
+    ):
+        return "repo-backlog"
+    if entry_id == "dotnet-validation-tools":
+        return "dotnet-backend"
+    if entry_id in {
+        "ai-entry-documents",
+        "assessment-governance",
+        "public-root-and-catalog-seeds",
+    }:
+        return "ai-context-lifecycle-core"
+    return "software-development-core"
+
+
+def resolve_entry_component(
+    entry: dict,
+    source_path: str,
+    default_component: str,
+    component_ids: set[str],
+) -> str:
+    overrides = entry.get("component_overrides", [])
+    if not isinstance(overrides, list):
+        raise PackageError(f"{entry.get('id')}: component_overrides must be a list")
+    matched: list[str] = []
+    for index, override in enumerate(overrides):
+        if not isinstance(override, dict):
+            raise PackageError(
+                f"{entry.get('id')}: component_overrides[{index}] must be a mapping"
+            )
+        override_patterns = patterns(override.get("patterns"))
+        component_id = override.get("component_id")
+        if not isinstance(component_id, str) or component_id not in component_ids:
+            raise PackageError(
+                f"{entry.get('id')}: component_overrides[{index}] has unknown "
+                f"component_id {component_id!r}"
+            )
+        if any(matches(source_path, pattern) for pattern in override_patterns):
+            matched.append(component_id)
+    if len(matched) > 1:
+        raise PackageError(
+            f"{entry.get('id')}: ambiguous component overrides for {source_path}"
+        )
+    return matched[0] if matched else default_component
+
+
 def collect_payload(
     repo: Path,
     tree: dict[str, GitEntry],
@@ -203,13 +271,34 @@ def collect_payload(
     if not isinstance(exclusions, list) or not isinstance(entries, list):
         raise PackageError("profile entries and exclusions must be lists")
     output: dict[str, PayloadFile] = {}
+    components = profile.get("components")
+    if components is None:
+        component_ids = DEFAULT_COMPONENT_IDS
+    else:
+        if not isinstance(components, list):
+            raise PackageError("profile components must be a list")
+        component_ids = {
+            item.get("component_id")
+            for item in components
+            if isinstance(item, dict) and isinstance(item.get("component_id"), str)
+        }
+        if len(component_ids) != len(components):
+            raise PackageError("profile component IDs must be unique non-empty strings")
 
     for entry in entries:
         entry_id = entry.get("id")
         ownership = entry.get("ownership")
         behavior = entry.get("install_behavior")
-        if not all(isinstance(value, str) and value for value in (entry_id, ownership, behavior)):
-            raise PackageError("each profile entry requires id, ownership, and install_behavior")
+        if not all(
+            isinstance(value, str) and value
+            for value in (entry_id, ownership, behavior)
+        ):
+            raise PackageError(
+                "each profile entry requires id, ownership, and install_behavior"
+            )
+        component_id = entry.get("component_id") or infer_legacy_component(entry_id)
+        if component_id not in component_ids:
+            raise PackageError(f"{entry_id}: unknown component_id {component_id!r}")
         target_rule = entry.get("target")
         if target_rule == "mapping-declared-by-template-manifest":
             manifest_path = entry.get("template_manifest")
@@ -225,8 +314,16 @@ def collect_payload(
                 raise PackageError(f"{manifest_path}: mappings must be a list")
             for mapping in mappings:
                 source_value, target_value = mapping.get("source"), mapping.get("target")
+                mapping_component_id = mapping.get("component_id") or infer_legacy_component(
+                    entry_id, target_value
+                )
                 if not isinstance(source_value, str) or not isinstance(target_value, str):
                     raise PackageError(f"{manifest_path}: mapping source and target must be strings")
+                if mapping_component_id not in component_ids:
+                    raise PackageError(
+                        f"{manifest_path}: mapping has unknown component_id "
+                        f"{mapping_component_id!r}"
+                    )
                 source_path = safe_relative_path((base / source_value).as_posix(), "template source")
                 target_path = safe_relative_path(target_value, "template target")
                 source_entry = tree.get(source_path)
@@ -242,6 +339,7 @@ def collect_payload(
                         ownership,
                         behavior,
                         entry_id,
+                        mapping_component_id,
                     ),
                 )
             continue
@@ -273,6 +371,12 @@ def collect_payload(
                         ownership,
                         behavior,
                         entry_id,
+                        resolve_entry_component(
+                            entry,
+                            source_path,
+                            component_id,
+                            component_ids,
+                        ),
                     ),
                 )
                 matched += 1
@@ -389,23 +493,63 @@ def normalize_version(value: str) -> str:
     return ".".join(match.groups())
 
 
-def inventory_document(payload_files: Iterable[PayloadFile], package_id: str) -> dict:
+def validate_component_selection(selection: object, label: str) -> dict:
+    if not isinstance(selection, dict):
+        raise PackageError(f"{label} must be a mapping")
+    if selection.get("release_model") != "single-versioned-componentized-release":
+        raise PackageError(f"{label}.release_model is invalid")
+    mandatory = selection.get("mandatory_components")
+    if not isinstance(mandatory, list) or set(mandatory) != {
+        "software-development-core",
+        "ai-context-lifecycle-core",
+    }:
+        raise PackageError(f"{label} must include both mandatory cores")
+    profiles = selection.get("profiles")
+    if profiles != ["dotnet-backend"]:
+        raise PackageError(f"{label}.profiles must select dotnet-backend")
+    providers = selection.get("providers")
+    backlog = providers.get("repo-backlog") if isinstance(providers, dict) else None
+    if (
+        not isinstance(backlog, dict)
+        or not isinstance(backlog.get("enabled"), bool)
+        or backlog.get("preservation") != "preserve-existing-if-recorded"
+        or set(backlog) != {"enabled", "preservation"}
+    ):
+        raise PackageError(f"{label}.repo-backlog contract is invalid")
+    return selection
+
+
+def component_selection(profile: dict) -> dict:
+    return validate_component_selection(
+        profile.get("selection_defaults", DEFAULT_SELECTION),
+        "profile selection_defaults",
+    )
+
+
+def inventory_document(
+    payload_files: Iterable[PayloadFile],
+    package_id: str,
+    component_aware: bool,
+) -> dict:
+    records: list[dict] = []
+    for item in payload_files:
+        record = {
+            "path": item.path,
+            "source_path": item.source_path,
+            "sha256": item.sha256,
+            "size": len(item.content),
+            "mode": f"{item.mode:04o}",
+            "ownership": item.ownership,
+            "install_behavior": item.install_behavior,
+            "entry_id": item.entry_id,
+        }
+        if component_aware:
+            record["component_id"] = item.component_id
+        records.append(record)
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0" if component_aware else "1.0.0",
         "package_id": package_id,
-        "files": [
-            {
-                "path": item.path,
-                "source_path": item.source_path,
-                "sha256": item.sha256,
-                "size": len(item.content),
-                "mode": f"{item.mode:04o}",
-                "ownership": item.ownership,
-                "install_behavior": item.install_behavior,
-                "entry_id": item.entry_id,
-            }
-            for item in payload_files
-        ],
+        "files": records,
     }
 
 
@@ -415,8 +559,11 @@ def load_previous_inventory(path: Path, expected_package_id: str) -> tuple[dict[
         document = yaml.safe_load(content)
     except (OSError, yaml.YAMLError) as exc:
         raise PackageError(f"cannot read previous files manifest: {exc}") from exc
-    if not isinstance(document, dict) or document.get("schema_version") != "1.0.0":
-        raise PackageError("previous files manifest must use schema 1.0.0")
+    if (
+        not isinstance(document, dict)
+        or document.get("schema_version") not in {"1.0.0", "2.0.0"}
+    ):
+        raise PackageError("previous files manifest must use schema 1.0.0 or 2.0.0")
     if document.get("package_id") != expected_package_id:
         raise PackageError(
             "previous files manifest package_id does not match the declared previous version"
@@ -440,6 +587,11 @@ def load_previous_inventory(path: Path, expected_package_id: str) -> tuple[dict[
             raise PackageError(f"invalid previous inventory ownership: {relative}")
         if not isinstance(raw.get("size"), int) or raw["size"] < 0:
             raise PackageError(f"invalid previous inventory size: {relative}")
+        if document.get("schema_version") == "2.0.0" and (
+            not isinstance(raw.get("component_id"), str)
+            or not raw["component_id"]
+        ):
+            raise PackageError(f"missing previous inventory component_id: {relative}")
         records[relative] = raw
         order.append(relative)
     if order != sorted(order, key=lambda item: item.encode("utf-8")):
@@ -493,6 +645,7 @@ def migration_operations(
             "sha256": item.sha256,
             "mode": f"{item.mode:04o}",
             "ownership": item.ownership,
+            "component_id": item.component_id,
         }
         for item in incoming_files
     }
@@ -529,6 +682,7 @@ def migration_operations(
                 "path": destination,
                 "from_path": source,
                 "ownership": "framework-managed",
+                "component_id": incoming[destination]["component_id"],
                 "preconditions": [
                     "source_sha256_equals_previous_release",
                     "destination_absent",
@@ -546,6 +700,7 @@ def migration_operations(
                     "kind": "replace",
                     "path": path,
                     "ownership": "framework-managed",
+                    "component_id": after["component_id"],
                     "preconditions": ["current_sha256_equals_previous_release"],
                 }
             )
@@ -560,6 +715,7 @@ def migration_operations(
                     "kind": "reconcile",
                     "path": path,
                     "ownership": ownership,
+                    "component_id": after["component_id"],
                     "preconditions": ["human_acknowledgement"],
                 }
             )
@@ -570,6 +726,7 @@ def migration_operations(
                 "kind": "add",
                 "path": path,
                 "ownership": incoming[path]["ownership"],
+                "component_id": incoming[path]["component_id"],
                 "preconditions": ["destination_absent"],
             }
         )
@@ -580,6 +737,12 @@ def migration_operations(
                 "kind": "remove" if ownership == "framework-managed" else "reconcile",
                 "path": path,
                 "ownership": ownership,
+                "component_id": previous[path].get(
+                    "component_id",
+                    "repo-backlog"
+                    if path.startswith(".dev/backlog/")
+                    else "software-development-core",
+                ),
                 "preconditions": [
                     "current_sha256_equals_previous_release"
                     if ownership == "framework-managed"
@@ -627,13 +790,15 @@ def build_package(
     if not payload_files:
         raise PackageError("package payload is empty")
     validate_payload_reference_integrity(payload_files, profile)
+    selection = component_selection(profile)
+    component_aware = profile.get("schema_version") == "2.0.0"
 
-    file_document = inventory_document(payload_files, package_id)
+    file_document = inventory_document(payload_files, package_id, component_aware)
     files_content = yaml_bytes(file_document)
     files_sha = sha256_bytes(files_content)
     created_at = datetime.fromtimestamp(epoch, timezone.utc).isoformat().replace("+00:00", "Z")
     package_document = {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0" if component_aware else "1.0.0",
         "package_id": package_id,
         "profile_id": profile_id,
         "version": version,
@@ -651,21 +816,25 @@ def build_package(
             "breaking_changes": True,
         },
     }
+    if component_aware:
+        package_document["selection"] = selection
     source_inputs = migration_source_inputs(
         previous_files_path,
         previous_version_value,
         previous_sources,
     )
-    clean_install_operations = [
-        {
+    clean_install_operations = []
+    for index, item in enumerate(payload_files, 1):
+        operation = {
             "id": f"clean-install-{index:04d}",
             "kind": "add",
             "path": item.path,
             "ownership": item.ownership,
             "preconditions": ["destination_absent"],
         }
-        for index, item in enumerate(payload_files, 1)
-    ]
+        if component_aware:
+            operation["component_id"] = item.component_id
+        clean_install_operations.append(operation)
     migration_sources: list[dict] = []
     for previous_version, source_path in source_inputs:
         previous_package_id = name_template.format(version=previous_version)
@@ -683,7 +852,7 @@ def build_package(
         f"v{source['version']}" for source in migration_sources
     ]
     migration_document = {
-        "schema_version": "2.0.0",
+        "schema_version": "3.0.0" if component_aware else "2.0.0",
         "package_id": package_id,
         "to": {"version": version, "manifest_sha256": files_sha},
         "clean_install": {"operations": clean_install_operations},
@@ -695,6 +864,8 @@ def build_package(
             "abort_on_unacknowledged_reconciliation": True,
         },
     }
+    if component_aware:
+        migration_document["selection"] = selection
     install_entry = tree.get(".ai/distribution/templates/INSTALL.md")
     if install_entry is None:
         raise PackageError("missing package INSTALL.md template")
@@ -781,8 +952,10 @@ def validate_migration_metadata(migration: dict, files_sha: str) -> None:
         ):
             raise PackageError("migration schema 1.0.0 requires from and operations")
         return
-    if schema_version != "2.0.0":
+    if schema_version not in {"2.0.0", "3.0.0"}:
         raise PackageError(f"unsupported migration schema version: {schema_version!r}")
+    if schema_version == "3.0.0":
+        validate_component_selection(migration.get("selection"), "migration selection")
     clean_install = migration.get("clean_install")
     sources = migration.get("sources")
     if not isinstance(clean_install, dict) or not isinstance(
@@ -791,6 +964,7 @@ def validate_migration_metadata(migration: dict, files_sha: str) -> None:
         raise PackageError("migration clean_install.operations must be a list")
     if not isinstance(sources, list):
         raise PackageError("migration sources must be a list")
+    operation_lists = [clean_install["operations"]]
     identities: set[tuple[str, str]] = set()
     versions: set[str] = set()
     source_order: list[tuple[int, int, int]] = []
@@ -805,6 +979,7 @@ def validate_migration_metadata(migration: dict, files_sha: str) -> None:
             raise PackageError("migration source manifest_sha256 must be lowercase SHA-256")
         if not isinstance(source.get("operations"), list):
             raise PackageError("migration source operations must be a list")
+        operation_lists.append(source["operations"])
         identity = (version, digest)
         if version in versions or identity in identities:
             raise PackageError(f"duplicate or ambiguous migration source: {version}")
@@ -813,6 +988,17 @@ def validate_migration_metadata(migration: dict, files_sha: str) -> None:
         source_order.append(tuple(int(part) for part in version.split(".")))
     if source_order != sorted(source_order):
         raise PackageError("migration sources must use semantic-version order")
+    if schema_version == "3.0.0":
+        for operations in operation_lists:
+            for operation in operations:
+                if (
+                    not isinstance(operation, dict)
+                    or not isinstance(operation.get("component_id"), str)
+                    or not operation["component_id"]
+                ):
+                    raise PackageError(
+                        "migration schema 3 operations require component_id"
+                    )
 
 
 def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
@@ -855,6 +1041,14 @@ def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
         raise PackageError("package metadata roots must be mappings")
     if package.get("package_id") != root or inventory.get("package_id") != root or migration.get("package_id") != root:
         raise PackageError("package identity mismatch")
+    package_schema = package.get("schema_version")
+    if package_schema not in {"1.0.0", "2.0.0"}:
+        raise PackageError(f"unsupported package schema version: {package_schema!r}")
+    if package_schema == "2.0.0":
+        validate_component_selection(package.get("selection"), "package selection")
+    inventory_schema = inventory.get("schema_version")
+    if inventory_schema not in {"1.0.0", "2.0.0"}:
+        raise PackageError(f"unsupported files schema version: {inventory_schema!r}")
     validate_migration_metadata(
         migration,
         sha256_bytes(members[f"{prefix}metadata/files.yaml"][0]),
@@ -865,6 +1059,14 @@ def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
     inventory_paths: set[str] = set()
     payload_items: list[PayloadFile] = []
     for record in records:
+        if (
+            inventory_schema == "2.0.0"
+            and (
+                not isinstance(record.get("component_id"), str)
+                or not record["component_id"]
+            )
+        ):
+            raise PackageError("files schema 2 entries require component_id")
         target = safe_relative_path(record.get("path"), "inventory path")
         if target in inventory_paths:
             raise PackageError(f"duplicate inventory path: {target}")
@@ -886,6 +1088,7 @@ def validate_archive(path: Path) -> dict[str, tuple[bytes, int]]:
                 str(record.get("ownership")),
                 str(record.get("install_behavior")),
                 str(record.get("entry_id")),
+                str(record.get("component_id", "legacy-unclassified")),
             )
         )
     archive_payload_paths = {

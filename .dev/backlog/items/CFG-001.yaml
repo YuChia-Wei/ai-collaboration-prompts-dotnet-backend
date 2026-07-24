@@ -2,17 +2,17 @@ schema_version: "1.0"
 backlog_id: "CFG-001"
 title: "Separate Source Repository Configuration From Downstream Templates"
 category: "distribution-governance"
-status: "open"
+status: "resolved"
 priority: "HIGH"
 summary: "Separate source-only EditorConfig and Git attributes from downstream target-template seeds, then formalize cross-platform text and immutable external-evidence handling."
 created_at: "2026-07-23T00:29:56+08:00"
-updated_at: "2026-07-23T00:29:56+08:00"
+updated_at: "2026-07-24T11:22:45+08:00"
 release:
-  target: "unassigned"
-  completed_in: null
+  target: "v0.6.0"
+  completed_in: "v0.6.0"
   published_in: null
   target_scope: "source-config-and-downstream-template-ownership-separation"
-  gate: "independent"
+  gate: "release-blocker"
 origin_refs:
   - ".dev/adr/ADR-001-separate-source-config-from-downstream-templates.md"
   - ".ai/distribution/profiles/dotnet-backend.yaml"
@@ -20,13 +20,15 @@ origin_refs:
   - ".gitattributes"
   - ".editorconfig"
 recommended_owner_skill: "ai-context-governance"
-handoff_condition: "Open a dedicated implementation workflow only after ADR-001 is accepted and the owner classifies the work as v0.5.1 or v0.6.0."
+handoff_condition: "Execute in the coordinated v0.6.0 configuration and skill-transition workstream after ADR-001 is accepted, revised, or rejected with explicit evidence."
 workflow_refs:
   - ".dev/workflows/2026-07-23-repository-config-template-planning/workflow.yaml"
+  - ".dev/workflows/2026-07-24-v0-6-config-skill-transition/workflow.yaml"
 task_refs:
   - ".dev/workflows/2026-07-23-repository-config-template-planning/tasks/CFGPLAN-001.json"
-resolution_ref: null
-decision_needed: "Choose v0.5.1 only if a downstream portability defect is reproduced and the correction is patch-compatible with an exact v0.5.0 upgrade route; otherwise schedule it in v0.6.0."
+  - ".dev/workflows/2026-07-24-v0-6-config-skill-transition/tasks/CFG-001.json"
+resolution_ref: ".dev/workflows/2026-07-24-v0-6-config-skill-transition/reports/configuration-report.md"
+decision_needed: "Resolved: ADR-001 is accepted and source/downstream configuration, evidence, package, migration, and target-preservation contracts pass for v0.6.0."
 acceptance:
   - "ADR-001 is accepted, revised, or rejected with explicit evidence; implementation does not treat a Proposed ADR as approval."
   - "Root .editorconfig and .gitattributes become source-repository truth and are no longer copied directly into downstream payloads."
@@ -43,3 +45,6 @@ inventory_notes:
   - "Source .gitattributes requests LF while source .editorconfig requests CRLF for general files."
   - "The WorkService evidence directory contains a tactical local .gitattributes until centralized replacement can land atomically."
   - "The existing backlog-intake branch has zero payload differences from main; implementing this item will intentionally change package input."
+  - "Dedicated public-root seeds now own downstream .editorconfig and .gitattributes while source root files are source-only."
+  - "The centralized immutable-original convention and one exact retained WorkService exception replace the assessment-local tactical attributes file without changing the report SHA-256."
+  - "Deterministic ZIP/tar parity, clean install, exact v0.3.0/v0.4.0/v0.4.1/v0.4.2 upgrades, and target-owned seed preservation pass."

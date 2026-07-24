@@ -1,0 +1,94 @@
+{
+  "template_id": "ai-context-governance-remediation-task",
+  "template_version": "1.0.0",
+  "template_created_at": "2026-07-10T18:22:49+08:00",
+  "template_updated_at": "2026-07-10T18:22:49+08:00",
+  "task_id": "V060IMP-002",
+  "workflow_id": "2026-07-23-v0-6-product-contract-planning",
+  "owner_skill": "ai-context-governance",
+  "status": "completed",
+  "created_at": "2026-07-24T00:50:47+08:00",
+  "updated_at": "2026-07-24T09:24:13+08:00",
+  "template_source": ".ai/assets/skills/ai-context-governance/templates/ai-context-remediation-task-template.json",
+  "finding_ids": [],
+  "scope": {
+    "target": "CUST-001 semantic customization schema and governance-auditor-upgrader lifecycle",
+    "files": [
+      ".dev/ai-context/**",
+      ".ai/assets/skills/ai-context-governance/**",
+      ".ai/assets/skills/ai-context-auditor/**",
+      ".ai/assets/skills/ai-context-upgrader/**",
+      ".ai/assets/skills/repo-structure-sync/**",
+      ".ai/scripts/validate-ai-context*.py",
+      ".ai/scripts/tests/**"
+    ],
+    "constraints": [
+      "Use one target-owned customizations.yaml ledger",
+      "Identify capability, rule, or contract semantics before path evidence",
+      "Require requirement, ADR, or workflow evidence when applicable",
+      "Keep ordinary target truth outside the ledger unless it changes framework behavior",
+      "Never retire a customization without explicit owner reconciliation"
+    ],
+    "non_goals": [
+      "Invent target customizations for the source repository",
+      "Overwrite target-owned requirements, ADRs, workflows, runbooks, or policies",
+      "Auto-resolve legacy unversioned targets"
+    ]
+  },
+  "execution": {
+    "steps": [
+      "Define customization schema and template",
+      "Reference the ledger from provenance",
+      "Update governance, auditor, upgrader, and initialization contracts",
+      "Add semantic-equivalence and lifecycle validators",
+      "Exercise legacy and governed target fixtures"
+    ],
+    "validation": [
+      "customization schema positive and negative fixtures",
+      "provenance reference validation",
+      "legacy unresolved reconciliation fixture",
+      "post-upgrade lifecycle fixture",
+      "AI context and workflow validators"
+    ],
+    "last_completed_step": "Implemented and validated the governance-owned customization lifecycle, atomic initialization, auditor verification, upgrader reconciliation, source/target validator split, and legacy unresolved conversion",
+    "next_action": "Completed; use the governed ledger in later real-target upgrade acceptance"
+  },
+  "results": {
+    "summary": "The v0.6 customization ledger now identifies capability, rule, or contract semantics before paths and requires base evidence, dependencies, owner reconciliation, decision evidence, baseline audit, incoming equivalence, post-upgrade audit, disposition, and validation. Governance owns the ledger, the auditor verifies active context, initialization writes both authorities atomically only from credible evidence, and the upgrader finalizes only after validation.",
+    "files_changed": [
+      ".ai/assets/skills/ai-context-upgrader/templates/customizations-template.yaml",
+      ".ai/assets/skills/ai-context-upgrader/references/provenance-contract.md",
+      ".ai/assets/skills/ai-context-upgrader/references/upgrade-playbook.md",
+      ".ai/scripts/validate-ai-context-versions.py",
+      ".ai/scripts/tests/test_ai_context_version_governance.py",
+      ".ai/assets/skills/ai-context-governance/references/semantic-customization-lifecycle.md",
+      ".ai/assets/skills/ai-context-governance/templates/customizations.schema.yaml",
+      ".ai/scripts/ai_context_target_provenance.py",
+      ".ai/scripts/validate-ai-context-target.py",
+      ".ai/scripts/tests/test_semantic_customization_lifecycle.py",
+      ".ai/scripts/tests/test_semantic_customization_skill_contract.py",
+      ".agents/skills/{ai-context-governance,ai-context-auditor,ai-context-upgrader,repo-structure-sync}/SKILL.md",
+      ".claude/skills/{ai-context-governance,ai-context-auditor,ai-context-upgrader,repo-structure-sync}/SKILL.md",
+      ".dev/guides/ai-collaboration-guides/{AI-CONTEXT-GOVERNANCE,AI-CONTEXT-AUDITOR,AI-CONTEXT-UPGRADER,REPO-STRUCTURE-SYNC}-SKILL-GUIDE.md",
+      ".ai/scripts/check-all.sh",
+      ".ai/scripts/shell-assets.yaml",
+      ".ai/distribution/profiles/dotnet-backend.yaml"
+    ],
+    "tests_run": [
+      "19 AI context version governance tests passed",
+      "7 semantic customization lifecycle tests passed, including the required non-empty reason negative fixture",
+      "5 four-skill and source/target projection contract tests passed",
+      "6 root-entry tests passed",
+      "27 fail-closed validation tests passed",
+      "AI context validation passed for 24 indexes, 14 canonical skills, 307 language-policy files, and 32 manifests",
+      "shell asset validation passed and check-all.sh syntax passed under Git Bash",
+      "skill-creator quick validation passed for all four Agents runtime wrappers",
+      "Python compilation and git diff --check passed with expected CFG-001 line-ending warnings",
+      "both semantic customization regression modules are required by check-all.sh and shell-assets.yaml",
+      "independent transient auditor verification confirmed schema, template, validator, fixtures, and aggregate-gate closure"
+    ],
+    "finding_status": "resolved",
+    "residual_risk": "A disposable lifecycle fixture proves the contract and rollback boundary; a real downstream repository upgrade remains release-candidate validation responsibility.",
+    "follow_up_needed": false
+  }
+}
