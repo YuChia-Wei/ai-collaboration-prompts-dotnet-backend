@@ -473,7 +473,8 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertEqual({"pull_request", "workflow_dispatch"}, set(triggers))
         self.assertEqual({}, workflow["permissions"])
         self.assertEqual({"contents": "read"}, jobs["package"]["permissions"])
-        self.assertIn("actions/upload-artifact@", text)
+        self.assertIn("actions/upload-artifact@v7", text)
+        self.assertNotIn("actions/upload-artifact@v4", text)
         self.assertIn("--migration-source", text)
         self.assertIn("steps.release.outputs.migration_sources", text)
         self.assertIn("validate-ai-context-release-state.py", text)
@@ -505,6 +506,10 @@ class ReleaseWorkflowContractGwtTests(unittest.TestCase):
         self.assertIn("steps.release.outputs.migration_sources", text)
         self.assertIn("validate-ai-context-release-state.py", text)
         self.assertIn("--phase tag", text)
+        self.assertIn("actions/upload-artifact@v7", text)
+        self.assertIn("actions/download-artifact@v8", text)
+        self.assertNotIn("actions/upload-artifact@v4", text)
+        self.assertNotIn("actions/download-artifact@v5", text)
 
     def test_gwt_009_given_publish_commands_when_inspected_then_draft_precedes_publish_and_tags_never_mutate(self) -> None:
         # Given the commands used to create, verify, and publish a release.

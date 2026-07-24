@@ -109,7 +109,7 @@ jobs:
             "dist/${{ steps.release.outputs.package_id }}.tar.gz"
 
       - name: Stage validated release artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: release-${{ steps.release.outputs.package_id }}-${{ steps.tag.outputs.commit }}
           retention-days: 7
@@ -154,7 +154,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Download validated release artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: release-${{ needs.build.outputs.package_id }}-${{ needs.build.outputs.commit }}
           path: dist

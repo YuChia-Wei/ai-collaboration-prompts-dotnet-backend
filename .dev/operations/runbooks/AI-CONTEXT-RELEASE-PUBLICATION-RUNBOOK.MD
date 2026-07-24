@@ -19,10 +19,29 @@
   dependency in `requirements.txt`.
 - .NET validation requires SDK 10.0.300 or newer so the host satisfies
   `global.json`; 10.0.203 is below the required feature band.
+- A self-hosted GitHub Actions runner must be version 2.327.1 or newer. The
+  candidate and publication workflows use the Node 24 artifact actions
+  (`actions/upload-artifact@v7` and `actions/download-artifact@v8`); older
+  self-hosted runners are unsupported.
 - macOS may not provide a usable `python` command. After installing a supported
   interpreter and dependencies, set `AI_CONTEXT_PYTHON` to that executable or
   virtual-environment path. This is a supported execution route and must still
   produce a fully executed required gate, not a skip.
+
+## Hosted Workflow Overlap And Cost
+
+The three pull-request workflows use a workflow-and-PR concurrency group and
+cancel a superseded run. A new commit on the same pull request therefore keeps
+only the latest governance, portable-gate, and package-candidate execution,
+while distinct workflows and pull requests remain isolated. This bounds
+duplicate hosted-run cost without merging gates that have different trigger
+paths or responsibilities.
+
+Tag publication is deliberately different: it uses an immutable tag-scoped
+concurrency group with cancellation disabled. A later dispatch or retry must
+not cancel a release that may already be staging or publishing assets. General
+governance remains read-only, package candidate remains read-only, and only the
+environment-protected publication job receives `contents: write`.
 
 ## Cold-Start Candidate
 

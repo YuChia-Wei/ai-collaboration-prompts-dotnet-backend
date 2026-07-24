@@ -304,7 +304,8 @@ run_source_repository_governance_checks() {
     if ! source_governance_context_available; then
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Source Governance Manifest Registry (source governance registry not packaged)"
         echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: Governance Pull-Request Workflow Contract (source CI workflow not packaged)"
-        NOT_APPLICABLE=$((NOT_APPLICABLE + 2))
+        echo -e "${CYAN}ℹ${NC} NOT APPLICABLE: GitHub Workflow Lifecycle Contract (source CI workflows not packaged)"
+        NOT_APPLICABLE=$((NOT_APPLICABLE + 3))
         return
     fi
 
@@ -314,6 +315,10 @@ run_source_repository_governance_checks() {
 
     run_command_check "python .ai/scripts/tests/test_governance_workflow_contract.py -v" \
         "Governance Pull-Request Workflow Contract" \
+        "required" "true" "true"
+
+    run_command_check "python .ai/scripts/tests/test_github_workflow_contract.py -v" \
+        "GitHub Workflow Lifecycle Contract" \
         "required" "true" "true"
 }
 
